@@ -25,6 +25,10 @@ module.exports = function(lineman) {
           paths: ["vendor/css/normalize.css", "vendor/css/**/*.css", "app/css/**/*.less"]
         }
       }
+    },
+
+    sass: {
+      main:"app/css/main.{sass,scss}"
     }
   };
 };

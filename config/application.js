@@ -12,6 +12,8 @@
  *   $ lineman config concat.js #=> to see the JS config for the concat task.
  */
 module.exports = function(lineman) {
+  app = lineman.config.application
+
   //Override application configuration here. Common examples follow in the comments.
   return {
     // grunt-angular-templates assumes your module is named "app", but
@@ -37,7 +39,7 @@ module.exports = function(lineman) {
       //   host: 'localhost',
       //   port: 3000
       // }
-    }
+    },
 
     // Sass
     //
@@ -46,6 +48,14 @@ module.exports = function(lineman) {
     // following line:
     //
     // enableSass: true
+
+    loadNpmTasks: app.loadNpmTasks.concat("grunt-sass"),
+
+    prependTasks: {
+      common: app.prependTasks.common.concat("sass"),
+    },
+
+    livereload: true
 
     // Asset Fingerprints
     //
