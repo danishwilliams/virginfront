@@ -2,7 +2,7 @@ angular.module("app").controller('LoginController', function($scope, $location, 
   $scope.credentials = { username: "", password: "" };
 
   var onLoginSuccess = function() {
-    $location.path('/home');
+    $location.path('/playlist-create');
   };
 
   $scope.login = function() {

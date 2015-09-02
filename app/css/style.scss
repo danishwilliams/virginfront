@@ -1,7 +1,58 @@
-h1,h2,h3,h4,h5 {
-  text-align: center;
+/*! style.css */
+
+$chunk_height = rem-calc(100px);
+
+.header {
+  margin-top: 10px;
 }
 
-button {
-  margin-bottom: 0px !important;
+.row {
+  /*max-width: 97%;*/
+  max-width: 100%;
+}
+
+/* A row of a minimum height */
+.chunk {
+  min-height: $chunk_height;
+  line-height: $chunk_height;
+  vertical-align: middle;
+
+  h3 {
+    line-height: $chunk_height;
+  }
+}
+
+
+/* Create a ride */
+
+.songs {
+  color: $white;
+  background-color: $grey_black;
+
+  h3 {
+    color: $white;
+  }
+
+  .showing {
+    border-bottom: 1px solid $white;
+  }
+}
+
+#song-name {
+  font-weight: bold;
+}
+
+
+
+.ride-type {
+  background-color: $grey_light;
+}
+
+.bpm {
+
+}
+/* TODO: remove me - for initial structure building only  */
+
+.songs {
+  height: 800px;
 }
