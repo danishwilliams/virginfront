@@ -5,7 +5,7 @@
  *
  *   - https://github.com/linemanjs/lineman/blob/master/config/files.coffee
  */
-module.exports = function(lineman) {
+module.exports = function (lineman) {
   //Override file patterns here
   return {
     js: {
@@ -28,7 +28,8 @@ module.exports = function(lineman) {
     },
 
     sass: {
-      main:"app/css/main.{sass,scss}"
+      main: "app/css/main.{sass,scss}",
+      compass: true
     }
   };
 };

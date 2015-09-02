@@ -19,5 +19,8 @@
   "scripts": {
     "start": "lineman run",
     "test": "lineman spec-ci"
+  },
+  "dependencies": {
+    "grunt-contrib-compass": "^1.0.3"
   }
 }
