@@ -1,0 +1,87 @@
+{
+  "id": 3,
+  "name": "Speed Work",
+  "goals": [
+    {
+      "goal": "Warm Up",
+      "bpm_low": 80,
+      "bpm_high": 90,
+      "rpm_low": 80,
+      "rpm_high": 90,
+      "rpe": 4
+    },
+    {
+      "goal": "Seated Sprint",
+      "bpm_low": 120,
+      "bpm_high": 130,
+      "rpm_low": 60,
+      "rpm_high": 65,
+      "rpe": 6
+    },
+    {
+      "goal": "Seated Sprints",
+      "bpm_low": 120,
+      "bpm_high": 140,
+      "rpm_low": 60,
+      "rpm_high": 75,
+      "rpe": 8
+    },
+    {
+      "goal": "TABATA SPRINTS",
+      "bpm_low": 120,
+      "bpm_high": 130,
+      "rpm_low": 60,
+      "rpm_high": 65,
+      "rpe": 9
+    },
+    {
+      "goal": "RECOVER",
+      "bpm_low": 120,
+      "bpm_high": 130,
+      "rpm_low": 60,
+      "rpm_high": 65,
+      "rpe": 4
+    },
+    {
+      "goal": "Standing Sprints",
+      "bpm_low": 120,
+      "bpm_high": 140,
+      "rpm_low": 60,
+      "rpm_high": 75,
+      "rpe": 7
+    },
+    {
+      "goal": "Standing Sprints",
+      "bpm_low": 120,
+      "bpm_high": 140,
+      "rpm_low": 60,
+      "rpm_high": 75,
+      "rpe": 8
+    },
+    {
+      "goal": "TABATA SPRINTS",
+      "bpm_low": 120,
+      "bpm_high": 130,
+      "rpm_low": 60,
+      "rpm_high": 65,
+      "rpe": 9
+    },
+    {
+      "goal": "The Finish Line",
+      "bpm_low": 90,
+      "bpm_high": 110,
+      "rpm_low": 90,
+      "rpm_high": 110,
+      "rpe": 9,
+      "rpe_high": 10
+    },
+    {
+      "goal": "Warm Down",
+      "bpm_low": 80,
+      "bpm_high": 90,
+      "rpm_low": 80,
+      "rpm_high": 90,
+      "rpe": 4
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "id": 2,
+  "name": "Intervals Class",
+  "goals": [
+    {
+      "goal": "Warm Up",
+      "bpm_low": 80,
+      "bpm_high": 90,
+      "rpm_low": 80,
+      "rpm_high": 90,
+      "rpe": 4
+    },
+    {
+      "goal": "Leg Speed",
+      "bpm_low": 120,
+      "bpm_high": 140,
+      "rpm_low": 60,
+      "rpm_high": 75,
+      "rpe": 5
+    },
+    {
+      "goal": "TABATA 20:10 Seated Leg speed",
+      "bpm_low": 120,
+      "bpm_high": 140,
+      "rpm_low": 60,
+      "rpm_high": 75,
+      "rpe": 6
+    },
+    {
+      "goal": "TABATA 20:10 Seated Resistance interval",
+      "bpm_low": 120,
+      "bpm_high": 140,
+      "rpm_low": 60,
+      "rpm_high": 75,
+      "rpe": 7
+    },
+    {
+      "goal": "Recovery",
+      "bpm_low": 120,
+      "bpm_high": 130,
+      "rpm_low": 60,
+      "rpm_high": 75,
+      "rpe": 4
+    },
+    {
+      "goal": "30:30 seated resistance interval",
+      "bpm_low": 90,
+      "bpm_high": 110,
+      "rpm_low": 90,
+      "rpm_high": 110,
+      "rpe": 7
+    },
+    {
+      "goal": "30:30 Alt Stand / Seated resistance interval",
+      "bpm_low": 130,
+      "bpm_high": 130,
+      "rpm_low": 65,
+      "rpm_high": 70,
+      "rpe": 8
+    },
+    {
+      "goal": "45:15 seated resistance interval",
+      "bpm_low": 90,
+      "bpm_high": 110,
+      "rpm_low": 90,
+      "rpm_high": 110,
+      "rpe": 9
+    },
+    {
+      "goal": "The Finish Line",
+      "bpm_low": 90,
+      "bpm_high": 110,
+      "rpm_low": 90,
+      "rpm_high": 110,
+      "rpe": 10
+    },
+    {
+      "goal": "Warm Down",
+      "bpm_low": 80,
+      "bpm_high": 90,
+      "rpm_low": 80,
+      "rpm_high": 90,
+      "rpe": 1,
+      "rpe_high": 1
+    }
+  ]
+}

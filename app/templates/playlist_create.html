@@ -48,32 +48,30 @@
         </div>
       </div>
 
-      <div class="ride-type-container" ng-repeat="ride_type in ride_types">
-        <div class="row ride" ng-repeat="ride in ride_type">
-          <div class="small-2 columns">
-            &nbsp;
-          </div>
-          <div class="small-14 columns">
-            <div class="row">
-              <div class="small-14 columns">
-                {{ $index + 1 }}. {{ ride.goal }}
-              </div>
-              <div class="small-4 columns bpm">
-                {{ ride.bpm_low }} - {{ ride.bpm_high }} bpm
-              </div>
+      <div class="row ride" ng-repeat="goal in goals">
+        <div class="small-2 columns">
+          &nbsp;
+        </div>
+        <div class="small-14 columns">
+          <div class="row">
+            <div class="small-14 columns">
+              {{ $index + 1 }}. {{ goal.goal }}
             </div>
-            <div class="row">
-              <div class="small-14 columns">
-                Leg speed: {{ ride.bpm_low }} - {{ ride.bpm_high }} BPM
-              </div>
-              <div class="small-4 columns bpm">
-                <a href="#">+ Add more notes</a>
-              </div>
+            <div class="small-4 columns bpm">
+              {{ goal.bpm_low }} - {{ goal.bpm_high }} bpm
             </div>
           </div>
-          <div class="small-2 columns">
-            &nbsp;
+          <div class="row">
+            <div class="small-14 columns">
+              Leg speed: {{ goal.bpm_low }} - {{ goal.bpm_high }} BPM
+            </div>
+            <div class="small-4 columns bpm">
+              <a href="#">+ Add more notes</a>
+            </div>
           </div>
+        </div>
+        <div class="small-2 columns">
+          &nbsp;
         </div>
       </div>
 

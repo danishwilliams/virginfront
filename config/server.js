@@ -14,6 +14,7 @@
 
 module.exports = {
   drawRoutes: function(app) {
+    var fs = require('fs');
     var api = 'config/stubs/';
     var version = 'v1.0';
 
@@ -33,16 +34,42 @@ module.exports = {
       ]);
     });
 
-    app.get('/api/v1.0/ride_types', function (req, res) {
-      var fs = require('fs');
-      var file = api + version + '/ride_types.json';
-      fs.readFile(file, function(err, data) {
-        if(err) {
+    app.get('/api/v1.0/rides', function (req, res) {
+      var file = '/rides.json';
+      fs.readFile(api + version + file, function(err, data) {
+        if (err) {
           res.status(404).send('Not found');
         } else {
-          res.header('Cache-Control', 'none');
-          res.contentType('application/json');
-          res.send(data);
+          res.header('Cache-Control', 'none').contentType('application/json').send(data);
+        }
+        res.end();
+      });
+    });
+
+    app.get('/api/v1.0/rides/:id', function (req, res) {
+      var file = '';
+      switch (parseInt(req.params.id)) {
+        case 0:
+          file = '/rides/all_terrain.json';
+          break;
+        case 1:
+          file = '/rides/strength_endurance.json';
+          break;
+        case 2:
+          file = '/rides/intervals.json';
+          break;
+        case 3:
+          file = '/rides/speed_work.json';
+          break;
+        case 4:
+          file = '/rides/hill_climbs.json';
+          break;
+      }
+      fs.readFile(api + version + file, function(err, data) {
+        if (err) {
+          res.status(404).send('Not found');
+        } else {
+          res.header('Cache-Control', 'none').contentType('application/json').send(data);
         }
         res.end();
       });
