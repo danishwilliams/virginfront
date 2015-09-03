@@ -40,7 +40,7 @@ module.exports = {
         if(err) {
           res.status(404).send('Not found');
         } else {
-          res.contentType(file);
+          res.contentType('application/json');
           res.send(data);
         }
         res.end();
