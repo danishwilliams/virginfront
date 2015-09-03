@@ -168,6 +168,26 @@ $primary-color: $red;
 // $shiny-edge-color: rgba($white, .5);
 // $shiny-edge-active-color: rgba($black, .2);
 
+// style placeholder text cross browser
+
+$input-placeholder-font-color: $grey_medium;
+
+::-webkit-input-placeholder {
+  font-weight: lighter;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  font-weight: lighter;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  font-weight: lighter;
+}
+
+:-ms-input-placeholder {
+  font-weight: lighter;
+}
+
 // d. Media Query Ranges
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
