@@ -1,6 +1,6 @@
 /*! style.css */
 
-$chunk_height = rem-calc(100px);
+$chunk_height: rem-calc(100px);
 
 .header {
   margin-top: 10px;
@@ -9,6 +9,10 @@ $chunk_height = rem-calc(100px);
 .row {
   /*max-width: 97%;*/
   max-width: 100%;
+  /*
+  To test Compass
+  @include background-image(radial-gradient(45px 45px, cyan 10px, dodgerblue 30px));
+  */
 }
 
 /* A row of a minimum height */
