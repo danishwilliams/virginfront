@@ -14,8 +14,8 @@
 
 module.exports = {
   drawRoutes: function(app) {
-    var api = 'api/';
-    var version = 'v1.0/';
+    var api = 'config/stubs/';
+    var version = 'v1.0';
 
     app.post('/login', function(req, res) {
       res.json({ message: 'logging in!' });
@@ -35,11 +35,12 @@ module.exports = {
 
     app.get('/api/v1.0/ride_types', function (req, res) {
       var fs = require('fs');
-      var file = api + version + 'ride_types.json';
+      var file = api + version + '/ride_types.json';
       fs.readFile(file, function(err, data) {
         if(err) {
           res.status(404).send('Not found');
         } else {
+          res.header('Cache-Control', 'none');
           res.contentType('application/json');
           res.send(data);
         }

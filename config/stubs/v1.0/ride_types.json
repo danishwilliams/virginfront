@@ -1,0 +1,64 @@
+{
+  "All Terrain": [
+    {
+      "goal": "Warm Up",
+      "bpm_low": 80,
+      "bpm_high": 90,
+      "rpe": 4
+    },
+    {
+      "goal": "Seated Ride",
+      "bpm_low": 100,
+      "bpm_high": 120,
+      "rpe": 6
+    },
+    {
+      "goal": "Seated Ride",
+      "bpm_low": 100,
+      "bpm_high": 120,
+      "rpe": 6
+    },
+    {
+      "goal": "Seated Ride",
+      "bpm_low": 100,
+      "bpm_high": 120,
+      "rpe": 6
+    },
+    {
+      "goal": "Seated Ride",
+      "bpm_low": 100,
+      "bpm_high": 120,
+      "rpe": 6
+    },
+    {
+      "goal": "Seated Ride",
+      "bpm_low": 100,
+      "bpm_high": 120,
+      "rpe": 6
+    },
+    {
+      "goal": "Seated Ride",
+      "bpm_low": 100,
+      "bpm_high": 120,
+      "rpe": 6
+    },
+    {
+      "goal": "Seated Ride",
+      "bpm_low": 100,
+      "bpm_high": 120,
+      "rpe": 6
+    },
+    {
+      "goal": "Seated Ride",
+      "bpm_low": 100,
+      "bpm_high": 120,
+      "rpe": 6
+    },
+    {
+      "goal": "Seated Ride",
+      "bpm_low": 100,
+      "bpm_high": 120,
+      "rpe": 6
+    }
+  ]
+}

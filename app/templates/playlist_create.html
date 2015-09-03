@@ -1,17 +1,17 @@
 <div class="create-playlist">
-<div class="row">
-  <div class="small-6 columns">
-    <a href="#">&lt; Back</a>
+  <div class="row">
+    <div class="small-6 columns">
+      <a href="#">&lt; Back</a>
+    </div>
+    <div class="small-12 columns">
+      <ul class="inline-list">
+        <li><a href="#">Ride template</a></li>
+        <li><a href="#">Create playlist</a></li>
+        <li><a href="#">Review</a></li>
+        <li><a href="#">Publish to device</a></li>
+      </ul>
+    </div>
   </div>
-  <div class="small-12 columns">
-    <ul class="inline-list">
-      <li><a href="#">Ride template</a></li>
-      <li><a href="#">Create playlist</a></li>
-      <li><a href="#">Review</a></li>
-      <li><a href="#">Publish to device</a></li>
-    </ul>
-  </div>
-</div>
 
   <div class="row">
     <div class="small-9 columns">
@@ -47,24 +47,36 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="small-2 columns">
-          &nbsp;
-        </div>
-        <div class="small-14 columns">
-          <div class="row">
-            <div class="small-14 columns">
-              1. Warmup
+
+      <div class="ride-type-container" ng-repeat="ride_type in ride_types">
+        <div class="row ride" ng-repeat="ride in ride_type">
+          <div class="small-2 columns">
+            &nbsp;
+          </div>
+          <div class="small-14 columns">
+            <div class="row">
+              <div class="small-14 columns">
+                {{ $index + 1 }}. {{ ride.goal }}
+              </div>
+              <div class="small-4 columns bpm">
+                {{ ride.bpm_low }} - {{ ride.bpm_high }} bpm
+              </div>
             </div>
-            <div class="small-4 columns bpm">
-              80 - 90 bpm
+            <div class="row">
+              <div class="small-14 columns">
+                Leg speed: {{ ride.bpm_low }} - {{ ride.bpm_high }} BPM
+              </div>
+              <div class="small-4 columns bpm">
+                <a href="#">+ Add more notes</a>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="small-2 columns">
-          &nbsp;
+          <div class="small-2 columns">
+            &nbsp;
+          </div>
         </div>
       </div>
+
     </div>
     <div class="small-9 columns songs">
       <div class="row chunk">
