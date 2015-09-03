@@ -12,6 +12,7 @@
  *   $ lineman config concat.js #=> to see the JS config for the concat task.
  */
 module.exports = function(lineman) {
+  app = lineman.config.application;
 
   //Override application configuration here. Common examples follow in the comments.
   return {
@@ -46,57 +47,14 @@ module.exports = function(lineman) {
     // have Ruby installed as well as the `sass` gem. To enable it, comment out the
     // following line:
     //
-    enableSass: true,
+    //enableSass: true,
 
-    /*
     // Alternative way of getting sass working
-    // Not using it because I don't think I can get compass to work with it
-    loadNpmTasks: lineman.config.application.loadNpmTasks.concat("grunt-sass"),
+    loadNpmTasks: app.loadNpmTasks.concat("grunt-sass"),
 
     prependTasks: {
-      common: lineman.config.application.prependTasks.common.concat("sass"),
+      common: app.prependTasks.common.concat("sass")
     },
-    */
-
-    // Compass
-    // @see https://github.com/linemanjs/lineman/issues/94#issuecomment-28547208
-    /*
-    prependTasks: {
-      common: ["compass:compile"]
-    },
-
-    loadNpmTasks: ["grunt-contrib-compass"],
-    */
-
-
-    /*
-    // Couldn't get this to work
-    removeTasks: {
-      common: ["less", "handlebars"]
-    },
-
-    loadNpmTasks: lineman.config.application.loadNpmTasks.concat("grunt-contrib-compass"),
-
-    prependTasks: {
-      common: lineman.config.application.prependTasks.common.concat("compass:compile"),
-    },
-
-    compass: {
-      compile: {
-        options: {
-          basePath: 'app',
-          sassDir: 'css',
-          imagesDir: 'img',
-          fontsDir: 'fonts',
-          javascriptsDir: 'js',
-          cssDir: '../generated/css',
-          generatedImagesPath: 'generated/img',
-          importPath: ['app/css'],
-          httpPath: '../',
-          relativeAssets: false
-        }
-      }
-    },*/
 
     livereload: true
 
