@@ -4,12 +4,12 @@
       <a href="#">&lt; Back</a>
     </div>
     <div class="small-12 columns">
-      <ul class="inline-list">
-        <li><a href="#">Ride template</a></li>
-        <li><a href="#">Create playlist</a></li>
-        <li><a href="#">Review</a></li>
-        <li><a href="#">Publish to device</a></li>
-      </ul>
+      <ol class="inline-list workflow">
+        <li class="completed"><span>1</span><a href="#">Ride template</a></li>
+        <li class="completed"><span>2</span><a href="#">Create playlist</a></li>
+        <li class="upcoming"><span>3</span><a href="#">Review</a></li>
+        <li class="upcoming"><span>4</span><a href="#">Publish to device</a></li>
+      </ol>
     </div>
   </div>
 
@@ -19,7 +19,7 @@
         &nbsp;
       </div>
       <div class="small-14 columns">
-        Give your class a name
+        <input name="class_name" class="class_name" type="text" placeholder="Give your class a name...">
       </div>
       <div class="small-2 columns">
         &nbsp;
@@ -30,16 +30,16 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row playlist-container">
     <div class="small-9 columns">
-      <div class="row">
+      <div class="row name">
         <div class="small-18 columns ride-type">
           <div class="row chunk">
             <div class="small-2 columns">
               &nbsp;
             </div>
             <div class="small-14 columns">
-              <h3>All Terrain</h3>
+              <h3>{{ name }}</h3>
             </div>
             <div class="small-2 columns">
               &nbsp;
@@ -48,14 +48,14 @@
         </div>
       </div>
 
-      <div class="row ride" ng-repeat="goal in goals">
+      <div class="row goal" ng-repeat="goal in goals">
         <div class="small-2 columns">
           &nbsp;
         </div>
         <div class="small-14 columns">
           <div class="row">
             <div class="small-14 columns">
-              {{ $index + 1 }}. {{ goal.goal }}
+              <div class="name">{{ $index + 1 }}. {{ goal.goal }}</div>
             </div>
             <div class="small-4 columns bpm">
               {{ goal.bpm_low }} - {{ goal.bpm_high }} bpm
