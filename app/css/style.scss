@@ -160,6 +160,11 @@ input[type="text"].class_name {
   line-height: 18px;
   border-bottom: 1px solid $white_light;
 
+  .columns {
+    padding-left: rem-calc(5px);
+    padding-right: rem-calc(5px);
+  }
+
   .name {
     font-weight: bold;
   }
@@ -168,9 +173,10 @@ input[type="text"].class_name {
   }
   .genre {
     font-weight: 100;
+    text-align: right;
   }
   .bpm {
-    color: $blue_medium;
+    color: $blue_dark;
   }
   .time {
     font-weight: bold;
