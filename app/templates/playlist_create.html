@@ -122,22 +122,22 @@
           &nbsp;
         </div>
         <div class="small-16 columns">
-          <div class="row song">
-            <div class="small-2 columns">
+          <div class="row song" data-ng-repeat="song in songs">
+            <div class="small-1 columns">
               Play
             </div>
-            <div class="small-8 columns">
-              <span class="name">Black Magic</span><br>
-              <span class="artist">Little Mix</span>
+            <div class="small-9 columns">
+              <span class="name">{{song.name}}</span><br>
+              <span class="artist">{{song.artist}}</span>
             </div>
             <div class="small-3 columns genre">
-              Pop
+              {{song.genre}}
             </div>
             <div class="small-2 columns bpm">
-              80 bpm
+              {{song.bpm}} bpm
             </div>
             <div class="small-2 columns time">
-              03:31
+              {{song.time}}
             </div>
             <div class="small-1 columns add">
               <a href="#">+</a>
