@@ -4,6 +4,7 @@ angular.module("app").controller('PlaylistCreateController', function($scope, $l
   // TODO: move the 0 into some kind of persistent state
   $http.get('/api/v1.0/rides/0').success(function(data) {
     $scope.goals = data.goals;
+    $scope.name = data.name;
   });
 
   var onLogoutSuccess = function(response) {
