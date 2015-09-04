@@ -1,6 +1,8 @@
 /*! style.css */
 
 $chunk_height: rem-calc(100px);
+$goal_padding: rem-calc(30px);
+$radius: rem-calc(15px);
 
 .header {
   margin-top: 10px;
@@ -26,12 +28,93 @@ $chunk_height: rem-calc(100px);
   }
 }
 
+/* The steps at the top of the page */
+.workflow {
+  li {
+
+    min-width: 150px;
+
+    span {
+      display: block;
+      float: left;
+      border-radius: 50%;
+
+      width: 30px;
+      height: 30px;
+
+      color: $white;
+      font-weight: bold;
+      text-align: center;
+      font-size: 18px;
+    }
+  }
+
+  .completed {
+    span {
+      background: $red_medium;
+    }
+    a {
+      color: $red_medium;
+    }
+  }
+
+  .upcoming {
+    span {
+      background: $grey_light;
+    }
+    a {
+      color: $grey_medium;
+    }
+  }
+
+  a {
+    padding-top: 3px;
+    padding-left: 36px;
+  }
+}
 
 /* Create a ride */
 
+input[type="text"].class_name {
+  border-width: 0px;
+  box-shadow: none;
+  border-radius: $radius;
+  background-color: $blue_light;
+  font-size: $h3-font-size;
+  font-weight: bold;
+  color: $black;
+  padding: 10px;
+  height: 70px;
+}
+
+/*
+.create-playlist ol.inline-list {
+  list-style: decimal inside url('https://www.google.co.za/images/nav_logo100633543.png');
+
+  li {
+    list-style-type: decimal;
+    display: list-item;
+    margin-right: 30px;
+  }
+}*/
+
+.playlist-container {
+  background-color: $grey_black;
+}
+
+.goal {
+  background-color: $white;
+  padding: $goal_padding 0 $goal_padding 0;
+  border-bottom: 4px dotted $grey_light;
+
+  .name {
+    font-weight: bold;
+    font-size: $h3-font-size;
+  }
+}
+
 .songs {
   color: $white;
-  background-color: $grey_black;
 
   h3 {
     color: $white;
@@ -46,17 +129,21 @@ $chunk_height: rem-calc(100px);
   font-weight: bold;
 }
 
-
-
 .ride-type {
   background-color: $grey_light;
+
+  h3 {
+    font-weight: bold;
+    color: $grey_medium;
+  }
 }
 
 .bpm {
 
 }
+
 /* TODO: remove me - for initial structure building only  */
 
 .songs {
-  height: 800px;
+  min-height: 100%;
 }
