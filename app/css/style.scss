@@ -2,10 +2,15 @@
 
 $chunk_height: rem-calc(100px);
 $goal_padding: rem-calc(30px);
+$top_padding: rem-calc(40px;)
 $radius: rem-calc(15px);
 
 .header {
-  margin-top: 10px;
+  margin-top: rem-calc(10px);
+}
+
+.row.top {
+  padding: $top_padding 0 $top_padding 0;
 }
 
 .row {
