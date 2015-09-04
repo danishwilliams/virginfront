@@ -209,8 +209,14 @@ input[type="text"].class_name {
   margin-bottom: 20px;
 }
 
-.dropped .empty-text {
-  display: none;
+.dropped {
+  .empty-text {
+    display: none;
+  }
+}
+
+.bin.dropped {
+  border: 0px;
 }
 
 /* TODO: remove me - for initial structure building only  */
