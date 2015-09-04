@@ -156,13 +156,14 @@ input[type="text"].class_name {
 }
 
 .song {
-  min-height: rem-calc(60px);
+  padding-top: rem-calc(10px);
+  padding-bottom: rem-calc(10px);
   line-height: 18px;
-  border-bottom: 1px solid $white_light;
+  border-bottom: 2px solid $grey_dark;
 
   .columns {
-    padding-left: rem-calc(5px);
-    padding-right: rem-calc(5px);
+    padding-left: rem-calc(10px);
+    padding-right: rem-calc(10px);
   }
 
   .name {
