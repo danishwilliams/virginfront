@@ -125,10 +125,12 @@ $test: #E01831;
 $test1: #8A2363;
 $test2: #C84C6A;
 $purple: #959595;
+$white: #FFFFFF;
 $white_light: #CFCFD0;
 $grey_light: #DCDCDC;
 $grey_medium: #5B5B5B;
-$grey_dark: #1C1E25;
+$grey_blue: #1C1E25;
+$grey_dark: #272222;
 $grey_black: #1A1616;
 $blue_light: #F3F5FB;
 $blue_medium: #A1C8F1;
@@ -743,9 +745,10 @@ $primary-color: $red;
 // $icon-bar-active-color: $primary-color;
 // $icon-bar-item-padding: 1.25rem;
 
-$icon-bar-bg: $grey_dark;
+$icon-bar-bg: $grey_blue;
+$icon-bar-font-color: $white_light;
 $icon-bar-hover-color: none;
-$icon-bar-font-color-hover: $white_light;
+$icon-bar-font-color-hover: $white;
 
 // We use this to set default opacity and cursor for disabled icons.
 // $icon-bar-disabled-opacity: .7;

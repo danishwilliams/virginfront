@@ -2,7 +2,7 @@
 
 $chunk_height: rem-calc(100px);
 $goal_padding: rem-calc(30px);
-$top_padding: rem-calc(40px;)
+$top_padding: rem-calc(40px);
 $radius: rem-calc(15px);
 
 .header {
@@ -33,7 +33,9 @@ $radius: rem-calc(15px);
   }
 }
 
-/* The steps at the top of the page */
+/***** Create a ride *****/
+
+/* The steps at the top of the create playlist page */
 .workflow {
   li span {
     display: block;
@@ -73,8 +75,6 @@ $radius: rem-calc(15px);
   }
 }
 
-/* Create a ride */
-
 input[type="text"].class_name {
   border-width: 0px;
   box-shadow: none;
@@ -86,17 +86,6 @@ input[type="text"].class_name {
   padding: 10px;
   height: 70px;
 }
-
-/*
-.create-playlist ol.inline-list {
-  list-style: decimal inside url('https://www.google.co.za/images/nav_logo100633543.png');
-
-  li {
-    list-style-type: decimal;
-    display: list-item;
-    margin-right: 30px;
-  }
-}*/
 
 .playlist-container {
   background-color: $grey_black;
@@ -113,18 +102,6 @@ input[type="text"].class_name {
   }
 }
 
-.songs {
-  color: $white;
-
-  h3 {
-    color: $white;
-  }
-
-  .showing {
-    border-bottom: 1px solid $white;
-  }
-}
-
 #song-name {
   font-weight: bold;
 }
@@ -138,8 +115,70 @@ input[type="text"].class_name {
   }
 }
 
-.bpm {
+/* The right songs sidebar */
 
+.songs {
+  color: $white;
+
+  h3 {
+    color: $white;
+  }
+
+  .showing {
+    border-bottom: 1px solid $white;
+    padding-bottom: rem-calc(10px);
+    margin-bottom: rem-calc(30px);
+  }
+
+  .search {
+    margin-bottom: rem-calc(30px);
+
+    input {
+      border-width: 0px;
+      background-color: $grey_dark;
+      color: $white;
+    }
+    ::-webkit-input-placeholder {
+      color: $white;
+    }
+    :-moz-placeholder {
+      /* Firefox 18- */
+      color: $white;
+    }
+    ::-moz-placeholder {
+      /* Firefox 19+ */
+      color: $white;
+    }
+    :-ms-input-placeholder {
+      color: $white;
+    }
+  }
+}
+
+.song {
+  min-height: rem-calc(60px);
+  line-height: 18px;
+  border-bottom: 1px solid $white_light;
+
+  .name {
+    font-weight: bold;
+  }
+  .artist {
+    color: $white_light;
+  }
+  .genre {
+    font-weight: 100;
+  }
+  .bpm {
+    color: $blue_medium;
+  }
+  .time {
+    font-weight: bold;
+  }
+  .add {
+    font-size: $h3-font-size;
+    font-weight: bold;
+  }
 }
 
 /* TODO: remove me - for initial structure building only  */
