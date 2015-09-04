@@ -160,10 +160,16 @@ input[type="text"].class_name {
   padding-bottom: rem-calc(10px);
   line-height: 18px;
   border-bottom: 2px solid $grey_dark;
+  background-color: $grey_black;
+  cursor: move;
 
   .columns {
     padding-left: rem-calc(10px);
     padding-right: rem-calc(10px);
+  }
+
+  .play {
+    cursor: default;
   }
 
   .name {
