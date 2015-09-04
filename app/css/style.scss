@@ -96,7 +96,7 @@ input[type="text"].class_name {
   padding: $goal_padding 0 $goal_padding 0;
   border-bottom: 4px dotted $grey_light;
 
-  .name {
+  .goal-name {
     font-weight: bold;
     font-size: $h3-font-size;
   }
@@ -162,6 +162,7 @@ input[type="text"].class_name {
   border-bottom: 2px solid $grey_dark;
   background-color: $grey_black;
   cursor: move;
+  color: $white;
 
   .columns {
     padding-left: rem-calc(10px);
@@ -172,7 +173,7 @@ input[type="text"].class_name {
     cursor: default;
   }
 
-  .name {
+  .song-name {
     font-weight: bold;
   }
   .artist {
@@ -192,6 +193,24 @@ input[type="text"].class_name {
     font-size: $h3-font-size;
     font-weight: bold;
   }
+}
+
+.bin {
+  display: block;
+  height: 60px;
+  line-height: 60px;
+  vertical-align: middle;
+  text-align: center;
+  min-width: 100%;
+  border: 2px dotted $blue_medium;
+  color: $blue_medium;
+  background: $blue_light;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.dropped .empty-text {
+  display: none;
 }
 
 /* TODO: remove me - for initial structure building only  */

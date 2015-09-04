@@ -35,7 +35,7 @@
 
   <div class="row playlist-container">
     <div class="small-9 columns">
-      <div class="row name">
+      <div class="row goal-name">
         <div class="small-18 columns ride-type">
           <div class="row chunk">
             <div class="small-2 columns">
@@ -58,11 +58,16 @@
         <div class="small-14 columns">
           <div class="row">
             <div class="small-14 columns">
-              <div class="name">{{ $index + 1 }}. {{ goal.goal }}</div>
+              <div class="goal-name">
+                {{$index + 1}}. {{goal.goal}}
+              </div>
             </div>
             <div class="small-4 columns bpm">
               {{ goal.bpm_low }} - {{ goal.bpm_high }} bpm
             </div>
+          </div>
+          <div class="row">
+            <div class="bin" ng-show="$index == 0" droppable><div class="empty-text">Drag and drop your track here</div></div>
           </div>
           <div class="row">
             <div class="small-14 columns">
@@ -122,12 +127,12 @@
           &nbsp;
         </div>
         <div class="small-16 columns">
-          <div class="row song" draggable="true" data-ng-repeat="song in songs">
+          <div class="row song" draggable id="item{{$index}}" data-ng-repeat="song in songs">
             <div class="small-1 columns play">
               Play
             </div>
             <div class="small-9 columns">
-              <span class="name">{{song.name}}</span><br>
+              <span class="song-name">{{song.name}}</span><br>
               <span class="artist">{{song.artist}}</span>
             </div>
             <div class="small-3 columns genre">
