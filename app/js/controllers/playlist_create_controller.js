@@ -6,21 +6,23 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
     $scope.goals = data.goals;
     $scope.name = data.name;
 
-    // This sets up an empty goals structure
+    // Set up a placeholder playlist structure
     PlaylistService.setupEmptyPlaylist(data.goals);
 
-    // Add a few songs
-    PlaylistService.addSongToGoalPlaylist(0, $scope.songs[0]);
-    PlaylistService.addSongToGoalPlaylist(0, $scope.songs[1]);
-
-    // Remove a song
-    PlaylistService.removeSongFromGoalPlaylist(0, 100);
-
-    PlaylistService.getPlaylist();
     $scope.playlist = PlaylistService.getPlaylist();
   });
 
   $scope.songs = SongsService.getSongs();
+
+  $scope.$on('handleSongDropped', function() {
+    $scope.playlist = PlaylistService.getPlaylist();
+  });
+
+  // Remove a song from a goal
+  $scope.removeSong = function(goalid, songid) {
+    PlaylistService.removeSongFromGoalPlaylist(goalid, songid);
+    $scope.playlist = PlaylistService.getPlaylist();
+  };
 
   var onLogoutSuccess = function (response) {
     $location.path('/login');

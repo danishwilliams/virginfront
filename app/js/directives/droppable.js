@@ -1,7 +1,7 @@
 /**
  * Created by rogersaner on 15/09/04.
  */
-angular.module("app").directive('droppable', function () {
+angular.module("app").directive('droppable', function (PlaylistService) {
   return {
     scope: {
       drop: '&', // parent
@@ -47,7 +47,14 @@ angular.module("app").directive('droppable', function () {
           var binId = this.id;
           var item = document.getElementById(e.dataTransfer.getData('Text'));
           this.classList.add('dropped');
-          this.appendChild(item);
+
+          // Tell the playlist about the song dropped into a goal
+          var songid = item.id.substring(4);
+          var goalid = binId.substring(3);
+          PlaylistService.songDropped(goalid, songid);
+
+          // TODO: at some point this needs to also track which playlist we're building, although that might be done on url
+
           // call the passed drop function
           scope.$apply(function (scope) {
             var fn = scope.drop();
@@ -55,19 +62,6 @@ angular.module("app").directive('droppable', function () {
               fn(item.id, binId);
             }
           });
-
-          /*
-           // Stops some browsers from redirecting.
-           if (e.stopPropagation) e.stopPropagation();
-
-           this.classList.remove('over');
-
-           var item = document.getElementById(e.dataTransfer.getData('Text'));
-           this.appendChild(item);
-
-           // call the drop passed drop function
-           scope.$apply('drop()');
-           */
 
           return false;
         },
