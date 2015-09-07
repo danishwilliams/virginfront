@@ -14,14 +14,9 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
 
   $scope.songs = SongsService.getSongs();
 
-  $scope.$on('handleSongDropped', function() {
-    $scope.playlist = PlaylistService.getPlaylist();
-  });
-
   // Remove a song from a goal
   $scope.removeSong = function(goalid, songid) {
     PlaylistService.removeSongFromGoalPlaylist(goalid, songid);
-    $scope.playlist = PlaylistService.getPlaylist();
   };
 
   var onLogoutSuccess = function (response) {
