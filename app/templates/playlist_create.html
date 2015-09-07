@@ -67,7 +67,23 @@
             </div>
           </div>
           <div class="row">
-            <div class="bin" ng-show="$index == 0" droppable><div class="empty-text">Drag and drop your track here</div></div>
+            <div class="bin" id="bin{{goal.id}}" ng-show="$index == 0" droppable>
+              <div class="empty-text">Drag and drop your track here</div>
+              <div class="row song dropped" draggable id="playlist{{goal.id}}{{song.id}}" data-ng-repeat="song in playlist[goal.id]">
+                <div class="small-1 columns play">
+                  Play
+                </div>
+                <div class="small-14 columns">
+                  <span class="song-name">{{song.name}}</span> <span class="artist">{{song.artist}}</span> | <span class="bpm">{{song.bpm}} bpm</span>
+                </div>
+                <div class="small-2 columns time">
+                  {{song.time}}
+                </div>
+                <div class="small-1 columns add">
+                  <a href="#">-</a>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="small-14 columns">
@@ -127,12 +143,12 @@
           &nbsp;
         </div>
         <div class="small-16 columns">
-          <div class="row song" draggable id="item{{$index}}" data-ng-repeat="song in songs">
+          <div class="row song" draggable id="song{{song.id}}" data-ng-repeat="song in songs">
             <div class="small-1 columns play">
               Play
             </div>
             <div class="small-9 columns">
-              <span class="song-name">{{song.name}}</span><br>
+              <span class="song-name">{{song.name}}</span>
               <span class="artist">{{song.artist}}</span>
             </div>
             <div class="small-3 columns genre">
