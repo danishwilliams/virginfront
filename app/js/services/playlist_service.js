@@ -1,7 +1,7 @@
 /**
  * Created by rogersaner on 15/09/07.
  */
-angular.module("app").factory('PlaylistService', function (SongsService, $rootScope) {
+angular.module("app").factory('PlaylistService', function (SongsService) {
   // An array of goal playlists. Each goal playlist contains an array of songs.
   var playlist = [];
 
@@ -47,9 +47,6 @@ angular.module("app").factory('PlaylistService', function (SongsService, $rootSc
       // Update the playlist
       var song = SongsService.getSong(songid);
       this.addSongToGoalPlaylist(goalid, song);
-
-      // Broadcast Event to the playlist controller so it can update the song list with $scope.playlist
-      $rootScope.$broadcast('handleSongDropped');
     }
   };
 });
