@@ -3,6 +3,7 @@
   "name": "Hill Climbs",
   "goals": [
     {
+      "id": 0,
       "goal": "Warm Up",
       "bpm_low": 80,
       "bpm_high": 90,
@@ -11,6 +12,7 @@
       "rpe": 4
     },
     {
+      "id": 1,
       "goal": "Gradual Seated Climb",
       "bpm_low": 80,
       "bpm_high": 90,
@@ -19,6 +21,7 @@
       "rpe": 6
     },
     {
+      "id": 2,
       "goal": "Steep Seated Climb",
       "bpm_low": 120,
       "bpm_high": 130,
@@ -27,6 +30,7 @@
       "rpe": 7
     },
     {
+      "id": 3,
       "goal": "Steep Standing Climb",
       "bpm_low": 120,
       "bpm_high": 130,
@@ -35,6 +39,7 @@
       "rpe": 8
     },
     {
+      "id": 4,
       "goal": "Recover",
       "bpm_low": 80,
       "bpm_high": 90,
@@ -43,6 +48,7 @@
       "rpe": 4
     },
     {
+      "id": 5,
       "goal": "Rolling Hills - Seated resistance increases",
       "bpm_low": 90,
       "bpm_high": 110,
@@ -51,6 +57,7 @@
       "rpe": 8
     },
     {
+      "id": 6,
       "goal": "Rolling Hills - Standing resistance increases",
       "bpm_low": 90,
       "bpm_high": 110,
@@ -59,6 +66,7 @@
       "rpe": 8
     },
     {
+      "id": 7,
       "goal": "Alt Seated / Standing climb - Change body position",
       "bpm_low": 120,
       "bpm_high": 130,
@@ -67,6 +75,7 @@
       "rpe": 9
     },
     {
+      "id": 8,
       "goal": "The Finish Line",
       "bpm_low": 90,
       "bpm_high": 110,
@@ -76,6 +85,7 @@
       "rpe_high": 10
     },
     {
+      "id": 9,
       "goal": "Warm Down",
       "bpm_low": 120,
       "bpm_high": 130,
