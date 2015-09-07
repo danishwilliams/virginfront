@@ -174,7 +174,9 @@ input[type="text"].class_name {
   }
 
   .song-name {
+    display: block;
     font-weight: bold;
+    clear: both;
   }
   .artist {
     color: $white_light;
@@ -214,6 +216,15 @@ input[type="text"].class_name {
     display: none;
   }
   text-align: left;
+
+  .song-name {
+    float: left;
+  }
+
+  .artist {
+    color: $white;
+    padding-left: 5px;
+  }
 }
 
 .bin.dropped {
