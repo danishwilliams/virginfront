@@ -44,12 +44,13 @@ angular.module("app").directive('droppable', function (PlaylistService) {
       el.addEventListener(
         'drop',
         function (e) {
-          var binId = this.id;
-          var item = document.getElementById(e.dataTransfer.getData('Text'));
           this.classList.add('dropped');
+          var binId = this.id;
+          var song = document.getElementById(e.dataTransfer.getData('Text'));
+          song.classList.add('ng-hide');
 
           // Tell the playlist about the song dropped into a goal
-          var songid = item.id.substring(4);
+          var songid = song.id.substring(4);
           var goalid = binId.substring(3);
           PlaylistService.songDropped(goalid, songid);
 

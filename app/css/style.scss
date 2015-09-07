@@ -211,6 +211,12 @@ input[type="text"].class_name {
   margin-bottom: 20px;
 }
 
+.song.dropped {
+  line-height: 40px;
+  vertical-align: middle;
+  cursor: default;
+}
+
 .dropped {
   .empty-text {
     display: none;

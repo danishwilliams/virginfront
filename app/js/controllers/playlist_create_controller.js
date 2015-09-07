@@ -14,9 +14,17 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
 
   $scope.songs = SongsService.getSongs();
 
-  // Remove a song from a goal
+  // Remove a song from a goal playlist
   $scope.removeSong = function(goalid, songid) {
     PlaylistService.removeSongFromGoalPlaylist(goalid, songid);
+
+    // The song isn't "dropped" any more
+    var bin = document.getElementById("bin" + goalid);
+    bin.classList.remove('dropped');
+
+    // Show the song in the song list
+    var song = document.getElementById("song" + songid);
+    song.classList.remove('ng-hide');
   };
 
   var onLogoutSuccess = function (response) {
