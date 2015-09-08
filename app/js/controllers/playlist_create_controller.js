@@ -1,6 +1,7 @@
 angular.module("app").controller('PlaylistCreateController', function ($scope, $location, ApiService, AuthenticationService, SongsService, PlaylistService, $http) {
   $scope.title = "Add a Ride";
   $scope.goalid = 0; // The active goal playlist which songs can be added to
+  $scope.songs = {};
 
   // TODO: move the 0 into some kind of persistent state
   $http.get('/api/v1.0/rides/0').success(function (data) {
@@ -13,7 +14,13 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
     $scope.playlist = PlaylistService.getPlaylist();
   });
 
-  $scope.songs = SongsService.getSongs();
+  //$scope.songs = SongsService.getSongs();
+
+  $scope.$on('playlistLoaded', function() {
+    $scope.$apply(function() {
+      $scope.songs = SongsService.getSongs();
+    });
+  });
 
   // Add a song to a goal playlist
   $scope.addSong = function(songid) {
