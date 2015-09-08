@@ -19,7 +19,7 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
   $scope.addSong = function(songid) {
     // If there are already songs don't add one
     var songs = PlaylistService.getGoalPlaylist($scope.goalid);
-    if (songs.length > 0) return;
+    if (songs.length > 0) { return; }
 
     PlaylistService.songDropped($scope.goalid, songid);
 

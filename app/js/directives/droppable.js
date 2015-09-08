@@ -49,7 +49,7 @@ angular.module("app").directive('droppable', function (PlaylistService) {
 
           // If there are already songs don't add one
           var songs = PlaylistService.getGoalPlaylist(goalid);
-          if (songs.length > 0) return false;
+          if (songs.length > 0) { return false; }
 
           this.classList.add('dropped');
           this.removeAttribute('droppable');
