@@ -1,7 +1,7 @@
 /**
  * Created by rogersaner on 15/09/07.
  */
-angular.module("app").factory('SongsService', function () {
+angular.module("app").factory('SongsService', function ($rootScope) {
   // TODO: is this structure ok?
   var songs = [
     {
@@ -27,41 +27,44 @@ angular.module("app").factory('SongsService', function () {
       genre: 'R&B/Soul',
       bpm: '80',
       time: '03:24'
-      }
-    ];
+    }
+  ];
 
-  var songs = {};
+  songs = [];
+  var playerTrack = []; // The track loaded to the player
 
-  window.dzAsyncInit = function() {
+  window.dzAsyncInit = function () {
     DZ.init({
-      appId  : 'virgin_console',
-      channelUrl : 'http://localhost:8000/deezer.html',
+      appId: 'virgin_console',
+      channelUrl: 'http://localhost:8000/deezer.html',
       player: {
-        onload: function(response) {
+        onload: function (response) {
           console.log('DZ.player is ready', response);
 
-          DZ.player.playPlaylist(1368297815, false,  function(response){
-            //console.log("List of track objects", response.tracks);
+          DZ.player.playPlaylist(1368297815, false, function (response) {
+            console.log("List of track objects", response.tracks);
+            var i = 0;
+            var numberTracks = _.size(response.tracks);
 
             // Transform the Deezer tracks into the kind of array we want
             response.tracks.forEach(function (track) {
-              songs[track.id] = {
-                id: parseInt(track.id),
-                name: track.title,
-                artist: track.artist.name,
-                genre: 'No genre',
-                bpm: '80',
-                time: track.duration
-              };
+                songs.push({
+                  id: parseInt(track.id),
+                  name: track.title,
+                  artist: track.artist.name,
+                  genre: 'No genre',
+                  bpm: '0',
+                  time: track.duration
+                });
+              i++;
             });
-
             $rootScope.$broadcast('playlistLoaded');
           });
         }
       }
     });
   };
-  (function() {
+  (function () {
     var e = document.createElement('script');
     e.src = 'https://cdns-files.deezer.com/js/min/dz.js';
     e.async = true;
@@ -71,6 +74,12 @@ angular.module("app").factory('SongsService', function () {
   return {
     getSongs: function () {
       return songs;
+    },
+    getPlayerTrack: function () {
+      return playerTrack;
+    },
+    setPlayerTrack: function (track) {
+      playerTrack = [track];
     }
   };
 });

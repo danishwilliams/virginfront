@@ -143,9 +143,9 @@
           &nbsp;
         </div>
         <div class="small-16 columns">
-          <div class="row song" draggable id="song{{song.id}}" data-ng-repeat="song in songs">
+          <div class="row song" draggable id="song{{song.id}}" data-ng-repeat="song in songs | orderBy: song.id">
             <div class="small-1 columns play">
-              Play
+              <a href="#" ng-click="playSong(song.id)">Play</a>
             </div>
             <div class="small-9 columns">
               <span class="song-name">{{song.name}}</span>

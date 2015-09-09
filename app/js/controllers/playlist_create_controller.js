@@ -2,6 +2,7 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
   $scope.title = "Add a Ride";
   $scope.goalid = 0; // The active goal playlist which songs can be added to
   $scope.songs = {};
+  $scope.playing = false;
 
   // TODO: move the 0 into some kind of persistent state
   $http.get('/api/v1.0/rides/0').success(function (data) {
@@ -16,17 +17,41 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
 
   //$scope.songs = SongsService.getSongs();
 
-  $scope.$on('playlistLoaded', function() {
-    $scope.$apply(function() {
+  $scope.$on('playlistLoaded', function () {
+    $scope.$apply(function () {
       $scope.songs = SongsService.getSongs();
     });
   });
+
+  $scope.playSong = function (songid) {
+    var playerTrack = SongsService.getPlayerTrack();
+    if (songid === playerTrack[0]) {
+      if ($scope.playing) {
+        // Pause the currently playing song
+        DZ.player.pause();
+        $scope.playing = false;
+      }
+      else {
+        DZ.player.play();
+        $scope.playing = true;
+      }
+    }
+    else {
+      // Play a different song
+      SongsService.setPlayerTrack(songid);
+      DZ.player.playTracks([songid]);
+      DZ.player.play();
+      $scope.playing = true;
+    }
+  };
 
   // Add a song to a goal playlist
   $scope.addSong = function(song) {
     // If there are already songs don't add one
     var songs = PlaylistService.getGoalPlaylist($scope.goalid);
-    if (songs.length > 0) { return; }
+    if (songs.length > 0) {
+      return;
+    }
 
     PlaylistService.songDropped($scope.goalid, song);
 
