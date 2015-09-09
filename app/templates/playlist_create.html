@@ -71,7 +71,7 @@
               <div class="empty-text">Drag and drop your track here</div>
               <div class="row song dropped" id="playlist{{goal.id}}{{song.id}}" data-ng-repeat="song in playlist[goal.id]">
                 <div class="small-1 columns play">
-                  Play
+                  <a href="#" ng-click="playSong(song.id)">Play</a>
                 </div>
                 <div class="small-14 columns">
                   <span class="song-name">{{song.name}}</span> <span class="artist">{{song.artist}}</span> | <span class="bpm">{{song.bpm}} bpm</span>
