@@ -1,9 +1,10 @@
 /**
  * Created by rogersaner on 15/09/07.
  */
-angular.module("app").factory('SongsService', function ($rootScope) {
-  var songs = {
-    100: {
+angular.module("app").factory('SongsService', function () {
+  // TODO: is this structure ok?
+  var songs = [
+    {
       id: 100,
       name: 'Black Magic',
       artist: 'Little Mix',
@@ -11,7 +12,7 @@ angular.module("app").factory('SongsService', function ($rootScope) {
       bpm: '80',
       time: '03:31'
     },
-    150: {
+    {
       id: 150,
       name: 'How deep is your love',
       artist: 'Calvin Harris',
@@ -19,15 +20,15 @@ angular.module("app").factory('SongsService', function ($rootScope) {
       bpm: '80',
       time: '03:32'
     },
-    175: {
+    {
       id: 175,
       name: 'Too bad, so sad',
       artist: 'Matric',
       genre: 'R&B/Soul',
       bpm: '80',
       time: '03:24'
-    }
-  };
+      }
+    ];
 
   var songs = {};
 
@@ -68,16 +69,8 @@ angular.module("app").factory('SongsService', function ($rootScope) {
   }());
 
   return {
-    getSong: function (id) {
-      return songs[parseInt(id)];
-    },
     getSongs: function () {
       return songs;
-    },
-    setSong: function (id, goal) {
-      id = parseInt(id);
-      goal = parseInt(goal);
-      songs[id] = goal;
     }
   };
 });

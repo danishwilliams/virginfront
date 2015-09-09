@@ -47,18 +47,22 @@ angular.module("app").directive('droppable', function (PlaylistService) {
           var binId = this.id;
           var goalid = binId.substring(3);
 
+          //TODO: refactor: move all of the below into PlayListService so that
+
           // If there are already songs don't add one
           var songs = PlaylistService.getGoalPlaylist(goalid);
           if (songs.length > 0) { return false; }
 
           this.classList.add('dropped');
           this.removeAttribute('droppable');
-          var song = document.getElementById(e.dataTransfer.getData('Text'));
-          song.classList.add('ng-hide');
+          var songElement = document.getElementById(e.dataTransfer.getData('Text'));
+          songElement.classList.add('ng-hide');
+
+          // Grab the angular model value
+          var song = angular.element(songElement).scope().song;
 
           // Tell the playlist about the song dropped into a goal
-          var songid = song.id.substring(4);
-          PlaylistService.songDropped(goalid, songid);
+          PlaylistService.songDropped(goalid, song);
 
           // TODO: at some point this needs to also track which playlist we're building, although that might be done on url
 

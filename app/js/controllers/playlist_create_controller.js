@@ -1,4 +1,4 @@
-angular.module("app").controller('PlaylistCreateController', function ($scope, $location, ApiService, AuthenticationService, SongsService, PlaylistService, $http) {
+angular.module("app").controller('PlaylistCreateController', function ($scope, $location, AuthenticationService, SongsService, PlaylistService, $http) {
   $scope.title = "Add a Ride";
   $scope.goalid = 0; // The active goal playlist which songs can be added to
   $scope.songs = {};
@@ -23,25 +23,25 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
   });
 
   // Add a song to a goal playlist
-  $scope.addSong = function(songid) {
+  $scope.addSong = function(song) {
     // If there are already songs don't add one
     var songs = PlaylistService.getGoalPlaylist($scope.goalid);
     if (songs.length > 0) { return; }
 
-    PlaylistService.songDropped($scope.goalid, songid);
+    PlaylistService.songDropped($scope.goalid, song);
 
     // A song was "dropped"
     var bin = document.getElementById("bin" + $scope.goalid);
     bin.classList.add('dropped');
     bin.removeAttribute('droppable');
 
-    var song = document.getElementById("song" + songid);
-    song.classList.add('ng-hide');
+    var songElement = document.getElementById("song" + song.id);
+    songElement.classList.add('ng-hide');
   };
 
   // Remove a song from a goal playlist
-  $scope.removeSong = function(goalid, songid) {
-    PlaylistService.removeSongFromGoalPlaylist(goalid, songid);
+  $scope.removeSong = function(goalid, song) {
+    PlaylistService.removeSongFromGoalPlaylist(goalid, song);
 
     // The song isn't "dropped" any more
     var bin = document.getElementById("bin" + goalid);
@@ -49,8 +49,8 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
     bin.setAttribute('droppable', '');
 
     // Show the song in the song list
-    var song = document.getElementById("song" + songid);
-    song.classList.remove('ng-hide');
+    var songElement = document.getElementById("song" + song.id);
+    songElement.classList.remove('ng-hide');
   };
 
   var onLogoutSuccess = function (response) {
