@@ -33,9 +33,9 @@ angular.module("app").factory('PlaylistService', function (SongsService) {
     },
 
     // Removes a song from a playlist for a goal id
-    removeSongFromGoalPlaylist: function (id, songid) {
+    removeSongFromGoalPlaylist: function (id, song) {
       playlist[id] = _.filter(playlist[id], function (val) {
-        if (val.id === songid) {
+        if (val.id === song.id) {
           return false;
         }
         return true;
@@ -43,9 +43,8 @@ angular.module("app").factory('PlaylistService', function (SongsService) {
     },
 
     // A song has been added to a goal
-    songDropped: function(goalid, songid) {
+    songDropped: function(goalid, song) {
       // Update the playlist
-      var song = SongsService.getSong(songid);
       this.addSongToGoalPlaylist(goalid, song);
     }
   };
