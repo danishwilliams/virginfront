@@ -26,14 +26,14 @@ angular.module("app").factory('PlaylistService', function (TracksService) {
     },
 
     // Add a track to a playlist for a goal id
-    addtrackToGoalPlaylist: function (id, track) {
+    addTrackToGoalPlaylist: function (id, track) {
       // Replaces any existing track in the playlist
       playlist[id] = [];
       playlist[id].push(track);
     },
 
     // Removes a track from a playlist for a goal id
-    removetrackFromGoalPlaylist: function (id, track) {
+    removeTrackFromGoalPlaylist: function (id, track) {
       playlist[id] = _.filter(playlist[id], function (val) {
         if (val.id === track.id) {
           return false;
@@ -45,7 +45,7 @@ angular.module("app").factory('PlaylistService', function (TracksService) {
     // A track has been added to a goal
     trackDropped: function(goalid, track) {
       // Update the playlist
-      this.addtrackToGoalPlaylist(goalid, track);
+      this.addTrackToGoalPlaylist(goalid, track);
     }
   };
 });
