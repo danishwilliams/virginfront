@@ -1,7 +1,7 @@
-angular.module("app").controller('PlaylistCreateController', function ($scope, $location, AuthenticationService, SongsService, PlaylistService, $http) {
+angular.module("app").controller('PlaylistCreateController', function ($scope, $location, AuthenticationService, TracksService, PlaylistService, $http) {
   $scope.title = "Add a Ride";
-  $scope.goalid = 0; // The active goal playlist which songs can be added to
-  $scope.songs = {};
+  $scope.goalid = 0; // The active goal playlist which tracks can be added to
+  $scope.tracks = {};
   $scope.playing = false;
 
   // TODO: move the 0 into some kind of persistent state
@@ -15,19 +15,20 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
     $scope.playlist = PlaylistService.getPlaylist();
   });
 
-  //$scope.songs = SongsService.getSongs();
+  //$scope.tracks = TracksService.getTracks();
 
   $scope.$on('tracksLoaded', function () {
     $scope.$apply(function () {
-      $scope.songs = SongsService.getSongs();
+      $scope.tracks = TracksService.getTracks();
     });
   });
 
-  $scope.playSong = function (songid) {
-    var playerTrack = SongsService.getPlayerTrack();
-    if (songid === playerTrack[0]) {
+  $scope.playTrack = function (trackid) {
+    var playerTrack = TracksService.getPlayerTrack();
+    if (trackid === playerTrack[0]) {
       if ($scope.playing) {
-        // Pause the currently playing song
+        // Pause the currently playing track
+        DZ.player.pause();
         DZ.player.pause();
         $scope.playing = false;
       }
@@ -37,45 +38,43 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
       }
     }
     else {
-      // Play a different song
-      SongsService.setPlayerTrack(songid);
-      DZ.player.playTracks([songid]);
+      // Play a different track
+      TracksService.setPlayerTrack(trackid);
+      DZ.player.playTracks([trackid]);
       DZ.player.play();
       $scope.playing = true;
     }
   };
 
-  // Add a song to a goal playlist
-  $scope.addSong = function(song) {
-    // If there are already songs don't add one
-    var songs = PlaylistService.getGoalPlaylist($scope.goalid);
-    if (songs.length > 0) {
-      return;
-    }
+  // Add a track to a goal playlist
+  $scope.addTrack = function(track) {
+    // If there are already tracks don't add one
+    var tracks = PlaylistService.getGoalPlaylist($scope.goalid);
+    if (tracks.length > 0) { return; }
 
-    PlaylistService.songDropped($scope.goalid, song);
+    PlaylistService.trackDropped($scope.goalid, track);
 
-    // A song was "dropped"
+    // A track was "dropped"
     var bin = document.getElementById("bin" + $scope.goalid);
     bin.classList.add('dropped');
     bin.removeAttribute('droppable');
 
-    var songElement = document.getElementById("song" + song.id);
-    songElement.classList.add('ng-hide');
+    var trackElement = document.getElementById("track" + track.id);
+    trackElement.classList.add('ng-hide');
   };
 
-  // Remove a song from a goal playlist
-  $scope.removeSong = function(goalid, song) {
-    PlaylistService.removeSongFromGoalPlaylist(goalid, song);
+  // Remove a track from a goal playlist
+  $scope.removeTrack = function(goalid, track) {
+    PlaylistService.removeTrackFromGoalPlaylist(goalid, track);
 
-    // The song isn't "dropped" any more
+    // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + goalid);
     bin.classList.remove('dropped');
     bin.setAttribute('droppable', '');
 
-    // Show the song in the song list
-    var songElement = document.getElementById("song" + song.id);
-    songElement.classList.remove('ng-hide');
+    // Show the track in the track list
+    var trackElement = document.getElementById("track" + track.id);
+    trackElement.classList.remove('ng-hide');
   };
 
   var onLogoutSuccess = function (response) {

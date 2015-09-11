@@ -1,9 +1,8 @@
 /**
  * Created by rogersaner on 15/09/07.
  */
-angular.module("app").factory('SongsService', function ($rootScope) {
-  // TODO: is this structure ok?
-  var songs = [
+angular.module("app").factory('TracksService', function ($rootScope) {
+  var tracks = [
     {
       id: 100,
       name: 'Black Magic',
@@ -36,7 +35,7 @@ angular.module("app").factory('SongsService', function ($rootScope) {
     }
   ];
 
-  songs = [];
+  tracks = [];
   var playerTrack = []; // The track loaded to the player
 
   window.dzAsyncInit = function () {
@@ -54,7 +53,7 @@ angular.module("app").factory('SongsService', function ($rootScope) {
 
               // We need to do a separate call to get the bpm
               DZ.api('/track/' + track.id, function (response) {
-                songs.push({
+                tracks.push({
                   id: parseInt(track.id),
                   name: track.title,
                   artist: track.artist.name,
@@ -97,8 +96,8 @@ angular.module("app").factory('SongsService', function ($rootScope) {
   }());
 
   return {
-    getSongs: function () {
-      return songs;
+    getTracks: function () {
+      return tracks;
     },
     getPlayerTrack: function () {
       return playerTrack;
