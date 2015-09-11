@@ -5,93 +5,204 @@
     {
       "id": 0,
       "goal": "Warm Up",
+      "aim": "We want you to ride at 80 - 90 rpm for the duration of the song",
       "bpm_low": 80,
       "bpm_high": 90,
-      "rpm_low": 80,
-      "rpm_high": 90,
-      "rpe": 4
+      "goal_options": [
+        {
+          "id": 0,
+          "name": "Half time",
+          "position": "Seated",
+          "beat_ratio": 0.5,
+          "effort": 50,
+          "effort_high": 60
+        }
+      ]
     },
     {
       "id": 1,
       "goal": "Seated Ride",
+      "aim": "We want you to ride at 100 - 120 rpm for the duration of the song",
       "bpm_low": 100,
       "bpm_high": 120,
-      "rpm_low": 100,
-      "rpm_high": 120,
-      "rpe": 5
+      "goal_options": [
+        {
+          "id": 0,
+          "name": "Seated Sprint",
+          "position": "Seated",
+          "beat_ratio": 1,
+          "effort": 70,
+          "effort_high": 0
+        }
+      ]
     },
     {
       "id": 2,
-      "goal": "Seated Climb",
-      "bpm_low": 130,
-      "bpm_high": 130,
-      "rpm_low": 65,
-      "rpm_high": 70,
-      "rpe": 7
+      "goal": "Seated Intervals",
+      "aim": "We want you to alternate sprinting at 120 - 140 rpm and recovering at 60 - 80 rpm for the duration of the song",
+      "bpm_low": 120,
+      "bpm_high": 140,
+      "goal_options": [
+        {
+          "id": 0,
+          "name": "Seated Sprint",
+          "position": "Seated",
+          "beat_ratio": 1,
+          "effort": 80,
+          "effort_high": 0
+        },
+        {
+          "id": 1,
+          "name": "Seated Recovery",
+          "position": "Seated",
+          "beat_ratio": 0.5,
+          "effort": 50,
+          "effort_high": 0
+        }
+      ]
     },
     {
       "id": 3,
-      "goal": "Standing Climb",
-      "bpm_low": 130,
+      "goal": "Seated Climb",
+      "aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
+      "bpm_low": 100,
       "bpm_high": 130,
-      "rpm_low": 65,
-      "rpm_high": 70,
-      "rpe": 8
+      "goal_options": [
+        {
+          "id": 0,
+          "name": "Half time",
+          "position": "Seated",
+          "beat_ratio": 0.5,
+          "effort": 80,
+          "effort_high": 0
+        }
+      ]
     },
     {
       "id": 4,
-      "goal": "Recovery",
-      "bpm_low": 120,
+      "goal": "Standing Climb",
+      "aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
+      "bpm_low": 100,
       "bpm_high": 130,
-      "rpm_low": 60,
-      "rpm_high": 65,
-      "rpe": 4
+      "goal_options": [
+        {
+          "id": 0,
+          "name": "Half time",
+          "position": "Standing",
+          "beat_ratio": 1,
+          "effort": 90,
+          "effort_high": 0
+        }
+      ]
     },
     {
       "id": 5,
-      "goal": "Seated Climb",
-      "bpm_low": 130,
-      "bpm_high": 130,
-      "rpm_low": 65,
-      "rpm_high": 70,
-      "rpe": 8
+      "goal": "Recovery",
+      "aim": "We want you to ride at 60 - 75 rpm for the duration of the song",
+      "bpm_low": 120,
+      "bpm_high": 150,
+      "goal_options": [
+        {
+          "id": 0,
+          "name": "Half time",
+          "position": "Seated",
+          "beat_ratio": 0.5,
+          "effort": 60,
+          "effort_high": 0
+        }
+      ]
     },
     {
       "id": 6,
-      "goal": "Standing Climb",
-      "bpm_low": 130,
+      "goal": "Seated Climb",
+      "aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
+      "bpm_low": 100,
       "bpm_high": 130,
-      "rpm_low": 65,
-      "rpm_high": 70,
-      "rpe": 9
+      "goal_options": [
+        {
+          "id": 0,
+          "name": "Half time",
+          "position": "Seated",
+          "beat_ratio": 0.5,
+          "effort": 80,
+          "effort_high": 0
+        }
+      ]
     },
     {
       "id": 7,
-      "goal": "Seated Intervals",
-      "bpm_low": 120,
-      "bpm_high": 140,
-      "rpm_low": 60,
-      "rpm_high": 75,
-      "rpe": 6
+      "goal": "Standing Climb",
+      "aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
+      "bpm_low": 100,
+      "bpm_high": 130,
+      "goal_options": [
+        {
+          "id": 0,
+          "name": "Half time",
+          "position": "Standing",
+          "beat_ratio": 0.5,
+          "effort": 90,
+          "effort_high": 0
+        }
+      ]
     },
     {
       "id": 8,
-      "goal": "The Finish Line",
-      "bpm_low": 90,
-      "bpm_high": 110,
-      "rpm_low": 90,
-      "rpm_high": 110,
-      "rpe": 5
+      "goal": "Seated Intervals",
+      "aim": "We want you to alternate sprinting at 120 - 140 rpm and recovering at 60 - 80 rpm for the duration of the song",
+      "bpm_low": 120,
+      "bpm_high": 140,
+      "goal_options": [
+        {
+          "id": 0,
+          "name": "Sprint on the beat",
+          "position": "Seated",
+          "beat_ratio": 1,
+          "effort": 80,
+          "effort_high": 90
+        },
+        {
+          "id": 1,
+          "name": "Recover Half Time",
+          "position": "Seated",
+          "beat_ratio": 0.5,
+          "effort": 50,
+          "effort_high": 0
+        }
+      ]
     },
     {
       "id": 9,
-      "goal": "Warm Down",
-      "bpm_low": 80,
+      "goal": "The Finish Line",
+      "aim": "We want you to ride at 90 - 130 rpm for the duration of the song",
+      "bpm_low": 90,
+      "bpm_high": 130,
+      "goal_options": [
+        {
+          "id": 0,
+          "name": "Sprint on the beat",
+          "position": "Seated",
+          "beat_ratio": 1,
+          "effort": 90,
+          "effort_high": 0
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "goal": "Cool Down",
+      "bpm_low": 60,
       "bpm_high": 90,
-      "rpm_low": 80,
-      "rpm_high": 90,
-      "rpe": 1,
-      "rpe_high" : 3
+      "goal_options": [
+        {
+          "id": 0,
+          "name": "On the beat",
+          "position": "Seated",
+          "beat_ratio": 1,
+          "effort": 50,
+          "effort_high": 0
+        }
+      ]
     }
   ]
 }
