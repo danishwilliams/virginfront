@@ -1,8 +1,8 @@
 /**
  * Created by rogersaner on 15/09/07.
  */
-angular.module("app").factory('SongsService', function () {
-  var songs = [
+angular.module("app").factory('TracksService', function () {
+  var tracks = [
     {
       id: 100,
       name: 'Black Magic',
@@ -36,8 +36,8 @@ angular.module("app").factory('SongsService', function () {
   ];
 
   return {
-    getSongs: function () {
-      return songs;
+    getTracks: function () {
+      return tracks;
     }
   };
 });

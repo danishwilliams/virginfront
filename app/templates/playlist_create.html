@@ -69,18 +69,18 @@
           <div class="row">
             <div class="bin" id="bin{{goal.id}}" ng-show="$index == 0" droppable>
               <div class="empty-text">Drag and drop your track here</div>
-              <div class="row song dropped" id="playlist{{goal.id}}{{song.id}}" data-ng-repeat="song in playlist[goal.id]">
+              <div class="row track dropped" id="playlist{{goal.id}}{{track.id}}" data-ng-repeat="track in playlist[goal.id]">
                 <div class="small-1 columns play">
                   Play
                 </div>
                 <div class="small-14 columns">
-                  <span class="song-name">{{song.name}}</span> <span class="artist">{{song.artist}}</span> | <span class="bpm">{{song.bpm}} bpm</span>
+                  <span class="track-name">{{track.name}}</span> <span class="artist">{{track.artist}}</span> | <span class="bpm">{{track.bpm}} bpm</span>
                 </div>
                 <div class="small-2 columns time">
-                  {{song.time}}
+                  {{track.time}}
                 </div>
                 <div class="small-1 columns add">
-                  <a href="#" ng-click="removeSong(goal.id, song)">-</a>
+                  <a href="#" ng-click="removeSong(goal.id, track)">-</a>
                 </div>
               </div>
             </div>
@@ -100,7 +100,7 @@
       </div>
 
     </div>
-    <div class="small-9 columns songs">
+    <div class="small-9 columns tracks">
       <div class="row chunk">
         &nbsp;
       </div>
@@ -110,7 +110,7 @@
           &nbsp;
         </div>
         <div class="small-16 columns">
-          <h3>Choose a song for <span id="song-name">'Warm Up'</span></h3>
+          <h3>Choose a track for <span id="track-name">'Warm Up'</span></h3>
 
           <div class="row showing">
             <div class="small-14 columns">
@@ -131,7 +131,7 @@
           &nbsp;
         </div>
         <div class="small-14 columns search">
-          <input name="songs" type="text" placeholder="Search">
+          <input name="tracks" type="text" placeholder="Search">
         </div>
         <div class="small-2 columns">
           &nbsp;
@@ -143,25 +143,25 @@
           &nbsp;
         </div>
         <div class="small-16 columns">
-          <div class="row song" draggable id="song{{song.id}}" data-ng-repeat="song in songs">
+          <div class="row track" draggable id="track{{track.id}}" data-ng-repeat="track in tracks">
             <div class="small-1 columns play">
               Play
             </div>
             <div class="small-9 columns">
-              <span class="song-name">{{song.name}}</span>
-              <span class="artist">{{song.artist}}</span>
+              <span class="track-name">{{track.name}}</span>
+              <span class="artist">{{track.artist}}</span>
             </div>
             <div class="small-3 columns genre">
-              {{song.genre}}
+              {{track.genre}}
             </div>
             <div class="small-2 columns bpm">
-              {{song.bpm}} bpm
+              {{track.bpm}} bpm
             </div>
             <div class="small-2 columns time">
-              {{song.time}}
+              {{track.time}}
             </div>
             <div class="small-1 columns add">
-              <a href="#" ng-click="addSong(song)">+</a>
+              <a href="#" ng-click="addSong(track)">+</a>
             </div>
           </div>
         </div>

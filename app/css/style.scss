@@ -102,7 +102,7 @@ input[type="text"].class_name {
   }
 }
 
-#song-name {
+#track-name {
   font-weight: bold;
 }
 
@@ -115,9 +115,9 @@ input[type="text"].class_name {
   }
 }
 
-/* The right songs sidebar */
+/* The right tracks sidebar */
 
-.songs {
+.tracks {
   color: $white;
 
   h3 {
@@ -155,7 +155,7 @@ input[type="text"].class_name {
   }
 }
 
-.song {
+.track {
   padding-top: rem-calc(10px);
   padding-bottom: rem-calc(10px);
   line-height: 18px;
@@ -173,7 +173,7 @@ input[type="text"].class_name {
     cursor: default;
   }
 
-  .song-name {
+  .track-name {
     display: block;
     font-weight: bold;
     clear: both;
@@ -211,7 +211,7 @@ input[type="text"].class_name {
   margin-bottom: 20px;
 }
 
-.song.dropped {
+.track.dropped {
   line-height: 40px;
   vertical-align: middle;
   cursor: default;
@@ -224,7 +224,7 @@ input[type="text"].class_name {
   }
   text-align: left;
 
-  .song-name {
+  .track-name {
     float: left;
   }
 
@@ -240,6 +240,6 @@ input[type="text"].class_name {
 
 /* TODO: remove me - for initial structure building only  */
 
-.songs {
+.tracks {
   min-height: 100%;
 }
