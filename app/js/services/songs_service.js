@@ -2,7 +2,6 @@
  * Created by rogersaner on 15/09/07.
  */
 angular.module("app").factory('SongsService', function () {
-  // TODO: is this structure ok?
   var songs = [
     {
       id: 100,
