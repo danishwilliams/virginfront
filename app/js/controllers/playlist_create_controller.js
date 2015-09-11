@@ -16,7 +16,7 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
   $scope.tracks = TracksService.getTracks();
 
   // Add a track to a goal playlist
-  $scope.addSong = function(track) {
+  $scope.addTrack = function(track) {
     // If there are already tracks don't add one
     var tracks = PlaylistService.getGoalPlaylist($scope.goalid);
     if (tracks.length > 0) { return; }
@@ -33,8 +33,8 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
   };
 
   // Remove a track from a goal playlist
-  $scope.removeSong = function(goalid, track) {
-    PlaylistService.removeSongFromGoalPlaylist(goalid, track);
+  $scope.removeTrack = function(goalid, track) {
+    PlaylistService.removeTrackFromGoalPlaylist(goalid, track);
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + goalid);
