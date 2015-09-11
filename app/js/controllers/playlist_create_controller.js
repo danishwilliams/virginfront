@@ -17,7 +17,7 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
 
   //$scope.songs = SongsService.getSongs();
 
-  $scope.$on('playlistLoaded', function () {
+  $scope.$on('tracksLoaded', function () {
     $scope.$apply(function () {
       $scope.songs = SongsService.getSongs();
     });

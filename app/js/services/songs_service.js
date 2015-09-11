@@ -47,25 +47,44 @@ angular.module("app").factory('SongsService', function ($rootScope) {
         onload: function (response) {
           console.log('DZ.player is ready', response);
 
-          DZ.player.playPlaylist(1368297815, false, function (response) {
-            console.log("List of track objects", response.tracks);
-            var i = 0;
-            var numberTracks = _.size(response.tracks);
-
+          var genreid = 106; // Electro
+          DZ.api('/chart/' + genreid + '?limit=50', function (response) {
             // Transform the Deezer tracks into the kind of array we want
-            response.tracks.forEach(function (track) {
+            response.tracks.data.forEach(function (track) {
+
+              // We need to do a separate call to get the bpm
+              DZ.api('/track/' + track.id, function (response) {
                 songs.push({
                   id: parseInt(track.id),
                   name: track.title,
                   artist: track.artist.name,
-                  genre: 'No genre',
-                  bpm: '0',
+                  genre: 'Electro',
+                  bpm: response.bpm,
                   time: track.duration
                 });
-              i++;
+                // TODO: probably refactor this so that we only have to call the broadcast once, updating the object
+                $rootScope.$broadcast('tracksLoaded');
+              });
             });
-            $rootScope.$broadcast('playlistLoaded');
           });
+
+          /*
+          DZ.player.playPlaylist(1368297815, false, function (response) {
+            console.log("List of track objects", response.tracks);
+            // Transform the Deezer tracks into the kind of array we want
+            response.tracks.forEach(function (track) {
+              songs.push({
+                id: parseInt(track.id),
+                name: track.title,
+                artist: track.artist.name,
+                genre: 'No genre',
+                bpm: '0',
+                time: track.duration
+              });
+            });
+            $rootScope.$broadcast('tracksLoaded');
+          });
+          */
         }
       }
     });
@@ -76,13 +95,6 @@ angular.module("app").factory('SongsService', function ($rootScope) {
     e.async = true;
     document.getElementById('dz-root').appendChild(e);
   }());
-=======
-      bpm: 80,
-      time: 245,
-      source: 'https://cdn.example.com/path/to/track.mp3'
-    }
-  ];
->>>>>>> master
 
   return {
     getSongs: function () {
