@@ -10,7 +10,7 @@ angular.module("app").factory('TracksService', function () {
       album: 'Salute',
       genre: 'Pop',
       bpm: 141,
-      time: 193,
+      duration: 193,
       source: 'https://cdn.example.com/path/to/track.mp3'
     },
     {
@@ -20,7 +20,7 @@ angular.module("app").factory('TracksService', function () {
       genre: 'Alternative',
       album: 'Salute',
       bpm: 80,
-      time: 233,
+      duration: 233,
       source: 'https://cdn.example.com/path/to/track.mp3'
     },
     {
@@ -30,7 +30,7 @@ angular.module("app").factory('TracksService', function () {
       album: 'Salute',
       genre: 'R&B/Soul',
       bpm: 80,
-      time: 245,
+      duration: 245,
       source: 'https://cdn.example.com/path/to/track.mp3'
     }
   ];
