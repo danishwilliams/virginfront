@@ -127,6 +127,10 @@ input[type="text"].class_name {
     line-height: rem-calc(45px);
     text-align: right;
   }
+
+  .active {
+    border: 2px solid $red;
+  }
 }
 
 #track-name {

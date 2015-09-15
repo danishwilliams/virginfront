@@ -55,8 +55,8 @@
         <div class="small-2 columns">
           &nbsp;
         </div>
-        <div class="small-15 columns goal-container">
-          <div class="row goal-name" ng-click="goal.show = !goal.show">
+        <div class="small-15 columns goal-container" ng-class="{'active': isGoalActive(goal)}">
+          <div class="row goal-name" ng-click="goalClicked(goal)">
             <div class="small-14 columns">
               <h4>{{goal.goal}}</h4>
             </div>

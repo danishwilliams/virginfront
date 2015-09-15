@@ -1,6 +1,7 @@
 angular.module("app").controller('PlaylistCreateController', function ($scope, $location, AuthenticationService, TracksService, PlaylistService, $http) {
   $scope.title = "Add a Ride";
   $scope.goalid = 0; // The active goal playlist which tracks can be added to
+  $scope.currentgoal = 0; // The currently selected goal
 
   // TODO: move the 0 into some kind of persistent state
   $http.get('/api/v1.0/rides/0').success(function (data) {
@@ -14,6 +15,36 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
   });
 
   $scope.tracks = TracksService.getTracks();
+
+  /**
+   * The user has just clicked on a goal; potentially open/close it and make it active/inactive
+   * @param goal
+   */
+  $scope.goalClicked = function(goal) {
+    // User has clicked on an open, unselected goal, so don't collapse it
+    if (this.goal.show) {
+
+      // Collapse this open and selected goal
+      if ($scope.currentgoal === this.goal.id) {
+        this.goal.show = !this.goal.show;
+      }
+    }
+    else {
+      this.goal.show = !this.goal.show;
+    }
+    $scope.currentgoal = this.goal.id;
+  };
+
+  /**
+   * Is this an active goal?
+   * @param goal
+   * @returns {boolean}
+   */
+  $scope.isGoalActive = function(goal) {
+    if (this.goal.show === true && $scope.currentgoal === this.goal.id) {
+      return true;
+    }
+  };
 
   // Add a track to a goal playlist
   $scope.addTrack = function(track) {
