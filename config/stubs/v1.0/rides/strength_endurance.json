@@ -9,23 +9,23 @@
         "tracks": [
           {
             "id": 0,
-            "name": 'Black Magic',
-            "artist": 'Little Mix',
-            "album": 'Salute',
-            "genre": 'Pop',
+            "name": "Black Magic",
+            "artist": "Little Mix",
+            "album": "Salute",
+            "genre": "Pop",
             "source": "https://cdn.example.com/path/to/track.mp3",
             "duration": 193,
-            "order": 0,
+            "order": 0
           },
           {
             "id": 198438,
-            "name": 'Black Magic',
-            "artist": 'Little Mix',
-            "album": 'Salute',
-            "genre": 'Pop',
+            "name": "Black Magic",
+            "artist": "Little Mix",
+            "album": "Salute",
+            "genre": "Pop",
             "source": "https://cdn.example.com/path/to/track.mp3",
             "duration": 193,
-            "order": 1,
+            "order": 1
           }
         ]
       },
@@ -35,23 +35,23 @@
         "tracks": [
           {
             "id": 0,
-            "name": 'Black Magic',
-            "artist": 'Little Mix',
-            "album": 'Salute',
-            "genre": 'Pop',
+            "name": "Black Magic",
+            "artist": "Little Mix",
+            "album": "Salute",
+            "genre": "Pop",
             "source": "https://cdn.example.com/path/to/track.mp3",
             "duration": 193,
-            "order": 0,
+            "order": 0
           },
           {
             "id": 198438,
-            "name": 'Black Magic',
-            "artist": 'Little Mix',
-            "album": 'Salute',
-            "genre": 'Pop',
+            "name": "Black Magic",
+            "artist": "Little Mix",
+            "album": "Salute",
+            "genre": "Pop",
             "source": "https://cdn.example.com/path/to/track.mp3",
             "duration": 193,
-            "order": 1,
+            "order": 1
           }
         ]
       }
