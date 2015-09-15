@@ -34,7 +34,7 @@
   </div>
 
   <div class="row playlist-container">
-    <div class="small-9 columns">
+    <div class="small-9 columns goals-container">
       <div class="row goal-name">
         <div class="small-18 columns ride-type">
           <div class="row chunk">
@@ -55,19 +55,17 @@
         <div class="small-2 columns">
           &nbsp;
         </div>
-        <div class="small-14 columns">
-          <div class="row">
+        <div class="small-15 columns goal-container">
+          <div class="row goal-name" ng-click="goal.show = !goal.show">
             <div class="small-14 columns">
-              <div class="goal-name">
-                {{$index + 1}}. {{goal.goal}}
-              </div>
+              <h4>{{goal.goal}}</h4>
             </div>
             <div class="small-4 columns bpm">
               {{ goal.bpm_low }} - {{ goal.bpm_high }} bpm
             </div>
           </div>
           <div class="row">
-            <div class="bin" id="bin{{goal.id}}" ng-show="$index == 0" droppable>
+            <div class="bin" id="bin{{goal.id}}" ng-show="goal.show" droppable>
               <div class="empty-text">Drag and drop your track here</div>
               <div class="row track dropped" id="playlist{{goal.id}}{{track.id}}" data-ng-repeat="track in playlist[goal.id]">
                 <div class="small-1 columns play">
@@ -85,7 +83,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row goal-meta" ng-click="goal.show = !goal.show" ng-show="goal.show">
             <div class="small-14 columns">
               Leg speed: {{ goal.rpm_low }} - {{ goal.rpm_high }} RPM
             </div>
@@ -94,7 +92,7 @@
             </div>
           </div>
         </div>
-        <div class="small-2 columns">
+        <div class="small-1 columns">
           &nbsp;
         </div>
       </div>
