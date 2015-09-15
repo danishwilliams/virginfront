@@ -1,6 +1,7 @@
 angular.module("app").controller('PlaylistCreateController', function ($scope, $location, AuthenticationService, TracksService, PlaylistService, $http) {
   $scope.title = "Add a Ride";
-  $scope.currentgoal = 0; // The currently selected goal which tracks can be added to
+  $scope.currentgoal = {id: 0, bpm_low: 0, bpm_high: 0} ; // The currently selected goal which tracks can be added to
+
 
   // TODO: move the 0 into some kind of persistent state
   $http.get('/api/v1.0/rides/0').success(function (data) {
@@ -24,14 +25,16 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
     if (this.goal.show) {
 
       // Collapse this open and selected goal
-      if ($scope.currentgoal === this.goal.id) {
+      if ($scope.currentgoal.id === this.goal.id) {
         this.goal.show = !this.goal.show;
       }
     }
     else {
       this.goal.show = !this.goal.show;
     }
-    $scope.currentgoal = this.goal.id;
+    $scope.currentgoal.id = this.goal.id;
+    $scope.currentgoal.bpm_low = this.goal.bpm_low;
+    $scope.currentgoal.bpm_high = this.goal.bpm_high;
   };
 
   /**
@@ -40,21 +43,26 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
    * @returns {boolean}
    */
   $scope.isGoalActive = function(goal) {
-    if (this.goal.show === true && $scope.currentgoal === this.goal.id) {
+    if (this.goal.show === true && $scope.currentgoal.id === this.goal.id) {
       return true;
     }
   };
 
   // Add a track to a goal playlist
   $scope.addTrack = function(track) {
+    if (track.bpm < $scope.currentgoal.bpm_low || track.bpm > $scope.currentgoal.bpm_high) {
+      // TODO: show some kind of helpful error message to the user
+      return;
+    }
+
     // If there are already tracks don't add one
-    var tracks = PlaylistService.getGoalPlaylist($scope.currentgoal);
+    var tracks = PlaylistService.getGoalPlaylist($scope.currentgoal.id);
     if (tracks.length > 0) { return; }
 
-    PlaylistService.trackDropped($scope.currentgoal, track);
+    PlaylistService.trackDropped($scope.currentgoal.id, track);
 
     // A track was "dropped"
-    var bin = document.getElementById("bin" + $scope.currentgoal);
+    var bin = document.getElementById("bin" + $scope.currentgoal.id);
     bin.classList.add('dropped');
     bin.removeAttribute('droppable');
 
