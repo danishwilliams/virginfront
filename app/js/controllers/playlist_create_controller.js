@@ -24,6 +24,16 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
 
   $scope.tracks = TracksService.getTracks();
 
+  $http.get('/api/v1.0/playlists/0').success(function (data) {
+    // Extract the track data
+    data.goals.forEach(function(value) {
+      $scope.currentgoal.id = value.id;
+      $scope.addTrackSuccess(value.track);
+      PlaylistService.addTrackToGoalPlaylist(value.id, value.track);
+    });
+    $scope.playlist = PlaylistService.getPlaylist();
+  });
+
   /**
    * The user has just clicked on a goal; potentially open/close it and make it active/inactive
    * @param goal
@@ -56,7 +66,7 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
     }
   };
 
-  // Add a track to a goal playlist
+  // Add a track to a goal playlist. If it passes our checks, call addTrackSuccess
   $scope.addTrack = function(track) {
     if (track.bpm < $scope.currentgoal.bpm_low || track.bpm > $scope.currentgoal.bpm_high) {
       // TODO: show some kind of helpful error message to the user
@@ -67,6 +77,14 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
     var tracks = PlaylistService.getGoalPlaylist($scope.currentgoal.id);
     if (tracks.length > 0) { return; }
 
+    $scope.addTrackSuccess(track);
+  };
+
+  /**
+   * A track has successfully been added, so do some DOM operations to show that
+   * @param track
+   */
+  $scope.addTrackSuccess = function(track) {
     PlaylistService.trackDropped($scope.currentgoal.id, track);
 
     // A track was "dropped"
