@@ -1,7 +1,6 @@
 angular.module("app").controller('PlaylistCreateController', function ($scope, $location, AuthenticationService, TracksService, PlaylistService, $http) {
   $scope.title = "Add a Ride";
-  $scope.goalid = 0; // The active goal playlist which tracks can be added to
-  $scope.currentgoal = 0; // The currently selected goal
+  $scope.currentgoal = 0; // The currently selected goal which tracks can be added to
 
   // TODO: move the 0 into some kind of persistent state
   $http.get('/api/v1.0/rides/0').success(function (data) {
@@ -49,13 +48,13 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
   // Add a track to a goal playlist
   $scope.addTrack = function(track) {
     // If there are already tracks don't add one
-    var tracks = PlaylistService.getGoalPlaylist($scope.goalid);
+    var tracks = PlaylistService.getGoalPlaylist($scope.currentgoal);
     if (tracks.length > 0) { return; }
 
-    PlaylistService.trackDropped($scope.goalid, track);
+    PlaylistService.trackDropped($scope.currentgoal, track);
 
     // A track was "dropped"
-    var bin = document.getElementById("bin" + $scope.goalid);
+    var bin = document.getElementById("bin" + $scope.currentgoal);
     bin.classList.add('dropped');
     bin.removeAttribute('droppable');
 
