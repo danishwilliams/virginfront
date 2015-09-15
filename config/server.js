@@ -17,6 +17,7 @@ module.exports = {
     var fs = require('fs');
     var api = 'config/stubs/';
     var version = 'v1.0';
+    var _ = require('underscore');
 
     app.post('/login', function(req, res) {
       res.json({ message: 'logging in!' });
@@ -74,5 +75,37 @@ module.exports = {
         res.end();
       });
     });
+
+    app.get('/api/v1.0/playlists/:id', function (req, res) {
+      var file = '/rides/strength_endurance.json';
+      fs.readFile(api + version + file, function(err, data) {
+        if (err) {
+          res.status(404).send('Not found');
+        } else {
+          // Add a track into each goal
+          var track = {
+            id: 100,
+            name: 'Black Magic',
+            artist: 'Little Mix',
+            album: 'Salute',
+            genre: 'Pop',
+            bpm: 141,
+            duration: 193,
+            source: 'https://cdn.example.com/path/to/track.mp3'
+          };
+
+          data = JSON.parse(data);
+
+          _.mapObject(data.goals, function(val, key) {
+            val.track = track;
+            return val;
+          });
+
+          res.header('Cache-Control', 'none').contentType('application/json').send(data);
+        }
+        res.end();
+      });
+    });
+
   }
 };
