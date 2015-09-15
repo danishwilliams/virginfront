@@ -116,6 +116,7 @@ input[type="text"].class_name {
 
   .goal-name, .goal-meta {
     cursor: pointer;
+    @include user-select('none');
   }
 
   h4 {
