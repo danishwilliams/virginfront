@@ -1,10 +1,18 @@
 angular.module("app").controller('PlaylistCreateController', function ($scope, $location, AuthenticationService, TracksService, PlaylistService, $http) {
   $scope.title = "Add a Ride";
-  $scope.currentgoal = {id: 0, bpm_low: 0, bpm_high: 0} ; // The currently selected goal which tracks can be added to
-
+  $scope.currentgoal = {id: 0, bpm_low: 0, bpm_high: 0}; // The currently selected goal which tracks can be added to
 
   // TODO: move the 0 into some kind of persistent state
   $http.get('/api/v1.0/rides/0').success(function (data) {
+    // Set the first goal as selected
+    _.mapObject(data.goals, function(val, key) {
+      if (key === '0') {
+        val.show = true;
+        $scope.currentgoal = {id: val.id, bpm_low: val.bpm_low, bpm_high: val.bpm_high};
+        return val;
+      }
+    });
+
     $scope.goals = data.goals;
     $scope.name = data.name;
 
