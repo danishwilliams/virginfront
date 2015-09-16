@@ -47,7 +47,7 @@ angular.module("app").factory('TracksService', function ($rootScope) {
           console.log('DZ.player is ready', response);
 
           var genreid = 106; // Electro
-          DZ.api('/chart/' + genreid + '?limit=300', function (response) {
+          DZ.api('/chart/' + genreid + '?limit=20', function (response) {
             var i = 0;
             var k = 0;
             var bpm = 0;
