@@ -47,12 +47,28 @@ angular.module("app").factory('TracksService', function ($rootScope) {
           console.log('DZ.player is ready', response);
 
           var genreid = 106; // Electro
-          DZ.api('/chart/' + genreid + '?limit=50', function (response) {
+          DZ.api('/chart/' + genreid + '?limit=300', function (response) {
+            var i = 0;
+            var k = 0;
+            var bpm = 0;
             // Transform the Deezer tracks into the kind of array we want
             response.tracks.data.forEach(function (track) {
 
               // We need to do a separate call to get the bpm
               DZ.api('/track/' + track.id, function (response) {
+                k++;
+
+                if (!response.bpm || response.bpm === 0) {
+                  return;
+                }
+
+                /*if (response.bpm < 160 || response.bpm > 180) {
+                  return;
+                }*/
+                bpm += response.bpm;
+                i++;
+                console.log("Average BPM for " + i + " tracks (total track API calls: " + k + "): " + bpm/i);
+
                 tracks.push({
                   id: parseInt(track.id),
                   name: track.title,
