@@ -46,6 +46,17 @@ angular.module("app").directive('droppable', function (PlaylistService) {
         function (e) {
           var binId = this.id;
           var goalid = binId.substring(3);
+          var trackElement = document.getElementById(e.dataTransfer.getData('Text'));
+
+          // Grab the angular model value
+          var track = angular.element(trackElement).scope().track;
+
+          // Check that the track BPM fits into the goal BPM range
+          var goal = angular.element(this).scope().goal;
+          if (track.bpm < goal.bpm_low || track.bpm > goal.bpm_high) {
+            // TODO: show some kind of helpful error message to the user
+            return;
+          }
 
           //TODO: refactor: move all of the below into PlayListService so that
 
@@ -55,11 +66,7 @@ angular.module("app").directive('droppable', function (PlaylistService) {
 
           this.classList.add('dropped');
           this.removeAttribute('droppable');
-          var trackElement = document.getElementById(e.dataTransfer.getData('Text'));
           trackElement.classList.add('ng-hide');
-
-          // Grab the angular model value
-          var track = angular.element(trackElement).scope().track;
 
           // Tell the playlist about the track dropped into a goal
           PlaylistService.trackDropped(goalid, track);

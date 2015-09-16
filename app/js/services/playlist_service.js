@@ -1,7 +1,7 @@
 /**
  * Created by rogersaner on 15/09/07.
  */
-angular.module("app").factory('PlaylistService', function (TracksService) {
+angular.module("app").factory('PlaylistService', function () {
   // An array of goal playlists. Each goal playlist contains an array of tracks.
   var playlist = [];
 

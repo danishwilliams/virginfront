@@ -14,7 +14,8 @@
     "lineman": "^0.34.0",
     "lineman-angular": "^0.3.0",
     "lineman-less": "0.0.1",
-    "protractor": "^1.4.0"
+    "protractor": "^1.4.0",
+    "underscore": "^1.8.3"
   },
   "scripts": {
     "start": "lineman run",

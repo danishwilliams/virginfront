@@ -1,7 +1,7 @@
 /*! style.css */
 
 $chunk_height: rem-calc(100px);
-$goal_padding: rem-calc(30px);
+$goal_padding: rem-calc(10px);
 $top_padding: rem-calc(40px);
 $radius: rem-calc(15px);
 
@@ -88,31 +88,54 @@ input[type="text"].class_name {
 }
 
 .playlist-container {
-  background-color: $grey_black;
+  background: $grey_black;
 }
 
-.goal {
-  background-color: $white;
-  padding: $goal_padding 0 $goal_padding 0;
-  border-bottom: 4px dotted $grey_light;
-
-  .goal-name {
-    font-weight: bold;
-    font-size: $h3-font-size;
-  }
-}
-
-#track-name {
-  font-weight: bold;
+.goals-container {
+  background: $white;
 }
 
 .ride-type {
-  background-color: $grey_light;
+  border-top: 1px solid $grey_lighter;
+  margin-bottom: rem-calc(10px);
 
   h3 {
     font-weight: bold;
     color: $grey_medium;
   }
+}
+
+.goal {
+  background-color: $white;
+  padding: rem-calc(5px) 0 rem-calc(5px) 0;
+
+  .goal-container {
+    border: 1px solid $grey_lighter;
+    padding: rem-calc(10px) rem-calc(20px) rem-calc(6px) rem-calc(20px);
+  }
+
+  .goal-name, .goal-meta {
+    cursor: pointer;
+    @include user-select('none');
+  }
+
+  h4 {
+    line-height: rem-calc(35px);
+  }
+
+  .bpm {
+    color: $grey_light;
+    line-height: rem-calc(45px);
+    text-align: right;
+  }
+
+  .active {
+    border: 2px solid $red;
+  }
+}
+
+#track-name {
+  font-weight: bold;
 }
 
 /* The right tracks sidebar */
