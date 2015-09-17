@@ -37,7 +37,7 @@
 
     </aside>
     <div class="row header content">
-      <div id="view" ng-viewport></div>
+      <ng-viewport></ng-viewport>
     </div>
   </div>
 </div>
