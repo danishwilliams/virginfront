@@ -71,6 +71,20 @@ Edit ```node_modules/lineman-angular/config/plugins/ngtemplates.coffee``` and en
         tasks: ["ngtemplates", "concat_sourcemap:js"]
 ```
 
+#### controller-as syntax
+
+ngNewRouter wants all controllers to use controller-as syntax. Google it. A common error when refactoring is:
+
+#### Could not instantiate controller
+
+Means that there's an error in the controller construction, probably that you've done this:
+
+```$scope.functionname = function() {```
+
+instead of
+
+```this.functionname = function() {```
+
 
 Changing stub files
 -------------------

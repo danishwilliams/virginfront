@@ -4,14 +4,14 @@
       &nbsp;
     </div>
     <div class="large-5 columns">
-      <a href="#">&lt; Back</a>
+      <a>&lt; Back</a>
     </div>
     <div class="large-12 columns">
       <ol class="inline-list workflow">
-        <li class="completed"><span>1</span><a href="#">Ride template</a></li>
-        <li class="completed"><span>2</span><a href="#">Create playlist</a></li>
-        <li class="upcoming"><span>3</span><a href="#">Review</a></li>
-        <li class="upcoming"><span>4</span><a href="#">Publish to device</a></li>
+        <li class="completed"><span>1</span><a>Ride template</a></li>
+        <li class="completed"><span>2</span><a>Create playlist</a></li>
+        <li class="upcoming"><span>3</span><a>Review</a></li>
+        <li class="upcoming"><span>4</span><a>Publish to device</a></li>
       </ol>
     </div>
   </div>
@@ -42,7 +42,7 @@
               &nbsp;
             </div>
             <div class="small-14 columns">
-              <h3>{{ name }}</h3>
+              <h3>{{ playlist.name }}</h3>
             </div>
             <div class="small-2 columns">
               &nbsp;
@@ -51,12 +51,12 @@
         </div>
       </div>
 
-      <div class="row goal" ng-repeat="goal in goals">
+      <div class="row goal" ng-repeat="goal in playlist.goals">
         <div class="small-2 columns">
           &nbsp;
         </div>
-        <div class="small-15 columns goal-container" ng-class="{'active': isGoalActive(goal)}">
-          <div class="row goal-name" ng-click="goalClicked(goal)">
+        <div class="small-15 columns goal-container" ng-class="{'active': playlist.isGoalActive(goal)}">
+          <div class="row goal-name" ng-click="playlist.goalClicked(goal)">
             <div class="small-14 columns">
               <h4>{{goal.goal}}</h4>
             </div>
@@ -67,7 +67,7 @@
           <div class="row">
             <div class="bin" id="bin{{goal.id}}" ng-show="goal.show" droppable>
               <div class="empty-text">Drag and drop your track here</div>
-              <div class="row track dropped" id="playlist{{goal.id}}{{track.id}}" data-ng-repeat="track in playlist[goal.id]">
+              <div class="row track dropped" id="playlist{{goal.id}}{{track.id}}" data-ng-repeat="track in playlist.playlist[goal.id]">
                 <div class="small-1 columns play">
                   Play
                 </div>
@@ -78,7 +78,7 @@
                   {{track.time}}
                 </div>
                 <div class="small-1 columns add">
-                  <a href="#" ng-click="removeTrack(goal.id, track)">-</a>
+                  <a ng-click="playlist.removeTrack(goal.id, track)">-</a>
                 </div>
               </div>
             </div>
@@ -88,7 +88,7 @@
               Leg speed: {{ goal.rpm_low }} - {{ goal.rpm_high }} RPM
             </div>
             <div class="small-4 columns bpm">
-              <a href="#">+ Add more notes</a>
+              <a>+ Add more notes</a>
             </div>
           </div>
         </div>
@@ -141,7 +141,7 @@
           &nbsp;
         </div>
         <div class="small-16 columns">
-          <div class="row track" draggable id="track{{track.id}}" data-ng-repeat="track in tracks">
+          <div class="row track" draggable id="track{{track.id}}" data-ng-repeat="track in playlist.tracks">
             <div class="small-1 columns play">
               Play
             </div>
@@ -159,7 +159,7 @@
               {{track.time}}
             </div>
             <div class="small-1 columns add">
-              <a href="#" ng-click="addTrack(track)">+</a>
+              <a ng-click="playlist.addTrack(track)">+</a>
             </div>
           </div>
         </div>
