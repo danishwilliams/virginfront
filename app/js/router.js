@@ -1,3 +1,4 @@
+/*
 angular.module("app").config(function($routeProvider, $locationProvider) {
 
   $locationProvider.html5Mode({enabled:true});
@@ -30,3 +31,4 @@ angular.module("app").config(function($routeProvider, $locationProvider) {
   $routeProvider.otherwise({ redirectTo: '/login' });
 
 });
+*/

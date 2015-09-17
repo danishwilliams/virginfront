@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html>
 <head>
   <base href="/"></base>
   <title><%= pkg.title %></title>
   <link rel="stylesheet" type="text/css" href="/css/app.css" media="all"/>
 </head>
-<body>
+<body ng-app="app" ng-controller="AppController as app">
 <div class="off-canvas-wrap move-right" data-offcanvas="">
   <div class="inner-wrap">
     <!-- Off Canvas Menu -->
@@ -37,7 +37,7 @@
 
     </aside>
     <div class="row header content">
-      <div id="view" ng-view></div>
+      <div id="view" ng-viewport></div>
     </div>
   </div>
 </div>

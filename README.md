@@ -31,7 +31,7 @@ Backend API mocking
 Including the little hack for lineman to recognise changed json files without a restart
 https://github.com/linemanjs/lineman/issues/318#issuecomment-137464341
 
- Edit node_modules/lineman/tasks/server.coffee and change the following lines from
+ Edit ```node_modules/lineman/tasks/server.coffee``` and change the following lines from
 
 ```
   resetRoutesOnServerConfigChange = (app) ->
@@ -49,6 +49,27 @@ This allows for file changes without restarting lineman, but for some reason liv
 
 
 http://zurb.com/building-blocks/off-canvas-sidebar-component
+
+ngNewRouter
+-----------
+
+#### Adding components/login/login.html to the template cache and watching the ngNewRouter component structure
+
+Edit ```node_modules/lineman-angular/config/plugins/ngtemplates.coffee``` and ensure the following is in there:
+
+```
+    ngtemplates:
+      app:
+        options:
+          base: "app/templates"
+        src: ["app/templates/**/*.html", "app/js/components/**/*.html"]
+        dest: "<%= files.ngtemplates.dest %>"
+
+    watch:
+      ngtemplates:
+        files: ["app/templates/**/*.html", "app/js/components/**/*.html"]
+        tasks: ["ngtemplates", "concat_sourcemap:js"]
+```
 
 
 Changing stub files
