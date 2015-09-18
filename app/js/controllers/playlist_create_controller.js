@@ -4,6 +4,7 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
   $scope.tracks = {};
   $scope.playing = false;
   $scope.currentgoal = {id: 0, bpm_low: 0, bpm_high: 0}; // The currently selected goal which tracks can be added to
+  $scope.playlist = [];
 
   // TODO: move the 0 into some kind of persistent state
   $http.get('/api/v1.0/rides/0').success(function (data) {
@@ -124,11 +125,15 @@ angular.module("app").controller('PlaylistCreateController', function ($scope, $
 
     // A track was "dropped"
     var bin = document.getElementById("bin" + $scope.currentgoal.id);
-    bin.classList.add('dropped');
-    bin.removeAttribute('droppable');
+    if (bin) {
+      bin.classList.add('dropped');
+      bin.removeAttribute('droppable');
+    }
 
     var trackElement = document.getElementById("track" + track.id);
-    trackElement.classList.add('ng-hide');
+    if (trackElement) {
+      trackElement.classList.add('ng-hide');
+    }
   };
 
   // Remove a track from a goal playlist
