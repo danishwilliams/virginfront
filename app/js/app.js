@@ -1,10 +1,29 @@
-angular.module("app", ["ngResource", "ngRoute"]).run(function($rootScope) {
-  // adds some basic utilities to the $rootScope for debugging purposes
-  $rootScope.log = function(thing) {
-    console.log(thing);
-  };
+function AppController($router) {
+  console.log('AppController instantiated');
+  $router.config([
+    { path: '/', redirectTo: '/login' },
+    { path: '/login', component: 'login' },
+    { path: '/playlist-create', component: 'playlist' },
+  ]);
+}
 
-  $rootScope.alert = function(thing) {
-    alert(thing);
-  };
-});
+angular
+  .module("app", ["ngResource", "ngNewRouter", "app.login", "app.playlist"])
+  .controller("AppController", ['$router', AppController])
+  .config(function ($componentLoaderProvider) {
+    /*
+     * overriding the template mapping of the new router to make it
+     * compatible with grunt-angular-templates
+     */
+    $componentLoaderProvider.setTemplateMapping(function (name) {
+      var dashName = dashCase(name);
+      console.log(dashName);
+      return '../js/components/' + dashName + '/' + dashName + '.html';
+    });
+  });
+
+/*
+AppController.$inject = [
+  '$router'
+];
+*/
