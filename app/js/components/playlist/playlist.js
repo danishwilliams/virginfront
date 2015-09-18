@@ -1,5 +1,5 @@
 angular.module("app.playlist", []).controller('PlaylistController', function ($location, AuthenticationService, TracksService, PlaylistService, $http) {
-  var playlist = this;
+  var self = this;
   var currentgoal = {id: 0, bpm_low: 0, bpm_high: 0}; // The currently selected goal which tracks can be added to
   var playing = false; // If music is playing or not
 
@@ -21,13 +21,13 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
       }
     });
 
-    playlist.goals = data.goals;
-    playlist.name = data.name;
+    self.goals = data.goals;
+    self.name = data.name;
 
     // Set up a placeholder playlist structure
     PlaylistService.setupEmptyPlaylist(data.goals);
 
-    playlist.playlist = PlaylistService.getPlaylist();
+    self.playlist = PlaylistService.getPlaylist();
   });
 
   //this.tracks = TracksService.getTracks();
@@ -76,10 +76,10 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
     // Extract the track data
     data.goals.forEach(function(value) {
       currentgoal.id = value.id;
-      playlist.addTrackSuccess(value.track);
+      self.addTrackSuccess(value.track);
       PlaylistService.addTrackToGoalPlaylist(value.id, value.track);
     });
-    playlist.playlist = PlaylistService.getPlaylist();
+    self.playlist = PlaylistService.getPlaylist();
   });
   */
 
@@ -115,7 +115,7 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
     }
   };
 
-  // Add a track to a goal playlist. If it passes our checks, call addTrackSuccess
+  // Add a track to a goal self. If it passes our checks, call addTrackSuccess
   this.addTrack = function(track) {
     if (track.bpm < currentgoal.bpm_low || track.bpm > currentgoal.bpm_high) {
       // TODO: show some kind of helpful error message to the user
@@ -126,7 +126,7 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
     var tracks = PlaylistService.getGoalPlaylist(currentgoal.id);
     if (tracks.length > 0) { return; }
 
-    playlist.addTrackSuccess(track);
+    self.addTrackSuccess(track);
   };
 
   /**
