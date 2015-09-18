@@ -69,7 +69,7 @@
               <div class="empty-text">Drag and drop your track here</div>
               <div class="row track dropped" id="playlist{{goal.id}}{{track.id}}" data-ng-repeat="track in playlist[goal.id]">
                 <div class="small-1 columns play">
-                  <a href="#" ng-click="playSong(song.id)">Play</a>
+                  <a href="#" ng-click="playTrack(track.id)">Play</a>
                 </div>
                 <div class="small-14 columns">
                   <span class="track-name">{{track.name}}</span> <span class="artist">{{track.artist}}</span> | <span class="bpm">{{track.bpm}} bpm</span>
@@ -143,7 +143,7 @@
         <div class="small-16 columns">
           <div class="row track" draggable id="track{{track.id}}" data-ng-repeat="track in tracks">
             <div class="small-1 columns play">
-              <a href="#" ng-click="playSong(song.id)">Play</a>
+              <a href="#" ng-click="playTrack(track.id)">Play</a>
             </div>
             <div class="small-9 columns">
               <span class="track-name">{{track.name}}</span>
