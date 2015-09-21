@@ -1,7 +1,7 @@
 /**
  * Created by rogersaner on 15/09/04.
  */
-angular.module("app").directive('droppable', function (PlaylistService) {
+angular.module("app").directive('droppable', function (PlaylistFactory) {
   return {
     scope: {
       drop: '&', // parent
@@ -58,10 +58,10 @@ angular.module("app").directive('droppable', function (PlaylistService) {
             return;
           }
 
-          //TODO: refactor: move all of the below into PlayListService so that
+          //TODO: refactor: move all of the below into PlayListFactory so that
 
           // If there are already tracks don't add one
-          var tracks = PlaylistService.getGoalPlaylist(goalid);
+          var tracks = PlaylistFactory.getGoalPlaylist(goalid);
           if (tracks.length > 0) { return false; }
 
           this.classList.add('dropped');
@@ -69,7 +69,7 @@ angular.module("app").directive('droppable', function (PlaylistService) {
           trackElement.classList.add('ng-hide');
 
           // Tell the playlist about the track dropped into a goal
-          PlaylistService.trackDropped(goalid, track);
+          PlaylistFactory.trackDropped(goalid, track);
 
           // TODO: at some point this needs to also track which playlist we're building, although that might be done on url
 

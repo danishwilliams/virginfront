@@ -3,46 +3,23 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
   var playing = false; // If music is playing or not
 
   this.title = "Add a Ride";
-  this.goals = PlaylistFactory.goals;
-  this.name = PlaylistFactory.name;
-  this.playlist = PlaylistFactory.playlist;
-  this.tracks = TracksFactory.tracks;
+  this.playlist = PlaylistFactory.getPlaylist();
+  this.tracks = TracksService.getTracks();
+  this.goals = PlaylistFactory.getGoals();
+  this.currentgoal = PlaylistFactory.getCurrentGoal();
+  this.name = '';
 
-  // TODO: move the 0 into some kind of persistent state
-  $http.get('/api/v1.0/rides/0').success(function (data) {
-    // Set the first goal as selected
-    _.mapObject(data.goals, function (val, key) {
-      if (key === '0') {
-        val.show = true;
-        PlaylistFactory.currentgoal = {id: val.id, bpm_low: val.bpm_low, bpm_high: val.bpm_high};
-        return val;
-      }
-    });
-
-    // TODO: I don't know how to set these in PlaylistFactory but have the data binding work i.e. value changes aren't showing on the view
-    // This pattern of moving variables into a Factory and then binding them in a controller with this.variable = Factory.variable works
-    // with playlist and tracks but not with goals, name and currentgoal. No idea why.
-    // It's probably because I'm doing this within a $http callback so angular doesn't know about it?
-    // Or maybe there's a $rootScope.$apply(); which has to run after this gets assigned? Damned if I know.
+  PlaylistFactory.loadGoals().then(function (data) {
     self.goals = data.goals;
     self.name = data.name;
-
-    // Set up a placeholder playlist structure
-    PlaylistService.setupEmptyPlaylist(data.goals);
   });
 
-  this.loadPlaylist = function () {
-    // Load a saved playlist
-    $http.get('/api/v1.0/playlists/0').success(function (data) {
-      // Extract the track data
-      data.goals.forEach(function (value) {
-        PlaylistFactory.currentgoal.id = value.id;
-        // TODO: this should be refactored so this entire $http function can be moved into the Playlist service
-        self.addTrackSuccess(value.track);
-        PlaylistService.addTrackToGoalPlaylist(value.id, value.track);
-      });
+  PlaylistFactory.loadPlaylist().then(function (data) {
+    data.forEach(function(value) {
+      self.currentgoal.id = value.id;
+      self.addTrackSuccess(value.track);
     });
-  };
+  });
 
   this.playTrack = function (trackid) {
     if (trackid === TracksFactory.playertrack[0]) {
@@ -75,16 +52,14 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
     if (goal.show) {
 
       // Collapse this open and selected goal
-      if (PlaylistFactory.currentgoal.id === goal.id) {
+      if (self.currentgoal.id === goal.id) {
         goal.show = !goal.show;
       }
     }
     else {
       goal.show = !goal.show;
     }
-    PlaylistFactory.currentgoal.id = goal.id;
-    PlaylistFactory.currentgoal.bpm_low = goal.bpm_low;
-    PlaylistFactory.currentgoal.bpm_high = goal.bpm_high;
+    PlaylistFactory.setCurrentGoal({id: goal.id, bpm_low: goal.bpm_low, bpm_high: goal.bpm_high});
   };
 
   /**
@@ -92,22 +67,25 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
    * @param goal
    * @returns {boolean}
    */
-  this.isGoalActive = function(goal) {
-    if (goal.show === true && PlaylistFactory.currentgoal.id === goal.id) {
+  this.isGoalActive = function (goal) {
+    if (goal.show === true && self.currentgoal.id === goal.id) {
       return true;
     }
   };
 
   // Add a track to a goal self. If it passes our checks, call addTrackSuccess
-  this.addTrack = function(track) {
-    if (track.bpm < PlaylistFactory.currentgoal.bpm_low || track.bpm > PlaylistFactory.currentgoal.bpm_high) {
+  this.addTrack = function (track) {
+    if (track.bpm < self.currentgoal.bpm_low || track.bpm > self.currentgoal.bpm_high) {
       // TODO: show some kind of helpful error message to the user
       return;
     }
 
     // If there are already tracks don't add one
-    var tracks = PlaylistService.getGoalPlaylist(PlaylistFactory.currentgoal.id);
-    if (tracks.length > 0) { return; }
+    var goalplaylist = PlaylistFactory.getGoalPlaylist();
+    var tracks = goalplaylist(self.currentgoal.id);
+    if (tracks.length > 0) {
+      return;
+    }
 
     self.addTrackSuccess(track);
   };
@@ -117,13 +95,15 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
    * @param track
    */
   this.addTrackSuccess = function (track) {
-    PlaylistService.trackDropped(PlaylistFactory.currentgoal.id, track);
+    PlaylistFactory.trackDropped(self.currentgoal.id, track);
 
     // A track was "dropped"
-    console.log(PlaylistFactory.currentgoal.id);
     // TODO: take this out once we're loading actual playlists
-    if (PlaylistFactory.currentgoal.id > 9) {return;}
-    var bin = document.getElementById("bin" + PlaylistFactory.currentgoal.id);
+    if (self.currentgoal.id > 9) {
+      return;
+    }
+
+    var bin = document.getElementById("bin" + self.currentgoal.id);
     if (bin) {
       bin.classList.add('dropped');
       bin.removeAttribute('droppable');
@@ -136,8 +116,8 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
   };
 
   // Remove a track from a goal playlist
-  this.removeTrack = function(goalid, track) {
-    PlaylistService.removeTrackFromGoalPlaylist(goalid, track);
+  this.removeTrack = function (goalid, track) {
+    PlaylistFactory.removeTrackFromGoalPlaylist(goalid, track);
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + goalid);

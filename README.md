@@ -71,6 +71,8 @@ Some smarter approaches:
 * Controllers only used to control communication between different parts of the app. No model data should be created or persisted in the Controller. @see http://jonathancreamer.com/the-state-of-angularjs-controllers/ http://toddmotto.com/rethinking-angular-js-controllers/
 * Data is instantiated and persisted in Factories; changed in Services. @see http://www.sitepoint.com/tidy-angular-controllers-factories-services/
 * Typescript used to generate Javascript.
+* Factories and Services use the Revealing Module pattern for easier readability. @see http://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript
+  and http://webcache.googleusercontent.com/search?q=cache:JZ_dF3h505kJ:www.johnpapa.net/angular-function-declarations-function-expressions-and-readable-code/+&cd=1&hl=en&ct=clnk&gl=za
 
 Issues:
 * ngNewRouter can't instantiate a controller with $scope injected. This will probably be solved in Angular 1.5 but until then, even better reason to not use $scope. @see https://github.com/angular/router/issues/313
