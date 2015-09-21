@@ -1,3 +1,7 @@
+@author Roger Saner
+@email rsaner@deloitte.co.za
+@twitter twitter.com/rogersaner
+
 TODO
 ----
 
@@ -49,6 +53,28 @@ This allows for file changes without restarting lineman, but for some reason liv
 
 
 http://zurb.com/building-blocks/off-canvas-sidebar-component
+
+Angular Development approach
+----------------------------
+
+I've used Angular 1.4 keeping in mind an upgrade to 1.5 when it releases, and Angular 2.0 sometime in 2016. This means using some future-proof conventions which pave the
+upgrade path as smoothly as possible, rather than a massive refactor down the line:
+
+* using ngNewRouter rather than ui-router.
+* using "Controller As" syntax. @see http://toddmotto.com/digging-into-angulars-controller-as-syntax/
+* no $scope, anywhere. @see http://www.matheuslima.com/angularjs-stop-using-scope-variables/ http://www.technofattie.com/2014/03/21/five-guidelines-for-avoiding-scope-soup-in-angular.html
+
+Some smarter approaches:
+
+* no ng-controller. Rather, use custom components which consist of an html template and controller. @see http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html
+* Controllers only used to control communication between different parts of the app. No model data should be created or persisted in the Controller. @see http://jonathancreamer.com/the-state-of-angularjs-controllers/ http://toddmotto.com/rethinking-angular-js-controllers/
+* Data is instantiated and persisted in Factories; changed in Services. @see http://www.sitepoint.com/tidy-angular-controllers-factories-services/
+* Typescript used to generate Javascript.
+
+Issues:
+* ngNewRouter can't instantiate a controller with $scope injected. This will probably be solved in Angular 1.5 but until then, even better reason to not use $scope. @see https://github.com/angular/router/issues/313
+
+This section last updated: 21 September 2015
 
 ngNewRouter
 -----------
