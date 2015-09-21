@@ -1,4 +1,9 @@
-angular.module("app.login", []).controller('LoginController', function($location, AuthenticationService) {
+angular.module("app.login", [])
+  .controller('LoginController', LoginController);
+
+LoginController.$inject = ['$location', 'AuthenticationService'];
+
+function LoginController($location, AuthenticationService) {
   this.credentials = { username: "", password: "" };
 
   var onLoginSuccess = function() {
@@ -9,4 +14,4 @@ angular.module("app.login", []).controller('LoginController', function($location
   this.login = function() {
     AuthenticationService.login(this.credentials).success(onLoginSuccess);
   };
-});
+}

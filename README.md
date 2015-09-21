@@ -66,6 +66,7 @@ upgrade path as smoothly as possible, rather than a massive refactor down the li
 
 Some smarter approaches:
 
+* Follow John Papa's Angular Style guide. @see https://github.com/johnpapa/angular-styleguide
 * no ng-controller. Rather, use custom components which consist of an html template and controller. @see http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html
 * Controllers only used to control communication between different parts of the app. No model data should be created or persisted in the Controller. @see http://jonathancreamer.com/the-state-of-angularjs-controllers/ http://toddmotto.com/rethinking-angular-js-controllers/
 * Data is instantiated and persisted in Factories; changed in Services. @see http://www.sitepoint.com/tidy-angular-controllers-factories-services/
@@ -118,3 +119,12 @@ Changing stub files
 When changing json stubs, express doesn't automatically pick it up. Here's how to configure it to.
 
 https://github.com/linemanjs/lineman/issues/318#issuecomment-137464341
+
+JSHint error: 'PlaylistService' was used before it was defined.
+---------------------------------------------------------------
+
+This uses a technique called 'hoisting' where a function is used before it is defined. Fine for newer browsers.
+
+@see http://stackoverflow.com/a/26321623
+
+Change ```latedef``` to ```false``` in node_modules/lineman/config/plugins/jshint.coffee

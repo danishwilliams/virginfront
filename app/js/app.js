@@ -1,14 +1,9 @@
-function AppController($router) {
-  console.log('AppController instantiated');
-  $router.config([
-    { path: '/', redirectTo: '/login' },
-    { path: '/login', component: 'login' },
-    { path: '/playlist-create', component: 'playlist' },
-  ]);
-}
-
 angular
-  .module("app", ["ngResource", "ngNewRouter", "app.login", "app.playlist"])
+  .module("app", [
+    "ngResource",
+    "ngNewRouter",
+    "app.login",
+    "app.playlist"])
   .controller("AppController", ['$router', AppController])
   .config(function ($componentLoaderProvider) {
     /*
@@ -22,8 +17,11 @@ angular
     });
   });
 
-/*
-AppController.$inject = [
-  '$router'
-];
-*/
+function AppController($router) {
+  console.log('AppController instantiated');
+  $router.config([
+    {path: '/', redirectTo: '/login'},
+    {path: '/login', component: 'login'},
+    {path: '/playlist-create', component: 'playlist'},
+  ]);
+}

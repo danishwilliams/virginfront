@@ -1,7 +1,13 @@
 /**
  * Created by rogersaner on 15/09/07.
  */
-angular.module("app").factory('TracksService', function ($rootScope, TracksFactory) {
+angular
+  .module("app")
+  .service('TracksService', TracksService);
+
+TracksService.$inject = ['$rootScope', 'TracksFactory'];
+
+function TracksService($rootScope, TracksFactory) {
   var tracks = [
     {
       id: 100,
@@ -95,25 +101,19 @@ angular.module("app").factory('TracksService', function ($rootScope, TracksFacto
     document.getElementById('dz-root').appendChild(e);
   }());
 
-  return {
-    addTrack: function (track) {
-      TracksFactory.tracks.push(track);
-    },
-    getTracks: function () {
-      return TracksFactory.tracks;
-    },
-    getPlayerTrack: function () {
-      return TracksFactory.playerTrack;
-    },
-    setPlayerTrack: function (track) {
-      TracksFactory.playerTrack = [track];
-    }
+  this.addTrack = function (track) {
+    TracksFactory.tracks.push(track);
   };
-});
 
-angular.module("app").factory('TracksFactory', function () {
-  return {
-    tracks: [], // A list of track objects
-    playertrack: [] // The track loaded to the player
+  this.getTracks = function () {
+    return TracksFactory.tracks;
   };
-});
+
+  this.getPlayerTrack = function () {
+    return TracksFactory.playerTrack;
+  };
+
+  this.setPlayerTrack = function (track) {
+    TracksFactory.playerTrack = [track];
+  };
+}
