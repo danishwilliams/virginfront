@@ -1,4 +1,4 @@
-angular.module("app.playlist", []).controller('PlaylistController', function ($location, AuthenticationService, TracksService, PlaylistService, $http) {
+angular.module("app.playlist", []).controller('PlaylistController', function ($location, AuthenticationService, TracksService, TracksFactory, PlaylistService, PlaylistFactory, $http) {
   var self = this;
   var currentgoal = {id: 0, bpm_low: 0, bpm_high: 0}; // The currently selected goal which tracks can be added to
   var playing = false; // If music is playing or not
@@ -6,9 +6,8 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
   this.title = "Add a Ride";
   this.goals = [];
   this.name = '';
-  this.playlist = [];
-
-  this.tracks = TracksService.getTracks();
+  this.playlist = PlaylistFactory.playlist;
+  this.tracks = TracksFactory.tracks;
 
   // TODO: move the 0 into some kind of persistent state
   $http.get('/api/v1.0/rides/0').success(function (data) {
@@ -26,30 +25,10 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
 
     // Set up a placeholder playlist structure
     PlaylistService.setupEmptyPlaylist(data.goals);
-
-    self.playlist = PlaylistService.getPlaylist();
   });
-
-  //this.tracks = TracksService.getTracks();
-
-  console.log(this);
-
-  /*
-  // TODO: refactor this so we don't need to use $scope.$on and $rootScope.$broadcast
-  // If we created a Factory which stores the playlist variable, and a Service which sets
-  // the Factory value, and bound the Factory variable to this.tracks then we don't need
-  // to broadcast events
-  // @see http://www.matheuslima.com/angularjs-stop-using-scope-variables/
-  $scope.$on('tracksLoaded', function () {
-    $scope.$apply(function () {
-      playlist.tracks = TracksService.getTracks();
-    });
-  });
-  */
 
   this.playTrack = function (trackid) {
-    var playerTrack = TracksService.getPlayerTrack();
-    if (trackid === playerTrack[0]) {
+    if (trackid === TracksFactory.playertrack[0]) {
       if (playing) {
         // Pause the currently playing track
         DZ.player.pause();
@@ -79,7 +58,6 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
       self.addTrackSuccess(value.track);
       PlaylistService.addTrackToGoalPlaylist(value.id, value.track);
     });
-    self.playlist = PlaylistService.getPlaylist();
   });
   */
 

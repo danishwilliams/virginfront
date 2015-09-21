@@ -1,7 +1,7 @@
 /**
  * Created by rogersaner on 15/09/07.
  */
-angular.module("app").factory('TracksService', function ($rootScope) {
+angular.module("app").factory('TracksService', function ($rootScope, TracksFactory) {
   var tracks = [
     {
       id: 100,
@@ -36,7 +36,9 @@ angular.module("app").factory('TracksService', function ($rootScope) {
   ];
 
   tracks = [];
-  var playerTrack = []; // The track loaded to the player
+
+  TracksFactory.tracks = [];
+  TracksFactory.playerTrack = []; // The track loaded to the player
 
   window.dzAsyncInit = function () {
     DZ.init({
@@ -63,13 +65,13 @@ angular.module("app").factory('TracksService', function ($rootScope) {
                 }
 
                 /*if (response.bpm < 160 || response.bpm > 180) {
-                  return;
-                }*/
+                 return;
+                 }*/
                 bpm += response.bpm;
                 i++;
-                console.log("Average BPM for " + i + " tracks (total track API calls: " + k + "): " + bpm/i);
+                console.log("Average BPM for " + i + " tracks (total track API calls: " + k + "): " + bpm / i);
 
-                tracks.push({
+                TracksFactory.tracks.push({
                   id: parseInt(track.id),
                   name: track.title,
                   artist: track.artist.name,
@@ -77,33 +79,15 @@ angular.module("app").factory('TracksService', function ($rootScope) {
                   bpm: response.bpm,
                   time: track.duration
                 });
-                // TODO: probably refactor this so that we only have to call the broadcast once, updating the object
-                $rootScope.$broadcast('tracksLoaded');
+                $rootScope.$apply();
               });
             });
           });
-
-          /*
-          DZ.player.playPlaylist(1368297815, false, function (response) {
-            console.log("List of track objects", response.tracks);
-            // Transform the Deezer tracks into the kind of array we want
-            response.tracks.forEach(function (track) {
-              songs.push({
-                id: parseInt(track.id),
-                name: track.title,
-                artist: track.artist.name,
-                genre: 'No genre',
-                bpm: '0',
-                time: track.duration
-              });
-            });
-            $rootScope.$broadcast('tracksLoaded');
-          });
-          */
         }
       }
     });
   };
+
   (function () {
     var e = document.createElement('script');
     e.src = 'https://cdns-files.deezer.com/js/min/dz.js';
@@ -112,14 +96,24 @@ angular.module("app").factory('TracksService', function ($rootScope) {
   }());
 
   return {
+    addTrack: function (track) {
+      TracksFactory.tracks.push(track);
+    },
     getTracks: function () {
-      return tracks;
+      return TracksFactory.tracks;
     },
     getPlayerTrack: function () {
-      return playerTrack;
+      return TracksFactory.playerTrack;
     },
     setPlayerTrack: function (track) {
-      playerTrack = [track];
+      TracksFactory.playerTrack = [track];
     }
+  };
+});
+
+angular.module("app").factory('TracksFactory', function () {
+  return {
+    tracks: [], // A list of track objects
+    playertrack: [] // The track loaded to the player
   };
 });
