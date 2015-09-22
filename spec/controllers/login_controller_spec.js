@@ -9,8 +9,7 @@ describe("controller: LoginController ($httpBackend.expect().respond, vanilla ja
     this.$httpBackend = $httpBackend;
     this.scope = $rootScope.$new();
     this.redirect = spyOn($location, 'path');
-    $controller('LoginController', {
-      $scope: this.scope,
+    loginController = $controller('LoginController', {
       $location: $location,
       AuthenticationService: AuthenticationService
     });
@@ -22,11 +21,11 @@ describe("controller: LoginController ($httpBackend.expect().respond, vanilla ja
   });
 
   describe("successfully logging in", function() {
-    it("should redirect you to /home", function() {
+    it("should redirect you to /playlist-create", function() {
       this.$httpBackend.expectPOST('/login', this.scope.credentials).respond(200);
-      this.scope.login();
+      loginController.login();
       this.$httpBackend.flush();
-      expect(this.redirect).toHaveBeenCalledWith('/home');
+      expect(this.redirect).toHaveBeenCalledWith('/playlist-create');
     });
   });
 });
