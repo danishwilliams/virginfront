@@ -1,4 +1,4 @@
-angular.module("app.playlist", []).controller('PlaylistController', function ($location, AuthenticationService, TracksService, TracksFactory, PlaylistFactory) {
+angular.module("app.playlist", []).controller('PlaylistController', function ($location, AuthenticationService, TracksService, PlaylistFactory) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -22,7 +22,8 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
   });
 
   this.playTrack = function (trackid) {
-    if (trackid === TracksFactory.playertrack[0]) {
+    var playertrack = TracksService.getPlayerTrack();
+    if (trackid === playertrack[0]) {
       if (playing) {
         // Pause the currently playing track
         DZ.player.pause();
