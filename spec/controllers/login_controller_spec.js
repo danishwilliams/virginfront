@@ -4,10 +4,9 @@ describe("controller: LoginController ($httpBackend.expect().respond, vanilla ja
     module("app");
   });
 
-  beforeEach(inject(function($controller, $rootScope, $location, AuthenticationService, $httpBackend) {
+  beforeEach(inject(function($controller, $location, AuthenticationService, $httpBackend) {
     this.$location = $location;
     this.$httpBackend = $httpBackend;
-    this.scope = $rootScope.$new();
     this.redirect = spyOn($location, 'path');
     loginController = $controller('LoginController', {
       $location: $location,
@@ -22,7 +21,7 @@ describe("controller: LoginController ($httpBackend.expect().respond, vanilla ja
 
   describe("successfully logging in", function() {
     it("should redirect you to /playlist-create", function() {
-      this.$httpBackend.expectPOST('/login', this.scope.credentials).respond(200);
+      this.$httpBackend.expectPOST('/login', loginController.credentials).respond(200);
       loginController.login();
       this.$httpBackend.flush();
       expect(this.redirect).toHaveBeenCalledWith('/playlist-create');
