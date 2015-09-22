@@ -29,6 +29,18 @@ function PlaylistService($http, PlaylistFactory) {
     return PlaylistFactory.playlist;
   };
 
+  this.getGoals = function () {
+    return PlaylistFactory.goals;
+  };
+
+  this.getName = function () {
+    return PlaylistFactory.name;
+  };
+
+  this.getCurrentGoal = function () {
+    return PlaylistFactory.currentgoal;
+  };
+
   // Add a track to a playlist for a goal id
   this.addTrackToGoalPlaylist = function (id, track) {
     // Replaces any existing track in the playlist
