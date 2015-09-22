@@ -1,4 +1,4 @@
-angular.module("app.playlist", []).controller('PlaylistController', function ($location, AuthenticationService, TracksService, TracksFactory, PlaylistService, PlaylistFactory, $http) {
+angular.module("app.playlist", []).controller('PlaylistController', function ($location, AuthenticationService, TracksService, TracksFactory, PlaylistFactory) {
   var self = this;
   var playing = false; // If music is playing or not
 
