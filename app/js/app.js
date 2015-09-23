@@ -12,13 +12,11 @@ angular
      */
     $componentLoaderProvider.setTemplateMapping(function (name) {
       var dashName = dashCase(name);
-      console.log(dashName);
       return '../js/components/' + dashName + '/' + dashName + '.html';
     });
   });
 
 function AppController($router) {
-  console.log('AppController instantiated');
   $router.config([
     {path: '/', redirectTo: '/login'},
     {path: '/login', component: 'login'},
