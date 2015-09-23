@@ -14,12 +14,15 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
     self.name = data.name;
   });
 
+  /*
   PlaylistFactory.loadPlaylist().then(function (data) {
     data.forEach(function(value) {
       self.currentgoal.id = value.id;
       self.addTrackSuccess(value.track);
     });
+    self.currentgoal.id = 0;
   });
+*/
 
   this.playTrack = function (trackid) {
     var playertrack = TracksService.getPlayerTrack();
@@ -61,6 +64,8 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
       goal.show = !goal.show;
     }
     PlaylistFactory.setCurrentGoal({id: goal.id, bpm_low: goal.bpm_low, bpm_high: goal.bpm_high});
+    // TODO: why isn't this automatically happening due to setting this earlier? i.e. this isn't data bound...
+    self.currentgoal = PlaylistFactory.getCurrentGoal();
   };
 
   /**
@@ -72,6 +77,7 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
     if (goal.show === true && self.currentgoal.id === goal.id) {
       return true;
     }
+    return false;
   };
 
   // Add a track to a goal self. If it passes our checks, call addTrackSuccess
@@ -82,8 +88,7 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
     }
 
     // If there are already tracks don't add one
-    var goalplaylist = PlaylistFactory.getGoalPlaylist();
-    var tracks = goalplaylist(self.currentgoal.id);
+    var tracks = PlaylistFactory.getGoalPlaylist(self.currentgoal.id);
     if (tracks.length > 0) {
       return;
     }
@@ -122,12 +127,16 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + goalid);
-    bin.classList.remove('dropped');
-    bin.setAttribute('droppable', '');
+    if (bin) {
+      bin.classList.remove('dropped');
+      bin.setAttribute('droppable', '');
+    }
 
     // Show the track in the track list
     var trackElement = document.getElementById("track" + track.id);
-    trackElement.classList.remove('ng-hide');
+    if (trackElement) {
+      trackElement.classList.remove('ng-hide');
+    }
   };
 
   var onLogoutSuccess = function (response) {
