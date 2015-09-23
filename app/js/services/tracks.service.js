@@ -19,7 +19,11 @@ function TracksService($rootScope) {
     var e = document.createElement('script');
     e.src = 'https://cdns-files.deezer.com/js/min/dz.js';
     e.async = true;
-    document.getElementById('dz-root').appendChild(e);
+    var dz = document.getElementById('dz-root');
+    // dz is null when running tests; handle that case
+    if (dz) {
+      dz.appendChild(e);
+    }
   }());
 
   window.dzAsyncInit = function () {
