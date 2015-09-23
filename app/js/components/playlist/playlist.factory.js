@@ -55,6 +55,13 @@ function PlaylistFactory($http) {
     });
   }
 
+  // A track has been added to a goal
+  function trackDropped (goalid, track) {
+    console.log('Track dropped!');
+    // Update the playlist
+    addTrackToGoalPlaylist(goalid, track);
+  }
+
   // Returns the playlist for a specific goal
   function getGoalPlaylist(id) {
     return playlist[id];
@@ -132,12 +139,5 @@ function PlaylistFactory($http) {
 
   function setCurrentGoal(value) {
     currentgoal = value;
-  }
-
-  // A track has been added to a goal
-  function trackDropped (goalid, track) {
-    console.log('Track dropped!');
-    // Update the playlist
-    addTrackToGoalPlaylist(goalid, track);
   }
 }
