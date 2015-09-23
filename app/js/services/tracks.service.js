@@ -31,6 +31,7 @@ function TracksService($rootScope) {
   };
 
   var tracksService = {
+    initTracks: initTracks,
     addTrack: addTrack,
     getTracks: getTracks,
     getPlayerTrack: getPlayerTrack,
