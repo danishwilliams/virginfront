@@ -54,6 +54,7 @@ This allows for file changes without restarting lineman, but for some reason liv
 
 http://zurb.com/building-blocks/off-canvas-sidebar-component
 
+
 Angular Development approach
 ----------------------------
 
@@ -78,6 +79,20 @@ Issues:
 * ngNewRouter can't instantiate a controller with $scope injected. This will probably be solved in Angular 1.5 but until then, even better reason to not use $scope. @see https://github.com/angular/router/issues/313
 
 This section last updated: 21 September 2015
+
+
+Tests
+-----
+
+Tests are run with lineman, which uses the testem runner and Jasmine 1.3. To run tests:
+
+```lineman spec```
+
+Testing controllers which call promises from Factories looks like this:
+http://jasonmore.net/unit-testing-http-service-angular-js/
+
+Jasmine 1.3 docs are at http://jasmine.github.io/1.3/introduction.html
+
 
 ngNewRouter
 -----------
@@ -121,6 +136,7 @@ Changing stub files
 When changing json stubs, express doesn't automatically pick it up. Here's how to configure it to.
 
 https://github.com/linemanjs/lineman/issues/318#issuecomment-137464341
+
 
 JSHint error: 'PlaylistService' was used before it was defined.
 ---------------------------------------------------------------
