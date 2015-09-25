@@ -2,8 +2,7 @@
 @email rsaner@deloitte.co.za
 @twitter twitter.com/rogersaner
 
-TODO
-----
+# TODO
 
 Document how to get this project up and running
 
@@ -15,22 +14,19 @@ Include:
 * how to install
 * how to use
 
-Development
------------
+# Development
 
 * Livereload
 
 
-How styles work
-----------------
+# How styles work
 
 * Foundation
 * Customising Foundation with colours etc
 * Sass and compass (compass mixings, because I couldn't get lineman to work)
 
 
-Backend API mocking
--------------------
+# Backend API mocking
 
 Including the little hack for lineman to recognise changed json files without a restart
 https://github.com/linemanjs/lineman/issues/318#issuecomment-137464341
@@ -55,8 +51,7 @@ This allows for file changes without restarting lineman, but for some reason liv
 http://zurb.com/building-blocks/off-canvas-sidebar-component
 
 
-Angular Development approach
-----------------------------
+# Angular Development approach
 
 I've used Angular 1.4 keeping in mind an upgrade to 1.5 when it releases, and Angular 2.0 sometime in 2016. This means using some future-proof conventions which pave the
 upgrade path as smoothly as possible, rather than a massive refactor down the line:
@@ -65,7 +60,7 @@ upgrade path as smoothly as possible, rather than a massive refactor down the li
 * using "Controller As" syntax. @see http://toddmotto.com/digging-into-angulars-controller-as-syntax/
 * no $scope, anywhere. @see http://www.matheuslima.com/angularjs-stop-using-scope-variables/ http://www.technofattie.com/2014/03/21/five-guidelines-for-avoiding-scope-soup-in-angular.html
 
-Some smarter approaches:
+### Some smarter approaches
 
 * Follow John Papa's Angular Style guide. @see https://github.com/johnpapa/angular-styleguide
 * no ng-controller. Rather, use custom components which consist of an html template and controller. @see http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html
@@ -75,14 +70,14 @@ Some smarter approaches:
 * Factories and Services use the Revealing Module pattern for easier readability. @see http://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript
   and http://webcache.googleusercontent.com/search?q=cache:JZ_dF3h505kJ:www.johnpapa.net/angular-function-declarations-function-expressions-and-readable-code/+&cd=1&hl=en&ct=clnk&gl=za
 
-Issues:
+### Issues
+
 * ngNewRouter can't instantiate a controller with $scope injected. This will probably be solved in Angular 1.5 but until then, even better reason to not use $scope. @see https://github.com/angular/router/issues/313
 
 This section last updated: 21 September 2015
 
 
-Tests
------
+# Unit testing with lineman
 
 Tests are run with lineman, which uses the testem runner and Jasmine 1.3. To run tests:
 
@@ -94,10 +89,27 @@ http://jasonmore.net/unit-testing-http-service-angular-js/
 Jasmine 1.3 docs are at http://jasmine.github.io/1.3/introduction.html
 
 
-ngNewRouter
------------
+# End-to-end testing with protractor
 
-#### Adding components/login/login.html to the template cache and watching the ngNewRouter component structure
+### Installation
+
+```
+npm install selenium-standalone@latest -g
+selenium-standalone install
+selenium-standalone start
+npm install chromedriver
+```
+
+### Usage
+
+```bash
+./node_modules/protractor/bin/protractor config/spec-e2e.js
+```
+
+
+# ngNewRouter
+
+### Adding components/login/login.html to the template cache and watching the ngNewRouter component structure
 
 Edit ```node_modules/lineman-angular/config/plugins/ngtemplates.coffee``` and ensure the following is in there:
 
@@ -115,11 +127,11 @@ Edit ```node_modules/lineman-angular/config/plugins/ngtemplates.coffee``` and en
         tasks: ["ngtemplates", "concat_sourcemap:js"]
 ```
 
-#### controller-as syntax
+### controller-as syntax
 
 ngNewRouter wants all controllers to use controller-as syntax. Google it. A common error when refactoring is:
 
-#### Could not instantiate controller
+### Could not instantiate controller
 
 Means that there's an error in the controller construction, probably that you've done this:
 
@@ -129,17 +141,17 @@ instead of
 
 ```this.functionname = function() {```
 
+ngNewRouter will throw that error any time something is screwing up in a controller, and it might not be obvious where that error is. So comment out lines of code until you find it.
 
-Changing stub files
--------------------
+
+# Changing stub files
 
 When changing json stubs, express doesn't automatically pick it up. Here's how to configure it to.
 
 https://github.com/linemanjs/lineman/issues/318#issuecomment-137464341
 
 
-JSHint error: 'PlaylistService' was used before it was defined.
----------------------------------------------------------------
+# JSHint error: 'PlaylistService' was used before it was defined.
 
 This uses a technique called 'hoisting' where a function is used before it is defined. Fine for newer browsers.
 
