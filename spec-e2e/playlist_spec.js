@@ -47,7 +47,7 @@ describe('Create playlist', function () {
     });
 
     it('Clicking on the second goal should select that goal and deselect the first goal', function () {
-      goalPlaylist[1].element(by.css('.goal-name')).click();
+      goalPlaylist[1].element(by.binding('goal.goal')).click();
       expect(goalPlaylist[0].element(by.css('.goal-container')).getAttribute('class')).not.toMatch('active');
       expect(goalPlaylist[1].element(by.css('.goal-container')).getAttribute('class')).toMatch('active');
     });
@@ -65,10 +65,10 @@ describe('Create playlist', function () {
     });
 
     it('A track outside of a goal\'s BPM range can\'t be added to that goal', function () {
-      goalPlaylist[0].element(by.css('.goal-name')).click();
+      goalPlaylist[0].element(by.binding('goal.goal')).click();
       tracks[0].element(by.css('.add')).click();
 
-      goalPlaylist[0].all(by.css('.track-name')).then(function(items) {
+      goalPlaylist[0].all(by.binding('track.name')).then(function(items) {
         expect(items.length).toBe(0);
       });
     });
@@ -76,7 +76,7 @@ describe('Create playlist', function () {
     it('A track can be removed from a goal', function () {
       goalPlaylist[1].element(by.css('.add')).click();
 
-      goalPlaylist[1].all(by.css('.track-name')).then(function(items) {
+      goalPlaylist[0].all(by.binding('track.name')).then(function(items) {
         expect(items.length).toBe(0);
       });
     });
