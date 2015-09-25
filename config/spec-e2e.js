@@ -1,6 +1,6 @@
 exports.config = {
   directConnect: true,
-  chromeDriver: '../node_modules/protractor/selenium/chromedriver',
+  chromeDriver: '../node_modules/chromedriver/lib/chromedriver/chromedriver',
 
   specs: [
     '../spec-e2e/**/*spec.{js,coffee}'
