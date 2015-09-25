@@ -1,3 +1,4 @@
+/*
 describe('my angular app', function () {
 
   var bookRows;
@@ -16,3 +17,4 @@ describe('my angular app', function () {
     });
   });
 });
+*/
