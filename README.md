@@ -25,10 +25,21 @@ Include:
 * Customising Foundation with colours etc
 * Sass and compass (compass mixings, because I couldn't get lineman to work)
 
+# Interacting with an API
 
-# Backend API mocking
+There are 2 options: using an actual API (via a local proxy) or using local JSON files.
 
-Including the little hack for lineman to recognise changed json files without a restart
+## Actual API
+
+Enable the apiProxy in ```config/application.js``` which will forward any requests starting with ```varockstar``` to the backend API via a local proxy, which can be started with:
+
+```$ node config/proxy.js```
+
+## Backend API mocking with JSON files
+
+Lineman lets us include static JSON files to mock an API.
+
+Include the following little hack for lineman to recognise changed json files without a restart
 https://github.com/linemanjs/lineman/issues/318#issuecomment-137464341
 
  Edit ```node_modules/lineman/tasks/server.coffee``` and change the following lines from
@@ -81,7 +92,7 @@ This section last updated: 21 September 2015
 
 Tests are run with lineman, which uses the testem runner and Jasmine 1.3. To run tests:
 
-```lineman spec```
+```$ lineman spec```
 
 Testing controllers which call promises from Factories looks like this:
 http://jasonmore.net/unit-testing-http-service-angular-js/
@@ -93,17 +104,17 @@ Jasmine 1.3 docs are at http://jasmine.github.io/1.3/introduction.html
 
 ### Installation
 
-```
-npm install selenium-standalone@latest -g
-selenium-standalone install
-selenium-standalone start
-npm install chromedriver
+```bash
+$ npm install selenium-standalone@latest -g
+$ selenium-standalone install
+$ selenium-standalone start
+$ npm install chromedriver
 ```
 
 ### Usage
 
 ```bash
-./node_modules/protractor/bin/protractor config/spec-e2e.js
+$ ./node_modules/protractor/bin/protractor config/spec-e2e.js
 ```
 
 
