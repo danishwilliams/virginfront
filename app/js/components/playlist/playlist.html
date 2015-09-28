@@ -4,14 +4,14 @@
       &nbsp;
     </div>
     <div class="large-5 columns">
-      <a>&lt; Back</a>
+      <a>&lt; {{'BACK' | translate}}</a>
     </div>
     <div class="large-12 columns">
       <ol class="inline-list workflow">
-        <li class="completed"><span>1</span><a>Ride template</a></li>
-        <li class="completed"><span>2</span><a>Create playlist</a></li>
-        <li class="upcoming"><span>3</span><a>Review</a></li>
-        <li class="upcoming"><span>4</span><a>Publish to device</a></li>
+        <li class="completed"><span>1</span><a>{{'RIDE_TEMPLATE' | translate}}</a></li>
+        <li class="completed"><span>2</span><a>{{'PLAYLIST_CREATE' | translate}}</a></li>
+        <li class="upcoming"><span>3</span><a>{{'PLAYLIST_REVIEW' | translate}}</a></li>
+        <li class="upcoming"><span>4</span><a>{{'PLAYLIST_PUBLISH' | translate}}</a></li>
       </ol>
     </div>
   </div>
@@ -22,7 +22,7 @@
         &nbsp;
       </div>
       <div class="large-14 columns">
-        <input name="class_name" class="class_name" type="text" placeholder="Give your class a name...">
+        <input name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}...">
       </div>
       <div class="large-2 columns">
         &nbsp;
@@ -61,18 +61,18 @@
               <h4>{{goal.goal}}</h4>
             </div>
             <div class="small-4 columns bpm">
-              {{goal.bpm_low}} - {{goal.bpm_high}} bpm
+              {{goal.bpm_low}} - {{goal.bpm_high}} {{'BPM' | translate}}
             </div>
           </div>
           <div class="row">
             <div class="bin" id="bin{{goal.id}}" ng-show="goal.show" droppable>
-              <div class="empty-text">Drag and drop your track here</div>
+              <div class="empty-text">{{'DRAG_DROP_TRACK' | translate}}</div>
               <div class="row track dropped" id="playlist{{goal.id}}{{track.id}}" data-ng-repeat="track in playlist.playlist[goal.id]">
                 <div class="small-1 columns play">
-                  <a href="#" ng-click="playTrack(track.id)">Play</a>
+                  <a href="#" ng-click="playTrack(track.id)">{{'PLAY' | translate}}</a>
                 </div>
                 <div class="small-14 columns">
-                  <span class="track-name">{{track.name}}</span> <span class="artist">{{track.artist}}</span> | <span class="bpm">{{track.bpm}} bpm</span>
+                  <span class="track-name">{{track.name}}</span> <span class="artist">{{track.artist}}</span> | <span class="bpm">{{track.bpm}} {{'BPM' | translate}}</span>
                 </div>
                 <div class="small-2 columns time">
                   {{track.time}}
@@ -85,10 +85,10 @@
           </div>
           <div class="row goal-meta" ng-click="goal.show = !goal.show" ng-show="goal.show">
             <div class="small-14 columns">
-              Leg speed: {{goal.rpm_low}} - {{goal.rpm_high}} RPM
+              {{'LEG_SPEED' | translate}}: {{goal.rpm_low}} - {{goal.rpm_high}} {{'RPM' | translate}}
             </div>
             <div class="small-4 columns bpm">
-              <a>+ Add more notes</a>
+              <a>+ {{'ADD_NOTES' | translate}}</a>
             </div>
           </div>
         </div>
@@ -108,14 +108,14 @@
           &nbsp;
         </div>
         <div class="small-16 columns">
-          <h3>Choose a track for <span id="track-name">'Warm Up'</span></h3>
+          <h3>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'Warm Up'</span></h3>
 
           <div class="row showing">
             <div class="small-14 columns">
-              Showing: 80 - 90 BPM songs
+              {{'SHOWING' | translate}}: 80 - 90 {{'BPM' | translate}} {{'TRACKS' | translate}}
             </div>
             <div class="small-4 columns">
-              Add filter
+              {{'ADD_FILTER' | translate}}
             </div>
           </div>
         </div>
@@ -129,7 +129,7 @@
           &nbsp;
         </div>
         <div class="small-14 columns search">
-          <input name="tracks" type="text" placeholder="Search">
+          <input name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
         </div>
         <div class="small-2 columns">
           &nbsp;
@@ -143,7 +143,7 @@
         <div class="small-16 columns">
           <div class="row track" draggable id="track{{track.id}}" data-ng-repeat="track in playlist.tracks">
             <div class="small-1 columns play">
-              <a href="#" ng-click="playTrack(track.id)">Play</a>
+              <a href="#" ng-click="playTrack(track.id)">{{'PLAY' | translate}}</a>
             </div>
             <div class="small-9 columns">
               <span class="track-name">{{track.name}}</span>
@@ -153,7 +153,7 @@
               {{track.genre}}
             </div>
             <div class="small-2 columns bpm">
-              {{track.bpm}} bpm
+              {{track.bpm}} {{'BPM' | translate}}
             </div>
             <div class="small-2 columns time">
               {{track.time}}
