@@ -1,3 +1,6 @@
+// To run this test:
+// ./node_modules/protractor/bin/protractor config/spec-e2e.js
+
 exports.config = {
   /* Spinning up selenium each time */
   directConnect: true,
