@@ -3,7 +3,7 @@
  */
 angular.module("app").factory('ApiService', function($http) {
   var api = 'config/stubs/';
-  var version = 'v1.0';
+  var version = '1.0';
 
   // these routes map to stubbed API endpoints in config/server.js
   return {

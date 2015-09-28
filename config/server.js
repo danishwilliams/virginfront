@@ -15,8 +15,10 @@
 module.exports = {
   drawRoutes: function(app) {
     var fs = require('fs');
-    var api = 'config/stubs/';
-    var version = 'v1.0';
+    var filepath = 'config/stubs/';
+    var api = 'api';
+    var version = '1.0';
+    var apipath = '/' + api + '/' + version;
     var _ = require('underscore');
 
     app.post('/login', function(req, res) {
@@ -35,9 +37,9 @@ module.exports = {
       ]);
     });
 
-    app.get('/api/v1.0/rides', function (req, res) {
+    app.get(apipath + '/rides', function (req, res) {
       var file = '/rides.json';
-      fs.readFile(api + version + file, function(err, data) {
+      fs.readFile(filepath + version + file, function(err, data) {
         if (err) {
           res.status(404).send('Not found');
         } else {
@@ -47,7 +49,7 @@ module.exports = {
       });
     });
 
-    app.get('/api/v1.0/rides/:id', function (req, res) {
+    app.get(apipath + '/rides/:id', function (req, res) {
       var file = '';
       switch (parseInt(req.params.id)) {
         case 0:
@@ -76,9 +78,9 @@ module.exports = {
       });
     });
 
-    app.get('/api/v1.0/playlists/:id', function (req, res) {
+    app.get(apipath + '/playlists/:id', function (req, res) {
       var file = '/rides/strength_endurance.json';
-      fs.readFile(api + version + file, function(err, data) {
+      fs.readFile(filepath + version + file, function(err, data) {
         if (err) {
           res.status(404).send('Not found');
         } else {

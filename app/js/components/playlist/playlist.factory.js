@@ -69,7 +69,7 @@ function PlaylistFactory($http) {
 
   function loadPlaylist() {
       // Load a saved playlist
-      return $http.get('/api/v1.0/playlists/0').then(getPlaylistComplete);
+      return $http.get('/api/1.0/playlists/0').then(getPlaylistComplete);
 
       function getPlaylistComplete(data, status, headers, config) {
         // Extract the track data
@@ -91,7 +91,7 @@ function PlaylistFactory($http) {
 
   function loadGoals() {
     // TODO: move the 0 into some kind of persistent state
-    return $http.get('/api/v1.0/rides/0').then(loadGoalsComplete);
+    return $http.get('/api/1.0/rides/0').then(loadGoalsComplete);
 
     function loadGoalsComplete(data, status, headers, config) {
       var goals = data.data.goals;
