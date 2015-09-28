@@ -3,7 +3,7 @@
  */
 angular
   .module("app")
-  .factory('GoalsFactory', GoalsFactory);
+  .factory('Goals', GoalsFactory);
 
 GoalsFactory.$inject = ['Restangular'];
 
@@ -11,14 +11,4 @@ function GoalsFactory(Restangular) {
 	var service = Restangular.service('goals');
 
 	return service;
-
-
-/*
-	var goalsFactory = {
-
-	};
-
-	return goalsFactory;
-*/
-
 }
