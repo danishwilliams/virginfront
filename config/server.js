@@ -49,6 +49,12 @@ module.exports = {
       });
     });
 
+    app.put(apipath + '/goals/:id', function (req, res) {
+      console.log('PUT at ' + req.url);
+      res.status(200).send('Success!');
+      res.end();
+    });
+
     app.get(apipath + '/rides', function (req, res) {
       var file = '/rides.json';
       fs.readFile(filepath + version + file, function(err, data) {
