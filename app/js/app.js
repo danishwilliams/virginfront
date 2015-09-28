@@ -3,7 +3,8 @@ angular
     "ngResource",
     "ngNewRouter",
     "app.login",
-    "app.playlist"])
+    "app.playlist",
+    "pascalprecht.translate"])
   .controller("AppController", ['$router', AppController])
   .config(function ($componentLoaderProvider) {
     /*
