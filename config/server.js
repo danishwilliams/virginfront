@@ -37,6 +37,18 @@ module.exports = {
       ]);
     });
 
+    app.get(apipath + '/goals', function (req, res) {
+      var file = '/goals.json';
+      fs.readFile(filepath + version + file, function(err, data) {
+        if (err) {
+          res.status(404).send('Not found');
+        } else {
+          res.header('Cache-Control', 'none').contentType('application/json').send(data);
+        }
+        res.end();
+      });
+    });
+
     app.get(apipath + '/rides', function (req, res) {
       var file = '/rides.json';
       fs.readFile(filepath + version + file, function(err, data) {
