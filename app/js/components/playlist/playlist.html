@@ -42,7 +42,7 @@
               &nbsp;
             </div>
             <div class="small-14 columns">
-              <h3>{{ playlist.name }}</h3>
+              <h3>{{playlist.name}}</h3>
             </div>
             <div class="small-2 columns">
               &nbsp;
@@ -61,7 +61,7 @@
               <h4>{{goal.goal}}</h4>
             </div>
             <div class="small-4 columns bpm">
-              {{ goal.bpm_low }} - {{ goal.bpm_high }} bpm
+              {{goal.bpm_low}} - {{goal.bpm_high}} bpm
             </div>
           </div>
           <div class="row">
@@ -85,7 +85,7 @@
           </div>
           <div class="row goal-meta" ng-click="goal.show = !goal.show" ng-show="goal.show">
             <div class="small-14 columns">
-              Leg speed: {{ goal.rpm_low }} - {{ goal.rpm_high }} RPM
+              Leg speed: {{goal.rpm_low}} - {{goal.rpm_high}} RPM
             </div>
             <div class="small-4 columns bpm">
               <a>+ Add more notes</a>
