@@ -12,17 +12,16 @@ http.createServer(onRequest).listen(listenport);
 
 var options = {
   hostname: 'virgin.api',
-  port: 80,
-  //path: 'rockstar/' + client_req.url,
-  method: 'GET'
+  port: 80
 };
 
 console.log('Proxying requests to ' + options.hostname + ' on port ' + options.port);
  
 function onRequest(client_req, client_res) {
-  console.log('serve: ' + client_req.url);
+  console.log(client_req.method + ' ' + client_req.url);
 
   options.path = client_req.url;
+  options.method = client_req.method;
 
   var proxy = http.request(options, function (res) {
     res.pipe(client_res, {
