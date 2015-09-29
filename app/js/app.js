@@ -1,6 +1,7 @@
 angular
   .module("app", [
     "ngResource",
+    "ngSanitize",
     "ngNewRouter",
     "app.login",
     "app.goals",
@@ -24,7 +25,8 @@ angular
      //set the base url for api calls on our RESTful services
     var newBaseUrl = "";
     if (window.location.hostname === "localhost") {
-      newBaseUrl = "http://localhost:8000/varockstar/api/";
+      newBaseUrl = "http://localhost:8000/varockstar/api/"; // Dane's laptop
+      newBaseUrl = "http://localhost:8000/api/1.0/"; // dev
     } else {
       var deployedAt = window.location.href.substring(0, window.location.href);
       newBaseUrl = deployedAt + "/api/rest/register";
@@ -35,25 +37,38 @@ angular
 
     RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
       var extractedData;
+      console.log('Restangular operation: ' + operation + ', on ' + what + ' at ' + url);
       // .. to look for getList operations
       if (operation === "getList") {
         // .. and handle the data and meta data
-        extractedData = data.ResponseObject;
-        extractedData.Success = data.Success;
-        extractedData.FailureMessage = data.FailureMessage;
-        extractedData.FriendlyFailureMessage = data.FriendlyFailureMessage;
+
+        //data.message = 'An error has occurred.';
+
+        if (data.message === 'An error has occurred.') {
+          console.log('[ERROR] API down! Reverting to local fallback');
+          console.log(url);
+          console.log(what);
+
+          /*
+          Can't inject $http at this stage so probably move the entire function into .run
+          $http.get('/api/1.0/' . what).then(function(data) {
+            console.log(data);
+            extractedData = data.data;
+          });
+          */
+
+        }
+        else {
+          extractedData = data.ResponseObject;
+          extractedData.Success = data.Success;
+          extractedData.FailureMessage = data.FailureMessage;
+          extractedData.FriendlyFailureMessage = data.FriendlyFailureMessage;
+        }
       } else {
         extractedData = data.data;
       }
       return extractedData;
     });
-
-    /*
-    RestangularProvider.addRequestInterceptor(function (element, operation, what, url) {
-      // TODO: insert the token into the request
-      return element;
-    });
-    */
   });
 
 function AppController($router) {
