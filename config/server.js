@@ -86,7 +86,7 @@ module.exports = {
           file = '/rides/hill_climbs.json';
           break;
       }
-      fs.readFile(api + version + file, function(err, data) {
+      fs.readFile(filepath + version + file, function(err, data) {
         if (err) {
           res.status(404).send('Not found');
         } else {
