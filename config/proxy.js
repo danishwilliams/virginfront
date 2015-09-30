@@ -15,13 +15,14 @@ var options = {
   port: 80
 };
 
-console.log('Proxying requests to ' + options.hostname + ' on port ' + options.port);
+console.log('Proxying requests on port ' + listenport + ' to ' + options.hostname + ' (port ' + options.port + ')');
  
 function onRequest(client_req, client_res) {
   console.log(client_req.method + ' ' + client_req.url);
 
   options.path = client_req.url;
   options.method = client_req.method;
+  options.headers = client_req.headers;
 
   var proxy = http.request(options, function (res) {
     res.pipe(client_res, {
