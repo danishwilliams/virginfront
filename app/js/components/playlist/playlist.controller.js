@@ -105,9 +105,9 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
 
     // A track was "dropped"
     // TODO: take this out once we're loading actual playlists
-    if (self.currentgoal.id > 9) {
-      return;
-    }
+    //if (self.currentgoal.id > 9) {
+    //  return;
+    //}
 
     var bin = document.getElementById("bin" + self.currentgoal.id);
     if (bin) {
