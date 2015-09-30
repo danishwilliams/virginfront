@@ -13,7 +13,16 @@ function TracksService($rootScope) {
   var playerTrack = []; // The track loaded to the player
 
   tracks = initTracks();
-  tracks = [];
+  //tracks = [];
+
+  var tracksService = {
+    initTracks: initTracks,
+    addTrack: addTrack,
+    getTracks: getTracks,
+    getPlayerTrack: getPlayerTrack,
+    setPlayerTrack: setPlayerTrack,
+  };
+
 
   (function () {
     var e = document.createElement('script');
@@ -27,15 +36,8 @@ function TracksService($rootScope) {
   }());
 
   window.dzAsyncInit = function () {
-    DZ.init(deezerInit());
-  };
-
-  var tracksService = {
-    initTracks: initTracks,
-    addTrack: addTrack,
-    getTracks: getTracks,
-    getPlayerTrack: getPlayerTrack,
-    setPlayerTrack: setPlayerTrack,
+    // TODO: not loading Deezer!
+    //DZ.init(deezerInit());
   };
 
   return tracksService;
@@ -85,6 +87,126 @@ function TracksService($rootScope) {
         album: 'Salute',
         genre: 'R&B/Soul',
         bpm: 80,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 175,
+        name: 'Too bad, so sad',
+        artist: 'Matric',
+        album: 'Salute',
+        genre: 'R&B/Soul',
+        bpm: 80,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 300,
+        name: 'Burn',
+        artist: 'Ellie Golding',
+        album: 'Burn',
+        genre: 'Alternative',
+        bpm: 174,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 301,
+        name: 'Pump it up',
+        artist: 'Toya Delazy',
+        album: '',
+        genre: 'Alternative',
+        bpm: 100,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 302,
+        name: 'If I lose myself ',
+        artist: 'One Republic ft Alesso',
+        album: '',
+        genre: 'Alternative',
+        bpm: 126,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 303,
+        name: 'Radio Killer',
+        artist: 'Lonely Heart',
+        album: '',
+        genre: 'Alternative',
+        bpm: 130,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 304,
+        name: 'Hot Mess (Duck Sauce Remix)',
+        artist: 'Chromeo feat Elly Jackson',
+        album: '',
+        genre: 'Alternative',
+        bpm: 130,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 305,
+        name: 'Dog days are over',
+        artist: 'Florence + The Machine',
+        album: '',
+        genre: 'Alternative',
+        bpm: 150,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 306,
+        name: 'It\'s Like that',
+        artist: 'Run DMC',
+        album: '',
+        genre: 'Alternative',
+        bpm: 130,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 307,
+        name: 'Santa Monica',
+        artist: 'Everclear',
+        album: '',
+        genre: 'R&B/Soul',
+        bpm: 102,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 308,
+        name: 'Walk the Line (Club Remix)',
+        artist: 'Laurent Wolf',
+        album: '',
+        genre: 'Alternative',
+        bpm: 130,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 309,
+        name: 'Danza Kuduro',
+        artist: 'Don Omar Feat Lucenzo',
+        album: '',
+        genre: 'Alternative',
+        bpm: 130,
+        duration: 245,
+        source: 'https://cdn.example.com/path/to/track.mp3'
+      },
+      {
+        id: 310,
+        name: 'If I Ever',
+        artist: 'David Guetta feat Makeba',
+        album: '',
+        genre: 'Alternative',
+        bpm: 60,
         duration: 245,
         source: 'https://cdn.example.com/path/to/track.mp3'
       }
