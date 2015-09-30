@@ -69,21 +69,24 @@ module.exports = {
 
     app.get(apipath + '/rides/:id', function (req, res) {
       var file = '';
-      switch (parseInt(req.params.id)) {
-        case 0:
+      switch (req.params.id) {
+        case "0":
           file = '/rides/all_terrain.json';
           break;
-        case 1:
+        case "1":
           file = '/rides/strength_endurance.json';
           break;
-        case 2:
+        case "2":
           file = '/rides/intervals.json';
           break;
-        case 3:
+        case "3":
           file = '/rides/speed_work.json';
           break;
-        case 4:
+        case "4":
           file = '/rides/hill_climbs.json';
+          break;
+        case "e3929bda-3587-4889-bfa8-60a28e9b03dc":
+          file = '/rides/strength_endurance_api.json';
           break;
       }
       fs.readFile(filepath + version + file, function(err, data) {
