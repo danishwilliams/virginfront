@@ -12,14 +12,6 @@ angular.module("app.goals", []).controller('GoalsController', function (Goals, R
     goal.put();
   };
 
-  this.newGoal = {
-    Name: "Blah",
-    Id: uuid2.newuuid().toString(),
-    BpmLow: "80",
-    BpmHigh: "100",
-    Aim: "Save this to the API!"
-  };
-
   this.delete = function (goal) {
     Restangular.one("goals", goal.Id).remove().then(function () {
       // Updating the list and removing the goal after the response is OK.
@@ -35,8 +27,20 @@ angular.module("app.goals", []).controller('GoalsController', function (Goals, R
     Restangular.one("goals", goal.Id).customPUT(goal).then(function () {
       console.log('Push successful!');
       self.goals.push(goal);
-      self.NewGoal = {};
+      self.createBlankGoal();
     });
   };
 
+  this.createBlankGoal = function () {
+    self.newGoal = {
+      Name: "Blah",
+      Id: uuid2.newuuid().toString(),
+      BpmLow: "80",
+      BpmHigh: "100",
+      Aim: "Save this to the API!"
+    };
+  };
+
+  // TODO: refactor this module to use the Module Revealer pattern, so this code can come before the function
+  self.createBlankGoal();
 });
