@@ -8,14 +8,24 @@
       <td>BPM High</td>
       <td>Aim</td>
       <td>Id</td>
+      <td>Delete</td>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="goal in goals.goals">
-      <td>{{goal.Name}}</td>
-      <td>{{goal.BpmLow}}</td>
-      <td>{{goal.BpmHigh}}</td>
-      <td>{{goal.Aim}}</td>
+      <td contentEditable ng-change="goals.update(goal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.Name"></td>
+      <td contentEditable ng-change="goals.update(goal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.BpmLow"></td>
+      <td contentEditable ng-change="goals.update(goal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.BpmHigh"></td>
+      <td contentEditable ng-change="goals.update(goal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.Aim"></td>
       <td>{{goal.Id}}</td>
+      <td ng-click="goals.delete(goal)"><a>x</a></td>
+    </tr>
+    <tr>
+      <td contentEditable ng-change="goals.save(goals.newGoal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goals.newGoal.Name"></td>
+      <td contentEditable ng-model="goals.newGoal.BpmLow"></td>
+      <td contentEditable ng-model="goals.newGoal.BpmHigh"></td>
+      <td contentEditable ng-model="goals.newGoal.Aim"></td>
+      <td ng-model="goals.newGoal.Id">{{goals.newGoal.Id}}</td>
+      <td></td>
     </tr>
 </table>

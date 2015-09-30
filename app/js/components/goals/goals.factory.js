@@ -8,7 +8,9 @@ angular
 GoalsFactory.$inject = ['Restangular'];
 
 function GoalsFactory(Restangular) {
-	var service = Restangular.service('goals');
+  // TODO: if we want multiple controllers/services to be able to use this data, then add a GoalsService
+  // which has methods for a private goals variable with get/set
+  var service = Restangular.service('goals');
 
-	return service;
+  return service;
 }
