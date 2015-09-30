@@ -90,8 +90,8 @@ function PlaylistFactory($http) {
   }
 
   function loadGoals() {
-    // TODO: move the 0 into some kind of persistent state
-    return $http.get('/api/1.0/rides/0').then(loadGoalsComplete);
+    // TODO: move the 1 into some kind of persistent state
+    return $http.get('/api/1.0/rides/1').then(loadGoalsComplete);
 
     function loadGoalsComplete(data, status, headers, config) {
       var goals = data.data.goals;
