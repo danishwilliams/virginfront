@@ -57,7 +57,7 @@ module.exports = function(lineman) {
       common: app.prependTasks.common.concat("sass")
     },
 
-    //livereload: true
+    livereload: true
 
     // Asset Fingerprints
     //
