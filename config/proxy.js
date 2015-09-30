@@ -25,6 +25,10 @@ function onRequest(client_req, client_res) {
   options.headers = client_req.headers;
 
   var proxy = http.request(options, function (res) {
+    client_res.statusCode = res.statusCode;
+    //client_res.statusCode = 500;
+    client_res.statusMessage = res.statusMessage;
+    client_res.headers = res.headers;
     res.pipe(client_res, {
       end: true
     });
