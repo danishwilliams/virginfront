@@ -24,7 +24,7 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
     });
     self.currentgoal.Id = 0;
   });
-*/
+  */
 
   this.playTrack = function (trackid) {
     var playertrack = TracksService.getPlayerTrack();
@@ -34,13 +34,11 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
         DZ.player.pause();
         DZ.player.pause();
         playing = false;
-      }
-      else {
+      } else {
         DZ.player.play();
         playing = true;
       }
-    }
-    else {
+    } else {
       // Play a different track
       TracksService.setPlayerTrack(trackid);
       DZ.player.playTracks([trackid]);
@@ -61,11 +59,15 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
       if (self.currentgoal.Id === goal.Id) {
         goal.show = !goal.show;
       }
-    }
-    else {
+    } else {
       goal.show = !goal.show;
     }
-    PlaylistFactory.setCurrentGoal({Id: goal.Id, Name: goal.Name, BpmLow: goal.BpmLow, BpmHigh: goal.BpmHigh});
+    PlaylistFactory.setCurrentGoal({
+      Id: goal.Id,
+      Name: goal.Name,
+      BpmLow: goal.BpmLow,
+      BpmHigh: goal.BpmHigh
+    });
     // TODO: why isn't this automatically happening due to setting this earlier? i.e. this isn't data bound...
     self.currentgoal = PlaylistFactory.getCurrentGoal();
   };
@@ -139,6 +141,31 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
     if (trackElement) {
       trackElement.classList.remove('ng-hide');
     }
+  };
+
+  // Save the playlist to the API
+  this.savePlaylist = function () {
+    // Format the playlist object properly before the PUT
+    var playlistGoals = [];
+    var i = 0;
+    self.goals.forEach(function (goal) {
+      if (i > 0) {
+        return;
+      }
+
+      delete goal.GoalOptions;
+
+      playlistGoals[i] = {
+        SortOrder: goal.SortOrder,
+        PlaylistId: self.playlist.Id,
+        GoalId: goal.Id,
+        Goal: goal
+      };
+      i++;
+    });
+    self.playlist.PlaylistGoals = playlistGoals;
+    self.playlist.Name = "Working playlist?";
+    self.playlist.put();
   };
 
   var onLogoutSuccess = function (response) {

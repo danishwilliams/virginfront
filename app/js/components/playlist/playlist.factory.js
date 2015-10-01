@@ -5,9 +5,9 @@ angular
   .module("app")
   .factory('PlaylistFactory', PlaylistFactory);
 
-PlaylistFactory.$inject = ['$http'];
+PlaylistFactory.$inject = ['$http', 'Restangular'];
 
-function PlaylistFactory($http) {
+function PlaylistFactory($http, Restangular) {
   var playlist = [];
   var goals = [];
   var name = '';
@@ -97,10 +97,13 @@ function PlaylistFactory($http) {
 
   function loadGoals() {
     // TODO: move this call into some kind of persistent state
-    return $http.get('/api/1.0/rides/e3929bda-3587-4889-bfa8-60a28e9b03dc').then(loadGoalsComplete);
+    return Restangular.one('templates', "e3929bda-3587-4889-bfa8-60a28e9b03dc").one("true").get().then(loadGoalsComplete);
+
+    //return $http.get('/api/1.0/rides/e3929bda-3587-4889-bfa8-60a28e9b03dc').then(loadGoalsComplete); // When using local API
 
     function loadGoalsComplete(data, status, headers, config) {
-      var goals = data.data.Goals;
+      //data = data.data; // When using local API
+      var goals = data.Goals;
       // Set the first goal as selected
       var found = false;
       _.mapObject(goals, function (val, key) {
@@ -118,7 +121,7 @@ function PlaylistFactory($http) {
       });
 
       self.goals = goals;
-      self.name = data.data.Name;
+      self.name = data.Name;
 
       // Set up a placeholder playlist structure
       setupEmptyPlaylist(self.goals);
