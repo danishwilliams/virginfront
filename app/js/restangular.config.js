@@ -62,20 +62,8 @@ angular.module("app").config(function (RestangularProvider) {
         extractedData = data.data;
       });
       */
-
     }
-
-    // .. to look for getList operations
-    if (operation === "getList") {
-      // .. and handle the data and meta data
-      extractedData = data.ResponseObject;
-      extractedData.Success = data.Success;
-      extractedData.FailureMessage = data.FailureMessage;
-      extractedData.FriendlyFailureMessage = data.FriendlyFailureMessage;
-    } else {
-      extractedData = data.data;
-    }
-    return extractedData;
+    return data;
   });
 
   RestangularProvider.setErrorInterceptor(function (response, deferred, responseHandler) {
