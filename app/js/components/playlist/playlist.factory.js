@@ -100,7 +100,7 @@ function PlaylistFactory($http) {
     return $http.get('/api/1.0/rides/e3929bda-3587-4889-bfa8-60a28e9b03dc').then(loadGoalsComplete);
 
     function loadGoalsComplete(data, status, headers, config) {
-      var goals = data.data.ResponseObject.Goals;
+      var goals = data.data.Goals;
       // Set the first goal as selected
       var found = false;
       _.mapObject(goals, function (val, key) {
