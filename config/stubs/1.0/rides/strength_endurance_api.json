@@ -1,279 +1,274 @@
 {
-  "Success": true,
-  "ResponseObject": {
-    "Id": "e3929bda-3587-4889-bfa8-60a28e9b03dc",
-    "Name": "All Terrain",
-    "ClassLengthMinutes": 45,
-    "Goals": [{
-      "GoalOptions": [{
-        "Name": "Half time",
-        "Effort": 60,
-        "EffortHigh": 0,
-        "Position": "Seated",
-        "GoalId": "75a96b7d-cbf9-4b0c-9c50-6bf448817a6a",
-        "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
-        "Beat": {
-          "Name": "Half Time",
-          "Ratio": 0.5,
-          "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
-        },
-        "Id": "e1c3892d-aaab-4f8b-a406-be78b23ae8b7"
-      }],
-      "Id": "6d48451a-8180-4df1-acbf-098777ca3736",
-      "SortOrder": 6,
-      "Name": "Recovery",
-      "BpmHigh": 150,
-      "BpmLow": 120,
-      "Aim": "We want you to ride at 60 - 75 rpm for the duration of the song",
-      "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  "Id": "e3929bda-3587-4889-bfa8-60a28e9b03dc",
+  "Name": "All Terrain",
+  "ClassLengthMinutes": 45,
+  "Goals": [{
+    "GoalOptions": [{
+      "Name": "Half time",
+      "Effort": 60,
+      "EffortHigh": 0,
+      "Position": "Seated",
+      "GoalId": "75a96b7d-cbf9-4b0c-9c50-6bf448817a6a",
+      "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
+      "Beat": {
+        "Name": "Half Time",
+        "Ratio": 0.5,
+        "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
+      },
+      "Id": "e1c3892d-aaab-4f8b-a406-be78b23ae8b7"
+    }],
+    "Id": "6d48451a-8180-4df1-acbf-098777ca3736",
+    "SortOrder": 6,
+    "Name": "Recovery",
+    "BpmHigh": 150,
+    "BpmLow": 120,
+    "Aim": "We want you to ride at 60 - 75 rpm for the duration of the song",
+    "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  }, {
+    "GoalOptions": [{
+      "Name": "Seated Sprint",
+      "Effort": 80,
+      "EffortHigh": 0,
+      "Position": "Seated",
+      "GoalId": "abdf12d3-c42c-4b43-86f7-72a59a73bee1",
+      "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
+      "Beat": {
+        "Name": "On The Beat",
+        "Ratio": 1,
+        "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
+      },
+      "Id": "f018a893-6746-4bd5-a573-24c379a6a890"
     }, {
-      "GoalOptions": [{
-        "Name": "Seated Sprint",
-        "Effort": 80,
-        "EffortHigh": 0,
-        "Position": "Seated",
-        "GoalId": "abdf12d3-c42c-4b43-86f7-72a59a73bee1",
-        "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
-        "Beat": {
-          "Name": "On The Beat",
-          "Ratio": 1,
-          "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
-        },
-        "Id": "f018a893-6746-4bd5-a573-24c379a6a890"
-      }, {
-        "Name": "Seated",
-        "Effort": 50,
-        "EffortHigh": 0,
-        "Position": "Seated",
-        "GoalId": "abdf12d3-c42c-4b43-86f7-72a59a73bee1",
-        "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
-        "Beat": {
-          "Name": "Half Time",
-          "Ratio": 0.5,
-          "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
-        },
-        "Id": "399a53e0-8e16-4f5d-8bc7-346c68866fdc"
-      }],
-      "Id": "54101c13-7666-4494-861e-14882325bf00",
-      "SortOrder": 3,
-      "Name": "Seated Intervals",
-      "BpmHigh": 140,
-      "BpmLow": 120,
-      "Aim": "We want you to alternate sprinting at 120 - 140 rpm and recovering at 60 - 80 rpm for the duration of the song",
-      "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+      "Name": "Seated",
+      "Effort": 50,
+      "EffortHigh": 0,
+      "Position": "Seated",
+      "GoalId": "abdf12d3-c42c-4b43-86f7-72a59a73bee1",
+      "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
+      "Beat": {
+        "Name": "Half Time",
+        "Ratio": 0.5,
+        "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
+      },
+      "Id": "399a53e0-8e16-4f5d-8bc7-346c68866fdc"
+    }],
+    "Id": "54101c13-7666-4494-861e-14882325bf00",
+    "SortOrder": 3,
+    "Name": "Seated Intervals",
+    "BpmHigh": 140,
+    "BpmLow": 120,
+    "Aim": "We want you to alternate sprinting at 120 - 140 rpm and recovering at 60 - 80 rpm for the duration of the song",
+    "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  }, {
+    "GoalOptions": [{
+      "Name": "Half time",
+      "Effort": 80,
+      "EffortHigh": 0,
+      "Position": "Seated",
+      "GoalId": "a1018f74-03fb-486c-9b16-5f5a032b1fd8",
+      "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
+      "Beat": {
+        "Name": "Half Time",
+        "Ratio": 0.5,
+        "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
+      },
+      "Id": "3d09ec4b-c283-48c4-8c35-020472e74ab0"
+    }],
+    "Id": "a89110e1-89e4-4d6d-9aca-589ba57cffe4",
+    "SortOrder": 7,
+    "Name": "Seated Climb 2",
+    "BpmHigh": 130,
+    "BpmLow": 100,
+    "Aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
+    "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  }, {
+    "GoalOptions": [{
+      "Name": "Sprint on the beat",
+      "Effort": 80,
+      "EffortHigh": 90,
+      "Position": "Seated",
+      "GoalId": "6031afe7-f03c-4811-bdde-a5317c1ff6af",
+      "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
+      "Beat": {
+        "Name": "On The Beat",
+        "Ratio": 1,
+        "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
+      },
+      "Id": "cc33e7af-6439-428e-bcee-8e26dea2cebd"
     }, {
-      "GoalOptions": [{
-        "Name": "Half time",
-        "Effort": 80,
-        "EffortHigh": 0,
-        "Position": "Seated",
-        "GoalId": "a1018f74-03fb-486c-9b16-5f5a032b1fd8",
-        "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
-        "Beat": {
-          "Name": "Half Time",
-          "Ratio": 0.5,
-          "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
-        },
-        "Id": "3d09ec4b-c283-48c4-8c35-020472e74ab0"
-      }],
-      "Id": "a89110e1-89e4-4d6d-9aca-589ba57cffe4",
-      "SortOrder": 7,
-      "Name": "Seated Climb 2",
-      "BpmHigh": 130,
-      "BpmLow": 100,
-      "Aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
-      "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
-    }, {
-      "GoalOptions": [{
-        "Name": "Sprint on the beat",
-        "Effort": 80,
-        "EffortHigh": 90,
-        "Position": "Seated",
-        "GoalId": "6031afe7-f03c-4811-bdde-a5317c1ff6af",
-        "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
-        "Beat": {
-          "Name": "On The Beat",
-          "Ratio": 1,
-          "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
-        },
-        "Id": "cc33e7af-6439-428e-bcee-8e26dea2cebd"
-      }, {
-        "Name": "Recover Half Time",
-        "Effort": 50,
-        "EffortHigh": 0,
-        "Position": "Seated",
-        "GoalId": "6031afe7-f03c-4811-bdde-a5317c1ff6af",
-        "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
-        "Beat": {
-          "Name": "Half Time",
-          "Ratio": 0.5,
-          "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
-        },
-        "Id": "c9eeb41b-dbb3-4f54-9939-fc751681de3d"
-      }],
-      "Id": "2b17e730-9f66-464d-a37c-72e051875264",
-      "SortOrder": 9,
-      "Name": "Seated Intervals 2",
-      "BpmHigh": 140,
-      "BpmLow": 120,
-      "Aim": "We want you to alternate sprinting at 120 - 140 rpm and recovering at 60 - 80 rpm for the duration of the song",
-      "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
-    }, {
-      "GoalOptions": [{
-        "Name": "Half time",
-        "Effort": 90,
-        "EffortHigh": 0,
-        "Position": "Standing",
-        "GoalId": "930fc3ff-0617-4b70-9fd4-8a86244eed1c",
-        "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
-        "Beat": {
-          "Name": "On The Beat",
-          "Ratio": 1,
-          "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
-        },
-        "Id": "4567836e-7dc8-4680-8e07-549f5a1d228f"
-      }],
-      "Id": "66c0c001-c4e5-42f1-a2f8-7c64937d13b2",
-      "SortOrder": 5,
-      "Name": "Standing Climb",
-      "BpmHigh": 130,
-      "BpmLow": 100,
-      "Aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
-      "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
-    }, {
-      "GoalOptions": [{
-        "Name": "Seated Sprint",
-        "Effort": 70,
-        "EffortHigh": 0,
-        "Position": "Seated",
-        "GoalId": "77b9eebb-c34b-40b0-a699-8ce1957b4fad",
-        "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
-        "Beat": {
-          "Name": "On The Beat",
-          "Ratio": 1,
-          "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
-        },
-        "Id": "a9898878-ca6a-4af9-920e-739bf39a33eb"
-      }],
-      "Id": "0dee10da-6f40-44f1-868e-91518dabd5a5",
-      "SortOrder": 2,
-      "Name": "Seated Ride",
-      "BpmHigh": 120,
-      "BpmLow": 100,
-      "Aim": "We want you to ride at 100 - 120 rpm for the duration of the song",
-      "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
-    }, {
-      "GoalOptions": [{
-        "Name": "Half time",
-        "Effort": 80,
-        "EffortHigh": 0,
-        "Position": "Seated",
-        "GoalId": "b45a92cf-31ce-47ea-a67f-28be8f44a2a0",
-        "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
-        "Beat": {
-          "Name": "Half Time",
-          "Ratio": 0.5,
-          "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
-        },
-        "Id": "b067b79d-e6ec-4f51-995b-be316f230454"
-      }],
-      "Id": "2738705a-efde-468d-ad56-ab3eaf33022e",
-      "SortOrder": 4,
-      "Name": "Seated Climb",
-      "BpmHigh": 130,
-      "BpmLow": 100,
-      "Aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
-      "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
-    }, {
-      "GoalOptions": [{
-        "Name": "Sprint on the beat",
-        "Effort": 90,
-        "EffortHigh": 0,
-        "Position": "Seated",
-        "GoalId": "361cc5b4-a933-47d3-aae2-9004182d57f9",
-        "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
-        "Beat": {
-          "Name": "On The Beat",
-          "Ratio": 1,
-          "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
-        },
-        "Id": "8d8ce23b-c5ff-4f15-b695-a2e9ee7cb744"
-      }],
-      "Id": "c67fedd6-4f54-4c64-b750-e2bc46afecab",
-      "SortOrder": 10,
-      "Name": "The Finish Line",
-      "BpmHigh": 130,
-      "BpmLow": 90,
-      "Aim": "We want you to ride at 90 - 130 rpm for the duration of the song",
-      "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
-    }, {
-      "GoalOptions": [{
-        "Name": "Half time",
-        "Effort": 90,
-        "EffortHigh": 0,
-        "Position": "Standing",
-        "GoalId": "30491dd9-b38b-4f20-928a-a3866b58a6e9",
-        "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
-        "Beat": {
-          "Name": "Half Time",
-          "Ratio": 0.5,
-          "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
-        },
-        "Id": "f850e443-c223-4dc2-9acf-4826e02c8024"
-      }],
-      "Id": "4c2a0967-6b19-4b0d-92d8-f17cd86b5bb7",
-      "SortOrder": 8,
-      "Name": "Standing Climb 2",
-      "BpmHigh": 130,
-      "BpmLow": 100,
-      "Aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
-      "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
-    }, {
-      "GoalOptions": [{
-        "Name": "Half time",
-        "Effort": 50,
-        "EffortHigh": 60,
-        "Position": "Seated",
-        "GoalId": "ca567ae3-dbdc-485e-ac5e-5208be9aa90f",
-        "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
-        "Beat": {
-          "Name": "Half Time",
-          "Ratio": 0.5,
-          "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
-        },
-        "Id": "0a68f662-8e84-4317-abca-c7199d540d77"
-      }],
-      "Id": "3c49a11f-f73e-4f4f-80b9-fd52e7f742f4",
-      "SortOrder": 1,
-      "Name": "Warm Up",
-      "BpmHigh": 90,
-      "BpmLow": 80,
-      "Aim": "We want you to ride at 80 - 90 rpm for the duration of the song",
-      "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
-    }, {
-      "GoalOptions": [{
-        "Name": "On the beat",
-        "Effort": 50,
-        "EffortHigh": 0,
-        "Position": "Seated",
-        "GoalId": "4235780e-32c9-439e-8885-53447b493675",
-        "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
-        "Beat": {
-          "Name": "On The Beat",
-          "Ratio": 1,
-          "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
-        },
-        "Id": "48a6f96e-1aa0-4768-a75f-48ea357e0847"
-      }],
-      "Id": "66df6446-22ee-4810-9b04-fd544cfb1035",
-      "SortOrder": 11,
-      "Name": "Cool Down",
-      "BpmHigh": 90,
-      "BpmLow": 60,
-      "Aim": null,
-      "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
-    }]
-  },
-  "FailureMessage": null,
-  "FriendlyFailureMessage": null
+      "Name": "Recover Half Time",
+      "Effort": 50,
+      "EffortHigh": 0,
+      "Position": "Seated",
+      "GoalId": "6031afe7-f03c-4811-bdde-a5317c1ff6af",
+      "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
+      "Beat": {
+        "Name": "Half Time",
+        "Ratio": 0.5,
+        "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
+      },
+      "Id": "c9eeb41b-dbb3-4f54-9939-fc751681de3d"
+    }],
+    "Id": "2b17e730-9f66-464d-a37c-72e051875264",
+    "SortOrder": 9,
+    "Name": "Seated Intervals 2",
+    "BpmHigh": 140,
+    "BpmLow": 120,
+    "Aim": "We want you to alternate sprinting at 120 - 140 rpm and recovering at 60 - 80 rpm for the duration of the song",
+    "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  }, {
+    "GoalOptions": [{
+      "Name": "Half time",
+      "Effort": 90,
+      "EffortHigh": 0,
+      "Position": "Standing",
+      "GoalId": "930fc3ff-0617-4b70-9fd4-8a86244eed1c",
+      "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
+      "Beat": {
+        "Name": "On The Beat",
+        "Ratio": 1,
+        "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
+      },
+      "Id": "4567836e-7dc8-4680-8e07-549f5a1d228f"
+    }],
+    "Id": "66c0c001-c4e5-42f1-a2f8-7c64937d13b2",
+    "SortOrder": 5,
+    "Name": "Standing Climb",
+    "BpmHigh": 130,
+    "BpmLow": 100,
+    "Aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
+    "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  }, {
+    "GoalOptions": [{
+      "Name": "Seated Sprint",
+      "Effort": 70,
+      "EffortHigh": 0,
+      "Position": "Seated",
+      "GoalId": "77b9eebb-c34b-40b0-a699-8ce1957b4fad",
+      "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
+      "Beat": {
+        "Name": "On The Beat",
+        "Ratio": 1,
+        "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
+      },
+      "Id": "a9898878-ca6a-4af9-920e-739bf39a33eb"
+    }],
+    "Id": "0dee10da-6f40-44f1-868e-91518dabd5a5",
+    "SortOrder": 2,
+    "Name": "Seated Ride",
+    "BpmHigh": 120,
+    "BpmLow": 100,
+    "Aim": "We want you to ride at 100 - 120 rpm for the duration of the song",
+    "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  }, {
+    "GoalOptions": [{
+      "Name": "Half time",
+      "Effort": 80,
+      "EffortHigh": 0,
+      "Position": "Seated",
+      "GoalId": "b45a92cf-31ce-47ea-a67f-28be8f44a2a0",
+      "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
+      "Beat": {
+        "Name": "Half Time",
+        "Ratio": 0.5,
+        "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
+      },
+      "Id": "b067b79d-e6ec-4f51-995b-be316f230454"
+    }],
+    "Id": "2738705a-efde-468d-ad56-ab3eaf33022e",
+    "SortOrder": 4,
+    "Name": "Seated Climb",
+    "BpmHigh": 130,
+    "BpmLow": 100,
+    "Aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
+    "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  }, {
+    "GoalOptions": [{
+      "Name": "Sprint on the beat",
+      "Effort": 90,
+      "EffortHigh": 0,
+      "Position": "Seated",
+      "GoalId": "361cc5b4-a933-47d3-aae2-9004182d57f9",
+      "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
+      "Beat": {
+        "Name": "On The Beat",
+        "Ratio": 1,
+        "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
+      },
+      "Id": "8d8ce23b-c5ff-4f15-b695-a2e9ee7cb744"
+    }],
+    "Id": "c67fedd6-4f54-4c64-b750-e2bc46afecab",
+    "SortOrder": 10,
+    "Name": "The Finish Line",
+    "BpmHigh": 130,
+    "BpmLow": 90,
+    "Aim": "We want you to ride at 90 - 130 rpm for the duration of the song",
+    "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  }, {
+    "GoalOptions": [{
+      "Name": "Half time",
+      "Effort": 90,
+      "EffortHigh": 0,
+      "Position": "Standing",
+      "GoalId": "30491dd9-b38b-4f20-928a-a3866b58a6e9",
+      "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
+      "Beat": {
+        "Name": "Half Time",
+        "Ratio": 0.5,
+        "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
+      },
+      "Id": "f850e443-c223-4dc2-9acf-4826e02c8024"
+    }],
+    "Id": "4c2a0967-6b19-4b0d-92d8-f17cd86b5bb7",
+    "SortOrder": 8,
+    "Name": "Standing Climb 2",
+    "BpmHigh": 130,
+    "BpmLow": 100,
+    "Aim": "We want you to ride at 50 - 65 rpm for the duration of the song",
+    "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  }, {
+    "GoalOptions": [{
+      "Name": "Half time",
+      "Effort": 50,
+      "EffortHigh": 60,
+      "Position": "Seated",
+      "GoalId": "ca567ae3-dbdc-485e-ac5e-5208be9aa90f",
+      "BeatId": "b0f317ec-f812-4645-9240-6c5b062f1e95",
+      "Beat": {
+        "Name": "Half Time",
+        "Ratio": 0.5,
+        "Id": "b0f317ec-f812-4645-9240-6c5b062f1e95"
+      },
+      "Id": "0a68f662-8e84-4317-abca-c7199d540d77"
+    }],
+    "Id": "3c49a11f-f73e-4f4f-80b9-fd52e7f742f4",
+    "SortOrder": 1,
+    "Name": "Warm Up",
+    "BpmHigh": 90,
+    "BpmLow": 80,
+    "Aim": "We want you to ride at 80 - 90 rpm for the duration of the song",
+    "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  }, {
+    "GoalOptions": [{
+      "Name": "On the beat",
+      "Effort": 50,
+      "EffortHigh": 0,
+      "Position": "Seated",
+      "GoalId": "4235780e-32c9-439e-8885-53447b493675",
+      "BeatId": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d",
+      "Beat": {
+        "Name": "On The Beat",
+        "Ratio": 1,
+        "Id": "cc248edb-247d-4b1f-bdf2-47f9d5508d9d"
+      },
+      "Id": "48a6f96e-1aa0-4768-a75f-48ea357e0847"
+    }],
+    "Id": "66df6446-22ee-4810-9b04-fd544cfb1035",
+    "SortOrder": 11,
+    "Name": "Cool Down",
+    "BpmHigh": 90,
+    "BpmLow": 60,
+    "Aim": null,
+    "CountryId": "8c816daf-70b9-4ecf-b6df-16b5c80fbb31"
+  }]
 }
