@@ -18,7 +18,7 @@
       <td contentEditable ng-change="goals.update(goal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.BpmLow"></td>
       <td contentEditable ng-change="goals.update(goal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.BpmHigh"></td>
       <td contentEditable ng-change="goals.update(goal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.Aim"></td>
-      <td ng-change="goals.update(goal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.CountryId"></td>
+      <td>{{goal.CountryId}}</td>
       <td>{{goal.Id}}</td>
       <td ng-click="goals.delete(goal)"><a>x</a></td>
     </tr>
@@ -30,8 +30,8 @@
       <td contentEditable ng-model="goals.newGoal.BpmLow"></td>
       <td contentEditable ng-model="goals.newGoal.BpmHigh"></td>
       <td contentEditable ng-model="goals.newGoal.Aim"></td>
-      <td ng-model="goals.newGoal.CountryId">{{goals.newGoal.CountryId}}</td>
-      <td ng-model="goals.newGoal.Id">{{goals.newGoal.Id}}</td>
+      <td>{{goals.newGoal.CountryId}}</td>
+      <td>{{goals.newGoal.Id}}</td>
       <td><button ng-click="goals.save(goals.newGoal)" type="button" class="tiny round">Add new goal</button></td>
     </tr>
 </table>
