@@ -118,7 +118,7 @@ function PlaylistFactory($http) {
       });
 
       self.goals = goals;
-      self.name = data.data.ResponseObject.Name;
+      self.name = data.data.Name;
 
       // Set up a placeholder playlist structure
       setupEmptyPlaylist(self.goals);
