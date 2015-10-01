@@ -12,15 +12,17 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
   PlaylistFactory.loadGoals().then(function (data) {
     self.goals = data.goals;
     self.name = data.name;
+    // TODO: this shouldn't be necessary: the data binding should recognise the change
+    self.currentgoal = PlaylistFactory.getCurrentGoal();
   });
 
   /*
   PlaylistFactory.loadPlaylist().then(function (data) {
     data.forEach(function(value) {
-      self.currentgoal.id = value.id;
+      self.currentgoal.Id = value.id;
       self.addTrackSuccess(value.track);
     });
-    self.currentgoal.id = 0;
+    self.currentgoal.Id = 0;
   });
 */
 
@@ -56,14 +58,14 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
     if (goal.show) {
 
       // Collapse this open and selected goal
-      if (self.currentgoal.id === goal.id) {
+      if (self.currentgoal.Id === goal.Id) {
         goal.show = !goal.show;
       }
     }
     else {
       goal.show = !goal.show;
     }
-    PlaylistFactory.setCurrentGoal({id: goal.id, bpm_low: goal.bpm_low, bpm_high: goal.bpm_high});
+    PlaylistFactory.setCurrentGoal({Id: goal.Id, Name: goal.Name, BpmLow: goal.BpmLow, BpmHigh: goal.BpmHigh});
     // TODO: why isn't this automatically happening due to setting this earlier? i.e. this isn't data bound...
     self.currentgoal = PlaylistFactory.getCurrentGoal();
   };
@@ -74,7 +76,7 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
    * @returns {boolean}
    */
   this.isGoalActive = function (goal) {
-    if (goal.show === true && self.currentgoal.id === goal.id) {
+    if (goal.show === true && self.currentgoal.Id === goal.Id) {
       return true;
     }
     return false;
@@ -82,13 +84,13 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
 
   // Add a track to a goal self. If it passes our checks, call addTrackSuccess
   this.addTrack = function (track) {
-    if (track.bpm < self.currentgoal.bpm_low || track.bpm > self.currentgoal.bpm_high) {
+    if (track.bpm < self.currentgoal.BpmLow || track.bpm > self.currentgoal.BpmHigh) {
       // TODO: show some kind of helpful error message to the user
       return;
     }
 
     // If there are already tracks don't add one
-    var tracks = PlaylistFactory.getGoalPlaylist(self.currentgoal.id);
+    var tracks = PlaylistFactory.getGoalPlaylist(self.currentgoal.Id);
     if (tracks.length > 0) {
       return;
     }
@@ -101,15 +103,15 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
    * @param track
    */
   this.addTrackSuccess = function (track) {
-    PlaylistFactory.trackDropped(self.currentgoal.id, track);
+    PlaylistFactory.trackDropped(self.currentgoal.Id, track);
 
     // A track was "dropped"
     // TODO: take this out once we're loading actual playlists
-    //if (self.currentgoal.id > 9) {
+    //if (self.currentgoal.Id > 9) {
     //  return;
     //}
 
-    var bin = document.getElementById("bin" + self.currentgoal.id);
+    var bin = document.getElementById("bin" + self.currentgoal.Id);
     if (bin) {
       bin.classList.add('dropped');
       bin.removeAttribute('droppable');
