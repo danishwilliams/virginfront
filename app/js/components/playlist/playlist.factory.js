@@ -11,7 +11,13 @@ function PlaylistFactory($http) {
   var playlist = [];
   var goals = [];
   var name = '';
-  var currentgoal = {id: 0, bpm_low: 0, bpm_high: 0}; // The currently selected goal which tracks can be added to
+  // The currently selected goal which tracks can be added to
+  var currentgoal = {
+    Id: 0,
+    Name: '',
+    BpmLow: 0,
+    BpmHigh: 0
+  };
 
   var goalsPlaylist = {
     setupEmptyPlaylist: setupEmptyPlaylist,
@@ -32,9 +38,9 @@ function PlaylistFactory($http) {
 
   return goalsPlaylist;
 
-  function setupEmptyPlaylist (goals_data) {
-    goals_data.forEach(function () {
-      playlist.push([]);
+  function setupEmptyPlaylist(goals_data) {
+    goals_data.forEach(function (goal) {
+      playlist[goal.Id] = [];
     });
   }
 
@@ -56,8 +62,8 @@ function PlaylistFactory($http) {
   }
 
   // A track has been added to a goal
-  function trackDropped (goalid, track) {
-    console.log('Track dropped!');
+  function trackDropped(goalid, track) {
+    console.log('Track dropped! (' + track.name + ') on goal ' + goalid);
     // Update the playlist
     addTrackToGoalPlaylist(goalid, track);
   }
@@ -68,16 +74,16 @@ function PlaylistFactory($http) {
   }
 
   function loadPlaylist() {
-      // Load a saved playlist
-      return $http.get('/api/1.0/playlists/0').then(getPlaylistComplete);
+    // Load a saved playlist
+    return $http.get('/api/1.0/playlists/0').then(getPlaylistComplete);
 
-      function getPlaylistComplete(data, status, headers, config) {
-        // Extract the track data
-        data.data.goals.forEach(function (value) {
-          addTrackToGoalPlaylist(value.id, value.track);
-        });
-        return data.data.goals;
-      }
+    function getPlaylistComplete(data, status, headers, config) {
+      // Extract the track data
+      data.data.goals.forEach(function (value) {
+        addTrackToGoalPlaylist(value.id, value.track);
+      });
+      return data.data.goals;
+    }
   }
 
   // Returns the entire playlist
@@ -90,22 +96,29 @@ function PlaylistFactory($http) {
   }
 
   function loadGoals() {
-    // TODO: move the 1 into some kind of persistent state
-    return $http.get('/api/1.0/rides/1').then(loadGoalsComplete);
+    // TODO: move this call into some kind of persistent state
+    return $http.get('/api/1.0/rides/e3929bda-3587-4889-bfa8-60a28e9b03dc').then(loadGoalsComplete);
 
     function loadGoalsComplete(data, status, headers, config) {
-      var goals = data.data.goals;
+      var goals = data.data.ResponseObject.Goals;
       // Set the first goal as selected
+      var found = false;
       _.mapObject(goals, function (val, key) {
-        if (key === '0') {
+        if (!found && val.SortOrder === 1) {
+          found = true; // Only find a goal once
           val.show = true;
-          currentgoal = {id: val.id, bpm_low: val.bpm_low, bpm_high: val.bpm_high};
+          currentgoal = {
+            Id: val.Id,
+            Name: val.Name,
+            BpmLow: val.BpmLow,
+            BpmHigh: val.BpmHigh
+          };
           return val;
         }
       });
 
       self.goals = goals;
-      self.name = data.data.name;
+      self.name = data.data.ResponseObject.Name;
 
       // Set up a placeholder playlist structure
       setupEmptyPlaylist(self.goals);
