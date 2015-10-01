@@ -23,7 +23,10 @@ angular.module("app.goals", []).controller('GoalsController', function (Goals, R
   };
 
   this.save = function (goal) {
-    //console.log(goal);
+    if (!goal.Name || !goal.CountryId || !goal.BpmLow || !goal.BpmHigh) {
+      console.log("Missing attributes on the goal");
+      return;
+    }
     Restangular.one("goals", goal.Id).customPUT(goal).then(function () {
       console.log('Push successful!');
       self.goals.push(goal);
@@ -33,11 +36,12 @@ angular.module("app.goals", []).controller('GoalsController', function (Goals, R
 
   this.createBlankGoal = function () {
     self.newGoal = {
-      Name: "Blah",
+      Name: "",
       Id: uuid2.newuuid().toString(),
-      BpmLow: "80",
-      BpmHigh: "100",
-      Aim: "Save this to the API!"
+      BpmLow: "",
+      BpmHigh: "",
+      Aim: "",
+      CountryId: "8c816daf-70b9-4ecf-b6df-16b5c80fbb31" // South Africa
     };
   };
 
