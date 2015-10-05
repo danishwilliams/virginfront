@@ -55,8 +55,13 @@ module.exports = {
       res.end();
     });
 
-    app.get(apipath + '/rides', function (req, res) {
-      var file = '/rides.json';
+    app.get(apipath + '/playlists/:id', function (req, res) {
+      var file = '';
+      switch (req.params.id) {
+        case "1c08805b-f9a4-4eb3-bfba-0fa408719cf4":
+          file = '/playlists/summer_machine.json';
+          break;
+      }
       fs.readFile(filepath + version + file, function(err, data) {
         if (err) {
           res.status(404).send('Not found');
@@ -67,26 +72,38 @@ module.exports = {
       });
     });
 
-    app.get(apipath + '/rides/:id', function (req, res) {
+    app.get(apipath + '/templates', function (req, res) {
+      var file = '/templates.json';
+      fs.readFile(filepath + version + file, function(err, data) {
+        if (err) {
+          res.status(404).send('Not found');
+        } else {
+          res.header('Cache-Control', 'none').contentType('application/json').send(data);
+        }
+        res.end();
+      });
+    });
+
+    app.get(apipath + '/templates/:id', function (req, res) {
       var file = '';
       switch (req.params.id) {
         case "0":
-          file = '/rides/all_terrain.json';
+          file = '/templates/all_terrain.json';
           break;
         case "1":
-          file = '/rides/strength_endurance.json';
+          file = '/templates/strength_endurance.json';
           break;
         case "2":
-          file = '/rides/intervals.json';
+          file = '/templates/intervals.json';
           break;
         case "3":
-          file = '/rides/speed_work.json';
+          file = '/templates/speed_work.json';
           break;
         case "4":
-          file = '/rides/hill_climbs.json';
+          file = '/templates/hill_climbs.json';
           break;
         case "e3929bda-3587-4889-bfa8-60a28e9b03dc":
-          file = '/rides/strength_endurance_api.json';
+          file = '/templates/strength_endurance_api.json';
           break;
       }
       fs.readFile(filepath + version + file, function(err, data) {
@@ -100,7 +117,7 @@ module.exports = {
     });
 
     app.get(apipath + '/playlists/:id', function (req, res) {
-      var file = '/rides/strength_endurance.json';
+      var file = '/templates/strength_endurance.json';
       fs.readFile(filepath + version + file, function(err, data) {
         if (err) {
           res.status(404).send('Not found');
