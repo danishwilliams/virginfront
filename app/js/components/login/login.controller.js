@@ -8,7 +8,7 @@ function LoginController($location, AuthenticationService) {
 
   var onLoginSuccess = function() {
     console.log('onLoginSuccess');
-    $location.path('/playlist-create');
+    $location.path('/admin/playlists');
   };
 
   this.login = function() {

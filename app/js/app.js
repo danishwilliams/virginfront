@@ -6,7 +6,9 @@ angular
     "angularUUID2",
     "app.login",
     "app.goals",
-    "app.playlist",
+    "app.playlists",
+    "app.playlist_edit",
+    "app.templates",
     "pascalprecht.translate",
     "restangular"
   ])
@@ -33,7 +35,15 @@ function AppController($router) {
     path: '/admin/goals',
     component: 'goals'
   }, {
-    path: '/playlist-create',
-    component: 'playlist'
-  }, ]);
+    path: '/admin/templates',
+    component: 'templates'
+  }, {
+    path: '/admin/playlists',
+    component: 'playlists'
+  }, {
+    path: '/playlists/:id',
+    component: 'playlist_edit'
+  },
+  ]);
+  // /playlists - list of my playlists
 }

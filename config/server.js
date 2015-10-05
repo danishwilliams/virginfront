@@ -55,6 +55,18 @@ module.exports = {
       res.end();
     });
 
+    app.get(apipath + '/playlists', function (req, res) {
+      var file = '/playlists.json';
+      fs.readFile(filepath + version + file, function(err, data) {
+        if (err) {
+          res.status(404).send('Not found');
+        } else {
+          res.header('Cache-Control', 'none').contentType('application/json').send(data);
+        }
+        res.end();
+      });
+    });
+
     app.get(apipath + '/playlists/:id', function (req, res) {
       var file = '';
       switch (req.params.id) {

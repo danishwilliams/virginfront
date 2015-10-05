@@ -1,0 +1,30 @@
+<h1>Templates</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Template Name</td>
+      <td>Class length</td>
+      <td>Id</td>
+      <td>Delete</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="template in templates.templates | orderBy:'Name'">
+      <td contentEditable ng-change="templates.update(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.Name"></td>
+      <td contentEditable ng-change="templates.update(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.ClassLengthMinutes"></td>
+      <td>{{template.Id}}</td>
+      <td ng-click="templates.delete(template)"><a>x</a></td>
+    </tr>
+    <!--
+    <tr>
+    <td colspan="7"><h5>Add new template</h5></td>
+    </tr>
+    <tr>
+      <td contentEditable ng-model="templates.newtemplate.Name"></td>
+      <td contentEditable ng-model="templates.newtemplate.ClassLengthMinutes"></td>
+      <td>{{templates.newtemplate.Id}}</td>
+      <td><button ng-click="templates.create(templates.newtemplate)" type="button" class="tiny round">Add new template</button></td>
+    </tr>
+    -->
+</table>

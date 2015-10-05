@@ -1,0 +1,32 @@
+<h1>Playlists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Playlist Name</td>
+      <td>Template Name</td>
+      <td>Class length</td>
+      <td>Id</td>
+      <td>Delete</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="playlist in playlists.playlists | orderBy:'Name'">
+      <td><a ng-link="playlist_edit({id:playlist.Id})">{{playlist.Name}}</a></td>
+      <td>{{playlist.TemplateName}}</td>
+      <td>{{playlist.ClassLengthMinutes}}</td>
+      <td>{{playlist.Id}}</td>
+      <td ng-click="playlists.delete(playlist)"><a>x</a></td>
+    </tr>
+    <!--
+    <tr>
+    <td colspan="7"><h5>Add new playlist</h5></td>
+    </tr>
+    <tr>
+      <td contentEditable ng-model="playlists.newplaylist.Name"></td>
+      <td contentEditable ng-model="playlists.newplaylist.ClassLengthMinutes"></td>
+      <td>{{playlists.newplaylist.Id}}</td>
+      <td><button ng-click="playlists.create(playlists.newplaylist)" type="button" class="tiny round">Add new playlist</button></td>
+    </tr>
+    -->
+</table>

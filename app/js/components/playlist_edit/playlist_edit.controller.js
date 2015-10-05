@@ -1,30 +1,36 @@
-angular.module("app.playlist", []).controller('PlaylistController', function ($location, AuthenticationService, TracksService, PlaylistFactory) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($routeParams, $location, AuthenticationService, TracksService, PlaylistEdit) {
   var self = this;
   var playing = false; // If music is playing or not
 
+  // TODO: do we want to sanitize this?
+  this.id = $routeParams.id;
+
   this.title = "Add a Ride";
-  this.playlist = PlaylistFactory.getPlaylist();
+  this.playlist = PlaylistEdit.getPlaylist();
   this.tracks = TracksService.getTracks();
-  this.goals = PlaylistFactory.getGoals();
-  this.currentgoal = PlaylistFactory.getCurrentGoal();
-  this.name = '';
+  this.currentgoal = PlaylistEdit.getCurrentGoal();
 
-  PlaylistFactory.loadGoals().then(function (data) {
-    self.goals = data.goals;
-    self.name = data.name;
-    // TODO: this shouldn't be necessary: the data binding should recognise the change
-    self.currentgoal = PlaylistFactory.getCurrentGoal();
-  });
-
-  /*
-  PlaylistFactory.loadPlaylist().then(function (data) {
-    data.forEach(function(value) {
-      self.currentgoal.Id = value.id;
-      self.addTrackSuccess(value.track);
+  // TODO: handle both the 'edit existing' and 'edit new' case
+  if (this.id) {
+    // Load an existing playlist
+    PlaylistEdit.loadPlaylist(this.id).then(function () {
+      self.playlist = PlaylistEdit.getPlaylist();
+      self.currentgoal = PlaylistEdit.getCurrentGoal();
     });
-    self.currentgoal.Id = 0;
-  });
-  */
+  } else {
+    // TODO: this is when creating a blank playlist, surely?
+    // On the previous screen ("Choose time") we submit, set up a blank template structure, post it, then on success callback load up the next screen
+    /*
+    PlaylistEdit.loadGoals().then(function (data) {
+      console.log(data);
+      self.playlistGoals = data.Goals;
+      self.name = data.Name;
+      self.playlist = data;
+      // TODO: this shouldn't be necessary: the data binding should recognise the change
+      self.currentgoal = PlaylistEdit.getCurrentGoal();
+    });
+    */
+  }
 
   this.playTrack = function (trackid) {
     var playertrack = TracksService.getPlayerTrack();
@@ -51,25 +57,20 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
    * The user has just clicked on a goal; potentially open/close it and make it active/inactive
    * @param goal
    */
-  this.goalClicked = function (goal) {
+  this.goalClicked = function (playlistGoal) {
     // User has clicked on an open, unselected goal, so don't collapse it
-    if (goal.show) {
-
+    if (playlistGoal.show) {
       // Collapse this open and selected goal
-      if (self.currentgoal.Id === goal.Id) {
-        goal.show = !goal.show;
+      if (self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
+        playlistGoal.show = !playlistGoal.show;
       }
     } else {
-      goal.show = !goal.show;
+      playlistGoal.show = !playlistGoal.show;
     }
-    PlaylistFactory.setCurrentGoal({
-      Id: goal.Id,
-      Name: goal.Name,
-      BpmLow: goal.BpmLow,
-      BpmHigh: goal.BpmHigh
-    });
-    // TODO: why isn't this automatically happening due to setting this earlier? i.e. this isn't data bound...
-    self.currentgoal = PlaylistFactory.getCurrentGoal();
+
+    PlaylistEdit.setCurrentGoal(playlistGoal);
+    // Why isn't this automatically happening due to setting this earlier? i.e. this isn't data bound...
+    self.currentgoal = PlaylistEdit.getCurrentGoal();
   };
 
   /**
@@ -77,8 +78,8 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
    * @param goal
    * @returns {boolean}
    */
-  this.isGoalActive = function (goal) {
-    if (goal.show === true && self.currentgoal.Id === goal.Id) {
+  this.isGoalActive = function (playlistGoal) {
+    if (playlistGoal.show === true && self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
       return true;
     }
     return false;
@@ -92,7 +93,7 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
     }
 
     // If there are already tracks don't add one
-    var tracks = PlaylistFactory.getGoalPlaylist(self.currentgoal.Id);
+    var tracks = PlaylistEdit.getPlaylistGoalTracks(self.currentgoal.ArrayId);
     if (tracks.length > 0) {
       return;
     }
@@ -105,15 +106,10 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
    * @param track
    */
   this.addTrackSuccess = function (track) {
-    PlaylistFactory.trackDropped(self.currentgoal.Id, track);
+    PlaylistEdit.trackDropped(self.currentgoal.ArrayId, track);
 
     // A track was "dropped"
-    // TODO: take this out once we're loading actual playlists
-    //if (self.currentgoal.Id > 9) {
-    //  return;
-    //}
-
-    var bin = document.getElementById("bin" + self.currentgoal.Id);
+    var bin = document.getElementById("bin" + self.currentgoal.ArrayId);
     if (bin) {
       bin.classList.add('dropped');
       bin.removeAttribute('droppable');
@@ -127,7 +123,8 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
 
   // Remove a track from a goal playlist
   this.removeTrack = function (goalid, track) {
-    PlaylistFactory.removeTrackFromGoalPlaylist(goalid, track);
+    console.log("Removing track from goal " + goalid);
+    PlaylistEdit.removeTrackFromGoalPlaylist(goalid, track);
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + goalid);
@@ -145,10 +142,14 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
 
   // Save the playlist to the API
   this.savePlaylist = function () {
+    // Theoretically, this should work
+    self.playlist.put();
+    /*
     // Format the playlist object properly before the PUT
+    var newPlaylist = {};
     var playlistGoals = [];
     var i = 0;
-    self.goals.forEach(function (goal) {
+    self.playlistGoals.forEach(function (goal) {
       if (i > 0) {
         return;
       }
@@ -163,9 +164,22 @@ angular.module("app.playlist", []).controller('PlaylistController', function ($l
       };
       i++;
     });
-    self.playlist.PlaylistGoals = playlistGoals;
-    self.playlist.Name = "Working playlist?";
-    self.playlist.put();
+    console.log(self.playlist);
+    newPlaylist = Restangular.one('playlists', "21df6644-5180-4258-b790-1017de0d0eb4");
+    newPlaylist.Id = self.playlist.Id;
+    newPlaylist.Name = "A very dark place";
+    newPlaylist.TemplateName = self.playlist.Name;
+    newPlaylist.Shared = false;
+    newPlaylist.UserId = "0b51cf07-44df-46e4-a1a3-6a7c018e04b3";
+    newPlaylist.PlaylistGoals = playlistGoals;
+    newPlaylist.Name = "Working playlist?";
+    newPlaylist.ClassLengthMinutes = self.playlist.ClassLengthMinutes;
+    console.log(newPlaylist);
+    //self.playlist.put();
+
+    // Overwrite an existing playlist
+    newPlaylist.put();
+    */
   };
 
   var onLogoutSuccess = function (response) {
