@@ -66,7 +66,6 @@ angular.module("app").directive('droppable', function (PlaylistEdit) {
 
           this.classList.add('dropped');
           this.removeAttribute('droppable');
-          trackElement.classList.add('ng-hide');
 
           // Tell the playlist about the track dropped into a goal
           PlaylistEdit.trackDropped(goalid, track);
