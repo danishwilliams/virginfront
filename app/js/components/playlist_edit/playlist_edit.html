@@ -22,7 +22,7 @@
         &nbsp;
       </div>
       <div class="large-14 columns">
-        <input name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}...">
+        <input name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}..." ng-model="playlist_edit.playlist.Name">
       </div>
       <div class="large-2 columns">
         &nbsp;
@@ -42,7 +42,7 @@
               &nbsp;
             </div>
             <div class="small-14 columns">
-              <h3>{{playlist_edit.playlist.Name}}</h3>
+              <h3>{{playlist_edit.playlist.TemplateName}}</h3>
             </div>
             <div class="small-2 columns">
               &nbsp;
