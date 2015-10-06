@@ -5,8 +5,7 @@
   "UserId": "dba12374-3262-4148-88e4-ca7f434b8d01",
   "User": null,
   "TemplateName": "The Pitty",
-  "LastUpdated": null,
-  "LastSynched": null,
+  "LastUpdated": "2015-10-06T07:56:51.267",
   "CreateDate": "2015-10-02T14:46:25.457",
   "ClassLengthMinutes": 45,
   "PlaylistGoals": [
@@ -87,7 +86,32 @@
         "Id": "b45a92cf-31ce-47ea-a67f-28be8f44a2a0"
       },
       "PlaylistGoalNotes": [],
-      "PlaylistGoalTracks": [],
+      "PlaylistGoalTracks": [
+        {
+          "PlaylistGoalId": "81f003c1-a950-498b-ba89-ae49b67eb498",
+          "TrackId": "3c73d384-66d1-4a6d-aebd-2edcd63d25c6",
+          "Track": {
+            "Name": "Track6",
+            "Album": "Album1",
+            "Artist": "Artist1",
+            "Bpm": 100,
+            "DurationSeconds": 200,
+            "Source": "http://cdn.test.com/track.mp3",
+            "CoverImgUrl": "test",
+            "MusicProviderTrackId": "123456789666",
+            "MusicProviderId": "69091564-6d37-4171-9600-c0e8382760d9",
+            "MusicProvider": null,
+            "GenreId": "cb8f8ce0-1841-41b4-934f-0c33974e9f39",
+            "Genre": {
+              "Name": "Rock",
+              "Id": "cb8f8ce0-1841-41b4-934f-0c33974e9f39"
+            },
+            "Id": "3c73d384-66d1-4a6d-aebd-2edcd63d25c6"
+          },
+          "SortOrder": 1,
+          "Id": "7f495bfa-0e7e-4fa7-a260-87773b11a311"
+        }
+      ],
       "Id": "81f003c1-a950-498b-ba89-ae49b67eb498"
     },
     {
@@ -120,7 +144,32 @@
         "Id": "ca567ae3-dbdc-485e-ac5e-5208be9aa90f"
       },
       "PlaylistGoalNotes": [],
-      "PlaylistGoalTracks": [],
+      "PlaylistGoalTracks": [
+        {
+          "PlaylistGoalId": "6a846ca2-07b4-40e6-892f-dd185cec6e4c",
+          "TrackId": "6c18c8cc-2a17-4cfc-a3d6-22e5034969a6",
+          "Track": {
+            "Name": "Track7",
+            "Album": "Album1",
+            "Artist": "Artist1",
+            "Bpm": 100,
+            "DurationSeconds": 200,
+            "Source": "http://cdn.test.com/track.mp3",
+            "CoverImgUrl": "test",
+            "MusicProviderTrackId": "123456789777",
+            "MusicProviderId": "69091564-6d37-4171-9600-c0e8382760d9",
+            "MusicProvider": null,
+            "GenreId": "cb8f8ce0-1841-41b4-934f-0c33974e9f39",
+            "Genre": {
+              "Name": "Rock",
+              "Id": "cb8f8ce0-1841-41b4-934f-0c33974e9f39"
+            },
+            "Id": "6c18c8cc-2a17-4cfc-a3d6-22e5034969a6"
+          },
+          "SortOrder": 1,
+          "Id": "b2bbc9b0-727a-4d74-bf56-56aa23e02e61"
+        }
+      ],
       "Id": "6a846ca2-07b4-40e6-892f-dd185cec6e4c"
     },
     {
