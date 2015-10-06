@@ -64,9 +64,6 @@ angular.module("app").directive('droppable', function (PlaylistEdit) {
           var tracks = PlaylistEdit.getPlaylistGoalTracks(goalid);
           if (tracks.length > 0) { return false; }
 
-          this.classList.add('dropped');
-          this.removeAttribute('droppable');
-
           // Tell the playlist about the track dropped into a goal
           PlaylistEdit.trackDropped(goalid, track);
 

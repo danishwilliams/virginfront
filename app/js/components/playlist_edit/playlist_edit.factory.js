@@ -9,6 +9,7 @@ PlaylistEditFactory.$inject = ['$http', 'Restangular', 'Playlists'];
 
 function PlaylistEditFactory($http, Restangular, Playlists) {
   var self = this;
+  var steps = initSteps();
   var playlist = [];
   var goals = [];
   // The currently selected goal which tracks can be added to
@@ -34,6 +35,8 @@ function PlaylistEditFactory($http, Restangular, Playlists) {
     setGoals: setGoals,
     getName: getName,
     setName: setName,
+    getSteps: getSteps,
+    setStep: setStep,
     getCurrentGoal: getCurrentGoal, // The currently selected goal which tracks can be added to
     setCurrentGoal: setCurrentGoal
   };
@@ -79,7 +82,7 @@ function PlaylistEditFactory($http, Restangular, Playlists) {
   function loadPlaylist(id) {
     return Playlists.getPlaylist(id).then(getPlaylistComplete);
 
-    function getPlaylistComplete (data) {
+    function getPlaylistComplete(data) {
       playlist = data;
 
       var found = false;
@@ -164,6 +167,47 @@ function PlaylistEditFactory($http, Restangular, Playlists) {
 
   function setName(value) {
     playlist.Name = value;
+  }
+
+  function initSteps() {
+    return [{
+      id: 0,
+      name: 'Choose Ride Template',
+      completed: false,
+    }, {
+      id: 1,
+      name: 'Choose Time',
+      completed: false,
+    }, {
+      id: 2,
+      name: 'Create/edit playlist',
+      completed: false,
+    }, {
+      id: 3,
+      name: 'Review',
+      completed: false,
+    }];
+  }
+
+  function getSteps() {
+    return steps;
+  }
+
+  /**
+   * Complete/uncomplete a step
+   *
+   * @param id integer
+   * @param status boolean
+   */
+  function setStep(id) {
+    for (var i = 0; i < steps.length; i++) {
+      if (i <= id) {
+        steps[i].completed = true;
+      }
+      else {
+        steps[i].completed = false;
+      }
+    }
   }
 
   function getCurrentGoal() {

@@ -8,6 +8,7 @@ angular
     "app.goals",
     "app.playlists",
     "app.playlist_edit",
+    "app.playlist_view",
     "app.templates",
     "pascalprecht.translate",
     "restangular"
@@ -42,8 +43,11 @@ function AppController($router) {
     component: 'playlists'
   }, {
     path: '/playlists/:id',
+    component: 'playlist_view'
+  }, {
+    path: '/playlists/:id/edit',
     component: 'playlist_edit'
-  },
+  }
   ]);
   // /playlists - list of my playlists
 }

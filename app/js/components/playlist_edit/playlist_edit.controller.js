@@ -10,6 +10,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.tracks = TracksService.getTracks();
   this.currentgoal = PlaylistEdit.getCurrentGoal();
 
+  PlaylistEdit.setStep(2);
+
   // TODO: handle both the 'edit existing' and 'edit new' case
   if (this.id) {
     // Load an existing playlist
@@ -98,6 +100,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       return;
     }
 
+    PlaylistEdit.trackDropped(self.currentgoal.ArrayId, track);
     self.addTrackSuccess(track);
   };
 
@@ -106,19 +109,16 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * @param track
    */
   this.addTrackSuccess = function (track) {
-    PlaylistEdit.trackDropped(self.currentgoal.ArrayId, track);
-
+    // These should all be taken care of by in-html directives
+    // TODO: this _probably_ means that I can remove a similar check from the droppable directive
     // A track was "dropped"
+    /*
     var bin = document.getElementById("bin" + self.currentgoal.ArrayId);
     if (bin) {
       bin.classList.add('dropped');
       bin.removeAttribute('droppable');
     }
-
-    var trackElement = document.getElementById("track" + track.id);
-    if (trackElement) {
-      trackElement.classList.add('ng-hide');
-    }
+    */
   };
 
   // Remove a track from a goal playlist
