@@ -31,7 +31,7 @@ function TracksService($rootScope) {
     var dz = document.getElementById('dz-root');
     // dz is null when running tests; handle that case
     if (dz) {
-      dz.appendChild(e);
+      //dz.appendChild(e);
     }
   }());
 
