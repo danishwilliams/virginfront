@@ -1,0 +1,30 @@
+<div class="create-playlist">
+  <playlist-workflow></playlist-workflow>
+  <div class="row">
+    <div class="small-1 columns">
+      &nbsp;
+    </div>
+    <div class="small-16 columns">
+      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-6">
+        <li ng-repeat="template in playlist_template.templates">
+          <a class="choose-template">
+            <div class="template">
+              <div class="icon"><img src="/img/templates/{{template.IconFileName}}"></div>
+              <h4 ng-bind-html="template.Name"></h4>
+              <div class="description">{{template.Description}}</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <div class="template own">
+            <div class="icon"><img src="/img/templates/own.svg"></div>
+            <h4>Create your own template</h4>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="small-1 columns">
+      &nbsp;
+    </div>
+  </div>
+</div>

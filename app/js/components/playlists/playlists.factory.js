@@ -14,7 +14,7 @@ function PlaylistsFactory(Restangular) {
   var playlistsFactory = {
     loadPlaylists: loadPlaylists,
     getPlaylists: getPlaylists,
-    getPlaylist: getPlaylist
+    loadPlaylist: loadPlaylist
   };
 
   return playlistsFactory;
@@ -34,7 +34,7 @@ function PlaylistsFactory(Restangular) {
     return playlists;
   }
 
-  function getPlaylist(id) {
+  function loadPlaylist(id) {
     return Restangular.one('playlists', id).get({
       includeGoals: true
     }).then(loadPlaylistComplete);

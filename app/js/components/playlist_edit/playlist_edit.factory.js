@@ -80,9 +80,9 @@ function PlaylistEditFactory($http, Restangular, Playlists) {
   }
 
   function loadPlaylist(id) {
-    return Playlists.getPlaylist(id).then(getPlaylistComplete);
+    return Playlists.loadPlaylist(id).then(loadPlaylistComplete);
 
-    function getPlaylistComplete(data) {
+    function loadPlaylistComplete(data) {
       playlist = data;
 
       var found = false;

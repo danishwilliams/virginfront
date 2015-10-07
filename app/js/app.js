@@ -7,6 +7,7 @@ angular
     "app.login",
     "app.goals",
     "app.playlists",
+    "app.playlist_template",
     "app.playlist_edit",
     "app.playlist_view",
     "app.templates",
@@ -47,6 +48,9 @@ function AppController($router) {
   }, {
     path: '/playlists/:id/edit',
     component: 'playlist_edit'
+  }, {
+    path: '/playlists/new',
+    component: 'playlist_template'
   }
   ]);
   // /playlists - list of my playlists
