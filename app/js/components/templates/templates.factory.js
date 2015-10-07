@@ -14,14 +14,14 @@ function TemplatesFactory(Restangular) {
   var templatesFactory = {
     loadTemplates: loadTemplates,
     getTemplates: getTemplates,
-    getTemplate: getTemplate
+    loadTemplate: loadTemplate
   };
 
   return templatesFactory;
 
-  function loadTemplates() {
-    return Restangular.one('templates').get({
-      includeGoals: false
+  function loadTemplates(includeGoals) {
+    return Restangular.all('templates').getList({
+      includeGoals: includeGoals
     }).then(loadTemplatesComplete);
 
     function loadTemplatesComplete(data, status, headers, config) {
@@ -34,7 +34,7 @@ function TemplatesFactory(Restangular) {
     return templates;
   }
 
-  function getTemplate(id) {
+  function loadTemplate(id) {
     return Restangular.one('templates', id).get({
       includeGoals: true
     }).then(loadTemplateComplete);
