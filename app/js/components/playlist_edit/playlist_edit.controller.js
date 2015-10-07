@@ -143,7 +143,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   // Save the playlist to the API
   this.savePlaylist = function () {
     // Theoretically, this should work
-    self.playlist.put();
+    self.playlist.put({syncPlaylist: false});
     /*
     // Format the playlist object properly before the PUT
     var newPlaylist = {};
