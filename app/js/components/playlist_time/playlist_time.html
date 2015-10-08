@@ -1,0 +1,23 @@
+<div class="create-playlist">
+  <playlist-workflow></playlist-workflow>
+  <div class="row">
+    <div class="small-1 columns">
+      &nbsp;
+    </div>
+    <div class="small-16 columns">
+      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-6">
+        <li ng-repeat="template in playlist_time.templates">
+          <a class="choose-template" ng-link="playlist_edit({id:template.TemplateId})">
+            <div class="template">
+              <div class="icon"><img src="/img/templates/intervals.svg"></div>
+              <h4 ng-bind-html="template.ClassLengthMinutes"></h4>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="small-1 columns">
+      &nbsp;
+    </div>
+  </div>
+</div>

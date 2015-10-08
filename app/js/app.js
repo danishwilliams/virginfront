@@ -8,6 +8,7 @@ angular
     "app.goals",
     "app.playlists",
     "app.playlist_template",
+    "app.playlist_time",
     "app.playlist_edit",
     "app.playlist_view",
     "app.templates",
@@ -55,6 +56,9 @@ function AppController($router) {
   }, {
     path: '/playlists/new',
     component: 'playlist_template'
+  }, {
+    path: '/playlists/new/:id',
+    component: 'playlist_time'
   }
   ]);
   // /playlists - list of my playlists
