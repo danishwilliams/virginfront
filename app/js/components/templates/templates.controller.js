@@ -10,6 +10,7 @@ angular.module("app.templates", []).controller('TemplatesController', function (
       Templates.loadTemplateGroupClasses(val.Id).then(function (data) {
         // TODO: there *must* be a way of updating an object within an array rather than searching through it by ID
         // There is!!!! https://www.jonathanfielding.com/combining-promises-angular/
+        // Nah - that's a pattern for making multiple API calls which don't depend on each other
         var found = false;
         _.mapObject(self.templateGroups, function (val, key) {
           if (!found && val.Id === data.TemplateGroupId) {
