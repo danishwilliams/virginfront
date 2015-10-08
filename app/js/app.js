@@ -11,6 +11,7 @@ angular
     "app.playlist_edit",
     "app.playlist_view",
     "app.templates",
+    "app.template_view",
     "pascalprecht.translate",
     "restangular"
   ])
@@ -39,6 +40,9 @@ function AppController($router) {
   }, {
     path: '/admin/templates',
     component: 'templates'
+  }, {
+    path: '/admin/templates/:id',
+    component: 'template_view'
   }, {
     path: '/admin/playlists',
     component: 'playlists'

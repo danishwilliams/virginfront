@@ -12,12 +12,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="template in templates.templateGroups | orderBy:'Name'">
-      <td contentEditable ng-change="templates.updateTemplateGroup(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.Name"></td>
-      <td contentEditable ng-change="templates.updateTemplateGroup(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.Description"></td>
-      <td contentEditable ng-change="templates.updateTemplateGroup(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.IconFileName"></td>
-      <td><img src="/img/templates/{{template.IconFileName}}"></td>
-      <td><div class="classlength" ng-repeat="classLength in template.ClassLengths">{{classLength.ClassLengthMinutes}}</div></td>
+    <tr ng-repeat="templateGroup in templates.templateGroups | orderBy:'Name'">
+      <td contentEditable ng-change="templates.updateTemplateGroup(templateGroup)" ng-model-options="{updateOn : 'change blur'}" ng-model="templateGroup.Name"></td>
+      <td contentEditable ng-change="templates.updateTemplateGroup(templateGroup)" ng-model-options="{updateOn : 'change blur'}" ng-model="templateGroup.Description"></td>
+      <td contentEditable ng-change="templates.updateTemplateGroup(templateGroup)" ng-model-options="{updateOn : 'change blur'}" ng-model="templateGroup.IconFileName"></td>
+      <td><img src="/img/templates/{{templateGroup.IconFileName}}"></td>
+      <td>
+        <div class="classlength" ng-repeat="template in templateGroup.ClassLengths">
+          <a ng-link="template_view({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
+        </div>
+      </td>
       <td>{{template.Id}}</td>
     </tr>
     <!--
