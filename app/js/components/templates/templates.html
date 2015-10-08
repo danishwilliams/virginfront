@@ -13,10 +13,10 @@
   </thead>
   <tbody>
     <tr ng-repeat="template in templates.templates | orderBy:'Name'">
-      <td contentEditable ng-change="templates.update(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.Name"></td>
+      <td contentEditable ng-change="templates.update(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.TemplateGroup.Name"></td>
       <td contentEditable ng-change="templates.update(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.ClassLengthMinutes"></td>
-      <td contentEditable ng-change="templates.update(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.Description"></td>
-      <td contentEditable ng-change="templates.update(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.IconFileName"></td>
+      <td contentEditable ng-change="templates.update(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.TemplateGroup.Description"></td>
+      <td contentEditable ng-change="templates.update(template)" ng-model-options="{updateOn : 'change blur'}" ng-model="template.TemplateGroup.IconFileName"></td>
       <td>{{template.Id}}</td>
       <td ng-click="templates.delete(template)"><a>x</a></td>
     </tr>
