@@ -9,7 +9,8 @@ PlaylistEditFactory.$inject = ['$http', 'Restangular', 'Playlists'];
 
 function PlaylistEditFactory($http, Restangular, Playlists) {
   var self = this;
-  var steps = initSteps();
+  var steps = initSteps(); // The full steps array
+  var currentStep = 0; // Which step we're currently on
   var playlist = [];
   var goals = [];
   // The currently selected goal which tracks can be added to
@@ -36,6 +37,7 @@ function PlaylistEditFactory($http, Restangular, Playlists) {
     getName: getName,
     setName: setName,
     getSteps: getSteps,
+    getCurrentStep: getCurrentStep,
     setStep: setStep,
     getCurrentGoal: getCurrentGoal, // The currently selected goal which tracks can be added to
     setCurrentGoal: setCurrentGoal
@@ -193,6 +195,10 @@ function PlaylistEditFactory($http, Restangular, Playlists) {
     return steps;
   }
 
+  function getCurrentStep() {
+    return currentStep;
+  }
+
   /**
    * Complete/uncomplete a step
    *
@@ -200,6 +206,7 @@ function PlaylistEditFactory($http, Restangular, Playlists) {
    * @param status boolean
    */
   function setStep(id) {
+    step = id;
     for (var i = 0; i < steps.length; i++) {
       if (i <= id) {
         steps[i].completed = true;
