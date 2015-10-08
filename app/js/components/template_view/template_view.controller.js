@@ -5,8 +5,6 @@ angular.module("app.template_view", []).controller('Template_viewController', fu
 
 	Templates.loadTemplate(this.id).then(function(data) {
 		self.template = data;
-		console.log(data);
 	});
-
 
 });
