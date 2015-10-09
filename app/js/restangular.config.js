@@ -6,7 +6,7 @@ angular.module("app").config(function (RestangularProvider) {
   var newBaseUrl = "";
   if (window.location.hostname === "localhost") {
     newBaseUrl = "http://localhost:8000/varockstar/api/"; // Dane's laptop, via ../config/proxy.js
-    //newBaseUrl = "http://localhost:8000/api/1.0/"; // dev
+    newBaseUrl = "http://localhost:8000/api/1.0/"; // dev
   } else {
     var deployedAt = window.location.href.substring(0, window.location.href);
     newBaseUrl = deployedAt + "/api/rest/register";

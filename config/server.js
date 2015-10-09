@@ -84,6 +84,35 @@ module.exports = {
       });
     });
 
+    app.get(apipath + '/templategroups', function (req, res) {
+      var file = '/templategroups.json';
+      fs.readFile(filepath + version + file, function(err, data) {
+        if (err) {
+          res.status(404).send('Not found');
+        } else {
+          res.header('Cache-Control', 'none').contentType('application/json').send(data);
+        }
+        res.end();
+      });
+    });
+
+    app.get(apipath + '/templategroups/classlengthoptions/:id', function (req, res) {
+      var file = '';
+      switch (req.params.id) {
+        case "3946f337-3957-47d2-a69f-09b357e43b6a":
+          file = "/templategroups/intervals.json";
+          break;
+      }
+      fs.readFile(filepath + version + file, function(err, data) {
+        if (err) {
+          res.status(404).send('Not found');
+        } else {
+          res.header('Cache-Control', 'none').contentType('application/json').send(data);
+        }
+        res.end();
+      });
+    });
+
     app.get(apipath + '/templates', function (req, res) {
       var file = '/templates.json';
       fs.readFile(filepath + version + file, function(err, data) {
