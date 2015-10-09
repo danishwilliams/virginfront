@@ -4,13 +4,15 @@
     <div class="small-1 columns">
       &nbsp;
     </div>
-    <div class="small-16 columns">
+    <div class="small-16 columns text-center">
+      <h3>How long is your class?</h3>
+
       <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-6">
         <li ng-repeat="template in playlist_time.templates">
           <a class="choose-template" ng-link="playlist_edit({id:template.TemplateId})">
             <div class="template">
               <div class="icon"><img src="/img/templates/intervals.svg"></div>
-              <h4 ng-bind-html="template.ClassLengthMinutes"></h4>
+              <h4><span ng-bind-html="template.ClassLengthMinutes"></span> mins</h4>
             </div>
           </a>
         </li>
