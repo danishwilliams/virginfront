@@ -1,20 +1,30 @@
 angular
   .module("app", [
-    "ngResource",
+    "ngResource", // TODO: probably not needed
     "ngSanitize",
     "ngNewRouter",
     "angularUUID2",
-    "app.login",
+    "pascalprecht.translate",
+    "restangular",
+    "app.beats",
+    "app.countries",
+    "app.devices",
+    "app.genres",
     "app.goals",
+    "app.gyms",
+    "app.locations",
+    "app.login",
+    "app.music_providers",
     "app.playlists",
     "app.playlist_template",
     "app.playlist_time",
     "app.playlist_edit",
     "app.playlist_view",
+    "app.sync",
+    "app.tracks",
+    "app.users",
     "app.templates",
-    "app.template_view",
-    "pascalprecht.translate",
-    "restangular"
+    "app.template_view"
   ])
   .controller("AppController", ['$router', AppController])
   .config(function ($componentLoaderProvider) {
@@ -36,14 +46,29 @@ function AppController($router) {
     path: '/login',
     component: 'login'
   }, {
+    path: '/admin/beats',
+    component: 'beats'
+  }, {
+    path: '/admin/countries',
+    component: 'countries'
+  }, {
+    path: '/admin/devices',
+    component: 'devices'
+  }, {
+    path: '/admin/genres',
+    component: 'genres'
+  }, {
     path: '/admin/goals',
     component: 'goals'
   }, {
-    path: '/admin/templates',
-    component: 'templates'
+    path: '/admin/gyms',
+    component: 'gyms'
   }, {
-    path: '/admin/templates/:id',
-    component: 'template_view'
+    path: '/admin/locations',
+    component: 'locations'
+  }, {
+    path: '/admin/music_providers',
+    component: 'music_providers'
   }, {
     path: '/admin/playlists',
     component: 'playlists'
@@ -59,6 +84,24 @@ function AppController($router) {
   }, {
     path: '/playlists/new/:id',
     component: 'playlist_time'
+  }, {
+    path: '/admin/sync',
+    component: 'sync'
+  }, {
+    path: '/admin/templates',
+    component: 'templates'
+  }, {
+    path: '/admin/templates/:id',
+    component: 'template_view'
+  }, {
+    path: '/admin/tracks',
+    component: 'tracks'
+  }, {
+    path: '/admin/users',
+    component: 'users'
+  }, {
+    path: '/admin/usertypes',
+    component: 'usertypes'
   }
   ]);
   // /playlists - list of my playlists

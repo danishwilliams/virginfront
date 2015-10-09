@@ -1,0 +1,15 @@
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>User</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users.users | orderBy:'Name'">
+      <td contentEditable ng-change="beats.update(beat)" ng-model-options="{updateOn : 'change blur'}" ng-model="templateGroup.Name"></td>
+      <td>{{user.Id}}</td>
+    </tr>
+  </tbody>
+</table>

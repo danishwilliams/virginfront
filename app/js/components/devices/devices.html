@@ -1,0 +1,15 @@
+<h1>Devices</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Device</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="device in devices.devices | orderBy:'Name'">
+      <td contentEditable ng-change="devices.update(device)" ng-model-options="{updateOn : 'change blur'}" ng-model="device.Name"></td>
+      <td>{{device.Id}}</td>
+    </tr>
+  </tbody>
+</table>

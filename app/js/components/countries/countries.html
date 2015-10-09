@@ -1,0 +1,15 @@
+<h1>Countries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Country</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="country in countries.countries | orderBy:'Name'">
+      <td contentEditable ng-change="countries.update(country)" ng-model-options="{updateOn : 'change blur'}" ng-model="country.Name"></td>
+      <td>{{country.Id}}</td>
+    </tr>
+  </tbody>
+</table>

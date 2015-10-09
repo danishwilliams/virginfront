@@ -1,0 +1,15 @@
+<h1>Locations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Location</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="location in locations.locations | orderBy:'Name'">
+      <td contentEditable ng-change="locations.update(location)" ng-model-options="{updateOn : 'change blur'}" ng-model="location.Name"></td>
+      <td>{{location.Id}}</td>
+    </tr>
+  </tbody>
+</table>

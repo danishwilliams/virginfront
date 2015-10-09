@@ -1,0 +1,15 @@
+<h1>Tracks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Track</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="track in tracks.tracks | orderBy:'Name'">
+      <td contentEditable ng-change="tracks.update(track)" ng-model-options="{updateOn : 'change blur'}" ng-model="track.Name"></td>
+      <td>{{track.Id}}</td>
+    </tr>
+  </tbody>
+</table>
