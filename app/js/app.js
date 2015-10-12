@@ -56,6 +56,12 @@ function AppController($router) {
     path: '/admin/devices',
     component: 'devices'
   }, {
+    path: '/devices/:id/playlists',
+    component: 'devices'
+  }, {
+    path: '/devices/:id/playlists/queue',
+    component: 'devices'
+  }, {
     path: '/admin/genres',
     component: 'genres'
   }, {
