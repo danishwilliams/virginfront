@@ -11,7 +11,7 @@ function UserTypesFactory(Restangular) {
   var usertypesFactory = {
     loadUserTypes: loadUserTypes,
     getUserTypes: getUserTypes,
-    loadUser: loadUser
+    loadUserType: loadUserType
   };
 
   return usertypesFactory;
@@ -29,10 +29,10 @@ function UserTypesFactory(Restangular) {
     return usertypes;
   }
 
-  function loadUser(id) {
-    return Restangular.one('usertypes', id).get().then(loadUserComplete);
+  function loadUserType(id) {
+    return Restangular.one('usertypes', id).get().then(loadUserTypeComplete);
 
-    function loadUserComplete(data, status, headers, config) {
+    function loadUserTypeComplete(data, status, headers, config) {
       return data;
     }
   }

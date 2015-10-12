@@ -11,7 +11,7 @@ function BeatsFactory(Restangular) {
   var beatsFactory = {
     loadBeats: loadBeats,
     getBeats: getBeats,
-    loadUser: loadUser
+    loadBeat: loadBeat
   };
 
   return beatsFactory;
@@ -29,10 +29,10 @@ function BeatsFactory(Restangular) {
     return beats;
   }
 
-  function loadUser(id) {
-    return Restangular.one('beats', id).get().then(loadUserComplete);
+  function loadBeat(id) {
+    return Restangular.one('beats', id).get().then(loadBeatComplete);
 
-    function loadUserComplete(data, status, headers, config) {
+    function loadBeatComplete(data, status, headers, config) {
       return data;
     }
   }

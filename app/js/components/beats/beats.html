@@ -3,12 +3,15 @@
 <table>
   <thead>
     <tr>
-      <td>User</td>
+      <td>Beat name</td>
+      <td>Beat ratio</td>
+      <td>ID</td>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="beat in beats.beats | orderBy:'Name'">
-      <td contentEditable ng-change="beats.update(beat)" ng-model-options="{updateOn : 'change blur'}" ng-model="beat.Name"></td>
+      <td>{{beat.Name}}</td>
+      <td>{{beat.Ratio}}</td>
       <td>{{beat.Id}}</td>
     </tr>
   </tbody>

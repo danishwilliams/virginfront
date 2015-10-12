@@ -11,7 +11,7 @@ function MusicProvidersFactory(Restangular) {
   var musicProvidersFactory = {
     loadMusicProviders: loadMusicProviders,
     getMusicProviders: getMusicProviders,
-    loadUser: loadUser
+    loadMusicProvider: loadMusicProvider
   };
 
   return musicProvidersFactory;
@@ -29,10 +29,10 @@ function MusicProvidersFactory(Restangular) {
     return musicProviders;
   }
 
-  function loadUser(id) {
-    return Restangular.one('musicProviders', id).get().then(loadUserComplete);
+  function loadMusicProvider(id) {
+    return Restangular.one('musicProviders', id).get().then(loadMusicProviderComplete);
 
-    function loadUserComplete(data, status, headers, config) {
+    function loadMusicProviderComplete(data, status, headers, config) {
       return data;
     }
   }

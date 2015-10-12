@@ -4,11 +4,14 @@
   <thead>
     <tr>
       <td>Gym</td>
+      <td>Location ID</td>
+      <td>Id</td>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="gym in gyms.gyms | orderBy:'Name'">
-      <td contentEditable ng-change="gyms.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gyms.Name"></td>
+      <td contentEditable ng-change="gyms.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
+      <td>{{gym.LocationId}}</td>
       <td>{{gym.Id}}</td>
     </tr>
   </tbody>

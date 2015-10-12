@@ -11,7 +11,7 @@ function GymsFactory(Restangular) {
   var gymsFactory = {
     loadGyms: loadGyms,
     getGyms: getGyms,
-    loadUser: loadUser
+    loadGym: loadGym
   };
 
   return gymsFactory;
@@ -29,10 +29,10 @@ function GymsFactory(Restangular) {
     return gyms;
   }
 
-  function loadUser(id) {
-    return Restangular.one('gyms', id).get().then(loadUserComplete);
+  function loadGym(id) {
+    return Restangular.one('gyms', id).get().then(loadGymComplete);
 
-    function loadUserComplete(data, status, headers, config) {
+    function loadGymComplete(data, status, headers, config) {
       return data;
     }
   }

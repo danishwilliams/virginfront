@@ -11,7 +11,7 @@ function LocationsFactory(Restangular) {
   var locationsFactory = {
     loadLocations: loadLocations,
     getLocations: getLocations,
-    loadUser: loadUser
+    loadLocation: loadLocation
   };
 
   return locationsFactory;
@@ -29,10 +29,10 @@ function LocationsFactory(Restangular) {
     return locations;
   }
 
-  function loadUser(id) {
-    return Restangular.one('locations', id).get().then(loadUserComplete);
+  function loadLocation(id) {
+    return Restangular.one('locations', id).get().then(loadLocationComplete);
 
-    function loadUserComplete(data, status, headers, config) {
+    function loadLocationComplete(data, status, headers, config) {
       return data;
     }
   }

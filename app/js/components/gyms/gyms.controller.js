@@ -6,7 +6,7 @@ angular.module("app.gyms", []).controller('GymsController', function ($routePara
   // TODO: bug fix for "Controller loads twice" @see https://github.com/angular/router/issues/204
   if (!self.gyms) {
 	  Gyms.loadGyms().then(function(data) {
-	    this.gyms = data;
+	    self.gyms = data;
 	  });
 	}
 });

@@ -11,7 +11,7 @@ function DevicesFactory(Restangular) {
   var devicesFactory = {
     loadDevices: loadDevices,
     getDevices: getDevices,
-    loadUser: loadUser
+    loadDevice: loadDevice
   };
 
   return devicesFactory;
@@ -29,10 +29,10 @@ function DevicesFactory(Restangular) {
     return devices;
   }
 
-  function loadUser(id) {
-    return Restangular.one('devices', id).get().then(loadUserComplete);
+  function loadDevice(id) {
+    return Restangular.one('devices', id).get().then(loadDeviceComplete);
 
-    function loadUserComplete(data, status, headers, config) {
+    function loadDeviceComplete(data, status, headers, config) {
       return data;
     }
   }

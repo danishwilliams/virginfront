@@ -5,7 +5,7 @@ angular.module("app.locations", []).controller('LocationsController', function (
 
   // TODO: bug fix for "Controller loads twice" @see https://github.com/angular/router/issues/204
   if (!self.locations) {
-	  Users.loadUsers().then(function(data) {
+	  Locations.loadLocations().then(function(data) {
 	    self.locations = data;
 	  });  	
   }

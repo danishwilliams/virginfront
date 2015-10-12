@@ -11,7 +11,7 @@ function CountriesFactory(Restangular) {
   var countriesFactory = {
     loadCountries: loadCountries,
     getCountries: getCountries,
-    loadUser: loadUser
+    loadCountry: loadCountry
   };
 
   return countriesFactory;
@@ -29,11 +29,12 @@ function CountriesFactory(Restangular) {
     return countries;
   }
 
-  function loadUser(id) {
-    return Restangular.one('countries', id).get().then(loadUserComplete);
+  function loadCountry(id) {
+    return Restangular.one('countries', id).get().then(loadCountryComplete);
 
-    function loadUserComplete(data, status, headers, config) {
+    function loadCountryComplete(data, status, headers, config) {
       return data;
     }
   }
+
 }

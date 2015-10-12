@@ -6,34 +6,28 @@ SyncFactory.$inject = ['Restangular'];
 
 function SyncFactory(Restangular) {
   var self = this;
-  var sync = [];
 
   var syncFactory = {
-    loadSync: loadSync,
-    getSync: getSync,
-    loadUser: loadUser
+    loadDevicePlaylists: loadDevicePlaylists,
+    loadDevicePlaylistQueue: loadDevicePlaylistQueue
   };
 
   return syncFactory;
 
-  function loadSync() {
-    return Restangular.all('sync').getList().then(loadSyncComplete);
+  function loadDevicePlaylists(id) {
+    return Restangular.all('sync/playlists', id).getList().then(loadDevicePlaylistsComplete);
 
-    function loadSyncComplete(data, status, headers, config) {
-      self.sync = data;
-      return self.sync;
-    }
-  }
-
-  function getSync() {
-    return sync;
-  }
-
-  function loadUser(id) {
-    return Restangular.one('sync', id).get().then(loadUserComplete);
-
-    function loadUserComplete(data, status, headers, config) {
+    function loadDevicePlaylistsComplete(data, status, headers, config) {
       return data;
     }
   }
+
+  function loadDevicePlaylistQueue(id) {
+    return Restangular.all('sync/playlistsyncqueue', id).getList().then(loadDevicePlaylistQueueComplete);
+
+    function loadDevicePlaylistQueueComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
 }

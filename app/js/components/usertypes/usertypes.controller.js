@@ -1,4 +1,4 @@
-angular.module("app.usertypes", []).controller('User_typesController', function ($routeParams, UserTypes) {
+angular.module("app.usertypes", []).controller('UsertypesController', function ($routeParams, UserTypes) {
   var self = this;
   this.title = "User Types";
   this.id = $routeParams.id;

@@ -11,7 +11,7 @@ function GenresFactory(Restangular) {
   var genresFactory = {
     loadGenres: loadGenres,
     getGenres: getGenres,
-    loadUser: loadUser
+    loadGenre: loadGenre
   };
 
   return genresFactory;
@@ -29,10 +29,10 @@ function GenresFactory(Restangular) {
     return genres;
   }
 
-  function loadUser(id) {
-    return Restangular.one('genres', id).get().then(loadUserComplete);
+  function loadGenre(id) {
+    return Restangular.one('genres', id).get().then(loadGenreComplete);
 
-    function loadUserComplete(data, status, headers, config) {
+    function loadGenreComplete(data, status, headers, config) {
       return data;
     }
   }

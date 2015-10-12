@@ -23,6 +23,7 @@ angular
     "app.sync",
     "app.tracks",
     "app.users",
+    "app.usertypes",
     "app.templates",
     "app.template_view"
   ])
@@ -85,9 +86,6 @@ function AppController($router) {
     path: '/playlists/new/:id',
     component: 'playlist_time'
   }, {
-    path: '/admin/sync',
-    component: 'sync'
-  }, {
     path: '/admin/templates',
     component: 'templates'
   }, {
@@ -100,7 +98,7 @@ function AppController($router) {
     path: '/admin/users',
     component: 'users'
   }, {
-    path: '/admin/usertypes',
+    path: '/admin/users/types',
     component: 'usertypes'
   }
   ]);
