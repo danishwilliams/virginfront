@@ -27,7 +27,7 @@ angular
     "app.templates",
     "app.template_view"
   ])
-  .controller("AppController", ['$router', AppController])
+  .controller("AppController", ['$router', 'Users', AppController])
   .config(function ($componentLoaderProvider) {
     /*
      * overriding the template mapping of the new router to make it
@@ -39,7 +39,9 @@ angular
     });
   });
 
-function AppController($router) {
+function AppController($router, Users) {
+  Users.loadCurrentUser();
+
   $router.config([{
     path: '/',
     redirectTo: '/login'
@@ -91,6 +93,9 @@ function AppController($router) {
   }, {
     path: '/playlists/new/:id',
     component: 'playlist_time'
+  }, {
+    path: '/playlists/new/playlist/:id',
+    component: 'playlist_edit'
   }, {
     path: '/admin/templates',
     component: 'templates'

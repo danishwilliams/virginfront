@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($routeParams, $location, AuthenticationService, TracksService, PlaylistEdit) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($routeParams, $location, AuthenticationService, TracksService, PlaylistEdit, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -12,16 +12,26 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   PlaylistEdit.setStep(2);
 
-  // TODO: handle both the 'edit existing' and 'edit new' case
-  if (this.id) {
-    // Load an existing playlist
+  // Create new playlist
+  if ($location.path().substring(0, 15) === '/playlists/new/') {
+    // TODO: refactor this once NgNewRouter allows for multiple ways to call a component with ng-link
+    if ($location.path().substring(15, 23) === 'playlist') {
+      self.id = $location.path().substring(24);
+    }
+    Templates.loadTemplate(self.id).then(function (data) {
+      self.playlist = PlaylistEdit.createNewPlaylistFromTemplate(data);
+      self.currentgoal = PlaylistEdit.getCurrentGoal();
+    });
+  } else if (self.id) {
+    // Load an existing playlist so we can edit it
     PlaylistEdit.loadPlaylist(this.id).then(function () {
       self.playlist = PlaylistEdit.getPlaylist();
       self.currentgoal = PlaylistEdit.getCurrentGoal();
     });
   } else {
-    // TODO: this is when creating a blank playlist, surely?
-    // On the previous screen ("Choose time") we submit, set up a blank template structure, post it, then on success callback load up the next screen
+    // We should never land here
+    console.log('[Warning] What are you doing here?! You should be adding or editing a playlist');
+    // TODO: legacy code. Remove once playlist creation is working
     /*
     PlaylistEdit.loadGoals().then(function (data) {
       console.log(data);
@@ -143,7 +153,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   // Save the playlist to the API
   this.savePlaylist = function () {
     // Theoretically, this should work
-    self.playlist.put({syncPlaylist: false});
+    self.playlist.put({
+      syncPlaylist: false
+    });
     /*
     // Format the playlist object properly before the PUT
     var newPlaylist = {};

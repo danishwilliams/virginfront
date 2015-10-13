@@ -5,9 +5,9 @@ angular
   .module("app")
   .factory('PlaylistEdit', PlaylistEditFactory);
 
-PlaylistEditFactory.$inject = ['$http', 'Restangular', 'Playlists'];
+PlaylistEditFactory.$inject = ['Restangular', 'Playlists', 'uuid2', 'Users'];
 
-function PlaylistEditFactory($http, Restangular, Playlists) {
+function PlaylistEditFactory(Restangular, Playlists, uuid2, Users) {
   var self = this;
   var steps = initSteps(); // The full steps array
   var currentStep = 0; // Which step we're currently on
@@ -23,7 +23,7 @@ function PlaylistEditFactory($http, Restangular, Playlists) {
   };
 
   var playlistFactory = {
-    setupEmptyPlaylist: setupEmptyPlaylist,
+    createNewPlaylistFromTemplate: createNewPlaylistFromTemplate,
     addTrackToGoalPlaylist: addTrackToGoalPlaylist,
     removeTrackFromGoalPlaylist: removeTrackFromGoalPlaylist,
     trackDropped: trackDropped,
@@ -39,17 +39,55 @@ function PlaylistEditFactory($http, Restangular, Playlists) {
     getSteps: getSteps,
     getCurrentStep: getCurrentStep,
     setStep: setStep,
-    getCurrentGoal: getCurrentGoal, // The currently selected goal which tracks can be added to
+    getCurrentGoal: getCurrentGoal,
     setCurrentGoal: setCurrentGoal
   };
 
   return playlistFactory;
 
-  function setupEmptyPlaylist(goals_data) {
-    // TODO: this playlist structure needs to be refactored to use the structure used when editing a playlist
-    goals_data.forEach(function (goal) {
-      playlist[goal.Id] = [];
+  /**
+   * Load up a template structure, create a blank playlist structure from it
+   */
+  function createNewPlaylistFromTemplate(template) {
+    var playlistId = uuid2.newuuid().toString();
+    playlist = Restangular.one('playlists', playlistId);
+    playlist.Id = playlistId;
+    playlist.Name = '';
+    playlist.TemplateId = template.Id;
+    playlist.TemplateName = template.TemplateGroup.Name;
+    playlist.Shared = false;
+    playlist.ClassLengthMinutes = template.ClassLengthMinutes;
+    playlist.UserId = Users.getCurrentUser().Id;
+    playlist.PlaylistGoals = [];
+    playlist.BackgroundTracks = [];
+
+    // for each template goal: set up a new playlist goal
+    var playlistGoal = {};
+    var i = 0;
+    template.Goals.forEach(function (goal) {
+      playlistGoal = {
+        Id: uuid2.newuuid().toString(),
+        GoalId: goal.Id,
+        SortOrder: goal.SortOrder
+      };
+      if (goal.SortOrder === 1) {
+        playlistGoal.show = true;
+        goal.ArrayId = i;
+        setCurrentGoal({
+          ArrayId: i,
+          Id: playlistGoal.Id,
+          Goal: goal
+        });
+      }
+      playlistGoal.Goal = goal;
+      playlistGoal.ArrayId = i;
+      playlistGoal.PlaylistGoalTracks = [];
+      playlistGoal.PlaylistGoalNotes = [];
+      playlist.PlaylistGoals.push(playlistGoal);
+      i++;
     });
+
+    return playlist;
   }
 
   // Add a track to a playlist for a goal id
@@ -133,12 +171,9 @@ function PlaylistEditFactory($http, Restangular, Playlists) {
         if (!found && val.SortOrder === 1) {
           found = true; // Only find a goal once
           val.show = true;
-          currentgoal = {
-            Id: val.Id,
-            Name: val.Name,
-            BpmLow: val.BpmLow,
-            BpmHigh: val.BpmHigh
-          };
+          var goal = val;
+          goal.ArrayId = key;
+          setCurrentGoal(goal);
           return val;
         }
       });
@@ -210,8 +245,7 @@ function PlaylistEditFactory($http, Restangular, Playlists) {
     for (var i = 0; i < steps.length; i++) {
       if (i <= id) {
         steps[i].completed = true;
-      }
-      else {
+      } else {
         steps[i].completed = false;
       }
     }
