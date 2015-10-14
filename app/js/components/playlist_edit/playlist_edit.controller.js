@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($routeParams, $location, AuthenticationService, TracksService, PlaylistEdit, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($routeParams, $location, AuthenticationService, Tracks, PlaylistEdit, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -7,10 +7,15 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   this.title = "Add a Ride";
   this.playlist = PlaylistEdit.getPlaylist();
-  this.tracks = TracksService.getTracks();
+  this.tracks = Tracks.getTracks();
   this.currentgoal = PlaylistEdit.getCurrentGoal();
 
   PlaylistEdit.setStep(2);
+
+  // Load tracks from the user's default genre selection
+  Tracks.loadUserGenresTracks().then(function(data) {
+    self.tracks = data;
+  });
 
   // Create new playlist
   if ($location.path().substring(0, 15) === '/playlists/new/') {
@@ -45,7 +50,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   }
 
   this.playTrack = function (trackid) {
-    var playertrack = TracksService.getPlayerTrack();
+    var playertrack = Tracks.getPlayerTrack();
     if (trackid === playertrack[0]) {
       if (playing) {
         // Pause the currently playing track
@@ -58,7 +63,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       }
     } else {
       // Play a different track
-      TracksService.setPlayerTrack(trackid);
+      Tracks.setPlayerTrack(trackid);
       DZ.player.playTracks([trackid]);
       DZ.player.play();
       playing = true;
@@ -99,7 +104,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Add a track to a goal self. If it passes our checks, call addTrackSuccess
   this.addTrack = function (track) {
-    if (track.bpm < self.currentgoal.BpmLow || track.bpm > self.currentgoal.BpmHigh) {
+    if (track.Bpm < self.currentgoal.BpmLow || track.Bpm > self.currentgoal.BpmHigh) {
       // TODO: show some kind of helpful error message to the user
       return;
     }
@@ -111,42 +116,17 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
 
     PlaylistEdit.trackDropped(self.currentgoal.ArrayId, track);
-    self.addTrackSuccess(track);
-  };
-
-  /**
-   * A track has successfully been added, so do some DOM operations to show that
-   * @param track
-   */
-  this.addTrackSuccess = function (track) {
-    // These should all be taken care of by in-html directives
-    // TODO: this _probably_ means that I can remove a similar check from the droppable directive
-    // A track was "dropped"
-    /*
-    var bin = document.getElementById("bin" + self.currentgoal.ArrayId);
-    if (bin) {
-      bin.classList.add('dropped');
-      bin.removeAttribute('droppable');
-    }
-    */
   };
 
   // Remove a track from a goal playlist
-  this.removeTrack = function (goalid, track) {
-    console.log("Removing track from goal " + goalid);
-    PlaylistEdit.removeTrackFromGoalPlaylist(goalid, track);
+  this.removeTrack = function (playlistGoalArrayId, track) {
+    PlaylistEdit.removeTrackFromGoalPlaylist(playlistGoalArrayId, track);
 
     // The track isn't "dropped" any more
-    var bin = document.getElementById("bin" + goalid);
+    var bin = document.getElementById("bin" + playlistGoalArrayId);
     if (bin) {
       bin.classList.remove('dropped');
       bin.setAttribute('droppable', '');
-    }
-
-    // Show the track in the track list
-    var trackElement = document.getElementById("track" + track.id);
-    if (trackElement) {
-      trackElement.classList.remove('ng-hide');
     }
   };
 

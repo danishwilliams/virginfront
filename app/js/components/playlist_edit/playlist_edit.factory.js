@@ -51,7 +51,7 @@ function PlaylistEditFactory(Restangular, Playlists, uuid2, Users) {
   function createNewPlaylistFromTemplate(template) {
     var playlistId = uuid2.newuuid().toString();
     playlist = Restangular.one('playlists', playlistId);
-    playlist.Id = playlistId;
+    playlist.PlaylistGoalId = playlistId;
     playlist.Name = '';
     playlist.TemplateId = template.Id;
     playlist.TemplateName = template.TemplateGroup.Name;
@@ -93,23 +93,23 @@ function PlaylistEditFactory(Restangular, Playlists, uuid2, Users) {
   // Add a track to a playlist for a goal id
   function addTrackToGoalPlaylist(playlistGoalArrayId, track) {
     // Replaces any existing track in the playlist
-    playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks = [];
-    playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks.push(track);
+    // TODO: temporarily hard-coding a Genre ID because we don't have Genre mapping working yet
+    track.GenreId = '6c8d4779-33c4-4614-858d-a880d6450f59';
+    playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks = [{
+      Track: track,
+      SortOrder: 0
+    }];
   }
 
   // Removes a track from a playlist for a goal id
   function removeTrackFromGoalPlaylist(playlistGoalArrayId, track) {
-    playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks = _.filter(playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks, function (val) {
-      if (val.id === track.id) {
-        return false;
-      }
-      return true;
-    });
+    playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks = [];
+    // TODO: use _.mapObject to remove the track from the list and rework the sort order, when we have multiple tracks
   }
 
   // A track has been added to a goal
   function trackDropped(playlistGoalArrayId, track) {
-    console.log('Track dropped! (' + track.name + ') on goal ' + playlistGoalArrayId);
+    console.log('Track dropped! (' + track.Name + ') on goal ' + playlistGoalArrayId);
     // Update the playlist
     addTrackToGoalPlaylist(playlistGoalArrayId, track);
   }
