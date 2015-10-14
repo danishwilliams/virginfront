@@ -1,6 +1,6 @@
 angular
   .module("app")
-  .factory('Tracks', TracksFactory);
+  .factory('TracksFactory', TracksFactory);
 
 TracksFactory.$inject = ['Restangular'];
 
