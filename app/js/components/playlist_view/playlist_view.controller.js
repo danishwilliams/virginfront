@@ -1,4 +1,4 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($routeParams, $location, AuthenticationService, TracksService, PlaylistEdit) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($routeParams, $location, AuthenticationService, PlaylistEdit) {
   var self = this;
   PlaylistEdit.setStep(4);
   this.id = $routeParams.id;
