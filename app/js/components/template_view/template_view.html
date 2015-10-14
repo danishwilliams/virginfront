@@ -1,0 +1,24 @@
+<h1>{{template_view.template.TemplateGroup.Name}} template</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Description</td>
+ 	    <td>Icon</td>
+      <td>Class length</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{template_view.template.TemplateGroup.Description}}</td>
+      <td><img src="/img/templates/{{template_view.template.TemplateGroup.IconFileName}}"></td>
+      <td>{{template_view.template.ClassLengthMinutes}} minutes</td>
+      <td>
+        <div class="classlength" ng-repeat="classLength in template_view.ClassLengths">
+          <a ng-link="template_view({id:template_view.Id})">{{classLength.ClassLengthMinutes}}</a>
+        </div>
+      </td>
+    </tr>
+</table>
+
+TODO: list all goals in this template

@@ -20,11 +20,11 @@ describe("controller: LoginController ($httpBackend.expect().respond, vanilla ja
   });
 
   describe("successfully logging in", function() {
-    it("should redirect you to /playlist-create", function() {
+    it("should redirect you to /admin/playlists", function() {
       this.$httpBackend.expectPOST('/login', loginController.credentials).respond(200);
       loginController.login();
       this.$httpBackend.flush();
-      expect(this.redirect).toHaveBeenCalledWith('/playlist-create');
+      expect(this.redirect).toHaveBeenCalledWith('/admin/playlists');
     });
   });
 });

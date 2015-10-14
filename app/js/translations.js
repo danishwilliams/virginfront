@@ -10,10 +10,10 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'BACK': 'Back',
 
     // Playlists
-    'RIDE_TEMPLATE': 'Ride template',
-    'PLAYLIST_CREATE': 'Create playlist',
-    'PLAYLIST_REVIEW': 'Review',
-    'PLAYLIST_PUBLISH': 'Publish to device',
+    'PLAYLIST_1': 'Ride template',
+    'PLAYLIST_2': 'Class length',
+    'PLAYLIST_3': 'Goals & music',
+    'PLAYLIST_4': 'Review & save',
     'CLASS_GIVE_NAME': 'Give your class a name...',
     'DRAG_DROP_TRACK': 'Drag and drop your track here',
     'PLAY': 'Play',

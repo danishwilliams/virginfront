@@ -38,7 +38,8 @@ module.exports = function(lineman) {
         enabled: true,
         host: 'localhost',
         port: 3000,
-        prefix: 'varockstar' // request paths that contain 'varockstar' will now be the only ones forwarded to the apiProxy
+        //prefix: 'varockstar' // request paths that contain 'varockstar' will now be the only ones forwarded to the apiProxy
+        prefix: 'api'
       }
     },
 

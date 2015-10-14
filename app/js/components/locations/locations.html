@@ -1,0 +1,22 @@
+<h1>Locations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>City</td>
+      <td>Province</td>
+      <td>Country</td>
+      <td>Country code</td>
+      <td>Location ID</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="location in locations.locations | orderBy:'Country.Name'">
+      <td contentEditable ng-change="locations.update(location)" ng-model-options="{updateOn : 'change blur'}" ng-model="location.City"></td>
+      <td>{{location.Province}}</td>
+      <td>{{location.Country.Name}}</td>
+      <td>{{location.Country.Code}}</td>
+      <td>{{location.Id}}</td>
+    </tr>
+  </tbody>
+</table>

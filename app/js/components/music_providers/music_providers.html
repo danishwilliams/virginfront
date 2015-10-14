@@ -1,0 +1,16 @@
+<h1>Music Providers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Music Provider</td>
+      <td>Id</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="music_provider in music_providers.music_providers | orderBy:'Name'">
+      <td contentEditable ng-change="music_providers.update(music_provider)" ng-model-options="{updateOn : 'change blur'}" ng-model="music_provider.Name"></td>
+      <td>{{music_provider.Id}}</td>
+    </tr>
+  </tbody>
+</table>

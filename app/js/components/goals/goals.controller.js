@@ -22,7 +22,7 @@ angular.module("app.goals", []).controller('GoalsController', function (Goals, R
     });
   };
 
-  this.save = function (goal) {
+  this.create = function (goal) {
     if (!goal.Name || !goal.CountryId || !goal.BpmLow || !goal.BpmHigh) {
       console.log("Missing attributes on the goal");
       return;

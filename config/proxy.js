@@ -11,7 +11,8 @@ var listenport = 3000;
 http.createServer(onRequest).listen(listenport);
 
 var options = {
-  hostname: 'virgin.api',
+  //hostname: 'virgin.api',
+  hostname: 'virgin.digitaldisruption.co.za',
   port: 80
 };
 
@@ -23,6 +24,7 @@ function onRequest(client_req, client_res) {
   options.path = client_req.url;
   options.method = client_req.method;
   options.headers = client_req.headers;
+  options.headers.Authorization = 'Basic cm9nZXI6VGhlcm9kZ2UzMjE=';
 
   var proxy = http.request(options, function (res) {
     client_res.statusCode = res.statusCode;

@@ -1,7 +1,7 @@
 /**
  * Created by rogersaner on 15/09/04.
  */
-angular.module("app").directive('droppable', function (PlaylistFactory) {
+angular.module("app").directive('droppable', function (PlaylistEdit) {
   return {
     scope: {
       drop: '&', // parent
@@ -52,8 +52,8 @@ angular.module("app").directive('droppable', function (PlaylistFactory) {
           var track = angular.element(trackElement).scope().track;
 
           // Check that the track BPM fits into the goal BPM range
-          var goal = angular.element(this).scope().goal;
-          if (track.bpm < goal.BpmLow || track.bpm > goal.BpmHigh) {
+          var goal = angular.element(this).scope().playlistGoal;
+          if (track.Bpm < goal.Goal.BpmLow || track.Bpm > goal.Goal.BpmHigh) {
             // TODO: show some kind of helpful error message to the user
             return;
           }
@@ -61,15 +61,11 @@ angular.module("app").directive('droppable', function (PlaylistFactory) {
           //TODO: refactor: move all of the below into PlayListFactory so that
 
           // If there are already tracks don't add one
-          var tracks = PlaylistFactory.getGoalPlaylist(goalid);
+          var tracks = PlaylistEdit.getPlaylistGoalTracks(goalid);
           if (tracks.length > 0) { return false; }
 
-          this.classList.add('dropped');
-          this.removeAttribute('droppable');
-          trackElement.classList.add('ng-hide');
-
           // Tell the playlist about the track dropped into a goal
-          PlaylistFactory.trackDropped(goalid, track);
+          PlaylistEdit.trackDropped(goalid, track);
 
           // TODO: at some point this needs to also track which playlist we're building, although that might be done on url
 

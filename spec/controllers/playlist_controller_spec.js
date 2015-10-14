@@ -248,6 +248,7 @@ ddescribe("controller: PlaylistController(vanilla jasmine, javascript)", functio
       });
 
       // Add some tracks to the track selection sidebar
+      // TODO: refactor this to grab tracks from an API stub
       playlistController.tracks = this.TracksService.initTracks();
     }));
 

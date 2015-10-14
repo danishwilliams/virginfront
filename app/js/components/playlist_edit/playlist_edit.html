@@ -1,28 +1,12 @@
 <div class="create-playlist">
-  <div class="row top">
-    <div class="large-1 columns">
-      &nbsp;
-    </div>
-    <div class="large-5 columns">
-      <a>&lt; {{'BACK' | translate}}</a>
-    </div>
-    <div class="large-12 columns">
-      <ol class="inline-list workflow">
-        <li class="completed"><span>1</span><a>{{'RIDE_TEMPLATE' | translate}}</a></li>
-        <li class="completed"><span>2</span><a>{{'PLAYLIST_CREATE' | translate}}</a></li>
-        <li class="upcoming"><span>3</span><a>{{'PLAYLIST_REVIEW' | translate}}</a></li>
-        <li class="upcoming"><span>4</span><a>{{'PLAYLIST_PUBLISH' | translate}}</a></li>
-      </ol>
-    </div>
-  </div>
-
+  <playlist-workflow></playlist-workflow>
   <div class="row">
     <div class="large-9 columns">
       <div class="large-2 columns">
         &nbsp;
       </div>
       <div class="large-14 columns">
-        <input name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}...">
+        <input name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}..." ng-model="playlist_edit.playlist.Name">
       </div>
       <div class="large-2 columns">
         &nbsp;
@@ -42,7 +26,7 @@
               &nbsp;
             </div>
             <div class="small-14 columns">
-              <h3>{{playlist.name}}</h3>
+              <h3 ng-bind-html="playlist_edit.playlist.TemplateName"></h3>
             </div>
             <div class="small-2 columns">
               &nbsp;
@@ -51,41 +35,42 @@
         </div>
       </div>
 
-      <div class="row goal" data-ng-repeat="goal in playlist.goals | orderBy:'SortOrder'">
+      <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder'">
         <div class="small-2 columns">
           &nbsp;
         </div>
-        <div class="small-15 columns goal-container" ng-class="{'active': playlist.isGoalActive(goal)}">
-          <div class="row goal-name" ng-click="playlist.goalClicked(goal)">
+        <div class="small-15 columns goal-container" ng-class="{'active': playlist_edit.isGoalActive(playlistGoal)}">
+          <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
             <div class="small-14 columns">
-              <h4>{{goal.Name}}</h4>
+              <h4>{{playlistGoal.Goal.Name}}</h4>
             </div>
             <div class="small-4 columns bpm">
-              {{goal.BpmLow}} - {{goal.BpmHigh}} {{'BPM' | translate}}
+              {{playlistGoal.Goal.BpmLow}} - {{playlistGoal.Goal.BpmHigh}} {{'BPM' | translate}}
             </div>
           </div>
           <div class="row">
-            <div class="bin" id="bin{{goal.Id}}" ng-show="goal.show" droppable>
+            <div class="bin" ng-class="{'dropped' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}" id="bin{{playlistGoal.ArrayId}}" ng-show="playlistGoal.show" droppable>
               <div class="empty-text">{{'DRAG_DROP_TRACK' | translate}}</div>
-              <div class="row track dropped" id="playlist{{goal.Id}}{{track.id}}" data-ng-repeat="track in playlist.playlist[goal.Id]">
+              <div class="row track dropped" id="playlist{{playlistGoal.Id}}{{track.Track.MusicProviderTrackId}}" data-ng-repeat="track in playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks">
                 <div class="small-1 columns play">
-                  <a href="#" ng-click="playTrack(track.id)">{{'PLAY' | translate}}</a>
+                  <a href="#" ng-click="playTrack(track.Track.MusicProviderTrackId)">{{'PLAY' | translate}}</a>
                 </div>
                 <div class="small-14 columns">
-                  <span class="track-name">{{track.name}}</span> <span class="artist">{{track.artist}}</span> | <span class="bpm">{{track.bpm}} {{'BPM' | translate}}</span>
+                  <span class="track-name">{{track.Track.Name}}</span> <span class="artist">{{track.Track.Artist}}</span> | <span class="bpm">{{track.Track.Bpm}} {{'BPM' | translate}}</span>
                 </div>
                 <div class="small-2 columns time">
-                  {{track.time}}
+                  {{track.Track.DurationSeconds | minutes}}
                 </div>
                 <div class="small-1 columns add">
-                  <a ng-click="playlist.removeTrack(goal.Id, track)">-</a>
+                  <a ng-click="playlist_edit.removeTrack(playlistGoal.ArrayId, track)">-</a>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row goal-meta" ng-click="goal.show = !goal.show" ng-show="goal.show">
+          <div class="row goal-meta" ng-click="goal.show = !playlistGoal.show" ng-show="playlistGoal.show">
             <div class="small-14 columns">
-              {{'LEG_SPEED' | translate}}: {{goal.rpm_low}} - {{goal.rpm_high}} {{'RPM' | translate}}
+              <!-- TODO: RPM values are dependant on the track -->
+              {{'LEG_SPEED' | translate}}: {{playlistGoal.rpm_low}} - {{playlistGoal.rpm_high}} {{'RPM' | translate}}
             </div>
             <div class="small-4 columns bpm">
               <a>+ {{'ADD_NOTES' | translate}}</a>
@@ -101,7 +86,7 @@
           &nbsp;
         </div>
         <div class="large-15 columns">
-          <button ng-click="playlist.savePlaylist()" class="round">Save playlist</button>
+          <button ng-click="playlist_edit.savePlaylist()" class="round">Save playlist</button>
         </div>
         <div class="small-1 columns">
           &nbsp;
@@ -152,25 +137,25 @@
           &nbsp;
         </div>
         <div class="small-16 columns">
-          <div class="row track" draggable id="track{{track.id}}" data-ng-repeat="track in playlist.tracks">
+          <div class="row track" draggable id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in playlist_edit.tracks">
             <div class="small-1 columns play">
-              <a href="#" ng-click="playTrack(track.id)">{{'PLAY' | translate}}</a>
+              <a href="#" ng-click="playTrack(track.MusicProviderTrackId)">{{'PLAY' | translate}}</a>
             </div>
             <div class="small-9 columns">
-              <span class="track-name">{{track.name}}</span>
-              <span class="artist">{{track.artist}}</span>
+              <span class="track-name">{{track.Name}}</span>
+              <span class="artist">{{track.Artist}}</span>
             </div>
             <div class="small-3 columns genre">
-              {{track.genre}}
+              &nbsp;{{track.Genre.Name}}
             </div>
             <div class="small-2 columns bpm">
-              {{track.bpm}} {{'BPM' | translate}}
+              {{track.Bpm}} {{'BPM' | translate}}
             </div>
             <div class="small-2 columns time">
-              {{track.time}}
+              {{track.DurationSeconds | minutes}}
             </div>
             <div class="small-1 columns add">
-              <a ng-click="playlist.addTrack(track)">+</a>
+              <a ng-click="playlist_edit.addTrack(track)">+</a>
             </div>
           </div>
         </div>
