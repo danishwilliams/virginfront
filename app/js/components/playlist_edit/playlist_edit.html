@@ -125,7 +125,9 @@
           &nbsp;
         </div>
         <div class="small-14 columns search">
-          <input name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
+          <form ng-submit="playlist_edit.trackSearch()">
+            <input ng-model="playlist_edit.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
+          </form>
         </div>
         <div class="small-2 columns">
           &nbsp;

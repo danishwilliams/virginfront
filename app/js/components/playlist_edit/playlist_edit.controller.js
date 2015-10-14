@@ -33,20 +33,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       self.playlist = PlaylistEdit.getPlaylist();
       self.currentgoal = PlaylistEdit.getCurrentGoal();
     });
-  } else {
-    // We should never land here
-    console.log('[Warning] What are you doing here?! You should be adding or editing a playlist');
-    // TODO: legacy code. Remove once playlist creation is working
-    /*
-    PlaylistEdit.loadGoals().then(function (data) {
-      console.log(data);
-      self.playlistGoals = data.Goals;
-      self.name = data.Name;
-      self.playlist = data;
-      // TODO: this shouldn't be necessary: the data binding should recognise the change
-      self.currentgoal = PlaylistEdit.getCurrentGoal();
-    });
-    */
   }
 
   this.playTrack = function (trackid) {
@@ -102,6 +88,12 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return false;
   };
 
+  this.trackSearch = function() {
+    Tracks.searchTracks(self.search).then(function(data) {
+      self.tracks = data;
+    });
+  };
+
   // Add a track to a goal self. If it passes our checks, call addTrackSuccess
   this.addTrack = function (track) {
     if (track.Bpm < self.currentgoal.BpmLow || track.Bpm > self.currentgoal.BpmHigh) {
@@ -136,42 +128,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     self.playlist.put({
       syncPlaylist: false
     });
-    /*
-    // Format the playlist object properly before the PUT
-    var newPlaylist = {};
-    var playlistGoals = [];
-    var i = 0;
-    self.playlistGoals.forEach(function (goal) {
-      if (i > 0) {
-        return;
-      }
-
-      delete goal.GoalOptions;
-
-      playlistGoals[i] = {
-        SortOrder: goal.SortOrder,
-        PlaylistId: self.playlist.Id,
-        GoalId: goal.Id,
-        Goal: goal
-      };
-      i++;
-    });
-    console.log(self.playlist);
-    newPlaylist = Restangular.one('playlists', "21df6644-5180-4258-b790-1017de0d0eb4");
-    newPlaylist.Id = self.playlist.Id;
-    newPlaylist.Name = "A very dark place";
-    newPlaylist.TemplateName = self.playlist.Name;
-    newPlaylist.Shared = false;
-    newPlaylist.UserId = "0b51cf07-44df-46e4-a1a3-6a7c018e04b3";
-    newPlaylist.PlaylistGoals = playlistGoals;
-    newPlaylist.Name = "Working playlist?";
-    newPlaylist.ClassLengthMinutes = self.playlist.ClassLengthMinutes;
-    console.log(newPlaylist);
-    //self.playlist.put();
-
-    // Overwrite an existing playlist
-    newPlaylist.put();
-    */
   };
 
   var onLogoutSuccess = function (response) {
