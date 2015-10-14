@@ -53,7 +53,7 @@ angular.module("app").directive('droppable', function (PlaylistEdit) {
 
           // Check that the track BPM fits into the goal BPM range
           var goal = angular.element(this).scope().playlistGoal;
-          if (track.bpm < goal.Goal.BpmLow || track.bpm > goal.Goal.BpmHigh) {
+          if (track.Bpm < goal.Goal.BpmLow || track.Bpm > goal.Goal.BpmHigh) {
             // TODO: show some kind of helpful error message to the user
             return;
           }
