@@ -5,8 +5,9 @@ angular.module("app").config(function (RestangularProvider) {
   //set the base url for api calls on our RESTful services
   var newBaseUrl = "";
   if (window.location.hostname === "localhost") {
-    newBaseUrl = "http://localhost:8000/varockstar/api/"; // Dane's laptop, via ../config/proxy.js
-    newBaseUrl = "http://localhost:8000/api/1.0/"; // dev
+    newBaseUrl = "http://localhost:8000/api/"; // local proxy to AWS, via ../config/proxy.js
+    //newBaseUrl = "http://localhost:8000/varockstar/api/"; // local proxy to Dane's laptop, via ../config/proxy.js
+    //newBaseUrl = "http://localhost:8000/api/1.0/"; // dev - stubbed API files
   } else {
     var deployedAt = window.location.href.substring(0, window.location.href);
     newBaseUrl = deployedAt + "/api/rest/register";
