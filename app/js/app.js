@@ -85,6 +85,9 @@ function AppController($router, Users) {
     path: '/playlists/:id',
     component: 'playlist_view'
   }, {
+    path: '/playlists/new/playlist/:id',
+    component: 'playlist_edit'
+  }, {
     path: '/playlists/:id/edit',
     component: 'playlist_edit'
   }, {
@@ -93,9 +96,6 @@ function AppController($router, Users) {
   }, {
     path: '/playlists/new/:id',
     component: 'playlist_time'
-  }, {
-    path: '/playlists/new/playlist/:id',
-    component: 'playlist_edit'
   }, {
     path: '/admin/templates',
     component: 'templates'
