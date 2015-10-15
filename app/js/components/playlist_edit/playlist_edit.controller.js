@@ -127,6 +127,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     // Theoretically, this should work
     self.playlist.put({
       syncPlaylist: false
+    }).then(function() {
+      $location.path('/playlists/' + self.playlist.Id);
     });
   };
 
