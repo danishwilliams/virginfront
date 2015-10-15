@@ -95,6 +95,9 @@ function PlaylistEditFactory(Restangular, Playlists, uuid2, Users) {
     // Replaces any existing track in the playlist
     // TODO: temporarily hard-coding a Genre ID because we don't have Genre mapping working yet
     track.GenreId = '6c8d4779-33c4-4614-858d-a880d6450f59';
+    if (!track.Genre.Name) {
+      track.Genre.Name = 'Rock';
+    }
     playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks = [{
       Track: track,
       SortOrder: 0
