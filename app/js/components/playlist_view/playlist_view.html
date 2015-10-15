@@ -1,43 +1,70 @@
-<div class="create-playlist">
+<div class="view-playlist">
   <playlist-workflow></playlist-workflow>
   <div class="row">
-    <div class="large-4 columns">
-      Goal type
+    <div class="large-1 columns">
+      &nbsp;
     </div>
-    <div class="large-4 columns">
-      BPM
+    <div class="large-16 columns">
+      <h1>{{playlist_view.playlist.Name}}</h1>
+      <div class="row">
+        <div class="columns large-5">
+          <strong>{{playlist_view.playlist.TemplateName}}</strong> | (x) songs | (y) mins
+        </div>
+        <div class="columns large-13">
+          <a ng-href="/playlists/{{playlist_view.playlist.Id}}/edit">Edit</a>
+        </div>
+      </div>
     </div>
-    <div class="large-4 columns">
-      Track name
-    </div>
-    <div class="large-2 columns">
-      Artist
-    </div>
-    <div class="large-2 columns">
-      Time
-    </div>
-    <div class="large-2 columns">
+    <div class="large-1 columns">
+      &nbsp;
     </div>
   </div>
   <div class="row goal" data-ng-repeat="playlistGoal in playlist_view.playlist.PlaylistGoals | orderBy:'SortOrder'">
-    <div class="row track" id="playlist{{playlistGoal.Id}}{{track.id}}" data-ng-repeat="track in playlist_view.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks">
-      <div class="large-4 columns">
-        {{playlistGoal.Goal.Name}}
+    <div class="row" id="playlist{{playlistGoal.Id}}{{track.id}}" data-ng-repeat="track in playlistGoal.PlaylistGoalTracks">
+      <div class="large-1 columns">
+        &nbsp;
       </div>
-      <div class="large-4 columns">
-        {{track.Track.Bpm}}
+      <div class="large-16 columns">
+        <div class="row track">
+          <div class="small-8 columns">
+            <div class="row">
+              <div class="large-8 columns goal-name">
+                {{playlistGoal.Goal.Name}}
+              </div>
+              <div class="large-8 columns bpm">
+                {{track.Track.Bpm}} {{'BPM' | translate}}
+              </div>
+            </div>
+          </div>
+          <div class="small-10 columns">
+            <div class="row">
+              <div class="large-6 columns track-name">
+                {{track.Track.Name}}
+              </div>
+              <div class="large-6 columns artist">
+                {{track.Track.Artist}}
+              </div>
+              <div class="small-2 columns">
+                {{track.Track.DurationSeconds | minutes}}
+              </div>
+              <div class="small-2 columns">
+                <div class="play">Play</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="large-4 columns">
-        {{track.Track.Name}}
-      </div>
-      <div class="large-2 columns">
-        {{track.Track.Artist}}
-      </div>
-      <div class="large-2 columns">
-        {{track.Track.DurationSeconds}}
-      </div>
-      <div class="large-2 columns">
+      <div class="large-1 columns">
+        &nbsp;
       </div>
     </div>
+  </div>
+  <div class="row">
+      <div class="small-1 columns">
+        &nbsp;
+      </div>
+      <div class="small-17 columns">
+        <button class="round" ng-click="playlist_view.publishPlaylist()">Publish playlist</button>
+      </div>
   </div>
 </div>

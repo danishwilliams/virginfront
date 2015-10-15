@@ -14,7 +14,9 @@ function PlaylistsFactory(Restangular) {
   var playlistsFactory = {
     loadPlaylists: loadPlaylists,
     getPlaylists: getPlaylists,
-    loadPlaylist: loadPlaylist
+    loadPlaylist: loadPlaylist,
+    publishPlaylist: publishPlaylist,
+    publishPlaylistToMusicProvider: publishPlaylistToMusicProvider
   };
 
   return playlistsFactory;
@@ -40,6 +42,27 @@ function PlaylistsFactory(Restangular) {
     }).then(loadPlaylistComplete);
 
     function loadPlaylistComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function publishPlaylist(id) {
+    return Restangular.one('playlists/sync', id).post().then(publishPlaylistComplete);
+
+    function publishPlaylistComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  /**
+   * Publishes a playlist to a Music Provider i.e. creates/edits a playlist on Simfy
+   */
+  function publishPlaylistToMusicProvider(id) {
+    return Restangular.one('music/playlist', id).post().then(publishPlaylistToMusicProviderComplete);
+
+    function publishPlaylistToMusicProviderComplete(data, status, headers, config) {
+      console.log(data);
+      // TODO: build in error handling here if this fails
       return data;
     }
   }

@@ -1,15 +1,25 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($routeParams, $location, AuthenticationService, PlaylistEdit) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($routeParams, $location, AuthenticationService, PlaylistEdit, Playlists) {
   var self = this;
   PlaylistEdit.setStep(4);
-  this.id = $routeParams.id;
-  this.playlist = PlaylistEdit.getPlaylist();
+  self.id = $routeParams.id;
+  self.playlist = PlaylistEdit.getPlaylist();
 
-  if (this.id) {
+  if (self.id) {
     // Load an existing playlist
-    PlaylistEdit.loadPlaylist(this.id).then(function () {
+    PlaylistEdit.loadPlaylist(self.id).then(function () {
       self.playlist = PlaylistEdit.getPlaylist();
     });
   }
+
+  self.publishPlaylist = function() {
+    Playlists.publishPlaylist(self.playlist.Id).then(function (data) {
+      console.log('successfully published playlist!');
+      alert('Playlist successfully published!');
+    });
+    Playlists.publishPlaylistToMusicProvider(self.playlist.Id).then(function (data) {
+      console.log('successfully published playlist to music provider!');
+    });
+  };
 
   var onLogoutSuccess = function (response) {
     $location.path('/login');
