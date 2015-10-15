@@ -192,10 +192,6 @@ input[type="text"].class_name {
     padding-right: rem-calc(10px);
   }
 
-  .play {
-    cursor: default;
-  }
-
   .track-name {
     display: block;
     font-weight: bold;
@@ -218,6 +214,14 @@ input[type="text"].class_name {
     font-size: $h3-font-size;
     font-weight: bold;
   }
+}
+
+.play {
+  cursor: default;
+  text-indent: -2000px;
+  height: 30px;
+  width: 30px;
+  background: url('/img/play.svg') no-repeat;
 }
 
 .bin {
