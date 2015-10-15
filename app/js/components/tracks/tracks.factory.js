@@ -1,10 +1,10 @@
 angular
   .module("app")
-  .factory('TracksFactory', TracksFactory);
+  .factory('TracksFactory', TracksComponentFactory);
 
-TracksFactory.$inject = ['Restangular'];
+TracksComponentFactory.$inject = ['Restangular'];
 
-function TracksFactory(Restangular) {
+function TracksComponentFactory(Restangular) {
   var self = this;
   var tracks = [];
 
