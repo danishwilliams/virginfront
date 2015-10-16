@@ -20,8 +20,8 @@
       <td>{{device.SyncSuccess}}</td>
       <td>Gym ID: {{device.GymID}}</td>
       <td>{{device.DeviceProvisionId}}
-      <td><a ng-link="devices({id:device.Id})">Playlists</a></td>
-      <td><a ng-link="devices({id:device.Id})">Queued Playlists</a></td>
+      <td><a ui-sref="device-playlists({id:device.Id})">Playlists</a></td>
+      <td><a ui-sref="device-playlists-queue({id:device.Id})">Queued Playlists</a></td>
       <td>{{device.Id}}</td>
     </tr>
   </tbody>

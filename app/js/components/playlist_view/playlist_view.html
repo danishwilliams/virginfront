@@ -11,7 +11,7 @@
           <strong>{{playlist_view.playlist.TemplateName}}</strong> | (x) songs | (y) mins
         </div>
         <div class="columns large-13">
-          <a ng-href="/playlists/{{playlist_view.playlist.Id}}/edit">Edit</a>
+          <a ui-sref="playlist-edit({id:playlist_view.playlist.Id})">Edit</a>
         </div>
       </div>
     </div>

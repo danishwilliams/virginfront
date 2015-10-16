@@ -9,7 +9,7 @@
 
       <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-6">
         <li ng-repeat="templateGroup in playlist_template.templateGroups | orderBy:'Name'">
-          <a class="choose-template" ng-link="playlist_time({id:templateGroup.Id})">
+          <a class="choose-template" ui-sref="playlist-new-time({id:templateGroup.Id})">
             <div class="template">
               <div class="icon"><img src="/img/templates/{{templateGroup.IconFileName}}"></div>
               <h4 ng-bind-html="templateGroup.Name"></h4>

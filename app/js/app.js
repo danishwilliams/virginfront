@@ -2,7 +2,7 @@ angular
   .module("app", [
     "ngResource", // TODO: probably not needed
     "ngSanitize",
-    "ngNewRouter",
+    "ui.router",
     "angularUUID2",
     "pascalprecht.translate",
     "restangular",
@@ -27,91 +27,168 @@ angular
     "app.templates",
     "app.template_view"
   ])
-  .controller("AppController", ['$router', 'Users', AppController])
-  .config(function ($componentLoaderProvider) {
+  .controller("AppController", ['Users', AppController])
+  .config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/login');
+
+    $stateProvider.state('login', {
+      url: '/login',
+      templateUrl: '../js/components/login/login.html',
+      controller: 'LoginController as login',
+    })
+
+    .state('admin', {
+      url: '/admin',
+      template: 'admin screen'
+    })
+
+    // Beats
+    .state('beats-admin', {
+      url: '/admin/beats',
+      templateUrl: '../js/components/beats/beats.html',
+      controller: 'BeatsController as beats'
+    })
+
+    // Countries
+    .state('countries-admin', {
+      url: '/admin/countries',
+      templateUrl: '../js/components/countries/countries.html',
+      controller: 'CountriesController as countries'
+    })
+
+    // Devices
+    .state('devices-admin', {
+      url: '/admin/devices',
+      templateUrl: '../js/components/devices/devices.html',
+      controller: 'DevicesController as devices'
+    })
+
     /*
-     * overriding the template mapping of the new router to make it
-     * compatible with grunt-angular-templates
-     */
-    $componentLoaderProvider.setTemplateMapping(function (name) {
-      var dashName = dashCase(name);
-      return '../js/components/' + dashName + '/' + dashName + '.html';
+    .state('device-playlists', {
+      url: '/admin/devices/:id/playlists',
+      templateUrl: '../js/components/devices/devices.html',
+      controller: 'DevicesController as devices'
+    })
+
+    .state('device-playlists-queue', {
+      url: '/admin/devices/:id/playlists/queue',
+      templateUrl: '../js/components/devices/devices.html',
+      controller: 'DevicesController as devices'
+    })
+
+    */
+
+    // Genres
+    .state('genres-admin', {
+      url: '/admin/genres',
+      templateUrl: '../js/components/genres/genres.html',
+      controller: 'GenresController as genres'
+    })
+
+    // Goals
+    .state('goals-admin', {
+      url: '/admin/goals',
+      templateUrl: '../js/components/goals/goals.html',
+      controller: 'GoalsController as goals'
+    })
+
+    // Gyms
+    .state('gyms-admin', {
+      url: '/admin/gyms',
+      templateUrl: '../js/components/gyms/gyms.html',
+      controller: 'GymsController as gyms'
+    })
+
+    // Locations
+    .state('locations-admin', {
+      url: '/admin/locations',
+      templateUrl: '../js/components/locations/locations.html',
+      controller: 'LocationsController as locations'
+    })
+
+    // Music Providers
+    .state('music-providers-admin', {
+      url: '/admin/music-providers',
+      templateUrl: '../js/components/music_providers/music_providers.html',
+      controller: 'Music_providersController as music_providers'
+    })
+
+    // Playlists
+    .state('playlists', {
+      url: '/admin/playlists',
+      templateUrl: '../js/components/playlists/playlists.html',
+      controller: 'PlaylistsController as playlists'
+    })
+
+    .state('playlist-edit', {
+      url: '/playlists/:id/edit',
+      templateUrl: '../js/components/playlist_edit/playlist_edit.html',
+      controller: 'Playlist_editController as playlist_edit'
+    })
+
+    // Choose a template
+    .state('playlist-new-template', {
+      url: '/playlists/new',
+      templateUrl: '../js/components/playlist_template/playlist_template.html',
+      controller: 'Playlist_templateController as playlist_template'
+    })
+
+    // Add tracks to this new playlist
+    .state('playlist-new', {
+      url: '/playlists/new/playlist/:id',
+      templateUrl: '../js/components/playlist_edit/playlist_edit.html',
+      controller: 'Playlist_editController as playlist_edit'
+    })
+
+    // Choose a template time
+    .state('playlist-new-time', {
+      url: '/playlists/new/:id',
+      templateUrl: '../js/components/playlist_time/playlist_time.html',
+      controller: 'Playlist_timeController as playlist_time'
+    })
+
+    .state('playlist', {
+      url: '/playlists/:id',
+      templateUrl: '../js/components/playlist_view/playlist_view.html',
+      controller: 'Playlist_viewController as playlist_view'
+    })
+
+    // Templates
+    .state('templates-admin', {
+      url: '/admin/templates',
+      templateUrl: '../js/components/templates/templates.html',
+      controller: 'TemplatesController as templates'
+    })
+
+    .state('template', {
+      url: '/admin/templates/:id',
+      templateUrl: '../js/components/template_view/template_view.html',
+      controller: 'Template_viewController as template_view'
+    })
+
+    // Tracks
+    .state('tracks-admin', {
+      url: '/admin/tracks',
+      templateUrl: '../js/components/tracks/tracks.html',
+      controller: 'TracksController as tracks'
+    })
+
+    // Users
+    .state('users-admin', {
+      url: '/admin/users',
+      templateUrl: '../js/components/users/users.html',
+      controller: 'UsersController as users'
+    })
+
+    // Users
+    .state('usertypes-admin', {
+      url: '/admin/users/types',
+      templateUrl: '../js/components/usertypes/usertypes.html',
+      controller: 'UsertypesController as usertypes'
     });
+
   });
 
-function AppController($router, Users) {
+function AppController(Users) {
   Users.loadCurrentUser();
-
-  $router.config([{
-    path: '/',
-    redirectTo: '/login'
-  }, {
-    path: '/login',
-    component: 'login'
-  }, {
-    path: '/admin/beats',
-    component: 'beats'
-  }, {
-    path: '/admin/countries',
-    component: 'countries'
-  }, {
-    path: '/admin/devices',
-    component: 'devices'
-  }, {
-    path: '/devices/:id/playlists',
-    component: 'devices'
-  }, {
-    path: '/devices/:id/playlists/queue',
-    component: 'devices'
-  }, {
-    path: '/admin/genres',
-    component: 'genres'
-  }, {
-    path: '/admin/goals',
-    component: 'goals'
-  }, {
-    path: '/admin/gyms',
-    component: 'gyms'
-  }, {
-    path: '/admin/locations',
-    component: 'locations'
-  }, {
-    path: '/admin/music_providers',
-    component: 'music_providers'
-  }, {
-    path: '/admin/playlists',
-    component: 'playlists'
-  }, {
-    path: '/playlists/:id',
-    component: 'playlist_view'
-  }, {
-    path: '/playlists/new/playlist/:id',
-    component: 'playlist_edit'
-  }, {
-    path: '/playlists/:id/edit',
-    component: 'playlist_edit'
-  }, {
-    path: '/playlists/new',
-    component: 'playlist_template'
-  }, {
-    path: '/playlists/new/:id',
-    component: 'playlist_time'
-  }, {
-    path: '/admin/templates',
-    component: 'templates'
-  }, {
-    path: '/admin/templates/:id',
-    component: 'template_view'
-  }, {
-    path: '/admin/tracks',
-    component: 'tracks'
-  }, {
-    path: '/admin/users',
-    component: 'users'
-  }, {
-    path: '/admin/users/types',
-    component: 'usertypes'
-  }
-  ]);
-  // /playlists - list of my playlists
 }

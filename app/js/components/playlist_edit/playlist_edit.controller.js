@@ -1,9 +1,9 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($routeParams, $location, AuthenticationService, Tracks, PlaylistEdit, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $location, AuthenticationService, Tracks, PlaylistEdit, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
   // TODO: do we want to sanitize this?
-  this.id = $routeParams.id;
+  this.id = $stateParams.id;
 
   this.title = "Add a Ride";
   this.playlist = PlaylistEdit.getPlaylist();
@@ -19,10 +19,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Create new playlist
   if ($location.path().substring(0, 15) === '/playlists/new/') {
-    // TODO: refactor this once NgNewRouter allows for multiple ways to call a component with ng-link
-    if ($location.path().substring(15, 23) === 'playlist') {
-      self.id = $location.path().substring(24);
-    }
     Templates.loadTemplate(self.id).then(function (data) {
       self.playlist = PlaylistEdit.createNewPlaylistFromTemplate(data);
       self.currentgoal = PlaylistEdit.getCurrentGoal();

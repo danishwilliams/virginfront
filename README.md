@@ -18,6 +18,10 @@ Include:
 
 * Livereload
 
+# Deployment
+
+Server must be configured to run in HTML5 mode.
+@see https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode
 
 # How styles work
 

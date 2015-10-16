@@ -19,7 +19,7 @@
       <td><img src="/img/templates/{{templateGroup.IconFileName}}"></td>
       <td>
         <div class="classlength" ng-repeat="template in templateGroup.ClassLengths">
-          <a ng-link="template_view({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
+          <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
         </div>
       </td>
       <td>{{templateGroup.Id}}</td>

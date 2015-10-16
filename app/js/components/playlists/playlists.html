@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="playlist in playlists.playlists | orderBy:'Name'">
-      <td><a ng-link="playlist_edit({id:playlist.Id})">{{playlist.Name}}</a></td>
+      <td><a ui-sref="playlist({id:playlist.Id})">{{playlist.Name}}</a></td>
       <td>{{playlist.TemplateName}}</td>
       <td>{{playlist.ClassLengthMinutes}}</td>
       <td>{{playlist.Id}}</td>

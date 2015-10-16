@@ -1,7 +1,7 @@
-angular.module("app.devices", []).controller('DevicesController', function ($routeParams, Devices) {
+angular.module("app.devices", []).controller('DevicesController', function ($stateParams, Devices) {
   var self = this;
   this.title = "Devices";
-  this.id = $routeParams.id;
+  this.id = $stateParams.id;
 
   // TODO: bug fix for "Controller loads twice" @see https://github.com/angular/router/issues/204
   if (!self.devices) {

@@ -1,7 +1,7 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($routeParams, $location, AuthenticationService, PlaylistEdit, Playlists) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $location, AuthenticationService, PlaylistEdit, Playlists) {
   var self = this;
   PlaylistEdit.setStep(4);
-  self.id = $routeParams.id;
+  self.id = $stateParams.id;
   self.playlist = PlaylistEdit.getPlaylist();
 
   if (self.id) {

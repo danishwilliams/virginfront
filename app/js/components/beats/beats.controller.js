@@ -1,7 +1,7 @@
-angular.module("app.beats", []).controller('BeatsController', function ($routeParams, Beats) {
+angular.module("app.beats", []).controller('BeatsController', function ($stateParams, Beats) {
   var self = this;
   this.title = "Beats";
-  this.id = $routeParams.id;
+  this.id = $stateParams.id;
 
   // TODO: bug fix for "Controller loads twice" @see https://github.com/angular/router/issues/204
   if (!self.beats) {
