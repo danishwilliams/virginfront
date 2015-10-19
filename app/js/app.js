@@ -10,6 +10,7 @@ angular
     "app.beats",
     "app.countries",
     "app.devices",
+    "app.device",
     "app.genres",
     "app.goals",
     "app.gyms",
@@ -65,13 +66,19 @@ angular
       controller: 'DevicesController as devices'
     })
 
-    /*
-    .state('device-playlists', {
-      url: '/admin/devices/:id/playlists',
-      templateUrl: '../js/components/devices/devices.html',
-      controller: 'DevicesController as devices'
+    .state('device', {
+      url: '/admin/devices/:id',
+      templateUrl: '../js/components/device/device.html',
+      controller: 'DeviceController as device'
     })
 
+    .state('device.playlists', {
+      url: '/playlists',
+      templateUrl: '../js/components/playlists/playlists.html',
+      controller: 'DeviceController as playlists'
+    })
+
+    /*
     .state('device-playlists-queue', {
       url: '/admin/devices/:id/playlists/queue',
       templateUrl: '../js/components/devices/devices.html',
