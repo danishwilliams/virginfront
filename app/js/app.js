@@ -17,6 +17,7 @@ angular
     "app.locations",
     "app.login",
     "app.music_providers",
+    "app.onboarding",
     "app.playlists",
     "app.playlist_template",
     "app.playlist_time",
@@ -120,6 +121,37 @@ angular
       url: '/admin/music-providers',
       templateUrl: '../js/components/music_providers/music_providers.html',
       controller: 'Music_providersController as music_providers'
+    })
+
+    // Onboarding - invite
+    .state('onboarding', {
+      url: '/onboarding/:id',
+      templateUrl: '../js/components/onboarding/invitation.html',
+      controller: 'OnboardingController as onboarding'
+    })
+
+    .state('onboarding-password', {
+      url: '/onboarding/:id/password',
+      templateUrl: '../js/components/onboarding/password.html',
+      controller: 'OnboardingController as onboarding'
+    })
+
+    .state('onboarding-clubs', {
+      url: '/onboarding/:id/clubs',
+      templateUrl: '../js/components/onboarding/clubs.html',
+      controller: 'OnboardingController as onboarding'
+    })
+
+    .state('onboarding-genres', {
+      url: '/onboarding/:id/genres',
+      templateUrl: '../js/components/onboarding/genres.html',
+      controller: 'OnboardingController as onboarding'
+    })
+
+    .state('onboarding-get-started', {
+      url: '/onboarding/:id/get-started',
+      templateUrl: '../js/components/onboarding/get_started.html',
+      controller: 'OnboardingController as onboarding'
     })
 
     // Playlists

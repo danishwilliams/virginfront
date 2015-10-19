@@ -5,9 +5,15 @@ $goal_padding: rem-calc(10px);
 $top_padding: rem-calc(40px);
 $radius: rem-calc(15px);
 
-.header {
-  margin-top: rem-calc(10px);
+/*
+html {
+  height: 100%;
 }
+
+body {
+  min-height: 100%;
+}
+*/
 
 .row.top {
   padding: $top_padding 0 $top_padding 0;
