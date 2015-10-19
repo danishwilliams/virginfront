@@ -9,4 +9,8 @@ angular.module("app.users", []).controller('UsersController', function ($statePa
       self.users = data;
     });
   }
+
+  this.update = function (user) {
+    user.put();
+  };
 });

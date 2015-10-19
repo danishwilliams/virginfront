@@ -1,7 +1,6 @@
-angular.module("app.tracks", []).controller('TracksController', function ($stateParams, TracksFactory) {
+angular.module("app.tracks", []).controller('TracksController', function (TracksFactory) {
   var self = this;
   this.title = "Tracks";
-  this.id = $stateParams.id;
 
   // TODO: bug fix for "Controller loads twice" @see https://github.com/angular/router/issues/204
   if (!self.tracks) {
@@ -9,4 +8,8 @@ angular.module("app.tracks", []).controller('TracksController', function ($state
       self.tracks = data;
     });
   }
+
+  this.update = function (track) {
+    track.put();
+  };
 });

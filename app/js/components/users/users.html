@@ -14,11 +14,11 @@
   </thead>
   <tbody>
     <tr ng-repeat="user in users.users | orderBy:'Name'">
-      <td contentEditable ng-change="beats.update(beat)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
-      <td>{{user.LastName}}</td>
-      <td>{{user.Email}}</td>
-      <td>{{user.Telephone}}</td>
-      <td>{{user.Country.Name}}</td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Country.Name"></td>
       <td>{{user.UserType.Name}}</td>
       <td>{{user.Id}}</td>
     </tr>

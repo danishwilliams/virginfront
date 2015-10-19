@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="usertype in usertypes.usertypes | orderBy:'Name'">
-      <td contentEditable ng-change="usertypes.update(usertype)" ng-model-options="{updateOn : 'change blur'}" ng-model="usertype.Name"></td>
+      <td>{{usertype.Name}}</td>
       <td>{{usertype.Id}}</td>
     </tr>
   </tbody>

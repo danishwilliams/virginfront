@@ -1,4 +1,4 @@
-angular.module("app.genres", []).controller('GenresController', function ($state, Genres) {
+angular.module("app.genres", []).controller('GenresController', function (Genres) {
   var self = this;
   this.title = "Genres";
   this.id = $state.id;
@@ -9,4 +9,8 @@ angular.module("app.genres", []).controller('GenresController', function ($state
 	    self.genres = data;
 	  });
 	}
+
+  this.update = function (genre) {
+    genre.put();
+  };
 });

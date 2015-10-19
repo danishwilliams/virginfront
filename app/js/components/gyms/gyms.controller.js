@@ -1,7 +1,6 @@
-angular.module("app.gyms", []).controller('GymsController', function ($stateParams, Gyms) {
+angular.module("app.gyms", []).controller('GymsController', function (Gyms) {
   var self = this;
   this.title = "Gyms";
-  this.id = $stateParams.id;
 
   // TODO: bug fix for "Controller loads twice" @see https://github.com/angular/router/issues/204
   if (!self.gyms) {
@@ -9,4 +8,8 @@ angular.module("app.gyms", []).controller('GymsController', function ($statePara
 	    self.gyms = data;
 	  });
 	}
+
+  this.update = function (gym) {
+    gym.put();
+  };
 });
