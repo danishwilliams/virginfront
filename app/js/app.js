@@ -6,6 +6,7 @@ angular
     "angularUUID2",
     "pascalprecht.translate",
     "restangular",
+    "app.admin",
     "app.beats",
     "app.countries",
     "app.devices",
@@ -39,7 +40,8 @@ angular
 
     .state('admin', {
       url: '/admin',
-      template: 'admin screen'
+      templateUrl: '../js/components/admin/admin.html',
+      controller: 'AdminController as admin'
     })
 
     // Beats
