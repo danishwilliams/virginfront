@@ -36,8 +36,7 @@
       </div>
 
     </aside>
-    <div class="row header content">
-      <div ui-view></div>
+    <div ui-view class="row header content">
     </div>
   </div>
 </div>
