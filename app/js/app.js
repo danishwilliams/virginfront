@@ -136,9 +136,9 @@ angular
       controller: 'OnboardingController as onboarding'
     })
 
-    .state('onboarding-clubs', {
-      url: '/onboarding/:id/clubs',
-      templateUrl: '../js/components/onboarding/clubs.html',
+    .state('onboarding-gyms', {
+      url: '/onboarding/:id/gyms',
+      templateUrl: '../js/components/onboarding/gyms.html',
       controller: 'OnboardingController as onboarding'
     })
 

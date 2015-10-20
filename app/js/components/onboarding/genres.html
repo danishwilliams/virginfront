@@ -1,6 +1,12 @@
 <div class="onboarding row">
+  <h2>What's your vibe?</h2>
 
-{{onboarding.genres}}
-
-<a ui-sref="onboarding-get-started({id:onboarding.id})">Get started</a>
+  <form ng-submit="onboarding.save_genres()">
+    <ul class="align-left">
+      <li ng-repeat="genre in onboarding.genres | orderBy:'Name'">
+        {{genre.Name}}
+      </li>
+    </ul>
+    <button class="round">Done</button>
+  </form>
 </div>
