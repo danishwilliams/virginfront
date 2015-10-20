@@ -60,6 +60,13 @@ angular
       controller: 'CountriesController as countries'
     })
 
+    // Dashboard
+    .state('dashboard', {
+      url: '/dashboard',
+      templateUrl: '../js/components/dashboard/dashboard.html',
+      controller: 'DashboardController as dashboard'
+    })
+
     // Devices
     .state('devices-admin', {
       url: '/admin/devices',
