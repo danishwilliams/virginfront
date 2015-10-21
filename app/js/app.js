@@ -31,7 +31,10 @@ angular
     "app.template_view"
   ])
   .controller("AppController", ['Users', AppController])
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true);
+
     $urlRouterProvider.otherwise('/login');
 
     $stateProvider.state('login', {
