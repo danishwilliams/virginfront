@@ -1,8 +1,9 @@
 angular
   .module("app")
-  .filter('minutes', MinutesFilter);
+  .filter('minutes', SecondsToMinutesFilter);
 
-function MinutesFilter() {
+// Converts seconds to minutes + seconds
+function SecondsToMinutesFilter() {
   return function (input) {
     function z(n) {
       return (n < 10 ? '0' : '') + n;
