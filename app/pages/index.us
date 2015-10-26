@@ -65,6 +65,14 @@
           <i class="fi-home"></i>
           <label>Playlists</label>
         </a>
+        <a class="item" ui-sref="users-admin">
+          <i class="fi-home"></i>
+          <label>Users</label>
+        </a>
+        <a class="item" ui-sref="usertypes-admin">
+          <i class="fi-home"></i>
+          <label>User types</label>
+        </a>
       </div>
 
     </aside>
