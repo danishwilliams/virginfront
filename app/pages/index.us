@@ -13,11 +13,11 @@
 
       <!-- TODO: only insert this if the user is logged in. And make it work on mobile -->
       <div class="icon-bar vertical five-up">
-        <a class="item">
+        <a class="item" ui-sref="dashboard">
           <i class="fi-home"></i>
           <label>Dashboard</label>
         </a>
-        <a class="item">
+        <a class="item" ui-sref="playlist-new-template">
           <i class="fi-home"></i>
           <label>Create a ride</label>
         </a>
@@ -32,6 +32,38 @@
         <a class="item">
           <i class="fi-home"></i>
           <label>Music</label>
+        </a>
+        <a class="item" ui-sref="beats-admin">
+          <i class="fi-home"></i>
+          <label>Beats</label>
+        </a>
+        <a class="item" ui-sref="countries-admin">
+          <i class="fi-home"></i>
+          <label>Countries</label>
+        </a>
+        <a class="item" ui-sref="devices-admin">
+          <i class="fi-home"></i>
+          <label>Devices</label>
+        </a>
+        <a class="item" ui-sref="goals-admin">
+          <i class="fi-home"></i>
+          <label>Goals</label>
+        </a>
+        <a class="item" ui-sref="gyms-admin">
+          <i class="fi-home"></i>
+          <label>Clubs</label>
+        </a>
+        <a class="item" ui-sref="locations-admin">
+          <i class="fi-home"></i>
+          <label>Locations</label>
+        </a>
+        <a class="item" ui-sref="music-providers-admin">
+          <i class="fi-home"></i>
+          <label>Music Providers</label>
+        </a>
+        <a class="item" ui-sref="playlists">
+          <i class="fi-home"></i>
+          <label>Playlists</label>
         </a>
       </div>
 
