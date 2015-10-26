@@ -10,6 +10,7 @@
       <td>Country</td>
       <td>User type</td>
       <td>Id</td>
+      <td>View</td>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +22,7 @@
       <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Country.Name"></td>
       <td>{{user.UserType.Name}}</td>
       <td>{{user.Id}}</td>
+      <td><a ui-sref="users({id:user.Id})">View</a>
     </tr>
   </tbody>
 </table>
