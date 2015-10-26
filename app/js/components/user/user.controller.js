@@ -1,4 +1,4 @@
-angular.module("app.user", []).controller('UserController', function($stateParams, Users, Genres, Gyms) {
+angular.module("app.user", []).controller('UserController', function($stateParams, UserTypes, Users, Genres, Gyms) {
   var self = this;
   this.title = "User profile";
   this.id = $stateParams.id;
@@ -9,7 +9,34 @@ angular.module("app.user", []).controller('UserController', function($stateParam
     });
   }
 
-// Load all gyms
+  // Load all userTypes
+  this.loadUserTypes = function() {
+    UserTypes.loadUserTypes().then(function(data) {
+      self.userTypesEdit = true;
+      self.userTypes = data;
+
+      // Mark the user gyms which have been chosen
+      _.mapObject(self.userTypes, function(val, key) {
+        if (key >= 0) {
+          if (self.user.UserType.Id === val.Id) {
+            val.selected = true;
+          }
+        }
+        return val;
+      });
+    });
+  };
+
+  // Save userTypes
+  this.saveUserTypes = function() {
+    // Find the right user type
+    self.user.UserType = _.find(self.userTypes, function(item) {
+      return item.Id === self.user.UserTypeId;
+    });
+    self.update(self.user, 'userTypes');
+  };
+
+  // Load all gyms
   this.loadGyms = function() {
     Gyms.loadGyms().then(function(data) {
       self.gymEdit = true;
@@ -83,11 +110,14 @@ angular.module("app.user", []).controller('UserController', function($stateParam
   this.update = function(user, type) {
     user.put().then(function(data) {
       switch (type) {
-        case 'genres':
-          self.genreEdit = false;
+        case 'userTypes':
+          self.userTypesEdit = false;
           break;
         case 'gyms':
           self.gymEdit = false;
+          break;
+        case 'genres':
+          self.genreEdit = false;
           break;
       }
     });
