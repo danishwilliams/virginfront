@@ -17,11 +17,23 @@
 
 <h3>Resident clubs</h3>
 
+<span ng-show="!user.gymEdit">
+<a ng-click="user.loadGyms()">Edit</a>
 <ul>
-	<li ng-repeat="gym in user.user.UserGyms">
+	<li ng-repeat="gym in user.user.UserGyms | orderBy: 'Gym.Name'">
 		{{gym.Gym.Name}}
 	</li>
 </ul>
+</span>
+
+<span ng-show="user.gymEdit">
+<label ng-repeat="gym in user.gyms | orderBy: 'Name'">
+  <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
+</label>
+
+<button class="round secondary" ng-click="user.gymEdit = !user.gymEdit">Cancel</button>
+<button class="round" ng-click="user.saveGyms()">Save</button>
+</span>
 
 
 <h3>Genres</h3>
