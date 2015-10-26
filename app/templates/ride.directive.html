@@ -1,0 +1,5 @@
+<a ui-sref="playlist({id:playlist.Id})">
+  <!--Images-->
+  {{playlist.Name}}
+  <br> #songs | {{playlist.ClassLengthMinutes | hours}} | Created: {{playlist.CreateDate | date:'dd MMMM yyyy'}}
+</a>

@@ -5,21 +5,19 @@ angular
 function RideDirective() {
   var directive = {
     link: link,
-    templateUrl: 'ride.html',
+    templateUrl: 'ride.directive.html',
     restrict: 'EA',
     controller: rideController,
-    controllerAs: 'vm'
+    controllerAs: 'ride'
   };
   return directive;
 
   function link(scope, element, attrs) {
-
   }
 }
 
-rideController.$inject = [];
+rideController.$inject = ['$scope'];
 
-function rideController() {
-  var self = this;
-  console.log(self.ride);
+function rideController($scope) {
+  //console.log($scope.playlist);
 }
