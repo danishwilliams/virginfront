@@ -26,6 +26,7 @@ angular
     "app.playlist_view",
     "app.sync",
     "app.tracks",
+    "app.user",
     "app.users",
     "app.usertypes",
     "app.templates",
@@ -232,7 +233,13 @@ angular
       controller: 'UsersController as users'
     })
 
-    // Users
+    .state('users', {
+      url: '/user/:id',
+      templateUrl: '../js/components/user/user.html',
+      controller: 'UserController as user'
+    })
+
+    // User types
     .state('usertypes-admin', {
       url: '/admin/users/types',
       templateUrl: '../js/components/usertypes/usertypes.html',

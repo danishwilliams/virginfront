@@ -1,0 +1,58 @@
+<p>Profile image</p>
+
+<h1>{{user.user.FirstName}} {{user.user.LastName}}</h1>
+
+<p>location, {{user.user.Country.Name}} {{user.user.Country.Code}}</p>
+
+<p>"active/inactive?" Last class: 2 Sept 2015</p>
+
+<h3>Contact details</h3>
+
+<span contentEditable type="telephone" ng-model="user.user.Telephone"></span><br>
+<span contentEditable type="email" ng-model="user.user.Email"></span>
+
+<h3>Permissions</h3>
+
+{{user.user.UserType.Name}}
+
+<h3>Resident clubs</h3>
+
+<ul>
+	<li ng-repeat="gym in user.user.UserGyms">
+		{{gym.Gym.Name}}
+	</li>
+</ul>
+
+
+<h3>Genres</h3>
+
+<span ng-show="!user.genreEdit">
+<a ng-click="user.loadGenres()">Edit</a>
+<ul>
+	<li ng-repeat="genre in user.user.UserGenres | orderBy: 'Name'">
+		{{genre.Genre.Name}}
+	</li>
+</ul>
+</span>
+
+<span ng-show="user.genreEdit">
+<label ng-repeat="genre in user.genres | orderBy: 'Name'">
+  <input type="checkbox" ng-model="genre.selected">{{genre.Name}}
+</label>
+
+<button class="round secondary" ng-click="user.genreEdit = !user.genreEdit">Cancel</button>
+<button class="round" ng-click="user.saveGenres()">Save</button>
+</span>
+
+<h3>Recent classes</h3>
+
+List recent classes - where do we get this list from?
+
+<h3>Recent rides</h3>
+
+List recent playlists
+
+<h3>Simfy account?</h3>
+
+
+
