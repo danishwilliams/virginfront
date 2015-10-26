@@ -27,7 +27,7 @@ Server must be configured to run in HTML5 mode.
 
 * Foundation
 * Customising Foundation with colours etc
-* Sass and compass (compass mixings, because I couldn't get lineman to work)
+* Sass and compass (compass mixings, because I couldn't get lineman to work). Install libsass on your platform (it's much quicker than the ruby implementation). Source: https://github.com/sass/libsass
 
 # Interacting with an API
 
