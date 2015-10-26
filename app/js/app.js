@@ -9,6 +9,7 @@ angular
     "app.admin",
     "app.beats",
     "app.countries",
+    "app.dashboard",
     "app.devices",
     "app.device",
     "app.genres",

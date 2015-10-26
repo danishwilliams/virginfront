@@ -13,9 +13,13 @@
         </div>
       </div>
       <div class="row">
-      	<a>+ Create new ride class</a>
+        <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
+          <li><a ui-sref="playlist-new-template">+ Create new ride class</a></li>
+          <li ng-repeat="playlist in dashboard.playlists | orderBy:'Name'">
+            <ride playlist="{{playlist}}"></ride>
+          </li>
+        </ul>
       </div>
-
       <div class="row gyms">
         <div class="columns large-14">
           My clubs
@@ -25,9 +29,8 @@
         </div>
       </div>
       <div class="row">
-      	List of clubs
+        List of clubs
       </div>
-
       <div class="row classes">
         <div class="columns large-14">
           Recent classes
@@ -37,9 +40,8 @@
         </div>
       </div>
       <div class="row">
-	      List of classes
+        List of classes
       </div>
-
       <div class="row rides">
         <div class="columns large-14">
           Rides shared by others
@@ -49,10 +51,8 @@
         </div>
       </div>
       <div class="row">
-	      List of rides
+        List of rides
       </div>
-
-
     </div>
     <div class="columns large-2">
       &nbsp;
