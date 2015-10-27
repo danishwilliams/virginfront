@@ -1,61 +1,59 @@
 <div class="dashboard row">
-  <div class="row">
-    <div class="columns large-2">
-      &nbsp;
-    </div>
-    <div class="columns large-14">
-      <div class="row playlists">
-        <div class="columns large-14">
-          My saved playlists
-        </div>
-        <div class="columns large-4">
-          View all playlists
-        </div>
+  <div class="large-2 columns">
+    &nbsp;
+  </div>
+  <div class="large-14 columns">
+    <div class="row playlists">
+      <div class="columns large-14">
+        My saved playlists
       </div>
-      <div class="row">
-        <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
-          <li><a ui-sref="playlist-new-template">+ Create new ride class</a></li>
-          <li ng-repeat="playlist in dashboard.playlists | orderBy:'Name'">
-            <ride playlist="{{playlist}}"></ride>
-          </li>
-        </ul>
-      </div>
-      <div class="row gyms">
-        <div class="columns large-14">
-          My clubs
-        </div>
-        <div class="columns large-4">
-          <a>Manage clubs</a>
-        </div>
-      </div>
-      <div class="row">
-        List of clubs
-      </div>
-      <div class="row classes">
-        <div class="columns large-14">
-          Recent classes
-        </div>
-        <div class="columns large-4">
-          <a>View all classes this month</a>
-        </div>
-      </div>
-      <div class="row">
-        List of classes
-      </div>
-      <div class="row rides">
-        <div class="columns large-14">
-          Rides shared by others
-        </div>
-        <div class="columns large-4">
-          <a>Browse all rides</a>
-        </div>
-      </div>
-      <div class="row">
-        List of rides
+      <div class="columns large-4">
+        View all playlists
       </div>
     </div>
-    <div class="columns large-2">
-      &nbsp;
+    <div class="row">
+      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
+        <li><a ui-sref="playlist-new-template">+ Create new ride class</a></li>
+        <li ng-repeat="playlist in dashboard.playlists | orderBy:'Name'">
+          <ride playlist="{{playlist}}"></ride>
+        </li>
+      </ul>
     </div>
+    <div class="row gyms">
+      <div class="columns large-14">
+        My clubs
+      </div>
+      <div class="columns large-4">
+        <a>Manage clubs</a>
+      </div>
+    </div>
+    <div class="row">
+      List of clubs
+    </div>
+    <div class="row classes">
+      <div class="columns large-14">
+        Recent classes
+      </div>
+      <div class="columns large-4">
+        <a>View all classes this month</a>
+      </div>
+    </div>
+    <div class="row">
+      List of classes
+    </div>
+    <div class="row rides">
+      <div class="columns large-14">
+        Rides shared by others
+      </div>
+      <div class="columns large-4">
+        <a>Browse all rides</a>
+      </div>
+    </div>
+    <div class="row">
+      List of rides
+    </div>
+  </div>
+  <div class="large-2 columns">
+    &nbsp;
   </div>
 </div>
