@@ -1,40 +1,43 @@
 $template-radius: rem-calc(8px);
+.create-playlist {
+  text-align: center !important;
+  ul {
+    margin: auto;
+    max-width: rem-calc(900px);
+  }
+}
 
 .template {
-	border: rem-calc(2px) solid $red;
-	border-radius: $template-radius;
-	padding: rem-calc(25px) rem-calc(10px) rem-calc(25px) rem-calc(10px);
-	text-align: center;
-	min-height: rem-calc(220px);
-
-	&:hover {
-		background-color: $red;
-		transition: 300ms ease-out;
-  	h4 {
-  		color: $white;
-  	}
-  	.description {
-  		color: $black;
-  	}
-	}
-
-	.icon {
-		min-height: rem-calc(40px);
-	}
-
-	h4 {
-		color: $red;
-	}
-
-	.description {
-		color: $grey_medium;
-	}
+  border: rem-calc(2px) solid $red;
+  border-radius: $template-radius;
+  padding: rem-calc(25px) rem-calc(10px) rem-calc(25px) rem-calc(10px);
+  text-align: center;
+  min-height: rem-calc(220px);
+  max-width: rem-calc(250px);
+  &:hover {
+    background-color: $red;
+    transition: 300ms ease-out;
+    h4 {
+      color: $white;
+    }
+    .description {
+      color: $black;
+    }
+  }
+  .icon {
+    min-height: rem-calc(40px);
+  }
+  h4 {
+    color: $red;
+  }
+  .description {
+    color: $grey_medium;
+  }
 }
 
 .own {
-	border: dotted $purple;
-
-	h4 {
-		color: $grey_light;
-	}
+  border: dotted $purple;
+  h4 {
+    color: $grey_light;
+  }
 }
