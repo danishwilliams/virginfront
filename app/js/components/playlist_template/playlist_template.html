@@ -1,13 +1,13 @@
 <div class="create-playlist">
   <playlist-workflow></playlist-workflow>
   <div class="row">
-    <div class="small-1 columns">
+    <div class="large-2 columns">
       &nbsp;
     </div>
-    <div class="small-16 columns text-center">
+    <div class="large-14 columns">
       <h3>Choose a ride template</h3>
 
-      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-6">
+      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-3">
         <li ng-repeat="templateGroup in playlist_template.templateGroups | orderBy:'Name'">
           <a class="choose-template" ui-sref="playlist-new-time({id:templateGroup.Id})">
             <div class="template">
@@ -25,7 +25,7 @@
         </li>
       </ul>
     </div>
-    <div class="small-1 columns">
+    <div class="large-2 columns">
       &nbsp;
     </div>
   </div>
