@@ -1,15 +1,24 @@
-<p>Profile image</p>
-
 <h1>{{user.user.FirstName}} {{user.user.LastName}}</h1>
 
-<p>location, {{user.user.Country.Name}} {{user.user.Country.Code}}</p>
+<p>(City) {{user.user.Country.Code}}</p>
 
-<p>"active/inactive?" Last class: 2 Sept 2015</p>
+<p>(active/inactive) Last class: (2 Sept 2015)</p>
 
 <h3>Contact details</h3>
 
-<span contentEditable type="telephone" ng-model="user.user.Telephone"></span><br>
-<span contentEditable type="email" ng-model="user.user.Email"></span>
+<span ng-show="!user.contactEdit">
+  <a ng-click="user.contactEdit = true">Edit</a><br>
+	{{user.user.Telephone}}<br>
+	{{user.user.Email}}
+</span>
+
+<span ng-show="user.contactEdit">
+  <span contentEditable ng-model="user.telephone"></span><br>
+  <span contentEditable ng-model="user.email"></span><br>
+
+	<button class="round secondary" ng-click="user.contactEdit = !user.contactEdit">Cancel</button>
+	<button class="round" ng-click="user.saveContactDetails()">Save</button>
+</span>
 
 <h3>Permissions</h3>
 

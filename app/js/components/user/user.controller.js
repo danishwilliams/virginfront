@@ -6,8 +6,22 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   if (this.id) {
     Users.loadUser(this.id).then(function (data) {
       self.user = data;
+      self.telephone = self.user.Telephone;
+      self.email = self.user.Email;
     });
   }
+
+  this.saveContactDetails = function () {
+    self.user.Telephone = self.telephone;
+    self.user.Email = self.email;
+    self.update(self.user, 'contact');
+  };
+
+  this.cancelContactDetails = function () {
+    self.telephone = self.user.Telephone;
+    self.email = self.user.Email;
+    self.contactEdit = false;
+  };
 
   // Load all userTypes
   this.loadUserTypes = function () {
@@ -110,6 +124,9 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   this.update = function (user, type) {
     user.put().then(function (data) {
       switch (type) {
+        case 'contact':
+          self.contactEdit = false;
+          break;
         case 'userTypes':
           self.userTypesEdit = false;
           break;
