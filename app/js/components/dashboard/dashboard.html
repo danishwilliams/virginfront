@@ -54,7 +54,11 @@
       </div>
     </div>
     <div class="row">
-      [List of rides]
+      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
+        <li ng-repeat="playlist in dashboard.playlists | orderBy:'Created'">
+          <ride playlist="{{playlist}}"></ride>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="large-2 columns">
