@@ -6,6 +6,8 @@
       <td>Playlist Name</td>
       <td>Template Name</td>
       <td>Class length</td>
+      <td>Number of songs</td>
+      <td>Playlist length</td>
       <td>Id</td>
       <td>Delete</td>
     </tr>
@@ -15,6 +17,8 @@
       <td><a ui-sref="playlist({id:playlist.Id})">{{playlist.Name}}</a></td>
       <td>{{playlist.TemplateName}}</td>
       <td>{{playlist.ClassLengthMinutes}}</td>
+      <td>{{playlist.TrackCount}}</td>
+      <td>{{playlist.TotalDurationSeconds | minutes}}</td>
       <td>{{playlist.Id}}</td>
       <td ng-click="playlists.delete(playlist)"><a>x</a></td>
     </tr>

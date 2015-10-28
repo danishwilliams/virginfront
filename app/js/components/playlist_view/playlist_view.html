@@ -8,7 +8,7 @@
       <h1>{{playlist_view.playlist.Name}}</h1>
       <div class="row">
         <div class="columns large-5">
-          <em>{{playlist_view.playlist.TemplateName}}</em> | (x) songs | (y) mins
+          <em>{{playlist_view.playlist.TemplateName}}</em> | {{playlist_view.playlist.TrackCount}} songs | {{playlist_view.playlist.TotalDurationSeconds | minutes}} minutes
         </div>
         <div class="columns large-13">
           <a ui-sref="playlist-edit({id:playlist_view.playlist.Id})">Edit</a>
