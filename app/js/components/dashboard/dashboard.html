@@ -28,7 +28,11 @@
       </div>
     </div>
     <div class="row">
-      [List of clubs]
+      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
+        <li ng-repeat="gym in dashboard.gyms | orderBy:'Name'">
+          <h4>{{gym.Gym.Name}}</h4>
+        </li>
+      </ul>
     </div>
     <div class="row classes heading">
       <div class="columns large-14">
