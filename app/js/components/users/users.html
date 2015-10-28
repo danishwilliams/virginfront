@@ -7,6 +7,8 @@
       <td>Last name</td>
       <td>Email</td>
       <td>Phone number</td>
+      <td>City</td>
+      <td>Province</td>
       <td>Country</td>
       <td>User type</td>
       <td>Id</td>
@@ -19,7 +21,9 @@
       <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
       <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
       <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
-      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Country.Name"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Location.City"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Location.Province"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Location.Country.Name"></td>
       <td>{{user.UserType.Name}}</td>
       <td>{{user.Id}}</td>
       <td><a ui-sref="users({id:user.Id})">View</a>
