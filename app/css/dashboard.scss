@@ -1,0 +1,15 @@
+.dashboard {
+
+  h3 {
+    color: $grey_light;
+  }
+
+  .heading {
+    border-bottom: 1px solid $grey_light;
+    margin-bottom: rem-calc(4px);
+    color: $grey_light;
+    .columns {
+      line-height: rem-calc(48px);
+    }
+  }
+}
