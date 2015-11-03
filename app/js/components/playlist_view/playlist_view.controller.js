@@ -1,22 +1,22 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $location, AuthenticationService, PlaylistEdit) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $location, AuthenticationService, Playlists) {
   var self = this;
-  PlaylistEdit.setStep(4);
+  Playlists.setStep(4);
   self.id = $stateParams.id;
-  self.playlist = PlaylistEdit.getPlaylist();
+  self.playlist = Playlists.getPlaylist();
 
   if (self.id) {
     // Load an existing playlist
-    PlaylistEdit.loadPlaylist(self.id).then(function () {
-      self.playlist = PlaylistEdit.getPlaylist();
+    Playlists.loadPlaylist(self.id).then(function () {
+      self.playlist = Playlists.getPlaylist();
     });
   }
 
   self.publishPlaylist = function() {
-    PlaylistEdit.publishPlaylist(self.playlist.Id).then(function (data) {
+    Playlists.publishPlaylist(self.playlist.Id).then(function (data) {
       console.log('successfully published playlist!');
       alert('Playlist successfully published!');
     });
-    PlaylistEdit.publishPlaylistToMusicProvider(self.playlist.Id).then(function (data) {
+    Playlists.publishPlaylistToMusicProvider(self.playlist.Id).then(function (data) {
       console.log('successfully published playlist to music provider!');
     });
   };

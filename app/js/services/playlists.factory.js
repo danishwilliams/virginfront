@@ -3,11 +3,11 @@
  */
 angular
   .module("app")
-  .factory('PlaylistEdit', PlaylistEditFactory);
+  .factory('Playlists', PlaylistsFactory);
 
-PlaylistEditFactory.$inject = ['Restangular', 'uuid2', 'Users'];
+PlaylistsFactory.$inject = ['Restangular', 'uuid2', 'Users'];
 
-function PlaylistEditFactory(Restangular, uuid2, Users) {
+function PlaylistsFactory(Restangular, uuid2, Users) {
   var self = this;
   var steps = initSteps(); // The full steps array
   var currentStep = 0; // Which step we're currently on

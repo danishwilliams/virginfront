@@ -47,8 +47,8 @@
               <div class="small-2 columns">
                 {{track.Track.DurationSeconds | minutes}}
               </div>
-              <div class="small-2 columns">
-                <div class="play">Play</div>
+              <div class="small-2 columns play" ng-click="playlist_view.playTrack(track);" ng-class="{'playing': track.playing}">
+                <a href="#">{{'PLAY' | translate}}</a>
               </div>
             </div>
           </div>

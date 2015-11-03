@@ -17,9 +17,9 @@ function playlistWorkflow() {
 	}
 }
 
-playlistWorkflowController.$inject = ['PlaylistEdit'];
+playlistWorkflowController.$inject = ['Playlists'];
 
-function playlistWorkflowController(PlaylistEdit) {
+function playlistWorkflowController(Playlists) {
 	var self = this;
-	this.steps = PlaylistEdit.getSteps();
+	this.steps = Playlists.getSteps();
 }

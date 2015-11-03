@@ -1,9 +1,9 @@
-angular.module("app.playlists", []).controller('PlaylistsController', function (PlaylistEdit) {
+angular.module("app.playlists", []).controller('PlaylistsController', function (Playlists) {
 	var self = this;
-	this.playlists = PlaylistEdit.getPlaylists();
+	this.playlists = Playlists.getPlaylists();
 	this.newplaylist = {};
 
-	PlaylistEdit.loadPlaylists(10).then(function(data) {
+	Playlists.loadPlaylists(10).then(function(data) {
 		self.playlists = data;
 	});
 

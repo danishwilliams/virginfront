@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $location, AuthenticationService, Tracks, PlaylistEdit, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $location, AuthenticationService, Tracks, Playlists, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -6,13 +6,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.id = $stateParams.id;
 
   this.title = "Add a Ride";
-  this.playlist = PlaylistEdit.getPlaylist();
+  this.playlist = Playlists.getPlaylist();
   this.tracks = Tracks.getTracks();
-  this.currentgoal = PlaylistEdit.getCurrentGoal();
+  this.currentgoal = Playlists.getCurrentGoal();
   this.audio = new Audio(); // An audio object for playing a track
   this.currentPlayingTrack = {}; // The track which is currently playing
 
-  PlaylistEdit.setStep(2);
+  Playlists.setStep(2);
 
   // Load tracks from the user's default genre selection
   Tracks.loadUserGenresTracks().then(function (data) {
@@ -22,14 +22,14 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   // Create new playlist
   if ($location.path().substring(0, 15) === '/playlists/new/') {
     Templates.loadTemplate(self.id).then(function (data) {
-      self.playlist = PlaylistEdit.createNewPlaylistFromTemplate(data);
-      self.currentgoal = PlaylistEdit.getCurrentGoal();
+      self.playlist = Playlists.createNewPlaylistFromTemplate(data);
+      self.currentgoal = Playlists.getCurrentGoal();
     });
   } else if (self.id) {
     // Load an existing playlist so we can edit it
-    PlaylistEdit.loadPlaylist(this.id).then(function () {
-      self.playlist = PlaylistEdit.getPlaylist();
-      self.currentgoal = PlaylistEdit.getCurrentGoal();
+    Playlists.loadPlaylist(this.id).then(function () {
+      self.playlist = Playlists.getPlaylist();
+      self.currentgoal = Playlists.getCurrentGoal();
     });
   }
 
@@ -129,9 +129,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       playlistGoal.show = !playlistGoal.show;
     }
 
-    PlaylistEdit.setCurrentGoal(playlistGoal);
+    Playlists.setCurrentGoal(playlistGoal);
     // Why isn't this automatically happening due to setting this earlier? i.e. this isn't data bound...
-    self.currentgoal = PlaylistEdit.getCurrentGoal();
+    self.currentgoal = Playlists.getCurrentGoal();
   };
 
   /**
@@ -160,17 +160,17 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
 
     // If there are already tracks don't add one
-    var tracks = PlaylistEdit.getPlaylistGoalTracks(self.currentgoal.ArrayId);
+    var tracks = Playlists.getPlaylistGoalTracks(self.currentgoal.ArrayId);
     if (tracks.length > 0) {
       return;
     }
 
-    PlaylistEdit.trackDropped(self.currentgoal.ArrayId, track);
+    Playlists.trackDropped(self.currentgoal.ArrayId, track);
   };
 
   // Remove a track from a goal playlist
   this.removeTrack = function (playlistGoalArrayId, track) {
-    PlaylistEdit.removeTrackFromGoalPlaylist(playlistGoalArrayId, track);
+    Playlists.removeTrackFromGoalPlaylist(playlistGoalArrayId, track);
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + playlistGoalArrayId);
