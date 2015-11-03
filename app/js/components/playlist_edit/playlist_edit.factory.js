@@ -5,14 +5,16 @@ angular
   .module("app")
   .factory('PlaylistEdit', PlaylistEditFactory);
 
-PlaylistEditFactory.$inject = ['Restangular', 'Playlists', 'uuid2', 'Users'];
+PlaylistEditFactory.$inject = ['Restangular', 'uuid2', 'Users'];
 
-function PlaylistEditFactory(Restangular, Playlists, uuid2, Users) {
+function PlaylistEditFactory(Restangular, uuid2, Users) {
   var self = this;
   var steps = initSteps(); // The full steps array
   var currentStep = 0; // Which step we're currently on
   var playlist = [];
+  var playlists = [];
   var goals = [];
+
   // The currently selected goal which tracks can be added to
   var currentgoal = {
     ArrayId: 0, // Maintains a mapping between the array id of the playlist goal, and the playlist goal UUID
@@ -27,8 +29,12 @@ function PlaylistEditFactory(Restangular, Playlists, uuid2, Users) {
     addTrackToGoalPlaylist: addTrackToGoalPlaylist,
     removeTrackFromGoalPlaylist: removeTrackFromGoalPlaylist,
     trackDropped: trackDropped,
+    loadPlaylists: loadPlaylists,
+    getPlaylists: getPlaylists,
     loadPlaylist: loadPlaylist,
     getPlaylist: getPlaylist,
+    publishPlaylist: publishPlaylist,
+    publishPlaylistToMusicProvider: publishPlaylistToMusicProvider,
     getGoalPlaylist: getGoalPlaylist,
     getPlaylistGoalTracks: getPlaylistGoalTracks,
     loadGoals: loadGoals,
@@ -117,8 +123,26 @@ function PlaylistEditFactory(Restangular, Playlists, uuid2, Users) {
     return playlist[id];
   }
 
+  function loadPlaylists(resultCount) {
+    return Restangular.one('playlists').get({
+      resultCount: resultCount,
+      includeGoals: false
+    }).then(loadPlaylistsComplete);
+
+    function loadPlaylistsComplete(data, status, headers, config) {
+      self.playlists = data;
+      return self.playlists;
+    }
+  }
+
+  function getPlaylists() {
+    return playlists;
+  }
+
   function loadPlaylist(id) {
-    return Playlists.loadPlaylist(id).then(loadPlaylistComplete);
+    return Restangular.one('playlists', id).get({
+      includeGoals: true
+    }).then(loadPlaylistComplete);
 
     function loadPlaylistComplete(data) {
       playlist = data;
@@ -139,6 +163,27 @@ function PlaylistEditFactory(Restangular, Playlists, uuid2, Users) {
   // Returns the entire playlist
   function getPlaylist() {
     return playlist;
+  }
+
+  function publishPlaylist(id) {
+    return Restangular.one('playlists/sync', id).post().then(publishPlaylistComplete);
+
+    function publishPlaylistComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  /**
+   * Publishes a playlist to a Music Provider i.e. creates/edits a playlist on Simfy
+   */
+  function publishPlaylistToMusicProvider(id) {
+    return Restangular.one('music/playlist', id).post().then(publishPlaylistToMusicProviderComplete);
+
+    function publishPlaylistToMusicProviderComplete(data, status, headers, config) {
+      console.log(data);
+      // TODO: build in error handling here if this fails
+      return data;
+    }
   }
 
   /**

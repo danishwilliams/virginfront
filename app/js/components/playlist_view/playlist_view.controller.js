@@ -1,4 +1,4 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $location, AuthenticationService, PlaylistEdit, Playlists) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $location, AuthenticationService, PlaylistEdit) {
   var self = this;
   PlaylistEdit.setStep(4);
   self.id = $stateParams.id;
@@ -12,11 +12,11 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
   }
 
   self.publishPlaylist = function() {
-    Playlists.publishPlaylist(self.playlist.Id).then(function (data) {
+    PlaylistEdit.publishPlaylist(self.playlist.Id).then(function (data) {
       console.log('successfully published playlist!');
       alert('Playlist successfully published!');
     });
-    Playlists.publishPlaylistToMusicProvider(self.playlist.Id).then(function (data) {
+    PlaylistEdit.publishPlaylistToMusicProvider(self.playlist.Id).then(function (data) {
       console.log('successfully published playlist to music provider!');
     });
   };

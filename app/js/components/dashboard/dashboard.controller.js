@@ -1,8 +1,8 @@
-angular.module("app.dashboard", []).controller('DashboardController', function (Playlists, Users) {
+angular.module("app.dashboard", []).controller('DashboardController', function (PlaylistEdit, Users) {
   var self = this;
   this.title = "Dashboard";
 
-  Playlists.loadPlaylists(4).then(function(data) {
+  PlaylistEdit.loadPlaylists(4).then(function(data) {
     self.playlists = data;
   });
 
