@@ -10,12 +10,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.tracks = Tracks.getTracks();
   this.currentgoal = PlaylistEdit.getCurrentGoal();
   this.audio = new Audio(); // An audio object for playing a track
-  this.audio.loop = true; // Because I'm not keeping track of how long a track is playing for
 
   PlaylistEdit.setStep(2);
 
   // Load tracks from the user's default genre selection
-  Tracks.loadUserGenresTracks().then(function(data) {
+  Tracks.loadUserGenresTracks().then(function (data) {
     self.tracks = data;
   });
 
@@ -40,20 +39,17 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
           // User has clicked pause i.e. the same track
           self.audio.pause();
           track.playing = false;
-        }
-        else {
+        } else {
           // User is playing a paused track
           self.audio.play();
           track.playing = true;
         }
         self.currentPlayingTrack = track;
-      }
-      else {
+      } else {
         self.currentPlayingTrack.playing = false;
         self.playTrackWithSource(track);
       }
-    }
-    else {
+    } else {
       self.playTrackWithSource(track);
     }
   };
@@ -65,15 +61,31 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     self.currentPlayingTrack = track;
     if (track.Source) {
       self.audio.src = track.Source;
+      self.audio.onended = function () {
+        self.playEnded(track);
+      };
       self.audio.play();
-    }
-    else {
-      Tracks.loadDownloadUrl(track.Id).then(function(data) {
+    } else {
+      Tracks.loadDownloadUrl(track.Id).then(function (data) {
         self.audio.src = track.Source = data.Value;
         self.audio.play();
-        console.log(self.audio);
+        self.audio.onended = function () {
+          self.playEnded(track);
+        };
       });
     }
+  };
+
+  this.playEnded = function (track) {
+    track.playing = false;
+
+    // Have to load up the DOM element and change it there, because can't do a $scope.apply() due to using Controller-As syntax
+    var trackElement = document.getElementById("track" + track.MusicProviderTrackId);
+    angular.element(trackElement).scope().$apply();
+
+    Tracks.postTrackUsage(track.MusicProviderTrackId, track.DurationSeconds, new Date()).then(function (data) {
+      console.log('track usage data sent!');
+    });
   };
 
   /**
@@ -108,8 +120,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return false;
   };
 
-  this.trackSearch = function() {
-    Tracks.searchTracks(self.search).then(function(data) {
+  this.trackSearch = function () {
+    Tracks.searchTracks(self.search).then(function (data) {
       self.tracks = data;
     });
   };
@@ -147,7 +159,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     // Theoretically, this should work
     self.playlist.put({
       syncPlaylist: false
-    }).then(function() {
+    }).then(function () {
       $location.path('/playlists/' + self.playlist.Id);
     });
   };
