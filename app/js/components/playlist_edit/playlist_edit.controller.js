@@ -10,6 +10,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.tracks = Tracks.getTracks();
   this.currentgoal = PlaylistEdit.getCurrentGoal();
   this.audio = new Audio(); // An audio object for playing a track
+  this.currentPlayingTrack = {}; // The track which is currently playing
 
   PlaylistEdit.setStep(2);
 
@@ -33,23 +34,28 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   }
 
   this.playTrack = function (track) {
-    if (self.currentPlayingTrack) {
+    // Is a track playing?
+    if (self.currentPlayingTrack.MusicProviderTrackId) {
+      // Is the track the user has just clicked on the currently playing track?
       if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
         if (track.playing === true) {
-          // User has clicked pause i.e. the same track
+          // User is pausing a playing track
           self.audio.pause();
           track.playing = false;
         } else {
-          // User is playing a paused track
+          // User is resuming a paused track
           self.audio.play();
           track.playing = true;
         }
         self.currentPlayingTrack = track;
       } else {
+        // A track was playing, but the user is now playing a new track
         self.currentPlayingTrack.playing = false;
+        Tracks.postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), new Date());
         self.playTrackWithSource(track);
       }
     } else {
+      // Starting to play a track for the first time
       self.playTrackWithSource(track);
     }
   };
@@ -68,24 +74,23 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     } else {
       Tracks.loadDownloadUrl(track.Id).then(function (data) {
         self.audio.src = track.Source = data.Value;
-        self.audio.play();
         self.audio.onended = function () {
           self.playEnded(track);
         };
+        self.audio.play();
       });
     }
   };
 
   this.playEnded = function (track) {
     track.playing = false;
+    self.currentPlayingTrack = {};
 
     // Have to load up the DOM element and change it there, because can't do a $scope.apply() due to using Controller-As syntax
     var trackElement = document.getElementById("track" + track.MusicProviderTrackId);
     angular.element(trackElement).scope().$apply();
 
-    Tracks.postTrackUsage(track.MusicProviderTrackId, track.DurationSeconds, new Date()).then(function (data) {
-      console.log('track usage data sent!');
-    });
+    Tracks.postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), new Date());
   };
 
   /**
