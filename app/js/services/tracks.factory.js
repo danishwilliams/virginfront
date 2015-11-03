@@ -11,15 +11,12 @@ function TracksFactory($rootScope, Restangular) {
   var self = this;
   self.userGenresTracks = [];
   self.tracks = []; // A list of track objects
-  self.playerTrack = []; // The track loaded to the player
 
   var tracksFactory = {
     loadUserGenresTracks: loadUserGenresTracks,
     searchTracks: searchTracks,
     addTrack: addTrack,
     getTracks: getTracks,
-    getPlayerTrack: getPlayerTrack,
-    setPlayerTrack: setPlayerTrack,
     loadDownloadUrl: loadDownloadUrl,
     postTrackUsage: postTrackUsage
   };
@@ -71,14 +68,6 @@ function TracksFactory($rootScope, Restangular) {
 
   function getTracks() {
     return self.tracks;
-  }
-
-  function getPlayerTrack() {
-    return self.playerTrack;
-  }
-
-  function setPlayerTrack(track) {
-    self.playerTrack = [track];
   }
 
   /**
