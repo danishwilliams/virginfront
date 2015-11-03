@@ -93,7 +93,11 @@ function TracksFactory($rootScope, Restangular) {
   }
 
   /**
-   * Post track usage data
+   * Post track usage data. There are 3 times when we want to report track plays:
+   * 1. On track completion.
+   * 2. On track skip (i.e. another track starts playing).
+   * 3. When the user pauses playback, the current duration should be stored. When another track starts playing
+   *    (even after the tab is closed and re-opened) then post the stored track's usage.
    */
   function postTrackUsage(id, durationSeconds, date) {
     var usage = [{
