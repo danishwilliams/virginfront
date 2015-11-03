@@ -230,6 +230,10 @@ input[type="text"].class_name {
   background: url('/img/play.svg') no-repeat;
 }
 
+.playing {
+  background: url('/img/playing.gif') no-repeat;
+}
+
 .bin {
   display: block;
   height: 60px;
