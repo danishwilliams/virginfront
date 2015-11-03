@@ -33,11 +33,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     });
   }
 
-  this.playGoalTrack = function (track) {
-    // TODO: write this functionality
-    self.currentPlayingGoalTrack = track;
-  };
-
   this.playTrack = function (track) {
     console.log(track);
     if (self.currentPlayingTrack) {
