@@ -52,8 +52,8 @@
             <div class="bin" ng-class="{'dropped' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}" id="bin{{playlistGoal.ArrayId}}" ng-show="playlistGoal.show" droppable>
               <div class="empty-text">{{'DRAG_DROP_TRACK' | translate}}</div>
               <div class="row track dropped" id="playlist{{playlistGoal.Id}}{{track.Track.MusicProviderTrackId}}" data-ng-repeat="track in playlistGoal.PlaylistGoalTracks">
-                <div class="small-1 columns play">
-                  <a href="#" ng-click="playTrack(track.Track.MusicProviderTrackId)">{{'PLAY' | translate}}</a>
+                <div class="small-1 columns play" ng-click="playlist_edit.playGoalTrack(track);" ng-class="{'playing': track.playing}">
+                  <a href="#">{{'PLAY' | translate}}</a>
                 </div>
                 <div class="small-14 columns">
                   <span class="track-name">{{track.Track.Name}}</span> <span class="artist">{{track.Track.Artist}}</span> | <span class="bpm">{{track.Track.Bpm}} {{'BPM' | translate}}</span>
@@ -140,8 +140,8 @@
         </div>
         <div class="small-16 columns">
           <div class="row track" draggable id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in playlist_edit.tracks">
-            <div class="small-1 columns play">
-              <a href="#" ng-click="playTrack(track.MusicProviderTrackId)">{{'PLAY' | translate}}</a>
+            <div class="small-1 columns play" ng-click="playlist_edit.playTrack(track);" ng-class="{'playing': track.playing}">
+              <a href="#">{{'PLAY' | translate}}</a>
             </div>
             <div class="small-9 columns">
               <span class="track-name">{{track.Name}}</span>

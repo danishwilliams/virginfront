@@ -9,6 +9,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.playlist = PlaylistEdit.getPlaylist();
   this.tracks = Tracks.getTracks();
   this.currentgoal = PlaylistEdit.getCurrentGoal();
+  this.audio = new Audio(); // An audio object for playing a track
+  this.audio.loop = true; // Because I'm not keeping track of how long a track is playing for
 
   PlaylistEdit.setStep(2);
 
@@ -31,24 +33,40 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     });
   }
 
-  this.playTrack = function (trackid) {
-    var playertrack = Tracks.getPlayerTrack();
-    if (trackid === playertrack[0]) {
-      if (playing) {
-        // Pause the currently playing track
-        DZ.player.pause();
-        DZ.player.pause();
-        playing = false;
-      } else {
-        DZ.player.play();
-        playing = true;
+  this.playGoalTrack = function (track) {
+    // TODO: write this functionality
+    self.currentPlayingGoalTrack = track;
+  };
+
+  this.playTrack = function (track) {
+    console.log(track);
+    if (self.currentPlayingTrack) {
+      if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
+        if (track.playing === true) {
+          // User has clicked pause i.e. the same track
+          self.audio.pause();
+          track.playing = false;
+        }
+        else {
+          // User is playing a paused track
+          self.audio.play();
+          track.playing = true;
+        }
+        self.currentPlayingTrack = track;
       }
-    } else {
-      // Play a different track
-      Tracks.setPlayerTrack(trackid);
-      DZ.player.playTracks([trackid]);
-      DZ.player.play();
-      playing = true;
+      else {
+        track.playing = true;
+        self.currentPlayingTrack.playing = false;
+        self.currentPlayingTrack = track;
+        self.audio.src = track.Source;
+        self.audio.play();
+      }
+    }
+    else {
+      track.playing = true;
+      self.currentPlayingTrack = track;
+      self.audio.src = track.Source;
+      self.audio.play();
     }
   };
 
