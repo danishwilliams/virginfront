@@ -6,7 +6,9 @@
         &nbsp;
       </div>
       <div class="large-14 columns">
-        <input name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}..." ng-model="playlist_edit.playlist.Name">
+        <form id="playlistForm" ng-submit="playlist_edit.savePlaylist()">
+          <input required name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}..." ng-model="playlist_edit.playlist.Name">
+        </form>
       </div>
       <div class="large-2 columns">
         &nbsp;
@@ -16,7 +18,6 @@
       &nbsp;
     </div>
   </div>
-
   <div class="row playlist-container">
     <div class="small-9 columns goals-container">
       <div class="row goal-name">
@@ -34,7 +35,6 @@
           </div>
         </div>
       </div>
-
       <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder'">
         <div class="small-2 columns">
           &nbsp;
@@ -86,26 +86,23 @@
           &nbsp;
         </div>
         <div class="large-15 columns">
-          <button ng-click="playlist_edit.savePlaylist()" class="round">Save playlist</button>
+          <button type="submit" form="playlistForm" class="round">Save playlist</button>
         </div>
         <div class="small-1 columns">
           &nbsp;
         </div>
       </div>
-
     </div>
     <div class="small-9 columns tracks">
       <div class="row chunk">
         &nbsp;
       </div>
-
       <div class="row">
         <div class="small-1 columns">
           &nbsp;
         </div>
         <div class="small-16 columns">
           <h3>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'Warm Up'</span></h3>
-
           <div class="row showing">
             <div class="small-14 columns">
               {{'SHOWING' | translate}}: 80 - 90 {{'BPM' | translate}} {{'TRACKS' | translate}}
@@ -119,21 +116,17 @@
           &nbsp;
         </div>
       </div>
-
       <div class="row">
         <div class="small-2 columns">
           &nbsp;
         </div>
         <div class="small-14 columns search">
-          <form ng-submit="playlist_edit.trackSearch()">
-            <input ng-model="playlist_edit.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
-          </form>
+          <input ng-model="playlist_edit.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
         </div>
         <div class="small-2 columns">
           &nbsp;
         </div>
       </div>
-
       <div class="row">
         <div class="small-1 columns">
           &nbsp;
