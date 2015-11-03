@@ -9,8 +9,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.playlist = Playlists.getPlaylist();
   this.tracks = Tracks.getTracks();
   this.currentgoal = Playlists.getCurrentGoal();
-  this.audio = new Audio(); // An audio object for playing a track
-  this.currentPlayingTrack = {}; // The track which is currently playing
 
   Playlists.setStep(2);
 
@@ -34,84 +32,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   }
 
   this.playTrack = function (track) {
-    // Is a track playing?
-    if (self.currentPlayingTrack.MusicProviderTrackId) {
-      // Is the track the user has just clicked on the currently playing track?
-      if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
-        if (track.playing === true) {
-          // User is pausing a playing track
-          self.audio.pause();
-          track.playing = false;
-
-          // Store track duration played (and date) locally
-          localStorage.setItem('musicProviderTrackId', track.MusicProviderTrackId);
-          localStorage.setItem('durationSeconds', self.audio.currentTime);
-          var d = new Date();
-          localStorage.setItem('date', d.toISOString());
-        } else {
-          // User is resuming a paused track
-          self.audio.play();
-          track.playing = true;
-        }
-        self.currentPlayingTrack = track;
-      } else {
-        // A track was playing, but the user is now playing a new track
-        self.currentPlayingTrack.playing = false;
-        var date = new Date();
-        Tracks.postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), date.toISOString());
-        self.playTrackWithSource(track);
-      }
-    } else {
-      // Starting to play a track for the first time
-      self.playTrackWithSource(track);
-
-      // If a track was paused in the last browser session, post a track usage count
-      var musicProviderTrackId = localStorage.getItem('musicProviderTrackId');
-      if (musicProviderTrackId) {
-        var duration = localStorage.getItem('durationSeconds');
-        var dateLocal = localStorage.getItem('date');
-        if (duration > 0 && dateLocal) {
-          Tracks.postTrackUsage(musicProviderTrackId, parseInt(duration), dateLocal);
-        }
-
-        localStorage.removeItem('musicProviderTrackId');
-        localStorage.removeItem('durationSeconds');
-        localStorage.removeItem('date');
-      }
-    }
-  };
-
-  // We don't store track Sources in the API (since Simfy tracks expire after 2 days) so if Source
-  // doesn't exist, do an API call to find it
-  this.playTrackWithSource = function (track) {
-    track.playing = true;
-    self.currentPlayingTrack = track;
-    if (track.Source) {
-      self.audio.src = track.Source;
-      self.audio.onended = function () {
-        self.playEnded(track);
-      };
-      self.audio.play();
-    } else {
-      Tracks.loadDownloadUrl(track.Id).then(function (data) {
-        self.audio.src = track.Source = data.Value;
-        self.audio.onended = function () {
-          self.playEnded(track);
-        };
-        self.audio.play();
-      });
-    }
-  };
-
-  this.playEnded = function (track) {
-    track.playing = false;
-    self.currentPlayingTrack = {};
-
-    // Have to load up the DOM element and change it there, because can't do a $scope.apply() due to using Controller-As syntax
-    var trackElement = document.getElementById("track" + track.MusicProviderTrackId);
-    angular.element(trackElement).scope().$apply();
-
-    Tracks.postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), new Date());
+    Tracks.playTrack(track);
   };
 
   /**
