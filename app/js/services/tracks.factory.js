@@ -20,7 +20,8 @@ function TracksFactory($rootScope, Restangular) {
     getTracks: getTracks,
     getPlayerTrack: getPlayerTrack,
     setPlayerTrack: setPlayerTrack,
-    loadDownloadUrl: loadDownloadUrl
+    loadDownloadUrl: loadDownloadUrl,
+    postTrackUsage: postTrackUsage
   };
 
   return tracksFactory;
@@ -87,6 +88,23 @@ function TracksFactory($rootScope, Restangular) {
     return Restangular.one('music/track/downloadurl', id).get().then(loadDownloadUrlComplete);
 
     function loadDownloadUrlComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  /**
+   * Post track usage data
+   */
+  function postTrackUsage(id, durationSeconds, date) {
+    var usage = [{
+      MusicProviderTrackId: id.toString(),
+      DurationSeconds: durationSeconds,
+      PlayDateTime: date,
+      TrackState: "stream"
+    }];
+    return Restangular.one('music/usage/track').customPOST(usage).then(postTrackUsageComplete);
+
+    function postTrackUsageComplete(data, status, headers, config) {
       return data;
     }
   }
