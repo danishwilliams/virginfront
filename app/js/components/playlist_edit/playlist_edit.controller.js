@@ -42,6 +42,12 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
           // User is pausing a playing track
           self.audio.pause();
           track.playing = false;
+
+          // Store track duration played (and date) locally
+          localStorage.setItem('musicProviderTrackId', track.MusicProviderTrackId);
+          localStorage.setItem('durationSeconds', self.audio.currentTime);
+          var d = new Date();
+          localStorage.setItem('date', d.toISOString());
         } else {
           // User is resuming a paused track
           self.audio.play();
@@ -51,12 +57,27 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       } else {
         // A track was playing, but the user is now playing a new track
         self.currentPlayingTrack.playing = false;
-        Tracks.postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), new Date());
+        var date = new Date();
+        Tracks.postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), date.toISOString());
         self.playTrackWithSource(track);
       }
     } else {
       // Starting to play a track for the first time
       self.playTrackWithSource(track);
+
+      // If a track was paused in the last browser session, post a track usage count
+      var musicProviderTrackId = localStorage.getItem('musicProviderTrackId');
+      if (musicProviderTrackId) {
+        var duration = localStorage.getItem('durationSeconds');
+        var dateLocal = localStorage.getItem('date');
+        if (duration > 0 && dateLocal) {
+          Tracks.postTrackUsage(musicProviderTrackId, parseInt(duration), dateLocal);
+        }
+
+        localStorage.removeItem('musicProviderTrackId');
+        localStorage.removeItem('durationSeconds');
+        localStorage.removeItem('date');
+      }
     }
   };
 
