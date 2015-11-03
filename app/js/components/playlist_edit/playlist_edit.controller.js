@@ -34,7 +34,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   }
 
   this.playTrack = function (track) {
-    console.log(track);
     if (self.currentPlayingTrack) {
       if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
         if (track.playing === true) {
@@ -50,18 +49,30 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
         self.currentPlayingTrack = track;
       }
       else {
-        track.playing = true;
         self.currentPlayingTrack.playing = false;
-        self.currentPlayingTrack = track;
-        self.audio.src = track.Source;
-        self.audio.play();
+        self.playTrackWithSource(track);
       }
     }
     else {
-      track.playing = true;
-      self.currentPlayingTrack = track;
+      self.playTrackWithSource(track);
+    }
+  };
+
+  // We don't store track Sources in the API (since Simfy tracks expire after 2 days) so if Source
+  // doesn't exist, do an API call to find it
+  this.playTrackWithSource = function (track) {
+    track.playing = true;
+    self.currentPlayingTrack = track;
+    if (track.Source) {
       self.audio.src = track.Source;
       self.audio.play();
+    }
+    else {
+      Tracks.loadDownloadUrl(track.Id).then(function(data) {
+        self.audio.src = track.Source = data.Value;
+        self.audio.play();
+        console.log(self.audio);
+      });
     }
   };
 
