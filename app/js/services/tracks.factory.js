@@ -19,7 +19,8 @@ function TracksFactory($rootScope, Restangular) {
     addTrack: addTrack,
     getTracks: getTracks,
     getPlayerTrack: getPlayerTrack,
-    setPlayerTrack: setPlayerTrack
+    setPlayerTrack: setPlayerTrack,
+    loadDownloadUrl: loadDownloadUrl
   };
 
   return tracksFactory;
@@ -77,5 +78,16 @@ function TracksFactory($rootScope, Restangular) {
 
   function setPlayerTrack(track) {
     self.playerTrack = [track];
+  }
+
+  /**
+   * Gets a track download URL
+   */
+  function loadDownloadUrl(id) {
+    return Restangular.one('music/track/downloadurl', id).get().then(loadDownloadUrlComplete);
+
+    function loadDownloadUrlComplete(data, status, headers, config) {
+      return data;
+    }
   }
 }

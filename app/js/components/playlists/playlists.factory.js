@@ -21,8 +21,9 @@ function PlaylistsFactory(Restangular) {
 
   return playlistsFactory;
 
-  function loadPlaylists() {
+  function loadPlaylists(resultCount) {
     return Restangular.one('playlists').get({
+      resultCount: resultCount,
       includeGoals: false
     }).then(loadPlaylistsComplete);
 

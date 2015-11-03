@@ -2,7 +2,7 @@ angular.module("app.dashboard", []).controller('DashboardController', function (
   var self = this;
   this.title = "Dashboard";
 
-  Playlists.loadPlaylists().then(function(data) {
+  Playlists.loadPlaylists(4).then(function(data) {
     self.playlists = data;
   });
 
