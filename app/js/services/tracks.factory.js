@@ -113,10 +113,6 @@ function TracksFactory($rootScope, Restangular) {
         if (duration > 0 && dateLocal) {
           postTrackUsage(musicProviderTrackId, parseInt(duration), dateLocal);
         }
-
-        localStorage.removeItem('musicProviderTrackId');
-        localStorage.removeItem('durationSeconds');
-        localStorage.removeItem('date');
       }
     }
   }
@@ -187,6 +183,9 @@ function TracksFactory($rootScope, Restangular) {
     return Restangular.one('music/usage/track').customPOST(usage).then(postTrackUsageComplete);
 
     function postTrackUsageComplete(data, status, headers, config) {
+      localStorage.removeItem('musicProviderTrackId');
+      localStorage.removeItem('durationSeconds');
+      localStorage.removeItem('date');
       return data;
     }
   }
