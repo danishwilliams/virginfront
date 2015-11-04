@@ -1,4 +1,4 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $location, AuthenticationService, Playlists) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $location, AuthenticationService, Playlists, Tracks) {
   var self = this;
   Playlists.setStep(4);
   self.id = $stateParams.id;
@@ -10,6 +10,10 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
       self.playlist = Playlists.getPlaylist();
     });
   }
+
+  self.playTrack = function (track) {
+    Tracks.playTrack(track);
+  };
 
   self.publishPlaylist = function() {
     Playlists.publishPlaylist(self.playlist.Id).then(function (data) {

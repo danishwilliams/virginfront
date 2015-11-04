@@ -5,14 +5,21 @@ angular
   .module("app")
   .service('Tracks', TracksFactory);
 
-TracksFactory.$inject = ['$rootScope', 'Restangular'];
+TracksFactory.$inject = ['$rootScope', '$location', 'Restangular'];
 
-function TracksFactory($rootScope, Restangular) {
+function TracksFactory($rootScope, $location, Restangular) {
   var self = this;
   self.userGenresTracks = [];
   self.tracks = []; // A list of track objects
   self.audio = new Audio(); // An audio object for playing a track
   self.currentPlayingTrack = {}; // The track which is currently playing
+
+  // When navigating away from any place where a track might be playing, stop it from playing
+  $rootScope.$on('$locationChangeStart', function(event, next, prev) {
+    if (self.currentPlayingTrack.MusicProviderTrackId) {
+      playTrack(self.currentPlayingTrack);
+    }
+  });
 
   var tracksFactory = {
     loadUserGenresTracks: loadUserGenresTracks,
@@ -129,7 +136,7 @@ function TracksFactory($rootScope, Restangular) {
       };
       self.audio.play();
     } else {
-      self.loadDownloadUrl(track.Id).then(function (data) {
+      loadDownloadUrl(track.Id).then(function (data) {
         self.audio.src = track.Source = data.Value;
         self.audio.onended = function () {
           self.playEnded(track);
