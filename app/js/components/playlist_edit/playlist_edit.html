@@ -26,10 +26,13 @@
             <div class="small-2 columns">
               &nbsp;
             </div>
-            <div class="small-14 columns">
-              <h3 ng-bind-html="playlist_edit.playlist.TemplateName"></h3>
+            <div class="small-13 columns">
+              <span ng-bind-html="playlist_edit.playlist.TemplateName"></span>: {{playlist_edit.playlist.ClassLengthMinutes}}:00
             </div>
-            <div class="small-2 columns">
+            <div class="small-2 columns text-right">
+              <span class="length">{{playlist_edit.playlistTracksLength | minutes}}</span>
+            </div>
+            <div class="small-1 columns">
               &nbsp;
             </div>
           </div>
@@ -41,10 +44,10 @@
         </div>
         <div class="small-15 columns goal-container" ng-class="{'active': playlist_edit.isGoalActive(playlistGoal)}">
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
-            <div class="small-14 columns">
+            <div class="small-12 columns">
               <h4>{{playlistGoal.Goal.Name}}</h4>
             </div>
-            <div class="small-4 columns bpm">
+            <div class="small-6 columns bpm">
               {{playlistGoal.Goal.BpmLow}} - {{playlistGoal.Goal.BpmHigh}} {{'BPM' | translate}}
             </div>
           </div>
