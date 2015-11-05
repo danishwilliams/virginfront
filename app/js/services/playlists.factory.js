@@ -37,6 +37,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     publishPlaylistToMusicProvider: publishPlaylistToMusicProvider,
     getGoalPlaylist: getGoalPlaylist,
     getPlaylistGoalTracks: getPlaylistGoalTracks,
+    getPlaylistLength: getPlaylistLength,
     loadGoals: loadGoals,
     getGoals: getGoals,
     setGoals: setGoals,
@@ -191,6 +192,19 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
    */
   function getPlaylistGoalTracks(ArrayId) {
     return playlist.PlaylistGoals[ArrayId];
+  }
+
+  function getPlaylistLength() {
+    if (!playlist.PlaylistGoals) {
+      return 0;
+    }
+    var length = 0;
+    playlist.PlaylistGoals.forEach(function(playlistGoals) {
+      playlistGoals.PlaylistGoalTracks.forEach(function(track) {
+        length += track.Track.DurationSeconds;
+      });
+    });
+    return length;
   }
 
   function loadGoals() {
