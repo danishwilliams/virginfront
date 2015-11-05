@@ -5,9 +5,9 @@ angular
   .module("app")
   .service('Tracks', TracksFactory);
 
-TracksFactory.$inject = ['$rootScope', '$location', 'Restangular'];
+TracksFactory.$inject = ['$rootScope', '$location', 'Restangular', 'Playlists'];
 
-function TracksFactory($rootScope, $location, Restangular) {
+function TracksFactory($rootScope, $location, Restangular, Playlists) {
   var self = this;
   self.userGenresTracks = [];
   self.tracks = []; // A list of track objects
@@ -80,7 +80,16 @@ function TracksFactory($rootScope, $location, Restangular) {
     return self.tracks;
   }
 
-  function playTrack(track) {
+  /**
+   * Plays a track
+   *
+   * @param track
+   *   The track object
+   * @param sortOrder
+   *   An integer (or null). The PlaylistGoal SortOrder. If it has a value, then after the
+   *   track has finished playing, play the next one in the playlist
+   */
+  function playTrack(track, sortOrder) {
     // Is a track playing?
     if (self.currentPlayingTrack.MusicProviderTrackId) {
       // Is the track the user has just clicked on the currently playing track?
@@ -106,11 +115,11 @@ function TracksFactory($rootScope, $location, Restangular) {
         self.currentPlayingTrack.playing = false;
         var date = new Date();
         postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), date.toISOString());
-        playTrackWithSource(track);
+        playTrackWithSource(track, sortOrder);
       }
     } else {
       // Starting to play a track for the first time
-      playTrackWithSource(track);
+      playTrackWithSource(track, sortOrder);
 
       // If a track was paused in the last browser session, post a track usage count
       var musicProviderTrackId = localStorage.getItem('musicProviderTrackId');
@@ -126,27 +135,27 @@ function TracksFactory($rootScope, $location, Restangular) {
 
   // We don't store track Sources in the API (since Simfy tracks expire after 2 days) so if Source
   // doesn't exist, do an API call to find it
-  function playTrackWithSource(track) {
+  function playTrackWithSource(track, sortOrder) {
     track.playing = true;
     self.currentPlayingTrack = track;
     if (track.Source) {
-      self.audio.src = track.Source;
+      self.audio.src = track.Source; // = "http://localhost:8000/song.mp3";
       self.audio.onended = function () {
-        self.playEnded(track);
+        playEnded(track, sortOrder);
       };
       self.audio.play();
     } else {
       loadDownloadUrl(track.Id).then(function (data) {
-        self.audio.src = track.Source = data.Value;
+        self.audio.src = track.Source = data.Value; // = "http://localhost:8000/song.mp3";
         self.audio.onended = function () {
-          self.playEnded(track);
+          playEnded(track, sortOrder);
         };
         self.audio.play();
       });
     }
   }
 
-  function playEnded(track) {
+  function playEnded(track, sortOrder) {
     track.playing = false;
     self.currentPlayingTrack = {};
 
@@ -159,6 +168,18 @@ function TracksFactory($rootScope, $location, Restangular) {
     if (duration > 0) {
       var date = new Date();
       postTrackUsage(track.MusicProviderTrackId, duration, date.toISOString());
+    }
+
+    // If there's a PlaylistGoal SortOrder, then we're viewing a playlist and should play the next track
+    if (sortOrder) {
+      // Find the next track
+      var playlist = Playlists.getPlaylist();
+      if (playlist.PlaylistGoals[sortOrder]) {
+        track = playlist.PlaylistGoals[sortOrder].PlaylistGoalTracks[0].Track;
+        var newSortOrder = playlist.PlaylistGoals[sortOrder].SortOrder;
+        // Play the next track
+        playTrack(track, newSortOrder);
+      }
     }
   }
 

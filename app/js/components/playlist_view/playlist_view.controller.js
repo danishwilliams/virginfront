@@ -11,8 +11,8 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     });
   }
 
-  self.playTrack = function (track) {
-    Tracks.playTrack(track);
+  self.playTrack = function (track, sortOrder) {
+    Tracks.playTrack(track, sortOrder);
   };
 
   self.publishPlaylist = function() {
