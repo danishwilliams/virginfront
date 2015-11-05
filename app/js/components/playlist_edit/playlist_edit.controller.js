@@ -27,6 +27,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     // Load an existing playlist so we can edit it
     Playlists.loadPlaylist(this.id).then(function () {
       self.playlist = Playlists.getPlaylist();
+      self.playlistTracksLength = Playlists.getPlaylistLength();
       self.currentgoal = Playlists.getCurrentGoal();
     });
   }
@@ -87,11 +88,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
 
     Playlists.trackDropped(self.currentgoal.ArrayId, track);
+    this.playlistTracksLength = Playlists.getPlaylistLength();
   };
 
   // Remove a track from a goal playlist
   this.removeTrack = function (playlistGoalArrayId, track) {
     Playlists.removeTrackFromGoalPlaylist(playlistGoalArrayId, track);
+    this.playlistTracksLength = Playlists.getPlaylistLength();
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + playlistGoalArrayId);
