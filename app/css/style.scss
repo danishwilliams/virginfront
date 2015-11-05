@@ -276,6 +276,22 @@ input[type="text"].class_name {
   border: 0px;
 }
 
+goal_option {
+  display: block;
+  background: $grey_lighter;
+  color: $grey_light;
+  padding: 10px 20px 10px 20px;
+
+  em {
+    color: $grey_black;
+  }
+
+  hr {
+    border: solid $grey_medium;
+    border-width: 1px 0 0;
+  }
+}
+
 /* TODO: remove me - for initial structure building only  */
 
 .tracks {
