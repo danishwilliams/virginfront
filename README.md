@@ -33,6 +33,8 @@ Add the following into ```Web.config```
 <add name="html" path="*.html" verb="*" modules="IsapiModule" scriptProcessor="%windir%\system32\inetsrv\asp.dll" resourceType="Unspecified" requireAccess="None" />
 ```
 
+All this insane config is just to allow a POST to html i.e. the simple login form. Because IIS doesn't know how to handle something that isanely complex and difficult.
+
 # How styles work
 
 * Foundation
