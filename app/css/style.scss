@@ -1,6 +1,6 @@
 /*! style.css */
 
-$chunk_height: rem-calc(100px);
+$chunk_height: rem-calc(60px);
 $goal_padding: rem-calc(10px);
 $top_padding: rem-calc(40px);
 $radius: rem-calc(15px);
@@ -103,12 +103,15 @@ input[type="text"].class_name {
 
 .ride-type {
   border-top: 1px solid $grey_lighter;
-  margin-bottom: rem-calc(10px);
+  font-size: $h5-font-size;
+  color: $grey_medium;
+}
 
-  h3 {
-    font-weight: bold;
-    color: $grey_medium;
-  }
+.length {
+  border: 1px solid $grey_lighter;
+  color: $grey_light;
+  border-radius: 3px;
+  padding: 5px;
 }
 
 .goal {
