@@ -23,6 +23,16 @@ Include:
 Server must be configured to run in HTML5 mode.
 @see https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode
 
+# Running on IIS
+
+Install the ASP module on IIS by opening Server Manager, click "Manage" then "Add roles and features". Click next until the Server Roles screen. Select the ASP role inside Application Development inside Web Server inside Webserver (IIS) and keep clicking next to install.
+
+Add the following into ```Web.config```
+
+```
+<add name="html" path="*.html" verb="*" modules="IsapiModule" scriptProcessor="%windir%\system32\inetsrv\asp.dll" resourceType="Unspecified" requireAccess="None" />
+```
+
 # How styles work
 
 * Foundation
