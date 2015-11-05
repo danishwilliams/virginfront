@@ -73,6 +73,9 @@ module.exports = {
         case "1c08805b-f9a4-4eb3-bfba-0fa408719cf4":
           file = '/playlists/summer_machine.json';
           break;
+        case "0e16d4ba-1557-46d0-891c-05ac87ecf90a":
+          file = '/playlists/danes_marvellous_medicine.json';
+          break;
       }
       fs.readFile(filepath + version + file, function(err, data) {
         if (err) {
