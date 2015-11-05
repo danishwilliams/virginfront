@@ -69,8 +69,11 @@
           </div>
           <div class="row goal-meta" ng-click="goal.show = !playlistGoal.show" ng-show="playlistGoal.show">
             <div class="small-14 columns">
-              <!-- TODO: RPM values are dependant on the track -->
-              {{'LEG_SPEED' | translate}}: {{playlistGoal.rpm_low}} - {{playlistGoal.rpm_high}} {{'RPM' | translate}}
+              <ul class="large-block-grid-2">
+                <li ng-repeat="goaloption in playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].Goal.GoalOptions">
+                  <goal_option data-goaloptiondata="{{goaloption}}" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}"></goal_option>
+                </li>
+              </ul>
             </div>
             <div class="small-4 columns bpm">
               <a>+ {{'ADD_NOTES' | translate}}</a>
