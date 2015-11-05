@@ -10,7 +10,7 @@ angular.module("app").config(function (RestangularProvider) {
     //newBaseUrl = "http://localhost:8000/api/1.0/"; // dev - stubbed API files
   } else {
     var deployedAt = window.location.href.substring(0, window.location.href);
-    newBaseUrl = deployedAt + "/api/rest/register";
+    newBaseUrl = deployedAt + "/api";
   }
   RestangularProvider.setBaseUrl(newBaseUrl);
 
