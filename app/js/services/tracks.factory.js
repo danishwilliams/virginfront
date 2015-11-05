@@ -12,11 +12,12 @@ function TracksFactory($rootScope, $location, Restangular, Playlists) {
   self.userGenresTracks = [];
   self.tracks = []; // A list of track objects
   self.audio = new Audio(); // An audio object for playing a track
+  self.audio.preload = "none";
   self.currentPlayingTrack = {}; // The track which is currently playing
 
   // When navigating away from any place where a track might be playing, stop it from playing
   $rootScope.$on('$locationChangeStart', function(event, next, prev) {
-    if (self.currentPlayingTrack.MusicProviderTrackId) {
+    if (self.currentPlayingTrack.playing === true) {
       playTrack(self.currentPlayingTrack);
     }
   });
