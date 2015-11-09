@@ -39,7 +39,14 @@ All this insane config is just to allow a POST to html i.e. the simple login for
 
 * Foundation
 * Customising Foundation with colours etc
-* Sass and compass (compass mixings, because I couldn't get lineman to work). Install libsass on your platform (it's much quicker than the ruby implementation). Source: https://github.com/sass/libsass
+* Sass and compass (compass mixins, because I couldn't get lineman to work). Install libsass on your platform (it's much quicker than the ruby implementation). Source: https://github.com/sass/libsass
+
+At some point I had to re-install node-sass (due to the later version - 4.2.2 - of node, I think, so had to
+
+```bash
+$ cd node_modules/grunt-sass
+$ npm rebuild node-sass
+```
 
 # Interacting with an API
 
