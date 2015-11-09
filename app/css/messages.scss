@@ -1,0 +1,12 @@
+span.error {
+  color: $red;
+  background: $pink;
+  padding: 10px;
+  font-size: $h5-font-size;
+}
+
+span.length.error {
+  background: none;
+  display: inline;
+  border: 1px solid $red;
+}

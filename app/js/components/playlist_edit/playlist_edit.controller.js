@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $location, AuthenticationService, Tracks, Playlists, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $location, $window, AuthenticationService, Tracks, Playlists, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -9,6 +9,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.playlist = Playlists.getPlaylist();
   this.tracks = Tracks.getTracks();
   this.currentgoal = Playlists.getCurrentGoal();
+  this.error = {
+    error: false,
+    trackLengthTooShort: false,
+    trackLengthTooLong: false
+  };
 
   Playlists.setStep(2);
 
@@ -105,7 +110,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   // If the playlist goal note doesn't exist, create it
-  this.playlistGoalNoteCreate = function(playlistGoalArrayId, trackIndex) {
+  this.playlistGoalNoteCreate = function (playlistGoalArrayId, trackIndex) {
     var noteText = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex].NoteText;
     var trackId = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks[trackIndex].TrackId;
     self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex] = Playlists.createPlaylistGoalNote(noteText, trackId);
@@ -113,12 +118,32 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Save the playlist to the API
   this.savePlaylist = function () {
-    // Theoretically, this should work
-    self.playlist.put({
-      syncPlaylist: false
-    }).then(function () {
-      $location.path('/playlists/' + self.playlist.Id);
-    });
+    // Check that the total track length is acceptable
+    var variance = 5 * 60;
+    var classLengthSeconds = self.playlist.ClassLengthMinutes * 60;
+
+    // Track length is too short
+    if (self.playlistTracksLength < classLengthSeconds - variance) {
+      self.error = {
+        error: true,
+        trackLengthTooShort: true
+      };
+      $window.scrollTo(0, 0);
+    }
+    // Track length is too long
+    else if (self.playlistTracksLength > classLengthSeconds + variance) {
+      self.error = {
+        error: true,
+        trackLengthTooLong: true
+      };
+      $window.scrollTo(0, 0);
+    } else {
+      self.playlist.put({
+        syncPlaylist: false
+      }).then(function () {
+        $location.path('/playlists/' + self.playlist.Id);
+      });
+    }
   };
 
   var onLogoutSuccess = function (response) {

@@ -1,5 +1,13 @@
 <div class="edit-playlist">
   <playlist-workflow></playlist-workflow>
+    <div class="row text-center">
+      <span ng-show="playlist_edit.error.trackLengthTooShort" class="error">
+        You will not be able to publish this class. The track length is not long enough.
+      </span>
+      <span ng-show="playlist_edit.error.trackLengthTooLong" class="error">
+        You will not be able to publish this class. The track length is too long.
+      </span>
+    </div>
   <div class="row">
     <div class="large-9 columns">
       <div class="large-2 columns">
@@ -30,7 +38,7 @@
               <span ng-bind-html="playlist_edit.playlist.TemplateName"></span>: {{playlist_edit.playlist.ClassLengthMinutes}}:00
             </div>
             <div class="small-2 columns text-right">
-              <span class="length">{{playlist_edit.playlistTracksLength | minutes}}</span>
+              <span class="length" ng-class="playlist_edit.error.error ? 'error' : ''">{{playlist_edit.playlistTracksLength | minutes}}</span>
             </div>
             <div class="small-1 columns">
               &nbsp;
