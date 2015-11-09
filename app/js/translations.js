@@ -20,7 +20,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'BPM': 'BPM',
     'RPM': 'RPM',
     'LEG_SPEED': 'Leg speed',
-    'ADD_NOTES': 'Add more notes',
+    'TRACK_NOTES': 'Track notes',
     'CHOOSE_TRACK': 'Choose a track for',
     'SEARCH': 'Search for a song',
     'TRACKS': 'songs',
