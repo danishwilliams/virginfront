@@ -80,7 +80,7 @@
               {{'TRACK_NOTES' | translate}}
               <form name="playlistGoalNote{{playlistGoal.ArrayId}}">
                 <textarea name="note" maxlength="20" ng-maxlength="20" ng-change="playlist_edit.playlistGoalNoteCreate(playlistGoal.ArrayId, 0)" ng-model-options="{updateOn : 'change blur'}" ng-model="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalNotes[0].NoteText"></textarea>
-                <span class="maxlength" ng-class="playlistGoalNote{{playlistGoal.ArrayId}}.note.$error.maxlength ? 'error' : ''">Max 200 characters</span>
+                <span class="maxlength">Max 200 characters</span>
               </form>
             </div>
           </div>
