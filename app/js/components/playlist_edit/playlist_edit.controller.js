@@ -104,6 +104,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
   };
 
+  // If the playlist goal note doesn't exist, create it
+  this.playlistGoalNoteCreate = function(playlistGoalArrayId, trackIndex) {
+    var noteText = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex].NoteText;
+    var trackId = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks[trackIndex].TrackId;
+    self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex] = Playlists.createPlaylistGoalNote(noteText, trackId);
+  };
+
   // Save the playlist to the API
   this.savePlaylist = function () {
     // Theoretically, this should work

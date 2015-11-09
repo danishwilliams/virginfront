@@ -37,6 +37,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     publishPlaylistToMusicProvider: publishPlaylistToMusicProvider,
     getGoalPlaylist: getGoalPlaylist,
     getPlaylistGoalTracks: getPlaylistGoalTracks,
+    createPlaylistGoalNote: createPlaylistGoalNote,
     getPlaylistLength: getPlaylistLength,
     loadGoals: loadGoals,
     getGoals: getGoals,
@@ -192,6 +193,26 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
    */
   function getPlaylistGoalTracks(ArrayId) {
     return playlist.PlaylistGoals[ArrayId];
+  }
+
+  /**
+   * Create a new playlist goal note
+   *
+   * @param noteText
+   *   The note's text
+   * @param trackId
+   *   The track id which this note belongs to
+   *
+   * @return
+   *   A playlist goal note object
+   */
+  function createPlaylistGoalNote(noteText, trackId) {
+    return {
+      NoteText: noteText,
+      Id: uuid2.newuuid().toString(),
+      SortOrder: 1,
+      TrackId: trackId
+    };
   }
 
   function getPlaylistLength() {

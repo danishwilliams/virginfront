@@ -76,9 +76,10 @@
                 <goal_option data-goaloptiondata="{{goaloption}}" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}"></goal_option>
               </li>
             </ul>
-          </div>
-          <div class="row bpm">
-            <a>+ {{'ADD_NOTES' | translate}}</a>
+            <div class="row notes">
+              {{'TRACK_NOTES' | translate}}
+              <textarea ng-change="playlist_edit.playlistGoalNoteCreate(playlistGoal.ArrayId, 0)" ng-model-options="{updateOn : 'change blur'}" ng-model="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalNotes[0].NoteText"></textarea>
+            </div>
           </div>
         </div>
         <div class="small-1 columns">
