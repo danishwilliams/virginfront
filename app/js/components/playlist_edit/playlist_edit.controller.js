@@ -119,7 +119,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   // Save the playlist to the API
   this.savePlaylist = function () {
     // Check that the total track length is acceptable
-    var variance = 5 * 60;
+    var variance = 3 * 60;
     var classLengthSeconds = self.playlist.ClassLengthMinutes * 60;
 
     // Track length is too short
