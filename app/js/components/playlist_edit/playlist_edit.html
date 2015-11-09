@@ -64,8 +64,8 @@
                 <div class="small-2 columns time">
                   {{track.Track.DurationSeconds | minutes}}
                 </div>
-                <div class="small-1 columns add">
-                  <a ng-click="playlist_edit.removeTrack(playlistGoal.ArrayId, track)">-</a>
+                <div class="small-1 columns remove" ng-click="playlist_edit.removeTrack(playlistGoal.ArrayId, track)">
+                  -
                 </div>
               </div>
             </div>

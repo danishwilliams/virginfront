@@ -221,23 +221,29 @@ input[type="text"].class_name {
   .time {
     font-weight: bold;
   }
-  .add {
+  .add, .remove {
     font-size: $h3-font-size;
     font-weight: bold;
+  }
+  .remove {
+    cursor: pointer;
+    text-indent: -2000px;
+    background: url('/img/remove.svg') no-repeat;
+    background-position: center;
   }
 }
 
 .play {
   cursor: default;
   text-indent: -2000px;
-  height: 30px;
-  width: 30px;
+  min-height: 30px;
   background: url('/img/play.svg') no-repeat;
-  background-position: 1px 1px;
+  background-position: center;
 }
 
 .playing {
   background: url('/img/playing_dark.gif') no-repeat;
+  background-position: center;
 }
 
 .bin {
