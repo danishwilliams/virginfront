@@ -106,38 +106,22 @@
           &nbsp;
         </div>
         <div class="small-16 columns">
-          <h3>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'Warm Up'</span></h3>
-          <div class="row showing">
-            <div class="small-14 columns">
-              {{'SHOWING' | translate}}: 80 - 90 {{'BPM' | translate}} {{'TRACKS' | translate}}
-            </div>
-            <div class="small-4 columns">
-              {{'ADD_FILTER' | translate}}
+          <div class="row">
+            <h3>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'Warm Up'</span></h3>
+            <div class="row showing">
+              <div class="small-14 columns">
+                {{'SHOWING' | translate}}: 80 - 90 {{'BPM' | translate}} {{'TRACKS' | translate}}
+              </div>
+              <div class="small-4 columns">
+                {{'ADD_FILTER' | translate}}
+              </div>
             </div>
           </div>
-        </div>
-        <div class="small-1 columns">
-          &nbsp;
-        </div>
-      </div>
-      <div class="row">
-        <div class="small-2 columns">
-          &nbsp;
-        </div>
-        <div class="small-14 columns search">
-          <form ng-submit="playlist_edit.trackSearch()">
-            <input ng-model="playlist_edit.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
-          </form>
-        </div>
-        <div class="small-2 columns">
-          &nbsp;
-        </div>
-      </div>
-      <div class="row">
-        <div class="small-1 columns">
-          &nbsp;
-        </div>
-        <div class="small-16 columns">
+          <div class="row search">
+            <form ng-submit="playlist_edit.trackSearch()">
+              <input ng-model="playlist_edit.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
+            </form>
+          </div>
           <div class="row track" draggable id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in playlist_edit.tracks">
             <div class="small-1 columns play" ng-click="playlist_edit.playTrack(track);" ng-class="{'playing': track.playing}">
               <a href="#">{{'PLAY' | translate}}</a>
