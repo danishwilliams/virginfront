@@ -147,6 +147,21 @@ input[type="text"].class_name {
   font-weight: bold;
 }
 
+.notes {
+  textarea {
+    margin-bottom: 0px;
+  }
+  .maxlength {
+    float: right;
+    font-size: smaller;
+    color: $grey_light;
+  }
+  .error {
+    color: $red;
+    background: none;
+  }
+}
+
 /* The right tracks sidebar */
 
 .tracks {
