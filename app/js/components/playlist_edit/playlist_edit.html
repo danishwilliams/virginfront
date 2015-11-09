@@ -78,7 +78,13 @@
             </ul>
             <div class="row notes">
               {{'TRACK_NOTES' | translate}}
-              <textarea ng-change="playlist_edit.playlistGoalNoteCreate(playlistGoal.ArrayId, 0)" ng-model-options="{updateOn : 'change blur'}" ng-model="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalNotes[0].NoteText"></textarea>
+              <form name="playlistGoalNote{{playlistGoal.ArrayId}}">
+                <textarea name="note" ng-maxlength="20" ng-model="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalNotes[0].NoteText"></textarea>
+                <span class="error" ng-show="playlistGoalNote{{playlistGoal.ArrayId}}.note.$error.maxlength">
+                  Reached limit!
+                </span>
+                <span class="maxlength">Max 200 characters</span>
+              </form>
             </div>
           </div>
         </div>
