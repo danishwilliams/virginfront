@@ -167,22 +167,24 @@ input[type="text"].class_name {
 
     input {
       border-width: 0px;
-      background-color: $grey_dark;
-      color: $white;
+      color: $grey_light;
+      background: $black url('/img/search_white.svg') no-repeat;
+      background-position: right 10px center;
+      padding-left: 10px;
     }
     ::-webkit-input-placeholder {
-      color: $white;
+      color: $grey_light;
     }
     :-moz-placeholder {
       /* Firefox 18- */
-      color: $white;
+      color: $grey_light;
     }
     ::-moz-placeholder {
       /* Firefox 19+ */
-      color: $white;
+      color: $grey_light;
     }
     :-ms-input-placeholder {
-      color: $white;
+      color: $grey_light;
     }
   }
 }
