@@ -144,14 +144,14 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
     track.playing = true;
     self.currentPlayingTrack = track;
     if (track.Source) {
-      self.audio.src = track.Source = "http://localhost:8000/moments.mp3";
+      self.audio.src = track.Source; // = "http://localhost:8000/moments.mp3";
       self.audio.onended = function () {
         playEnded(track, sortOrder);
       };
       playAudio(track);
     } else {
       loadDownloadUrl(track.Id).then(function (data) {
-        self.audio.src = track.Source = data.Value = "http://localhost:8000/moments.mp3";
+        self.audio.src = track.Source = data.Value; // = "http://localhost:8000/moments.mp3";
         self.audio.onended = function () {
           playEnded(track, sortOrder);
         };
