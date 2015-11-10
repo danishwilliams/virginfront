@@ -252,6 +252,7 @@ input[type="text"].class_name {
   cursor: default;
   text-indent: -2000px;
   min-height: 30px;
+  min-width: 30px;
   background: url('/img/play.svg') no-repeat;
   background-position: center;
 }
@@ -263,7 +264,6 @@ input[type="text"].class_name {
 
 .bin {
   display: block;
-  height: 60px;
   line-height: 60px;
   vertical-align: middle;
   text-align: center;
