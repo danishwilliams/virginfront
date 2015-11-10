@@ -36,7 +36,7 @@ function goalOptionController($scope) {
 
   $scope.rpm = '';
   if ($scope.bpm) {
-    $scope.rpm = parseInt($scope.bpm * $scope.goaloption.Beat.Ratio);
+    updateBpm();
   }
 
   switch ($scope.goaloption.Beat.Ratio) {
@@ -46,5 +46,13 @@ function goalOptionController($scope) {
     case 1:
       $scope.beat = 'ON_THE_BEAT';
       break;
+  }
+
+  $scope.$watch('bpm', function() {
+    updateBpm();
+  });
+
+  function updateBpm() {
+    $scope.rpm = parseInt($scope.bpm * $scope.goaloption.Beat.Ratio);
   }
 }
