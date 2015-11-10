@@ -25,20 +25,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
 
   // Load all userTypes
   this.loadUserTypes = function () {
-    UserTypes.loadUserTypes().then(function (data) {
-      self.userTypesEdit = true;
-      self.userTypes = data;
-
-      // Mark the user gyms which have been chosen
-      _.mapObject(self.userTypes, function (val, key) {
-        if (key >= 0) {
-          if (self.user.UserType.Id === val.Id) {
-            val.selected = true;
-          }
-        }
-        return val;
-      });
-    });
+    self.userTypesEdit = true;
   };
 
   // Save userTypes

@@ -32,9 +32,8 @@
           {{user.user.UserType.Name}}
         </span>
         <span ng-show="user.userTypesEdit">
-          <label ng-repeat="userType in user.userTypes | orderBy: 'Name'">
-            <input type="radio" name="usertypes" ng-model="user.user.UserTypeId" ng-value="userType.Id">{{userType.Name}}
-          </label>
+          <user-types ng-model="user.user.UserTypeId"></user-types>
+
           <button class="round secondary" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</button>
           <button class="round" ng-click="user.saveUserTypes()">Save</button>
         </span>
