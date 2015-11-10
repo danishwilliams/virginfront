@@ -38,4 +38,13 @@ function goalOptionController($scope) {
   if ($scope.bpm) {
     $scope.rpm = parseInt($scope.bpm * $scope.goaloption.Beat.Ratio);
   }
+
+  switch ($scope.goaloption.Beat.Ratio) {
+    case 0.5:
+      $scope.beat = 'HALF_TIME';
+      break;
+    case 1:
+      $scope.beat = 'ON_THE_BEAT';
+      break;
+  }
 }

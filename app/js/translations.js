@@ -25,7 +25,9 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'SEARCH': 'Search for a song',
     'TRACKS': 'songs',
     'SHOWING': 'showing',
-    'ADD_FILTER': 'Add filter'
+    'ADD_FILTER': 'Add filter',
+    'HALF_TIME': 'Half time',
+    'ON_THE_BEAT': 'On the beat'
   });
  
   $translateProvider.translations('es', {
