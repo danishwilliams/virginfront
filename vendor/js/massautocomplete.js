@@ -77,11 +77,11 @@ angular.module('MassAutoComplete', [])
       function _position_autocomplete() {
         var rect = current_element[0].getBoundingClientRect(),
             scrollTop = $document[0].body.scrollTop || $document[0].documentElement.scrollTop || $window.pageYOffset,
-            scrollLeft = $document[0].body.scrollLeft || $document[0].documentElement.scrollLeft || $window.pageXOffset,
+            //scrollLeft = $document[0].body.scrollLeft || $document[0].documentElement.scrollLeft || $window.pageXOffset,
             container = $scope.container[0];
 
         container.style.top = rect.top + rect.height + scrollTop + 'px';
-        container.style.left = rect.left + scrollLeft + 'px';
+        //container.style.left = rect.left + scrollLeft + 'px';
         container.style.width = rect.width + 'px';
       }
       var position_autocomplete = debounce(_position_autocomplete, user_options.debounce_position);
