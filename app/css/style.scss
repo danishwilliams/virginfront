@@ -236,6 +236,9 @@ input[type="text"].class_name {
   .time {
     font-weight: bold;
   }
+  .time .position {
+    color: $red;
+  }
   .add, .remove {
     font-size: $h3-font-size;
     font-weight: bold;

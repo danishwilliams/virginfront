@@ -28,6 +28,8 @@ function TracksFactory($rootScope, $location, Restangular, Playlists) {
     addTrack: addTrack,
     getTracks: getTracks,
     playTrack: playTrack,
+    getTrackCurrentTime: getTrackCurrentTime,
+    getCurrentlyPlayingTrack: getCurrentlyPlayingTrack,
     loadDownloadUrl: loadDownloadUrl,
     postTrackUsage: postTrackUsage
   };
@@ -144,6 +146,9 @@ function TracksFactory($rootScope, $location, Restangular, Playlists) {
       self.audio.onended = function () {
         playEnded(track, sortOrder);
       };
+      if (track.currentTime) {
+        self.audio.currentTime = track.currentTime;
+      }
       self.audio.play();
     } else {
       loadDownloadUrl(track.Id).then(function (data) {
@@ -151,6 +156,9 @@ function TracksFactory($rootScope, $location, Restangular, Playlists) {
         self.audio.onended = function () {
           playEnded(track, sortOrder);
         };
+        if (track.currentTime) {
+          self.audio.currentTime = track.currentTime;
+        }
         self.audio.play();
       });
     }
@@ -182,6 +190,14 @@ function TracksFactory($rootScope, $location, Restangular, Playlists) {
         playTrack(track, newSortOrder);
       }
     }
+  }
+
+  function getTrackCurrentTime() {
+    return self.audio.currentTime;
+  }
+
+  function getCurrentlyPlayingTrack() {
+    return self.currentPlayingTrack;
   }
 
   /**

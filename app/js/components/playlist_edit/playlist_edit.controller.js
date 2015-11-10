@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $location, $window, AuthenticationService, Tracks, Playlists, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $location, $window, $interval, AuthenticationService, Tracks, Playlists, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -40,6 +40,33 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   this.playTrack = function (track) {
     Tracks.playTrack(track);
+    var currentPlayingTrack = Tracks.getCurrentlyPlayingTrack();
+    /** The below logic handles the cases of:
+     * Track 1 played, paused, resumed.
+     * Track 1 played, paused, Track 2 played.
+     * Track 1 played, Track 2 played.
+     */
+    // If the track is playing, poll the playback location
+    if (currentPlayingTrack.playing === true) {
+      if (self.lastPlayingTrackId !== track.MusicProviderTrackId) {
+        // Cancel the existing timer
+        if (angular.isDefined(self.progress)) {
+          $interval.cancel(self.progress);
+          self.progress = undefined;
+        }
+        // We've got to poll for the audio position
+        self.progress = $interval(function () {
+          track.currentTime = parseInt(Tracks.getTrackCurrentTime());
+        }, 500);
+      }
+      self.lastPlayingTrackId = track.MusicProviderTrackId;
+    } else {
+      // The track isn't playing: kill the interval polling
+      if (angular.isDefined(self.progress)) {
+        $interval.cancel(self.progress);
+        self.progress = undefined;
+      }
+    }
   };
 
   /**

@@ -66,10 +66,11 @@
                 <div class="large-1 small-1 columns play" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_edit.playTrack(track.Track);" ng-class="{'playing': track.Track.playing}">
                   <a href="#">{{'PLAY' | translate}}</a>
                 </div>
-                <div class="large-13 small-13 columns">
+                <div class="large-11 small-11 columns">
                   <span class="track-name">{{track.Track.Name | limitTo : 80}}<span ng-if="track.Track.Name.length > 80">&hellip;</span></span> <span class="artist">{{track.Track.Artist}}</span> | <span class="bpm">{{track.Track.Bpm}} {{'BPM' | translate}}</span>
                 </div>
-                <div class="large-2 columns time text-center">
+                <div class="large-4 columns time text-center">
+                  <span class="position" ng-show="track.Track.currentTime >= 0">{{track.Track.currentTime | minutes}}</span>
                   {{track.Track.DurationSeconds | minutes}}
                 </div>
                 <div class="large-1 columns remove" ng-click="playlist_edit.removeTrack(playlistGoal.ArrayId, track)"> - </div>
