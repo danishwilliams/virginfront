@@ -1,13 +1,13 @@
 <div class="edit-playlist">
   <playlist-workflow></playlist-workflow>
-    <div class="row text-center">
-      <span ng-show="playlist_edit.error.trackLengthTooShort" class="error">
+  <div class="row text-center">
+    <span ng-show="playlist_edit.error.trackLengthTooShort" class="error">
         You will not be able to publish this class. The track length is not long enough.
       </span>
-      <span ng-show="playlist_edit.error.trackLengthTooLong" class="error">
+    <span ng-show="playlist_edit.error.trackLengthTooLong" class="error">
         You will not be able to publish this class. The track length is too long.
       </span>
-    </div>
+  </div>
   <div class="row">
     <div class="large-9 columns">
       <div class="large-2 columns">
@@ -72,13 +72,11 @@
                 <div class="small-2 columns time">
                   {{track.Track.DurationSeconds | minutes}}
                 </div>
-                <div class="small-1 columns remove" ng-click="playlist_edit.removeTrack(playlistGoal.ArrayId, track)">
-                  -
-                </div>
+                <div class="small-1 columns remove" ng-click="playlist_edit.removeTrack(playlistGoal.ArrayId, track)"> - </div>
               </div>
             </div>
           </div>
-          <div class="row goal-meta" ng-click="goal.show = !playlistGoal.show" ng-show="playlistGoal.show">
+          <div class="row goal-meta" ng-click="goal.show = !playlistGoal.show" ng-show="playlistGoal.show && playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0">
             <ul class="large-block-grid-2">
               <li ng-repeat="goaloption in playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].Goal.GoalOptions">
                 <goal_option data-goaloptiondata="{{goaloption}}" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}"></goal_option>
