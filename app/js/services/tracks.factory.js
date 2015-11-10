@@ -127,7 +127,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists) {
       if (musicProviderTrackId) {
         var duration = localStorage.getItem('durationSeconds');
         var dateLocal = localStorage.getItem('date');
-        if (duration > 0 && dateLocal) {
+        if (duration >= 1 && dateLocal) {
           postTrackUsage(musicProviderTrackId, parseInt(duration), dateLocal);
         }
       }
@@ -166,7 +166,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists) {
     angular.element(trackElement).scope().$apply();
 
     var duration = parseInt(self.audio.currentTime);
-    if (duration > 0) {
+    if (duration >= 1) {
       var date = new Date();
       postTrackUsage(track.MusicProviderTrackId, duration, date.toISOString());
     }
