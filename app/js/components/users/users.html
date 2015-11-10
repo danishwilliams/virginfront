@@ -36,14 +36,12 @@
       <td contentEditable ng-model="users.newUser.LastName"></td>
       <td contentEditable ng-model="users.newUser.Email"></td>
       <td contentEditable ng-model="users.newUser.Telephone"></td>
-      <td>
+      <td colspan="3">
         <div mass-autocomplete>
           <input ng-model="users.newUser.City" mass-autocomplete-item="users.autocomplete_options_location">
         </div>
       </td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td><user-types ng-model="users.newUser.UserTypeId"></user-types></td>
       <td>{{users.newUser.Id}}</td>
       <td>
         <button ng-click="users.create()" type="button" class="tiny round">Add new user</button>
