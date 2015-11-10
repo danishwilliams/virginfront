@@ -1,5 +1,4 @@
 <h1>Users</h1>
-
 <table>
   <thead>
     <tr>
@@ -28,22 +27,30 @@
       <td>{{user.Id}}</td>
       <td><a ui-sref="users({id:user.Id})">View</a>
     </tr>
-    <!--
     <tr>
-      <td colspan="10"><h5>Add new user</h5></td>
+      <td colspan="10">
+        <h5>Add new user</h5></td>
     </tr>
     <tr>
       <td contentEditable ng-model="users.newUser.FirstName"></td>
       <td contentEditable ng-model="users.newUser.LastName"></td>
       <td contentEditable ng-model="users.newUser.Email"></td>
       <td contentEditable ng-model="users.newUser.Telephone"></td>
-      <td></td>
+      <td>
+        <div mass-autocomplete>
+          <input ng-model="users.newUser.City" mass-autocomplete-item="users.autocomplete_options_location">
+        </div>
+      </td>
       <td></td>
       <td></td>
       <td></td>
       <td>{{users.newUser.Id}}</td>
-      <td><button ng-click="users.create()" type="button" class="tiny round">Add new user</button></td>
+      <td>
+        <button ng-click="users.create()" type="button" class="tiny round">Add new user</button>
+      </td>
     </tr>
-    -->
+    <tr>
+    <td colspan="10">{{users.newUser}}</td>
+    </tr>
   </tbody>
 </table>

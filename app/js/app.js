@@ -4,6 +4,7 @@ angular
     "ngSanitize",
     "ui.router",
     "angularUUID2",
+    "MassAutoComplete",
     "pascalprecht.translate",
     "restangular",
     "app.admin",
