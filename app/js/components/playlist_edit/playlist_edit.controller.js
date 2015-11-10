@@ -9,6 +9,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.playlist = Playlists.getPlaylist();
   this.tracks = Tracks.getTracks();
   this.currentgoal = Playlists.getCurrentGoal();
+  this.playlistTracksLength = 0;
   this.error = {
     error: false,
     trackLengthTooShort: false,
