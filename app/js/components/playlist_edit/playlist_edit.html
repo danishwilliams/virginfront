@@ -67,7 +67,7 @@
                   <a href="#">{{'PLAY' | translate}}</a>
                 </div>
                 <div class="large-13 small-13 columns">
-                  <span class="track-name">{{track.Track.Name}}</span> <span class="artist">{{track.Track.Artist}}</span> | <span class="bpm">{{track.Track.Bpm}} {{'BPM' | translate}}</span>
+                  <span class="track-name">{{track.Track.Name | limitTo : 80}}<span ng-if="track.Track.Name.length > 80">&hellip;</span></span> <span class="artist">{{track.Track.Artist}}</span> | <span class="bpm">{{track.Track.Bpm}} {{'BPM' | translate}}</span>
                 </div>
                 <div class="large-2 columns time text-center">
                   {{track.Track.DurationSeconds | minutes}}
@@ -137,7 +137,7 @@
               <a href="#">{{'PLAY' | translate}}</a>
             </div>
             <div class="small-9 columns">
-              <span class="track-name">{{track.Name}}</span>
+              <span class="track-name">{{track.Name | limitTo : 80}}<span ng-if="track.Name.length > 80">&hellip;</span></span>
               <span class="artist">{{track.Artist}}</span>
             </div>
             <div class="small-3 columns genre">
