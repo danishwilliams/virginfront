@@ -24,7 +24,9 @@ function onRequest(client_req, client_res) {
   options.path = client_req.url;
   options.method = client_req.method;
   options.headers = client_req.headers;
-  options.headers.Authorization = 'Basic cm9nZXI6VGhlcm9kZ2UzMjE=';
+  //var base64 = new Buffer('roger:Therodge321').toString('base64');
+  var base64 = new Buffer('dane:Therodge321').toString('base64');
+  options.headers.Authorization = 'Basic ' + base64;
 
   var proxy = http.request(options, function (res) {
     client_res.statusCode = res.statusCode;
