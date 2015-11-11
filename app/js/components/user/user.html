@@ -86,8 +86,10 @@
       <h3>Recent rides</h3>
       <p>[List recent playlists]</p>
     </div>
-    <div class="row">
-      <h3>Simfy account?</h3>
+    <div class="row" ng-show="user.user.UserMusicProvider">
+      <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} account details</h3>
+      <p>Username: {{user.user.UserMusicProvider.Username}}
+        <br> Password: {{user.user.UserMusicProvider.Password}}</p>
     </div>
   </div>
   <div class="large-2 columns">
