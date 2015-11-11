@@ -6,15 +6,19 @@
       <td>Device name</td>
       <td>Last sync attempt</td>
       <td>Sync status</td>
+      <td>Gym</td>
+      <td>City</td>
       <td>Provision Id</td>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="device in devices.devices | orderBy:'Name'">
-      <td><a ui-sref="device.playlists({id:device.Id})">{{device.Name}}</a></td>
+      <td><a ui-sref="device({id:device.Id})">{{device.Name}}</a></td>
       <td>{{device.LastSyncAttempt}}</td>
       <td>{{device.SyncSuccess}}</td>
-      <td>{{device.DeviceProvisionId}}
+      <td>{{device.Gym.Name}}</td>
+      <td>{{device.Gym.Location.City}}</td>
+      <td>{{device.DeviceProvisionId}}</td>
     </tr>
   </tbody>
 </table>

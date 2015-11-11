@@ -7,9 +7,11 @@
       <td>Last sync attempt</td>
       <td>Sync status</td>
       <td>Gym</td>
-      <td>Location</td>
+      <td>City</td>
+      <td>Music Provider</td>
+      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}} Username</td>
+      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}} Password</td>
       <td>Provision Id</td>
-      <td>Device Id</td>
     </tr>
   </thead>
   <tbody>
@@ -19,8 +21,10 @@
       <td>{{device.device.SyncSuccess}}</td>
       <td>{{device.device.Gym.Name}}</td>
       <td>{{device.device.Gym.Location.City}}</td>
+      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}}</td>
+      <td>{{device.device.User.UserMusicProvider.Username}}</td>
+      <td>{{device.device.User.UserMusicProvider.Password}}</td>
       <td>{{device.device.DeviceProvisionId}}</td>
-      <td>{{device.device.Id}}</td>
     </tr>
   </tbody>
 </table>

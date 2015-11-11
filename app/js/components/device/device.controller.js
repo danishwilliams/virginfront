@@ -3,11 +3,8 @@ angular.module("app.device", []).controller('DeviceController', function ($state
   this.title = "Device";
   this.id = $stateParams.id;
 
-  Devices.loadDevice(this.id).then(function(data) {
+  Devices.loadDevice(this.id).then(function (data) {
     self.device = data;
-  });
-  Devices.loadDevicePlaylists(this.id).then(function(data) {
-    self.playlists = data;
   });
 
   this.update = function (device) {

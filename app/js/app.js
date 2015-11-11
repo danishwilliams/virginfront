@@ -13,6 +13,7 @@ angular
     "app.dashboard",
     "app.devices",
     "app.device",
+    "app.device_playlists",
     "app.genres",
     "app.goals",
     "app.gyms",
@@ -89,7 +90,7 @@ angular
     .state('device.playlists', {
       url: '/playlists',
       templateUrl: '../js/components/playlists/playlists.html',
-      controller: 'DeviceController as playlists'
+      controller: 'DevicePlaylistsController as playlists'
     })
 
     /*
