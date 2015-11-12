@@ -30,12 +30,12 @@
     <div class="small-9 columns goals-container">
       <div class="row goal-name">
         <div class="small-18 columns">
-          <div class="row">
+          <div class="row ride-type" sticky-header>
             <div class="small-2 columns">
               &nbsp;
             </div>
             <div class="small-15 columns">
-              <div class="ride-type" sticky-header>
+              <div >
                 <span ng-bind-html="playlist_edit.playlist.TemplateName"></span>: {{playlist_edit.playlist.ClassLengthMinutes}}:00
                 <span class="length" ng-class="playlist_edit.error.error ? 'error' : ''"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
               </div>
