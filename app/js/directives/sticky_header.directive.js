@@ -13,9 +13,15 @@ function stickyHeader($window) {
 
   function link(scope, element, attrs) {
     var $win = angular.element($window);
-    var rect = element[0].getBoundingClientRect();
-    var offsetTop = rect.top; // get element's offset top relative to document
-    var width = rect.width;
+    var rect = {};
+    var offsetTop = 0; // get element's offset top relative to document
+    var width = 0;
+
+    angular.element(document).ready(function () {
+      rect = element[0].getBoundingClientRect();
+      offsetTop = rect.top; // get element's offset top relative to document
+      width = rect.width;
+    });
 
     $win.on('scroll', function (e) {
       if ($win[0].scrollY >= offsetTop) {
