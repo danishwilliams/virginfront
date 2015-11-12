@@ -14,6 +14,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.tracks = Tracks.getTracks();
   this.currentgoal = Playlists.getCurrentGoal();
   this.playlistTracksLength = 0;
+  self.showErrors = false; // TODO: Don't show errors until this is designed
   this.error = {
     error: false,
     trackLengthTooShort: false,
@@ -39,6 +40,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       self.playlist = Playlists.getPlaylist();
       self.playlistTracksLength = Playlists.getPlaylistLength();
       self.currentgoal = Playlists.getCurrentGoal();
+      if (checkPlaylistLength() === false) {
+        self.newPlaylist = true;
+      }
     });
   }
 
@@ -125,43 +129,67 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Save the playlist to the API
   this.savePlaylist = function () {
+    // TODO: not doing error checking for now
+    /*
+    if (!checkPlaylistLength()) {
+      return;
+    }
+    */
+    self.playlist.put({
+      syncPlaylist: false
+    }).then(function () {
+      if (self.newPlaylist) {
+        // New playlist view
+        $state.go('playlist-new-view', {
+          id: self.playlist.Id
+        });
+      } else {
+        // TODO: Add a playlist view state and go to it
+        $state.go('playlist-view', {
+          id: self.playlist.Id
+        });
+      }
+    });
+  };
+
+  /**
+   * Checks if the playlist length is within certain bounds.
+   *
+   * @return
+   *   true, if playlist length is ok, else
+   *   false
+   */
+  function checkPlaylistLength() {
     // Check that the total track length is acceptable
     var variance = 3 * 60;
     var classLengthSeconds = self.playlist.ClassLengthMinutes * 60;
 
     // Track length is too short
     if (self.playlistTracksLength < classLengthSeconds - variance) {
-      self.error = {
-        error: true,
-        trackLengthTooShort: true
-      };
-      $window.scrollTo(0, 0);
+      // TODO: don't show errors until Lara has designed how this must look
+      if (self.showErrors) {
+        self.error = {
+          error: true,
+          trackLengthTooShort: true
+        };
+        $window.scrollTo(0, 0);
+      }
+      return false;
     }
     // Track length is too long
     else if (self.playlistTracksLength > classLengthSeconds + variance) {
-      self.error = {
-        error: true,
-        trackLengthTooLong: true
-      };
-      $window.scrollTo(0, 0);
-    } else {
-      self.playlist.put({
-        syncPlaylist: false
-      }).then(function () {
-        if (self.newPlaylist) {
-          // New playlist view
-          $state.go('playlist-new-view', {
-            id: self.playlist.Id
-          });
-        } else {
-          // TODO: Add a playlist view state and go to it
-          $state.go('playlist-view', {
-            id: self.playlist.Id
-          });
-        }
-      });
+      // TODO: don't show errors until Lara has designed how this must look
+      if (self.showErrors) {
+        self.error = {
+          error: true,
+          trackLengthTooLong: true
+        };
+        $window.scrollTo(0, 0);
+      }
+      return false;
     }
-  };
+    return true;
+  }
 
   var onLogoutSuccess = function (response) {
     $location.path('/login');
