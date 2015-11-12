@@ -28,35 +28,36 @@ body {
   */
 }
 
+
 /* A row of a minimum height */
+
 .chunk {
   min-height: $chunk_height;
   line-height: $chunk_height;
   vertical-align: middle;
-
   h3 {
     line-height: $chunk_height;
   }
 }
 
+
 /***** Create a ride *****/
 
+
 /* The steps at the top of the create playlist page */
+
 .workflow {
   li span {
     display: block;
     float: left;
     border-radius: 50%;
-
     width: 30px;
     height: 30px;
-
     color: $white;
     font-weight: bold;
     text-align: center;
     font-size: 18px;
   }
-
   .completed {
     span {
       background: $red_medium;
@@ -65,7 +66,6 @@ body {
       color: $red_medium;
     }
   }
-
   .upcoming {
     span {
       background: $grey_light;
@@ -74,7 +74,6 @@ body {
       color: $grey_medium;
     }
   }
-
   a {
     padding-top: 3px;
     padding-left: 36px;
@@ -105,39 +104,52 @@ input[type="text"].class_name {
   border-top: 1px solid $grey_lighter;
   font-size: $h5-font-size;
   color: $grey_medium;
+  line-height: $chunk_height;
+  .length {
+    float: right;
+    .box {
+      line-height: normal;
+      border: 1px solid $grey_lighter;
+      color: $grey_light;
+      border-radius: 3px;
+      padding: 5px;
+    }
+  }
 }
 
-.length {
-  border: 1px solid $grey_lighter;
-  color: $grey_light;
-  border-radius: 3px;
-  padding: 5px;
+.ride-type.fixed {
+  padding-left: 10px;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  background: $white;
+  border: 2px solid $grey_lighter;
+  margin-left: -1px;
+  .length {
+    margin-right: 10px;
+  }
 }
 
 .goal {
   background-color: $white;
   padding: rem-calc(5px) 0 rem-calc(5px) 0;
-
   .goal-container {
     border: 1px solid $grey_lighter;
     padding: rem-calc(10px) rem-calc(20px) rem-calc(6px) rem-calc(20px);
   }
-
-  .goal-name, .goal-meta {
+  .goal-name,
+  .goal-meta {
     cursor: pointer;
     @include user-select('none');
   }
-
   h4 {
     line-height: rem-calc(35px);
   }
-
   .bpm {
     color: $grey_light;
     line-height: rem-calc(45px);
     text-align: right;
   }
-
   .active {
     border: 2px solid $red;
   }
@@ -162,24 +174,21 @@ input[type="text"].class_name {
   }
 }
 
+
 /* The right tracks sidebar */
 
 .tracks {
   color: $white;
-
   h3 {
     color: $white;
   }
-
   .showing {
     border-bottom: 1px solid $white;
     padding-bottom: rem-calc(10px);
     margin-bottom: rem-calc(30px);
   }
-
   .search {
     margin-bottom: rem-calc(30px);
-
     input {
       border-width: 0px;
       color: $grey_light;
@@ -212,12 +221,10 @@ input[type="text"].class_name {
   background-color: $grey_black;
   cursor: move;
   color: $white;
-
   .columns {
     padding-left: rem-calc(10px);
     padding-right: rem-calc(10px);
   }
-
   .track-name {
     display: block;
     font-weight: bold;
@@ -239,7 +246,8 @@ input[type="text"].class_name {
   .time .position {
     color: $red;
   }
-  .add, .remove {
+  .add,
+  .remove {
     font-size: $h3-font-size;
     font-weight: bold;
   }
@@ -290,11 +298,9 @@ input[type="text"].class_name {
     display: none;
   }
   text-align: left;
-
   .track-name {
     display: inline;
   }
-
   .artist {
     color: $white;
     padding-left: 5px;
@@ -311,16 +317,15 @@ goal_option {
   color: $grey_light;
   padding: 10px 20px 10px 20px;
   border-radius: 6px;
-
   em {
     color: $grey_black;
   }
-
   hr {
     border: solid $grey_medium;
     border-width: 1px 0 0;
   }
 }
+
 
 /* TODO: remove me - for initial structure building only  */
 

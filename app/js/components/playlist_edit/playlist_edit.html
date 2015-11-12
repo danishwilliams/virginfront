@@ -29,16 +29,16 @@
   <div class="row playlist-container">
     <div class="small-9 columns goals-container">
       <div class="row goal-name">
-        <div class="small-18 columns ride-type">
-          <div class="row chunk">
+        <div class="small-18 columns">
+          <div class="row">
             <div class="small-2 columns">
               &nbsp;
             </div>
-            <div class="small-13 columns">
-              <span ng-bind-html="playlist_edit.playlist.TemplateName"></span>: {{playlist_edit.playlist.ClassLengthMinutes}}:00
-            </div>
-            <div class="small-2 columns text-right">
-              <span class="length" ng-class="playlist_edit.error.error ? 'error' : ''">{{playlist_edit.playlistTracksLength | minutes}}</span>
+            <div class="small-15 columns">
+              <div class="ride-type" sticky-header>
+                <span ng-bind-html="playlist_edit.playlist.TemplateName"></span>: {{playlist_edit.playlist.ClassLengthMinutes}}:00
+                <span class="length" ng-class="playlist_edit.error.error ? 'error' : ''"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
+              </div>
             </div>
             <div class="small-1 columns">
               &nbsp;
