@@ -25,6 +25,7 @@ angular
     "app.playlist_template",
     "app.playlist_time",
     "app.playlist_edit",
+    "app.playlist_sync",
     "app.playlist_view",
     "app.sync",
     "app.tracks",
@@ -208,6 +209,13 @@ angular
       url: '/playlists/new/:id/view',
       templateUrl: '../js/components/playlist_view/playlist_view.html',
       controller: 'Playlist_viewController as playlist_view'
+    })
+
+    // Choose which clubs to sync the new playlist to
+    .state('playlist-new-sync', {
+      url: '/playlists/new/:id/sync',
+      templateUrl: '../js/components/playlist_sync/playlist_sync.html',
+      controller: 'Playlist_syncController as playlist_sync'
     })
 
     // View an existing playlist
