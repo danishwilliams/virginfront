@@ -101,7 +101,8 @@
           &nbsp;
         </div>
         <div class="large-15 columns">
-          <button type="submit" form="playlistForm" class="round">Save playlist</button>
+          <button ng-if="playlist_edit.newPlaylist" type="submit" form="playlistForm" class="round">Save ride</button>
+          <button ng-if="!playlist_edit.newPlaylist" type="submit" form="playlistForm" class="round">Save changes</button>
         </div>
         <div class="small-1 columns">
           &nbsp;
