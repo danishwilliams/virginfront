@@ -65,7 +65,7 @@
         &nbsp;
       </div>
       <div class="small-17 columns">
-        <button ng-if="playlist_view.newPlaylist" class="round" ng-click="playlist_view.publishPlaylist()">Publish ride</button>
+        <button ng-if="playlist_view.newPlaylist" class="round" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})">Send to club</button>
       </div>
   </div>
 </div>

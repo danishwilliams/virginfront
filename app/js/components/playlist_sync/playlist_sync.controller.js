@@ -7,6 +7,15 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
   this.title = "Sync a Ride";
   Playlists.setStep(5);
 
+  self.publishPlaylist = function () {
+    Playlists.publishPlaylist(self.playlist.Id).then(function (data) {
+      $state.go('dashboard');
+    });
+    Playlists.publishPlaylistToMusicProvider(self.playlist.Id).then(function (data) {
+      console.log('successfully published playlist to music provider!');
+    });
+  };
+
   var onLogoutSuccess = function (response) {
     $location.path('/login');
   };

@@ -301,6 +301,10 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
       id: 3,
       name: 'Review',
       completed: false,
+    }, {
+      id: 4,
+      name: 'Send to club',
+      completed: false,
     }];
   }
 

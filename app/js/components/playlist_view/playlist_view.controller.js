@@ -20,16 +20,6 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     Tracks.playTrack(track, sortOrder);
   };
 
-  self.publishPlaylist = function() {
-    Playlists.publishPlaylist(self.playlist.Id).then(function (data) {
-      console.log('successfully published playlist!');
-      alert('Playlist successfully published!');
-    });
-    Playlists.publishPlaylistToMusicProvider(self.playlist.Id).then(function (data) {
-      console.log('successfully published playlist to music provider!');
-    });
-  };
-
   var onLogoutSuccess = function (response) {
     $location.path('/login');
   };
