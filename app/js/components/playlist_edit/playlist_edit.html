@@ -1,5 +1,5 @@
 <div class="edit-playlist">
-  <playlist-workflow></playlist-workflow>
+  <playlist-workflow ng-if="playlist_edit.newPlaylist"></playlist-workflow>
   <div class="row text-center">
     <span ng-show="playlist_edit.error.trackLengthTooShort" class="error">
         You will not be able to publish this class. The track length is not long enough.

@@ -6,7 +6,7 @@ function playlistWorkflow() {
 	var directive = {
 		link: link,
 		templateUrl: 'playlist_workflow.html',
-		restrict: 'EA',
+		restrict: 'E',
 		controller: playlistWorkflowController,
 		controllerAs: 'vm'
 	};

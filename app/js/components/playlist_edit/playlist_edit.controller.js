@@ -1,9 +1,13 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $location, $window, AuthenticationService, Tracks, Playlists, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $state, $location, $window, AuthenticationService, Tracks, Playlists, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
   // TODO: do we want to sanitize this?
   this.id = $stateParams.id;
+  if ($state.current.name === 'playlist-new') {
+    // We're creating a new playlist!
+    self.newPlaylist = true;
+  }
 
   this.title = "Add a Ride";
   this.playlist = Playlists.getPlaylist();
@@ -142,7 +146,14 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       self.playlist.put({
         syncPlaylist: false
       }).then(function () {
-        $location.path('/playlists/' + self.playlist.Id);
+        if (self.newPlaylist) {
+          // New playlist view
+          $location.path('/playlists/' + self.playlist.Id);
+        }
+        else {
+          // TODO: Add a playlist view state and go to it
+          $location.path('/playlists/' + self.playlist.Id);
+        }
       });
     }
   };
