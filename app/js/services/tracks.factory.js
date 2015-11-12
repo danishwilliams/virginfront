@@ -125,7 +125,6 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
       }
     } else {
       // Starting to play a track for the first time
-      track.currentTime = 0;
       playTrackWithSource(track, sortOrder);
 
       // If a track was paused in the last browser session, post a track usage count
