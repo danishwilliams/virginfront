@@ -148,11 +148,14 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       }).then(function () {
         if (self.newPlaylist) {
           // New playlist view
-          $location.path('/playlists/' + self.playlist.Id);
-        }
-        else {
+          $state.go('playlist-new-view', {
+            id: self.playlist.Id
+          });
+        } else {
           // TODO: Add a playlist view state and go to it
-          $location.path('/playlists/' + self.playlist.Id);
+          $state.go('playlist-view', {
+            id: self.playlist.Id
+          });
         }
       });
     }

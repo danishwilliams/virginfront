@@ -1,8 +1,13 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $location, AuthenticationService, Playlists, Tracks) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $state, $location, AuthenticationService, Playlists, Tracks) {
   var self = this;
   Playlists.setStep(4);
   self.id = $stateParams.id;
   self.playlist = Playlists.getPlaylist();
+
+  if ($state.current.name === 'playlist-new-view') {
+    // We're viewing a newly created playlist!
+    self.newPlaylist = true;
+  }
 
   if (self.id) {
     // Load an existing playlist
