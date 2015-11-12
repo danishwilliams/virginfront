@@ -4,7 +4,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // TODO: do we want to sanitize this?
   this.id = $stateParams.id;
-  if ($state.current.name === 'playlist-new') {
+  if ($state.current.name === 'playlist-new-edit') {
     // We're creating a new playlist!
     self.newPlaylist = true;
   }

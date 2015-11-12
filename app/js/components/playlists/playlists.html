@@ -14,7 +14,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="playlist in playlists.playlists | orderBy:'Name'">
-      <td><a ui-sref="playlist({id:playlist.Id})">{{playlist.Name}}</a></td>
+      <td><a ui-sref="playlist-view({id:playlist.Id})">{{playlist.Name}}</a></td>
       <td>{{playlist.TemplateName}}</td>
       <td>{{playlist.ClassLengthMinutes}}</td>
       <td>{{playlist.TrackCount}}</td>

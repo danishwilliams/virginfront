@@ -175,6 +175,14 @@ angular
       controller: 'PlaylistsController as playlists'
     })
 
+    // View an existing playlist
+    .state('playlist-view', {
+      url: '/playlists/:id',
+      templateUrl: '../js/components/playlist_view/playlist_view.html',
+      controller: 'Playlist_viewController as playlist_view'
+    })
+
+    // Edit an existing playlist
     .state('playlist-edit', {
       url: '/playlists/:id/edit',
       templateUrl: '../js/components/playlist_edit/playlist_edit.html',
@@ -188,13 +196,6 @@ angular
       controller: 'Playlist_templateController as playlist_template'
     })
 
-    // Add tracks to this new playlist
-    .state('playlist-new', {
-      url: '/playlists/new/playlist/:id',
-      templateUrl: '../js/components/playlist_edit/playlist_edit.html',
-      controller: 'Playlist_editController as playlist_edit'
-    })
-
     // Choose a template time
     .state('playlist-new-time', {
       url: '/playlists/new/:id',
@@ -202,8 +203,16 @@ angular
       controller: 'Playlist_timeController as playlist_time'
     })
 
-    .state('playlist', {
-      url: '/playlists/:id',
+    // Add tracks to this new playlist
+    .state('playlist-new-edit', {
+      url: '/playlists/new/:id/edit',
+      templateUrl: '../js/components/playlist_edit/playlist_edit.html',
+      controller: 'Playlist_editController as playlist_edit'
+    })
+
+    // View the new playlist
+    .state('playlist-new-view', {
+      url: '/playlists/new/:id/view',
       templateUrl: '../js/components/playlist_view/playlist_view.html',
       controller: 'Playlist_viewController as playlist_view'
     })
