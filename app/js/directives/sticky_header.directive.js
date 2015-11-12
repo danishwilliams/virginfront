@@ -15,12 +15,7 @@ function stickyHeader($window) {
     var $win = angular.element($window);
     var rect = element[0].getBoundingClientRect();
     var offsetTop = rect.top; // get element's offset top relative to document
-    var width = rect.width + 2;
-
-    $win.on('resize', function (e) {
-      rect = element[0].getBoundingClientRect();
-      width = rect.width + 2;
-    });
+    var width = rect.width;
 
     $win.on('scroll', function (e) {
       if ($win[0].scrollY >= offsetTop) {
@@ -31,8 +26,25 @@ function stickyHeader($window) {
       } else {
         element.removeClass('fixed');
         element.css({
-          width: '100%'
+          width: 'inherit'
         });
+      }
+    });
+
+    // When resizing the screen, if the element is already fixed, re-calculate its width
+    $win.on('resize', function (e) {
+      if (element.hasClass('fixed')) {
+        var parent = element.parent();
+        rect = parent[0].getBoundingClientRect();
+        width = rect.width;
+        element.css({
+          width: width + 'px'
+        });
+      }
+      else {
+        rect = element[0].getBoundingClientRect();
+        offsetTop = rect.top; // get element's offset top relative to document
+        width = rect.width;
       }
     });
   }
