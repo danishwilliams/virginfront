@@ -175,13 +175,6 @@ angular
       controller: 'PlaylistsController as playlists'
     })
 
-    // View an existing playlist
-    .state('playlist-view', {
-      url: '/playlists/:id',
-      templateUrl: '../js/components/playlist_view/playlist_view.html',
-      controller: 'Playlist_viewController as playlist_view'
-    })
-
     // Edit an existing playlist
     .state('playlist-edit', {
       url: '/playlists/:id/edit',
@@ -213,6 +206,13 @@ angular
     // View the new playlist
     .state('playlist-new-view', {
       url: '/playlists/new/:id/view',
+      templateUrl: '../js/components/playlist_view/playlist_view.html',
+      controller: 'Playlist_viewController as playlist_view'
+    })
+
+    // View an existing playlist
+    .state('playlist-view', {
+      url: '/playlists/:id',
       templateUrl: '../js/components/playlist_view/playlist_view.html',
       controller: 'Playlist_viewController as playlist_view'
     })
