@@ -2,11 +2,11 @@
   <playlist-workflow></playlist-workflow>
   <div class="row">
     <div class="large-12 large-centered columns">
-      <p>Select which clubs you'd like to send your ride class to</p>
+      <h2>Select which clubs you'd like to send your ride class to</h2>
       <p>[insert here: default checklists list of clubs with nothing selected by default]</p>
       <p>[can add more with an "add another"]</p>
-      <p><a ui-sref="dashboard">Skip and sync to club later</a></p>
+      <p><a ui-sref="dashboard" style="float:left">Skip and sync to club later</a></p>
       <p>
-        <button ng-if="playlist_view.newPlaylist" class="round" ng-click="playlist_sync.publishPlaylist()">Sync now</button>
+        <button class="round" ng-click="playlist_sync.publishPlaylist()" style="float:right">Sync now</button>
     </div>
   </div>
