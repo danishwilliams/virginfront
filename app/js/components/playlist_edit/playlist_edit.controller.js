@@ -14,12 +14,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.tracks = Tracks.getTracks();
   this.currentgoal = Playlists.getCurrentGoal();
   this.playlistTracksLength = 0;
-  self.showErrors = false; // TODO: Don't show errors until this is designed
-  this.error = {
-    error: false,
-    trackLengthTooShort: false,
-    trackLengthTooLong: false
-  };
 
   Playlists.setStep(2);
 
@@ -40,7 +34,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       self.playlist = Playlists.getPlaylist();
       self.playlistTracksLength = Playlists.getPlaylistLength();
       self.currentgoal = Playlists.getCurrentGoal();
-      if (checkPlaylistLength() === false) {
+      if (self.checkPlaylistLength() === false) {
         self.newPlaylist = true;
       }
     });
@@ -59,6 +53,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     if (playlistGoal.show) {
       // Collapse this open and selected goal
       /* Jacky asked for this not to happen any more
+      // TODO: UX: have a better way of doing this
       if (self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
         //playlistGoal.show = !playlistGoal.show;
       }
@@ -129,16 +124,12 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Save the playlist to the API
   this.savePlaylist = function () {
-    // TODO: not doing error checking for now
-    /*
-    if (!checkPlaylistLength()) {
-      return;
-    }
-    */
     self.playlist.put({
       syncPlaylist: false
     }).then(function () {
-      if (self.newPlaylist) {
+      if (!self.everyGoalHasAtrack() || !self.checkPlaylistLength()) {
+        $state.go('dashboard');
+      } else if (self.newPlaylist) {
         // New playlist view
         $state.go('playlist-new-view', {
           id: self.playlist.Id
@@ -153,43 +144,24 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   /**
-   * Checks if the playlist length is within certain bounds.
-   *
-   * @return
-   *   true, if playlist length is ok, else
-   *   false
+   * Does every goal have a track?
    */
-  function checkPlaylistLength() {
-    // Check that the total track length is acceptable
-    var variance = 3 * 60;
-    var classLengthSeconds = self.playlist.ClassLengthMinutes * 60;
-
-    // Track length is too short
-    if (self.playlistTracksLength < classLengthSeconds - variance) {
-      // TODO: don't show errors until Lara has designed how this must look
-      if (self.showErrors) {
-        self.error = {
-          error: true,
-          trackLengthTooShort: true
-        };
-        $window.scrollTo(0, 0);
-      }
-      return false;
-    }
-    // Track length is too long
-    else if (self.playlistTracksLength > classLengthSeconds + variance) {
-      // TODO: don't show errors until Lara has designed how this must look
-      if (self.showErrors) {
-        self.error = {
-          error: true,
-          trackLengthTooLong: true
-        };
-        $window.scrollTo(0, 0);
-      }
-      return false;
-    }
+  this.everyGoalHasAtrack = function () {
+    // TODO: do this!!!
+    //return false;
     return true;
-  }
+  };
+
+  this.checkPlaylistLength = function () {
+    return Playlists.checkPlaylistLength();
+  };
+
+  this.submitButtonText = function () {
+    if (!self.everyGoalHasAtrack() || !self.checkPlaylistLength()) {
+      return 'Save and continue later';
+    }
+    return 'Next: preview my ride';
+  };
 
   var onLogoutSuccess = function (response) {
     $location.path('/login');

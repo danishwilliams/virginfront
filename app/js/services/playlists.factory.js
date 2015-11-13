@@ -39,6 +39,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getPlaylistGoalTracks: getPlaylistGoalTracks,
     createPlaylistGoalNote: createPlaylistGoalNote,
     getPlaylistLength: getPlaylistLength,
+    checkPlaylistLength: checkPlaylistLength,
     loadGoals: loadGoals,
     getGoals: getGoals,
     setGoals: setGoals,
@@ -220,12 +221,32 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
       return 0;
     }
     var length = 0;
-    playlist.PlaylistGoals.forEach(function(playlistGoals) {
-      playlistGoals.PlaylistGoalTracks.forEach(function(track) {
+    playlist.PlaylistGoals.forEach(function (playlistGoals) {
+      playlistGoals.PlaylistGoalTracks.forEach(function (track) {
         length += track.Track.DurationSeconds;
       });
     });
     return length;
+  }
+
+  /**
+   * Checks if the playlist length is within certain bounds.
+   *
+   * @return
+   *   true, if playlist length is ok, else
+   *   false
+   */
+  function checkPlaylistLength() {
+    // Check that the total track length is acceptable
+    var variance = 5 * 60;
+    var classLengthSeconds = playlist.ClassLengthMinutes * 60;
+    var playlistTracksLength = getPlaylistLength();
+
+    // Track length is too short or too long
+    if ((playlistTracksLength < classLengthSeconds - variance) || (playlistTracksLength > classLengthSeconds + variance)) {
+      return false;
+    }
+    return true;
   }
 
   function loadGoals() {

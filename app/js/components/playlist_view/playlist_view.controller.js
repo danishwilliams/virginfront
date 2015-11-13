@@ -1,6 +1,6 @@
 angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $state, $location, AuthenticationService, Playlists, Tracks) {
   var self = this;
-  Playlists.setStep(4);
+  Playlists.setStep(3);
   self.id = $stateParams.id;
   self.playlist = Playlists.getPlaylist();
 
@@ -13,11 +13,18 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     // Load an existing playlist
     Playlists.loadPlaylist(self.id).then(function () {
       self.playlist = Playlists.getPlaylist();
+      if (!self.newPlaylist && !self.checkPlaylistLength()) {
+        $state.go('playlist-edit', {id: self.playlist.Id});
+      }
     });
   }
 
   self.playTrack = function (track, sortOrder) {
     Tracks.playTrack(track, sortOrder);
+  };
+
+  this.checkPlaylistLength = function () {
+    return Playlists.checkPlaylistLength();
   };
 
   var onLogoutSuccess = function (response) {

@@ -1,13 +1,5 @@
 <div class="edit-playlist">
   <playlist-workflow ng-if="playlist_edit.newPlaylist"></playlist-workflow>
-  <div class="row text-center">
-    <span ng-show="playlist_edit.error.trackLengthTooShort" class="error">
-        You will not be able to publish this class. The track length is not long enough.
-      </span>
-    <span ng-show="playlist_edit.error.trackLengthTooLong" class="error">
-        You will not be able to publish this class. The track length is too long.
-      </span>
-  </div>
   <div class="row">
     <div class="large-9 columns">
       <div class="large-2 columns">
@@ -101,8 +93,9 @@
           &nbsp;
         </div>
         <div class="large-15 columns">
-          <button ng-if="playlist_edit.newPlaylist" type="submit" form="playlistForm" class="round">Save ride</button>
-          <button ng-if="!playlist_edit.newPlaylist" type="submit" form="playlistForm" class="round">Save changes</button>
+          <p ng-if="!playlist_edit.checkPlaylistLength()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
+          <p><a style="float:left" ui-sref="dashboard">Cancel</a>
+          <button type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button></p>
         </div>
         <div class="small-1 columns">
           &nbsp;

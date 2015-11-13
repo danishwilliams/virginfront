@@ -64,8 +64,13 @@
       <div class="small-1 columns">
         &nbsp;
       </div>
-      <div class="small-17 columns">
-        <button ng-if="playlist_view.newPlaylist" class="round" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})">Send to club</button>
+      <div class="small-16 columns">
+        <a ng-if="!playlist_view.newPlaylist" style="float:left;" ui-sref="dashboard">Return to dashboard</a>
+        <button ng-if="playlist_view.newPlaylist" class="round secondary" style="float:left; background: none;">Cancel</button>
+        <button ng-if="playlist_view.newPlaylist" class="round" style="float:right" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})">Next: Send to club</button>
+      </div>
+      <div class="large-1 columns">
+        &nbsp;
       </div>
   </div>
 </div>
