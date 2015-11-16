@@ -100,12 +100,14 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
     Playlists.trackDropped(self.currentgoal.ArrayId, track);
     this.playlistTracksLength = Playlists.getPlaylistLength();
+    self.checkAllGoalsHaveTracks();
   };
 
   // Remove a track from a goal playlist
   this.removeTrack = function (playlistGoalArrayId, track) {
     Playlists.removeTrackFromGoalPlaylist(playlistGoalArrayId, track);
     this.playlistTracksLength = Playlists.getPlaylistLength();
+    self.checkAllGoalsHaveTracks();
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + playlistGoalArrayId);
@@ -127,7 +129,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     self.playlist.put({
       syncPlaylist: false
     }).then(function () {
-      if (!self.everyGoalHasAtrack() || !self.checkPlaylistLength()) {
+      if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength()) {
         $state.go('dashboard');
       } else if (self.newPlaylist) {
         // New playlist view
@@ -146,10 +148,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   /**
    * Does every goal have a track?
    */
-  this.everyGoalHasAtrack = function () {
-    // TODO: do this!!!
-    //return false;
-    return true;
+  this.checkAllGoalsHaveTracks = function () {
+    return Playlists.checkAllGoalsHaveTracks();
   };
 
   this.checkPlaylistLength = function () {
@@ -157,7 +157,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   this.submitButtonText = function () {
-    if (!self.everyGoalHasAtrack() || !self.checkPlaylistLength()) {
+    if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength()) {
       return 'Save and continue later';
     }
     return 'Next: preview my ride';

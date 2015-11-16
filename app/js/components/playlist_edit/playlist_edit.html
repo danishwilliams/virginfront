@@ -27,7 +27,7 @@
               &nbsp;
             </div>
             <div class="small-15 columns">
-              <div >
+              <div>
                 <span ng-bind-html="playlist_edit.playlist.TemplateName"></span>: {{playlist_edit.playlist.ClassLengthMinutes}}:00
                 <span class="length" ng-class="playlist_edit.error.error ? 'error' : ''"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
               </div>
@@ -62,8 +62,7 @@
                   <span class="track-name">{{track.Track.Name | limitTo : 80}}<span ng-if="track.Track.Name.length > 80">&hellip;</span></span> <span class="artist">{{track.Track.Artist}}</span> | <span class="bpm">{{track.Track.Bpm}} {{'BPM' | translate}}</span>
                 </div>
                 <div class="large-4 columns time text-center">
-                  <span class="position" ng-show="track.Track.currentTime >= 0">{{track.Track.currentTime | minutes}}</span>
-                  {{track.Track.DurationSeconds | minutes}}
+                  <span class="position" ng-show="track.Track.currentTime >= 0">{{track.Track.currentTime | minutes}}</span> {{track.Track.DurationSeconds | minutes}}
                 </div>
                 <div class="large-1 columns remove" ng-click="playlist_edit.removeTrack(playlistGoal.ArrayId, track)"> - </div>
               </div>
@@ -93,9 +92,11 @@
           &nbsp;
         </div>
         <div class="large-15 columns">
-          <p ng-if="!playlist_edit.checkPlaylistLength()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
+          <p ng-show="!playlist_edit.checkPlaylistLength()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
+          <p ng-show="!playlist_edit.checkAllGoalsHaveTracks()">Please add a song to each goal.</p>
           <p><a style="float:left" ui-sref="dashboard">Cancel</a>
-          <button type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button></p>
+            <button type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button>
+          </p>
         </div>
         <div class="small-1 columns">
           &nbsp;

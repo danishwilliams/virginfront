@@ -40,6 +40,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     createPlaylistGoalNote: createPlaylistGoalNote,
     getPlaylistLength: getPlaylistLength,
     checkPlaylistLength: checkPlaylistLength,
+    checkAllGoalsHaveTracks: checkAllGoalsHaveTracks,
     loadGoals: loadGoals,
     getGoals: getGoals,
     setGoals: setGoals,
@@ -247,6 +248,23 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
       return false;
     }
     return true;
+  }
+
+  /**
+   * Checks that every goal has a track. If they do, then return true. Else return false.
+   */
+  function checkAllGoalsHaveTracks() {
+    if (!playlist.PlaylistGoals) {
+      return false;
+    }
+    var containsNoTrack = false;
+    playlist.PlaylistGoals.forEach(function (playlistGoals) {
+      var hasTrack = false;
+      if (playlistGoals.PlaylistGoalTracks.length === 0) {
+        containsNoTrack = true;
+      }
+    });
+    return !containsNoTrack;
   }
 
   function loadGoals() {
