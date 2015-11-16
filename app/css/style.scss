@@ -4,6 +4,7 @@ $chunk_height: rem-calc(60px);
 $goal_padding: rem-calc(10px);
 $top_padding: rem-calc(40px);
 $radius: rem-calc(15px);
+$radius-tiny: 2px;
 
 /*
 html {
@@ -83,7 +84,7 @@ body {
 input[type="text"].class_name {
   border-width: 0px;
   box-shadow: none;
-  border-radius: $radius;
+  border-radius: $radius-tiny;
   background-color: $blue_light;
   font-size: $h3-font-size;
   font-weight: bold;
@@ -136,6 +137,9 @@ input[type="text"].class_name {
   .goal-container {
     border: 1px solid $grey_lighter;
     padding: rem-calc(10px) rem-calc(20px) rem-calc(6px) rem-calc(20px);
+  }
+  .has-track::before {
+    content: '\266B \a0';
   }
   .goal-name,
   .goal-meta {
