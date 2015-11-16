@@ -81,6 +81,11 @@ body {
   }
 }
 
+.error {
+  background: $apricot;
+  padding: rem-calc(20px);
+}
+
 input[type="text"].class_name {
   border-width: 0px;
   box-shadow: none;
@@ -139,7 +144,7 @@ input[type="text"].class_name {
     padding: rem-calc(10px) rem-calc(20px) rem-calc(6px) rem-calc(20px);
   }
   .has-track::before {
-    content: '\266B \a0';
+    content: '\266B \a0'; /* a double quaver */
   }
   .goal-name,
   .goal-meta {

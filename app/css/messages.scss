@@ -8,5 +8,9 @@ span.error {
 span.length.error {
   background: none;
   display: inline;
-  border: 1px solid $red;
+  padding: 0px;
+  margin: 0px;
+  .box {
+    border: 2px solid $savannah;
+  }
 }
