@@ -1,0 +1,137 @@
+.styleguide {
+  .heading {
+    font-size: $label-font-size;
+    background-color: $grey_lighter;
+    padding: 5px;
+    font-weight: bold;
+  }
+}
+
+
+/* Colours */
+
+ul.colours {
+  margin-left: 0px;
+  font-size: $label-font-size;
+  li {
+    margin-left: 0px;
+    margin-right: 20px;
+    span {
+      display: block;
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+.red {
+  color: $red;
+}
+
+.red-bg {
+  background-color: $red;
+}
+
+.rose {
+  color: $rose;
+}
+
+.rose-bg {
+  background-color: $rose;
+}
+
+.cherry {
+  color: $cherry;
+}
+
+.cherry-bg {
+  background-color: $cherry;
+}
+
+.blue {
+  color: $blue;
+}
+
+.blue-bg {
+  background-color: $blue;
+}
+
+.purple {
+  color: $purple;
+}
+
+.purple-bg {
+  background-color: $purple;
+}
+
+.peach {
+  color: $peach;
+}
+
+.peach-bg {
+  background-color: $peach;
+}
+
+.savannah {
+  color: $savannah;
+}
+
+.savannah-bg {
+  background-color: $savannah;
+}
+
+.black {
+  color: $black;
+}
+
+.black-bg {
+  background-color: $black;
+}
+
+.grey-dark {
+  color: $grey_dark;
+}
+
+.grey-dark-bg {
+  background-color: $grey_dark;
+}
+
+.grey {
+  color: $grey;
+}
+
+.grey-bg {
+  background-color: $grey;
+}
+
+.grey-medium {
+  color: $grey_medium;
+}
+
+.grey-medium-bg {
+  background-color: $grey_medium;
+}
+
+.grey-light {
+  color: $grey_light;
+}
+
+.grey-light-bg {
+  background-color: $grey_light;
+}
+
+.grey-lighter {
+  color: $grey_lighter;
+}
+
+.grey-lighter-bg {
+  background-color: $grey_lighter;
+}
+
+.white {
+  color: $white;
+}
+
+.white-bg {
+  background-color: $white;
+}
