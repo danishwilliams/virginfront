@@ -192,10 +192,6 @@ input[type="text"].class_name {
     border: 1px solid $grey_lighter;
     padding: rem-calc(10px) rem-calc(20px) rem-calc(6px) rem-calc(20px);
   }
-  .has-track::before {
-    content: '\266B \a0';
-    /* a double quaver */
-  }
   .goal-name,
   .goal-meta {
     cursor: pointer;
