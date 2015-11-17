@@ -52,12 +52,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     // User has clicked on an open, unselected goal, so don't collapse it
     if (playlistGoal.show) {
       // Collapse this open and selected goal
-      /* Jacky asked for this not to happen any more
-      // TODO: UX: have a better way of doing this
       if (self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
-        //playlistGoal.show = !playlistGoal.show;
+        playlistGoal.show = !playlistGoal.show;
       }
-      */
     } else {
       playlistGoal.show = !playlistGoal.show;
     }
@@ -73,7 +70,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * @returns {boolean}
    */
   this.isGoalActive = function (playlistGoal) {
-    if (playlistGoal.show === true && self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
+    if (self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
       return true;
     }
     return false;
