@@ -6,6 +6,55 @@ $top_padding: rem-calc(40px);
 $radius: rem-calc(15px);
 $radius-tiny: 2px;
 
+/* Buttons */
+
+$bg_opacity: 0.09;
+button {
+  @include button-style($bg: $white, $radius: $button-round);
+  padding: 10px 30px 10px 30px;
+  font-size: $h3-font-size;
+  border: 2px solid $red;
+  color: $red;
+  &:hover,
+  &:focus {
+    color: $red;
+    background-color: rgba($red, $bg_opacity);
+  }
+  &.secondary {
+    @include button-style($bg: $white, $radius: $button-round);
+    padding: 10px 20px 10px 20px;
+    font-size: $body-font-size;
+    border-color: $blue;
+    color: $blue;
+    &:hover,
+    &:focus {
+      color: $blue;
+      background-color: rgba($blue, $bg_opacity);
+    }
+  }
+  &.cancel {
+    border-color: $grey_dark;
+    color: $grey_dark;
+    &:hover,
+    &:focus {
+      color: $grey_dark;
+      background-color: rgba($grey_dark, $bg_opacity);
+    }
+  }
+  &.next {
+    padding: 10px 25px 10px 25px;
+    font-size: $label-font-size;
+    border: 2px solid $red;
+    color: $red;
+    &:hover,
+    &:focus {
+      color: $red;
+      background-color: rgba($red, $bg_opacity);
+    }
+  }
+}
+
+
 /*
 html {
   height: 100%;
@@ -144,7 +193,8 @@ input[type="text"].class_name {
     padding: rem-calc(10px) rem-calc(20px) rem-calc(6px) rem-calc(20px);
   }
   .has-track::before {
-    content: '\266B \a0'; /* a double quaver */
+    content: '\266B \a0';
+    /* a double quaver */
   }
   .goal-name,
   .goal-meta {
