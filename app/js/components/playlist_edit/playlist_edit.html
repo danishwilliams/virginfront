@@ -93,7 +93,6 @@
         </div>
         <div class="large-15 columns">
           <p class="error" ng-show="!playlist_edit.checkPlaylistLength()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
-          <p class="error" ng-show="!playlist_edit.checkAllGoalsHaveTracks()">Please add a song to each goal.</p>
           <p><a style="float:left" ui-sref="dashboard">Cancel</a>
             <button type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button>
           </p>
