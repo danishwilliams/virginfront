@@ -132,6 +132,7 @@ body {
 
 .error {
   background: $apricot;
+  color: $peach;
   padding: rem-calc(20px);
 }
 
@@ -180,9 +181,6 @@ input[type="text"].class_name {
   background: $white;
   border-bottom: 2px solid $grey_lighter;
   margin-left: -1px;
-  .length {
-    margin-right: 10px;
-  }
 }
 
 .goal {
