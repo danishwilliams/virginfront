@@ -153,6 +153,16 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return Playlists.checkPlaylistLength();
   };
 
+  /* Hide the submit button if we're editing a playlist and not every goal has a track */
+  this.showSubmitButton = function() {
+    if (!self.newPlaylist) {
+      if (!self.checkAllGoalsHaveTracks()) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   this.submitButtonText = function () {
     if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Editing a playlist but not all tracks have goals
