@@ -31,9 +31,6 @@ function stickyHeader($window) {
         });
       } else {
         element.removeClass('fixed');
-        element.css({
-          width: 'inherit'
-        });
       }
     });
 

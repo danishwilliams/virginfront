@@ -148,10 +148,6 @@ input[type="text"].class_name {
   height: 70px;
 }
 
-.playlist-container {
-  background: $grey_black;
-}
-
 .goals-container {
   background: $white;
 }
@@ -232,6 +228,13 @@ input[type="text"].class_name {
 
 .tracks {
   color: $white;
+  background: $grey_dark;
+  &.fixed {
+    position: fixed;
+    top: 0;
+    right: -1px;
+  }
+
   h3 {
     color: $white;
   }
@@ -379,11 +382,4 @@ goal_option {
     border: solid $grey_medium;
     border-width: 1px 0 0;
   }
-}
-
-
-/* TODO: remove me - for initial structure building only  */
-
-.tracks {
-  min-height: 100%;
 }
