@@ -1,3 +1,51 @@
+/* Typography */
+
+// @see README.fonts.md to see where the .woff files come from
+
+@font-face {
+  font-family: 'HelveticaNeueW01-77BdCn 692722';
+  src: url('/fonts/HelveticaNeueW01-77BdCn 692722.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'HelveticaNeueW01-LtExt';
+  src: url('/fonts/HelveticaNeueW01-LtExt.woff') format('woff');
+}
+
+@font-face {
+  font-family: "HelveticaNeueW01 53 Ext";
+  src: url("/fonts/HelveticaNeueW01 53 Ext.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'HelveticaNeueW01-BdExt';
+  src: url('/fonts/HelveticaNeueW01-BdExt.woff') format('woff');
+}
+
+.HelveticaNeueW01-77BdCn-692722 {
+  p, h1, h2, h3, h4, h5, h6 {
+    font-family:'HelveticaNeueW01-77BdCn 692722', 'Helvetica Neue', Helvetica, sans-serif;
+  }
+}
+
+.HelveticaNeueW01-LtExt {
+  p, h1, h2, h3, h4, h5, h6 {
+    font-family:'HelveticaNeueW01-LtExt', 'Helvetica Neue', Helvetica, sans-serif;
+  }
+}
+
+.HelveticaNeueW01-53-Ext {
+  p, h1, h2, h3, h4, h5, h6 {
+    font-family:'HelveticaNeueW01 53 Ext', 'Helvetica Neue', Helvetica, sans-serif;
+  }
+}
+
+.HelveticaNeueW01-BdExt  {
+  p, h1, h2, h3, h4, h5, h6 {
+    font-family:'HelveticaNeueW01-BdExt', 'Helvetica Neue', Helvetica, sans-serif;
+  }
+}
+
 .styleguide {
   .heading {
     font-size: $label-font-size;
