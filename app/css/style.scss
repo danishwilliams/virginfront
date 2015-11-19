@@ -332,11 +332,13 @@ input[type="text"].class_name {
   vertical-align: middle;
   text-align: center;
   min-width: 100%;
-  border: 2px dotted $blue_medium;
   color: $blue_medium;
   background: $blue_light;
   margin-top: 20px;
   margin-bottom: 20px;
+  .empty-text {
+    border: 2px dotted $blue_medium;
+  }
 }
 
 .track.dropped {
