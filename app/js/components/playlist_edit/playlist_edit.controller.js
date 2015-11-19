@@ -154,7 +154,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   this.submitButtonText = function () {
-    if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength()) {
+    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
+      // Editing a playlist but not all tracks have goals
+      return 'Each goal needs a track';
+    }
+    else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength()) {
       return 'Save and continue later';
     }
     return 'Next: preview my ride';

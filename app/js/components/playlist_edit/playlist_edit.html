@@ -94,7 +94,7 @@
         </div>
         <div class="large-15 columns">
           <a style="float:left" ui-sref="dashboard">Cancel</a>
-          <button type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button>
+          <button ng-disabled="!playlist_edit.newPlaylist && !playlist_edit.checkAllGoalsHaveTracks()" type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button>
         </div>
         <div class="small-1 columns">
           &nbsp;
