@@ -29,8 +29,8 @@
             <div class="small-15 columns">
               <div>
                 <span ng-bind-html="playlist_edit.playlist.TemplateName"></span>: {{playlist_edit.playlist.ClassLengthMinutes}}:00
-                <span class="length" ng-class="{'error': !playlist_edit.checkPlaylistLength()}"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
-               <p class="error" ng-show="!playlist_edit.checkPlaylistLength()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
+                <span class="length" ng-class="{'error': !playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()}"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
+               <p class="error" ng-show="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
               </div>
             </div>
             <div class="small-1 columns">
