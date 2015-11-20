@@ -148,12 +148,8 @@ input[type="text"].class_name {
   height: 55px;
 }
 
-.goals-container {
-  background: $white;
-}
-
 .ride-type {
-  border-top: 1px solid $grey_lighter;
+  border-top: 1px solid $grey_medium;
   font-size: $h5-font-size;
   color: $grey_medium;
   line-height: $chunk_height;
@@ -184,15 +180,17 @@ input[type="text"].class_name {
   padding: rem-calc(5px) 0 rem-calc(5px) 0;
   .goal-container {
     border: 1px solid $grey_lighter;
-    padding: rem-calc(10px) rem-calc(20px) rem-calc(6px) rem-calc(20px);
+    padding: 10px 20px 0px 20px;
+    background-color: $grey_light;
+    &.active {
+      background-color: $white;
+    }
   }
   .goal-name,
   .goal-meta {
     cursor: pointer;
     @include user-select('none');
-  }
-  h4 {
-    line-height: rem-calc(35px);
+    min-height: 40px;
   }
   .bpm {
     color: $grey_light;
@@ -340,12 +338,12 @@ input[type="text"].class_name {
   vertical-align: middle;
   text-align: center;
   min-width: 100%;
-  color: $blue_medium;
+  color: $blue;
   background: $blue_light;
-  margin-top: 20px;
   margin-bottom: 20px;
   .empty-text {
-    border: 2px dotted $blue_medium;
+    border: 1px dotted $blue;
+    border-radius: $radius-tiny;
   }
 }
 
