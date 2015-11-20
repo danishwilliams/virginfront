@@ -47,14 +47,9 @@
         </div>
         <div class="small-15 columns goal-container" ng-class="{'active': playlist_edit.isGoalActive(playlistGoal)}">
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
-            <div class="small-12 columns">
-              <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">{{playlistGoal.Goal.Name}}</h4>
-            </div>
-            <div class="small-6 columns bpm">
-              {{playlistGoal.Goal.BpmLow}} - {{playlistGoal.Goal.BpmHigh}} {{'BPM' | translate}}
-            </div>
+            <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">{{playlistGoal.Goal.Name}}</h4>
           </div>
-          <div class="row">
+          <div class="row" ng-show="playlistGoal.show">
             <div class="bin" ng-class="{'dropped' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}" id="bin{{playlistGoal.ArrayId}}" droppable>
               <div class="empty-text" ng-show="playlistGoal.show">{{'DRAG_DROP_TRACK' | translate}}</div>
               <div class="row track dropped" id="playlist{{playlistGoal.Id}}{{track.Track.MusicProviderTrackId}}" data-ng-repeat="track in playlistGoal.PlaylistGoalTracks">
@@ -114,10 +109,10 @@
         <div class="small-16 columns">
           <div class="track-search-header">
             <div class="row">
-              <h3>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'Warm Up'</span></h3>
+              <h3>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'{{playlist_edit.currentgoal.Name}}'</span></h3>
               <div class="row showing">
                 <div class="small-14 columns">
-                  {{'SHOWING' | translate}}: 80 - 90 {{'BPM' | translate}} {{'TRACKS' | translate}}
+                  {{'SHOWING' | translate}}: {{playlist_edit.currentgoal.BpmLow}} - {{playlist_edit.currentgoal.BpmHigh}} {{'BPM' | translate}} {{'TRACKS' | translate}}
                 </div>
                 <div class="small-4 columns">
                   {{'ADD_FILTER' | translate}}
