@@ -2,7 +2,7 @@
 
 $chunk_height: rem-calc(60px);
 $goal_padding: rem-calc(10px);
-$top_padding: rem-calc(40px);
+$top_padding: rem-calc(30px);
 $radius: rem-calc(15px);
 $radius-tiny: 2px;
 
@@ -66,7 +66,8 @@ body {
 */
 
 .row.top {
-  padding: $top_padding 0 $top_padding 0;
+  min-height: 91px;
+  padding: $top_padding 0 0 0;
 }
 
 .row {
@@ -95,6 +96,10 @@ body {
 
 
 /* The steps at the top of the create playlist page */
+
+playlist-workflow .row {
+  border-bottom: 1px solid $grey_medium;
+}
 
 .workflow {
   li span {
