@@ -13,6 +13,7 @@
 
       <!-- TODO: only insert this if the user is logged in. And make it work on mobile -->
       <div class="icon-bar vertical five-up">
+        <div class="logo"></div>
         <a class="item" ui-sref="dashboard">
           <i class="fi-home"></i>
           <label>Dashboard</label>
