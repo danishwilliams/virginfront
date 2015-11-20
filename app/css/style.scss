@@ -106,32 +106,28 @@ playlist-workflow .row {
     display: block;
     float: left;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     color: $white;
     font-weight: bold;
     text-align: center;
     font-size: 18px;
+    padding: 2px 0 0 1px;
   }
   .completed {
     span {
-      background: $red_medium;
-    }
-    a {
-      color: $red_medium;
+      background: $red;
     }
   }
   .upcoming {
     span {
       background: $grey_light;
-    }
-    a {
-      color: $grey_medium;
+      color: $red;
     }
   }
-  a {
-    padding-top: 3px;
-    padding-left: 36px;
+  div {
+    padding-top: 5px;
+    padding-left: 45px;
   }
 }
 
