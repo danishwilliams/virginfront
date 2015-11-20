@@ -138,15 +138,14 @@ playlist-workflow .row {
 }
 
 input[type="text"].class_name {
-  border-width: 0px;
+  border-width: 2px;
+  border-color: $grey_light;
   box-shadow: none;
+  font-size: $body-font-size;
   border-radius: $radius-tiny;
-  background-color: $blue_light;
-  font-size: $h3-font-size;
-  font-weight: bold;
-  color: $black;
+  color: $grey;
   padding: 10px;
-  height: 70px;
+  height: 55px;
 }
 
 .goals-container {
