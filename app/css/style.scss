@@ -235,6 +235,11 @@ input[type="text"].class_name {
     right: -1px;
   }
 
+  .track-search-results {
+    overflow: scroll;
+    height: 100vh;
+  }
+
   h3 {
     color: $white;
   }

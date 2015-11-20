@@ -30,8 +30,8 @@
               <div>
                 <span ng-bind-html="playlist_edit.playlist.TemplateName"></span>: {{playlist_edit.playlist.ClassLengthMinutes}}:00
                 <span class="length" ng-class="{'error': !playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()}"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
-               <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
-               <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">Each goal needs a track.</p>
+                <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
+                <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">Each goal needs a track.</p>
               </div>
             </div>
             <div class="small-1 columns">
@@ -111,41 +111,45 @@
           &nbsp;
         </div>
         <div class="small-16 columns">
-          <div class="row">
-            <h3>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'Warm Up'</span></h3>
-            <div class="row showing">
-              <div class="small-14 columns">
-                {{'SHOWING' | translate}}: 80 - 90 {{'BPM' | translate}} {{'TRACKS' | translate}}
+          <div class="track-search-header">
+            <div class="row">
+              <h3>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'Warm Up'</span></h3>
+              <div class="row showing">
+                <div class="small-14 columns">
+                  {{'SHOWING' | translate}}: 80 - 90 {{'BPM' | translate}} {{'TRACKS' | translate}}
+                </div>
+                <div class="small-4 columns">
+                  {{'ADD_FILTER' | translate}}
+                </div>
               </div>
-              <div class="small-4 columns">
-                {{'ADD_FILTER' | translate}}
-              </div>
+            </div>
+            <div class="row search">
+              <form ng-submit="playlist_edit.trackSearch()">
+                <input ng-model="playlist_edit.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
+              </form>
             </div>
           </div>
-          <div class="row search">
-            <form ng-submit="playlist_edit.trackSearch()">
-              <input ng-model="playlist_edit.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
-            </form>
-          </div>
-          <div class="row track" draggable id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in playlist_edit.tracks">
-            <div class="small-1 columns play" ng-click="playlist_edit.playTrack(track);" ng-class="{'playing': track.playing}">
-              <a href="#">{{'PLAY' | translate}}</a>
-            </div>
-            <div class="small-9 columns">
-              <span class="track-name">{{track.Name | limitTo : 80}}<span ng-if="track.Name.length > 80">&hellip;</span></span>
-              <span class="artist">{{track.Artist}}</span>
-            </div>
-            <div class="small-3 columns genre">
-              &nbsp;{{track.Genre.Name}}
-            </div>
-            <div class="small-2 columns bpm">
-              {{track.Bpm}} {{'BPM' | translate}}
-            </div>
-            <div class="small-2 columns time">
-              {{track.DurationSeconds | minutes}}
-            </div>
-            <div class="small-1 columns add">
-              <a ng-click="playlist_edit.addTrack(track)">+</a>
+          <div class="track-search-results">
+            <div class="row track" draggable id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in playlist_edit.tracks">
+              <div class="small-1 columns play" ng-click="playlist_edit.playTrack(track);" ng-class="{'playing': track.playing}">
+                <a href="#">{{'PLAY' | translate}}</a>
+              </div>
+              <div class="small-9 columns">
+                <span class="track-name">{{track.Name | limitTo : 80}}<span ng-if="track.Name.length > 80">&hellip;</span></span>
+                <span class="artist">{{track.Artist}}</span>
+              </div>
+              <div class="small-3 columns genre">
+                &nbsp;{{track.Genre.Name}}
+              </div>
+              <div class="small-2 columns bpm">
+                {{track.Bpm}} {{'BPM' | translate}}
+              </div>
+              <div class="small-2 columns time">
+                {{track.DurationSeconds | minutes}}
+              </div>
+              <div class="small-1 columns add">
+                <a ng-click="playlist_edit.addTrack(track)">+</a>
+              </div>
             </div>
           </div>
         </div>
