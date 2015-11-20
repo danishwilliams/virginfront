@@ -154,7 +154,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   /* Hide the submit button if we're editing a playlist and not every goal has a track */
-  this.showSubmitButton = function() {
+  this.checkWhenEditingEveryGoalHasATrack = function() {
     if (!self.newPlaylist) {
       if (!self.checkAllGoalsHaveTracks()) {
         return false;

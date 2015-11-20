@@ -30,7 +30,8 @@
               <div>
                 <span ng-bind-html="playlist_edit.playlist.TemplateName"></span>: {{playlist_edit.playlist.ClassLengthMinutes}}:00
                 <span class="length" ng-class="{'error': !playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()}"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
-               <p class="error" ng-show="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
+               <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
+               <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">Each goal needs a track.</p>
               </div>
             </div>
             <div class="small-1 columns">
@@ -94,7 +95,7 @@
         </div>
         <div class="large-15 columns">
           <a style="float:left" ui-sref="dashboard">Cancel</a>
-          <button ng-show="playlist_edit.showSubmitButton()" type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button>
+          <button ng-show="playlist_edit.checkWhenEditingEveryGoalHasATrack()" type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button>
         </div>
         <div class="small-1 columns">
           &nbsp;
