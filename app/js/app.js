@@ -30,6 +30,7 @@ angular
     "app.playlist_view",
     "app.sync",
     "app.tracks",
+    "app.tracks_search",
     "app.user",
     "app.users",
     "app.usertypes",

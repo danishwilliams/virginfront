@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="small-18 large-16 large-centered columns tracks">
+    <a class="joyride-close-tip" ng-click="vm.cancel()">&#215;</a>
+    <div class="row track-search-header">
+      <h1>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'{{vm.currentgoal.Name}}'</span></h1>
+      <div class="row showing">
+        <div class="small-13 columns">
+          {{'SHOWING' | translate}}: {{vm.currentgoal.BpmLow}} - {{vm.currentgoal.BpmHigh}} {{'BPM' | translate}} {{'TRACKS' | translate}}
+        </div>
+        <div class="small-5 columns">
+          {{'ADD_FILTER' | translate}}
+          <div class="search">
+            <form ng-submit="vm.trackSearch()">
+              <input ng-model="vm.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="track-search-results">
+        <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks">
+          <div class="small-1 columns play" ng-click="vm.playTrack(track);" ng-class="{'playing': track.playing}">
+            <a href="#">{{'PLAY' | translate}}</a>
+          </div>
+          <div class="small-9 columns">
+            <span class="track-name">{{track.Name | limitTo : 80}}<span ng-if="track.Name.length > 80">&hellip;</span></span>
+            <span class="artist">{{track.Artist}}</span>
+          </div>
+          <div class="small-3 columns show-for-medium-up genre">
+            &nbsp;{{track.Genre.Name}}
+          </div>
+          <div class="small-2 columns bpm">
+            {{track.Bpm}} {{'BPM' | translate}}
+          </div>
+          <div class="small-2 columns text-right time">
+            {{track.DurationSeconds | minutes}}
+          </div>
+          <div class="small-1 columns add">
+            <a ng-click="vm.addTrack(track)">+</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

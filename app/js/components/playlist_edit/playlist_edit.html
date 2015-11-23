@@ -1,55 +1,29 @@
 <div class="edit-playlist">
   <playlist-workflow ng-if="playlist_edit.newPlaylist"></playlist-workflow>
   <h1 class="text-center">{{playlist_edit.title}}</h1>
-  <div class="row">
-    <div class="large-9 columns">
-      <div class="large-2 columns">
-        &nbsp;
-      </div>
-      <div class="large-15 columns">
+
+  <div class="row playlist-container">
+    <div class="small-18 medium-16 medium-centered large-12 large-centered columns goals-container">
+      <div class="row">
         <form id="playlistForm" ng-submit="playlist_edit.savePlaylist()">
           <input required name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}..." ng-model="playlist_edit.playlist.Name">
-        </form>
       </div>
-      <div class="large-1 columns">
-        &nbsp;
-      </div>
-    </div>
-    <div class="large-9 columns">
-      &nbsp;
-    </div>
-  </div>
-  <div class="row playlist-container">
-    <div class="small-10 small-centered columns goals-container" ng-show="playlist_edit.goalsContainerVisible">
-      <div class="row goal-name">
-          <div class="row ride-type" sticky-header>
-            <div class="small-2 columns">
-              &nbsp;
-            </div>
-            <div class="small-15 columns">
-              <div>
-                <span ng-bind-html="playlist_edit.playlist.TemplateName"></span>: {{playlist_edit.playlist.ClassLengthMinutes}}:00
-                <span class="length" ng-class="{'error': !playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()}"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
-                <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
-                <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">Each goal needs a track.</p>
-              </div>
-            </div>
-            <div class="small-1 columns">
-              &nbsp;
-            </div>
-          </div>
+      <div class="row goal-name ride-type" sticky-header>
+        <div>
+          <span ng-bind-html="playlist_edit.playlist.TemplateName"></span>: {{playlist_edit.playlist.ClassLengthMinutes}}:00
+          <span class="length" ng-class="{'error': !playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()}"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
+          <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
+          <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">Each goal needs a track.</p>
+        </div>
       </div>
       <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder'">
-        <div class="small-2 columns">
-          &nbsp;
-        </div>
-        <div class="small-15 columns goal-container" ng-class="{'active': playlist_edit.isGoalActive(playlistGoal)}">
+        <div class="goal-container" ng-class="{'active': playlist_edit.isGoalActive(playlistGoal)}">
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
             <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">{{playlistGoal.Goal.Name}}</h4>
           </div>
           <div class="row" ng-show="playlistGoal.show">
             <div class="bin" ng-class="{'dropped' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}" id="bin{{playlistGoal.ArrayId}}">
-              <div class="empty-text" ng-show="playlistGoal.show" ng-click="playlist_edit.showTracksContainer(true)">{{'DRAG_DROP_TRACK' | translate}}</div>
+              <div class="empty-text" ng-show="playlistGoal.show" ng-click="playlist_edit.showTracksModal(playlistGoal)">{{'DRAG_DROP_TRACK' | translate}}</div>
               <div class="row track dropped" id="playlist{{playlistGoal.Id}}{{track.Track.MusicProviderTrackId}}" data-ng-repeat="track in playlistGoal.PlaylistGoalTracks">
                 <div class="large-1 small-1 columns play" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_edit.playTrack(track.Track);" ng-class="{'playing': track.Track.playing}">
                   <a href="#">{{'PLAY' | translate}}</a>
@@ -79,78 +53,12 @@
             </div>
           </div>
         </div>
-        <div class="small-1 columns">
-          &nbsp;
-        </div>
       </div>
       <div class="row">
-        <div class="small-2 columns">
-          &nbsp;
-        </div>
-        <div class="large-15 columns">
-          <a style="float:left" ui-sref="dashboard">Cancel</a>
-          <button ng-show="playlist_edit.checkWhenEditingEveryGoalHasATrack()" type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button>
-        </div>
-        <div class="small-1 columns">
-          &nbsp;
-        </div>
-      </div>
-    </div>
-    <div class="small-10 small-centered columns tracks" ng-show="playlist_edit.tracksContainerVisible">
-      <div class="row chunk">
-        <a class="joyride-close-tip" ng-click="playlist_edit.showGoalsContainer()">×</a>
-      </div>
-      <div class="row">
-        <div class="small-1 columns">
-          &nbsp;
-        </div>
-        <div class="small-16 columns">
-          <div class="track-search-header">
-            <div class="row">
-              <h3>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'{{playlist_edit.currentgoal.Name}}'</span></h3>
-              <div class="row showing">
-                <div class="small-14 columns">
-                  {{'SHOWING' | translate}}: {{playlist_edit.currentgoal.BpmLow}} - {{playlist_edit.currentgoal.BpmHigh}} {{'BPM' | translate}} {{'TRACKS' | translate}}
-                </div>
-                <div class="small-4 columns">
-                  {{'ADD_FILTER' | translate}}
-                </div>
-              </div>
-            </div>
-            <div class="row search">
-              <form ng-submit="playlist_edit.trackSearch()">
-                <input ng-model="playlist_edit.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
-              </form>
-            </div>
-          </div>
-          <div class="track-search-results">
-            <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in playlist_edit.tracks">
-              <div class="small-1 columns play" ng-click="playlist_edit.playTrack(track);" ng-class="{'playing': track.playing}">
-                <a href="#">{{'PLAY' | translate}}</a>
-              </div>
-              <div class="small-9 columns">
-                <span class="track-name">{{track.Name | limitTo : 80}}<span ng-if="track.Name.length > 80">&hellip;</span></span>
-                <span class="artist">{{track.Artist}}</span>
-              </div>
-              <div class="small-3 columns genre">
-                &nbsp;{{track.Genre.Name}}
-              </div>
-              <div class="small-2 columns bpm">
-                {{track.Bpm}} {{'BPM' | translate}}
-              </div>
-              <div class="small-2 columns time">
-                {{track.DurationSeconds | minutes}}
-              </div>
-              <div class="small-1 columns add">
-                <a ng-click="playlist_edit.addTrack(track)">+</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="small-1 columns">
-          &nbsp;
-        </div>
+        <a style="float:left" ui-sref="dashboard">Cancel</a>
+        <button ng-show="playlist_edit.checkWhenEditingEveryGoalHasATrack()" type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button>
       </div>
     </div>
   </div>
+</div>
 </div>

@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $state, $location, $window, AuthenticationService, Tracks, Playlists, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $state, $location, $window, $modal, AuthenticationService, Tracks, Playlists, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -12,18 +12,10 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   }
 
   this.playlist = Playlists.getPlaylist();
-  this.tracks = Tracks.getTracks();
   this.currentgoal = Playlists.getCurrentGoal();
   this.playlistTracksLength = 0;
-  this.goalsContainerVisible = true; // If the goals container is visible
-  this.tracksContainerVisible = false; // If the tracks container is visible
 
   Playlists.setStep(2);
-
-  // Load tracks from the user's default genre selection
-  Tracks.loadUserGenresTracks().then(function (data) {
-    self.tracks = data;
-  });
 
   // Create new playlist
   if ($location.path().substring(0, 15) === '/playlists/new/') {
@@ -43,16 +35,31 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     });
   }
 
-  // Show the goals container, and hide the tracks container
-  this.showGoalsContainer = function() {
-    self.goalsContainerVisible = true;
-    self.tracksContainerVisible = false;
-  };
+  // Show the track search modeal
+  this.showTracksModal = function (playlistGoal) {
+    // User has clicked an unselected goal
+    if (playlistGoal.Id !== self.currentgoal.PlaylistGoalId) {
+      self.goalClicked(playlistGoal);
+    }
+    var modalInstance = $modal.open({
+      templateUrl: '../js/components/tracks_search/tracks_search.html',
+      controller: 'Tracks_searchController',
+      controllerAs: 'vm',
+      windowClass: 'tracks-modal',
+      resolve: {
+        goal: function () {
+          return self.currentgoal;
+        }
+      }
+    });
 
-  // Show the tracks container, and hide the goals container
-  this.showTracksContainer = function($val) {
-    self.tracksContainerVisible = true;
-    self.goalsContainerVisible = false;
+    modalInstance.result.then(function (track) {
+      Playlists.trackDropped(self.currentgoal.ArrayId, track);
+      this.playlistTracksLength = Playlists.getPlaylistLength();
+      self.checkAllGoalsHaveTracks();
+    }, function () {
+      //$log.info('Modal dismissed at: ' + new Date());
+    });
   };
 
   this.playTrack = function (track) {
@@ -89,33 +96,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       return true;
     }
     return false;
-  };
-
-  this.trackSearch = function () {
-    Tracks.searchTracks(self.search).then(function (data) {
-      self.tracks = data;
-    });
-  };
-
-  // Add a track to a goal self. If it passes our checks, call addTrackSuccess
-  this.addTrack = function (track) {
-    if (track.Bpm < self.currentgoal.BpmLow || track.Bpm > self.currentgoal.BpmHigh) {
-      // TODO: show some kind of helpful error message to the user
-      return;
-    }
-
-    // If there are already tracks don't add one
-    var tracks = Playlists.getPlaylistGoalTracks(self.currentgoal.ArrayId);
-    if (tracks.length > 0) {
-      return;
-    }
-
-    Playlists.trackDropped(self.currentgoal.ArrayId, track);
-    this.playlistTracksLength = Playlists.getPlaylistLength();
-    self.checkAllGoalsHaveTracks();
-
-    // Show the Goals container
-    self.showGoalsContainer();
   };
 
   // Remove a track from a goal playlist
@@ -172,7 +152,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   /* Hide the submit button if we're editing a playlist and not every goal has a track */
-  this.checkWhenEditingEveryGoalHasATrack = function() {
+  this.checkWhenEditingEveryGoalHasATrack = function () {
     if (!self.newPlaylist) {
       if (!self.checkAllGoalsHaveTracks()) {
         return false;
@@ -185,8 +165,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Editing a playlist but not all tracks have goals
       return 'Each goal needs a track';
-    }
-    else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength()) {
+    } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength()) {
       return 'Save and continue later';
     }
     return 'Next: preview my ride';
