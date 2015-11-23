@@ -16,7 +16,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PLAYLIST_4': 'Review & save',
     'PLAYLIST_5': 'Send to club',
     'CLASS_GIVE_NAME': 'Give your class a name...',
-    'DRAG_DROP_TRACK': 'Drag and drop your track here',
+    'DRAG_DROP_TRACK': 'Add a track',
     'PLAY': 'Play',
     'BPM': 'BPM',
     'RPM': 'RPM',

@@ -20,9 +20,8 @@
     </div>
   </div>
   <div class="row playlist-container">
-    <div class="small-9 columns goals-container">
+    <div class="small-10 small-centered columns goals-container" ng-show="playlist_edit.goalsContainerVisible">
       <div class="row goal-name">
-        <div class="small-18 columns">
           <div class="row ride-type" sticky-header>
             <div class="small-2 columns">
               &nbsp;
@@ -39,7 +38,6 @@
               &nbsp;
             </div>
           </div>
-        </div>
       </div>
       <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder'">
         <div class="small-2 columns">
@@ -50,8 +48,8 @@
             <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">{{playlistGoal.Goal.Name}}</h4>
           </div>
           <div class="row" ng-show="playlistGoal.show">
-            <div class="bin" ng-class="{'dropped' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}" id="bin{{playlistGoal.ArrayId}}" droppable>
-              <div class="empty-text" ng-show="playlistGoal.show">{{'DRAG_DROP_TRACK' | translate}}</div>
+            <div class="bin" ng-class="{'dropped' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}" id="bin{{playlistGoal.ArrayId}}">
+              <div class="empty-text" ng-show="playlistGoal.show" ng-click="playlist_edit.showTracksContainer(true)">{{'DRAG_DROP_TRACK' | translate}}</div>
               <div class="row track dropped" id="playlist{{playlistGoal.Id}}{{track.Track.MusicProviderTrackId}}" data-ng-repeat="track in playlistGoal.PlaylistGoalTracks">
                 <div class="large-1 small-1 columns play" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_edit.playTrack(track.Track);" ng-class="{'playing': track.Track.playing}">
                   <a href="#">{{'PLAY' | translate}}</a>
@@ -98,9 +96,9 @@
         </div>
       </div>
     </div>
-    <div class="small-9 columns tracks" sticky-header>
+    <div class="small-10 small-centered columns tracks" ng-show="playlist_edit.tracksContainerVisible">
       <div class="row chunk">
-        &nbsp;
+        <a class="joyride-close-tip" ng-click="playlist_edit.showGoalsContainer()">×</a>
       </div>
       <div class="row">
         <div class="small-1 columns">
@@ -126,7 +124,7 @@
             </div>
           </div>
           <div class="track-search-results">
-            <div class="row track" draggable id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in playlist_edit.tracks">
+            <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in playlist_edit.tracks">
               <div class="small-1 columns play" ng-click="playlist_edit.playTrack(track);" ng-class="{'playing': track.playing}">
                 <a href="#">{{'PLAY' | translate}}</a>
               </div>

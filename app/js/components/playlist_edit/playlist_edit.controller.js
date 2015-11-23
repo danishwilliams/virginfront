@@ -15,6 +15,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.tracks = Tracks.getTracks();
   this.currentgoal = Playlists.getCurrentGoal();
   this.playlistTracksLength = 0;
+  this.goalsContainerVisible = true; // If the goals container is visible
+  this.tracksContainerVisible = false; // If the tracks container is visible
 
   Playlists.setStep(2);
 
@@ -40,6 +42,18 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       }
     });
   }
+
+  // Show the goals container, and hide the tracks container
+  this.showGoalsContainer = function() {
+    self.goalsContainerVisible = true;
+    self.tracksContainerVisible = false;
+  };
+
+  // Show the tracks container, and hide the goals container
+  this.showTracksContainer = function($val) {
+    self.tracksContainerVisible = true;
+    self.goalsContainerVisible = false;
+  };
 
   this.playTrack = function (track) {
     Tracks.playTrack(track);
@@ -99,6 +113,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     Playlists.trackDropped(self.currentgoal.ArrayId, track);
     this.playlistTracksLength = Playlists.getPlaylistLength();
     self.checkAllGoalsHaveTracks();
+
+    // Show the Goals container
+    self.showGoalsContainer();
   };
 
   // Remove a track from a goal playlist
