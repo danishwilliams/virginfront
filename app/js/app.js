@@ -6,6 +6,7 @@ angular
     "angularUUID2",
     "MassAutoComplete",
     "pascalprecht.translate",
+    "mm.foundation",
     "restangular",
     "app.admin",
     "app.beats",
