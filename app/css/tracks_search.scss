@@ -111,6 +111,14 @@
   }
 }
 
+.bpm-range {
+  background-color: $blue;
+  color: $white;
+  border-radius: 15px;
+  padding: rem-calc(10px) rem-calc(15px) rem-calc(10px) rem-calc(15px);
+  margin-right: rem-calc(10px);
+}
+
 .play {
   cursor: default;
   text-indent: -2000px;
