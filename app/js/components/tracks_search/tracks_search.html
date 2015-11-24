@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="track-search-results">
-        <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="{'out-of-bpm-range' : vm.outOfBpmRange(track.Bpm)}">
+        <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
           <div class="small-1 columns">
             <button class="play" ng-class="{'playing': track.playing}" ng-click="vm.playTrack(track);" ng-disabled="{{vm.outOfBpmRange(track.Bpm)}}">{{'PLAY' | translate}}</button>
           </div>

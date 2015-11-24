@@ -73,6 +73,9 @@
   border-bottom: 2px solid $grey_dark;
   background-color: $grey_black;
   color: $white;
+  &.in-bpm-range:hover {
+    background-color: $blue_dark;
+  }
   .columns {
     padding-left: rem-calc(10px);
     padding-right: rem-calc(10px);
@@ -93,7 +96,7 @@
     text-align: right;
   }
   .bpm {
-    color: $blue_dark;
+    color: $blue;
   }
   .time {
     font-weight: bold;
@@ -148,6 +151,10 @@ button.play, button.add {
     background-color: $grey_dark;
     font-weight: lighter;
   }
+}
+
+.in-bpm-range:hover button.play {
+  background-color: $blue_dark;
 }
 
 button.add {
