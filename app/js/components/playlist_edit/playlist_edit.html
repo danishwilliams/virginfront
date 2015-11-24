@@ -19,7 +19,12 @@
       <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder'">
         <div class="goal-container" ng-class="{'active': playlist_edit.isGoalActive(playlistGoal)}">
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
-            <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">{{playlistGoal.Goal.Name}}</h4>
+            <div class="large-10 columns">
+              <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">{{playlistGoal.Goal.Name}}</h4>
+            </div>
+            <div class="large-8 columns text-right">
+              <a ng-show="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length === 0">+ Add a song</a>
+            </div>
           </div>
           <div class="row" ng-show="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0">
             <div class="bin" ng-class="{'dropped' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}" id="bin{{playlistGoal.ArrayId}}">
