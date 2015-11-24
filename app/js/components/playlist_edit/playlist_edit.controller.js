@@ -70,7 +70,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     if (playlistGoal.show) {
       // User has clicked on an open, unselected goal, so don't collapse it
 
-      if (self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
+      if (self.currentgoal.PlaylistGoalId === playlistGoal.Id && playlistGoal.PlaylistGoalTracks.length > 0) {
         // Collapse this open and selected goal
         playlistGoal.show = !playlistGoal.show;
       }
