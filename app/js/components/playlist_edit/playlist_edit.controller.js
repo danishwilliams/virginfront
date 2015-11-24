@@ -37,10 +37,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Show the track search modeal
   this.showTracksModal = function (playlistGoal) {
-    // User has clicked an unselected goal
-    if (playlistGoal.Id !== self.currentgoal.PlaylistGoalId) {
-      self.goalClicked(playlistGoal);
-    }
     var modalInstance = $modal.open({
       templateUrl: '../js/components/tracks_search/tracks_search.html',
       controller: 'Tracks_searchController',
@@ -71,10 +67,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * @param goal
    */
   this.goalClicked = function (playlistGoal) {
-    // User has clicked on an open, unselected goal, so don't collapse it
     if (playlistGoal.show) {
-      // Collapse this open and selected goal
+      // User has clicked on an open, unselected goal, so don't collapse it
+
       if (self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
+        // Collapse this open and selected goal
         playlistGoal.show = !playlistGoal.show;
       }
     } else {
@@ -84,6 +81,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     Playlists.setCurrentGoal(playlistGoal);
     // Why isn't this automatically happening due to setting this earlier? i.e. this isn't data bound...
     self.currentgoal = Playlists.getCurrentGoal();
+
+    // If there aren't any tracks, find some!
+    if (playlistGoal.PlaylistGoalTracks.length === 0) {
+      self.showTracksModal(playlistGoal);
+    }
   };
 
   /**
