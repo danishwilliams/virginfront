@@ -21,9 +21,8 @@
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
             <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">{{playlistGoal.Goal.Name}}</h4>
           </div>
-          <div class="row" ng-show="playlistGoal.show">
+          <div class="row" ng-show="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0">
             <div class="bin" ng-class="{'dropped' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}" id="bin{{playlistGoal.ArrayId}}">
-              <div class="empty-text" ng-show="playlistGoal.show" ng-click="playlist_edit.showTracksModal(playlistGoal)">{{'DRAG_DROP_TRACK' | translate}}</div>
               <div class="row track dropped" id="playlist{{playlistGoal.Id}}{{track.Track.MusicProviderTrackId}}" data-ng-repeat="track in playlistGoal.PlaylistGoalTracks">
                 <div class="large-1 small-1 columns play" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_edit.playTrack(track.Track);" ng-class="{'playing': track.Track.playing}">
                   <a href="#">{{'PLAY' | translate}}</a>
