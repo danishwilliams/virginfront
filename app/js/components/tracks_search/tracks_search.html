@@ -22,21 +22,24 @@
           <div class="small-1 columns">
             <button class="play" ng-class="{'playing': track.playing}" ng-click="vm.playTrack(track);" ng-disabled="{{vm.outOfBpmRange(track.Bpm)}}">{{'PLAY' | translate}}</button>
           </div>
-          <div class="small-9 columns">
-            <span class="track-name">{{track.Name | limitTo : 80}}<span ng-if="track.Name.length > 80">&hellip;</span></span>
-            <span class="artist">{{track.Artist}}</span>
-          </div>
-          <div class="small-3 columns show-for-medium-up genre">
-            &nbsp;{{track.Genre.Name}}
-          </div>
-          <div class="small-2 columns bpm">
-            {{track.Bpm}} {{'BPM' | translate}}
-          </div>
-          <div class="small-2 columns text-right time">
-            {{track.DurationSeconds | minutes}}
-          </div>
-          <div class="small-1 columns">
-            <button class="add" ng-click="vm.addTrack(track)" ng-disabled="{{vm.outOfBpmRange(track.Bpm)}}">+</button>
+          <div ng-class="{'selectable' : !vm.outOfBpmRange(track.Bpm)}" ng-click="vm.addTrack(track)">
+            <div class="small-9 columns">
+              <span class="track-name">{{track.Name | limitTo : 80}}</span>
+              <span ng-if="track.Name.length > 80">&hellip;</span>
+              <span class="artist">{{track.Artist}}</span>
+            </div>
+            <div class="small-3 columns show-for-medium-up genre">
+              &nbsp;{{track.Genre.Name}}
+            </div>
+            <div class="small-2 columns bpm">
+              {{track.Bpm}} {{'BPM' | translate}}
+            </div>
+            <div class="small-2 columns text-right time">
+              {{track.DurationSeconds | minutes}}
+            </div>
+            <div class="small-1 columns">
+              <button class="add" ng-disabled="{{vm.outOfBpmRange(track.Bpm)}}">+</button>
+            </div>
           </div>
         </div>
       </div>
