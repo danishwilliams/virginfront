@@ -17,9 +17,9 @@
         </div>
       </div>
       <div class="track-search-results">
-        <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks">
-          <div class="small-1 columns play" ng-click="vm.playTrack(track);" ng-class="{'playing': track.playing}">
-            <a href="#">{{'PLAY' | translate}}</a>
+        <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="{'out-of-bpm-range' : vm.outOfBpmRange(track.Bpm)}">
+          <div class="small-1 columns" ng-class="{'playing': track.playing}">
+            <button class="play" ng-click="vm.playTrack(track);" ng-disabled="{{vm.outOfBpmRange(track.Bpm)}}">{{'PLAY' | translate}}</button>
           </div>
           <div class="small-9 columns">
             <span class="track-name">{{track.Name | limitTo : 80}}<span ng-if="track.Name.length > 80">&hellip;</span></span>
@@ -34,8 +34,8 @@
           <div class="small-2 columns text-right time">
             {{track.DurationSeconds | minutes}}
           </div>
-          <div class="small-1 columns add">
-            <a ng-click="vm.addTrack(track)">+</a>
+          <div class="small-1 columns">
+            <button class="add" ng-click="vm.addTrack(track)" ng-disabled="{{vm.outOfBpmRange(track.Bpm)}}">+</button>
           </div>
         </div>
       </div>

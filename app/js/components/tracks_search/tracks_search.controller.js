@@ -1,29 +1,13 @@
 angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($scope, $modalInstance, goal, Tracks, Playlists) {
   var self = this;
-  //$scope.track = track;
-  self.items = ['item1', 'item2', 'item3'];
 
-  self.currentgoal = goal;
+  this.currentgoal = goal;
   this.tracks = Tracks.getTracks();
-
-  /*
-  this.selected = {
-    item: self.items[0]
-  };
-  */
-
-  //this.currentgoal = Playlists.getCurrentGoal();
 
   // Load tracks from the user's default genre selection
   Tracks.loadUserGenresTracks().then(function (data) {
     self.tracks = data;
   });
-
-  this.ok = function () {
-    var track = {id: 'soemthing', value: 'some value'};
-    //$modalInstance.close(self.selected.item);
-    $modalInstance.close(track);
-  };
 
   this.cancel = function () {
     $modalInstance.dismiss('cancel');
@@ -33,6 +17,13 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     Tracks.searchTracks(self.search).then(function (data) {
       self.tracks = data;
     });
+  };
+
+  this.outOfBpmRange = function (bpm) {
+    if (bpm < this.currentgoal.BpmLow || bpm > this.currentgoal.BpmHigh) {
+      return true;
+    }
+    return false;
   };
 
   this.playTrack = function (track) {
@@ -55,5 +46,4 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     // Close the modal, and send the chosen track back to the playlist_edit controller
     $modalInstance.close(track);
   };
-
 });
