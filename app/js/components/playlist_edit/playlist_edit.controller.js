@@ -51,7 +51,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
     modalInstance.result.then(function (track) {
       Playlists.trackDropped(self.currentgoal.ArrayId, track);
-      this.playlistTracksLength = Playlists.getPlaylistLength();
+      self.playlistTracksLength = Playlists.getPlaylistLength();
       self.checkAllGoalsHaveTracks();
     }, function () {
       //$log.info('Modal dismissed at: ' + new Date());
