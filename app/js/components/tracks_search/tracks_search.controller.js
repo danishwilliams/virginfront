@@ -44,7 +44,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
 
   // Add a track to a goal self. If it passes our checks, call addTrackSuccess
   this.addTrack = function (track) {
-    if (track.Bpm < self.currentgoal.BpmLow || track.Bpm > self.currentgoal.BpmHigh) {
+    if (self.outOfBpmRange(track.Bpm)) {
       // TODO: show some kind of helpful error message to the user
       return;
     }
