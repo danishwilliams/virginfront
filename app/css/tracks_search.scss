@@ -3,7 +3,7 @@
   max-width: 100%;
   top: 0px !important;
   position: fixed;
-  background-color: $grey_dark;
+  background-color: rgba($grey_dark, 0.97);
   .joyride-close-tip {
     font-size: xx-large;
   }
@@ -19,7 +19,6 @@
 
 .tracks {
   color: $white;
-  background: $grey_dark;
   max-width: rem-calc(1050px);
   &.fixed {
     position: fixed;
@@ -71,7 +70,6 @@
   padding-bottom: rem-calc(10px);
   line-height: 18px;
   border-bottom: 2px solid $grey_dark;
-  background-color: $grey_black;
   color: $white;
   &.in-bpm-range:hover {
     background-color: $blue_dark;
@@ -136,6 +134,7 @@
 
 button.play, button.add {
   border: none;
+  outline:none;
   background-color: $grey_dark;
   padding: 0;
   margin: 0;
