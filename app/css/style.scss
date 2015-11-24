@@ -192,7 +192,6 @@ input[type="text"].class_name {
     padding: rem-calc(10px) rem-calc(20px) rem-calc(0px) rem-calc(20px);
     background-color: $grey_light;
     &.active {
-      background-color: $white;
     }
   }
   .goal-name,
@@ -202,15 +201,14 @@ input[type="text"].class_name {
     min-height: 40px;
   }
   .goal-name a {
-    line-height: 1.8;
-    font-size: $h4-font-size;
+    line-height: 2.2;
+    font-size: $label-font-size;
   }
   .bpm {
     line-height: rem-calc(45px);
     text-align: right;
   }
   .active {
-    border: 2px solid $red;
   }
 }
 
