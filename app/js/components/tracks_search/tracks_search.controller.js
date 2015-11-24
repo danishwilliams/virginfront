@@ -4,6 +4,13 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   this.currentgoal = goal;
   this.tracks = Tracks.getTracks();
 
+  // Set up addition bpm range
+  if (this.currentgoal.BpmLow < 90) {
+    this.bpm2 = true;
+    this.bpmLow2 = this.currentgoal.BpmLow * 2;
+    this.bpmHigh2 = this.currentgoal.BpmHigh * 2;
+  }
+
   // Load tracks from the user's default genre selection
   Tracks.loadUserGenresTracks().then(function (data) {
     self.tracks = data;
@@ -20,10 +27,15 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   };
 
   this.outOfBpmRange = function (bpm) {
-    if (bpm < this.currentgoal.BpmLow || bpm > this.currentgoal.BpmHigh) {
-      return true;
+    $in_range = false;
+    if (self.bpm2 === true) {
+      if ((bpm >= this.currentgoal.BpmLow && bpm <= this.currentgoal.BpmHigh) || (bpm >= self.bpmLow2 && bpm <= self.bpmHigh2)) {
+        $in_range = true;
+      }
+    } else if (bpm >= this.currentgoal.BpmLow && bpm <= this.currentgoal.BpmHigh) {
+      return $in_range;
     }
-    return false;
+    return !$in_range;
   };
 
   this.playTrack = function (track) {
