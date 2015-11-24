@@ -10,6 +10,7 @@ function goalOption() {
     controller: goalOptionController,
     controllerAs: 'vm',
     scope: {
+      length: '@',
       bpm: '@',
       goaloptiondata: '@'
     }
@@ -26,6 +27,11 @@ function goalOptionController($scope) {
   // Immensely hacky, but I couldn't figure out how to pass bpm AND goaloptions together. The latter comes through as a string,
   // and converting the string to an object doesn't actually results in showing the data in the template. Bizarrely. *shrug*
   $scope.goaloption = JSON.parse($scope.goaloptiondata);
+
+  // Only show the name of goaloptions if there are more than 1
+  if (parseInt($scope.length) === 1) {
+    $scope.goaloption.Name = '';
+  }
 
   if ($scope.goaloption.EffortHigh) {
     $scope.goaloption.effort = $scope.goaloption.Effort + ' - ' + $scope.goaloption.EffortHigh;
