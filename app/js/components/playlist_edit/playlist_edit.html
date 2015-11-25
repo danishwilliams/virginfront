@@ -1,4 +1,6 @@
-<div class="edit-playlist">
+<div ui-view></div>
+
+<div class="edit-playlist" style="overflow: hidden; height: 100vh;">
   <playlist-workflow ng-if="playlist_edit.newPlaylist"></playlist-workflow>
   <h1 class="text-center">{{playlist_edit.title}}</h1>
 

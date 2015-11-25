@@ -14,6 +14,7 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
   self.audio = new Audio(); // An audio object for playing a track
   self.audio.preload = "none";
   self.currentPlayingTrack = {}; // The track which is currently playing
+  self.selectedSearchedTrack = {}; // A track which has been selected from a search
 
   // When navigating away from any place where a track might be playing, stop it from playing
   $rootScope.$on('$locationChangeStart', function (event, next, prev) {
@@ -29,6 +30,8 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
     stopTrack: stopTrack,
     getTrackCurrentTime: getTrackCurrentTime,
     getCurrentlyPlayingTrack: getCurrentlyPlayingTrack,
+    getSearchedTrack: getSearchedTrack,
+    setSearchedTrack: setSearchedTrack,
     loadDownloadUrl: loadDownloadUrl,
     postTrackUsage: postTrackUsage
   };
@@ -219,6 +222,14 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
 
   function getCurrentlyPlayingTrack() {
     return self.currentPlayingTrack;
+  }
+
+  function getSearchedTrack() {
+    return self.selectedSearchedTrack;
+  }
+
+  function setSearchedTrack(track) {
+    self.selectedSearchedTrack = track;
   }
 
   /**

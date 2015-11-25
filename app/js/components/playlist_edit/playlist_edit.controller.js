@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $state, $location, $window, $modal, AuthenticationService, Tracks, Playlists, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $state, $rootScope, $location, $window, AuthenticationService, Tracks, Playlists, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -17,6 +17,19 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   Playlists.setStep(2);
 
+  $rootScope.$on('$stateChangeSuccess', function () {
+    if ($state.current.name === 'playlist-edit' || $state.current.name === 'playlist-edit') {
+      // User has just selected a track from track search to add to a goal
+      var track = Tracks.getSearchedTrack();
+      if (!_.isEmpty(track)) {
+        Playlists.trackDropped(self.currentgoal.ArrayId, track);
+        self.playlistTracksLength = Playlists.getPlaylistLength();
+        self.checkAllGoalsHaveTracks();
+        Tracks.setSearchedTrack({});
+      }
+    }
+  });
+
   // Create new playlist
   if ($location.path().substring(0, 15) === '/playlists/new/') {
     Templates.loadTemplate(self.id).then(function (data) {
@@ -34,29 +47,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       }
     });
   }
-
-  // Show the track search modeal
-  this.showTracksModal = function (playlistGoal) {
-    var modalInstance = $modal.open({
-      templateUrl: '../js/components/tracks_search/tracks_search.html',
-      controller: 'Tracks_searchController',
-      controllerAs: 'vm',
-      windowClass: 'tracks-modal',
-      resolve: {
-        goal: function () {
-          return self.currentgoal;
-        }
-      }
-    });
-
-    modalInstance.result.then(function (track) {
-      Playlists.trackDropped(self.currentgoal.ArrayId, track);
-      self.playlistTracksLength = Playlists.getPlaylistLength();
-      self.checkAllGoalsHaveTracks();
-    }, function () {
-      //$log.info('Modal dismissed at: ' + new Date());
-    });
-  };
 
   this.playTrack = function (track) {
     Tracks.playTrack(track);
@@ -84,7 +74,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
     // If there aren't any tracks, find some!
     if (playlistGoal.PlaylistGoalTracks.length === 0) {
-      self.showTracksModal(playlistGoal);
+      $state.go('playlist-edit.tracks-search');
     }
   };
 

@@ -3,11 +3,13 @@
   max-width: 100%;
   top: 0px !important;
   position: fixed;
+  padding: 0;
   background-color: rgba($grey_dark, 0.97);
   .joyride-close-tip {
     font-size: xx-large;
   }
   height: 100vh;
+  overflow: scroll;
 }
 
 @media #{$small-only} { 

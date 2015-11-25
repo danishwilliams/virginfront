@@ -185,6 +185,12 @@ angular
       controller: 'Playlist_editController as playlist_edit'
     })
 
+    .state('playlist-edit.tracks-search', {
+      url: '/tracks',
+      templateUrl: '../js/components/tracks_search/tracks_search.html',
+      controller: 'Tracks_searchController as vm'
+    })
+
     // Choose a template
     .state('playlist-new-template', {
       url: '/playlists/new',
