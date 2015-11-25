@@ -17,6 +17,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   });
 
   this.cancel = function () {
+    Tracks.stopTrack();
     $modalInstance.dismiss('cancel');
   };
 

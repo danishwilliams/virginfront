@@ -17,11 +17,7 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
 
   // When navigating away from any place where a track might be playing, stop it from playing
   $rootScope.$on('$locationChangeStart', function (event, next, prev) {
-    if (self.currentPlayingTrack.playing === true) {
-      playTrack(self.currentPlayingTrack);
-    }
-    self.currentPlayingTrack = {};
-    cancelTimer();
+    self.stopTrack();
   });
 
   var tracksFactory = {
@@ -30,6 +26,7 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
     addTrack: addTrack,
     getTracks: getTracks,
     playTrack: playTrack,
+    stopTrack: stopTrack,
     getTrackCurrentTime: getTrackCurrentTime,
     getCurrentlyPlayingTrack: getCurrentlyPlayingTrack,
     loadDownloadUrl: loadDownloadUrl,
@@ -169,6 +166,14 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
       track.currentTime = parseInt(self.audio.currentTime);
     }, 100);
     self.audio.play();
+  }
+
+  function stopTrack() {
+    if (self.currentPlayingTrack.playing === true) {
+      playTrack(self.currentPlayingTrack);
+    }
+    self.currentPlayingTrack = {};
+    cancelTimer();
   }
 
   function playEnded(track, sortOrder) {
