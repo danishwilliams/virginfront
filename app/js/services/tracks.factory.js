@@ -17,7 +17,7 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
 
   // When navigating away from any place where a track might be playing, stop it from playing
   $rootScope.$on('$locationChangeStart', function (event, next, prev) {
-    self.stopTrack();
+    stopTrack();
   });
 
   var tracksFactory = {
