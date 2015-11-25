@@ -7,6 +7,7 @@
   .joyride-close-tip {
     font-size: xx-large;
   }
+  height: 100vh;
 }
 
 @media #{$small-only} { 
@@ -28,7 +29,7 @@
 
   .track-search-results {
     overflow: scroll;
-    height: 100vh;
+    height: 70vh;
   }
 
   h1 {
