@@ -123,8 +123,14 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Save the playlist to the API
   this.savePlaylist = function () {
-    if (!self.checkWhenEditingEveryGoalHasATrack()) {
+    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
+      // Probably hit 'enter' in the ride name inputbox
       return;
+    }
+    if (self.checkAllGoalsHaveTracks()) {
+      self.playlist.Complete = true;
+    } else {
+      self.playlist.Complete = false;
     }
 
     self.playlist.put({
