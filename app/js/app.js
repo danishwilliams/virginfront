@@ -260,8 +260,14 @@ angular
       controller: 'UsersController as users'
     })
 
+    .state('user', {
+      url: '/user',
+      templateUrl: '../js/components/user/user.html',
+      controller: 'UserController as user'
+    })
+
     .state('users', {
-      url: '/user/:id',
+      url: '/users/:id',
       templateUrl: '../js/components/user/user.html',
       controller: 'UserController as user'
     })
