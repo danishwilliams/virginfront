@@ -172,7 +172,10 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength()) {
       return 'Save and continue later';
     }
-    return 'Next: preview my ride';
+    if (self.newPlaylist) {
+      return 'Next: preview my ride';
+    }
+    return 'Update changes';
   };
 
   var onLogoutSuccess = function (response) {
