@@ -60,7 +60,9 @@ input[type="text"].class_name {
     border: 1px solid $grey_lighter;
     padding: rem-calc(10px) rem-calc(20px) rem-calc(0px) rem-calc(20px);
     background-color: $grey_light;
-    &.active {
+    &.active {}
+    textarea {
+      resize: none;
     }
   }
   .goal-name,
@@ -77,8 +79,7 @@ input[type="text"].class_name {
     line-height: rem-calc(45px);
     text-align: right;
   }
-  .active {
-  }
+  .active {}
 }
 
 #track-name {
@@ -144,10 +145,15 @@ input[type="text"].class_name {
 goal_option {
   display: block;
   background: $grey_lighter;
-  color: $grey_light;
+  color: $grey;
   padding: 10px 20px 10px 20px;
   border-radius: 6px;
+  .beat {
+    font-style: italic;
+  }
   em {
+    font-style: normal;
+    font-weight: bold;
     color: $grey_black;
   }
   hr {
