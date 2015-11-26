@@ -13,7 +13,7 @@
       </div>
       <div class="row goal-name ride-type" sticky-header>
         <div>
-          <div class="icon"><img src="/img/playlists/{{playlist_edit.playlist.IconFileName}}"></div>
+          <div class="icon"><img src="/img/playlists/{{playlist_edit.playlist.TemplateIconFileName}}"></div>
           <h2 ng-bind-html="playlist_edit.playlist.TemplateName"></h2> {{playlist_edit.playlist.ClassLengthMinutes}}:00
           <span class="length" ng-class="{'error': !playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()}"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
           <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
