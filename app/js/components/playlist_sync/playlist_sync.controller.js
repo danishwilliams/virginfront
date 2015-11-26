@@ -1,4 +1,4 @@
-angular.module("app.playlist_sync", []).controller('Playlist_syncController', function ($stateParams, $location, $state, AuthenticationService, Playlists) {
+angular.module("app.playlist_sync", []).controller('Playlist_syncController', function ($stateParams, $location, $state, AuthenticationService, Playlists, Users, Gyms) {
   var self = this;
 
   // TODO: do we want to sanitize this?
@@ -7,7 +7,41 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
   this.title = "Sync a Ride";
   Playlists.setStep(5);
 
+  Users.loadCurrentUser().then(function (data) {
+    self.user = data;
+    loadGyms();
+  });
+
+  function loadGyms() {
+    // Load all gyms
+    Gyms.loadGyms().then(function (data) {
+      self.gyms = data;
+      // Mark the user gyms which have been chosen
+      _.mapObject(self.gyms, function (val, key) {
+        if (key >= 0) {
+          var item = _.find(self.user.UserGyms, function (item) {
+            return item.Gym.Name === val.Name;
+          });
+          if (item) {
+            val.selected = true;
+          }
+        }
+        return val;
+      });
+    });
+  }
+
+  // Save playlist to selected gyms
+  function addPlaylistToGym() {
+    self.gyms.forEach(function (val) {
+      if (val.selected) {
+        Playlists.addPlaylistToGym(self.id, val.Id);
+      }
+    });
+  }
+
   self.publishPlaylist = function () {
+    addPlaylistToGym();
     Playlists.publishPlaylist(self.id).then(function (data) {
       $state.go('dashboard');
     });

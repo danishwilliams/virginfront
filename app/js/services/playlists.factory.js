@@ -33,6 +33,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getPlaylists: getPlaylists,
     loadPlaylist: loadPlaylist,
     getPlaylist: getPlaylist,
+    addPlaylistToGym: addPlaylistToGym,
     publishPlaylist: publishPlaylist,
     publishPlaylistToMusicProvider: publishPlaylistToMusicProvider,
     getGoalPlaylist: getGoalPlaylist,
@@ -168,6 +169,14 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   // Returns the entire playlist
   function getPlaylist() {
     return playlist;
+  }
+
+  function addPlaylistToGym(playlistId, gymId) {
+    return Restangular.one('playlists/gym/' + playlistId, gymId).post().then(addPlaylistToGymComplete);
+
+    function addPlaylistToGymComplete(data, status, headers, config) {
+      return data;
+    }
   }
 
   function publishPlaylist(id) {

@@ -1,12 +1,14 @@
 <div class="view-playlist">
   <playlist-workflow></playlist-workflow>
   <div class="row">
-    <div class="large-12 large-centered columns">
-      <h2>Select which clubs you'd like to send your ride class to</h2>
-      <p>[insert here: default checklists list of clubs with nothing selected by default]</p>
-      <p>[can add more with an "add another"]</p>
-      <p><a ui-sref="dashboard" style="float:left">Skip and sync to club later</a></p>
+    <div class="large-12 large-centered columns text-center">
+      <h1>Send to your clubs</h1>
+      <p>Select which clubs you would like to send your ride class to. This will make sure that all of your music and notes will be available on the tablet in the studio when you arrive.</p>
+      <label ng-repeat="gym in playlist_sync.gyms | orderBy: 'Name'">
+        <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
+      </label>
+      <p><a ui-sref="dashboard" style="float:left">Save and continue later</a></p>
       <p>
-        <button class="round" ng-click="playlist_sync.publishPlaylist()" style="float:right">Sync now</button>
+        <button class="round" ng-click="playlist_sync.publishPlaylist()" style="float:right">Save and send to clubs</button>
     </div>
   </div>
