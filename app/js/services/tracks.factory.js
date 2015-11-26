@@ -156,9 +156,17 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
     self.audio.play();
   }
 
-  function stopTrack() {
+  /**
+   * Stops any track from playing, but if a specific track is specified and it's playing, then stop that.
+   */
+  function stopTrack(track) {
     if (self.currentPlayingTrack.playing === true) {
-      playTrack(self.currentPlayingTrack);
+      if (track) {
+        playTrack(track);
+      }
+      else {
+        playTrack(self.currentPlayingTrack);
+      }
     }
     self.currentPlayingTrack = {};
     cancelTimer();

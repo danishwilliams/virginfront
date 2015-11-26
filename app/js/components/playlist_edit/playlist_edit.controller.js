@@ -97,6 +97,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     Playlists.removeTrackFromGoalPlaylist(playlistGoalArrayId, track);
     this.playlistTracksLength = Playlists.getPlaylistLength();
     self.checkAllGoalsHaveTracks();
+    Tracks.stopTrack(track.Track);
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + playlistGoalArrayId);
