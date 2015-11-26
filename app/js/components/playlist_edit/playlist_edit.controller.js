@@ -7,7 +7,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   self.title = "Edit your playlist";
   if (Playlists.getCreatingNewPlaylist() || $state.current.name === 'playlist-new-edit') {
     // We're creating a new playlist!
-    Playlists.setCreatingNewPlaylist();
+    Playlists.setCreatingNewPlaylist(true);
     self.newPlaylist = true;
     self.title = "Create your playlist";
   }
@@ -131,6 +131,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     } else {
       self.playlist.Complete = false;
     }
+
+    Playlists.setCreatingNewPlaylist(false);
 
     self.playlist.put({
       syncPlaylist: false

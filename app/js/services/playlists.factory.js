@@ -127,8 +127,8 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     addTrackToGoalPlaylist(playlistGoalArrayId, track);
   }
 
-  function setCreatingNewPlaylist() {
-    playlist.creatingNewPlaylist = true;
+  function setCreatingNewPlaylist(value) {
+    playlist.creatingNewPlaylist = value;
   }
 
   function getCreatingNewPlaylist() {
