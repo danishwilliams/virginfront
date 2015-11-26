@@ -1,0 +1,35 @@
+/* The steps at the top of the create playlist page */
+
+playlist-workflow .row {
+  border-bottom: 1px solid $grey_medium;
+}
+
+.workflow {
+  li span {
+    display: block;
+    float: left;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    color: $white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    padding: 3px 0 0 1px;
+  }
+  .completed {
+    span {
+      background: $red;
+    }
+  }
+  .upcoming {
+    span {
+      background: $grey_light;
+      color: $red;
+    }
+  }
+  div {
+    padding-top: 5px;
+    padding-left: 45px;
+  }
+}
