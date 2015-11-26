@@ -5,7 +5,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   this.tracks = Tracks.getTracks();
 
   if (this.currentgoal.BpmLow === 0) {
-    $state.go('playlist-edit', {id: $stateParams.id});
+    $state.go('^');
   }
 
   // Set up addition bpm range
@@ -22,7 +22,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
 
   this.cancel = function () {
     Tracks.stopTrack();
-    $state.go('playlist-edit', {id: $stateParams.id});
+    $state.go('^');
   };
 
   this.trackSearch = function () {
@@ -62,6 +62,6 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
 
     // Close the modal, and send the chosen track back to the playlist_edit controller
     Tracks.setSearchedTrack(track);
-    $state.go('^', {id: $stateParams.id});
+    $state.go('^');
   };
 });

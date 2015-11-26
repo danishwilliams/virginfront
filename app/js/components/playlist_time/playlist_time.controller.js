@@ -7,4 +7,6 @@ angular.module("app.playlist_time", []).controller('Playlist_timeController', fu
   Templates.loadTemplateGroupClasses(this.id).then(function (data) {
     self.templates = data.TemplateClassLength;
   });
+
+  Playlists.setCreatingNewPlaylist();
 });

@@ -14,6 +14,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   var playlist = [];
   var playlists = [];
   var goals = [];
+  playlist.creatingNewPlaylist = false;
 
   // The currently selected goal which tracks can be added to
   var currentgoal = {
@@ -29,6 +30,8 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     addTrackToGoalPlaylist: addTrackToGoalPlaylist,
     removeTrackFromGoalPlaylist: removeTrackFromGoalPlaylist,
     trackDropped: trackDropped,
+    getCreatingNewPlaylist: getCreatingNewPlaylist,
+    setCreatingNewPlaylist: setCreatingNewPlaylist,
     loadPlaylists: loadPlaylists,
     getPlaylists: getPlaylists,
     loadPlaylist: loadPlaylist,
@@ -122,6 +125,14 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     console.log('Track dropped! (' + track.Name + ') on goal ' + playlistGoalArrayId);
     // Update the playlist
     addTrackToGoalPlaylist(playlistGoalArrayId, track);
+  }
+
+  function setCreatingNewPlaylist() {
+    playlist.creatingNewPlaylist = true;
+  }
+
+  function getCreatingNewPlaylist() {
+    return playlist.creatingNewPlaylist;
   }
 
   // Returns the playlist for a specific goal

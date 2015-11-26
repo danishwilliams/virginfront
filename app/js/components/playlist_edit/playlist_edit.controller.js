@@ -5,8 +5,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   // TODO: do we want to sanitize this?
   this.id = $stateParams.id;
   self.title = "Edit your playlist";
-  if ($state.current.name === 'playlist-new-edit') {
+  if (Playlists.getCreatingNewPlaylist() || $state.current.name === 'playlist-new-edit') {
     // We're creating a new playlist!
+    Playlists.setCreatingNewPlaylist();
     self.newPlaylist = true;
     self.title = "Create your playlist";
   }
@@ -18,7 +19,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   Playlists.setStep(2);
 
   $rootScope.$on('$stateChangeSuccess', function () {
-    if ($state.current.name === 'playlist-edit') {
+    if ($state.current.name === 'playlist-edit' || $state.current.name === 'playlist-new-edit') {
       // User has just selected a track from track search to add to a goal
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
@@ -32,7 +33,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   });
 
   // Create new playlist
-  if ($location.path().substring(0, 15) === '/playlists/new/') {
+  if (self.newPlaylist) {
     Templates.loadTemplate(self.id).then(function (data) {
       self.playlist = Playlists.createNewPlaylistFromTemplate(data);
       self.currentgoal = Playlists.getCurrentGoal();
@@ -76,7 +77,12 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     // If there aren't any tracks, find some!
     if (playlistGoal.PlaylistGoalTracks.length === 0) {
       angular.element($document[0].body).addClass('noscroll');
-      $state.go('playlist-edit.tracks-search');
+      if (self.newPlaylist) {
+        $state.go('playlist-new-edit.tracks-search');
+      }
+      else {
+        $state.go('playlist-edit.tracks-search');
+      }
     }
   };
 

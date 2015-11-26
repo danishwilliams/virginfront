@@ -212,6 +212,12 @@ angular
       controller: 'Playlist_editController as playlist_edit'
     })
 
+    .state('playlist-new-edit.tracks-search', {
+      url: '/tracks',
+      templateUrl: '../js/components/tracks_search/tracks_search.html',
+      controller: 'Tracks_searchController as vm'
+    })
+
     // View the new playlist
     .state('playlist-new-view', {
       url: '/playlists/new/:id/view',
