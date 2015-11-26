@@ -38,13 +38,14 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
 
   return tracksFactory;
 
-  function loadUserGenresTracks() {
-    return Restangular.all('music/usergenres').getList().then(loadUserGenresTracksComplete);
+  function loadUserGenresTracks(bpmLow, bpmHigh) {
+    return Restangular.all('music/usergenres').getList({
+      bpmLow: bpmLow,
+      bpmHigh: bpmHigh
+    }).then(loadUserGenresTracksComplete);
 
     function loadUserGenresTracksComplete(data, status, headers, config) {
-      tracks = seedBpm(data);
-
-      self.userGenresTracks = tracks;
+      self.userGenresTracks = data;
       return self.userGenresTracks;
     }
   }
@@ -57,24 +58,8 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
     }).then(searchTracksComplete);
 
     function searchTracksComplete(data, status, headers, config) {
-      tracks = seedBpm(data);
-      return tracks;
+      return data;
     }
-  }
-
-  /**
-   * Give tracks some random BPM data
-   */
-  function seedBpm(tracks) {
-    // TODO: remove this once BPM data is available
-    _.mapObject(tracks, function (val, key) {
-      if (key >= 0) {
-        // Generate a fake BPM value
-        val.Bpm = Math.floor(Math.random() * 100) + 80;
-      }
-      return val;
-    });
-    return tracks;
   }
 
   function addTrack(track) {

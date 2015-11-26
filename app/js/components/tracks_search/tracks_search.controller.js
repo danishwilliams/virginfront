@@ -16,7 +16,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   }
 
   // Load tracks from the user's default genre selection
-  Tracks.loadUserGenresTracks().then(function (data) {
+  Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
     self.tracks = data;
   });
 
