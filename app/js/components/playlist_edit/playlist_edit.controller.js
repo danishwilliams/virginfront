@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $state, $rootScope, $location, $window, AuthenticationService, Tracks, Playlists, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $state, $rootScope, $location, $window, $document, AuthenticationService, Tracks, Playlists, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -18,7 +18,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   Playlists.setStep(2);
 
   $rootScope.$on('$stateChangeSuccess', function () {
-    if ($state.current.name === 'playlist-edit' || $state.current.name === 'playlist-edit') {
+    if ($state.current.name === 'playlist-edit') {
       // User has just selected a track from track search to add to a goal
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
@@ -27,6 +27,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
         self.checkAllGoalsHaveTracks();
         Tracks.setSearchedTrack({});
       }
+      angular.element($document[0].body).removeClass('noscroll');
     }
   });
 
@@ -74,6 +75,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
     // If there aren't any tracks, find some!
     if (playlistGoal.PlaylistGoalTracks.length === 0) {
+      angular.element($document[0].body).addClass('noscroll');
       $state.go('playlist-edit.tracks-search');
     }
   };
