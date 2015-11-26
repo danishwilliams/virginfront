@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $state, $rootScope, $location, $window, $document, AuthenticationService, Tracks, Playlists, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $state, $rootScope, $location, $document, AuthenticationService, Tracks, Playlists, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
