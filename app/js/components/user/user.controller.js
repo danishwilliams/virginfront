@@ -10,6 +10,13 @@ angular.module("app.user", []).controller('UserController', function ($statePara
       self.email = self.user.Email;
     });
   }
+  else {
+    Users.loadCurrentUser().then(function (data) {
+      self.user = data;
+      self.telephone = self.user.Telephone;
+      self.email = self.user.Email;
+    });
+  }
 
   this.saveContactDetails = function () {
     self.user.Telephone = self.telephone;
