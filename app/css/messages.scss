@@ -1,4 +1,12 @@
+.error {
+  background: $apricot;
+  color: $peach;
+  padding: rem-calc(20px);
+  font-style: normal;
+}
+
 span.error {
+  font-style: normal;
   color: $red;
   background: $pink;
   padding: 10px;
