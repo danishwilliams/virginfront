@@ -20,7 +20,7 @@
       <div class="track-search-results">
         <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
           <div class="small-1 columns">
-            <button class="play" ng-class="{'playing': track.playing}" ng-click="vm.playTrack(track);" ng-disabled="{{vm.outOfBpmRange(track.Bpm)}}">{{'PLAY' | translate}}</button>
+            <button class="play" ng-class="{'playing': track.playing}" ng-click="vm.playTrack(track);">{{'PLAY' | translate}}</button>
           </div>
           <div ng-class="{'selectable' : !vm.outOfBpmRange(track.Bpm)}" ng-click="vm.addTrack(track)">
             <div class="small-9 columns">
