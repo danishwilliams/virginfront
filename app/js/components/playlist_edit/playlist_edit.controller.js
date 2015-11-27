@@ -23,6 +23,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // User has just selected a track from track search to add to a goal
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
+        self.currentgoal = Playlists.getCurrentGoal(); // Fix: For some reason this isn't persisting on the 2nd time the user works with the playlist edit screen
         Playlists.trackDropped(self.currentgoal.ArrayId, track);
         self.playlistTracksLength = Playlists.getPlaylistLength();
         self.checkAllGoalsHaveTracks();
