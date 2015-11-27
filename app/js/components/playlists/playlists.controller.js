@@ -3,7 +3,7 @@ angular.module("app.playlists", []).controller('PlaylistsController', function (
 	this.playlists = Playlists.getPlaylists();
 	this.newplaylist = {};
 
-	Playlists.loadPlaylists(10).then(function(data) {
+	Playlists.loadPlaylists(100).then(function(data) {
 		self.playlists = data;
 	});
 
