@@ -35,6 +35,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getPlaylists: getPlaylists,
     loadPlaylist: loadPlaylist,
     getPlaylist: getPlaylist,
+    setPlaylist: setPlaylist,
     addPlaylistToGym: addPlaylistToGym,
     publishPlaylist: publishPlaylist,
     publishPlaylistToMusicProvider: publishPlaylistToMusicProvider,
@@ -176,6 +177,10 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   // Returns the entire playlist
   function getPlaylist() {
     return playlist;
+  }
+
+  function setPlaylist(value) {
+    playlist = value;
   }
 
   function addPlaylistToGym(playlistId, gymId) {
