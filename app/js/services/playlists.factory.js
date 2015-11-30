@@ -13,7 +13,6 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   var currentStep = 0; // Which step we're currently on
   var playlist = [];
   var playlists = [];
-  var goals = [];
   playlist.creatingNewPlaylist = false;
 
   // The currently selected goal which tracks can be added to
@@ -45,9 +44,6 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getPlaylistLength: getPlaylistLength,
     checkPlaylistLength: checkPlaylistLength,
     checkAllGoalsHaveTracks: checkAllGoalsHaveTracks,
-    loadGoals: loadGoals,
-    getGoals: getGoals,
-    setGoals: setGoals,
     getName: getName,
     setName: setName,
     getSteps: getSteps,
@@ -286,54 +282,6 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
       }
     });
     return !containsNoTrack;
-  }
-
-  function loadGoals() {
-    // TODO: this entire function is irrelevant. Should be something like loadTemplate(id) - and if we're not using that call here,
-    // then remove the Restangular injection. Something like Templates.getTemplate(id).then(loadTemplateComplete);
-    // TODO: move this call into some kind of persistent state
-    //var id = "170c717b-0fee-425f-8861-f1a5ca419900";
-    var id = "e3929bda-3587-4889-bfa8-60a28e9b03dc";
-    return Restangular.one('templates', id).get({
-      includeGoals: true
-    }).then(loadGoalsComplete);
-
-    //return $http.get('/api/1.0/templates/' + id).then(loadGoalsComplete); // When using local API
-
-    function loadGoalsComplete(data, status, headers, config) {
-      //data = data.data; // When using local API
-      var goals = data.Goals;
-      // Set the first goal as selected
-      var found = false;
-      _.mapObject(goals, function (val, key) {
-        if (!found && val.SortOrder === 1) {
-          found = true; // Only find a goal once
-          val.show = true;
-          var goal = val;
-          goal.ArrayId = key;
-          setCurrentGoal(goal);
-          return val;
-        }
-      });
-
-      self.goals = goals;
-      self.name = data.Name;
-
-      data.Goals = self.goals;
-
-      // Set up a placeholder playlist structure
-      setupEmptyPlaylist(self.goals);
-
-      return data;
-    }
-  }
-
-  function getGoals() {
-    return self.goals;
-  }
-
-  function setGoals(value) {
-    goals = value;
   }
 
   function getName() {
