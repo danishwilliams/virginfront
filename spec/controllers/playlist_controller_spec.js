@@ -80,11 +80,13 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
     this.createAnewPlaylist = function () {
       var playlist = this.Playlists.createNewPlaylistFromTemplate(this.playlistTemplate);
       this.Playlists.setPlaylist(playlist);
+      playlistController.newPlaylist = true;
       playlistController.playlist = this.Playlists.getPlaylist();
     };
 
     this.editPlaylist = function () {
       this.Playlists.setPlaylist(this.playlist);
+      playlistController.newPlaylist = false;
       playlistController.playlist = this.Playlists.getPlaylist();
     };
 
@@ -109,7 +111,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
 
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
 
-      expect(playlistController.playlistTracksLength).toEqual(300);
+      expect(playlistController.playlistTracksLength).toEqual(260);
     };
 
     this.testTrackCounterCorrectAfterAddingTwoSongs = function () {
@@ -118,7 +120,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
 
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
 
-      expect(playlistController.playlistTracksLength).toEqual(360);
+      expect(playlistController.playlistTracksLength).toEqual(320);
     };
 
     this.testTrackCounterCorrectAfterAddingManySongs = function () {
@@ -133,7 +135,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
 
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
 
-      expect(playlistController.playlistTracksLength).toEqual(1740);
+      expect(playlistController.playlistTracksLength).toEqual(1620);
     };
 
     this.testTrackCounterCorrectAfterAddingAndRemovingSongs = function () {
@@ -150,7 +152,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
 
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
 
-      expect(playlistController.playlistTracksLength).toEqual(1380);
+      expect(playlistController.playlistTracksLength).toEqual(1300);
     };
 
 
@@ -165,7 +167,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       "Album": "Hello",
       "Artist": "Adele",
       "Bpm": 82,
-      "DurationSeconds": 300,
+      "DurationSeconds": 260,
       "Source": "http://l3.simfyafrica.com/data/3/7/a/9/37a96fa3f8ac31e10d7c24eb984c74c3?nvb=20151129210306&nva=20151202070415&encoded=0e3ece39d05351c826b15",
       "CoverImgUrl": "http://www.simfy.co.za/photos/tracks/54525247/320.jpg",
       "MusicProviderTrackId": "54525247",
@@ -1465,6 +1467,208 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       this.editPlaylist();
       this.createAnewPlaylist();
       this.testTrackCounterCorrectAfterAddingAndRemovingSongs();
+    });
+
+  });
+
+  describe('[New playlist] Checking submit button text', function () {
+
+    beforeEach(inject(function () {
+      this.createAnewPlaylist();
+    }));
+
+    it('Playlist contains no tracks', function () {
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(false);
+      expect(playlistController.checkPlaylistLength()).toBe(false);
+      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+    });
+
+    it('Playlist contains some tracks', function () {
+      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
+      playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(false);
+      expect(playlistController.checkPlaylistLength()).toBe(false);
+      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+    });
+
+    it('Playlist has a track per goal: total time too short', function () {
+      this.Playlists.addTrackToGoalPlaylist(0, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(1, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(2, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(3, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(4, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(5, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(6, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(7, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(8, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(9, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(10, this.trackShort);
+      playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
+      expect(playlistController.checkPlaylistLength()).toBe(false);
+      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+    });
+
+    it('Playlist has a track per goal: total time is good', function () {
+      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(1, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(6, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(7, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(8, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(9, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(10, this.trackNormal);
+      playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
+      expect(playlistController.checkPlaylistLength()).toBe(true);
+      expect(playlistController.submitButtonText()).toEqual('Next: preview my ride');
+    });
+
+    it('Playlist has a track per goal: total time too long', function () {
+      this.Playlists.addTrackToGoalPlaylist(0, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(1, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(2, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(3, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(4, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(5, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(6, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(7, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(8, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(9, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(10, this.trackLong);
+      playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
+      expect(playlistController.checkPlaylistLength()).toBe(false);
+      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+    });
+
+  });
+
+  describe('[Edited playlist] Checking submit button text', function () {
+
+    beforeEach(inject(function () {
+      this.editPlaylist();
+    }));
+
+    it('Playlist contains no tracks', function () {
+      playlistController.removeTrack(0, this.trackNormal);
+      playlistController.removeTrack(1, this.trackNormal);
+      playlistController.removeTrack(2, this.trackNormal);
+      playlistController.removeTrack(3, this.trackNormal);
+      playlistController.removeTrack(4, this.trackNormal);
+      playlistController.removeTrack(5, this.trackNormal);
+      playlistController.removeTrack(6, this.trackNormal);
+      playlistController.removeTrack(7, this.trackNormal);
+      playlistController.removeTrack(8, this.trackNormal);
+      playlistController.removeTrack(9, this.trackNormal);
+      playlistController.removeTrack(10, this.trackNormal);
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(false);
+      expect(playlistController.checkPlaylistLength()).toBe(false);
+      expect(playlistController.submitButtonText()).toEqual('Each goal needs a track');
+    });
+
+    it('Playlist contains some tracks', function () {
+      playlistController.removeTrack(0, this.trackNormal);
+      playlistController.removeTrack(1, this.trackNormal);
+      playlistController.removeTrack(2, this.trackNormal);
+      playlistController.removeTrack(3, this.trackNormal);
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(false);
+      expect(playlistController.checkPlaylistLength()).toBe(false);
+      expect(playlistController.submitButtonText()).toEqual('Each goal needs a track');
+    });
+
+    it('Playlist has a track per goal: total time too short', function () {
+      playlistController.removeTrack(0, this.trackNormal);
+      playlistController.removeTrack(1, this.trackNormal);
+      playlistController.removeTrack(2, this.trackNormal);
+      playlistController.removeTrack(3, this.trackNormal);
+      playlistController.removeTrack(4, this.trackNormal);
+      playlistController.removeTrack(5, this.trackNormal);
+      playlistController.removeTrack(6, this.trackNormal);
+      playlistController.removeTrack(7, this.trackNormal);
+      playlistController.removeTrack(8, this.trackNormal);
+      playlistController.removeTrack(9, this.trackNormal);
+      playlistController.removeTrack(10, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(0, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(1, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(2, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(3, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(4, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(5, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(6, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(7, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(8, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(9, this.trackShort);
+      this.Playlists.addTrackToGoalPlaylist(10, this.trackShort);
+      playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
+      expect(playlistController.checkPlaylistLength()).toBe(false);
+      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+    });
+
+    it('Playlist has a track per goal: total time is good', function () {
+      playlistController.removeTrack(0, this.trackNormal);
+      playlistController.removeTrack(1, this.trackNormal);
+      playlistController.removeTrack(2, this.trackNormal);
+      playlistController.removeTrack(3, this.trackNormal);
+      playlistController.removeTrack(4, this.trackNormal);
+      playlistController.removeTrack(5, this.trackNormal);
+      playlistController.removeTrack(6, this.trackNormal);
+      playlistController.removeTrack(7, this.trackNormal);
+      playlistController.removeTrack(8, this.trackNormal);
+      playlistController.removeTrack(9, this.trackNormal);
+      playlistController.removeTrack(10, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(1, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(6, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(7, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(8, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(9, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(10, this.trackNormal);
+      playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
+      expect(playlistController.checkPlaylistLength()).toBe(true);
+      expect(playlistController.submitButtonText()).toEqual('Update changes');
+    });
+
+    it('Playlist has a track per goal: total time too long', function () {
+      playlistController.removeTrack(0, this.trackNormal);
+      playlistController.removeTrack(1, this.trackNormal);
+      playlistController.removeTrack(2, this.trackNormal);
+      playlistController.removeTrack(3, this.trackNormal);
+      playlistController.removeTrack(4, this.trackNormal);
+      playlistController.removeTrack(5, this.trackNormal);
+      playlistController.removeTrack(6, this.trackNormal);
+      playlistController.removeTrack(7, this.trackNormal);
+      playlistController.removeTrack(8, this.trackNormal);
+      playlistController.removeTrack(9, this.trackNormal);
+      playlistController.removeTrack(10, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(0, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(1, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(2, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(3, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(4, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(5, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(6, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(7, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(8, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(9, this.trackLong);
+      this.Playlists.addTrackToGoalPlaylist(10, this.trackLong);
+      playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
+      expect(playlistController.checkPlaylistLength()).toBe(false);
+      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
     });
 
   });
