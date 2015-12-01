@@ -95,3 +95,8 @@ body {
     line-height: $chunk_height;
   }
 }
+
+.box {
+  background-color: $grey_lighter;
+  padding: rem-calc(20px);
+}

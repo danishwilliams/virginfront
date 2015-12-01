@@ -3,15 +3,18 @@
   <div class="row">
     <div class="large-12 large-centered columns text-center">
       <h1>Send to your clubs</h1>
-      <p>Select which clubs you would like to send your ride class to. This will make sure that all of your music and notes will be available on the tablet in the studio when you arrive.</p>
-      <div ng-messages="playlist_sync.error">
-        <div class="error" ng-message="required">Please select at least one club</div>
+      <div class="row box">
+        <p>Select which clubs you would like to send your ride class to. This will make sure that all of your music and notes will be available on the tablet in the studio when you arrive.</p>
+        <div ng-messages="playlist_sync.error">
+          <div class="error" ng-message="required">Please select at least one club</div>
+        </div>
+        <label ng-repeat="gym in playlist_sync.gyms | orderBy: 'Name'">
+          <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
+        </label>
       </div>
-      <label ng-repeat="gym in playlist_sync.gyms | orderBy: 'Name'">
-        <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
-      </label>
-      <p><a ui-sref="dashboard" style="float:left">Save and continue later</a></p>
-      <p>
-        <button class="round" ng-click="playlist_sync.publishPlaylist()" style="float:right">Save and send to clubs</button>
+        <p><a ui-sref="dashboard" style="float:left">Save and continue later</a></p>
+        <p>
+          <button class="round" ng-click="playlist_sync.publishPlaylist()" style="float:right">Save and send to clubs</button>
+        </p>
     </div>
   </div>
