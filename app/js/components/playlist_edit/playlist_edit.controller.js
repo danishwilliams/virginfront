@@ -24,7 +24,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // User has just selected a track from track search to add to a goal
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
-        Playlists.trackDropped(self.currentgoal.ArrayId, track);
+        var currentgoal = Playlists.getCurrentGoal();
+        Playlists.trackDropped(currentgoal.ArrayId, track);
         $rootScope.$broadcast('add.track');
         Tracks.setSearchedTrack({});
       }
