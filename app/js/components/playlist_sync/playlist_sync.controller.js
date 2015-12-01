@@ -41,6 +41,20 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
   }
 
   self.publishPlaylist = function () {
+    // Check that at least one checkbox is selected
+    var selected = false;
+    self.gyms.forEach(function(val) {
+      if (val.selected === true) {
+        selected = true;
+      }
+    });
+    if (!selected) {
+      self.error = {required: true};
+    }
+    else {
+      self.error = {required: false};
+    }
+
     addPlaylistToGym();
     Playlists.publishPlaylist(self.id).then(function (data) {
       $state.go('dashboard');
