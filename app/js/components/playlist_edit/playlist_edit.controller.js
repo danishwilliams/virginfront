@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $state, $rootScope, $location, $document, AuthenticationService, Tracks, Playlists, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $location, $document, AuthenticationService, Tracks, Playlists, Templates) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -19,6 +19,27 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   Playlists.setStep(2);
 
+  $rootScope.$on('$stateChangeSuccess', function () {
+    if ($state.current.name === 'playlist-edit' || $state.current.name === 'playlist-new-edit') {
+      // User has just selected a track from track search to add to a goal
+      var track = Tracks.getSearchedTrack();
+      if (!_.isEmpty(track)) {
+        Playlists.trackDropped(self.currentgoal.ArrayId, track);
+        $rootScope.$broadcast('add.track');
+        Tracks.setSearchedTrack({});
+      }
+      angular.element($document[0].body).removeClass('noscroll');
+    }
+  });
+
+  // Urgh. Had to use $scope here because the controller isn't available in the $stateChangeSuccess event, so can't
+  // update variables.
+  $scope.$on('add.track', function() {
+    self.updatePlaylistLength();
+    self.updateCurrentGoal();
+    self.checkAllGoalsHaveTracks();
+  });
+
   // Create new playlist
   if (self.newPlaylist) {
     Templates.loadTemplate(self.id).then(function (data) {
@@ -36,21 +57,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       }
     });
   }
-
-  $rootScope.$on('$stateChangeSuccess', function () {
-    if ($state.current.name === 'playlist-edit' || $state.current.name === 'playlist-new-edit') {
-      var track = Tracks.getSearchedTrack();
-      // User has just selected a track from track search to add to a goal
-      if (!_.isEmpty(track)) {
-        Playlists.trackDropped(self.currentgoal.ArrayId, track);
-        self.updatePlaylistLength();
-        self.updateCurrentGoal();
-        self.checkAllGoalsHaveTracks();
-        Tracks.setSearchedTrack({});
-      }
-      angular.element($document[0].body).removeClass('noscroll');
-    }
-  });
 
   this.playTrack = function (track) {
     Tracks.playTrack(track);
