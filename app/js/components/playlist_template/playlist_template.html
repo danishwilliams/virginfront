@@ -12,15 +12,15 @@
           <a class="choose-template" ui-sref="playlist-new-time({id:templateGroup.Id})">
             <div class="template">
               <div class="icon"><img src="/img/templates/{{templateGroup.IconFileName}}"></div>
-              <h4 ng-bind-html="templateGroup.Name"></h4>
+              <h2 ng-bind-html="templateGroup.Name"></h2>
               <div class="description">{{templateGroup.Description}}</div>
             </div>
           </a>
         </li>
         <li>
           <div class="template own">
-            <div class="icon"><img src="/img/templates/own.svg"></div>
-            <h4>Create your own template</h4>
+            <div class="icon"><img src="/img/templates/freestyle.svg"></div>
+            <h3>Create your own template</h3>
           </div>
         </li>
       </ul>

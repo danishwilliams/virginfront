@@ -8,36 +8,38 @@ $template-radius: rem-calc(8px);
 }
 
 .template {
-  border: rem-calc(2px) solid $red;
+  border: rem-calc(3px) solid $red;
   border-radius: $template-radius;
   padding: rem-calc(25px) rem-calc(10px) rem-calc(25px) rem-calc(10px);
   text-align: center;
   min-height: rem-calc(220px);
   max-width: rem-calc(250px);
   &:hover {
-    background-color: $red;
+    background-color: rgba($grey_light, 0.5);
     transition: 300ms ease-out;
-    h4 {
-      color: $white;
-    }
-    .description {
-      color: $black;
+  }
+
+  &.pack {
+    border-color: $purple;
+    h2 {
+      color: $purple;
     }
   }
+
   .icon {
     min-height: rem-calc(40px);
   }
-  h4 {
+  h2 {
     color: $red;
   }
   .description {
-    color: $grey_medium;
+    color: $grey;
   }
 }
 
 .own {
-  border: dotted $purple;
-  h4 {
+  border: dotted $grey_medium;
+  h2 {
     color: $grey_light;
   }
 }
