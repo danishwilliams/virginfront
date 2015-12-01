@@ -34,12 +34,15 @@ button {
     }
   }
   &.cancel {
-    border-color: $grey_dark;
-    color: $grey_dark;
+    @include button-style($bg: rgba($white, 0), $radius: $button-round);
+    border: none;
+    color: $red;
     &:hover,
     &:focus {
-      color: $grey_dark;
-      background-color: rgba($grey_dark, $bg_opacity);
+      color: $red;
+      font-weight: bold;
+      text-decoration: underline;
+      background-color: rgba($white, 0);
     }
   }
   &.next {
