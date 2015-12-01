@@ -10,11 +10,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     Playlists.setCreatingNewPlaylist(true);
     self.newPlaylist = true;
     self.title = "Create your playlist";
+    self.playlistTracksLength = 0;
   }
 
   this.playlist = Playlists.getPlaylist();
   this.currentgoal = Playlists.getCurrentGoal();
-  this.playlistTracksLength = 0;
 
   Playlists.setStep(2);
 
@@ -23,9 +23,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // User has just selected a track from track search to add to a goal
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
-        self.currentgoal = Playlists.getCurrentGoal(); // Fix: For some reason this isn't persisting on the 2nd time the user works with the playlist edit screen
         Playlists.trackDropped(self.currentgoal.ArrayId, track);
-        self.playlistTracksLength = Playlists.getPlaylistLength();
+        self.updatePlaylistLength();
+        self.updateCurrentGoal();
         self.checkAllGoalsHaveTracks();
         Tracks.setSearchedTrack({});
       }
@@ -80,8 +80,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       angular.element($document[0].body).addClass('noscroll');
       if (self.newPlaylist) {
         $state.go('playlist-new-edit.tracks-search');
-      }
-      else {
+      } else {
         $state.go('playlist-edit.tracks-search');
       }
     }
@@ -152,6 +151,16 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
         });
       }
     });
+  };
+
+  // In it's own function because 'self' isn't accessible from the rootScope $stateChangeSuccess
+  this.updatePlaylistLength = function () {
+    self.playlistTracksLength = Playlists.getPlaylistLength();
+  };
+
+  // In it's own function because 'self' isn't accessible from the rootScope $stateChangeSuccess
+  this.updateCurrentGoal = function () {
+    self.currentgoal = Playlists.getCurrentGoal();
   };
 
   /**
