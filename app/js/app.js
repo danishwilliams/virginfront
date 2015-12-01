@@ -2,6 +2,7 @@ angular
   .module("app", [
     "ngResource", // TODO: probably not needed
     "ngSanitize",
+    "ngMessages",
     "ui.router",
     "angularUUID2",
     "MassAutoComplete",
