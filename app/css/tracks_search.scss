@@ -4,7 +4,7 @@
   top: 0px !important;
   position: fixed;
   padding: 0;
-  background-color: rgba($grey_dark, 0.97);
+  background-color: rgba($grey_darker, 0.97);
   .joyride-close-tip {
     font-size: xx-large;
   }
@@ -72,7 +72,7 @@
   padding-top: rem-calc(10px);
   padding-bottom: rem-calc(10px);
   line-height: 18px;
-  border-bottom: 2px solid $grey_dark;
+  border-bottom: 2px solid $grey_darker;
   color: $white;
   &.in-bpm-range:hover {
     background-color: $blue_dark;
@@ -137,19 +137,19 @@
 
 button.play, button.add {
   border: none;
-  background-color: $grey_dark;
+  background-color: $grey_darker;
   padding: 0;
   margin: 0;
   transition: none;
   line-height: inherit;
 
   &:hover {
-    background-color: $grey_dark;
+    background-color: $grey_darker;
   }
 
   &[disabled] {
     color: $grey_lighter;
-    background-color: $grey_dark;
+    background-color: $grey_darker;
     font-weight: lighter;
   }
 }
@@ -172,5 +172,14 @@ button.add {
 
   .artist, .bpm {
     color: $grey;
+  }
+}
+
+.genres {
+  background-color: $grey_dark;
+  padding: rem-calc(10px);
+  border-radius: $radius-tiny;
+  h3, label {
+    color: $white;
   }
 }

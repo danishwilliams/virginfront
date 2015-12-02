@@ -23,7 +23,7 @@ input[type="text"].class_name {
 .ride-type {
   border-top: 1px solid $grey_medium;
   font-size: $h5-font-size;
-  color: $grey_dark;
+  color: $grey_darker;
   line-height: $chunk_height;
   .icon {
     height: rem-calc(50px);
@@ -40,7 +40,7 @@ input[type="text"].class_name {
     .box {
       line-height: normal;
       border: 1px solid $grey_medium;
-      color: $grey_dark;
+      color: $grey_darker;
       font-weight: bold;
       border-radius: 2px;
       padding: 5px;
