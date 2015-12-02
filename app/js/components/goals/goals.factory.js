@@ -12,5 +12,37 @@ function GoalsFactory(Restangular) {
   // which has methods for a private goals variable with get/set
   var service = Restangular.service('goals');
 
-  return service;
+  var self = this;
+  var goals = [];
+
+  var goalsFactory = {
+    loadGoals: loadGoals,
+    loadFreestyleGoals: loadFreestyleGoals
+  };
+
+  return goalsFactory;
+
+  function loadGoals() {
+    return Restangular.all('goals').getList().then(loadGoalsComplete);
+
+    function loadGoalsComplete(data, status, headers, config) {
+      self.goals = data;
+      return self.goals;
+    }
+  }
+
+  function loadFreestyleGoals() {
+    return Restangular.all('goals/freestyle').getList().then(loadFreestyleGoalsComplete);
+
+    function loadFreestyleGoalsComplete(data, status, headers, config) {
+      _.mapObject(data, function (val, key) {
+        if (key >= 0) {
+          val.ArrayId = key;
+          val.PlaylistGoalTracks = val.PlaylistGoalNotes = [];
+        }
+        return val;
+      });
+      return data;
+    }
+  }
 }

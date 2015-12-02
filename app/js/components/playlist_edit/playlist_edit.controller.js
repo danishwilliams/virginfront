@@ -46,6 +46,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     Templates.loadTemplate(self.id).then(function (data) {
       self.playlist = Playlists.createNewPlaylistFromTemplate(data);
       self.currentgoal = Playlists.getCurrentGoal();
+      initFreestylePlaylist();
       spinnerService.hide('playlistEditSpinner');
     });
   } else if (self.id) {
@@ -57,9 +58,26 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       if (self.checkPlaylistLength() === false) {
         self.newPlaylist = true;
       }
+      initFreestylePlaylist();
       spinnerService.hide('playlistEditSpinner');
     });
   }
+
+  // This is a Freestyle playlist
+  function initFreestylePlaylist() {
+    if (self.playlist.TemplateName !== 'Freestyle') {
+      return;
+    }
+  }
+
+  this.addFreestyleGoal = function() {
+    // Find the current ArrayId and SortOrder from the last item in the PlaylistGoals array
+    var i = self.playlist.PlaylistGoals.length;
+    self.freestyleGoal.ArrayId = i;
+    self.freestyleGoal.SortOrder = i + 1;
+    self.playlist.PlaylistGoals.push(self.freestyleGoal);
+    self.freestyleGoal = {};
+  };
 
   this.playTrack = function (track) {
     Tracks.playTrack(track);

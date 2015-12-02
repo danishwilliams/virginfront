@@ -22,7 +22,7 @@
           <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">Each goal needs a track.</p>
         </div>
       </div>
-      <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder'">
+      <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder' track by $index">
         <div class="goal-container" ng-class="{'active': playlist_edit.isGoalActive(playlistGoal)}">
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
             <div class="large-10 columns">
@@ -63,6 +63,10 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="row" ng-show="playlist_edit.playlist.TemplateName === 'Freestyle'">
+          <spinner class="spinner" name="playlistFreestyleSpinner"></spinner>
+          <freestyle-goals ng-change="playlist_edit.addFreestyleGoal()" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
       </div>
       <div class="row">
         <button class="cancel" style="float:left" ui-sref="dashboard">Cancel</button>
