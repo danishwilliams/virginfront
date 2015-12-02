@@ -142,7 +142,7 @@ button.play, button.add {
   margin: 0;
   transition: none;
   line-height: inherit;
-
+  color: $red;
   &:hover {
     background-color: $grey_darker;
   }

@@ -17,30 +17,39 @@
           </div>
         </div>
       </div>
-      <div class="track-search-results">
-        <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
-          <div class="small-1 columns">
-            <button class="play" ng-class="{'playing': track.playing}" ng-click="vm.playTrack(track);">{{'PLAY' | translate}}</button>
-          </div>
-          <div ng-class="{'selectable' : !vm.outOfBpmRange(track.Bpm)}" ng-click="vm.addTrack(track)">
-            <div class="small-9 columns">
-              <span class="track-name">{{track.Name | limitTo : 80}}</span>
-              <span ng-if="track.Name.length > 80">&hellip;</span>
-              <span class="artist">{{track.Artist}}</span>
-            </div>
-            <div class="small-3 columns show-for-medium-up genre">
-              &nbsp;{{track.Genre.Name}}
-            </div>
-            <div class="small-2 columns bpm">
-              {{track.Bpm}} {{'BPM' | translate}}
-            </div>
-            <div class="small-2 columns text-right time">
-              <span class="position" ng-show="track.currentTime >= 0">{{track.currentTime | minutes}}</span> {{track.DurationSeconds | minutes}}
-            </div>
+      <div class="row">
+        <div class="large-13 columns track-search-results">
+          <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
             <div class="small-1 columns">
-              <button class="add" ng-disabled="{{vm.outOfBpmRange(track.Bpm)}}">+</button>
+              <button class="play" ng-class="{'playing': track.playing}" ng-click="vm.playTrack(track);">{{'PLAY' | translate}}</button>
+            </div>
+            <div ng-class="{'selectable' : !vm.outOfBpmRange(track.Bpm)}" ng-click="vm.addTrack(track)">
+              <div class="small-9 columns">
+                <span class="track-name">{{track.Name | limitTo : 80}}</span>
+                <span ng-if="track.Name.length > 80">&hellip;</span>
+                <span class="artist">{{track.Artist}}</span>
+              </div>
+              <div class="small-3 columns show-for-medium-up genre">
+                &nbsp;{{track.Genre.Name}}
+              </div>
+              <div class="small-2 columns bpm">
+                {{track.Bpm}} {{'BPM' | translate}}
+              </div>
+              <div class="small-2 columns text-right time">
+                <span class="position" ng-show="track.currentTime >= 0">{{track.currentTime | minutes}}</span> {{track.DurationSeconds | minutes}}
+              </div>
+              <div class="small-1 columns">
+                <button class="add" ng-disabled="{{vm.outOfBpmRange(track.Bpm)}}">+</button>
+              </div>
             </div>
           </div>
+        </div>
+        <div class="large-5 columns show-for-medium-up genres">
+          <h3>Filter by genres</h3>
+
+          <label ng-repeat="genre in vm.genres | orderBy: 'Name'">
+            <input type="checkbox" ng-model="genre.selected"> {{genre.Name}}
+          </label>
         </div>
       </div>
     </div>
