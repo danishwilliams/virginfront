@@ -12,7 +12,7 @@ $template-radius: rem-calc(8px);
   border-radius: $template-radius;
   padding: rem-calc(25px) rem-calc(10px) rem-calc(25px) rem-calc(10px);
   text-align: center;
-  min-height: rem-calc(220px);
+  min-height: rem-calc(180px);
   max-width: rem-calc(250px);
   &:hover {
     background-color: rgba($grey_light, 0.5);
@@ -37,9 +37,9 @@ $template-radius: rem-calc(8px);
   }
 }
 
-.own {
+.freestyle {
   border: dotted $grey_medium;
   h2 {
-    color: $grey_light;
+    color: $black;
   }
 }
