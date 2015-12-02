@@ -12,6 +12,7 @@
       </div>
     </div>
     <div class="row">
+      <spinner class="spinner" name="dashboardPlaylistsSpinner" show="true"></spinner>
       <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
         <li><a ui-sref="playlist-new-template">+ Create new ride class</a></li>
         <li ng-repeat="playlist in dashboard.playlists | orderBy:'Name'">
@@ -28,6 +29,7 @@
       </div>
     </div>
     <div class="row">
+      <spinner class="spinner" name="dashboardGymsSpinner" show="true"></spinner>
       <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
         <li ng-repeat="gym in dashboard.gyms | orderBy:'Name'">
           <h4>{{gym.Gym.Name}}</h4>
@@ -54,6 +56,7 @@
       </div>
     </div>
     <div class="row">
+      <spinner class="spinner" name="dashboardSharedSpinner" show="true"></spinner>
       <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
         <li ng-repeat="playlist in dashboard.playlists | orderBy:'Created'">
           <ride playlist="{{playlist}}"></ride>

@@ -4,6 +4,8 @@
     <div class="medium-18 large-18 small-centered large-centered columns">
       <h1>Choose a ride template</h1>
 
+     <spinner class="spinner" name="playlistTemplateSpinner" show="true"></spinner>
+
       <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
         <li ng-repeat="templateGroup in playlist_template.templateGroups | orderBy:'Type':'Name'">
           <a class="choose-template" ui-sref="playlist-new-time({id:templateGroup.Id})">

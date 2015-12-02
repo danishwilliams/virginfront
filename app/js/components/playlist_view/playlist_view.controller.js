@@ -1,4 +1,4 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $state, $location, AuthenticationService, Playlists, Tracks) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $state, $location, AuthenticationService, Playlists, Tracks, spinnerService) {
   var self = this;
   Playlists.setStep(3);
   self.id = $stateParams.id;
@@ -13,6 +13,7 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     // Load an existing playlist
     Playlists.loadPlaylist(self.id).then(function () {
       self.playlist = Playlists.getPlaylist();
+      spinnerService.hide('playlistViewSpinner');
       if (!self.newPlaylist && !self.checkPlaylistLength()) {
         $state.go('playlist-edit', {id: self.playlist.Id});
       }

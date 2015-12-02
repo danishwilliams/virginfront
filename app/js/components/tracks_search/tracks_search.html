@@ -18,6 +18,7 @@
         </div>
       </div>
       <div class="track-search-results">
+        <spinner class="spinner" name="trackSpinner" show="true"></spinner>
         <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
           <div class="small-1 columns">
             <button class="play" ng-class="{'playing': track.playing}" ng-click="vm.playTrack(track);">{{'PLAY' | translate}}</button>

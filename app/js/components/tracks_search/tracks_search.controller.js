@@ -1,4 +1,4 @@
-angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Tracks, Playlists) {
+angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Tracks, Playlists, spinnerService) {
   var self = this;
 
   this.currentgoal = Playlists.getCurrentGoal();
@@ -18,6 +18,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   // Load tracks from the user's default genre selection
   Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
     self.tracks = data;
+    spinnerService.hide('trackSpinner');
   });
 
   this.cancel = function () {
@@ -26,8 +27,11 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   };
 
   this.trackSearch = function () {
+    spinnerService.show('trackSpinner');
+    self.tracks = [];
     Tracks.searchTracks(self.search).then(function (data) {
       self.tracks = data;
+      spinnerService.hide('trackSpinner');
     });
   };
 

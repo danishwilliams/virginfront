@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $location, $document, AuthenticationService, Tracks, Playlists, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $location, $document, AuthenticationService, Tracks, Playlists, Templates, spinnerService) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -46,6 +46,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     Templates.loadTemplate(self.id).then(function (data) {
       self.playlist = Playlists.createNewPlaylistFromTemplate(data);
       self.currentgoal = Playlists.getCurrentGoal();
+      spinnerService.hide('playlistEditSpinner');
     });
   } else if (self.id) {
     // Load an existing playlist so we can edit it
@@ -56,6 +57,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       if (self.checkPlaylistLength() === false) {
         self.newPlaylist = true;
       }
+      spinnerService.hide('playlistEditSpinner');
     });
   }
 

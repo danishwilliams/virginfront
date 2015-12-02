@@ -8,6 +8,7 @@
         <div ng-messages="playlist_sync.error">
           <div class="error" ng-message="required">Please select at least one club</div>
         </div>
+        <spinner class="spinner" name="playlistSyncSpinner" show="true"></spinner>
         <label ng-repeat="gym in playlist_sync.gyms | orderBy: 'Name'">
           <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
         </label>
