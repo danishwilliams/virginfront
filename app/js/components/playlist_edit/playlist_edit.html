@@ -26,7 +26,11 @@
         <div class="goal-container" ng-class="{'active': playlist_edit.isGoalActive(playlistGoal)}">
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
             <div class="large-10 columns">
-              <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">{{playlistGoal.Goal.Name}}</h4>
+              <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">
+                <img ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
+                {{playlistGoal.Goal.Name}} 
+                <em ng-if="playlistGoal.Goal.GoalChallengeId">Challenge</em>
+              </h4>
             </div>
             <div class="large-8 columns text-right">
               <a ng-show="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length === 0">+ Add a song</a>
@@ -65,8 +69,8 @@
         </div>
       </div>
       <div class="row" ng-show="playlist_edit.playlist.TemplateName === 'Freestyle'">
-          <spinner class="spinner" name="playlistFreestyleSpinner"></spinner>
-          <freestyle-goals ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
+        <spinner class="spinner" name="playlistFreestyleSpinner"></spinner>
+        <freestyle-goals ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
       </div>
       <div class="row">
         <button class="cancel" style="float:left" ui-sref="dashboard">Cancel</button>

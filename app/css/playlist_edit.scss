@@ -87,6 +87,18 @@ input[type="text"].class_name {
   .active {}
 }
 
+.goal-name {
+  img {
+    margin-right: rem-calc(12px);
+    vertical-align: bottom;
+  }
+  em {
+    margin-left: rem-calc(6px);
+    font-weight: normal;
+    color: $pack_purple;
+  }
+}
+
 #track-name {
   font-weight: bold;
 }
