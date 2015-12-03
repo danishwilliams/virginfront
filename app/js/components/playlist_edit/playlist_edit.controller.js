@@ -70,6 +70,30 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
   }
 
+  // Rules for adding a new freestyle goal
+  this.canAddNewFreestyleGoal = function () {
+    if (!self.playlist.PlaylistGoals) {
+      return;
+    }
+    var numGoals = self.playlist.PlaylistGoals.length;
+    var maxGoals = 11; // default
+    switch (self.playlist.ClassLengthMinutes) {
+      case 30:
+        maxGoals = 8;
+        break;
+      case 45:
+        maxGoals = 11;
+        break;
+      case 90:
+        maxGoals = 15;
+        break;
+    }
+    if (numGoals < maxGoals) {
+      return true;
+    }
+    return false;
+  };
+
   this.addFreestyleGoal = function() {
     // Find the current ArrayId and SortOrder from the last item in the PlaylistGoals array
     var i = self.playlist.PlaylistGoals.length;
