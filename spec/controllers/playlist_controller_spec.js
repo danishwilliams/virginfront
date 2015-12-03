@@ -23,7 +23,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
     return value;
   };
 
-  beforeEach(inject(function ($controller, $httpBackend, AuthenticationService, Playlists, Tracks) {
+  beforeEach(inject(function ($controller, $httpBackend, AuthenticationService, Playlists, Tracks, $rootScope) {
     this.$httpBackend = $httpBackend;
     this.Tracks = Tracks;
     this.Playlists = Playlists;
@@ -72,6 +72,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
 
     playlistController = $controller('Playlist_editController', {
       $httpBackend: $httpBackend,
+      $scope: $rootScope.$new(),
       AuthenticationService: AuthenticationService,
       Playlists: Playlists,
       Tracks: Tracks
@@ -82,6 +83,14 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       this.Playlists.setPlaylist(playlist);
       playlistController.newPlaylist = true;
       playlistController.playlist = this.Playlists.getPlaylist();
+    };
+
+    this.createAnewFreestylePlaylist = function () {
+      var playlist = this.Playlists.createNewPlaylistFromTemplate(this.playlistFreestyleTemplate);
+      this.Playlists.setPlaylist(playlist);
+      playlistController.newPlaylist = true;
+      playlistController.playlist = this.Playlists.getPlaylist();
+      playlistController.initFreestylePlaylist();
     };
 
     this.editPlaylist = function () {
@@ -209,6 +218,43 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
         "Name": "Other",
         "Id": "f2092b8f-2ffe-49ce-bb27-97b677eb2c67"
       }
+    };
+
+    this.playlistFreestyleTemplate = {
+      "Id": "d4262d8e-eb68-437a-97c9-d0015a7abd1f",
+      "TemplateGroup": {
+        "Name": "Freestyle",
+        "Description": "Create your own.",
+        "IconFileName": "freestyle.svg",
+        "Type": "freestyle",
+        "Id": "36372f87-5986-4c57-8e33-460844620089"
+      },
+      "ClassLengthMinutes": 45,
+      "CountryId": "87d2a384-a84b-471c-855d-a5f457210c34",
+      "Goals": [{
+        "GoalOptions": [{
+          "Name": null,
+          "Effort": 50,
+          "EffortHigh": 60,
+          "Position": "Seated",
+          "GoalId": "61038c2e-4ee9-44cb-9dac-b7371b501197",
+          "BeatId": "0cc08123-f231-47f1-8023-f8d78457e302",
+          "Beat": {
+            "Name": "On The Beat",
+            "Ratio": 1,
+            "Id": "0cc08123-f231-47f1-8023-f8d78457e302"
+          },
+          "Id": "91d13ce5-f3c5-4cee-87e3-fabb7906a4ea"
+        }],
+        "Id": "61038c2e-4ee9-44cb-9dac-b7371b501197",
+        "SortOrder": 1,
+        "Name": "Warm Up",
+        "BpmHigh": 100,
+        "BpmLow": 90,
+        "Aim": null,
+        "Interval": false,
+        "CountryId": "87d2a384-a84b-471c-855d-a5f457210c34"
+      }]
     };
 
     this.playlistTemplate = {
@@ -1667,6 +1713,20 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       this.Playlists.addTrackToGoalPlaylist(10, this.trackLong);
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
+      expect(playlistController.checkPlaylistLength()).toBe(false);
+      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+    });
+
+  });
+
+  describe('New freestyle playlist', function () {
+
+    beforeEach(inject(function () {
+      this.createAnewFreestylePlaylist();
+    }));
+
+    it('Playlist contains no tracks', function () {
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(false);
       expect(playlistController.checkPlaylistLength()).toBe(false);
       expect(playlistController.submitButtonText()).toEqual('Save and continue later');
     });

@@ -282,6 +282,14 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     if (!playlist.PlaylistGoals) {
       return false;
     }
+
+    // If this is a freestyle playlist, check that the number of goals equals the number of MaxFreestyleGoals
+    if (playlist.MaxFreestyleGoals > 0) {
+      if (playlist.PlaylistGoals.length < playlist.MaxFreestyleGoals) {
+        return false;
+      }
+    }
+
     var containsNoTrack = false;
     playlist.PlaylistGoals.forEach(function (playlistGoals) {
       var hasTrack = false;
