@@ -32,7 +32,7 @@ function GoalsFactory(Restangular) {
   }
 
   function loadFreestyleGoals() {
-    return Restangular.all('goals/freestyle').getList().then(loadFreestyleGoalsComplete);
+    return Restangular.all('goals/freestyle').withHttpConfig({ cache: true}).getList().then(loadFreestyleGoalsComplete);
 
     function loadFreestyleGoalsComplete(data, status, headers, config) {
       _.mapObject(data, function (val, key) {
