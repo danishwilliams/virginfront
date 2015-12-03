@@ -73,10 +73,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.addFreestyleGoal = function() {
     // Find the current ArrayId and SortOrder from the last item in the PlaylistGoals array
     var i = self.playlist.PlaylistGoals.length;
-    self.freestyleGoal.ArrayId = i;
-    self.freestyleGoal.SortOrder = i + 1;
-    self.playlist.PlaylistGoals.push(self.freestyleGoal);
-    self.freestyleGoal = {};
+    // .copy because otherwise we change the model within the <freestyle-goals> directive
+    var freestyleGoal = angular.copy(self.freestyleGoal);
+    freestyleGoal.ArrayId = i;
+    freestyleGoal.SortOrder = i + 1;
+    self.playlist.PlaylistGoals.push(freestyleGoal);
   };
 
   this.playTrack = function (track) {
