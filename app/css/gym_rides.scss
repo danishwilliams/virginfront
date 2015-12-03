@@ -1,0 +1,31 @@
+.gym-rides {
+  h3 {
+    color: $black;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0px;
+  }
+  li {
+    line-height: rem-calc(50px);
+    background-color: $grey_light;
+    margin-bottom: rem-calc(10px);
+    padding-left: rem-calc(40px);    
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: left center;
+    background-position-x: rem-calc(10px);
+    background-image: url('/img/playlists/hills.svg');
+  }
+  .syncing {
+    background-image: url('/img/playlists/pack.svg');
+    background-color: rgba(0,255,0,.08);
+  }
+  .removed {
+    background-image: url('/img/playlists/allterrain.svg');
+  }
+  .remove {
+    font-size: smaller;
+  }
+}

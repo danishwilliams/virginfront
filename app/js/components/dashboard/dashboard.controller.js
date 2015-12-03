@@ -5,7 +5,7 @@ angular.module("app.dashboard", []).controller('DashboardController', function (
   Playlists.loadPlaylists(4).then(function(data) {
     self.playlists = data;
     spinnerService.hide('dashboardPlaylistsSpinner');
-    spinnerService.hide('dashboardSharedSpinner');
+    //spinnerService.hide('dashboardSharedSpinner');
   });
 
   Users.loadCurrentUser().then(function(data) {
