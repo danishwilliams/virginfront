@@ -79,13 +79,16 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     var maxGoals = 11; // default
     switch (self.playlist.ClassLengthMinutes) {
       case 30:
-        maxGoals = 8;
+        maxGoals = 7;
         break;
       case 45:
         maxGoals = 11;
         break;
+      case 60:
+        maxGoals = 14;
+        break;
       case 90:
-        maxGoals = 15;
+        maxGoals = 22;
         break;
     }
     if (numGoals < maxGoals) {
