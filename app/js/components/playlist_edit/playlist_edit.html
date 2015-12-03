@@ -51,7 +51,7 @@
           <div class="row goal-meta" ng-click="goal.show = !playlistGoal.show" ng-show="playlistGoal.show && playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0">
             <ul class="large-block-grid-2">
               <li ng-repeat="goaloption in playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].Goal.GoalOptions">
-                <goal_option data-goaloptiondata="{{goaloption}}" data-length="{{playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].Goal.GoalOptions.length}}" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}"></goal_option>
+                <goal_option data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}"></goal_option>
               </li>
             </ul>
             <div class="row notes">
