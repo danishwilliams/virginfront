@@ -9,7 +9,10 @@ function goalOption() {
     controller: goalOptionController,
     controllerAs: 'vm',
     scope: {
-      bpm: '@'
+      bpm: '@',
+      freestyle: '@',
+      effort: '=',
+      efforthigh: '='
     }
   };
   return directive;
@@ -20,6 +23,8 @@ goalOptionController.$inject = ['$scope'];
 function goalOptionController($scope) {
   $scope.goaloption = $scope.$parent.goaloption;
 
+  $scope.options = [40, 50, 60, 70, 80, 90, 100];
+
   // Only show the name of goaloptions if there are more than 1
   if (parseInt($scope.goaloption.length) === 1) {
     $scope.goaloption.Name = '';
@@ -27,8 +32,7 @@ function goalOptionController($scope) {
 
   if ($scope.goaloption.EffortHigh) {
     $scope.goaloption.effort = $scope.goaloption.Effort + ' - ' + $scope.goaloption.EffortHigh;
-  }
-  else {
+  } else {
     $scope.goaloption.effort = $scope.goaloption.Effort;
   }
 
@@ -46,7 +50,7 @@ function goalOptionController($scope) {
     updateBpm();
   }
 
-  $scope.$watch('bpm', function() {
+  $scope.$watch('bpm', function () {
     updateBpm();
   });
 

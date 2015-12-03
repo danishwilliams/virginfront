@@ -68,6 +68,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     if (self.playlist.TemplateName !== 'Freestyle') {
       return;
     }
+    self.freestyleTemplate = true;
     self.freestyleGoals = [];
     for (var i = 0; i < self.playlist.MaxFreestyleGoals; i++) {
       self.freestyleGoals[i] = {show: true};
