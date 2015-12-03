@@ -31,9 +31,9 @@ function goalOptionController($scope) {
   }
 
   if ($scope.goaloption.EffortHigh) {
-    $scope.goaloption.effort = $scope.goaloption.Effort + ' - ' + $scope.goaloption.EffortHigh;
+    $scope.goaloption.effortrange = $scope.goaloption.Effort + ' - ' + $scope.goaloption.EffortHigh;
   } else {
-    $scope.goaloption.effort = $scope.goaloption.Effort;
+    $scope.goaloption.effortrange = $scope.goaloption.Effort;
   }
 
   switch ($scope.goaloption.Beat.Ratio) {
