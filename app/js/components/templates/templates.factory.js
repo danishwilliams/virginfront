@@ -45,6 +45,23 @@ function TemplatesFactory(Restangular) {
     }).then(loadTemplateComplete);
 
     function loadTemplateComplete(data, status, headers, config) {
+      // TODO: get Dane to add MaxGoals into the API
+      if (data.TemplateGroup.Type === 'freestyle') {
+        switch (data.ClassLengthMinutes) {
+          case 30:
+            data.MaxFreestyleGoals = 7;
+            break;
+          case 45:
+            data.MaxFreestyleGoals = 11;
+            break;
+          case 60:
+            data.MaxFreestyleGoals = 14;
+            break;
+          case 90:
+            data.MaxFreestyleGoals = 22;
+            break;
+        }
+      }
       return data;
     }
   }

@@ -68,6 +68,10 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     if (self.playlist.TemplateName !== 'Freestyle') {
       return;
     }
+    self.freestyleGoals = [];
+    for (var i = 0; i < self.playlist.MaxFreestyleGoals; i++) {
+      self.freestyleGoals[i] = {show: true};
+    }
   }
 
   // Rules for adding a new freestyle goal
@@ -76,28 +80,14 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       return;
     }
     var numGoals = self.playlist.PlaylistGoals.length;
-    var maxGoals = 11; // default
-    switch (self.playlist.ClassLengthMinutes) {
-      case 30:
-        maxGoals = 7;
-        break;
-      case 45:
-        maxGoals = 11;
-        break;
-      case 60:
-        maxGoals = 14;
-        break;
-      case 90:
-        maxGoals = 22;
-        break;
-    }
-    if (numGoals < maxGoals) {
+    if (numGoals < self.playlist.MaxFreestyleGoals) {
       return true;
     }
     return false;
   };
 
-  this.addFreestyleGoal = function() {
+  this.addFreestyleGoal = function(goal) {
+    goal.show = false;
     // Find the current ArrayId and SortOrder from the last item in the PlaylistGoals array
     var i = self.playlist.PlaylistGoals.length;
     // .copy because otherwise we change the model within the <freestyle-goals> directive

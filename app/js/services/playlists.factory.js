@@ -72,6 +72,9 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     playlist.UserId = Users.getCurrentUser().Id;
     playlist.PlaylistGoals = [];
     playlist.BackgroundTracks = [];
+    if (template.TemplateGroup.Type === 'freestyle') {
+      playlist.MaxFreestyleGoals = template.MaxFreestyleGoals;
+    }
 
     // for each template goal: set up a new playlist goal
     var playlistGoal = {};
