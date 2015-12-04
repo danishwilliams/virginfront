@@ -69,7 +69,9 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     playlist.TemplateIconFileName = template.TemplateGroup.IconFileName;
     playlist.Shared = false;
     playlist.ClassLengthMinutes = template.ClassLengthMinutes;
-    playlist.UserId = Users.getCurrentUser().Id;
+    Users.loadCurrentUser().then(function(user) {
+      playlist.UserId = user.Id;
+    });
     playlist.PlaylistGoals = [];
     playlist.BackgroundTracks = [];
     if (template.TemplateGroup.Type === 'freestyle') {
