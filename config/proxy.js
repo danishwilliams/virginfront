@@ -31,6 +31,10 @@ function onRequest(client_req, client_res) {
 
   var proxy = http.request(options, function (res) {
     client_res.statusCode = res.statusCode;
+    // Spoof a backend error on PUTs
+    if (options.method === 'PUT') {
+      //client_res.statusCode = 500;
+    }
     //client_res.statusCode = 500;
     client_res.statusMessage = res.statusMessage;
     client_res.headers = res.headers;
