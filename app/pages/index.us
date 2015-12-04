@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pkg.title %></title>
   <link rel="stylesheet" type="text/css" href="/css/app.css" media="all"/>
+  <link type="text/plain" rel="author" href="/humans.txt" />
 </head>
 <body ng-app="app" ng-controller="AppController as app">
 <div class="off-canvas-wrap move-right" data-offcanvas="">
