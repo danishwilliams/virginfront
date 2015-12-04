@@ -1,7 +1,7 @@
 <div class="view-playlist">
   <playlist-workflow></playlist-workflow>
   <div class="row">
-    <div class="large-12 large-centered columns">
+    <div class="large-12 large-centered columns max-content">
       <h1 class="text-center">Send to your clubs</h1>
       <div class="row box">
         <p>Select which clubs you would like to send your ride class to. This will make sure that all of your music and notes will be available on the tablet in the studio when you arrive.</p>
@@ -9,9 +9,11 @@
           <div class="error" ng-message="required">Please select at least one club</div>
         </div>
         <spinner class="spinner" name="playlistSyncSpinner" show="true"></spinner>
-        <label ng-repeat="gym in playlist_sync.gyms | orderBy: 'Name'">
-          <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
-        </label>
+        <div class="gyms">
+          <label ng-repeat="gym in playlist_sync.gyms | orderBy: 'Name'">
+            <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
+          </label>
+        </div>
       </div>
       <p>&nbsp;</p>
       <p>
