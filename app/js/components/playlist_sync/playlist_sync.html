@@ -10,7 +10,7 @@
         </div>
         <spinner class="spinner" name="playlistSyncSpinner" show="true"></spinner>
         <label ng-repeat="gym in playlist_sync.gyms | orderBy: 'Name'">
-          <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
+          <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
         </label>
       </div>
       <p>&nbsp;</p>
