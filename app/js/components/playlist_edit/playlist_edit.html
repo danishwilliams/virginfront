@@ -73,8 +73,14 @@
         <freestyle-goals ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
       </div>
       <div class="row">
+        <div ng-messages="playlist_edit.error">
+          <p class="error" ng-message="error">Ride cannot be saved. Please try again later.</p>
+        </div>
         <button class="cancel" style="float:left" ui-sref="dashboard">Cancel</button>
-        <button ng-show="playlist_edit.checkWhenEditingEveryGoalHasATrack()" type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button>
+        <button ng-disabled="playlist_edit.saving" ng-show="playlist_edit.checkWhenEditingEveryGoalHasATrack()" type="submit" form="playlistForm" class="round" style="float:right">
+          <spinner class="spinner" name="playlistEditSaveSpinner" show="false"></spinner>
+          {{playlist_edit.submitButtonText()}}
+        </button>
       </div>
     </div>
   </div>

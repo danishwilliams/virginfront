@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $location, $document, AuthenticationService, Tracks, Playlists, Templates, spinnerService) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $location, $document, AuthenticationService, Tracks, Playlists, Templates, spinnerService, uuid2) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -182,6 +182,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
 
     Playlists.setCreatingNewPlaylist(false);
+    self.saving = true;
+    spinnerService.show('playlistEditSaveSpinner');
 
     self.playlist.put({
       syncPlaylist: false
@@ -199,6 +201,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
           id: self.playlist.Id
         });
       }
+    }, function(response) {
+      console.log("Error with status code", response.status);
+      spinnerService.hide('playlistEditSaveSpinner');
+      self.saving = false;
+      self.error = {error: true};
     });
   };
 
