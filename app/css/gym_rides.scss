@@ -8,24 +8,53 @@
   }
   li {
     line-height: rem-calc(50px);
+    max-height: rem-calc(50px);
+    overflow: hidden;
     background-color: $grey_light;
     margin-bottom: rem-calc(10px);
-    padding-left: rem-calc(40px);    
     vertical-align: middle;
-    background-repeat: no-repeat;
-    background-size: 25px;
-    background-position: left center;
-    background-position-x: rem-calc(10px);
-    background-image: url('/img/playlists/hills.svg');
+    .icon {
+      padding-left: rem-calc(40px);
+      background-repeat: no-repeat;
+      background-size: 16px;
+      background-position: left center;
+      background-position-x: rem-calc(12px);
+      background-image: url('/img/synced.svg');
+    }
+    .right {
+      padding-right: rem-calc(10px);
+    }
   }
   .syncing {
-    background-image: url('/img/playlists/pack.svg');
-    background-color: rgba(0,255,0,.08);
+    background-color: rgba(0, 255, 0, .08);
+    .icon {
+      -webkit-animation-duration: 1.3s;
+      -moz-animation-duration: 1.3s;
+      animation-duration: 1.3s;
+      -webkit-animation-iteration-count: infinite;
+      -moz-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -webkit-animation-name: rotate-forever;
+      -moz-animation-name: rotate-forever;
+      animation-name: rotate-forever;
+      -webkit-animation-timing-function: linear;
+      -moz-animation-timing-function: linear;
+      animation-timing-function: linear;
+      background-image: url('/img/syncing.svg');
+    }
   }
   .removed {
-    background-image: url('/img/playlists/allterrain.svg');
+    .icon, .name {
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
   }
   .remove {
     font-size: smaller;
+  }
+  .time {
+    overflow: hidden;
+    font-size: x-small;
+    font-style: italic;
   }
 }
