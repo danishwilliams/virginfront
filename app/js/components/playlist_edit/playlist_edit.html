@@ -20,6 +20,8 @@
           <span class="length" ng-class="{'error': !playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()}"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
           <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
           <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">Each goal needs a track.</p>
+          <p class="error" ng-if="playlist_edit.checkAllGoalsHaveTracks() && !playlist_edit.checkHasPreRideBackgroundTracks()">Please add some pre-ride background music.</p>
+          <p class="error" ng-if="playlist_edit.checkAllGoalsHaveTracks() && !playlist_edit.checkHasPostRideBackgroundTracks()">Please add some post-ride background music.</p>
         </div>
       </div>
       <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder' track by $index">
@@ -71,6 +73,9 @@
       <div class="row" ng-show="playlist_edit.playlist.TemplateName === 'Freestyle'">
         <spinner class="spinner" name="playlistFreestyleSpinner"></spinner>
         <freestyle-goals ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
+      </div>
+      <div class="row">
+        <background-music ng-model="playlist_edit.playlist.BackgroundTracks"></background-music>
       </div>
       <div class="row">
         <div ng-messages="playlist_edit.error">

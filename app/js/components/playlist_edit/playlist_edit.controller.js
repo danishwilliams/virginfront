@@ -25,9 +25,16 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
         var currentgoal = Playlists.getCurrentGoal();
-        Playlists.trackDropped(currentgoal.ArrayId, track);
-        $rootScope.$broadcast('add.track');
-        Tracks.setSearchedTrack({});
+        if (currentgoal.BackgroundSection) {
+          // Add a background track
+          Playlists.addBackgroundTrack(currentgoal.BackgroundSection, track);
+          Tracks.setSearchedTrack({});
+        } else {
+          // Add a track to a goal
+          Playlists.trackDropped(currentgoal.ArrayId, track);
+          $rootScope.$broadcast('add.track');
+          Tracks.setSearchedTrack({});
+        }
       }
       angular.element($document[0].body).removeClass('noscroll');
     }
@@ -35,7 +42,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Urgh. Had to use $scope here because the controller isn't available in the $stateChangeSuccess event, so can't
   // update variables.
-  $scope.$on('add.track', function() {
+  $scope.$on('add.track', function () {
     self.updatePlaylistLength();
     self.updateCurrentGoal();
     self.checkAllGoalsHaveTracks();
@@ -71,7 +78,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     self.freestyleTemplate = true;
     self.freestyleGoals = [];
     for (var i = 0; i < self.playlist.MaxFreestyleGoals - 1; i++) {
-      self.freestyleGoals[i] = {show: true};
+      self.freestyleGoals[i] = {
+        show: true
+      };
     }
   };
 
@@ -87,7 +96,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return false;
   };
 
-  this.addFreestyleGoal = function(goal) {
+  this.addFreestyleGoal = function (goal) {
     goal.show = false;
     // Find the current ArrayId and SortOrder from the last item in the PlaylistGoals array
     var i = self.playlist.PlaylistGoals.length;
@@ -201,11 +210,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
           id: self.playlist.Id
         });
       }
-    }, function(response) {
+    }, function (response) {
       console.log("Error with status code", response.status);
       spinnerService.hide('playlistEditSaveSpinner');
       self.saving = false;
-      self.error = {error: true};
+      self.error = {
+        error: true
+      };
     });
   };
 
@@ -224,6 +235,26 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    */
   this.checkAllGoalsHaveTracks = function () {
     return Playlists.checkAllGoalsHaveTracks();
+  };
+
+  this.checkHasPreRideBackgroundTracks = function () {
+    var found = false;
+    self.playlist.BackgroundTracks.forEach(function(val) {
+      if (val.PlaylistPosition.toLowerCase() === 'before') {
+        found = true;
+      }
+    });
+    return found;
+  };
+
+  this.checkHasPostRideBackgroundTracks = function () {
+    var found = false;
+    self.playlist.BackgroundTracks.forEach(function(val) {
+      if (val.PlaylistPosition.toLowerCase() === 'after') {
+        found = true;
+      }
+    });
+    return found;
   };
 
   this.checkPlaylistLength = function () {
