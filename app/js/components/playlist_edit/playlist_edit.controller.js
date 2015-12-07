@@ -24,14 +24,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // User has just selected a track from track search to add to a goal
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
-        var currentBackgroundSection = Playlists.getCurrentBackgroundSection();
-        if (currentBackgroundSection) {
+        var currentgoal = Playlists.getCurrentGoal();
+        if (currentgoal.BackgroundSection) {
           // Add a background track
-          Playlists.addBackgroundTrack(currentBackgroundSection, track);
+          Playlists.addBackgroundTrack(currentgoal.BackgroundSection, track);
           Tracks.setSearchedTrack({});
         } else {
           // Add a track to a goal
-          var currentgoal = Playlists.getCurrentGoal();
           Playlists.trackDropped(currentgoal.ArrayId, track);
           $rootScope.$broadcast('add.track');
           Tracks.setSearchedTrack({});

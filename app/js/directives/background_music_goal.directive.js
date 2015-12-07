@@ -17,9 +17,9 @@ function backgroundMusicGoal() {
   return directive;
 }
 
-backgroundMusicGoalController.$inject = ['$scope', '$state', 'Playlists'];
+backgroundMusicGoalController.$inject = ['$scope', '$state', '$document', 'Playlists'];
 
-function backgroundMusicGoalController($scope, $state, Playlists) {
+function backgroundMusicGoalController($scope, $state, $document, Playlists) {
   var self = this;
 
   self.goal = {};
@@ -32,12 +32,13 @@ function backgroundMusicGoalController($scope, $state, Playlists) {
       break;
   }
 
-  self.numTracks = function() {
+  // Counts the number of tracks in one of the background sections
+  self.numTracks = function () {
     if (!$scope.ngModel) {
       return 0;
     }
     var i = 0;
-    $scope.ngModel.forEach(function(val) {
+    $scope.ngModel.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === $scope.playlistPosition) {
         i++;
       }
@@ -49,7 +50,6 @@ function backgroundMusicGoalController($scope, $state, Playlists) {
     if (!$scope.ngModel) {
       return false;
     }
-    // count number of tracks for a specific position
     if (self.numTracks() < 3) {
       return true;
     }
@@ -57,8 +57,17 @@ function backgroundMusicGoalController($scope, $state, Playlists) {
   };
 
   self.goalClicked = function () {
+
     if (self.canAddTracks()) {
-      Playlists.setCurrentBackgroundSection($scope.playlistPosition);
+      Playlists.setCurrentGoal({
+        Goal: {
+          Name: 'Background music',
+          BpmLow: 0,
+          BpmHigh: 200
+        },
+        BackgroundSection: $scope.playlistPosition
+      });
+      angular.element($document[0].body).addClass('noscroll');
       if (Playlists.getCreatingNewPlaylist() || $state.current.name === 'playlist-new-edit') {
         $state.go('playlist-new-edit.tracks-search');
       } else {
@@ -67,7 +76,7 @@ function backgroundMusicGoalController($scope, $state, Playlists) {
     }
   };
 
-  self.removeTrack = function(track) {
+  self.removeTrack = function (track) {
     self.removeBackgroundTrack($scope.playlistPosition, track);
   };
 

@@ -20,12 +20,10 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     ArrayId: 0, // Maintains a mapping between the array id of the playlist goal, and the playlist goal UUID
     PlaylistGoalId: 'uuid',
     Name: '',
-    BpmLow: 0,
-    BpmHigh: 0
+    BpmLow: -1,
+    BpmHigh: -1,
+    BackgroundSection: '' // The currently selected background section which a track can be added to. One of 'before' or 'after'
   };
-
-  // The currently selected background section which a track can be added to
-  var currentBackgroundSection = '';
 
   var playlistFactory = {
     createNewPlaylistFromTemplate: createNewPlaylistFromTemplate,
@@ -56,9 +54,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getCurrentStep: getCurrentStep,
     setStep: setStep,
     getCurrentGoal: getCurrentGoal,
-    setCurrentGoal: setCurrentGoal,
-    getCurrentBackgroundSection: getCurrentBackgroundSection,
-    setCurrentBackgroundSection: setCurrentBackgroundSection
+    setCurrentGoal: setCurrentGoal
   };
 
   return playlistFactory;
@@ -133,7 +129,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     console.log(playlist.BackgroundTracks);
     // calculate the new SortOrder
     var i = 0;
-    playlist.BackgroundTracks.forEach(function(val) {
+    playlist.BackgroundTracks.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === position) {
         i++;
       }
@@ -415,20 +411,16 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
 
   function setCurrentGoal(playlistGoal) {
     currentgoal = {
-      ArrayId: playlistGoal.ArrayId,
-      PlaylistGoalId: playlistGoal.Id,
       Name: playlistGoal.Goal.Name,
       BpmLow: playlistGoal.Goal.BpmLow,
-      BpmHigh: playlistGoal.Goal.BpmHigh
+      BpmHigh: playlistGoal.Goal.BpmHigh,
     };
+    if (playlistGoal.BackgroundSection) {
+      currentgoal.BackgroundSection = playlistGoal.BackgroundSection;
+    }
+    else {
+      currentgoal.ArrayId = playlistGoal.ArrayId;
+      currentgoal.PlaylistGoalId = playlistGoal.Id;
+    }
   }
-
-  function getCurrentBackgroundSection() {
-    return currentBackgroundSection;
-  }
-
-  function setCurrentBackgroundSection(section) {
-    currentBackgroundSection = section;
-  }
-
 }
