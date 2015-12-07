@@ -126,7 +126,6 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   }
 
   function addBackgroundTrack(position, track) {
-    console.log(playlist.BackgroundTracks);
     // calculate the new SortOrder
     var i = 0;
     playlist.BackgroundTracks.forEach(function (val) {

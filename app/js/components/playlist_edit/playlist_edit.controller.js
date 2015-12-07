@@ -237,6 +237,26 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return Playlists.checkAllGoalsHaveTracks();
   };
 
+  this.checkHasPreRideBackgroundTracks = function () {
+    var found = false;
+    self.playlist.BackgroundTracks.forEach(function(val) {
+      if (val.PlaylistPosition.toLowerCase() === 'before') {
+        found = true;
+      }
+    });
+    return found;
+  };
+
+  this.checkHasPostRideBackgroundTracks = function () {
+    var found = false;
+    self.playlist.BackgroundTracks.forEach(function(val) {
+      if (val.PlaylistPosition.toLowerCase() === 'after') {
+        found = true;
+      }
+    });
+    return found;
+  };
+
   this.checkPlaylistLength = function () {
     return Playlists.checkPlaylistLength();
   };
