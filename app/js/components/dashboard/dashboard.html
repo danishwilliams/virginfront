@@ -29,8 +29,8 @@
       <spinner class="spinner" name="dashboardGymsSpinner" show="true"></spinner>
 
       <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
-        <li ng-repeat="gym in dashboard.gyms | orderBy:'Name'">
-          <gym-rides data-gymid="{{gym.GymId}}" data-name="{{gym.Gym.Name}}"></gym-rides>
+        <li ng-if="gym.PlaylistSyncCount > 0" ng-repeat="gym in dashboard.gyms | orderBy:'Name'">
+          <gym-rides></gym-rides>
         </li>
       </ul>
 

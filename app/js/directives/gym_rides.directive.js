@@ -7,24 +7,22 @@ function gymRides() {
     templateUrl: 'gym_rides.directive.html',
     restrict: 'E',
     controller: gymRidesController,
-    controllerAs: 'vm',
-    scope: {
-      gymid: '@',
-      name: '@'
-    },
-    required: ['ngModel']
+    controllerAs: 'vm'
   };
   return directive;
 }
 
-gymRidesController.$inject = ['Playlists', '$scope'];
+gymRidesController.$inject = [];
 
-function gymRidesController(Playlists, $scope) {
+function gymRidesController() {
   var self = this;
-  // $scope.gymid;
 
-  Playlists.loadPlaylists(5).then(function(data) {
-    self.playlists = data;
-    console.log(data);
-  });
+  self.remove = function(playlist) {
+    playlist.removed = true;
+    console.log(playlist);
+  };
+
+  self.undoRemove = function (playlist) {
+    playlist.removed = false;
+  };
 }

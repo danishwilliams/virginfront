@@ -1,41 +1,22 @@
 <div class="gym-rides">
-  <h3>{{name}}</h3>
+  <h3>{{gym.Gym.Name}}</h3>
 
-<!--
   <ul>
-    <li class="syncing" ng-repeat="playlist in vm.playlists">
-      <div class="row">
-        <div class="large-12 columns">
-          {{playlist.Name}}</div>
-        <!--<div class="large-6 columns text-right remove"> <a>Remove</a>&nbsp;</div>-->
-        <!--<div class="large-6 columns text-right time">25 mins remaining</div>
-      </div>
+    <li ng-class="{'syncing' : playlist.SyncStarted, 'removed' : playlist.removed}" ng-repeat="playlist in gym.DevicePlaylistSyncs | orderBy:'Playlist.Name'">
+      <!--{{playlist.PercentDone}} {{playlist.SecondsLeft}} {{playlist.SyncError}} {{playlist.SyncStarted}} {{playlist.SyncSuccess}} -->
+      <span class="icon"></span><span class="name">{{playlist.Playlist.Name}}</span>
+      <span class="right time" ng-if="playlist.SyncStarted">{{playlist.SecondsLeft | hours}} mins remaining</span>
+      <span class="right remove" ng-if="!playlist.SyncStarted">
+        <a ng-if="!playlist.removed" ng-click="vm.remove(playlist)">Remove</a>
+        <a ng-if="playlist.removed" ng-click="vm.undoRemove(playlist)">Undo</a>
+      </span>
     </li>
-  </ul>
--->
-
-
-  <ul>
     <!--
-    <li class="syncing" ng-repeat="playlist in vm.playlists">
-      {{playlist.Name}}
-        <span class="right time">25 mins remaining&nbsp;</span>
-        span class="right remove"><a>Remove</a>&nbsp;</span>
-      </div>
-    </li>
-    -->
-    <li class="syncing">
-        <span class="icon"></span><span class="name">Dane's playlist</span>
-        <span class="right time">25 mins remaining</span>
-    </li>
-    <li class="">
-      <span class="icon"></span><span class="name">Lara's playlist</span>
-        <span class="right remove"><a>Remove</a></span>
-    </li>
     <li class="removed">
-      <span class="icon"></span><span class="name">Zenziles's playlist</span>
+      <span class="icon"></span><span class="name">Zenziles's test playlist</span>
       <span class="right remove"><a>Undo</a></span>
     </li>
+    -->
   </ul>
 
 </div>

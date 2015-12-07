@@ -1,4 +1,4 @@
-angular.module("app.dashboard", []).controller('DashboardController', function (Playlists, Users, spinnerService) {
+angular.module("app.dashboard", []).controller('DashboardController', function (Playlists, spinnerService) {
   var self = this;
   this.title = "Dashboard";
 
@@ -8,8 +8,8 @@ angular.module("app.dashboard", []).controller('DashboardController', function (
     //spinnerService.hide('dashboardSharedSpinner');
   });
 
-  Users.loadCurrentUser().then(function(data) {
-    self.gyms = data.UserGyms;
+  Playlists.loadGymsPlaylistSyncInfoDetailed().then(function(data) {
+    self.gyms = data;
     spinnerService.hide('dashboardGymsSpinner');
   });
 
