@@ -28,6 +28,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     createNewPlaylistFromTemplate: createNewPlaylistFromTemplate,
     addTrackToGoalPlaylist: addTrackToGoalPlaylist,
     removeTrackFromGoalPlaylist: removeTrackFromGoalPlaylist,
+    removeBackgroundTrack: removeBackgroundTrack,
     trackDropped: trackDropped,
     getCreatingNewPlaylist: getCreatingNewPlaylist,
     setCreatingNewPlaylist: setCreatingNewPlaylist,
@@ -69,7 +70,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     playlist.TemplateIconFileName = template.TemplateGroup.IconFileName;
     playlist.Shared = false;
     playlist.ClassLengthMinutes = template.ClassLengthMinutes;
-    Users.loadCurrentUser().then(function(user) {
+    Users.loadCurrentUser().then(function (user) {
       playlist.UserId = user.Id;
     });
     playlist.PlaylistGoals = [];
@@ -120,6 +121,31 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   function removeTrackFromGoalPlaylist(playlistGoalArrayId, track) {
     playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks = [];
     // TODO: use _.mapObject to remove the track from the list and rework the sort order, when we have multiple tracks
+  }
+
+  // Removes a track from background music
+  function removeBackgroundTrack(position, track) {
+    var removed = false;
+    for (var i = 0; i < playlist.BackgroundTracks.length; i++) {
+      if (!removed) {
+        if (playlist.BackgroundTracks[i].PlaylistPosition.toLowerCase() === position) {
+          if (playlist.BackgroundTracks[i].TrackId === track.TrackId) {
+            playlist.BackgroundTracks.splice(i, 1);
+            removed = true;
+          }
+        }
+      }
+    }
+    if (removed) {
+      // Rework the sort order
+      var k = 1;
+      for (i = 0; i < playlist.BackgroundTracks.length; i++) {
+        if (playlist.BackgroundTracks[i].PlaylistPosition.toLowerCase() === position) {
+          playlist.BackgroundTracks[i].SortOrder = k;
+          k++;
+        }
+      }
+    }
   }
 
   // A track has been added to a goal
