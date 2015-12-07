@@ -24,6 +24,18 @@ playlistGoalController.$inject = ['$scope', 'Playlists'];
 function playlistGoalController($scope, Playlists) {
   var self = this;
 
+  // Return the number of tracks this goal/background music thingy holds
+  self.numTracks = function () {
+    // For goals
+    // playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length
+    return 10;
+  };
+
+  // This is here because we use it for background tracks
+  self.showTrack = function (track) {
+    return true;
+  };
+
   self.removeTrack = function(track) {
     self.removeTrackFromPlaylist($scope.playlistGoalArrayId, track);
   };

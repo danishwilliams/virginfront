@@ -54,16 +54,7 @@ function tracksController($scope, Tracks) {
 
   // Return the number of tracks this goal/background music thingy holds
   self.numTracks = function () {
-    // For goals
-    // playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length
-
-    // For background music
-    if (self.backgroundMusic) {
-      if (!$scope.ngModel) {
-        return 0;
-      }
-      return $scope.ngModel.length;
-    }
+    return $scope.$parent.vm.numTracks();
   };
 
   // Show this track or not?

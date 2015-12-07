@@ -24,10 +24,14 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     BpmHigh: 0
   };
 
+  // The currently selected background section which a track can be added to
+  var currentBackgroundSection = '';
+
   var playlistFactory = {
     createNewPlaylistFromTemplate: createNewPlaylistFromTemplate,
     addTrackToGoalPlaylist: addTrackToGoalPlaylist,
     removeTrackFromGoalPlaylist: removeTrackFromGoalPlaylist,
+    addBackgroundTrack: addBackgroundTrack,
     removeBackgroundTrack: removeBackgroundTrack,
     trackDropped: trackDropped,
     getCreatingNewPlaylist: getCreatingNewPlaylist,
@@ -52,7 +56,9 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getCurrentStep: getCurrentStep,
     setStep: setStep,
     getCurrentGoal: getCurrentGoal,
-    setCurrentGoal: setCurrentGoal
+    setCurrentGoal: setCurrentGoal,
+    getCurrentBackgroundSection: getCurrentBackgroundSection,
+    setCurrentBackgroundSection: setCurrentBackgroundSection
   };
 
   return playlistFactory;
@@ -121,6 +127,24 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   function removeTrackFromGoalPlaylist(playlistGoalArrayId, track) {
     playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks = [];
     // TODO: use _.mapObject to remove the track from the list and rework the sort order, when we have multiple tracks
+  }
+
+  function addBackgroundTrack(position, track) {
+    console.log(playlist.BackgroundTracks);
+    // calculate the new SortOrder
+    var i = 0;
+    playlist.BackgroundTracks.forEach(function(val) {
+      if (val.PlaylistPosition.toLowerCase() === position) {
+        i++;
+      }
+    });
+
+    var newTrack = {
+      PlaylistPosition: position,
+      SortOrder: i,
+      Track: track
+    };
+    playlist.BackgroundTracks.push(newTrack);
   }
 
   // Removes a track from background music
@@ -398,4 +422,13 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
       BpmHigh: playlistGoal.Goal.BpmHigh
     };
   }
+
+  function getCurrentBackgroundSection() {
+    return currentBackgroundSection;
+  }
+
+  function setCurrentBackgroundSection(section) {
+    currentBackgroundSection = section;
+  }
+
 }

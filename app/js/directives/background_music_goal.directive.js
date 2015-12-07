@@ -17,9 +17,9 @@ function backgroundMusicGoal() {
   return directive;
 }
 
-backgroundMusicGoalController.$inject = ['$scope', 'Playlists'];
+backgroundMusicGoalController.$inject = ['$scope', '$state', 'Playlists'];
 
-function backgroundMusicGoalController($scope, Playlists) {
+function backgroundMusicGoalController($scope, $state, Playlists) {
   var self = this;
 
   self.goal = {};
@@ -32,21 +32,39 @@ function backgroundMusicGoalController($scope, Playlists) {
       break;
   }
 
-  self.canAddTracks = function () {
+  self.numTracks = function() {
     if (!$scope.ngModel) {
-      return false;
+      return 0;
     }
-    // count number of tracks for a specific position
     var i = 0;
     $scope.ngModel.forEach(function(val) {
       if (val.PlaylistPosition.toLowerCase() === $scope.playlistPosition) {
         i++;
       }
     });
-    if (i < 3) {
+    return i;
+  };
+
+  self.canAddTracks = function () {
+    if (!$scope.ngModel) {
+      return false;
+    }
+    // count number of tracks for a specific position
+    if (self.numTracks() < 3) {
       return true;
     }
     return false;
+  };
+
+  self.goalClicked = function () {
+    if (self.canAddTracks()) {
+      Playlists.setCurrentBackgroundSection($scope.playlistPosition);
+      if (Playlists.getCreatingNewPlaylist() || $state.current.name === 'playlist-new-edit') {
+        $state.go('playlist-new-edit.tracks-search');
+      } else {
+        $state.go('playlist-edit.tracks-search');
+      }
+    }
   };
 
   self.removeTrack = function(track) {

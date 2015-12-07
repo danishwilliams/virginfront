@@ -1,7 +1,6 @@
-{{vm.numTracks()}}
 <div class="row" ng-show="vm.numTracks() > 0">
   <div class="bin" ng-class="{'dropped' : vm.numTracks() > 0}" id="bin{{vm.binId()}}">
-    <div class="row track dropped" id="playlist{{playlistGoal.Id}}{{track.Track.MusicProviderTrackId}}" ng-repeat="track in ngModel | orderBy: track.SortOrder">
+    <div class="row track dropped" id="playlist{{playlistGoal.Id}}{{track.Track.MusicProviderTrackId}}" ng-repeat="track in ngModel | orderBy: track.SortOrder" ng-show="vm.showTrack(track)">
       <div class="large-1 small-1 columns play" id="track{{track.Track.MusicProviderTrackId}}" ng-click="vm.playTrack(track.Track);" ng-class="{'playing': track.Track.playing}">
         <a href="#">{{'PLAY' | translate}}</a>
       </div>
