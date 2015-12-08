@@ -10,6 +10,7 @@ function GymsFactory(Restangular) {
 
   var gymsFactory = {
     loadGyms: loadGyms,
+    loadAvailableGyms: loadAvailableGyms,
     getGyms: getGyms,
     loadGym: loadGym
   };
@@ -22,6 +23,14 @@ function GymsFactory(Restangular) {
     function loadGymsComplete(data, status, headers, config) {
       self.gyms = data;
       return self.gyms;
+    }
+  }
+
+  function loadAvailableGyms() {
+    return Restangular.all('gyms/syncinfo').getList().then(loadAvailableGymsComplete);
+
+    function loadAvailableGymsComplete(data, status, headers, config) {
+      return data;
     }
   }
 
