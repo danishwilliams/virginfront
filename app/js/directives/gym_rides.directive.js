@@ -29,6 +29,9 @@ function gymRidesController(Playlists) {
       DevicePlaylistSyncs: [{SyncSuccess: false, SecondsLeft: 3600}]
     };
     self.gym.PlaylistSyncInfos.push(playlist);
+    if (self.gym.PlaylistSyncInfos.length === 5) {
+      self.gym.LimitReached = true;
+    }
   };
 
   self.remove = function(playlist, gymId) {
