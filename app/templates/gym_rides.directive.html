@@ -1,8 +1,10 @@
 <div class="gym-rides">
-  <h3>{{gym.Gym.Name}}</h3>
+  <h3>{{vm.gym.Gym.Name}}</h3>
+
+  <div ng-if="!gym.LimitReached"><gym-possible-rides ng-change="vm.addRide()" ng-model="vm.playlist"></gym-possible-rides></div>
 
   <ul>
-    <li ng-class="{'syncing' : !playlist.DevicePlaylistSyncs[0].SyncSuccess, 'removed' : playlist.removed}" ng-repeat="playlist in gym.PlaylistSyncInfos | orderBy:'Playlist.Name'">
+    <li ng-class="{'syncing' : !playlist.DevicePlaylistSyncs[0].SyncSuccess, 'removed' : playlist.removed}" ng-repeat="playlist in vm.gym.PlaylistSyncInfos | orderBy:'Playlist.Name'">
       <span class="icon"></span><span class="name">{{playlist.Playlist.Name}}</span>
       <span class="right time" ng-if="!playlist.DevicePlaylistSyncs[0].SyncSuccess">{{playlist.DevicePlaylistSyncs[0].SecondsLeft | hours}} mins remaining</span>
       <span class="right remove" ng-if="playlist.DevicePlaylistSyncs[0].SyncSuccess">
