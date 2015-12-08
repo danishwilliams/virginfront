@@ -197,7 +197,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     self.playlist.put({
       syncPlaylist: false
     }).then(function () {
-      if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength()) {
+      if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
         $state.go('dashboard');
       } else if (self.newPlaylist) {
         // New playlist view
@@ -275,7 +275,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Editing a playlist but not all tracks have goals
       return 'Each goal needs a track';
-    } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength()) {
+    } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
       return 'Save and continue later';
     }
     if (self.newPlaylist) {
