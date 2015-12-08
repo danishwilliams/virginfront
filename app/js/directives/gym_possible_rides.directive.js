@@ -38,8 +38,13 @@ function gymPossibleRidesController(Playlists, $scope) {
   var self = this;
 
   self.add = function () {
-    Playlists.addPlaylistToGym($scope.ngModel.Id, self.gym.Gym.Id).then(function (data) {
-      // It worked!
-    });
+    // Doing this check because somehow this function gets called twice, I think because of the $setViewValue
+    if ($scope.ngModel) {
+      $scope.selected();
+      Playlists.addPlaylistToGym($scope.ngModel.Id, self.gym.Gym.Id).then(function (data) {
+        // It worked!
+        self.playlists = _.without(self.playlists, $scope.ngModel);
+      });
+    }
   };
 }
