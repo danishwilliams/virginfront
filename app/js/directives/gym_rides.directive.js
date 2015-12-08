@@ -12,14 +12,20 @@ function gymRides() {
   return directive;
 }
 
-gymRidesController.$inject = [];
+gymRidesController.$inject = ['Playlists'];
 
-function gymRidesController() {
+function gymRidesController(Playlists) {
   var self = this;
 
-  self.remove = function(playlist) {
+  self.remove = function(playlist, gymId) {
     playlist.removed = true;
-    console.log(playlist);
+    Playlists.removePlaylistFromGym(playlist.PlaylistId, gymId).then(function(data) {
+      // It worked!
+    }, function(response) {
+      // There was some error
+      console.log("Error with status code", response.status);
+      playlist.removed = false;
+    });
   };
 
   self.undoRemove = function (playlist) {

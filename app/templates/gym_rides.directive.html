@@ -7,7 +7,7 @@
       <span class="icon"></span><span class="name">{{playlist.Playlist.Name}}</span>
       <span class="right time" ng-if="playlist.SyncStarted">{{playlist.SecondsLeft | hours}} mins remaining</span>
       <span class="right remove" ng-if="!playlist.SyncStarted">
-        <a ng-if="!playlist.removed" ng-click="vm.remove(playlist)">Remove</a>
+        <a ng-if="!playlist.removed" ng-click="vm.remove(playlist, gym.Gym.Id)">Remove</a>
         <a ng-if="playlist.removed" ng-click="vm.undoRemove(playlist)">Undo</a>
       </span>
     </li>
