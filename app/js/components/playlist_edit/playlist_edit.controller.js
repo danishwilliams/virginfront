@@ -137,9 +137,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     if (playlistGoal.PlaylistGoalTracks.length === 0) {
       angular.element($document[0].body).addClass('noscroll');
       if (self.newPlaylist) {
-        $state.go('playlist-new-edit.tracks-search');
+        $state.go('playlist-new-edit.tracks-search', {id: self.id});
       } else {
-        $state.go('playlist-edit.tracks-search');
+        $state.go('playlist-edit.tracks-search', {id: self.id});
       }
     }
   };
