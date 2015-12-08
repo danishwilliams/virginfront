@@ -20,8 +20,6 @@
           <span class="length" ng-class="{'error': !playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()}"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
           <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
           <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">Each goal needs a track.</p>
-          <p class="error" ng-if="playlist_edit.checkAllGoalsHaveTracks() && !playlist_edit.checkHasPreRideBackgroundTracks()">Please add some pre-ride background music.</p>
-          <p class="error" ng-if="playlist_edit.checkAllGoalsHaveTracks() && !playlist_edit.checkHasPostRideBackgroundTracks()">Please add some post-ride background music.</p>
         </div>
       </div>
       <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder' track by $index">
