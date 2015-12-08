@@ -28,7 +28,14 @@ function gymRidesController(Playlists) {
     });
   };
 
-  self.undoRemove = function (playlist) {
+  self.undoRemove = function (playlist, gymId) {
     playlist.removed = false;
+    Playlists.addPlaylistToGym(playlist.PlaylistId, gymId).then(function(data) {
+      // It worked!
+    }, function(response) {
+      // There was some error
+      console.log("Error with status code", response.status);
+      playlist.removed = true;
+    });
   };
 }

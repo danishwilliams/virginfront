@@ -13,14 +13,14 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
   });
 
   function loadGyms() {
-    // Load all gyms
-    Gyms.loadGyms().then(function (data) {
+    // Load all gyms which have devices
+    Gyms.loadAvailableGyms().then(function (data) {
       self.gyms = data;
       // Mark the user gyms which have been chosen
       _.mapObject(self.gyms, function (val, key) {
         if (key >= 0) {
           var item = _.find(self.user.UserGyms, function (item) {
-            return item.Gym.Name === val.Name;
+            return item.Gym.Name === val.Gym.Name;
           });
           if (item) {
             val.selected = true;

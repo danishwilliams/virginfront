@@ -2,21 +2,15 @@
   <h3>{{gym.Gym.Name}}</h3>
 
   <ul>
-    <li ng-class="{'syncing' : playlist.SyncStarted, 'removed' : playlist.removed}" ng-repeat="playlist in gym.DevicePlaylistSyncs | orderBy:'Playlist.Name'">
+    <li ng-class="{'syncing' : !playlist.SyncSuccess, 'removed' : playlist.removed}" ng-repeat="playlist in gym.DevicePlaylistSyncs | orderBy:'Playlist.Name'">
       <!--{{playlist.PercentDone}} {{playlist.SecondsLeft}} {{playlist.SyncError}} {{playlist.SyncStarted}} {{playlist.SyncSuccess}} -->
       <span class="icon"></span><span class="name">{{playlist.Playlist.Name}}</span>
-      <span class="right time" ng-if="playlist.SyncStarted">{{playlist.SecondsLeft | hours}} mins remaining</span>
-      <span class="right remove" ng-if="!playlist.SyncStarted">
+      <span class="right time" ng-if="!playlist.SyncSuccess">{{playlist.SecondsLeft | hours}} mins remaining</span>
+      <span class="right remove" ng-if="playlist.SyncSuccess">
         <a ng-if="!playlist.removed" ng-click="vm.remove(playlist, gym.Gym.Id)">Remove</a>
-        <a ng-if="playlist.removed" ng-click="vm.undoRemove(playlist)">Undo</a>
+        <a ng-if="playlist.removed" ng-click="vm.undoRemove(playlist, gym.Gym.Id)">Undo</a>
       </span>
     </li>
-    <!--
-    <li class="removed">
-      <span class="icon"></span><span class="name">Zenziles's test playlist</span>
-      <span class="right remove"><a>Undo</a></span>
-    </li>
-    -->
   </ul>
 
 </div>
