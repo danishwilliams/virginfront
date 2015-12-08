@@ -1,17 +1,15 @@
 <div class="dashboard row">
-  <div class="large-2 columns">
-    &nbsp;
-  </div>
-  <div class="large-14 columns">
+  <div class="large-14 large-centered columns">
     <div class="row playlists heading">
       <div class="columns large-14">
-        <h3>My saved playlists</h3>
+        <h1>Recent rides</h1>
       </div>
       <div class="columns large-4">
-        View all playlists
+        View all your rides
       </div>
     </div>
     <div class="row">
+      <spinner class="spinner" name="dashboardPlaylistsSpinner" show="true"></spinner>
       <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
         <li><a ui-sref="playlist-new-template">+ Create new ride class</a></li>
         <li ng-repeat="playlist in dashboard.playlists | orderBy:'Name'">
@@ -21,22 +19,26 @@
     </div>
     <div class="row gyms heading">
       <div class="columns large-14">
-        <h3>My clubs</h3>
+        <h1>Rides available at Clubs</h1>
       </div>
       <div class="columns large-4">
         <a>Manage clubs</a>
       </div>
     </div>
     <div class="row">
-      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
-        <li ng-repeat="gym in dashboard.gyms | orderBy:'Name'">
-          <h4>{{gym.Gym.Name}}</h4>
+      <spinner class="spinner" name="dashboardGymsSpinner" show="true"></spinner>
+
+      <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+        <li ng-if="gym.PlaylistSyncCount > 0" ng-repeat="gym in dashboard.gyms | orderBy:'Name'">
+          <gym-rides></gym-rides>
         </li>
       </ul>
+
     </div>
+    <!--
     <div class="row classes heading">
       <div class="columns large-14">
-        <h3>Recent classes</h3>
+        <h1>Recent classes</h1>
       </div>
       <div class="columns large-4">
         <a>View all classes this month</a>
@@ -47,21 +49,20 @@
     </div>
     <div class="row rides heading">
       <div class="columns large-14">
-        <h3>Rides shared by others</h3>
+        <h1>Rides shared by others</h1>
       </div>
       <div class="columns large-4">
         <a>Browse all rides</a>
       </div>
     </div>
     <div class="row">
+      <spinner class="spinner" name="dashboardSharedSpinner" show="true"></spinner>
       <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
         <li ng-repeat="playlist in dashboard.playlists | orderBy:'Created'">
           <ride playlist="{{playlist}}"></ride>
         </li>
       </ul>
     </div>
-  </div>
-  <div class="large-2 columns">
-    &nbsp;
+    -->
   </div>
 </div>

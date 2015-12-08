@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $location, $document, AuthenticationService, Tracks, Playlists, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $location, $document, AuthenticationService, Tracks, Playlists, Templates, spinnerService, uuid2) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -25,9 +25,16 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
         var currentgoal = Playlists.getCurrentGoal();
-        Playlists.trackDropped(currentgoal.ArrayId, track);
-        $rootScope.$broadcast('add.track');
-        Tracks.setSearchedTrack({});
+        if (currentgoal.BackgroundSection) {
+          // Add a background track
+          Playlists.addBackgroundTrack(currentgoal.BackgroundSection, track);
+          Tracks.setSearchedTrack({});
+        } else {
+          // Add a track to a goal
+          Playlists.trackDropped(currentgoal.ArrayId, track);
+          $rootScope.$broadcast('add.track');
+          Tracks.setSearchedTrack({});
+        }
       }
       angular.element($document[0].body).removeClass('noscroll');
     }
@@ -35,7 +42,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Urgh. Had to use $scope here because the controller isn't available in the $stateChangeSuccess event, so can't
   // update variables.
-  $scope.$on('add.track', function() {
+  $scope.$on('add.track', function () {
     self.updatePlaylistLength();
     self.updateCurrentGoal();
     self.checkAllGoalsHaveTracks();
@@ -46,6 +53,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     Templates.loadTemplate(self.id).then(function (data) {
       self.playlist = Playlists.createNewPlaylistFromTemplate(data);
       self.currentgoal = Playlists.getCurrentGoal();
+      self.initFreestylePlaylist();
+      spinnerService.hide('playlistEditSpinner');
     });
   } else if (self.id) {
     // Load an existing playlist so we can edit it
@@ -56,8 +65,49 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       if (self.checkPlaylistLength() === false) {
         self.newPlaylist = true;
       }
+      self.initFreestylePlaylist();
+      spinnerService.hide('playlistEditSpinner');
     });
   }
+
+  // This is a Freestyle playlist
+  this.initFreestylePlaylist = function () {
+    if (self.playlist.TemplateName !== 'Freestyle') {
+      return;
+    }
+    self.freestyleTemplate = true;
+    self.freestyleGoals = [];
+    for (var i = 0; i < self.playlist.MaxFreestyleGoals - 1; i++) {
+      self.freestyleGoals[i] = {
+        show: true
+      };
+    }
+  };
+
+  // Rules for adding a new freestyle goal
+  this.canAddNewFreestyleGoal = function () {
+    if (!self.playlist.PlaylistGoals) {
+      return;
+    }
+    var numGoals = self.playlist.PlaylistGoals.length;
+    if (numGoals < self.playlist.MaxFreestyleGoals) {
+      return true;
+    }
+    return false;
+  };
+
+  this.addFreestyleGoal = function (goal) {
+    goal.show = false;
+    // Find the current ArrayId and SortOrder from the last item in the PlaylistGoals array
+    var i = self.playlist.PlaylistGoals.length;
+    // .copy because otherwise we change the model within the <freestyle-goals> directive
+    var freestyleGoal = angular.copy(self.freestyleGoal);
+    // Setting Id allows the API to save a new playlist goal
+    freestyleGoal.Id = uuid2.newuuid().toString();
+    freestyleGoal.ArrayId = i;
+    freestyleGoal.SortOrder = i + 1;
+    self.playlist.PlaylistGoals.push(freestyleGoal);
+  };
 
   this.playTrack = function (track) {
     Tracks.playTrack(track);
@@ -141,11 +191,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
 
     Playlists.setCreatingNewPlaylist(false);
+    self.saving = true;
+    spinnerService.show('playlistEditSaveSpinner');
 
     self.playlist.put({
       syncPlaylist: false
     }).then(function () {
-      if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength()) {
+      if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
         $state.go('dashboard');
       } else if (self.newPlaylist) {
         // New playlist view
@@ -158,6 +210,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
           id: self.playlist.Id
         });
       }
+    }, function (response) {
+      console.log("Error with status code", response.status);
+      spinnerService.hide('playlistEditSaveSpinner');
+      self.saving = false;
+      self.error = {
+        error: true
+      };
     });
   };
 
@@ -178,6 +237,26 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return Playlists.checkAllGoalsHaveTracks();
   };
 
+  this.checkHasPreRideBackgroundTracks = function () {
+    var found = false;
+    self.playlist.BackgroundTracks.forEach(function(val) {
+      if (val.PlaylistPosition.toLowerCase() === 'before') {
+        found = true;
+      }
+    });
+    return found;
+  };
+
+  this.checkHasPostRideBackgroundTracks = function () {
+    var found = false;
+    self.playlist.BackgroundTracks.forEach(function(val) {
+      if (val.PlaylistPosition.toLowerCase() === 'after') {
+        found = true;
+      }
+    });
+    return found;
+  };
+
   this.checkPlaylistLength = function () {
     return Playlists.checkPlaylistLength();
   };
@@ -196,7 +275,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Editing a playlist but not all tracks have goals
       return 'Each goal needs a track';
-    } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength()) {
+    } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
       return 'Save and continue later';
     }
     if (self.newPlaylist) {

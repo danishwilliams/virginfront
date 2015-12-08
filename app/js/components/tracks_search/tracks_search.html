@@ -4,7 +4,7 @@
     <div class="row track-search-header">
       <h1>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'{{vm.currentgoal.Name}}'</span></h1>
       <div class="row showing">
-        <div class="small-13 columns">
+        <div class="small-13 columns" ng-show="!vm.currentgoal.BackgroundSection">
           {{'SHOWING' | translate}}: <span class="bpm-range">{{vm.currentgoal.BpmLow}} - {{vm.currentgoal.BpmHigh}} {{'BPM' | translate}}</span>
           <span class="bpm-range" ng-if="vm.bpm2">{{vm.bpmLow2}} - {{vm.bpmHigh2}} {{'BPM' | translate}}</span>
         </div>
@@ -19,6 +19,7 @@
       </div>
       <div class="row">
         <div class="large-13 columns track-search-results">
+          <spinner class="spinner" name="trackSpinner" show="true"></spinner>
           <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
             <div class="small-1 columns">
               <button class="play" ng-class="{'playing': track.playing}" ng-click="vm.playTrack(track);">{{'PLAY' | translate}}</button>

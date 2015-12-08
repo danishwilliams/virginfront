@@ -1,4 +1,4 @@
-angular.module("app.playlist_sync", []).controller('Playlist_syncController', function ($stateParams, $location, $state, AuthenticationService, Playlists, Users, Gyms) {
+angular.module("app.playlist_sync", []).controller('Playlist_syncController', function ($stateParams, $location, $state, AuthenticationService, Playlists, Users, Gyms, spinnerService) {
   var self = this;
 
   // TODO: do we want to sanitize this?
@@ -28,6 +28,7 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
         }
         return val;
       });
+      spinnerService.hide('playlistSyncSpinner');
     });
   }
 
@@ -50,10 +51,13 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
     });
     if (!selected) {
       self.error = {required: true};
+      return;
     }
     else {
       self.error = {required: false};
     }
+
+    spinnerService.show('playlistSyncSpinner');
 
     addPlaylistToGym();
     Playlists.publishPlaylist(self.id).then(function (data) {

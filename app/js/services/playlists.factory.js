@@ -20,14 +20,17 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     ArrayId: 0, // Maintains a mapping between the array id of the playlist goal, and the playlist goal UUID
     PlaylistGoalId: 'uuid',
     Name: '',
-    BpmLow: 0,
-    BpmHigh: 0
+    BpmLow: -1,
+    BpmHigh: -1,
+    BackgroundSection: '' // The currently selected background section which a track can be added to. One of 'before' or 'after'
   };
 
   var playlistFactory = {
     createNewPlaylistFromTemplate: createNewPlaylistFromTemplate,
     addTrackToGoalPlaylist: addTrackToGoalPlaylist,
     removeTrackFromGoalPlaylist: removeTrackFromGoalPlaylist,
+    addBackgroundTrack: addBackgroundTrack,
+    removeBackgroundTrack: removeBackgroundTrack,
     trackDropped: trackDropped,
     getCreatingNewPlaylist: getCreatingNewPlaylist,
     setCreatingNewPlaylist: setCreatingNewPlaylist,
@@ -36,6 +39,8 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     loadPlaylist: loadPlaylist,
     getPlaylist: getPlaylist,
     setPlaylist: setPlaylist,
+    loadGymsPlaylistSyncInfoDetailed: loadGymsPlaylistSyncInfoDetailed,
+    loadGymsPlaylists: loadGymsPlaylists,
     addPlaylistToGym: addPlaylistToGym,
     publishPlaylist: publishPlaylist,
     publishPlaylistToMusicProvider: publishPlaylistToMusicProvider,
@@ -69,9 +74,14 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     playlist.TemplateIconFileName = template.TemplateGroup.IconFileName;
     playlist.Shared = false;
     playlist.ClassLengthMinutes = template.ClassLengthMinutes;
-    playlist.UserId = Users.getCurrentUser().Id;
+    Users.loadCurrentUser().then(function (user) {
+      playlist.UserId = user.Id;
+    });
     playlist.PlaylistGoals = [];
     playlist.BackgroundTracks = [];
+    if (template.TemplateGroup.Type === 'freestyle') {
+      playlist.MaxFreestyleGoals = template.MaxFreestyleGoals;
+    }
 
     // for each template goal: set up a new playlist goal
     var playlistGoal = {};
@@ -115,6 +125,48 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   function removeTrackFromGoalPlaylist(playlistGoalArrayId, track) {
     playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks = [];
     // TODO: use _.mapObject to remove the track from the list and rework the sort order, when we have multiple tracks
+  }
+
+  function addBackgroundTrack(position, track) {
+    // calculate the new SortOrder
+    var i = 0;
+    playlist.BackgroundTracks.forEach(function (val) {
+      if (val.PlaylistPosition.toLowerCase() === position) {
+        i++;
+      }
+    });
+
+    var newTrack = {
+      PlaylistPosition: position,
+      SortOrder: i,
+      Track: track
+    };
+    playlist.BackgroundTracks.push(newTrack);
+  }
+
+  // Removes a track from background music
+  function removeBackgroundTrack(position, track) {
+    var removed = false;
+    for (var i = 0; i < playlist.BackgroundTracks.length; i++) {
+      if (!removed) {
+        if (playlist.BackgroundTracks[i].PlaylistPosition.toLowerCase() === position) {
+          if (playlist.BackgroundTracks[i].TrackId === track.TrackId) {
+            playlist.BackgroundTracks.splice(i, 1);
+            removed = true;
+          }
+        }
+      }
+    }
+    if (removed) {
+      // Rework the sort order
+      var k = 1;
+      for (i = 0; i < playlist.BackgroundTracks.length; i++) {
+        if (playlist.BackgroundTracks[i].PlaylistPosition.toLowerCase() === position) {
+          playlist.BackgroundTracks[i].SortOrder = k;
+          k++;
+        }
+      }
+    }
   }
 
   // A track has been added to a goal
@@ -181,6 +233,35 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
 
   function setPlaylist(value) {
     playlist = value;
+  }
+
+  function loadGymsPlaylistSyncInfoDetailed() {
+    return Restangular.one('gyms/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
+
+    function loadGymsPlaylistSyncInfoDetailedComplete(data, status, headers, config) {
+      // Some dummy data for testing
+      var i = 0;
+      _.mapObject(data, function (val, key) {
+        if (key >= 0) {
+          _.mapObject(val.DevicePlaylistSyncs, function (val1, key1) {
+            i++;
+            if (i >= 3 && i <= 5) {
+              val1.PercentDone = 20;
+              val1.SecondsLeft = 120;
+              val1.SyncStarted = true;
+              return val1;
+            }
+          });
+        }
+        return val;
+      });
+      return data;
+    }
+  }
+
+  // Gets all Gyms with their playlists
+  function loadGymsPlaylists() {
+    return Restangular.one('playlists/gyms').get();
   }
 
   function addPlaylistToGym(playlistId, gymId) {
@@ -279,6 +360,14 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     if (!playlist.PlaylistGoals) {
       return false;
     }
+
+    // If this is a freestyle playlist, check that the number of goals equals the number of MaxFreestyleGoals
+    if (playlist.MaxFreestyleGoals > 0) {
+      if (playlist.PlaylistGoals.length < playlist.MaxFreestyleGoals) {
+        return false;
+      }
+    }
+
     var containsNoTrack = false;
     playlist.PlaylistGoals.forEach(function (playlistGoals) {
       var hasTrack = false;
@@ -352,11 +441,16 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
 
   function setCurrentGoal(playlistGoal) {
     currentgoal = {
-      ArrayId: playlistGoal.ArrayId,
-      PlaylistGoalId: playlistGoal.Id,
       Name: playlistGoal.Goal.Name,
       BpmLow: playlistGoal.Goal.BpmLow,
-      BpmHigh: playlistGoal.Goal.BpmHigh
+      BpmHigh: playlistGoal.Goal.BpmHigh,
     };
+    if (playlistGoal.BackgroundSection) {
+      currentgoal.BackgroundSection = playlistGoal.BackgroundSection;
+    }
+    else {
+      currentgoal.ArrayId = playlistGoal.ArrayId;
+      currentgoal.PlaylistGoalId = playlistGoal.Id;
+    }
   }
 }

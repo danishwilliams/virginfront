@@ -4,40 +4,36 @@ angular
 
 function goalOption() {
   var directive = {
-    link: link,
     templateUrl: 'goal_option.directive.html',
     restrict: 'E',
     controller: goalOptionController,
     controllerAs: 'vm',
     scope: {
-      length: '@',
       bpm: '@',
-      goaloptiondata: '@'
+      freestyle: '@',
+      effort: '=',
+      efforthigh: '='
     }
   };
   return directive;
-
-  function link(scope, element, attrs) {
-  }
 }
 
 goalOptionController.$inject = ['$scope'];
 
 function goalOptionController($scope) {
-  // Immensely hacky, but I couldn't figure out how to pass bpm AND goaloptions together. The latter comes through as a string,
-  // and converting the string to an object doesn't actually results in showing the data in the template. Bizarrely. *shrug*
-  $scope.goaloption = JSON.parse($scope.goaloptiondata);
+  $scope.goaloption = $scope.$parent.goaloption;
+
+  $scope.options = [40, 50, 60, 70, 80, 90, 100];
 
   // Only show the name of goaloptions if there are more than 1
-  if (parseInt($scope.length) === 1) {
+  if (parseInt($scope.goaloption.length) === 1) {
     $scope.goaloption.Name = '';
   }
 
   if ($scope.goaloption.EffortHigh) {
-    $scope.goaloption.effort = $scope.goaloption.Effort + ' - ' + $scope.goaloption.EffortHigh;
-  }
-  else {
-    $scope.goaloption.effort = $scope.goaloption.Effort;
+    $scope.goaloption.effortrange = $scope.goaloption.Effort + ' - ' + $scope.goaloption.EffortHigh;
+  } else {
+    $scope.goaloption.effortrange = $scope.goaloption.Effort;
   }
 
   switch ($scope.goaloption.Beat.Ratio) {
@@ -54,7 +50,7 @@ function goalOptionController($scope) {
     updateBpm();
   }
 
-  $scope.$watch('bpm', function() {
+  $scope.$watch('bpm', function () {
     updateBpm();
   });
 

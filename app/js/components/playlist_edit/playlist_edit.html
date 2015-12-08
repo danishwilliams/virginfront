@@ -4,6 +4,8 @@
   <playlist-workflow ng-if="playlist_edit.newPlaylist"></playlist-workflow>
   <h1 class="text-center">{{playlist_edit.title}}</h1>
 
+  <spinner class="spinner overlay" name="playlistEditSpinner" show="true"></spinner>
+
   <div class="row playlist-container">
     <div class="small-18 medium-16 medium-centered large-12 large-centered columns goals-container">
       <div class="row">
@@ -20,11 +22,15 @@
           <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">Each goal needs a track.</p>
         </div>
       </div>
-      <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder'">
+      <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder' track by $index">
         <div class="goal-container" ng-class="{'active': playlist_edit.isGoalActive(playlistGoal)}">
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
             <div class="large-10 columns">
-              <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">{{playlistGoal.Goal.Name}}</h4>
+              <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">
+                <img ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
+                {{playlistGoal.Goal.Name}} 
+                <em ng-if="playlistGoal.Goal.GoalChallengeId">Challenge</em>
+              </h4>
             </div>
             <div class="large-8 columns text-right">
               <a ng-show="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length === 0">+ Add a song</a>
@@ -49,7 +55,7 @@
           <div class="row goal-meta" ng-click="goal.show = !playlistGoal.show" ng-show="playlistGoal.show && playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0">
             <ul class="large-block-grid-2">
               <li ng-repeat="goaloption in playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].Goal.GoalOptions">
-                <goal_option data-goaloptiondata="{{goaloption}}" data-length="{{playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].Goal.GoalOptions.length}}" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}"></goal_option>
+                <goal_option data-freestyle="{{playlist_edit.freestyleTemplate}}" data-effort="goaloption.Effort" data-efforthigh="goaloption.EffortHigh" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}"></goal_option>
               </li>
             </ul>
             <div class="row notes">
@@ -62,9 +68,22 @@
           </div>
         </div>
       </div>
+      <div class="row" ng-show="playlist_edit.playlist.TemplateName === 'Freestyle'">
+        <spinner class="spinner" name="playlistFreestyleSpinner"></spinner>
+        <freestyle-goals ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
+      </div>
       <div class="row">
+        <background-music ng-model="playlist_edit.playlist.BackgroundTracks"></background-music>
+      </div>
+      <div class="row">
+        <div ng-messages="playlist_edit.error">
+          <p class="error" ng-message="error">Ride cannot be saved. Please try again later.</p>
+        </div>
         <button class="cancel" style="float:left" ui-sref="dashboard">Cancel</button>
-        <button ng-show="playlist_edit.checkWhenEditingEveryGoalHasATrack()" type="submit" form="playlistForm" class="round" style="float:right">{{playlist_edit.submitButtonText()}}</button>
+        <button ng-disabled="playlist_edit.saving" ng-show="playlist_edit.checkWhenEditingEveryGoalHasATrack()" type="submit" form="playlistForm" class="round" style="float:right">
+          <spinner class="spinner" name="playlistEditSaveSpinner" show="false"></spinner>
+          {{playlist_edit.submitButtonText()}}
+        </button>
       </div>
     </div>
   </div>

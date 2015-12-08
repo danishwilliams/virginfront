@@ -1,24 +1,34 @@
-angular.module("app.goals", []).controller('GoalsController', function (Goals, Restangular, uuid2) {
+angular.module("app.goals", []).controller('GoalsController', function (Goals, Restangular, uuid2, spinnerService) {
   var self = this;
   this.goals = [];
   this.newGoal = {};
 
-  Goals.getList().then(function (goals) {
+  Goals.loadGoals().then(function (goals) {
+    spinnerService.hide('goalsSpinner');
     self.goals = goals;
   });
 
   this.update = function (goal) {
     console.log('put running!');
-    goal.put();
+    spinnerService.show('goalsSpinner');
+
+    goal.put().then(function() {
+      spinnerService.hide('goalsSpinner');
+    }, function(response) {
+      console.log("Error with status code", response.status);
+      spinnerService.hide('goalsSpinner');
+    });
   };
 
   this.delete = function (goal) {
+    spinnerService.show('goalsSpinner');
     Restangular.one("goals", goal.Id).remove().then(function () {
       // Updating the list and removing the goal after the response is OK.
       var index = self.goals.indexOf(goal);
       if (index > -1) {
         self.goals.splice(index, 1);
       }
+      spinnerService.hide('goalsSpinner');
     });
   };
 

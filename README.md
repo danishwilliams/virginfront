@@ -108,7 +108,9 @@ upgrade path as smoothly as possible, rather than a massive refactor down the li
 
 * ngNewRouter can't instantiate a controller with $scope injected. This will probably be solved in Angular 1.5 but until then, even better reason to not use $scope. @see https://github.com/angular/router/issues/313
 
-This section last updated: 21 September 2015
+So I'm using ui-router instead, and doing my best to not use $scope anywhere (which is mostly true).
+
+This section last updated: 2 December 2015
 
 
 # Unit testing with lineman

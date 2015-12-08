@@ -5,10 +5,12 @@
       &nbsp;
     </div>
     <div class="large-14 columns">
-      <h3>How long is your class?</h3>
+      <h1>How long is your class?</h1>
+
+     <spinner class="spinner" name="playlistTimeSpinner" show="true"></spinner>
 
       <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-3">
-        <li ng-repeat="template in playlist_time.templates">
+        <li ng-repeat="template in playlist_time.templates | orderBy:'ClassLengthMinutes'">
           <a class="choose-template" ui-sref="playlist-new-edit({id:template.TemplateId})">
             <div class="template">
               <div class="icon"><img src="/img/templates/intervals.svg"></div>

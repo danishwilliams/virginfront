@@ -3,6 +3,7 @@ angular
     "ngResource", // TODO: probably not needed
     "ngSanitize",
     "ngMessages",
+    "angularSpinners",
     "ui.router",
     "angularUUID2",
     "MassAutoComplete",

@@ -1,15 +1,21 @@
-angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Genres, Tracks, Playlists) {
+angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Genres, Tracks, Playlists, spinnerService) {
   var self = this;
 
   this.currentgoal = Playlists.getCurrentGoal();
   this.tracks = Tracks.getTracks();
 
-  if (this.currentgoal.BpmLow === 0) {
+  if (this.currentgoal.BpmLow === -1) {
     $state.go('^');
+  } else {
+    // Load tracks from the user's default genre selection
+    Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
+      self.tracks = data;
+      spinnerService.hide('trackSpinner');
+    });
   }
 
   // Set up addition bpm range
-  if (this.currentgoal.BpmLow < 90) {
+  if (this.currentgoal.BpmLow < 90 && !this.currentgoal.BackgroundSection) {
     this.bpm2 = true;
     this.bpmLow2 = this.currentgoal.BpmLow * 2;
     this.bpmHigh2 = this.currentgoal.BpmHigh * 2;
@@ -30,8 +36,11 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   };
 
   this.trackSearch = function () {
+    spinnerService.show('trackSpinner');
+    self.tracks = [];
     Tracks.searchTracks(self.search).then(function (data) {
       self.tracks = data;
+      spinnerService.hide('trackSpinner');
     });
   };
 
@@ -58,10 +67,12 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
       return;
     }
 
-    // If there are already tracks don't add one
-    var tracks = Playlists.getPlaylistGoalTracks(self.currentgoal.ArrayId);
-    if (tracks.length > 0) {
-      return;
+    // If there are already tracks in the goal don't add one
+    if (self.currentgoal.ArrayId) {
+      var tracks = Playlists.getPlaylistGoalTracks(self.currentgoal.ArrayId);
+      if (tracks.length > 0) {
+        return;
+      }
     }
 
     // Close the modal, and send the chosen track back to the playlist_edit controller
