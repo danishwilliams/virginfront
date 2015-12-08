@@ -17,16 +17,11 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
     Gyms.loadAvailableGyms().then(function (data) {
       self.gyms = data;
       // Mark the user gyms which have been chosen
-      _.mapObject(self.gyms, function (val, key) {
-        if (key >= 0) {
-          var item = _.find(self.user.UserGyms, function (item) {
-            return item.Gym.Name === val.Gym.Name;
-          });
-          if (item) {
-            val.selected = true;
-          }
+      _.mapObject(self.gyms, function(val, key) {
+        if (key >= 0 && val.RegularGym) {
+          val.selected = true;
+          return val;
         }
-        return val;
       });
       spinnerService.hide('playlistSyncSpinner');
     });
@@ -36,7 +31,7 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
   function addPlaylistToGym() {
     self.gyms.forEach(function (val) {
       if (val.selected) {
-        Playlists.addPlaylistToGym(self.id, val.Id);
+        Playlists.addPlaylistToGym(self.id, val.Gym.Id);
       }
     });
   }

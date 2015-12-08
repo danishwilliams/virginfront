@@ -19,7 +19,7 @@ function gymRidesController(Playlists) {
 
   self.remove = function(playlist, gymId) {
     playlist.removed = true;
-    Playlists.removePlaylistFromGym(playlist.PlaylistId, gymId).then(function(data) {
+    Playlists.removePlaylistFromGym(playlist.Playlist.Id, gymId).then(function(data) {
       // It worked!
     }, function(response) {
       // There was some error
@@ -30,7 +30,7 @@ function gymRidesController(Playlists) {
 
   self.undoRemove = function (playlist, gymId) {
     playlist.removed = false;
-    Playlists.addPlaylistToGym(playlist.PlaylistId, gymId).then(function(data) {
+    Playlists.addPlaylistToGym(playlist.Playlist.Id, gymId).then(function(data) {
       // It worked!
     }, function(response) {
       // There was some error
