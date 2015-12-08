@@ -21,11 +21,6 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     this.bpmHigh2 = this.currentgoal.BpmHigh * 2;
   }
 
-  // Load tracks from the user's default genre selection
-  Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
-    self.tracks = data;
-  });
-
   Genres.loadGenres().then(function (data) {
     self.genres = data;
   });
@@ -42,6 +37,23 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
       self.tracks = data;
       spinnerService.hide('trackSpinner');
     });
+  };
+
+  this.genreSearch = function () {
+    var genres = [];
+    self.genres.forEach(function (val) {
+      if (val.selected) {
+        genres.push({Id: val.Id});
+      }
+    });
+    if (genres) {
+      spinnerService.show('trackSpinner');
+      self.tracks = [];
+      Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, genres).then(function (data) {
+        self.tracks = data;
+        spinnerService.hide('trackSpinner');
+      });
+    }
   };
 
   this.outOfBpmRange = function (bpm) {

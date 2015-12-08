@@ -49,7 +49,7 @@
           <h3>Filter by genres</h3>
 
           <label ng-repeat="genre in vm.genres | orderBy: 'Name'">
-            <input type="checkbox" ng-model="genre.selected"> {{genre.Name}}
+            <input ng-click="vm.genreSearch()" type="checkbox" ng-model="genre.selected"> {{genre.Name}}
           </label>
         </div>
       </div>

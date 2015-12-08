@@ -38,11 +38,18 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
 
   return tracksFactory;
 
-  function loadUserGenresTracks(bpmLow, bpmHigh) {
-    return Restangular.all('music/usergenres').getList({
-      bpmLow: bpmLow,
-      bpmHigh: bpmHigh
-    }).then(loadUserGenresTracksComplete);
+  function loadUserGenresTracks(bpmLow, bpmHigh, genres) {
+    if (genres) {
+      return Restangular.one('music/genres').customPOST(genres, '', {
+        bpmLow: bpmLow,
+        bpmHigh: bpmHigh
+      }).then(loadUserGenresTracksComplete);
+    } else {
+      return Restangular.all('music/usergenres').getList({
+        bpmLow: bpmLow,
+        bpmHigh: bpmHigh
+      }).then(loadUserGenresTracksComplete);
+    }
 
     function loadUserGenresTracksComplete(data, status, headers, config) {
       self.userGenresTracks = data;
@@ -163,8 +170,7 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
     if (self.currentPlayingTrack.playing === true) {
       if (track) {
         playTrack(track);
-      }
-      else {
+      } else {
         playTrack(self.currentPlayingTrack);
       }
     }
