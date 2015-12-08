@@ -42,6 +42,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     loadGymsPlaylistSyncInfoDetailed: loadGymsPlaylistSyncInfoDetailed,
     loadGymsPlaylists: loadGymsPlaylists,
     addPlaylistToGym: addPlaylistToGym,
+    addPlaylistToGyms: addPlaylistToGyms,
     removePlaylistFromGym: removePlaylistFromGym,
     publishPlaylist: publishPlaylist,
     publishPlaylistToMusicProvider: publishPlaylistToMusicProvider,
@@ -271,6 +272,14 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return Restangular.one('playlists/gym/' + playlistId, gymId).post().then(addPlaylistToGymComplete);
 
     function addPlaylistToGymComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function addPlaylistToGyms(playlistId, gyms) {
+    return Restangular.all('playlists/gym/' + playlistId).post(gyms).then(addPlaylistToGymsComplete);
+
+    function addPlaylistToGymsComplete(data, status, headers, config) {
       return data;
     }
   }
