@@ -41,6 +41,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     setPlaylist: setPlaylist,
     loadGymsPlaylistSyncInfoDetailed: loadGymsPlaylistSyncInfoDetailed,
     loadGymsPlaylists: loadGymsPlaylists,
+    loadPlaylistsNotInGym: loadPlaylistsNotInGym,
     addPlaylistToGym: addPlaylistToGym,
     addPlaylistToGyms: addPlaylistToGyms,
     removePlaylistFromGym: removePlaylistFromGym,
@@ -266,6 +267,11 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   // Gets all Gyms with their playlists
   function loadGymsPlaylists() {
     return Restangular.one('playlists/gyms').get();
+  }
+
+  // Gets all complete playlists not in a particular gym
+  function loadPlaylistsNotInGym(id) {
+    return Restangular.one('gyms/playlistsnotpublished', id).get();
   }
 
   function addPlaylistToGym(playlistId, gymId) {
