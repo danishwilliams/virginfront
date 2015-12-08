@@ -45,7 +45,7 @@
             </div>
           </div>
         </div>
-        <div class="large-5 columns show-for-medium-up genres">
+        <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-medium-up genres">
           <h3>Filter by genres</h3>
 
           <label ng-repeat="genre in vm.genres | orderBy: 'Name'">
