@@ -9,7 +9,6 @@
           <span class="bpm-range" ng-if="vm.bpm2">{{vm.bpmLow2}} - {{vm.bpmHigh2}} {{'BPM' | translate}}</span>
         </div>
         <div class="small-5 columns">
-          {{'ADD_FILTER' | translate}}
           <div class="search">
             <form ng-submit="vm.trackSearch()">
               <input ng-model="vm.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
@@ -46,7 +45,7 @@
           </div>
         </div>
         <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-medium-up genres">
-          <h3>Filter by genres</h3>
+          <h3>Filter by genre</h3>
 
           <label ng-repeat="genre in vm.genres | orderBy: 'Name'">
             <input ng-click="vm.genreSearch()" type="checkbox" ng-model="genre.selected"> {{genre.Name}}
