@@ -12,6 +12,8 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
     loadGyms();
   });
 
+  this.playlistLimitPerGym = Playlists.getPlaylistLimitPerGym();
+
   function loadGyms() {
     // Load all gyms which have devices
     Gyms.loadAvailableGyms().then(function (data) {

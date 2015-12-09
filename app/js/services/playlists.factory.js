@@ -13,6 +13,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   var currentStep = 0; // Which step we're currently on
   var playlist = [];
   var playlists = [];
+  var playlistLimitPerGym = 5;
   playlist.creatingNewPlaylist = false;
 
   // The currently selected goal which tracks can be added to
@@ -45,6 +46,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     addPlaylistToGym: addPlaylistToGym,
     addPlaylistToGyms: addPlaylistToGyms,
     removePlaylistFromGym: removePlaylistFromGym,
+    getPlaylistLimitPerGym: getPlaylistLimitPerGym,
     publishPlaylist: publishPlaylist,
     publishPlaylistToMusicProvider: publishPlaylistToMusicProvider,
     getGoalPlaylist: getGoalPlaylist,
@@ -296,6 +298,10 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     function removePlaylistFromGymComplete(data, status, headers, config) {
       return data;
     }
+  }
+
+  function getPlaylistLimitPerGym() {
+    return playlistLimitPerGym;
   }
 
   function publishPlaylist(id) {

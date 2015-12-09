@@ -11,7 +11,7 @@
         <spinner class="spinner" name="playlistSyncSpinner" show="true"></spinner>
         <div class="gyms">
           <label ng-class="{'disabled': gym.LimitReached}" ng-repeat="gym in playlist_sync.gyms | orderBy: 'Gym.Name'">
-            <input type="checkbox" ng-disabled="gym.LimitReached" ng-model="gym.selected"> {{gym.Gym.Name}} <span ng-if="gym.LimitReached">(This club already has 5 rides)</span>
+            <input type="checkbox" ng-disabled="gym.LimitReached" ng-model="gym.selected"> {{gym.Gym.Name}} <span ng-if="gym.LimitReached">(This club already has {{playlist_sync.playlistLimitPerGym}} rides)</span>
           </label>
         </div>
       </div>

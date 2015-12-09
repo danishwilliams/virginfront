@@ -22,6 +22,8 @@ gymRidesController.$inject = ['Playlists'];
 function gymRidesController(Playlists) {
   var self = this;
 
+  self.playlistLimitPerGym = Playlists.getPlaylistLimitPerGym();
+
   // Adds a ride to the gym
   self.addRide = function () {
     var playlist = {
@@ -29,7 +31,7 @@ function gymRidesController(Playlists) {
       DevicePlaylistSyncs: [{SyncSuccess: false, SecondsLeft: 3600}]
     };
     self.gym.PlaylistSyncInfos.push(playlist);
-    if (self.gym.PlaylistSyncInfos.length === 5) {
+    if (self.gym.PlaylistSyncInfos.length === self.playlistLimitPerGym) {
       self.gym.LimitReached = true;
     }
   };

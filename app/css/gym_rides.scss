@@ -1,6 +1,12 @@
 .gym-rides {
   h3 {
     color: $black;
+    padding-left: rem-calc(40px);
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: left center;
+    background-position-x: rem-calc(12px);
+    background-image: url('/img/location.svg');
   }
   ul {
     list-style-type: none;
@@ -44,7 +50,8 @@
     }
   }
   .removed {
-    .icon, .name {
+    .icon,
+    .name {
       opacity: 0.5;
       text-decoration: line-through;
     }
