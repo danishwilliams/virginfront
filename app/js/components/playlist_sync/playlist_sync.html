@@ -1,4 +1,4 @@
-<div class="view-playlist">
+<div class="sync-playlist">
   <playlist-workflow></playlist-workflow>
   <div class="row">
     <div class="large-12 large-centered columns max-content">
@@ -10,8 +10,8 @@
         </div>
         <spinner class="spinner" name="playlistSyncSpinner" show="true"></spinner>
         <div class="gyms">
-          <label ng-repeat="gym in playlist_sync.gyms | orderBy: 'Gym.Name'">
-            <input type="checkbox" ng-model="gym.selected"> {{gym.Gym.Name}}
+          <label ng-class="{'disabled': gym.LimitReached}" ng-repeat="gym in playlist_sync.gyms | orderBy: 'Gym.Name'">
+            <input type="checkbox" ng-disabled="gym.LimitReached" ng-model="gym.selected"> {{gym.Gym.Name}} <span ng-if="gym.LimitReached">(This club already has 5 rides)</span>
           </label>
         </div>
       </div>
