@@ -1,4 +1,5 @@
 <div class="gym-rides">
+  <span class="right">({{vm.playlistCount}}/{{vm.playlistLimitPerGym}})</span>
   <h3>{{vm.gym.Gym.Name}}</h3>
 
   <div ng-if="!gym.LimitReached"><gym-possible-rides ng-change="vm.addRide()" ng-model="vm.playlist"></gym-possible-rides></div>
@@ -7,7 +8,8 @@
     <li ng-class="{'syncing' : !playlist.DevicePlaylistSyncs[0].SyncSuccess, 'removed' : playlist.removed}" ng-repeat="playlist in vm.gym.PlaylistSyncInfos | orderBy:'Playlist.Name'">
       <span class="icon"></span><span class="name">{{playlist.Playlist.Name}}</span>
       <span class="right time" ng-if="!playlist.DevicePlaylistSyncs[0].SyncSuccess">{{playlist.DevicePlaylistSyncs[0].SecondsLeft | hours}} mins remaining</span>
-      <span class="right remove" ng-if="playlist.DevicePlaylistSyncs[0].SyncSuccess">
+      <!--<span class="right remove" ng-if="playlist.DevicePlaylistSyncs[0].SyncSuccess">-->
+      <span class="right remove" ng-if="!playlist.DevicePlaylistSyncs[0].SyncSuccess">
         <a ng-if="!playlist.removed" ng-click="vm.remove(playlist, gym.Gym.Id)">Remove</a>
         <a ng-if="playlist.removed" ng-click="vm.undoRemove(playlist, gym.Gym.Id)">Undo</a>
       </span>

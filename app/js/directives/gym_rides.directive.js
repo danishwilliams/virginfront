@@ -14,6 +14,7 @@ function gymRides() {
 
   function link(scope) {
     scope.vm.gym = scope.$parent.gym;
+    scope.vm.playlistCount = scope.vm.gym.PlaylistSyncInfos.length;
   }
 }
 
@@ -31,6 +32,7 @@ function gymRidesController(Playlists) {
       DevicePlaylistSyncs: [{SyncSuccess: false, SecondsLeft: 3600}]
     };
     self.gym.PlaylistSyncInfos.push(playlist);
+    self.playlistCount++;
     if (self.gym.PlaylistSyncInfos.length === self.playlistLimitPerGym) {
       self.gym.LimitReached = true;
     }
@@ -38,23 +40,27 @@ function gymRidesController(Playlists) {
 
   self.remove = function(playlist, gymId) {
     playlist.removed = true;
+    self.playlistCount--;
     Playlists.removePlaylistFromGym(playlist.Playlist.Id, gymId).then(function(data) {
       // It worked!
     }, function(response) {
       // There was some error
       console.log("Error with status code", response.status);
       playlist.removed = false;
+      self.playlistCount++;
     });
   };
 
   self.undoRemove = function (playlist, gymId) {
     playlist.removed = false;
+    self.playlistCount++;
     Playlists.addPlaylistToGym(playlist.Playlist.Id, gymId).then(function(data) {
       // It worked!
     }, function(response) {
       // There was some error
       console.log("Error with status code", response.status);
       playlist.removed = true;
+      self.playlistCount--;
     });
   };
 }
