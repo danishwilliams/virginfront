@@ -17,67 +17,57 @@
       </div>
     </aside>
     <!-- Off Canvas Menu -->
-    <aside style="display:none;" class="left-off-canvas-menu" ng-class="{'show':app.ready}" ng-if="app.loggedIn">
+    <aside style="display:none;" class="left-off-canvas-menu align-center" ng-class="{'show':app.ready}" ng-if="app.loggedIn">
       <div class="icon-bar vertical five-up">
-        <div class="logo"></div>
+        <span class="item">
+          <i class="logo"></i>
+        </span>
         <a class="item" ui-sref="dashboard" ng-if-permission="viewContent">
-          <i class="fi-home"></i>
+          <i class="dashboard"></i>
           <label>Dashboard</label>
         </a>
-        <a class="item" ui-sref="playlist-new-template" ng-if-permission="createPlaylist">
-          <i class="fi-home"></i>
+        <a class="item create-ride" ui-sref="playlist-new-template" ng-if-permission="createPlaylist">
+          <i class="create-ride"></i>
           <label>Create a ride</label>
         </a>
-        <a class="item" ui-sref="playlists" ng-if-permission="viewContent">
-          <i class="fi-home"></i>
+        <a class="item my-rides" ui-sref="playlists" ng-if-permission="viewContent">
+          <i class="my-rides"></i>
           <label>My rides</label>
         </a>
         <a class="item" ui-sref="beats-admin" ng-if-permission="viewAdmin">
-          <i class="fi-home"></i>
           <label>Beats</label>
         </a>
         <a class="item" ui-sref="gyms-admin" ng-if-permission="viewAdmin">
-          <i class="fi-home"></i>
           <label>Clubs</label>
         </a>
         <a class="item" ui-sref="countries-admin" ng-if-permission="viewAdmin">
-          <i class="fi-home"></i>
           <label>Countries</label>
         </a>
         <a class="item" ui-sref="devices-admin" ng-if-permission="viewAdmin">
-          <i class="fi-home"></i>
           <label>Devices</label>
         </a>
         <a class="item" ui-sref="goals-admin" ng-if-permission="viewAdmin">
-          <i class="fi-home"></i>
           <label>Goals</label>
         </a>
         <a class="item" ui-sref="locations-admin" ng-if-permission="viewAdmin">
-          <i class="fi-home"></i>
           <label>Locations</label>
         </a>
         <a class="item" ui-sref="music-providers-admin" ng-if-permission="viewAdmin">
-          <i class="fi-home"></i>
           <label>Music Providers</label>
         </a>
         <a class="item" ui-sref="playlists_admin" ng-if-permission="viewAdmin">
-          <i class="fi-home"></i>
           <label>Playlists</label>
         </a>
         <a class="item" ui-sref="templates-admin" ng-if-permission="viewAdmin">
-          <i class="fi-home"></i>
           <label>Templates</label>
         </a>
         <a class="item" ui-sref="users-admin" ng-if-permission="viewUsers">
-          <i class="fi-home"></i>
           <label>Users</label>
         </a>
         <a class="item" ui-sref="usertypes-admin" ng-if-permission="viewAdmin">
-          <i class="fi-home"></i>
           <label>User types</label>
         </a>
         <a class="item" ng-click="app.logout()" ng-if-permission="viewUser">
-          <i class="fi-home"></i>
           <label>Logout</label>
         </a>
       </div>
