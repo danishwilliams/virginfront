@@ -1,0 +1,12 @@
+<div class="large-14 large-centered columns">
+  <h1>My rides</h1>
+  <div class="row">
+    <spinner class="spinner" name="playlistsSpinner" show="true"></spinner>
+    <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
+      <li><a ui-sref="playlist-new-template" ng-if-permission="createPlaylist">+ Create new ride class</a></li>
+      <li ng-repeat="playlist in playlists.playlists | orderBy:'Name'">
+        <ride playlist="{{playlist}}"></ride>
+      </li>
+    </ul>
+  </div>
+</div>

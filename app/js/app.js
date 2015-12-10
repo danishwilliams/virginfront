@@ -24,6 +24,7 @@ angular
     "app.login",
     "app.music_providers",
     "app.onboarding",
+    "app.playlists",
     "app.playlists_admin",
     "app.playlist_template",
     "app.playlist_time",
