@@ -70,7 +70,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
   $rootScope.$on("$stateChangeStart", function (event, next) {
     var user = Users.getCurrentUser();
 
-    if (!self.ready) {
+    if (!self.ready && next.name !== 'login') {
       // The app isn't ready yet, so load up a user and then check if they have permission to access the route
       Users.loadCurrentUser().then(function (data) {
         user = data;
@@ -86,7 +86,11 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
       });
     } else if (!_.isEmpty(user)) {
       hasAccessToRoute(user);
-    } else {
+    } else if (next.name === 'login') {
+      self.ready = true;
+      spinnerService.hide('bodySpinner');
+    }
+    else {
       throw "Expected a user but found none";
     }
 
