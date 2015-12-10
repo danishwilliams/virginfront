@@ -2,8 +2,10 @@
   <div class="large-6 large-offset-3">
     <h3>Instructor App sign in</h3>
 
-    Any username and password will work!
-    
+    <div ng-messages="login.error">
+      <p class="error" ng-message="error">Your username or password is incorrect.</p>
+    </div>
+
     <form ng-submit="login.login()">
       <fieldset class="radius">
         <div class="row">
