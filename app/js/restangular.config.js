@@ -69,9 +69,17 @@ angular.module("app").config(function (RestangularProvider) {
 
   RestangularProvider.setErrorInterceptor(function (response, deferred, responseHandler) {
     if (response.status === 500) {
-      console.log('[ERROR] Internal Server Error');
+      //throw 'Internal Server Error';
     }
+    // 401 Unauthorized
+    if (response.status === 401) {
+      throw '401 Unauthorized';
+      // TODO: redirect the user to the login page
+    }
+    // 403 Forbidden
     if (response.status === 403) {
+      throw '403 Forbidden';
+      /*
       refreshAccesstoken().then(function () {
         // Repeat the request and then call the handlers the usual way.
         $http(response.config).then(responseHandler, deferred.reject);
@@ -79,6 +87,7 @@ angular.module("app").config(function (RestangularProvider) {
       });
 
       return false; // error handled
+      */
     }
 
     return true; // error not handled
