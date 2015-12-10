@@ -1,45 +1,45 @@
 ride {
-
-  a {
-  display: block;
-  background: $grey_lighter;
-  border-bottom: 2px solid $grey_light;
-  border-radius: 6px;
-  min-width: calc(61px * 3);
-  max-width: calc(61px * 3);
-  overflow: hidden;
+  img {
+    padding: 10px 10px 0 0;
   }
-
+  a {
+    display: block;
+    background: $grey_lighter;
+    border-bottom: 2px solid $grey_light;
+    border-radius: 6px;
+    min-width: calc(61px * 3);
+    max-width: calc(61px * 3);
+    overflow: hidden;
+  }
   a:hover {
     border: none;
     border-top: 1px solid $grey_light;
   }
-
   .content {
     padding: 0 15px 0 15px;
   }
-
   h5 {
-    color: $red;
+    //color: $black;
     font-size: medium;
     font-weight: bold;
+    border-bottom: 1px solid $grey_medium;
+    padding-bottom: 3px;
   }
-
+  p {
+    margin-bottom: rem-calc(10px);
+  }
   .tracks {
     color: $black;
     font-size: small;
   }
-
   .duration {
     color: $black;
     font-weight: bold;
     font-size: small;
   }
-
   .created {
-    font-weight: lighter;
-    color: $grey_light;
+    font-weight: light;
+    color: $grey;
     font-size: smaller;
   }
-
 }

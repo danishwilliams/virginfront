@@ -88,7 +88,7 @@
       <div class="logo fixed"></div>
       <p class="error" ng-message="error">The site is temporarily unavailable. Please try again later.</p>
     </div>
-    <div ui-view ng-if="!app.error" class="row header content">
+    <div ui-view ng-if="app.ready" class="row header content">
     </div>
   </div>
 </div>

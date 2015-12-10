@@ -12,7 +12,7 @@
       <spinner class="spinner" name="dashboardPlaylistsSpinner" show="true"></spinner>
       <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
         <li><a ui-sref="playlist-new-template" ng-if-permission="createPlaylist">+ Create new ride class</a></li>
-        <li ng-repeat="playlist in dashboard.playlists | orderBy:'Name'">
+        <li ng-repeat="playlist in dashboard.playlists">
           <ride playlist="{{playlist}}"></ride>
         </li>
       </ul>
