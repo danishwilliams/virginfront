@@ -1,9 +1,9 @@
 angular.module("app.login", [])
   .controller('LoginController', LoginController);
 
-LoginController.$inject = ['$location', '$stateParams', 'AuthenticationService', 'Users'];
+LoginController.$inject = ['$state', 'Users'];
 
-function LoginController($location, $stateParams, AuthenticationService, Users) {
+function LoginController($state, Users) {
   var self = this;
   this.credentials = {
     username: "",
@@ -13,7 +13,7 @@ function LoginController($location, $stateParams, AuthenticationService, Users) 
 
   var onLoginSuccess = function () {
     console.log('onLoginSuccess');
-    $location.path('/dashboard');
+    $state.go('dashboard');
   };
 
   this.login = function () {

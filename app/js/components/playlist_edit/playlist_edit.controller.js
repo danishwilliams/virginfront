@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $location, $document, AuthenticationService, Tracks, Playlists, Templates, spinnerService, uuid2) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $document, Tracks, Playlists, Templates, spinnerService, uuid2) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -284,11 +284,4 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return 'Update changes';
   };
 
-  var onLogoutSuccess = function (response) {
-    $location.path('/login');
-  };
-
-  this.logout = function () {
-    AuthenticationService.logout().success(onLogoutSuccess);
-  };
 });
