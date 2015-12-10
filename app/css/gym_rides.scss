@@ -47,6 +47,13 @@
       -webkit-animation-timing-function: linear;
       -moz-animation-timing-function: linear;
       animation-timing-function: linear;
+      background-size: 16px auto;
+      background-position: center;
+      width: 18px;
+      height: 18px;
+      vertical-align: text-top;
+      -moz-vertical-align: sub;
+      display: inline-block;
       background-image: url('/img/syncing.svg');
     }
   }
