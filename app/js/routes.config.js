@@ -170,8 +170,8 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   // Playlists
   .state('playlists', {
     url: '/admin/playlists',
-    templateUrl: '../js/components/playlists/playlists.html',
-    controller: 'PlaylistsController as playlists',
+    templateUrl: '../js/components/playlists_admin/playlists_admin.html',
+    controller: 'PlaylistsAdminController as playlists',
     data: {
       permissions: [APP_PERMISSIONS.viewAdmin]
     }

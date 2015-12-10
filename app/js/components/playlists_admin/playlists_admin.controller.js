@@ -1,4 +1,4 @@
-angular.module("app.playlists", []).controller('PlaylistsController', function (Playlists) {
+angular.module("app.playlists_admin", []).controller('PlaylistsAdminController', function (Playlists) {
 	var self = this;
 	this.playlists = Playlists.getPlaylists();
 	this.newplaylist = {};
