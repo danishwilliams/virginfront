@@ -67,14 +67,19 @@ AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Aut
 function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
   var self = this;
   self.ready = false;
+  self.loggedIn = false;
 
   self.logout = function () {
     Users.logout();
+    self.loggedIn = false;
     $state.go('login');
   };
 
   $rootScope.$on("$stateChangeStart", function (event, next) {
     var user = Users.getCurrentUser();
+    if (!_.isEmpty(user)) {
+      self.loggedIn = true;
+    }
 
     if (!self.ready && next.name !== 'login') {
       Users.initAuthHeader();
@@ -83,6 +88,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
         user = data;
         spinnerService.hide('bodySpinner');
         self.ready = true;
+        self.loggedIn = true;
         hasAccessToRoute(user);
       }, function (response) {
         // Catastropic error!
