@@ -85,7 +85,7 @@
 
     </aside>
     <spinner class="spinner overlay" name="bodySpinner" show="true"></spinner>
-    <div class="front-error" ng-class="{'show':app.error}" ng-messages="app.error">
+    <div style="display:none;" class="front-error" ng-class="{'show':app.error}" ng-messages="app.error">
       <div class="logo fixed"></div>
       <p class="error" ng-message="error">The site is temporarily unavailable. Please try again later.</p>
     </div>

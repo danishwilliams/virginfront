@@ -26,6 +26,6 @@ span.length.error {
 .front-error {
   display: none;
   &.show {
-    display: inherit;
+    display: inherit !important;
   }
 }
