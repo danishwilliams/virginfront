@@ -28,7 +28,7 @@
           <i class="fi-home"></i>
           <label>Create a ride</label>
         </a>
-        <a class="item" ng-if-permission="viewContent">
+        <a class="item" ui-sref="playlists" ng-if-permission="viewContent">
           <i class="fi-home"></i>
           <label>My rides</label>
         </a>
