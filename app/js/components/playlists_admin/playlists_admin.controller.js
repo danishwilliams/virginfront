@@ -7,15 +7,8 @@ angular.module("app.playlists_admin", []).controller('PlaylistsAdminController',
 		self.playlists = data;
 	});
 
-	this.update = function(template) {
-		// TODO: fill this out
-	};
-
 	this.delete = function(template) {
 		// TODO: fill this out
 	};
 
-	this.create = function() {
-		// TODO: fill this out
-	};
 });
