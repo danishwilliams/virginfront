@@ -73,12 +73,12 @@ angular.module("app").config(function (RestangularProvider) {
     }
     // 401 Unauthorized
     if (response.status === 401) {
-      throw '401 Unauthorized';
+      console.log('401 Unauthorized');
       // TODO: redirect the user to the login page
     }
     // 403 Forbidden
     if (response.status === 403) {
-      throw '403 Forbidden';
+      console.log('403 Forbidden');
       /*
       refreshAccesstoken().then(function () {
         // Repeat the request and then call the handlers the usual way.
