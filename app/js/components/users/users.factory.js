@@ -40,12 +40,16 @@ function UsersFactory(Restangular) {
   }
 
   function loadCurrentUser() {
-    // TODO: this is temporary
     return Restangular.one('users/me').get().then(loadCurrentUserComplete);
 
     function loadCurrentUserComplete(data, status, headers, config) {
       currentUser = data;
-      return data;
+      currentUser.Roles = [];
+      currentUser.UserUserTypes.forEach(function (val) {
+        currentUser.Roles.push(val.UserType.Name);
+        //currentUser.Roles.push('Admin');
+      });
+      return currentUser;
     }
   }
 
