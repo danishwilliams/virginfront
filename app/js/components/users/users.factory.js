@@ -47,6 +47,7 @@ function UsersFactory(Restangular) {
       currentUser.Roles = [];
       currentUser.UserUserTypes.forEach(function (val) {
         currentUser.Roles.push(val.UserType.Name);
+        //currentUser.Roles.push('Manager');
         //currentUser.Roles.push('Admin');
       });
       return currentUser;
