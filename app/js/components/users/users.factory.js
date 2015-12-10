@@ -11,6 +11,7 @@ function UsersFactory(Restangular) {
   var usersFactory = {
     initAuthHeader: initAuthHeader,
     setAuthHeader: setAuthHeader,
+    logout: logout,
     loadUsers: loadUsers,
     getUsers: getUsers,
     loadUser: loadUser,
@@ -34,6 +35,11 @@ function UsersFactory(Restangular) {
     var base64 = btoa(credentials.username + ':' + credentials.password);
     localStorage.setItem('base64', base64);
     Restangular.setDefaultHeaders({Authorization: 'Basic ' + base64});
+  }
+
+  function logout() {
+    localStorage.removeItem('base64');
+    currentUser = [];
   }
 
   function loadUsers() {

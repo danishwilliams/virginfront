@@ -73,6 +73,10 @@
           <i class="fi-home"></i>
           <label>User types</label>
         </a>
+        <a class="item" ng-click="app.logout()" ng-if-permission="viewUser">
+          <i class="fi-home"></i>
+          <label>Logout</label>
+        </a>
       </div>
 
     </aside>

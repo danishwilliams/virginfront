@@ -68,6 +68,11 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
   var self = this;
   self.ready = false;
 
+  self.logout = function () {
+    Users.logout();
+    $state.go('login');
+  };
+
   $rootScope.$on("$stateChangeStart", function (event, next) {
     var user = Users.getCurrentUser();
 
