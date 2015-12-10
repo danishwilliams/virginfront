@@ -19,7 +19,7 @@ angular.module("app").service('Authorizer', function (APP_PERMISSIONS, USER_ROLE
     for (_i = 0, _len = permissions.length; _i < _len; _i++) {
       permission = permissions[_i];
       if (APP_PERMISSIONS[permission] == null) {
-        throw "Bad permission value: " + permission;
+        throw "Bad permission value";
       }
       if (user && user.Roles) {
         switch (permission) {
@@ -29,6 +29,7 @@ angular.module("app").service('Authorizer', function (APP_PERMISSIONS, USER_ROLE
             return hasRole(USER_ROLES.user) || hasRole(USER_ROLES.instructor) || hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.admin);
 
             // Instructors, Managers, Admins
+          case APP_PERMISSIONS.viewPlaylist:
           case APP_PERMISSIONS.createPlaylist:
           case APP_PERMISSIONS.editPlaylist:
           case APP_PERMISSIONS.viewContent:

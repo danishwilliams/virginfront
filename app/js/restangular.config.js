@@ -20,9 +20,11 @@ angular.module("app").config(function (RestangularProvider) {
   });
 
   // Add a secret key as URL parameters into every request
+  /*
   RestangularProvider.setDefaultRequestParams({
     apikey: "secret key"
   });
+  */
 
   // DELETEs are sent without a body
   RestangularProvider.setRequestInterceptor(function(elem, operation) {

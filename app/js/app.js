@@ -44,6 +44,7 @@ angular
     editAdmin: "editAdmin",
     viewContent: "viewContent",
     createPlaylist: "createPlaylist",
+    viewPlaylist: "viewPlaylist",
     editPlaylist: "editPlaylist",
     editAnyPlaylist: "editAnyPlaylist",
     viewTemplates: "viewTemplates",
@@ -71,6 +72,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
     var user = Users.getCurrentUser();
 
     if (!self.ready && next.name !== 'login') {
+      Users.initAuthHeader();
       // The app isn't ready yet, so load up a user and then check if they have permission to access the route
       Users.loadCurrentUser().then(function (data) {
         user = data;
@@ -80,17 +82,20 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
       }, function (response) {
         // Catastropic error!
         spinnerService.hide('bodySpinner');
-        self.error = {
-          error: true
-        };
+        if (response.status === 401 || response.status === 403) {
+          $state.go('login');
+        } else {
+          self.error = {
+            error: true
+          };
+        }
       });
     } else if (!_.isEmpty(user)) {
       hasAccessToRoute(user);
     } else if (next.name === 'login') {
       self.ready = true;
       spinnerService.hide('bodySpinner');
-    }
-    else {
+    } else {
       throw "Expected a user but found none";
     }
 

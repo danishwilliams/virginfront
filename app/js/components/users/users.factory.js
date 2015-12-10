@@ -9,6 +9,8 @@ function UsersFactory(Restangular) {
   var currentUser = {};
 
   var usersFactory = {
+    initAuthHeader: initAuthHeader,
+    setAuthHeader: setAuthHeader,
     loadUsers: loadUsers,
     getUsers: getUsers,
     loadUser: loadUser,
@@ -17,6 +19,22 @@ function UsersFactory(Restangular) {
   };
 
   return usersFactory;
+
+  // Initializes the Authentication header, if we have the value in localstorage (return true) else return false
+  function initAuthHeader() {
+    var base64 = localStorage.getItem('base64', base64);
+    if (base64) {
+      Restangular.setDefaultHeaders({Authorization: 'Basic ' + base64});
+      return true;
+    }
+    return false;
+  }
+
+  function setAuthHeader(credentials) {
+    var base64 = btoa(credentials.username + ':' + credentials.password);
+    localStorage.setItem('base64', base64);
+    Restangular.setDefaultHeaders({Authorization: 'Basic ' + base64});
+  }
 
   function loadUsers() {
     return Restangular.all('users').getList().then(loadUsersComplete);

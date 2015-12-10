@@ -12,12 +12,12 @@
 <div class="off-canvas-wrap move-right" data-offcanvas="">
   <div class="inner-wrap">
     <!-- Off Canvas Menu -->
-    <aside class="left-off-canvas-menu" ng-if="app.ready">
+    <aside style="display:none;" class="left-off-canvas-menu" ng-class="{'show':app.ready}" ng-if="app.ready">
 
       <!-- TODO: only insert this if the user is logged in. And make it work on mobile -->
       <div class="icon-bar vertical five-up">
         <div class="logo"></div>
-        <a class="item" ui-sref="dashboard">
+        <a class="item" ui-sref="dashboard" ng-if-permission="viewContent">
           <i class="fi-home"></i>
           <label>Dashboard</label>
         </a>
@@ -81,7 +81,7 @@
       <div class="logo fixed"></div>
       <p class="error" ng-message="error">The site is temporarily unavailable. Please try again later.</p>
     </div>
-    <div ui-view ng-if="app.ready" class="row header content">
+    <div ui-view ng-if="!app.error" class="row header content">
     </div>
   </div>
 </div>

@@ -1,11 +1,12 @@
 angular.module("app.login", [])
   .controller('LoginController', LoginController);
 
-LoginController.$inject = ['$location', '$stateParams', 'AuthenticationService'];
+LoginController.$inject = ['$location', '$stateParams', 'AuthenticationService', 'Users'];
 
-function LoginController($location, $stateParams, AuthenticationService) {
+function LoginController($location, $stateParams, AuthenticationService, Users) {
   var self = this;
   this.credentials = { username: "", password: "" };
+  //b2c_login_check();
 
   var onLoginSuccess = function() {
     console.log('onLoginSuccess');
@@ -13,11 +14,12 @@ function LoginController($location, $stateParams, AuthenticationService) {
   };
 
   this.login = function() {
-    AuthenticationService.login(this.credentials).success(onLoginSuccess);
+    Users.setAuthHeader(self.credentials);
+    Users.loadCurrentUser().then(onLoginSuccess);
   };
 
   // If a user has tried to log in via B2C, we get a #id_token value back
-  this.b2c_login_check = function() {
+  function b2c_login_check() {
     var b2c_token = $location.hash();
     if (b2c_token.substr(0,8) === 'id_token') {
       console.log(b2c_token);
@@ -27,7 +29,5 @@ function LoginController($location, $stateParams, AuthenticationService) {
         self.login();
       }
     }
-  };
-
-  self.b2c_login_check();
+  }
 }
