@@ -50,4 +50,8 @@ $sidebar-width: 90px;
   background: url('/img/virginlogo.svg') no-repeat;
   width: 90px;
   height: 90px;
+  &.fixed {
+    position: fixed;
+    left: 0;
+  }
 }

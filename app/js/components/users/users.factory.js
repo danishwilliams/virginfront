@@ -5,9 +5,8 @@ angular
 UsersFactory.$inject = ['Restangular'];
 
 function UsersFactory(Restangular) {
-  var self = this;
-  self.users = [];
-  self.currentUser = {};
+  var users = [];
+  var currentUser = {};
 
   var usersFactory = {
     loadUsers: loadUsers,
@@ -23,8 +22,8 @@ function UsersFactory(Restangular) {
     return Restangular.all('users').getList().then(loadUsersComplete);
 
     function loadUsersComplete(data, status, headers, config) {
-      self.users = data;
-      return self.users;
+      users = data;
+      return users;
     }
   }
 
@@ -45,12 +44,12 @@ function UsersFactory(Restangular) {
     return Restangular.one('users/me').get().then(loadCurrentUserComplete);
 
     function loadCurrentUserComplete(data, status, headers, config) {
-      self.currentUser = data;
+      currentUser = data;
       return data;
     }
   }
 
   function getCurrentUser() {
-    return self.currentUser;
+    return currentUser;
   }
 }
