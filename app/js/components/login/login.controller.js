@@ -1,9 +1,9 @@
 angular.module("app.login", [])
   .controller('LoginController', LoginController);
 
-LoginController.$inject = ['$state', 'Users'];
+LoginController.$inject = ['$state', 'Users', 'spinnerService'];
 
-function LoginController($state, Users) {
+function LoginController($state, Users, spinnerService) {
   var self = this;
   this.credentials = {
     username: "",
@@ -13,12 +13,15 @@ function LoginController($state, Users) {
 
   var onLoginSuccess = function () {
     console.log('onLoginSuccess');
+    spinnerService.hide('loginSpinner');
     $state.go('dashboard');
   };
 
   this.login = function () {
+    spinnerService.show('loginSpinner');
     Users.setAuthHeader(self.credentials);
     Users.loadCurrentUser().then(onLoginSuccess, function () {
+      spinnerService.hide('loginSpinner');
       self.error = {
         error: true
       };
