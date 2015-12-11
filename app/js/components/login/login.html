@@ -3,12 +3,11 @@
     <span class="container">
     <h1>Instructor App sign in</h1>
 
-    <div ng-messages="login.error">
-      <p class="error" ng-message="error">Your username or password is incorrect.</p>
-    </div>
-
     <form ng-submit="login.login()">
       <div class="row">
+        <div ng-messages="login.error">
+          <p class="error" ng-message="error">Your username or password is incorrect.</p>
+        </div>
         <input type="text" name="username" placeholder="Email address" ng-model="login.credentials.username" required/>
         <input type="password" name="password" placeholder="Password" ng-model="login.credentials.password" required/>
       </div>
