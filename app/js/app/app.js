@@ -69,6 +69,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
   var self = this;
   self.ready = false;
   self.loggedIn = false;
+  self.userName = {};
 
   self.logout = function () {
     Users.logout();
@@ -78,6 +79,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
 
   $rootScope.$on("$stateChangeStart", function (event, next) {
     var user = Users.getCurrentUser();
+    self.userName = user.FirstName;
     if (!_.isEmpty(user)) {
       self.loggedIn = true;
     }
@@ -87,6 +89,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
       // The app isn't ready yet, so load up a user and then check if they have permission to access the route
       Users.loadCurrentUser().then(function (data) {
         user = data;
+        self.userName = user.FirstName;
         spinnerService.hide('bodySpinner');
         self.ready = true;
         self.loggedIn = true;
