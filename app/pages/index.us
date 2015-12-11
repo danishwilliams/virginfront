@@ -10,14 +10,10 @@
 </head>
 <body ng-app="app" ng-controller="AppController as app">
 <div class="off-canvas-wrap move-right" data-offcanvas="">
-  <div class="inner-wrap">
-    <aside class="left-off-canvas-menu" ng-if="!app.loggedIn">
-      <div class="icon-bar vertical five-up">
-        <div class="logo"></div>
-      </div>
-    </aside>
+  <div ng-class="{'inner-wrap':app.loggedIn}">
+    <div class="logo left" ng-if="!app.loggedIn"></div>
     <!-- Off Canvas Menu -->
-    <aside style="display:none;" class="left-off-canvas-menu align-center" ng-class="{'show':app.ready}" ng-if="app.loggedIn">
+    <aside style="display:none;" class="left-off-canvas-menu align-center" ng-class="{'show':app.loggedIn}" ng-if="app.loggedIn">
       <div class="icon-bar vertical five-up">
         <span class="item">
           <i class="logo"></i>
