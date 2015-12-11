@@ -1,32 +1,22 @@
 <div class="create-playlist">
   <playlist-workflow></playlist-workflow>
   <div class="row">
-    <div class="small-1 columns">
-      &nbsp;
-    </div>
-    <div class="small-16 columns text-center">
-      <h3>Choose a ride template</h3>
+    <div class="medium-18 large-18 small-centered large-centered columns">
+      <h1>Choose a ride template</h1>
 
-      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-6">
-        <li ng-repeat="templateGroup in playlist_template.templateGroups | orderBy:'Name'">
-          <a class="choose-template" ng-link="playlist_time({id:templateGroup.Id})">
-            <div class="template">
+     <spinner class="spinner" name="playlistTemplateSpinner" show="true"></spinner>
+
+      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+        <li ng-repeat="templateGroup in playlist_template.templateGroups | orderBy:'Type':'Name'">
+          <a class="choose-template" ui-sref="playlist-new-time({id:templateGroup.Id})">
+            <div class="template {{templateGroup.Type}}">
               <div class="icon"><img src="/img/templates/{{templateGroup.IconFileName}}"></div>
-              <h4 ng-bind-html="templateGroup.Name"></h4>
+              <h2 ng-bind-html="templateGroup.Name"></h2>
               <div class="description">{{templateGroup.Description}}</div>
             </div>
           </a>
         </li>
-        <li>
-          <div class="template own">
-            <div class="icon"><img src="/img/templates/own.svg"></div>
-            <h4>Create your own template</h4>
-          </div>
-        </li>
       </ul>
-    </div>
-    <div class="small-1 columns">
-      &nbsp;
     </div>
   </div>
 </div>

@@ -95,8 +95,8 @@ $column-gutter: rem-calc(2);
 // $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 
 // We use these to define default font weights
-// $font-weight-normal: normal;
-// $font-weight-bold: bold;
+$font-weight-normal: normal;
+$font-weight-bold: bold;
 
 // $white       : #FFFFFF;
 // $ghost       : #FAFAFA;
@@ -118,24 +118,59 @@ $column-gutter: rem-calc(2);
 // $jet         : #222222;
 // $black       : #000000;
 
-$red: #F42640;
-$red_medium: #BB0A31;
-$red_dark: #920F1F;
-$test: #E01831;
-$test1: #8A2363;
-$test2: #C84C6A;
-$white: #FFFFFF;
-$white_light: #CFCFD0;
-$grey_lighter: #DCDCDC;
-$grey_light: #959595;
-$grey_medium: #5B5B5B;
-$grey_blue: #1C1E25;
-$grey_dark: #272222;
-$grey_black: #1A1616;
-$blue_light: #F3F5FB;
-$blue_medium: #A1C8F1;
-$blue_dark: #7CB3EF;
+/* Primary colours */
+$red: #E01831;
+$rose: #EC3549;
+$cherry: #F42640;
+
+/* Accent colours */
+
+$blue_dark: #293144;
+$blue: #6EA4E4;
 $purple: #8A2363;
+$pack_purple: #6E3DB2;
+
+/* Error colours */
+
+$peach: #F0851A;
+$savannah: #FEE6C4;
+$green: #F0F6E8;
+
+/* Grey colours */
+
+$grey_darker: #272835;
+$grey_dark: #353640;
+$grey: #5D5E68;
+$grey_medium: #CDCACA;
+$grey_light: #E9E9E9;
+$grey_lighter: #F4F4F4;
+
+/* Other colours */
+
+$white: #FFFFFF;
+$black: #000000;
+
+/* To be refactored */
+
+$grey_blue: #1C1E25;
+$white_light: #CFCFD0;
+$pink: #FFC1CE;
+$red_medium: #BB0A31;
+$apricot: #FEE6C4;
+$blue_light: #F3F5FB;
+$grey-black: #272835;
+//$blue_dark: #7CB3EF;
+$blue_medium: #A1C8F1;
+
+$grey_blue: $grey;
+$white_light: #CFCFD0;
+$pink: #FFC1CE;
+$red_medium: #BB0A31;
+$apricot: #FEE6C4;
+$blue_light: #F3F5FB;
+$grey-black: #272835;
+//$blue_dark: #7CB3EF;
+$blue_medium: #A1C8F1;
 
 // We use these as default colors throughout
 // $primary-color: #008CBA;
@@ -251,6 +286,13 @@ $primary-color: $red;
 // $h5-font-size: rem-calc(18);
 // $h6-font-size: 1rem;
 
+$h1-font-size: rem-calc(36);
+$h2-font-size: rem-calc(24);
+$h3-font-size: rem-calc(18);
+$h4-font-size: rem-calc(16);
+$body-font-size: rem-calc(16);
+$label-font-size: rem-calc(14);
+
 // We use these to control header size reduction on small screens
 // $h1-font-reduction: rem-calc(10);
 // $h2-font-reduction: rem-calc(10);
@@ -272,7 +314,7 @@ $primary-color: $red;
 
 // We use these to style paragraphs
 // $paragraph-font-family: inherit;
-// $paragraph-font-weight: $font-weight-normal;
+$paragraph-font-weight: $font-weight-normal;
 // $paragraph-font-size: 1rem;
 // $paragraph-line-height: 1.6;
 // $paragraph-margin-bottom: rem-calc(20);

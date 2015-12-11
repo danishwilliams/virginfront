@@ -1,5 +1,4 @@
 <h1>Users</h1>
-
 <table>
   <thead>
     <tr>
@@ -7,20 +6,47 @@
       <td>Last name</td>
       <td>Email</td>
       <td>Phone number</td>
+      <td>City</td>
+      <td>Province</td>
       <td>Country</td>
       <td>User type</td>
       <td>Id</td>
+      <td>View</td>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="user in users.users | orderBy:'Name'">
-      <td contentEditable ng-change="beats.update(beat)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
-      <td>{{user.LastName}}</td>
-      <td>{{user.Email}}</td>
-      <td>{{user.Telephone}}</td>
-      <td>{{user.Country.Name}}</td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Location.City"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Location.Province"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Location.Country.Name"></td>
       <td>{{user.UserType.Name}}</td>
       <td>{{user.Id}}</td>
+      <td><a ui-sref="users({id:user.Id})">View</a>
+    </tr>
+    <tr>
+      <td colspan="10">
+        <h5>Add new user</h5></td>
+    </tr>
+    <tr>
+      <td contentEditable ng-model="users.newUser.FirstName"></td>
+      <td contentEditable ng-model="users.newUser.LastName"></td>
+      <td contentEditable ng-model="users.newUser.Email"></td>
+      <td contentEditable ng-model="users.newUser.Telephone"></td>
+      <td colspan="3">
+        <cities ng-model="users.newUser.LocationId"></cities>
+      </td>
+      <td><user-types ng-model="users.newUser.UserTypeId"></user-types></td>
+      <td>{{users.newUser.Id}}</td>
+      <td>
+        <button ng-click="users.create()" type="button" class="tiny round">Add new user</button>
+      </td>
+    </tr>
+    <tr>
+    <td colspan="10">{{users.newUser}}</td>
     </tr>
   </tbody>
 </table>

@@ -6,6 +6,7 @@
  */
 
 var http = require('http');
+var sleep = require('sleep');
 var listenport = 3000;
 
 http.createServer(onRequest).listen(listenport);
@@ -24,13 +25,20 @@ function onRequest(client_req, client_res) {
   options.path = client_req.url;
   options.method = client_req.method;
   options.headers = client_req.headers;
-  options.headers.Authorization = 'Basic cm9nZXI6VGhlcm9kZ2UzMjE=';
+  //var base64 = new Buffer('roger:Therodge321').toString('base64'); // OpenEar
+  var base64 = new Buffer('dane:Therodge321').toString('base64'); // Simfy
+  options.headers.Authorization = 'Basic ' + base64;
 
   var proxy = http.request(options, function (res) {
     client_res.statusCode = res.statusCode;
+    // Spoof a backend error on PUTs
+    if (options.method === 'PUT') {
+      //client_res.statusCode = 500;
+    }
     //client_res.statusCode = 500;
     client_res.statusMessage = res.statusMessage;
     client_res.headers = res.headers;
+    //sleep.sleep(100);
     res.pipe(client_res, {
       end: true
     });

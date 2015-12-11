@@ -1,6 +1,4 @@
-$sidebar-width: 114px;
-$nav-color: #000;
-
+$sidebar-width: 90px;
 .inner-wrap {
   width: auto;
 }
@@ -31,6 +29,25 @@ $nav-color: #000;
   width: $sidebar-width;
 }
 
+.icon-bar > * {
+  padding: 0 0 15px 0;
+}
+
+.icon-bar {
+  background: $grey_darker;
+}
+
+.icon-bar.vertical,
+.icon-bar.small-vertical {
+  width: $sidebar-width;
+}
+
 .ad-block {
   margin-bottom: 2rem;
+}
+
+.logo {
+  background: url('/img/virginlogo.svg') no-repeat;
+  width: 90px;
+  height: 90px;
 }

@@ -1,73 +1,116 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($routeParams, $location, AuthenticationService, Tracks, PlaylistEdit, Templates) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $location, $document, AuthenticationService, Tracks, Playlists, Templates, spinnerService, uuid2) {
   var self = this;
   var playing = false; // If music is playing or not
 
   // TODO: do we want to sanitize this?
-  this.id = $routeParams.id;
+  this.id = $stateParams.id;
+  self.title = "Edit your playlist";
 
-  this.title = "Add a Ride";
-  this.playlist = PlaylistEdit.getPlaylist();
-  this.tracks = Tracks.getTracks();
-  this.currentgoal = PlaylistEdit.getCurrentGoal();
+  if (Playlists.getCreatingNewPlaylist() || $state.current.name === 'playlist-new-edit') {
+    // We're creating a new playlist!
+    Playlists.setCreatingNewPlaylist(true);
+    self.newPlaylist = true;
+    self.title = "Create your playlist";
+    self.playlistTracksLength = 0;
+  }
 
-  PlaylistEdit.setStep(2);
+  this.playlist = Playlists.getPlaylist();
+  this.currentgoal = Playlists.getCurrentGoal();
 
-  // Load tracks from the user's default genre selection
-  Tracks.loadUserGenresTracks().then(function(data) {
-    self.tracks = data;
+  Playlists.setStep(2);
+
+  $rootScope.$on('$stateChangeSuccess', function () {
+    if ($state.current.name === 'playlist-edit' || $state.current.name === 'playlist-new-edit') {
+      // User has just selected a track from track search to add to a goal
+      var track = Tracks.getSearchedTrack();
+      if (!_.isEmpty(track)) {
+        var currentgoal = Playlists.getCurrentGoal();
+        if (currentgoal.BackgroundSection) {
+          // Add a background track
+          Playlists.addBackgroundTrack(currentgoal.BackgroundSection, track);
+          Tracks.setSearchedTrack({});
+        } else {
+          // Add a track to a goal
+          Playlists.trackDropped(currentgoal.ArrayId, track);
+          $rootScope.$broadcast('add.track');
+          Tracks.setSearchedTrack({});
+        }
+      }
+      angular.element($document[0].body).removeClass('noscroll');
+    }
+  });
+
+  // Urgh. Had to use $scope here because the controller isn't available in the $stateChangeSuccess event, so can't
+  // update variables.
+  $scope.$on('add.track', function () {
+    self.updatePlaylistLength();
+    self.updateCurrentGoal();
+    self.checkAllGoalsHaveTracks();
   });
 
   // Create new playlist
-  if ($location.path().substring(0, 15) === '/playlists/new/') {
-    // TODO: refactor this once NgNewRouter allows for multiple ways to call a component with ng-link
-    if ($location.path().substring(15, 23) === 'playlist') {
-      self.id = $location.path().substring(24);
-    }
+  if (self.newPlaylist) {
     Templates.loadTemplate(self.id).then(function (data) {
-      self.playlist = PlaylistEdit.createNewPlaylistFromTemplate(data);
-      self.currentgoal = PlaylistEdit.getCurrentGoal();
+      self.playlist = Playlists.createNewPlaylistFromTemplate(data);
+      self.currentgoal = Playlists.getCurrentGoal();
+      self.initFreestylePlaylist();
+      spinnerService.hide('playlistEditSpinner');
     });
   } else if (self.id) {
     // Load an existing playlist so we can edit it
-    PlaylistEdit.loadPlaylist(this.id).then(function () {
-      self.playlist = PlaylistEdit.getPlaylist();
-      self.currentgoal = PlaylistEdit.getCurrentGoal();
+    Playlists.loadPlaylist(this.id).then(function () {
+      self.playlist = Playlists.getPlaylist();
+      self.playlistTracksLength = Playlists.getPlaylistLength();
+      self.currentgoal = Playlists.getCurrentGoal();
+      if (self.checkPlaylistLength() === false) {
+        self.newPlaylist = true;
+      }
+      self.initFreestylePlaylist();
+      spinnerService.hide('playlistEditSpinner');
     });
-  } else {
-    // We should never land here
-    console.log('[Warning] What are you doing here?! You should be adding or editing a playlist');
-    // TODO: legacy code. Remove once playlist creation is working
-    /*
-    PlaylistEdit.loadGoals().then(function (data) {
-      console.log(data);
-      self.playlistGoals = data.Goals;
-      self.name = data.Name;
-      self.playlist = data;
-      // TODO: this shouldn't be necessary: the data binding should recognise the change
-      self.currentgoal = PlaylistEdit.getCurrentGoal();
-    });
-    */
   }
 
-  this.playTrack = function (trackid) {
-    var playertrack = Tracks.getPlayerTrack();
-    if (trackid === playertrack[0]) {
-      if (playing) {
-        // Pause the currently playing track
-        DZ.player.pause();
-        DZ.player.pause();
-        playing = false;
-      } else {
-        DZ.player.play();
-        playing = true;
-      }
-    } else {
-      // Play a different track
-      Tracks.setPlayerTrack(trackid);
-      DZ.player.playTracks([trackid]);
-      DZ.player.play();
-      playing = true;
+  // This is a Freestyle playlist
+  this.initFreestylePlaylist = function () {
+    if (self.playlist.TemplateName !== 'Freestyle') {
+      return;
     }
+    self.freestyleTemplate = true;
+    self.freestyleGoals = [];
+    for (var i = 0; i < self.playlist.MaxFreestyleGoals - 1; i++) {
+      self.freestyleGoals[i] = {
+        show: true
+      };
+    }
+  };
+
+  // Rules for adding a new freestyle goal
+  this.canAddNewFreestyleGoal = function () {
+    if (!self.playlist.PlaylistGoals) {
+      return;
+    }
+    var numGoals = self.playlist.PlaylistGoals.length;
+    if (numGoals < self.playlist.MaxFreestyleGoals) {
+      return true;
+    }
+    return false;
+  };
+
+  this.addFreestyleGoal = function (goal) {
+    goal.show = false;
+    // Find the current ArrayId and SortOrder from the last item in the PlaylistGoals array
+    var i = self.playlist.PlaylistGoals.length;
+    // .copy because otherwise we change the model within the <freestyle-goals> directive
+    var freestyleGoal = angular.copy(self.freestyleGoal);
+    // Setting Id allows the API to save a new playlist goal
+    freestyleGoal.Id = uuid2.newuuid().toString();
+    freestyleGoal.ArrayId = i;
+    freestyleGoal.SortOrder = i + 1;
+    self.playlist.PlaylistGoals.push(freestyleGoal);
+  };
+
+  this.playTrack = function (track) {
+    Tracks.playTrack(track);
   };
 
   /**
@@ -75,19 +118,30 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * @param goal
    */
   this.goalClicked = function (playlistGoal) {
-    // User has clicked on an open, unselected goal, so don't collapse it
     if (playlistGoal.show) {
-      // Collapse this open and selected goal
-      if (self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
+      // User has clicked on an open goal
+
+      if (playlistGoal.PlaylistGoalTracks.length > 0) {
+        // Collapse this open goal
         playlistGoal.show = !playlistGoal.show;
       }
     } else {
       playlistGoal.show = !playlistGoal.show;
     }
 
-    PlaylistEdit.setCurrentGoal(playlistGoal);
+    Playlists.setCurrentGoal(playlistGoal);
     // Why isn't this automatically happening due to setting this earlier? i.e. this isn't data bound...
-    self.currentgoal = PlaylistEdit.getCurrentGoal();
+    self.currentgoal = Playlists.getCurrentGoal();
+
+    // If there aren't any tracks, find some!
+    if (playlistGoal.PlaylistGoalTracks.length === 0) {
+      angular.element($document[0].body).addClass('noscroll');
+      if (self.newPlaylist) {
+        $state.go('playlist-new-edit.tracks-search', {id: self.id});
+      } else {
+        $state.go('playlist-edit.tracks-search', {id: self.id});
+      }
+    }
   };
 
   /**
@@ -96,31 +150,18 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * @returns {boolean}
    */
   this.isGoalActive = function (playlistGoal) {
-    if (playlistGoal.show === true && self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
+    if (self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
       return true;
     }
     return false;
   };
 
-  // Add a track to a goal self. If it passes our checks, call addTrackSuccess
-  this.addTrack = function (track) {
-    if (track.Bpm < self.currentgoal.BpmLow || track.Bpm > self.currentgoal.BpmHigh) {
-      // TODO: show some kind of helpful error message to the user
-      return;
-    }
-
-    // If there are already tracks don't add one
-    var tracks = PlaylistEdit.getPlaylistGoalTracks(self.currentgoal.ArrayId);
-    if (tracks.length > 0) {
-      return;
-    }
-
-    PlaylistEdit.trackDropped(self.currentgoal.ArrayId, track);
-  };
-
   // Remove a track from a goal playlist
   this.removeTrack = function (playlistGoalArrayId, track) {
-    PlaylistEdit.removeTrackFromGoalPlaylist(playlistGoalArrayId, track);
+    Playlists.removeTrackFromGoalPlaylist(playlistGoalArrayId, track);
+    this.playlistTracksLength = Playlists.getPlaylistLength();
+    self.checkAllGoalsHaveTracks();
+    Tracks.stopTrack(track.Track);
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + playlistGoalArrayId);
@@ -130,48 +171,117 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
   };
 
+  // If the playlist goal note doesn't exist, create it
+  this.playlistGoalNoteCreate = function (playlistGoalArrayId, trackIndex) {
+    var noteText = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex].NoteText;
+    var trackId = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks[trackIndex].TrackId;
+    self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex] = Playlists.createPlaylistGoalNote(noteText, trackId);
+  };
+
   // Save the playlist to the API
   this.savePlaylist = function () {
-    // Theoretically, this should work
+    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
+      // Probably hit 'enter' in the ride name inputbox
+      return;
+    }
+    if (self.checkAllGoalsHaveTracks()) {
+      self.playlist.Complete = true;
+    } else {
+      self.playlist.Complete = false;
+    }
+
+    Playlists.setCreatingNewPlaylist(false);
+    self.saving = true;
+    spinnerService.show('playlistEditSaveSpinner');
+
     self.playlist.put({
       syncPlaylist: false
-    });
-    /*
-    // Format the playlist object properly before the PUT
-    var newPlaylist = {};
-    var playlistGoals = [];
-    var i = 0;
-    self.playlistGoals.forEach(function (goal) {
-      if (i > 0) {
-        return;
+    }).then(function () {
+      if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
+        $state.go('dashboard');
+      } else if (self.newPlaylist) {
+        // New playlist view
+        $state.go('playlist-new-view', {
+          id: self.playlist.Id
+        });
+      } else {
+        // TODO: Add a playlist view state and go to it
+        $state.go('playlist-view', {
+          id: self.playlist.Id
+        });
       }
-
-      delete goal.GoalOptions;
-
-      playlistGoals[i] = {
-        SortOrder: goal.SortOrder,
-        PlaylistId: self.playlist.Id,
-        GoalId: goal.Id,
-        Goal: goal
+    }, function (response) {
+      console.log("Error with status code", response.status);
+      spinnerService.hide('playlistEditSaveSpinner');
+      self.saving = false;
+      self.error = {
+        error: true
       };
-      i++;
     });
-    console.log(self.playlist);
-    newPlaylist = Restangular.one('playlists', "21df6644-5180-4258-b790-1017de0d0eb4");
-    newPlaylist.Id = self.playlist.Id;
-    newPlaylist.Name = "A very dark place";
-    newPlaylist.TemplateName = self.playlist.Name;
-    newPlaylist.Shared = false;
-    newPlaylist.UserId = "0b51cf07-44df-46e4-a1a3-6a7c018e04b3";
-    newPlaylist.PlaylistGoals = playlistGoals;
-    newPlaylist.Name = "Working playlist?";
-    newPlaylist.ClassLengthMinutes = self.playlist.ClassLengthMinutes;
-    console.log(newPlaylist);
-    //self.playlist.put();
+  };
 
-    // Overwrite an existing playlist
-    newPlaylist.put();
-    */
+  // In it's own function because 'self' isn't accessible from the rootScope $stateChangeSuccess
+  this.updatePlaylistLength = function () {
+    self.playlistTracksLength = Playlists.getPlaylistLength();
+  };
+
+  // In it's own function because 'self' isn't accessible from the rootScope $stateChangeSuccess
+  this.updateCurrentGoal = function () {
+    self.currentgoal = Playlists.getCurrentGoal();
+  };
+
+  /**
+   * Does every goal have a track?
+   */
+  this.checkAllGoalsHaveTracks = function () {
+    return Playlists.checkAllGoalsHaveTracks();
+  };
+
+  this.checkHasPreRideBackgroundTracks = function () {
+    var found = false;
+    self.playlist.BackgroundTracks.forEach(function(val) {
+      if (val.PlaylistPosition.toLowerCase() === 'before') {
+        found = true;
+      }
+    });
+    return found;
+  };
+
+  this.checkHasPostRideBackgroundTracks = function () {
+    var found = false;
+    self.playlist.BackgroundTracks.forEach(function(val) {
+      if (val.PlaylistPosition.toLowerCase() === 'after') {
+        found = true;
+      }
+    });
+    return found;
+  };
+
+  this.checkPlaylistLength = function () {
+    return Playlists.checkPlaylistLength();
+  };
+
+  /* Hide the submit button if we're editing a playlist and not every goal has a track */
+  this.checkWhenEditingEveryGoalHasATrack = function () {
+    if (!self.newPlaylist) {
+      if (!self.checkAllGoalsHaveTracks()) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  this.submitButtonText = function () {
+    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
+      // Editing a playlist but not all tracks have goals
+      return 'Each goal needs a track';
+    } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
+      return 'Save and continue later';
+    }
+    if (self.newPlaylist) {
+      return 'Next: preview my ride';
+    }
+    return 'Update changes';
   };
 
   var onLogoutSuccess = function (response) {

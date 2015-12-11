@@ -1,0 +1,24 @@
+<div class="sync-playlist">
+  <playlist-workflow></playlist-workflow>
+  <div class="row">
+    <div class="large-12 large-centered columns max-content">
+      <h1 class="text-center">Send to your clubs</h1>
+      <div class="row box">
+        <p>Select which clubs you would like to send your ride class to. This will make sure that all of your music and notes will be available on the tablet in the studio when you arrive.</p>
+        <div ng-messages="playlist_sync.error">
+          <div class="error" ng-message="required">Please select at least one club</div>
+        </div>
+        <spinner class="spinner" name="playlistSyncSpinner" show="true"></spinner>
+        <div class="gyms">
+          <label ng-class="{'disabled': gym.LimitReached}" ng-repeat="gym in playlist_sync.gyms | orderBy: 'Gym.Name'">
+            <input type="checkbox" ng-disabled="gym.LimitReached" ng-model="gym.selected"> {{gym.Gym.Name}} <span ng-if="gym.LimitReached">(This club already has {{playlist_sync.playlistLimitPerGym}} rides)</span>
+          </label>
+        </div>
+      </div>
+      <p>&nbsp;</p>
+      <p>
+        <button class="secondary" ui-sref="dashboard" style="float:left">Save and continue later</button>
+        <button class="round" ng-click="playlist_sync.publishPlaylist()" style="float:right">Save and send to clubs</button>
+      </p>
+    </div>
+  </div>

@@ -6,7 +6,7 @@ function playlistWorkflow() {
 	var directive = {
 		link: link,
 		templateUrl: 'playlist_workflow.html',
-		restrict: 'EA',
+		restrict: 'E',
 		controller: playlistWorkflowController,
 		controllerAs: 'vm'
 	};
@@ -17,9 +17,9 @@ function playlistWorkflow() {
 	}
 }
 
-playlistWorkflowController.$inject = ['PlaylistEdit'];
+playlistWorkflowController.$inject = ['Playlists'];
 
-function playlistWorkflowController(PlaylistEdit) {
+function playlistWorkflowController(Playlists) {
 	var self = this;
-	this.steps = PlaylistEdit.getSteps();
+	this.steps = Playlists.getSteps();
 }

@@ -7,22 +7,18 @@
       <td>Last sync attempt</td>
       <td>Sync status</td>
       <td>Gym</td>
+      <td>City</td>
       <td>Provision Id</td>
-      <td>Playlists</td>
-      <td>Queued Playlists</td>
-      <td>Device ID</td>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="device in devices.devices | orderBy:'Name'">
-      <td contentEditable ng-change="devices.update(device)" ng-model-options="{updateOn : 'change blur'}" ng-model="device.Name"></td>
+      <td><a ui-sref="device({id:device.Id})">{{device.Name}}</a></td>
       <td>{{device.LastSyncAttempt}}</td>
       <td>{{device.SyncSuccess}}</td>
-      <td>Gym ID: {{device.GymID}}</td>
-      <td>{{device.DeviceProvisionId}}
-      <td><a ng-link="devices({id:device.Id})">Playlists</a></td>
-      <td><a ng-link="devices({id:device.Id})">Queued Playlists</a></td>
-      <td>{{device.Id}}</td>
+      <td>{{device.Gym.Name}}</td>
+      <td>{{device.Gym.Location.City}}</td>
+      <td>{{device.DeviceProvisionId}}</td>
     </tr>
   </tbody>
 </table>

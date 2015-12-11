@@ -1,0 +1,14 @@
+<div class="onboarding row">
+  <p>Help us get to know you a little.</p>
+  <h2>Which clubs do you regularly teach at?</h2>
+  <form ng-submit="onboarding.save_gyms()">
+    <ul class="align-left">
+      <li ng-repeat="gym in onboarding.gyms | orderBy:'Name'">
+        <label>
+          <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
+        </label>
+      </li>
+    </ul>
+    <button class="round">Save</button>
+  </form>
+</div>

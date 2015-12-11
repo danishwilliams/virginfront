@@ -1,0 +1,34 @@
+<h1>{{device.device.Name}}</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Device name</td>
+      <td>Last sync attempt</td>
+      <td>Sync status</td>
+      <td>Gym</td>
+      <td>City</td>
+      <td>Music Provider</td>
+      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}} Username</td>
+      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}} Password</td>
+      <td>Provision Id</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{device.device.Name}}</a></td>
+      <td>{{device.device.LastSyncAttempt}}</td>
+      <td>{{device.device.SyncSuccess}}</td>
+      <td>{{device.device.Gym.Name}}</td>
+      <td>{{device.device.Gym.Location.City}}</td>
+      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}}</td>
+      <td>{{device.device.User.UserMusicProvider.Username}}</td>
+      <td>{{device.device.User.UserMusicProvider.Password}}</td>
+      <td>{{device.device.DeviceProvisionId}}</td>
+    </tr>
+  </tbody>
+</table>
+
+{{device.playlists}}
+
+<div ui-view></div>

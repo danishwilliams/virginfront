@@ -1,0 +1,185 @@
+.tracks-modal {
+  width: 100% !important;
+  max-width: 100%;
+  top: 0px !important;
+  position: fixed;
+  padding: 0;
+  background-color: rgba($grey_darker, 0.97);
+  .joyride-close-tip {
+    font-size: xx-large;
+  }
+  height: 100vh;
+  overflow: scroll;
+}
+
+@media #{$small-only} { 
+  .tracks-modal {
+    padding: 4px;
+  }
+}
+
+/* The right tracks sidebar */
+
+.tracks {
+  color: $white;
+  max-width: rem-calc(1050px);
+  &.fixed {
+    position: fixed;
+    top: 0;
+    right: -1px;
+  }
+
+  .track-search-results {
+    overflow: scroll;
+    height: 70vh;
+  }
+
+  h1 {
+    color: $white;
+  }
+  .showing {
+    border-bottom: 1px solid $white;
+    padding-bottom: rem-calc(10px);
+    margin-bottom: rem-calc(30px);
+  }
+  .search {
+    margin-bottom: rem-calc(30px);
+    input {
+      border-width: 0px;
+      color: $grey_light;
+      background: $black url('/img/search_white.svg') no-repeat;
+      background-position: right 10px center;
+      padding-left: 10px;
+    }
+    ::-webkit-input-placeholder {
+      color: $grey_light;
+    }
+    :-moz-placeholder {
+      /* Firefox 18- */
+      color: $grey_light;
+    }
+    ::-moz-placeholder {
+      /* Firefox 19+ */
+      color: $grey_light;
+    }
+    :-ms-input-placeholder {
+      color: $grey_light;
+    }
+  }
+}
+
+.track {
+  padding-top: rem-calc(10px);
+  padding-bottom: rem-calc(10px);
+  line-height: 18px;
+  border-bottom: 2px solid $grey_darker;
+  color: $white;
+  &.in-bpm-range:hover {
+    background-color: $blue_dark;
+  }
+  .columns {
+    padding-left: rem-calc(10px);
+    padding-right: rem-calc(10px);
+  }
+  .selectable {
+    cursor: pointer;
+  }
+  .track-name {
+    display: block;
+    font-weight: bold;
+    clear: both;
+  }
+  .artist {
+    color: $white_light;
+  }
+  .genre {
+    font-weight: 100;
+    text-align: right;
+  }
+  .bpm {
+    color: $blue;
+  }
+  .time {
+    font-weight: bold;
+  }
+  .time .position {
+    color: $red;
+  }
+  .add,
+  .remove {
+    font-size: x-large;
+    font-weight: bold;
+  }
+  .remove {
+    cursor: pointer;
+    text-indent: -2000px;
+    background: url('/img/remove.svg') no-repeat;
+    background-position: center;
+  }
+}
+
+.bpm-range {
+  background-color: $blue;
+  color: $white;
+  border-radius: 15px;
+  padding: rem-calc(10px) rem-calc(15px) rem-calc(10px) rem-calc(15px);
+  margin-right: rem-calc(10px);
+}
+
+.play {
+  cursor: default;
+  text-indent: -2000px;
+  min-height: 30px;
+  min-width: 30px;
+  background: url('/img/play.svg') no-repeat;
+  background-position: center;
+}
+
+button.play, button.add {
+  border: none;
+  background-color: $grey_darker;
+  padding: 0;
+  margin: 0;
+  transition: none;
+  line-height: inherit;
+  color: $red;
+  &:hover {
+    background-color: $grey_darker;
+  }
+
+  &[disabled] {
+    color: $grey_lighter;
+    background-color: $grey_darker;
+    font-weight: lighter;
+  }
+}
+
+.in-bpm-range:hover button.play {
+  background-color: $blue_dark;
+}
+
+button.add {
+  background: none;
+}
+
+.playing {
+  background: url('/img/playing_dark.gif') no-repeat;
+  background-position: center;
+}
+
+.out-of-bpm-range {
+  color: $grey;
+
+  .artist, .bpm {
+    color: $grey;
+  }
+}
+
+.genres {
+  background-color: $grey_dark;
+  padding: rem-calc(10px);
+  border-radius: $radius-tiny;
+  h3, label {
+    color: $white;
+  }
+}

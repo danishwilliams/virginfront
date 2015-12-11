@@ -1,15 +1,17 @@
 <div class="create-playlist">
   <playlist-workflow></playlist-workflow>
   <div class="row">
-    <div class="small-1 columns">
+    <div class="large-2 columns">
       &nbsp;
     </div>
-    <div class="small-16 columns text-center">
-      <h3>How long is your class?</h3>
+    <div class="large-14 columns">
+      <h1>How long is your class?</h1>
 
-      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-6">
-        <li ng-repeat="template in playlist_time.templates">
-          <a class="choose-template" ng-href="/playlists/new/playlist/{{template.TemplateId}}">
+     <spinner class="spinner" name="playlistTimeSpinner" show="true"></spinner>
+
+      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-3">
+        <li ng-repeat="template in playlist_time.templates | orderBy:'ClassLengthMinutes'">
+          <a class="choose-template" ui-sref="playlist-new-edit({id:template.TemplateId})">
             <div class="template">
               <div class="icon"><img src="/img/templates/intervals.svg"></div>
               <h4><span ng-bind-html="template.ClassLengthMinutes"></span> mins</h4>
@@ -18,7 +20,7 @@
         </li>
       </ul>
     </div>
-    <div class="small-1 columns">
+    <div class="large-2 columns">
       &nbsp;
     </div>
   </div>

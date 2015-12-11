@@ -7,7 +7,7 @@ UsersFactory.$inject = ['Restangular'];
 function UsersFactory(Restangular) {
   var self = this;
   self.users = [];
-  self.currentUser = {Id: '1e8b0888-46c5-4218-ba4a-05638d5f81ef'}; // TODO: this is temporary
+  self.currentUser = {};
 
   var usersFactory = {
     loadUsers: loadUsers,
@@ -42,8 +42,7 @@ function UsersFactory(Restangular) {
 
   function loadCurrentUser() {
     // TODO: this is temporary
-    var id = '1e8b0888-46c5-4218-ba4a-05638d5f81ef';
-    return Restangular.one('users', id).get().then(loadCurrentUserComplete);
+    return Restangular.one('users/me').get().then(loadCurrentUserComplete);
 
     function loadCurrentUserComplete(data, status, headers, config) {
       self.currentUser = data;

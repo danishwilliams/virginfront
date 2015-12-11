@@ -1,0 +1,98 @@
+<div class="profile row">
+  <div class="large-2 columns">
+    &nbsp;
+  </div>
+  <div class="large-14 columns">
+    <div class="profile-header">
+      <h1>{{user.user.FirstName}} {{user.user.LastName}}</h1>
+      <p>{{user.user.Location.City}}, {{user.user.Location.Country.Code}}</p>
+      <p>[active/inactive] Last class: [2 Sept 2015]</p>
+    </div>
+    <div class="row">
+      <div class="columns large-9">
+        <h3>Contact details</h3>
+        <span ng-show="!user.contactEdit">
+          <a ng-click="user.contactEdit = true">Edit</a><br>
+          {{user.user.Telephone}}<br>
+          {{user.user.Email}}
+        </span>
+        <span ng-show="user.contactEdit">
+          <span contentEditable ng-model="user.telephone"></span>
+        <br>
+        <span contentEditable ng-model="user.email"></span>
+        <br>
+        <button class="round secondary" ng-click="user.contactEdit = !user.contactEdit">Cancel</button>
+        <button class="round" ng-click="user.saveContactDetails()">Save</button>
+        </span>
+      </div>
+      <div class="columns large-9">
+        <h3>Permissions</h3>
+        <span ng-show="!user.userTypesEdit">
+          <a ng-click="user.loadUserTypes()">Edit</a><br>
+          {{user.user.UserType.Name}}
+        </span>
+        <span ng-show="user.userTypesEdit">
+          <user-types ng-model="user.user.UserTypeId"></user-types>
+
+          <button class="round secondary" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</button>
+          <button class="round" ng-click="user.saveUserTypes()">Save</button>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns large-9">
+        <h3>Resident clubs</h3>
+        <!--TODO: convert the following into a directive, and conditionally include it-->
+        <span ng-show="!user.gymEdit">
+        <a ng-click="user.loadGyms()">Edit</a>
+        <ul>
+          <li ng-repeat="gym in user.user.UserGyms | orderBy: 'Gym.Name'">
+            {{gym.Gym.Name}}
+          </li>
+        </ul>
+        </span>
+        <span ng-show="user.gymEdit">
+          <label ng-repeat="gym in user.gyms | orderBy: 'Name'">
+            <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
+          </label>
+          <button class="round secondary" ng-click="user.gymEdit = !user.gymEdit">Cancel</button>
+          <button class="round" ng-click="user.saveGyms()">Save</button>
+        </span>
+      </div>
+      <div class="columns large-9">
+        <h3>Genres</h3>
+        <span ng-show="!user.genreEdit">
+          <a ng-click="user.loadGenres()">Edit</a>
+          <ul>
+            <li ng-repeat="genre in user.user.UserGenres | orderBy: 'Name'">
+              {{genre.Genre.Name}}
+            </li>
+          </ul>
+        </span>
+        <span ng-show="user.genreEdit">
+          <label ng-repeat="genre in user.genres | orderBy: 'Name'">
+            <input type="checkbox" ng-model="genre.selected">{{genre.Name}}
+          </label>
+          <button class="round secondary" ng-click="user.genreEdit = !user.genreEdit">Cancel</button>
+          <button class="round" ng-click="user.saveGenres()">Save</button>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <h3>Recent classes</h3>
+      <p>[List of recent classes]</p>
+    </div>
+    <div class="row">
+      <h3>Recent rides</h3>
+      <p>[List recent playlists]</p>
+    </div>
+    <div class="row" ng-show="user.user.UserMusicProvider">
+      <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} account details</h3>
+      <p>Username: {{user.user.UserMusicProvider.Username}}
+        <br> Password: {{user.user.UserMusicProvider.Password}}</p>
+    </div>
+  </div>
+  <div class="large-2 columns">
+    &nbsp;
+  </div>
+</div>

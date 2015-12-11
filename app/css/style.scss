@@ -1,16 +1,81 @@
 /*! style.css */
 
-$chunk_height: rem-calc(100px);
+$chunk_height: rem-calc(60px);
 $goal_padding: rem-calc(10px);
-$top_padding: rem-calc(40px);
+$top_padding: rem-calc(30px);
 $radius: rem-calc(15px);
+$radius-tiny: 2px;
 
-.header {
-  margin-top: rem-calc(10px);
+/* Buttons */
+
+$bg_opacity: 0.09;
+button {
+  outline: none;
+  @include button-style($bg: $cherry, $radius: $button-round);
+  padding: rem-calc(7px) rem-calc(20px) rem-calc(7px) rem-calc(20px);
+  font-size: $body-font-size;
+  border: 2px solid $cherry;
+  color: $white;
+  &:hover,
+  &:focus {
+    color: $white;
+    background-color: $red;
+  }
+  &.secondary {
+    @include button-style($bg: $white, $radius: $button-round);
+    padding: rem-calc(7px) rem-calc(15px) rem-calc(7px) rem-calc(15px);
+    font-size: $label-font-size;
+    border: 2px solid $cherry;
+    color: $cherry;
+    &:hover,
+    &:focus {
+      color: $red;
+      background-color: $white;
+    }
+  }
+  &.cancel {
+    @include button-style($bg: rgba($white, 0), $radius: $button-round);
+    border: none;
+    color: $red;
+    &:hover,
+    &:focus {
+      color: $red;
+      font-weight: bold;
+      text-decoration: underline;
+      background-color: rgba($white, 0);
+    }
+  }
+  &.next {
+    padding: rem-calc(7px) rem-calc(15px) rem-calc(7px) rem-calc(15px);
+    font-size: $label-font-size;
+    border: 2px solid $red;
+    color: $red;
+    &:hover,
+    &:focus {
+      color: $red;
+      background-color: rgba($red, $bg_opacity);
+    }
+  }
+}
+
+
+/*
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+*/
+
+.modal-open {
+  overflow: hidden;
 }
 
 .row.top {
-  padding: $top_padding 0 $top_padding 0;
+  min-height: 91px;
+  padding: $top_padding 0 0 0;
 }
 
 .row {
@@ -22,247 +87,25 @@ $radius: rem-calc(15px);
   */
 }
 
+
 /* A row of a minimum height */
+
 .chunk {
   min-height: $chunk_height;
   line-height: $chunk_height;
   vertical-align: middle;
-
   h3 {
     line-height: $chunk_height;
   }
 }
 
-/***** Create a ride *****/
-
-/* The steps at the top of the create playlist page */
-.workflow {
-  li span {
-    display: block;
-    float: left;
-    border-radius: 50%;
-
-    width: 30px;
-    height: 30px;
-
-    color: $white;
-    font-weight: bold;
-    text-align: center;
-    font-size: 18px;
-  }
-
-  .completed {
-    span {
-      background: $red_medium;
-    }
-    a {
-      color: $red_medium;
-    }
-  }
-
-  .upcoming {
-    span {
-      background: $grey_light;
-    }
-    a {
-      color: $grey_medium;
-    }
-  }
-
-  a {
-    padding-top: 3px;
-    padding-left: 36px;
-  }
+.box {
+  background-color: $grey_lighter;
+  padding: rem-calc(30px);
 }
 
-input[type="text"].class_name {
-  border-width: 0px;
-  box-shadow: none;
-  border-radius: $radius;
-  background-color: $blue_light;
-  font-size: $h3-font-size;
-  font-weight: bold;
-  color: $black;
-  padding: 10px;
-  height: 70px;
-}
-
-.playlist-container {
-  background: $grey_black;
-}
-
-.goals-container {
-  background: $white;
-}
-
-.ride-type {
-  border-top: 1px solid $grey_lighter;
-  margin-bottom: rem-calc(10px);
-
-  h3 {
-    font-weight: bold;
-    color: $grey_medium;
+@media #{$large-up} {
+  .max-content {
+    max-width: rem-calc(800px);
   }
-}
-
-.goal {
-  background-color: $white;
-  padding: rem-calc(5px) 0 rem-calc(5px) 0;
-
-  .goal-container {
-    border: 1px solid $grey_lighter;
-    padding: rem-calc(10px) rem-calc(20px) rem-calc(6px) rem-calc(20px);
-  }
-
-  .goal-name, .goal-meta {
-    cursor: pointer;
-    @include user-select('none');
-  }
-
-  h4 {
-    line-height: rem-calc(35px);
-  }
-
-  .bpm {
-    color: $grey_light;
-    line-height: rem-calc(45px);
-    text-align: right;
-  }
-
-  .active {
-    border: 2px solid $red;
-  }
-}
-
-#track-name {
-  font-weight: bold;
-}
-
-/* The right tracks sidebar */
-
-.tracks {
-  color: $white;
-
-  h3 {
-    color: $white;
-  }
-
-  .showing {
-    border-bottom: 1px solid $white;
-    padding-bottom: rem-calc(10px);
-    margin-bottom: rem-calc(30px);
-  }
-
-  .search {
-    margin-bottom: rem-calc(30px);
-
-    input {
-      border-width: 0px;
-      background-color: $grey_dark;
-      color: $white;
-    }
-    ::-webkit-input-placeholder {
-      color: $white;
-    }
-    :-moz-placeholder {
-      /* Firefox 18- */
-      color: $white;
-    }
-    ::-moz-placeholder {
-      /* Firefox 19+ */
-      color: $white;
-    }
-    :-ms-input-placeholder {
-      color: $white;
-    }
-  }
-}
-
-.track {
-  padding-top: rem-calc(10px);
-  padding-bottom: rem-calc(10px);
-  line-height: 18px;
-  border-bottom: 2px solid $grey_dark;
-  background-color: $grey_black;
-  cursor: move;
-  color: $white;
-
-  .columns {
-    padding-left: rem-calc(10px);
-    padding-right: rem-calc(10px);
-  }
-
-  .play {
-    cursor: default;
-  }
-
-  .track-name {
-    display: block;
-    font-weight: bold;
-    clear: both;
-  }
-  .artist {
-    color: $white_light;
-  }
-  .genre {
-    font-weight: 100;
-    text-align: right;
-  }
-  .bpm {
-    color: $blue_dark;
-  }
-  .time {
-    font-weight: bold;
-  }
-  .add {
-    font-size: $h3-font-size;
-    font-weight: bold;
-  }
-}
-
-.bin {
-  display: block;
-  height: 60px;
-  line-height: 60px;
-  vertical-align: middle;
-  text-align: center;
-  min-width: 100%;
-  border: 2px dotted $blue_medium;
-  color: $blue_medium;
-  background: $blue_light;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.track.dropped {
-  line-height: 40px;
-  vertical-align: middle;
-  cursor: default;
-  background-color: $grey_dark;
-}
-
-.dropped {
-  .empty-text {
-    display: none;
-  }
-  text-align: left;
-
-  .track-name {
-    float: left;
-  }
-
-  .artist {
-    color: $white;
-    padding-left: 5px;
-  }
-}
-
-.bin.dropped {
-  border: 0px;
-}
-
-/* TODO: remove me - for initial structure building only  */
-
-.tracks {
-  min-height: 100%;
 }

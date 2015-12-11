@@ -18,12 +18,35 @@ Include:
 
 * Livereload
 
+# Deployment
+
+Server must be configured to run in HTML5 mode.
+@see https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode
+
+# Running on IIS
+
+Install the ASP module on IIS by opening Server Manager, click "Manage" then "Add roles and features". Click next until the Server Roles screen. Select the ASP role inside Application Development inside Web Server inside Webserver (IIS) and keep clicking next to install.
+
+Add the following into ```Web.config```
+
+```
+<add name="html" path="*.html" verb="*" modules="IsapiModule" scriptProcessor="%windir%\system32\inetsrv\asp.dll" resourceType="Unspecified" requireAccess="None" />
+```
+
+All this insane config is just to allow a POST to html i.e. the simple login form. Because IIS doesn't know how to handle something that isanely complex and difficult.
 
 # How styles work
 
 * Foundation
 * Customising Foundation with colours etc
-* Sass and compass (compass mixings, because I couldn't get lineman to work)
+* Sass and compass (compass mixins, because I couldn't get lineman to work). Install libsass on your platform (it's much quicker than the ruby implementation). Source: https://github.com/sass/libsass
+
+At some point I had to re-install node-sass (due to the later version - 4.2.2 - of node, I think, so had to
+
+```bash
+$ cd node_modules/grunt-sass
+$ npm rebuild node-sass
+```
 
 # Interacting with an API
 
@@ -85,7 +108,9 @@ upgrade path as smoothly as possible, rather than a massive refactor down the li
 
 * ngNewRouter can't instantiate a controller with $scope injected. This will probably be solved in Angular 1.5 but until then, even better reason to not use $scope. @see https://github.com/angular/router/issues/313
 
-This section last updated: 21 September 2015
+So I'm using ui-router instead, and doing my best to not use $scope anywhere (which is mostly true).
+
+This section last updated: 2 December 2015
 
 
 # Unit testing with lineman

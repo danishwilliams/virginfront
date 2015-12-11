@@ -1,5 +1,4 @@
 <h1>Locations</h1>
-
 <table>
   <thead>
     <tr>
@@ -18,5 +17,17 @@
       <td>{{location.Country.Code}}</td>
       <td>{{location.Id}}</td>
     </tr>
+    <tr>
+      <td colspan="5"><h5>Add new location</h5></td>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="City" ng-model="locations.newLocation.City"></td>
+      <td><input type="text" placeholder="Province" ng-model="locations.newLocation.Province"></td>
+      <td colspan="2"><country ng-model="locations.newLocation.CountryId"></country></td>
+      <td>
+        <button ng-click="locations.create()" type="button" class="tiny round">Add new location</button>
+      </td>
+    </tr>
   </tbody>
 </table>
+

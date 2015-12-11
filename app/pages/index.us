@@ -2,8 +2,11 @@
 <html>
 <head>
   <base href="/"></base>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pkg.title %></title>
   <link rel="stylesheet" type="text/css" href="/css/app.css" media="all"/>
+  <link type="text/plain" rel="author" href="/humans.txt" />
 </head>
 <body ng-app="app" ng-controller="AppController as app">
 <div class="off-canvas-wrap move-right" data-offcanvas="">
@@ -13,11 +16,12 @@
 
       <!-- TODO: only insert this if the user is logged in. And make it work on mobile -->
       <div class="icon-bar vertical five-up">
-        <a class="item">
+        <div class="logo"></div>
+        <a class="item" ui-sref="dashboard">
           <i class="fi-home"></i>
           <label>Dashboard</label>
         </a>
-        <a class="item">
+        <a class="item" ui-sref="playlist-new-template">
           <i class="fi-home"></i>
           <label>Create a ride</label>
         </a>
@@ -33,11 +37,54 @@
           <i class="fi-home"></i>
           <label>Music</label>
         </a>
+        <a class="item" ui-sref="beats-admin">
+          <i class="fi-home"></i>
+          <label>Beats</label>
+        </a>
+        <a class="item" ui-sref="gyms-admin">
+          <i class="fi-home"></i>
+          <label>Clubs</label>
+        </a>
+        <a class="item" ui-sref="countries-admin">
+          <i class="fi-home"></i>
+          <label>Countries</label>
+        </a>
+        <a class="item" ui-sref="devices-admin">
+          <i class="fi-home"></i>
+          <label>Devices</label>
+        </a>
+        <a class="item" ui-sref="goals-admin">
+          <i class="fi-home"></i>
+          <label>Goals</label>
+        </a>
+        <a class="item" ui-sref="locations-admin">
+          <i class="fi-home"></i>
+          <label>Locations</label>
+        </a>
+        <a class="item" ui-sref="music-providers-admin">
+          <i class="fi-home"></i>
+          <label>Music Providers</label>
+        </a>
+        <a class="item" ui-sref="playlists">
+          <i class="fi-home"></i>
+          <label>Playlists</label>
+        </a>
+        <a class="item" ui-sref="templates-admin">
+          <i class="fi-home"></i>
+          <label>Templates</label>
+        </a>
+        <a class="item" ui-sref="users-admin">
+          <i class="fi-home"></i>
+          <label>Users</label>
+        </a>
+        <a class="item" ui-sref="usertypes-admin">
+          <i class="fi-home"></i>
+          <label>User types</label>
+        </a>
       </div>
 
     </aside>
-    <div class="row header content">
-      <ng-viewport></ng-viewport>
+    <div ui-view class="row header content">
     </div>
   </div>
 </div>

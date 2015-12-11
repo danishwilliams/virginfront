@@ -55,6 +55,12 @@ module.exports = {
       res.end();
     });
 
+    app.get(apipath + '/music/track/downloadurl/:id', function (req, res) {
+      var data = {};
+      res.header('Cache-Control', 'none').contentType('application/json').send(data);
+      res.end();
+    });
+
     app.get(apipath + '/playlists', function (req, res) {
       var file = '/playlists.json';
       fs.readFile(filepath + version + file, function(err, data) {
@@ -72,6 +78,9 @@ module.exports = {
       switch (req.params.id) {
         case "1c08805b-f9a4-4eb3-bfba-0fa408719cf4":
           file = '/playlists/summer_machine.json';
+          break;
+        case "0e16d4ba-1557-46d0-891c-05ac87ecf90a":
+          file = '/playlists/danes_marvellous_medicine.json';
           break;
       }
       fs.readFile(filepath + version + file, function(err, data) {
@@ -147,6 +156,19 @@ module.exports = {
           file = '/templates/strength_endurance_api.json';
           break;
       }
+      fs.readFile(filepath + version + file, function(err, data) {
+        if (err) {
+          res.status(404).send('Not found');
+        } else {
+          res.header('Cache-Control', 'none').contentType('application/json').send(data);
+        }
+        res.end();
+      });
+    });
+
+    app.get(apipath + '/users/:id', function (req, res) {
+      var file = '';
+      file = '/users/dane.json';
       fs.readFile(filepath + version + file, function(err, data) {
         if (err) {
           res.status(404).send('Not found');

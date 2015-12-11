@@ -1,15 +1,32 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($routeParams, $location, AuthenticationService, PlaylistEdit) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $state, $location, AuthenticationService, Playlists, Tracks, spinnerService) {
   var self = this;
-  PlaylistEdit.setStep(4);
-  this.id = $routeParams.id;
-  this.playlist = PlaylistEdit.getPlaylist();
+  Playlists.setStep(3);
+  self.id = $stateParams.id;
+  self.playlist = Playlists.getPlaylist();
 
-  if (this.id) {
+  if ($state.current.name === 'playlist-new-view') {
+    // We're viewing a newly created playlist!
+    self.newPlaylist = true;
+  }
+
+  if (self.id) {
     // Load an existing playlist
-    PlaylistEdit.loadPlaylist(this.id).then(function () {
-      self.playlist = PlaylistEdit.getPlaylist();
+    Playlists.loadPlaylist(self.id).then(function () {
+      self.playlist = Playlists.getPlaylist();
+      spinnerService.hide('playlistViewSpinner');
+      if (!self.newPlaylist && !self.checkPlaylistLength()) {
+        $state.go('playlist-edit', {id: self.playlist.Id});
+      }
     });
   }
+
+  self.playTrack = function (track, sortOrder) {
+    Tracks.playTrack(track, sortOrder);
+  };
+
+  this.checkPlaylistLength = function () {
+    return Playlists.checkPlaylistLength();
+  };
 
   var onLogoutSuccess = function (response) {
     $location.path('/login');

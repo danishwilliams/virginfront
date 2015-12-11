@@ -1,0 +1,23 @@
+.onboarding {
+	background: $grey_darker;
+	color: $white;
+  min-height: calc(100vh);
+  text-align: center;
+
+  h1, h2, h3 {
+  	color: $white;
+  }
+
+  em {
+  	font-style: normal;
+  	font-weight: bold;
+  }
+
+  label {
+  	color: $white;
+  }
+}
+
+.dark-block {
+	background: $black;
+}

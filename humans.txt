@@ -1,0 +1,12 @@
+/* TEAM */
+
+Frontend: Roger Saner
+Twitter: @rogersaner
+
+UX and Product Owner: Jacky Smith
+Backup Product Owner: David du Plessis
+UI: Lara Morris
+API: Dane Williams
+Scrummaster: Amanda Joseph
+Tech lead: Neil Aves
+Agile coach: Emil Schnabel

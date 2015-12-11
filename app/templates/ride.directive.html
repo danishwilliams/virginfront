@@ -1,0 +1,13 @@
+<a ui-sref="playlist-view({id:playlist.Id})">
+  <img src="{{image.src}}" width="61px" ng-repeat="image in images" />
+  <div class="content">
+    <h5>{{playlist.Name}}</h5>
+    <p>
+      <span class="tracks">{{playlist.TrackCount}} songs</span>
+      <span class="duration">{{playlist.TotalDurationSeconds | minutes}} mins</span>
+    </p>
+    <p>
+      <span class="created">Created: {{playlist.CreateDate | date:'dd MMMM yyyy'}}</span>
+    </p>
+  </div>
+</a>

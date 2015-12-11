@@ -14,18 +14,21 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PLAYLIST_2': 'Class length',
     'PLAYLIST_3': 'Goals & music',
     'PLAYLIST_4': 'Review & save',
+    'PLAYLIST_5': 'Send to club',
     'CLASS_GIVE_NAME': 'Give your class a name...',
-    'DRAG_DROP_TRACK': 'Drag and drop your track here',
+    'DRAG_DROP_TRACK': 'Add a track',
     'PLAY': 'Play',
     'BPM': 'BPM',
     'RPM': 'RPM',
     'LEG_SPEED': 'Leg speed',
-    'ADD_NOTES': 'Add more notes',
+    'TRACK_NOTES': 'Track notes',
     'CHOOSE_TRACK': 'Choose a track for',
-    'SEARCH': 'search',
+    'SEARCH': 'Search for a song',
     'TRACKS': 'songs',
     'SHOWING': 'showing',
-    'ADD_FILTER': 'Add filter'
+    'ADD_FILTER': 'Add filter',
+    'HALF_TIME': 'Half time',
+    'ON_THE_BEAT': 'On the beat'
   });
  
   $translateProvider.translations('es', {

@@ -15,6 +15,7 @@
     "lineman-angular": "^0.3.0",
     "lineman-less": "0.0.1",
     "protractor": "^1.4.0",
+    "sleep": "^3.0.0",
     "underscore": "^1.8.3"
   },
   "scripts": {

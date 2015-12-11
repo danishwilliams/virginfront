@@ -1,0 +1,32 @@
+.view-playlist {
+  .goal-name {
+    cursor: default;
+    font-weight: bold;
+    padding-left: rem-calc(40px);
+  }
+  .track {
+    cursor: auto;
+    color: $black;
+    background-color: $blue_light;
+    border: 1px solid $blue_light;
+    /*max-width: rem-calc(1200px);*/
+    margin-bottom: 8px;
+    padding: rem-calc(18px) 0 rem-calc(9px) 0;
+  }
+  .track-name {
+    display: inline;
+  }
+  .bpm {
+    float: none;
+    color: $black;
+    text-align: left;
+    line-height: normal;
+  }
+  .artist {
+    color: $black;
+  }
+  .playing {
+    background: url('/img/playing.gif') no-repeat;
+    background-position: center;
+  }
+}

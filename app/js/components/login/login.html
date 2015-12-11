@@ -1,17 +1,19 @@
 <div id="login" class="row">
   <div class="large-6 large-offset-3">
+    <h3>Instructor App sign in</h3>
+
+    Any username and password will work!
+    
     <form ng-submit="login.login()">
       <fieldset class="radius">
-
         <div class="row">
           <div class="large-8 columns">
-            <input type="text" name="username" placeholder="username" ng-model="credentials.username" required/>
+            <input type="text" name="username" placeholder="username" ng-model="login.credentials.username" required/>
           </div>
-            <div class="large-8 columns">
-              <input type="password" name="password" placeholder="password" ng-model="credentials.password" required/>
+          <div class="large-8 columns">
+            <input type="password" name="password" placeholder="password" ng-model="login.credentials.password" required/>
           </div>
         </div>
-
         <div class="row">
           <div class="large-18 columns">
             <button id="log-in" type="submit" class="button large expand radius">Log In</button>
