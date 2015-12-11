@@ -1,0 +1,17 @@
+#login {
+  background-color: $grey_darker;
+  height: 100vh;
+  h1 {
+    color: $white;    
+  }
+
+  form {
+    max-width: rem-calc(600px);
+  }
+
+  input {
+    background: $black;
+    border: none;
+    color: $white;
+  }
+}
