@@ -2,7 +2,7 @@
   max-width: rem-calc(1024px);
 }
 
-ride {
+ride, .dashboard .new, #rides .new  {
   img {
     padding: 10px 10px 0 0;
   }
@@ -15,15 +15,10 @@ ride {
     max-width: calc(61px * 3);
     overflow: hidden;
   }
-  a:hover {
-    border: none;
-    border-top: 1px solid $grey_light;
-  }
   .content {
     padding: 0 15px 0 15px;
   }
   h5 {
-    //color: $black;
     font-size: medium;
     font-weight: bold;
     border-bottom: 1px solid $grey_medium;
@@ -44,5 +39,15 @@ ride {
   .created {
     color: $grey;
     font-size: x-small;
+  }
+}
+
+.dashboard .new, #rides .new {
+  a {
+    background: $white;
+    border: 2px dotted $grey_medium;
+  }
+  h5 {
+    border: none;
   }
 }
