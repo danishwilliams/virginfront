@@ -1,25 +1,25 @@
 <div id="login" class="row">
-  <div class="large-6 large-offset-3">
-    <h3>Instructor App sign in</h3>
+  <div class="small-17 small-centered medium-12 medium-centered large-8 large-centered columns">
+    <span class="container">
+    <h1>Instructor App sign in</h1>
 
-    Any username and password will work!
-    
     <form ng-submit="login.login()">
-      <fieldset class="radius">
-        <div class="row">
-          <div class="large-8 columns">
-            <input type="text" name="username" placeholder="username" ng-model="login.credentials.username" required/>
-          </div>
-          <div class="large-8 columns">
-            <input type="password" name="password" placeholder="password" ng-model="login.credentials.password" required/>
-          </div>
+      <div class="row">
+        <div ng-messages="login.error">
+          <p class="error" ng-message="error">Your username or password is incorrect.</p>
         </div>
-        <div class="row">
-          <div class="large-18 columns">
-            <button id="log-in" type="submit" class="button large expand radius">Log In</button>
-          </div>
+        <input type="text" name="username" placeholder="Email address" ng-model="login.credentials.username" required/>
+        <input type="password" name="password" placeholder="Password" ng-model="login.credentials.password" required/>
+      </div>
+      <div class="row">
+        <div class="large-18 columns">
+          <button id="log-in" type="submit" class="right">
+            <spinner class="spinner" name="loginSpinner" show="false"></spinner>
+             Log In
+          </button>
         </div>
-      </fieldset>
+      </div>
     </form>
+    </span>
   </div>
 </div>

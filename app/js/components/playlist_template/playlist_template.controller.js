@@ -1,4 +1,4 @@
-angular.module("app.playlist_template", []).controller('Playlist_templateController', function ($location, AuthenticationService, Playlists, Templates, spinnerService) {
+angular.module("app.playlist_template", []).controller('Playlist_templateController', function (Playlists, Templates, spinnerService) {
   var self = this;
   Playlists.setStep(0);
   this.title = "Choose a Ride Template";

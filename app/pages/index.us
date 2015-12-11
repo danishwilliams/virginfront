@@ -10,81 +10,77 @@
 </head>
 <body ng-app="app" ng-controller="AppController as app">
 <div class="off-canvas-wrap move-right" data-offcanvas="">
-  <div class="inner-wrap">
+  <div ng-class="{'inner-wrap':app.loggedIn}">
+    <div class="logo left" ng-if="!app.loggedIn"></div>
     <!-- Off Canvas Menu -->
-    <aside class="left-off-canvas-menu">
-
-      <!-- TODO: only insert this if the user is logged in. And make it work on mobile -->
+    <aside style="display:none;" class="left-off-canvas-menu align-center" ng-class="{'show':app.loggedIn}" ng-if="app.loggedIn">
       <div class="icon-bar vertical five-up">
-        <div class="logo"></div>
-        <a class="item" ui-sref="dashboard">
-          <i class="fi-home"></i>
+        <span class="item">
+          <i class="logo"></i>
+        </span>
+        <a class="item" ui-sref="dashboard" ng-if-permission="viewContent">
+          <i class="dashboard"></i>
           <label>Dashboard</label>
         </a>
-        <a class="item" ui-sref="playlist-new-template">
-          <i class="fi-home"></i>
+        <a class="item create-ride" ui-sref="playlist-new-template" ng-if-permission="createPlaylist">
+          <i class="create-ride"></i>
           <label>Create a ride</label>
         </a>
-        <a class="item">
-          <i class="fi-home"></i>
+        <a class="item my-rides" ui-sref="playlists" ng-if-permission="viewContent">
+          <i class="my-rides"></i>
           <label>My rides</label>
         </a>
-        <a class="item">
-          <i class="fi-home"></i>
-          <label>Browse rides</label>
-        </a>
-        <a class="item">
-          <i class="fi-home"></i>
-          <label>Music</label>
-        </a>
-        <a class="item" ui-sref="beats-admin">
-          <i class="fi-home"></i>
+        <a class="item" ui-sref="beats-admin" ng-if-permission="viewAdmin">
           <label>Beats</label>
         </a>
-        <a class="item" ui-sref="gyms-admin">
-          <i class="fi-home"></i>
+        <a class="item" ui-sref="gyms-admin" ng-if-permission="viewAdmin">
           <label>Clubs</label>
         </a>
-        <a class="item" ui-sref="countries-admin">
-          <i class="fi-home"></i>
+        <a class="item" ui-sref="countries-admin" ng-if-permission="viewAdmin">
           <label>Countries</label>
         </a>
-        <a class="item" ui-sref="devices-admin">
-          <i class="fi-home"></i>
+        <a class="item" ui-sref="devices-admin" ng-if-permission="viewAdmin">
           <label>Devices</label>
         </a>
-        <a class="item" ui-sref="goals-admin">
-          <i class="fi-home"></i>
+        <a class="item" ui-sref="goals-admin" ng-if-permission="viewAdmin">
           <label>Goals</label>
         </a>
-        <a class="item" ui-sref="locations-admin">
-          <i class="fi-home"></i>
+        <a class="item" ui-sref="locations-admin" ng-if-permission="viewAdmin">
           <label>Locations</label>
         </a>
-        <a class="item" ui-sref="music-providers-admin">
-          <i class="fi-home"></i>
+        <a class="item" ui-sref="music-providers-admin" ng-if-permission="viewAdmin">
           <label>Music Providers</label>
         </a>
-        <a class="item" ui-sref="playlists">
-          <i class="fi-home"></i>
+        <a class="item" ui-sref="playlists_admin" ng-if-permission="viewAdmin">
           <label>Playlists</label>
         </a>
-        <a class="item" ui-sref="templates-admin">
-          <i class="fi-home"></i>
+        <a class="item" ui-sref="templates-admin" ng-if-permission="viewAdmin">
           <label>Templates</label>
         </a>
-        <a class="item" ui-sref="users-admin">
-          <i class="fi-home"></i>
+        <a class="item" ui-sref="users-admin" ng-if-permission="viewUsers">
           <label>Users</label>
         </a>
-        <a class="item" ui-sref="usertypes-admin">
-          <i class="fi-home"></i>
+        <a class="item" ui-sref="usertypes-admin" ng-if-permission="viewAdmin">
           <label>User types</label>
+        </a>
+        <!--
+        <a class="item" ui-sref="user" ng-if-permission="viewUser">
+          <i class="user"></i>
+          <label>{{app.userName}}</label>
+        </a>
+        -->
+        <a class="item" ng-click="app.logout()" ng-if-permission="viewUser">
+          <label>Logout</label>
         </a>
       </div>
 
     </aside>
-    <div ui-view class="row header content">
+    <spinner class="spinner overlay" name="bodySpinner" show="true"></spinner>
+    <div style="display:none;" class="front-error" ng-class="{'show':app.error}" ng-messages="app.error">
+      <div class="logo fixed"></div>
+      <p class="error" ng-message="error">The site is temporarily unavailable. Please try again later.</p>
+    </div>
+    <div ui-view ng-if="app.ready" class="row header content">
     </div>
   </div>
 </div>

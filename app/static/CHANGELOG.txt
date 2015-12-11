@@ -1,3 +1,13 @@
+Instructor App 0.2, 2015-12-11
+------------------------------
+MVP!!! Includes:
+- Freestyle and Pack class creation
+- Genre search
+- Club syncing
+- Background music in playlists
+- Login and log out
+- My rides page
+
 Instructor App 0.1, 2015-12-09
 ------------------------------
 - Initial release

@@ -1,45 +1,53 @@
-ride {
+#rides {
+  max-width: rem-calc(1024px);
+}
 
+ride, .dashboard .new, #rides .new  {
+  img {
+    padding: 10px 10px 0 0;
+  }
   a {
-  display: block;
-  background: $grey_lighter;
-  border-bottom: 2px solid $grey_light;
-  border-radius: 6px;
-  min-width: calc(61px * 3);
-  max-width: calc(61px * 3);
-  overflow: hidden;
+    display: block;
+    background: $grey_lighter;
+    border-bottom: 2px solid $grey_light;
+    border-radius: 6px;
+    min-height: calc(168px);
+    max-width: calc(61px * 3);
+    overflow: hidden;
   }
-
-  a:hover {
-    border: none;
-    border-top: 1px solid $grey_light;
-  }
-
   .content {
     padding: 0 15px 0 15px;
   }
-
   h5 {
-    color: $red;
     font-size: medium;
     font-weight: bold;
+    border-bottom: 1px solid $grey_medium;
+    padding-bottom: 3px;
   }
-
+  p {
+    margin-bottom: rem-calc(10px);
+  }
   .tracks {
     color: $black;
     font-size: small;
   }
-
   .duration {
     color: $black;
     font-weight: bold;
     font-size: small;
   }
-
   .created {
-    font-weight: lighter;
-    color: $grey_light;
-    font-size: smaller;
+    color: $grey;
+    font-size: x-small;
   }
+}
 
+.dashboard .new, #rides .new {
+  a {
+    background: $white;
+    border: 1px dotted $grey_medium;
+  }
+  h5 {
+    border: none;
+  }
 }

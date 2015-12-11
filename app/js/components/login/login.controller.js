@@ -1,25 +1,37 @@
 angular.module("app.login", [])
   .controller('LoginController', LoginController);
 
-LoginController.$inject = ['$location', '$stateParams', 'AuthenticationService'];
+LoginController.$inject = ['$state', 'Users', 'spinnerService'];
 
-function LoginController($location, $stateParams, AuthenticationService) {
+function LoginController($state, Users, spinnerService) {
   var self = this;
-  this.credentials = { username: "", password: "" };
+  this.credentials = {
+    username: "",
+    password: ""
+  };
+  //b2c_login_check();
 
-  var onLoginSuccess = function() {
+  var onLoginSuccess = function () {
     console.log('onLoginSuccess');
-    $location.path('/dashboard');
+    spinnerService.hide('loginSpinner');
+    $state.go('dashboard');
   };
 
-  this.login = function() {
-    AuthenticationService.login(this.credentials).success(onLoginSuccess);
+  this.login = function () {
+    spinnerService.show('loginSpinner');
+    Users.setAuthHeader(self.credentials);
+    Users.loadCurrentUser().then(onLoginSuccess, function () {
+      spinnerService.hide('loginSpinner');
+      self.error = {
+        error: true
+      };
+    });
   };
 
   // If a user has tried to log in via B2C, we get a #id_token value back
-  this.b2c_login_check = function() {
+  function b2c_login_check() {
     var b2c_token = $location.hash();
-    if (b2c_token.substr(0,8) === 'id_token') {
+    if (b2c_token.substr(0, 8) === 'id_token') {
       console.log(b2c_token);
       b2c_token = b2c_token.substr(9);
       if (b2c_token.length > 10) {
@@ -27,7 +39,5 @@ function LoginController($location, $stateParams, AuthenticationService) {
         self.login();
       }
     }
-  };
-
-  self.b2c_login_check();
+  }
 }

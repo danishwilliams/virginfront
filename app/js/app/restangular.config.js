@@ -20,9 +20,11 @@ angular.module("app").config(function (RestangularProvider) {
   });
 
   // Add a secret key as URL parameters into every request
+  /*
   RestangularProvider.setDefaultRequestParams({
     apikey: "secret key"
   });
+  */
 
   // DELETEs are sent without a body
   RestangularProvider.setRequestInterceptor(function(elem, operation) {
@@ -69,9 +71,17 @@ angular.module("app").config(function (RestangularProvider) {
 
   RestangularProvider.setErrorInterceptor(function (response, deferred, responseHandler) {
     if (response.status === 500) {
-      console.log('[ERROR] Internal Server Error');
+      //throw 'Internal Server Error';
     }
+    // 401 Unauthorized
+    if (response.status === 401) {
+      console.log('401 Unauthorized');
+      // TODO: redirect the user to the login page
+    }
+    // 403 Forbidden
     if (response.status === 403) {
+      console.log('403 Forbidden');
+      /*
       refreshAccesstoken().then(function () {
         // Repeat the request and then call the handlers the usual way.
         $http(response.config).then(responseHandler, deferred.reject);
@@ -79,6 +89,7 @@ angular.module("app").config(function (RestangularProvider) {
       });
 
       return false; // error handled
+      */
     }
 
     return true; // error not handled

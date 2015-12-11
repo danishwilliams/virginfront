@@ -1,4 +1,4 @@
-angular.module("app.playlist_sync", []).controller('Playlist_syncController', function ($stateParams, $location, $state, AuthenticationService, Playlists, Users, Gyms, spinnerService) {
+angular.module("app.playlist_sync", []).controller('Playlist_syncController', function ($stateParams, $state, Playlists, Users, Gyms, spinnerService) {
   var self = this;
 
   // TODO: do we want to sanitize this?
@@ -66,11 +66,4 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
     });
   };
 
-  var onLogoutSuccess = function (response) {
-    $location.path('/login');
-  };
-
-  this.logout = function () {
-    AuthenticationService.logout().success(onLogoutSuccess);
-  };
 });

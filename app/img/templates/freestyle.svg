@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="43px" height="42px" viewBox="0 0 43 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+<svg width="41px" height="41px" viewBox="0 0 41 41" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>Group Copy 4</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="instructor---light" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="dashboard_choose_ride" sketch:type="MSArtboardGroup" transform="translate(-1054.000000, -538.000000)" stroke="#8A2363" fill="#8A2363">
-            <g id="Group-Copy-4" sketch:type="MSLayerGroup" transform="translate(1055.000000, 538.875000)">
+        <g id="create_choose_ride" sketch:type="MSArtboardGroup" transform="translate(-811.000000, -459.000000)" fill="#E01831">
+            <g id="Group-Copy-4" sketch:type="MSLayerGroup" transform="translate(811.000000, 459.273875)">
                 <path d="M32.519343,11.3408357 L32.519343,17.4003793 C32.519343,18.4354358 31.6945895,19.2745151 30.6772037,19.2745151 C29.6598184,19.2745151 28.8350644,18.4354358 28.8350644,17.4003793 L28.8350644,11.3408357 L23.1211304,11.3408357 C22.1131223,11.3408357 21.2959707,10.5160823 21.2959707,9.49869642 C21.2959707,8.48131106 22.1131223,7.6565571 23.1211304,7.6565571 L28.8350644,7.6565571 L28.8350644,1.92520717 C28.8350644,0.89015067 29.6598184,0.0510718828 30.6772037,0.0510718828 C31.6945895,0.0510718828 32.519343,0.89015067 32.519343,1.92520717 L32.519343,7.6565571 L38.6942542,7.6565571 C39.7022619,7.6565571 40.5194139,8.48131106 40.5194139,9.49869642 C40.5194139,10.5160823 39.7022619,11.3408357 38.6942542,11.3408357 L32.519343,11.3408357 L32.519343,11.3408357 Z M37.2095928,18.1950313 L37.2095928,35.5477802 C37.2095928,36.4656783 36.4658611,37.2095928 35.5489188,37.2095928 L4.96819299,37.2095928 C4.04951835,37.2095928 3.30751947,36.4673112 3.30751947,35.5489188 L3.30751947,4.96819299 C3.30751947,4.04898352 4.04873006,3.30751902 4.96460588,3.30751902 L22.4727564,3.30751902 L22.4727564,0 L4.96460588,0 C2.22272961,0 0,2.22159828 0,4.96819299 L0,35.5489188 C0,38.2927763 2.22159873,40.5171122 4.96819299,40.5171122 L35.5489188,40.5171122 C38.2927763,40.5171122 40.5171122,38.2921483 40.5171122,35.5477802 L40.5171122,18.1950313 L37.2095928,18.1950313 L37.2095928,18.1950313 Z" id="Shape" sketch:type="MSShapeGroup"></path>
             </g>
         </g>

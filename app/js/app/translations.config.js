@@ -12,8 +12,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     // Playlists
     'PLAYLIST_1': 'Ride template',
     'PLAYLIST_2': 'Class length',
-    'PLAYLIST_3': 'Goals & music',
-    'PLAYLIST_4': 'Review & save',
+    'PLAYLIST_3': 'Create playlist',
+    'PLAYLIST_4': 'Preview',
     'PLAYLIST_5': 'Send to club',
     'CLASS_GIVE_NAME': 'Give your class a name...',
     'DRAG_DROP_TRACK': 'Add a track',

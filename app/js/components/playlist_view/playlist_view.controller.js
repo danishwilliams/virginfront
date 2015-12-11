@@ -1,4 +1,4 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $state, $location, AuthenticationService, Playlists, Tracks, spinnerService) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $state, Playlists, Tracks, spinnerService) {
   var self = this;
   Playlists.setStep(3);
   self.id = $stateParams.id;
@@ -28,11 +28,4 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     return Playlists.checkPlaylistLength();
   };
 
-  var onLogoutSuccess = function (response) {
-    $location.path('/login');
-  };
-
-  this.logout = function () {
-    AuthenticationService.logout().success(onLogoutSuccess);
-  };
 });
