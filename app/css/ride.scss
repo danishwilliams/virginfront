@@ -1,3 +1,7 @@
+#rides {
+  max-width: rem-calc(1024px);
+}
+
 ride {
   img {
     padding: 10px 10px 0 0;
@@ -7,7 +11,7 @@ ride {
     background: $grey_lighter;
     border-bottom: 2px solid $grey_light;
     border-radius: 6px;
-    min-width: calc(61px * 3);
+    min-height: calc(168px);
     max-width: calc(61px * 3);
     overflow: hidden;
   }
@@ -38,8 +42,7 @@ ride {
     font-size: small;
   }
   .created {
-    font-weight: light;
     color: $grey;
-    font-size: smaller;
+    font-size: x-small;
   }
 }
