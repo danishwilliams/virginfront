@@ -134,14 +134,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * @param goal
    */
   this.goalClicked = function (playlistGoal) {
-    // Clicked the 'cancel' link when editing a Freestyle playlist goal
-    if (playlistGoal.cancelFreeStyleGoal) {
-      playlistGoal.cancelFreeStyleGoal = false;
-      playlistGoal.editFreeStyleGoal = false;
-      return;
-    }
-    else if (playlistGoal.editFreeStyleGoal) {
-      // We're currently editing a freestyle goal, so don't do anything else
+    if (playlistGoal.editFreeStyleGoal) {
+      // We're currently selecting a different freestyle goal, so don't do anything else
       return;
     }
     if (playlistGoal.show) {

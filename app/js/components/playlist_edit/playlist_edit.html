@@ -27,14 +27,17 @@
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
             <div class="large-10 columns">
               <h4 ng-class="{'has-track' : playlistGoal.PlaylistGoalTracks.length > 0}">
-                <img ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
-                {{playlistGoal.Goal.Name}}
-                <em ng-if="playlistGoal.Goal.GoalChallengeId">Challenge</em>
-                <span ng-if="playlistGoal.ArrayId > 0">
-                  <a ng-if="playlist_edit.playlist.TemplateName === 'Freestyle'" ng-click="playlistGoal.editFreeStyleGoal = true">Edit</a>
-                  <button class="cancel" ng-if="playlistGoal.editFreeStyleGoal" ng-click="playlistGoal.cancelFreeStyleGoal = true">Cancel</button>
-                  <freestyle-goals data-selected-goal-id="{{playlistGoal.Goal.Id}}" ng-if="playlistGoal.editFreeStyleGoal" ng-change="playlist_edit.changeFreestyleGoal(playlistGoal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
+                <img ng-class="{'freestyle' : playlist_edit.playlist.TemplateName === 'Freestyle'}" ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
+                <span ng-if="playlist_edit.playlist.TemplateName !== 'Freestyle'">
+                  {{playlistGoal.Goal.Name}}
                 </span>
+                <span ng-if="playlist_edit.playlist.TemplateName === 'Freestyle'">
+                  <span ng-if="playlistGoal.ArrayId === 0">
+                    {{playlistGoal.Goal.Name}}
+                  </span>
+                  <freestyle-goals ng-if="playlistGoal.ArrayId > 0" data-selected-goal-id="{{playlistGoal.Goal.Id}}" ng-change="playlist_edit.changeFreestyleGoal(playlistGoal)" ng-model="playlist_edit.freestyleGoal" ng-click="playlistGoal.editFreeStyleGoal = true"></freestyle-goals>
+                </span>
+                <em ng-if="playlistGoal.Goal.GoalChallengeId">Challenge</em>
               </h4>
             </div>
             <div class="large-8 columns text-right">
