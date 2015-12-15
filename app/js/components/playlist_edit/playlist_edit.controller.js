@@ -109,6 +109,22 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     self.playlist.PlaylistGoals.push(freestyleGoal);
   };
 
+  /* Changes a Freestyle goal to another one */
+  this.changeFreestyleGoal = function (playlistGoal) {
+    var sortOrder = playlistGoal.SortOrder;
+    var tracks = playlistGoal.PlaylistGoalTracks;
+    // Following 4 lines trigger a $digest which refreshes the data in the view
+    playlistGoal.Goal.Name = self.freestyleGoal.Goal.Name;
+    playlistGoal.Goal.Id = self.freestyleGoal.Goal.Id;
+    playlistGoal.Goal.GoalOptions = self.freestyleGoal.Goal.GoalOptions;
+    playlistGoal.Goal.GoalChallengeId = self.freestyleGoal.Goal.GoalChallengeId;
+    playlistGoal.editFreeStyleGoal = false;
+    playlistGoal = self.freestyleGoal;
+    playlistGoal.SortOrder = sortOrder;
+    playlistGoal.PlaylistGoalTracks = tracks;
+    self.freestyleGoal = {};
+  };
+
   this.playTrack = function (track) {
     Tracks.playTrack(track);
   };
@@ -118,6 +134,16 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * @param goal
    */
   this.goalClicked = function (playlistGoal) {
+    // Clicked the 'cancel' link when editing a Freestyle playlist goal
+    if (playlistGoal.cancelFreeStyleGoal) {
+      playlistGoal.cancelFreeStyleGoal = false;
+      playlistGoal.editFreeStyleGoal = false;
+      return;
+    }
+    else if (playlistGoal.editFreeStyleGoal) {
+      // We're currently editing a freestyle goal, so don't do anything else
+      return;
+    }
     if (playlistGoal.show) {
       // User has clicked on an open goal
 
