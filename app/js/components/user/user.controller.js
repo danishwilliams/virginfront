@@ -3,15 +3,12 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   this.title = "User profile";
   this.id = $stateParams.id;
 
+  if (!this.id) {
+    this.id = Users.getCurrentUser().Id;
+  }
+
   if (this.id) {
     Users.loadUser(this.id).then(function (data) {
-      self.user = data;
-      self.telephone = self.user.Telephone;
-      self.email = self.user.Email;
-    });
-  }
-  else {
-    Users.loadCurrentUser().then(function (data) {
       self.user = data;
       self.telephone = self.user.Telephone;
       self.email = self.user.Email;
