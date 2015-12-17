@@ -14,7 +14,10 @@ function gymRides() {
 
   function link(scope) {
     scope.vm.gym = scope.$parent.gym;
-    scope.vm.playlistCount = scope.vm.gym.PlaylistSyncInfos.length;
+    scope.vm.playlistCount = 0;
+    if (scope.vm.gym.PlaylistSyncInfos) {
+      scope.vm.playlistCount = scope.vm.gym.PlaylistSyncInfos.length;
+    }
   }
 }
 
@@ -29,7 +32,10 @@ function gymRidesController(Playlists) {
   self.addRide = function () {
     var playlist = {
       Playlist: self.playlist,
-      DevicePlaylistSyncs: [{SyncSuccess: false, SecondsLeft: 3600}]
+      DevicePlaylistSyncs: [{
+        SyncSuccess: false,
+        SecondsLeft: 3600
+      }]
     };
     self.gym.PlaylistSyncInfos.push(playlist);
     self.playlistCount++;
@@ -38,12 +44,12 @@ function gymRidesController(Playlists) {
     }
   };
 
-  self.remove = function(playlist, gymId) {
+  self.remove = function (playlist, gymId) {
     playlist.removed = true;
     self.playlistCount--;
-    Playlists.removePlaylistFromGym(playlist.Playlist.Id, gymId).then(function(data) {
+    Playlists.removePlaylistFromGym(playlist.Playlist.Id, gymId).then(function (data) {
       // It worked!
-    }, function(response) {
+    }, function (response) {
       // There was some error
       console.log("Error with status code", response.status);
       playlist.removed = false;
@@ -54,9 +60,9 @@ function gymRidesController(Playlists) {
   self.undoRemove = function (playlist, gymId) {
     playlist.removed = false;
     self.playlistCount++;
-    Playlists.addPlaylistToGym(playlist.Playlist.Id, gymId).then(function(data) {
+    Playlists.addPlaylistToGym(playlist.Playlist.Id, gymId).then(function (data) {
       // It worked!
-    }, function(response) {
+    }, function (response) {
       // There was some error
       console.log("Error with status code", response.status);
       playlist.removed = true;
