@@ -102,11 +102,45 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     var i = self.playlist.PlaylistGoals.length;
     // .copy because otherwise we change the model within the <freestyle-goals> directive
     var freestyleGoal = angular.copy(self.freestyleGoal);
+    // Remove a goal from freestyle goals, so that we can tell the <freestyle-goals> directive
+    self.freestyleGoals.splice(0, 1);
     // Setting Id allows the API to save a new playlist goal
     freestyleGoal.Id = uuid2.newuuid().toString();
     freestyleGoal.ArrayId = i;
     freestyleGoal.SortOrder = i + 1;
     self.playlist.PlaylistGoals.push(freestyleGoal);
+  };
+
+  /* Changes a Freestyle goal to another one */
+  this.changeFreestyleGoal = function (playlistGoal) {
+    var sortOrder = playlistGoal.SortOrder;
+    var tracks = playlistGoal.PlaylistGoalTracks;
+    var goalOptions = playlistGoal.Goal.GoalOptions;
+
+    // Following 6 lines trigger a $digest which refreshes the data in the view
+    playlistGoal.Goal.Name = self.freestyleGoal.Goal.Name;
+    playlistGoal.Goal.Id = self.freestyleGoal.Goal.Id;
+    playlistGoal.Goal.GoalOptions = self.freestyleGoal.Goal.GoalOptions;
+    playlistGoal.Goal.GoalChallengeId = self.freestyleGoal.Goal.GoalChallengeId;
+    playlistGoal.Goal.BpmLow = self.freestyleGoal.Goal.BpmLow;
+    playlistGoal.Goal.BpmHigh = self.freestyleGoal.Goal.BpmHigh;
+    // Remove any existing tracks
+    playlistGoal.PlaylistGoalTracks = [];
+
+    // Maintain effort percentage, at least for the first goal option
+    var i = 0;
+    self.freestyleGoal.Goal.GoalOptions.forEach(function (val) {
+      if (goalOptions[i]) {
+        playlistGoal.Goal.GoalOptions[i].Effort = goalOptions[i].Effort;
+        playlistGoal.Goal.GoalOptions[i].EffortHigh = goalOptions[i].EffortHigh;
+      }
+      i++;
+    });
+
+    playlistGoal.editFreeStyleGoal = false;
+    playlistGoal = self.freestyleGoal;
+    playlistGoal.SortOrder = sortOrder;
+    self.freestyleGoal = {};
   };
 
   this.playTrack = function (track) {
@@ -118,6 +152,10 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * @param goal
    */
   this.goalClicked = function (playlistGoal) {
+    if (playlistGoal.editFreeStyleGoal) {
+      // We're currently selecting a different freestyle goal, so don't do anything else
+      return;
+    }
     if (playlistGoal.show) {
       // User has clicked on an open goal
 
@@ -137,9 +175,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     if (playlistGoal.PlaylistGoalTracks.length === 0) {
       angular.element($document[0].body).addClass('noscroll');
       if (self.newPlaylist) {
-        $state.go('playlist-new-edit.tracks-search', {id: self.id});
+        $state.go('playlist-new-edit.tracks-search', {
+          id: self.id
+        });
       } else {
-        $state.go('playlist-edit.tracks-search', {id: self.id});
+        $state.go('playlist-edit.tracks-search', {
+          id: self.id
+        });
       }
     }
   };
@@ -239,7 +281,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   this.checkHasPreRideBackgroundTracks = function () {
     var found = false;
-    self.playlist.BackgroundTracks.forEach(function(val) {
+    self.playlist.BackgroundTracks.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === 'before') {
         found = true;
       }
@@ -249,7 +291,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   this.checkHasPostRideBackgroundTracks = function () {
     var found = false;
-    self.playlist.BackgroundTracks.forEach(function(val) {
+    self.playlist.BackgroundTracks.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === 'after') {
         found = true;
       }
