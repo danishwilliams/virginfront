@@ -113,11 +113,24 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.changeFreestyleGoal = function (playlistGoal) {
     var sortOrder = playlistGoal.SortOrder;
     var tracks = playlistGoal.PlaylistGoalTracks;
+    var goalOptions = playlistGoal.Goal.GoalOptions;
+
     // Following 4 lines trigger a $digest which refreshes the data in the view
     playlistGoal.Goal.Name = self.freestyleGoal.Goal.Name;
     playlistGoal.Goal.Id = self.freestyleGoal.Goal.Id;
     playlistGoal.Goal.GoalOptions = self.freestyleGoal.Goal.GoalOptions;
     playlistGoal.Goal.GoalChallengeId = self.freestyleGoal.Goal.GoalChallengeId;
+
+    // Maintain effort percentage, at least for the first goal option
+    var i = 0;
+    self.freestyleGoal.Goal.GoalOptions.forEach(function (val) {
+      if (goalOptions[i]) {
+        playlistGoal.Goal.GoalOptions[i].Effort = goalOptions[i].Effort;
+        playlistGoal.Goal.GoalOptions[i].EffortHigh = goalOptions[i].EffortHigh;
+      }
+      i++;
+    });
+
     playlistGoal.editFreeStyleGoal = false;
     playlistGoal = self.freestyleGoal;
     playlistGoal.SortOrder = sortOrder;
@@ -157,9 +170,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     if (playlistGoal.PlaylistGoalTracks.length === 0) {
       angular.element($document[0].body).addClass('noscroll');
       if (self.newPlaylist) {
-        $state.go('playlist-new-edit.tracks-search', {id: self.id});
+        $state.go('playlist-new-edit.tracks-search', {
+          id: self.id
+        });
       } else {
-        $state.go('playlist-edit.tracks-search', {id: self.id});
+        $state.go('playlist-edit.tracks-search', {
+          id: self.id
+        });
       }
     }
   };
@@ -259,7 +276,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   this.checkHasPreRideBackgroundTracks = function () {
     var found = false;
-    self.playlist.BackgroundTracks.forEach(function(val) {
+    self.playlist.BackgroundTracks.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === 'before') {
         found = true;
       }
@@ -269,7 +286,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   this.checkHasPostRideBackgroundTracks = function () {
     var found = false;
-    self.playlist.BackgroundTracks.forEach(function(val) {
+    self.playlist.BackgroundTracks.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === 'after') {
         found = true;
       }
