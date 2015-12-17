@@ -102,6 +102,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     var i = self.playlist.PlaylistGoals.length;
     // .copy because otherwise we change the model within the <freestyle-goals> directive
     var freestyleGoal = angular.copy(self.freestyleGoal);
+    // Remove a goal from freestyle goals, so that we can tell the <freestyle-goals> directive
+    self.freestyleGoals.splice(0, 1);
     // Setting Id allows the API to save a new playlist goal
     freestyleGoal.Id = uuid2.newuuid().toString();
     freestyleGoal.ArrayId = i;

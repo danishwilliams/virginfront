@@ -10,7 +10,8 @@ function freestyleGoals() {
     controllerAs: 'vm',
     scope: {
       ngModel: '=',
-      selectedGoalId: '@'
+      selectedGoalId: '@',
+      ngDisabled: '@'
     },
     require: '?ngModel',
     link: link
@@ -19,6 +20,7 @@ function freestyleGoals() {
 
   function link(scope, element, attrs, ngModel) {
     scope.vm.selectedGoalId = scope.selectedGoalId;
+    scope.vm.disabled = scope.ngDisabled;
     scope.selected = function (id) {
       // This triggers the ng-change on the directive so the parent controller can get the value
       ngModel.$setViewValue(scope.vm.goals[id]);
