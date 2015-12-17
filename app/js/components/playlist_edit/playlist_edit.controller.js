@@ -117,11 +117,15 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     var tracks = playlistGoal.PlaylistGoalTracks;
     var goalOptions = playlistGoal.Goal.GoalOptions;
 
-    // Following 4 lines trigger a $digest which refreshes the data in the view
+    // Following 6 lines trigger a $digest which refreshes the data in the view
     playlistGoal.Goal.Name = self.freestyleGoal.Goal.Name;
     playlistGoal.Goal.Id = self.freestyleGoal.Goal.Id;
     playlistGoal.Goal.GoalOptions = self.freestyleGoal.Goal.GoalOptions;
     playlistGoal.Goal.GoalChallengeId = self.freestyleGoal.Goal.GoalChallengeId;
+    playlistGoal.Goal.BpmLow = self.freestyleGoal.Goal.BpmLow;
+    playlistGoal.Goal.BpmHigh = self.freestyleGoal.Goal.BpmHigh;
+    // Remove any existing tracks
+    playlistGoal.PlaylistGoalTracks = [];
 
     // Maintain effort percentage, at least for the first goal option
     var i = 0;
@@ -136,7 +140,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     playlistGoal.editFreeStyleGoal = false;
     playlistGoal = self.freestyleGoal;
     playlistGoal.SortOrder = sortOrder;
-    playlistGoal.PlaylistGoalTracks = tracks;
     self.freestyleGoal = {};
   };
 
