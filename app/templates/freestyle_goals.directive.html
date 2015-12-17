@@ -1,4 +1,4 @@
-<select ng-model="vm.goalArrayId" ng-change="selected(vm.goalArrayId)" ng-disabled="ngDisabled === 'true'">
+<select class="freestyle-goal" ng-model="vm.goalArrayId" ng-change="selected(vm.goalArrayId)" ng-disabled="ngDisabled === 'true'">
   <option ng-if="vm.addAGoal" value="" disabled selected>Add a goal</option>
   <option ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" ng-if="!goal.Goal.GoalChallengeId" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
   <option value="" disabled></option>
