@@ -174,7 +174,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     // If there aren't any tracks, find some!
     if (playlistGoal.PlaylistGoalTracks.length === 0) {
       angular.element($document[0].body).addClass('noscroll');
-      if (self.newPlaylist) {
+      if ($state.current.name === 'playlist-new-edit') {
         $state.go('playlist-new-edit.tracks-search', {
           id: self.id
         });
