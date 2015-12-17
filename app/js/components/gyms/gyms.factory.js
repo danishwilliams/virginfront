@@ -7,9 +7,11 @@ GymsFactory.$inject = ['Restangular'];
 function GymsFactory(Restangular) {
   var self = this;
   var gyms = [];
+  var gymsAll = [];
 
   var gymsFactory = {
     loadGyms: loadGyms,
+    loadAllGyms: loadAllGyms,
     loadAvailableGyms: loadAvailableGyms,
     getGyms: getGyms,
     loadGym: loadGym
@@ -18,11 +20,24 @@ function GymsFactory(Restangular) {
   return gymsFactory;
 
   function loadGyms() {
-    return Restangular.all('gyms').getList().then(loadGymsComplete);
+    return Restangular.all('gyms').getList({
+      onlyActiveDevices: true
+    });
 
     function loadGymsComplete(data, status, headers, config) {
       self.gyms = data;
       return self.gyms;
+    }
+  }
+
+  function loadAllGyms() {
+    return Restangular.all('gyms').getList({
+      onlyActiveDevices: false
+    }).then(loadGymsComplete);
+
+    function loadAllGymsComplete(data, status, headers, config) {
+      self.gymsAll = data;
+      return self.gymsAll;
     }
   }
 
