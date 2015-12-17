@@ -63,12 +63,10 @@
         <a class="item" ui-sref="usertypes-admin" ng-if-permission="viewAdmin">
           <label>User types</label>
         </a>
-        <!--
         <a class="item" ui-sref="user" ng-if-permission="viewUser">
           <i class="user"></i>
           <label>{{app.userName}}</label>
         </a>
-        -->
         <a class="item" ng-click="app.logout()" ng-if-permission="viewUser">
           <label>Logout</label>
         </a>
