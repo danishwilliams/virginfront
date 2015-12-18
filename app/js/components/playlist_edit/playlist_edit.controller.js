@@ -117,13 +117,14 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     var tracks = playlistGoal.PlaylistGoalTracks;
     var goalOptions = playlistGoal.Goal.GoalOptions;
 
-    // Following 6 lines trigger a $digest which refreshes the data in the view
+    // Following 7 lines trigger a $digest which refreshes the data in the view
     playlistGoal.Goal.Name = self.freestyleGoal.Goal.Name;
     playlistGoal.Goal.Id = self.freestyleGoal.Goal.Id;
     playlistGoal.Goal.GoalOptions = self.freestyleGoal.Goal.GoalOptions;
     playlistGoal.Goal.GoalChallengeId = self.freestyleGoal.Goal.GoalChallengeId;
     playlistGoal.Goal.BpmLow = self.freestyleGoal.Goal.BpmLow;
     playlistGoal.Goal.BpmHigh = self.freestyleGoal.Goal.BpmHigh;
+    playlistGoal.editFreeStyleGoal = false;
     // Remove any existing tracks
     playlistGoal.PlaylistGoalTracks = [];
 
@@ -137,8 +138,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       i++;
     });
 
-    playlistGoal.editFreeStyleGoal = false;
     playlistGoal = self.freestyleGoal;
+    playlistGoal.editFreeStyleGoal = false;
     playlistGoal.SortOrder = sortOrder;
     self.freestyleGoal = {};
   };
