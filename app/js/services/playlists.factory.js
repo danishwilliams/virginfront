@@ -110,6 +110,9 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
       playlistGoal.ArrayId = i;
       playlistGoal.PlaylistGoalTracks = [];
       playlistGoal.PlaylistGoalNotes = [];
+      if (goal.Aim) {
+        playlistGoal.PlaylistGoalNotes.push(createPlaylistGoalNote(goal.Aim));
+      }
       playlist.PlaylistGoals.push(playlistGoal);
       i++;
     });
@@ -337,19 +340,24 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
    *
    * @param noteText
    *   The note's text
-   * @param trackId
-   *   The track id which this note belongs to
+   * @param trackId (optional)
+   *   The track id which this note belongs to.
    *
    * @return
    *   A playlist goal note object
    */
   function createPlaylistGoalNote(noteText, trackId) {
-    return {
+    var note = {
       NoteText: noteText,
       Id: uuid2.newuuid().toString(),
-      SortOrder: 1,
-      TrackId: trackId
+      SortOrder: 1
     };
+
+    if (trackId) {
+      note.TrackId = trackId;
+    }
+
+    return note;
   }
 
   function getPlaylistLength() {
