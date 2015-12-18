@@ -15,19 +15,30 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   }
 
   // Set up addition bpm range
-  if (this.currentgoal.BpmLow < 90 && !this.currentgoal.BackgroundSection) {
-    this.bpm2 = true;
-    this.bpmLow2 = this.currentgoal.BpmLow * 2;
-    this.bpmHigh2 = this.currentgoal.BpmHigh * 2;
+  if (!this.currentgoal.BackgroundSection) {
+    // If bpm less than 90, then high range is doubled
+    if (this.currentgoal.BpmLow < 90) {
+      this.bpm2 = true;
+      this.bpmLow2 = this.currentgoal.BpmLow * 2;
+      this.bpmHigh2 = this.currentgoal.BpmHigh * 2;
+    }
+    // If bpm greater than 120, then halve it too
+    else if (this.currentgoal.BpmLow >= 120) {
+      this.bpm2 = true;
+      this.bpmLow2 = this.currentgoal.BpmLow;
+      this.bpmHigh2 = this.currentgoal.BpmHigh;
+      this.currentgoal.BpmLow = this.currentgoal.BpmLow / 2;
+      this.currentgoal.BpmHigh = this.currentgoal.BpmHigh / 2;
+    }
   }
 
   Genres.loadGenres().then(function (data) {
     self.genres = data;
     // Auto-select the user's genres
-    Users.loadCurrentUser().then(function(data) {
-      _.mapObject(self.genres, function(val, key) {
+    Users.loadCurrentUser().then(function (data) {
+      _.mapObject(self.genres, function (val, key) {
         if (key >= 0) {
-          data.UserGenres.forEach(function(genre) {
+          data.UserGenres.forEach(function (genre) {
             if (genre.GenreId === val.Id) {
               val.selected = true;
               return val;
@@ -56,7 +67,9 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     var genres = [];
     self.genres.forEach(function (val) {
       if (val.selected) {
-        genres.push({Id: val.Id});
+        genres.push({
+          Id: val.Id
+        });
       }
     });
     if (genres) {
