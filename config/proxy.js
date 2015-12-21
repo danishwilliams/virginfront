@@ -26,8 +26,9 @@ function onRequest(client_req, client_res) {
   options.method = client_req.method;
   options.headers = client_req.headers;
   //var base64 = new Buffer('roger:Therodge321').toString('base64'); // OpenEar
-  //var base64 = new Buffer('dane:Therodge321').toString('base64'); // Simfy
+  var base64 = new Buffer('dane:Therodge321').toString('base64'); // Simfy
   //options.headers.Authorization = 'Basic ' + base64;
+  console.log(base64);
 
   var proxy = http.request(options, function (res) {
     client_res.statusCode = res.statusCode;

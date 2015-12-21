@@ -12,7 +12,9 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
   self.userGenresTracks = [];
   self.tracks = []; // A list of track objects
   self.audio = new Audio(); // An audio object for playing a track
-  self.audio.preload = "none";
+  // Without these, Safari hates us
+  self.audio.preload = "auto";
+  self.audio.autoplay = "true";
   self.currentPlayingTrack = {}; // The track which is currently playing
   self.selectedSearchedTrack = {}; // A track which has been selected from a search
 
