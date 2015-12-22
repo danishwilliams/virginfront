@@ -10,7 +10,7 @@
     <div class="row">
       <div class="columns large-9">
         <div class="box">
-          <button ng-show="!user.contactEdit" class="edit right" ng-click="user.contactEdit = true">Edit</button>
+          <button ng-show="!user.contactEdit" ng-if-permission="editUser" class="edit right" ng-click="user.contactEdit = true">Edit</button>
           <h3>Contact details</h3>
           <div ng-show="!user.contactEdit">
             {{user.user.Telephone}}
@@ -29,12 +29,12 @@
       </div>
       <div class="columns large-9">
         <div class="box">
-          <button ng-show="!user.userTypesEdit" class="edit right" ng-click="user.loadUserTypes()">Edit</button>
+          <button ng-show="!user.userTypesEdit" ng-if-permission="editAdmin" class="edit right" ng-click="user.loadUserTypes()">Edit</button>
           <h3>Permissions</h3>
           <div ng-show="!user.userTypesEdit">
             {{user.user.UserType.Name}}
           </div>
-          <div ng-show="user.userTypesEdit">
+          <div ng-show="user.userTypesEdit" ng-if-permission="editAdmin">
             <user-types ng-model="user.user.UserTypeId"></user-types>
             <div class="right">
               <button class="round cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</button>
@@ -48,7 +48,7 @@
     <div class="row">
       <div class="columns large-9">
         <div class="box">
-          <button ng-show="!user.gymEdit" class="edit right" ng-click="user.loadGyms()">Edit</button>
+          <button ng-show="!user.gymEdit" ng-if-permission="editUser" class="edit right" ng-click="user.loadGyms()">Edit</button>
           <h3>Resident clubs</h3>
           <!--TODO: convert the following into a directive, and conditionally include it-->
           <div ng-show="!user.gymEdit">
@@ -72,7 +72,7 @@
       </div>
       <div class="columns large-9">
         <div class="box">
-          <button ng-show="!user.genreEdit" class="edit right" ng-click="user.loadGenres()">Edit</button>
+          <button ng-show="!user.genreEdit" ng-if-permission="editUser" class="edit right" ng-click="user.loadGenres()">Edit</button>
           <h3>Genres</h3>
           <div ng-show="!user.genreEdit">
             <ul>
