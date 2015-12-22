@@ -45,6 +45,17 @@ button {
       background-color: rgba($white, 0);
     }
   }
+  &.edit {
+    @include button-style($bg: rgba($white, 0), $radius: $button-round);
+    border: none;
+    color: $blue;
+    &:hover,
+    &:focus {
+      color: $blue;
+      text-decoration: underline;
+      background-color: rgba($white, 0);
+    }
+  }
   &.next {
     padding: rem-calc(7px) rem-calc(15px) rem-calc(7px) rem-calc(15px);
     font-size: $label-font-size;

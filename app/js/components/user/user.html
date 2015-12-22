@@ -10,72 +10,89 @@
     </div>
     <div class="row">
       <div class="columns large-9">
-        <h3>Contact details</h3>
-        <span ng-show="!user.contactEdit">
-          <a ng-click="user.contactEdit = true">Edit</a><br>
-          {{user.user.Telephone}}<br>
-          {{user.user.Email}}
-        </span>
-        <span ng-show="user.contactEdit">
-          <span contentEditable ng-model="user.telephone"></span>
-        <br>
-        <span contentEditable ng-model="user.email"></span>
-        <br>
-        <button class="round secondary" ng-click="user.contactEdit = !user.contactEdit">Cancel</button>
-        <button class="round" ng-click="user.saveContactDetails()">Save</button>
-        </span>
+        <div class="box">
+          <button ng-show="!user.contactEdit" class="edit right" ng-click="user.contactEdit = true">Edit</button>
+          <h3>Contact details</h3>
+          <div ng-show="!user.contactEdit">
+            {{user.user.Telephone}}
+            <br> {{user.user.Email}}
+          </div>
+          <div ng-show="user.contactEdit">
+            <div contentEditable ng-model="user.telephone"></div>
+            <div contentEditable ng-model="user.email"></div>
+            <div class="right">
+              <button class="round cancel" ng-click="user.contactEdit = !user.contactEdit">Cancel</button>
+              <button class="round " ng-click="user.saveContactDetails()">Save</button>
+            </div>
+            &nbsp;
+          </div>
+        </div>
       </div>
       <div class="columns large-9">
-        <h3>Permissions</h3>
-        <span ng-show="!user.userTypesEdit">
-          <a ng-click="user.loadUserTypes()">Edit</a><br>
-          {{user.user.UserType.Name}}
-        </span>
-        <span ng-show="user.userTypesEdit">
-          <user-types ng-model="user.user.UserTypeId"></user-types>
-
-          <button class="round secondary" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</button>
-          <button class="round" ng-click="user.saveUserTypes()">Save</button>
-        </span>
+        <div class="box">
+          <button ng-show="!user.userTypesEdit" class="edit right" ng-click="user.loadUserTypes()">Edit</button>
+          <h3>Permissions</h3>
+          <div ng-show="!user.userTypesEdit">
+            {{user.user.UserType.Name}}
+          </div>
+          <div ng-show="user.userTypesEdit">
+            <user-types ng-model="user.user.UserTypeId"></user-types>
+            <div class="right">
+              <button class="round cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</button>
+              <button class="round" ng-click="user.saveUserTypes()">Save</button>
+            </div>
+            &nbsp;
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="columns large-9">
-        <h3>Resident clubs</h3>
-        <!--TODO: convert the following into a directive, and conditionally include it-->
-        <span ng-show="!user.gymEdit">
-        <a ng-click="user.loadGyms()">Edit</a>
-        <ul>
-          <li ng-repeat="gym in user.user.UserGyms | orderBy: 'Gym.Name'">
-            {{gym.Gym.Name}}
-          </li>
-        </ul>
-        </span>
-        <span ng-show="user.gymEdit">
-          <label ng-repeat="gym in user.gyms | orderBy: 'Name'">
-            <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
-          </label>
-          <button class="round secondary" ng-click="user.gymEdit = !user.gymEdit">Cancel</button>
-          <button class="round" ng-click="user.saveGyms()">Save</button>
-        </span>
+        <div class="box">
+          <button ng-show="!user.gymEdit" class="edit right" ng-click="user.loadGyms()">Edit</button>
+          <h3>Resident clubs</h3>
+          <!--TODO: convert the following into a directive, and conditionally include it-->
+          <div ng-show="!user.gymEdit">
+            <ul>
+              <li ng-repeat="gym in user.user.UserGyms | orderBy: 'Gym.Name'">
+                {{gym.Gym.Name}}
+              </li>
+            </ul>
+          </div>
+          <div ng-show="user.gymEdit">
+            <label ng-repeat="gym in user.gyms | orderBy: 'Name'">
+              <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
+            </label>
+            <div class="right">
+              <button class="round cancel" ng-click="user.gymEdit = !user.gymEdit">Cancel</button>
+              <button class="round" ng-click="user.saveGyms()">Save</button>
+            </div>
+            &nbsp;
+          </div>
+        </div>
       </div>
       <div class="columns large-9">
-        <h3>Genres</h3>
-        <span ng-show="!user.genreEdit">
-          <a ng-click="user.loadGenres()">Edit</a>
-          <ul>
-            <li ng-repeat="genre in user.user.UserGenres | orderBy: 'Name'">
-              {{genre.Genre.Name}}
-            </li>
-          </ul>
-        </span>
-        <span ng-show="user.genreEdit">
-          <label ng-repeat="genre in user.genres | orderBy: 'Name'">
-            <input type="checkbox" ng-model="genre.selected">{{genre.Name}}
-          </label>
-          <button class="round secondary" ng-click="user.genreEdit = !user.genreEdit">Cancel</button>
-          <button class="round" ng-click="user.saveGenres()">Save</button>
-        </span>
+        <div class="box">
+          <button ng-show="!user.genreEdit" class="edit right" ng-click="user.loadGenres()">Edit</button>
+          <h3>Genres</h3>
+          <div ng-show="!user.genreEdit">
+            <ul>
+              <li ng-repeat="genre in user.user.UserGenres | orderBy: 'Name'">
+                {{genre.Genre.Name}}
+              </li>
+            </ul>
+          </div>
+          <div ng-show="user.genreEdit">
+            <label ng-repeat="genre in user.genres | orderBy: 'Name'">
+              <input type="checkbox" ng-model="genre.selected">{{genre.Name}}
+            </label>
+            <div class="right">
+              <button class="round cancel" ng-click="user.genreEdit = !user.genreEdit">Cancel</button>
+              <button class="round" ng-click="user.saveGenres()">Save</button>
+            </div>
+            &nbsp;
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
