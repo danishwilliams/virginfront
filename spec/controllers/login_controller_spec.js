@@ -4,13 +4,12 @@ describe("controller: LoginController ($httpBackend.expect().respond, vanilla ja
     module("app");
   });
 
-  beforeEach(inject(function($controller, $location, AuthenticationService, $httpBackend) {
+  beforeEach(inject(function($controller, $location, $httpBackend) {
     this.$location = $location;
     this.$httpBackend = $httpBackend;
     this.redirect = spyOn($location, 'path');
     loginController = $controller('LoginController', {
-      $location: $location,
-      AuthenticationService: AuthenticationService
+      $location: $location
     });
   }));
 

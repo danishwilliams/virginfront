@@ -23,7 +23,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
     return value;
   };
 
-  beforeEach(inject(function ($controller, $httpBackend, AuthenticationService, Playlists, Tracks, $rootScope) {
+  beforeEach(inject(function ($controller, $httpBackend, Playlists, Tracks, $rootScope) {
     this.$httpBackend = $httpBackend;
     this.Tracks = Tracks;
     this.Playlists = Playlists;
@@ -73,7 +73,6 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
     playlistController = $controller('Playlist_editController', {
       $httpBackend: $httpBackend,
       $scope: $rootScope.$new(),
-      AuthenticationService: AuthenticationService,
       Playlists: Playlists,
       Tracks: Tracks
     });
@@ -1559,7 +1558,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       expect(playlistController.submitButtonText()).toEqual('Save and continue later');
     });
 
-    it('Playlist has a track per goal: total time is good', function () {
+    it('Playlist has a track per goal: total time is good - no background music', function () {
       this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
       this.Playlists.addTrackToGoalPlaylist(1, this.trackNormal);
       this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
@@ -1574,6 +1573,88 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
       expect(playlistController.checkPlaylistLength()).toBe(true);
+      expect(playlistController.checkHasPreRideBackgroundTracks()).toBe(false);
+      expect(playlistController.checkHasPostRideBackgroundTracks()).toBe(false);
+      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+    });
+
+    it('Playlist has a track per goal: total time is good - has pre-ride background music', function () {
+      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(1, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(6, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(7, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(8, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(9, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(10, this.trackNormal);
+
+      // set currentgoal to a background music goal
+      this.Playlists.setCurrentGoal({
+        Goal: {
+          Name: 'Background music',
+          BpmLow: 0,
+          BpmHigh: 200
+        },
+        BackgroundSection: 'before'
+      });
+
+      this.Playlists.addBackgroundTrack('before', this.trackNormal);
+
+      playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
+      expect(playlistController.checkPlaylistLength()).toBe(true);
+      expect(playlistController.checkHasPreRideBackgroundTracks()).toBe(true);
+      expect(playlistController.checkHasPostRideBackgroundTracks()).toBe(false);
+      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+    });
+
+    it('Playlist has a track per goal: total time is good - has post-ride background music', function () {
+      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(1, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(6, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(7, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(8, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(9, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(10, this.trackNormal);
+
+      this.Playlists.addBackgroundTrack('after', this.trackNormal);
+
+      playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
+      expect(playlistController.checkPlaylistLength()).toBe(true);
+      expect(playlistController.checkHasPreRideBackgroundTracks()).toBe(false);
+      expect(playlistController.checkHasPostRideBackgroundTracks()).toBe(true);
+      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+    });
+
+    it('Playlist has a track per goal: total time is good - has background music', function () {
+      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(1, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(6, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(7, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(8, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(9, this.trackNormal);
+      this.Playlists.addTrackToGoalPlaylist(10, this.trackNormal);
+
+      this.Playlists.addBackgroundTrack('before', this.trackNormal);
+      this.Playlists.addBackgroundTrack('after', this.trackNormal);
+
+      playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
+      expect(playlistController.checkPlaylistLength()).toBe(true);
+      expect(playlistController.checkHasPreRideBackgroundTracks()).toBe(true);
+      expect(playlistController.checkHasPostRideBackgroundTracks()).toBe(true);
       expect(playlistController.submitButtonText()).toEqual('Next: preview my ride');
     });
 
