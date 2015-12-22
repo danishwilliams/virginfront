@@ -6,7 +6,6 @@
     <div class="profile-header">
       <h1>{{user.user.FirstName}} {{user.user.LastName}}</h1>
       <p>{{user.user.Location.City}}, {{user.user.Location.Country.Code}}</p>
-      <p>[active/inactive] Last class: [2 Sept 2015]</p>
     </div>
     <div class="row">
       <div class="columns large-9">
@@ -61,7 +60,7 @@
           </div>
           <div ng-show="user.gymEdit">
             <label ng-repeat="gym in user.gyms | orderBy: 'Name'">
-              <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
+              <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
             </label>
             <div class="right">
               <button class="round cancel" ng-click="user.gymEdit = !user.gymEdit">Cancel</button>
@@ -84,7 +83,7 @@
           </div>
           <div ng-show="user.genreEdit">
             <label ng-repeat="genre in user.genres | orderBy: 'Name'">
-              <input type="checkbox" ng-model="genre.selected">{{genre.Name}}
+              <input type="checkbox" ng-model="genre.selected"> {{genre.Name}}
             </label>
             <div class="right">
               <button class="round cancel" ng-click="user.genreEdit = !user.genreEdit">Cancel</button>
@@ -95,18 +94,14 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <h3>Recent classes</h3>
-      <p>[List of recent classes]</p>
-    </div>
-    <div class="row">
-      <h3>Recent rides</h3>
-      <p>[List recent playlists]</p>
-    </div>
-    <div class="row" ng-show="user.user.UserMusicProvider">
-      <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} account details</h3>
-      <p>Username: {{user.user.UserMusicProvider.Username}}
-        <br> Password: {{user.user.UserMusicProvider.Password}}</p>
+    <div class="row" ng-if="user.user.UserMusicProvider.MusicProvider.Name == 'Simfy'">
+      <div class="columns large-9">
+        <div class="box">
+          <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} account details</h3>
+          <p>Username: <em>{{user.user.UserMusicProvider.Username}}</em>
+            <br> Password: <em>{{user.user.UserMusicProvider.Password}}</em></p>
+        </div>
+      </div>
     </div>
   </div>
   <div class="large-2 columns">
