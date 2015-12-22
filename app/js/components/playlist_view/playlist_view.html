@@ -12,7 +12,7 @@
           <em>{{playlist_view.playlist.TemplateName}}</em> | {{playlist_view.playlist.TrackCount}} songs | {{playlist_view.playlist.TotalDurationSeconds | minutes}} minutes
         </div>
         <div class="columns large-13">
-          <a ui-sref="playlist-edit({id:playlist_view.playlist.Id})">Edit</a>
+          <button class="edit" ui-sref="playlist-edit({id:playlist_view.playlist.Id})" ng-if="playlist_view.showEdit()">Edit</button>
         </div>
       </div>
     </div>

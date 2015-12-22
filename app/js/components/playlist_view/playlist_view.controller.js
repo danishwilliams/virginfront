@@ -1,8 +1,9 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $state, Playlists, Tracks, spinnerService) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $state, Users, Playlists, Tracks, spinnerService, Authorizer) {
   var self = this;
   Playlists.setStep(3);
   self.id = $stateParams.id;
   self.playlist = Playlists.getPlaylist();
+  self.user = Users.getCurrentUser();
 
   if ($state.current.name === 'playlist-new-view') {
     // We're viewing a newly created playlist!
@@ -16,6 +17,20 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
       spinnerService.hide('playlistViewSpinner');
     });
   }
+
+  // Show the edit link under certain conditions
+  self.showEdit = function () {
+    // If the current user created the playlist and has the editPlaylist permission
+    if (self.playlist.UserId === self.user.Id) {
+      return Authorizer.canAccess('editPlaylist', self.user);
+    }
+    else {
+      // If the user has editAnyPlaylist permission
+      return Authorizer.canAccess('editAnyPlaylist', self.user);
+    }
+
+    return false;
+  };
 
   self.playTrack = function (track, sortOrder) {
     Tracks.playTrack(track, sortOrder);
