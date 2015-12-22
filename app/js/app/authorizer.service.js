@@ -28,10 +28,11 @@ angular.module("app").service('Authorizer', function (APP_PERMISSIONS, USER_ROLE
             return hasRole(USER_ROLES.user) || hasRole(USER_ROLES.instructor) || hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.admin);
 
             // Instructors, Managers, Admins
+          case APP_PERMISSIONS.viewContent:
           case APP_PERMISSIONS.viewPlaylist:
           case APP_PERMISSIONS.createPlaylist:
           case APP_PERMISSIONS.editPlaylist:
-          case APP_PERMISSIONS.viewContent:
+          case APP_PERMISSIONS.editUser:
             return hasRole(USER_ROLES.instructor) || hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.admin);
 
             // Managers, Admins
