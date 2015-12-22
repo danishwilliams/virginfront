@@ -14,9 +14,6 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     Playlists.loadPlaylist(self.id).then(function () {
       self.playlist = Playlists.getPlaylist();
       spinnerService.hide('playlistViewSpinner');
-      if (!self.newPlaylist && !self.checkPlaylistLength()) {
-        $state.go('playlist-edit', {id: self.playlist.Id});
-      }
     });
   }
 
