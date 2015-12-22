@@ -39,9 +39,6 @@ function tracksController($scope, Tracks) {
     self.backgroundMusic = true;
   }
 
-  console.log('tracksController');
-  console.log($scope);
-
   // Generate a unique bin id, either from the background music "before"/"after" or from a playlist Goal Array id
   self.binId = function() {
     if (self.backgroundMusic) {
