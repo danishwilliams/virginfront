@@ -3,14 +3,21 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
 
   this.currentgoal = Playlists.getCurrentGoal();
   this.tracks = Tracks.getTracks();
+  self.error = {};
 
   if (this.currentgoal.BpmLow === -1) {
     $state.go('^');
   } else {
     // Load tracks from the user's default genre selection
+    self.error = {};
     Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
       self.tracks = data;
       spinnerService.hide('trackSpinner');
+    }, function () {
+      spinnerService.hide('trackSpinner');
+      self.error = {
+        server: true
+      };
     });
   }
 
@@ -57,9 +64,15 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   this.trackSearch = function () {
     spinnerService.show('trackSpinner');
     self.tracks = [];
+    self.error = {};
     Tracks.searchTracks(self.search).then(function (data) {
       self.tracks = data;
       spinnerService.hide('trackSpinner');
+    }, function () {
+      spinnerService.hide('trackSpinner');
+      self.error = {
+        server: true
+      };
     });
   };
 
@@ -75,9 +88,15 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     if (genres) {
       spinnerService.show('trackSpinner');
       self.tracks = [];
+      self.error = {};
       Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, genres).then(function (data) {
         self.tracks = data;
         spinnerService.hide('trackSpinner');
+      }, function () {
+        spinnerService.hide('trackSpinner');
+        self.error = {
+          server: true
+        };
       });
     }
   };
