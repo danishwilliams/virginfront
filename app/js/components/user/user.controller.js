@@ -29,15 +29,44 @@ angular.module("app.user", []).controller('UserController', function ($statePara
 
   // Load all userTypes
   this.loadUserTypes = function () {
-    self.userTypesEdit = true;
+    UserTypes.loadUserTypes().then(function (data) {
+      self.userTypesEdit = true;
+      self.userTypes = data;
+
+      _.mapObject(self.userTypes, function(val, key) {
+        if (key >= 0) {
+          var item = _.find(self.user.UserUserTypes, function(item) {
+            return item.UserType.Name === val.Name;
+          });
+          if (item) {
+            val.selected = true;
+          }
+          return val;
+        }
+      });
+    });
   };
 
   // Save userTypes
   this.saveUserTypes = function () {
-    // Find the right user type
-    self.user.UserType = _.find(self.userTypes, function (item) {
-      return item.Id === self.user.UserTypeId;
+    // We want all roles which are selected or not a public role
+    var userUserTypes = angular.copy(self.user.UserUserTypes);
+    self.user.UserUserTypes = [];
+
+    // Find all non public user types which this user already belongs to
+    userUserTypes.forEach(function(val) {
+      if (val.UserType.PublicRole === false) {
+        self.user.UserUserTypes.push(val);
+      }
     });
+
+    // Mark the user types which have been chosen
+    self.userTypes.forEach(function(val) {
+      if (val.selected) {
+        self.user.UserUserTypes.push(val);
+      }
+    });
+
     self.update(self.user, 'userTypes');
   };
 
@@ -63,7 +92,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
 
   // Save gyms
   this.saveGyms = function () {
-    // Replace the gyms in the userobject for saving
+    // Replace the gyms in the user object for saving
     self.user.UserGyms = [];
     self.gyms.forEach(function (val) {
       if (val.selected) {

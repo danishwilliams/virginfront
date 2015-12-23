@@ -40,7 +40,10 @@
             </ul>
           </div>
           <div ng-show="user.userTypesEdit" ng-if-permission="editAdmin">
-            <user-types ng-model="user.user.UserTypeId"></user-types>
+            <label ng-repeat="userType in user.userTypes | orderBy: 'Name'" ng-if="userType.PublicRole">
+              <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name}}
+            </label>
+
             <div class="right">
               <button class="round cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</button>
               <button class="round" ng-click="user.saveUserTypes()">Save</button>
