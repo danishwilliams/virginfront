@@ -89,6 +89,9 @@
     font-weight: bold;
     clear: both;
   }
+  .long-name {
+    line-height: rem-calc(20px);
+  }
   .artist {
     color: $white_light;
   }
