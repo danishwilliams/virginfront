@@ -33,9 +33,9 @@ angular.module("app.user", []).controller('UserController', function ($statePara
       self.userTypesEdit = true;
       self.userTypes = data;
 
-      _.mapObject(self.userTypes, function(val, key) {
+      _.mapObject(self.userTypes, function (val, key) {
         if (key >= 0) {
-          var item = _.find(self.user.UserUserTypes, function(item) {
+          var item = _.find(self.user.UserUserTypes, function (item) {
             return item.UserType.Name === val.Name;
           });
           if (item) {
@@ -54,15 +54,21 @@ angular.module("app.user", []).controller('UserController', function ($statePara
     self.user.UserUserTypes = [];
 
     // Find all non public user types which this user already belongs to
-    userUserTypes.forEach(function(val) {
+    userUserTypes.forEach(function (val) {
       if (val.UserType.PublicRole === false) {
         self.user.UserUserTypes.push(val);
       }
     });
 
-    // Mark the user types which have been chosen
-    self.userTypes.forEach(function(val) {
+    // Add the user types which have been chosen in the UI
+    self.userTypes.forEach(function (val) {
       if (val.selected) {
+        val.UserTypeId = val.Id;
+        val.Id = undefined;
+        val.UserType = {
+          Name: val.Name,
+          PublicRole: val.PublicRole
+        };
         self.user.UserUserTypes.push(val);
       }
     });
