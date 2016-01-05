@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('TracksFactory', TracksComponentFactory);
 
-TracksComponentFactory.$inject = ['Restangular'];
+TracksComponentFactory.$inject = ['LoggedInRestangular'];
 
-function TracksComponentFactory(Restangular) {
+function TracksComponentFactory(LoggedInRestangular) {
   var self = this;
   var tracks = [];
 
@@ -16,7 +16,7 @@ function TracksComponentFactory(Restangular) {
   return tracksFactory;
 
   function loadTracks() {
-    return Restangular.all('tracks').getList().then(loadTracksComplete);
+    return LoggedInRestangular.all('tracks').getList().then(loadTracksComplete);
 
     function loadTracksComplete(data, status, headers, config) {
       self.tracks = data;

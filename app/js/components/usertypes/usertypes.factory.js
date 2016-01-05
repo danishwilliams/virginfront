@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('UserTypes', UserTypesFactory);
 
-UserTypesFactory.$inject = ['Restangular'];
+UserTypesFactory.$inject = ['LoggedInRestangular'];
 
-function UserTypesFactory(Restangular) {
+function UserTypesFactory(LoggedInRestangular) {
   var self = this;
   var usertypes = [];
 
@@ -17,7 +17,7 @@ function UserTypesFactory(Restangular) {
   return usertypesFactory;
 
   function loadUserTypes() {
-    return Restangular.all('usertypes').getList().then(loadUserTypesComplete);
+    return LoggedInRestangular.all('usertypes').getList().then(loadUserTypesComplete);
 
     function loadUserTypesComplete(data, status, headers, config) {
       self.usertypes = data;
@@ -30,7 +30,7 @@ function UserTypesFactory(Restangular) {
   }
 
   function loadUserType(id) {
-    return Restangular.one('usertypes', id).get().then(loadUserTypeComplete);
+    return LoggedInRestangular.one('usertypes', id).get().then(loadUserTypeComplete);
 
     function loadUserTypeComplete(data, status, headers, config) {
       return data;

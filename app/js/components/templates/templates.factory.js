@@ -5,9 +5,9 @@ angular
   .module("app")
   .factory('Templates', TemplatesFactory);
 
-TemplatesFactory.$inject = ['Restangular'];
+TemplatesFactory.$inject = ['LoggedInRestangular'];
 
-function TemplatesFactory(Restangular) {
+function TemplatesFactory(LoggedInRestangular) {
   var self = this;
   var templates = [];
   var templateGroups = [];
@@ -25,7 +25,7 @@ function TemplatesFactory(Restangular) {
   return templatesFactory;
 
   function loadTemplates(includeGoals) {
-    return Restangular.all('templates').getList({
+    return LoggedInRestangular.all('templates').getList({
       includeGoals: includeGoals
     }).then(loadTemplatesComplete);
 
@@ -40,7 +40,7 @@ function TemplatesFactory(Restangular) {
   }
 
   function loadTemplate(id) {
-    return Restangular.one('templates', id).get({
+    return LoggedInRestangular.one('templates', id).get({
       includeGoals: true
     }).then(loadTemplateComplete);
 
@@ -67,7 +67,7 @@ function TemplatesFactory(Restangular) {
   }
 
   function loadTemplateGroups(includeGoals) {
-    return Restangular.all('templategroups').getList({
+    return LoggedInRestangular.all('templategroups').getList({
       includeGoals: includeGoals
     }).then(loadTemplateGroupsComplete);
 
@@ -82,7 +82,7 @@ function TemplatesFactory(Restangular) {
   }
 
   function loadTemplateGroup(id) {
-    return Restangular.one('templategroups', id).get().then(loadTemplateGroupComplete);
+    return LoggedInRestangular.one('templategroups', id).get().then(loadTemplateGroupComplete);
 
     function loadTemplateGroupComplete(data, status, headers, config) {
       return data;
@@ -90,7 +90,7 @@ function TemplatesFactory(Restangular) {
   }
 
   function loadTemplateGroupClasses(id) {
-    return Restangular.one('templategroups/classlengthoptions', id).get().then(loadTemplateGroupClassesComplete);
+    return LoggedInRestangular.one('templategroups/classlengthoptions', id).get().then(loadTemplateGroupClassesComplete);
 
     function loadTemplateGroupClassesComplete(data, status, headers, config) {
       return data;

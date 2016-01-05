@@ -19,9 +19,10 @@ function LoginController($state, Users, spinnerService) {
 
   this.login = function () {
     spinnerService.show('loginSpinner');
-    Users.setAuthHeader(self.credentials);
-    Users.loadCurrentUser().then(onLoginSuccess, function () {
-      spinnerService.hide('loginSpinner');
+    Users.loadAccessToken(self.credentials).then(function(data) {
+      Users.setAccessToken(data);
+      Users.loadCurrentUser().then(onLoginSuccess);
+    }, function() {
       self.error = {
         error: true
       };

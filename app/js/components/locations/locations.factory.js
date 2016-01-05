@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Locations', LocationsFactory);
 
-LocationsFactory.$inject = ['Restangular'];
+LocationsFactory.$inject = ['LoggedInRestangular'];
 
-function LocationsFactory(Restangular) {
+function LocationsFactory(LoggedInRestangular) {
   var self = this;
   var locations = [];
 
@@ -17,7 +17,7 @@ function LocationsFactory(Restangular) {
   return locationsFactory;
 
   function loadLocations() {
-    return Restangular.all('locations').getList().then(loadLocationsComplete);
+    return LoggedInRestangular.all('locations').getList().then(loadLocationsComplete);
 
     function loadLocationsComplete(data, status, headers, config) {
       self.locations = data;
@@ -30,7 +30,7 @@ function LocationsFactory(Restangular) {
   }
 
   function loadLocation(id) {
-    return Restangular.one('locations', id).get().then(loadLocationComplete);
+    return LoggedInRestangular.one('locations', id).get().then(loadLocationComplete);
 
     function loadLocationComplete(data, status, headers, config) {
       return data;

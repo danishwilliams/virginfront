@@ -85,7 +85,6 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
     }
 
     if (!self.ready && next.name !== 'login') {
-      Users.initAuthHeader();
       // The app isn't ready yet, so load up a user and then check if they have permission to access the route
       Users.loadCurrentUser().then(function (data) {
         user = data;

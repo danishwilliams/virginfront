@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('MusicProviders', MusicProvidersFactory);
 
-MusicProvidersFactory.$inject = ['Restangular'];
+MusicProvidersFactory.$inject = ['LoggedInRestangular'];
 
-function MusicProvidersFactory(Restangular) {
+function MusicProvidersFactory(LoggedInRestangular) {
   var self = this;
   var musicProviders = [];
 
@@ -17,7 +17,7 @@ function MusicProvidersFactory(Restangular) {
   return musicProvidersFactory;
 
   function loadMusicProviders() {
-    return Restangular.all('musicProviders').getList().then(loadMusicProvidersComplete);
+    return LoggedInRestangular.all('musicProviders').getList().then(loadMusicProvidersComplete);
 
     function loadMusicProvidersComplete(data, status, headers, config) {
       self.musicProviders = data;
@@ -30,7 +30,7 @@ function MusicProvidersFactory(Restangular) {
   }
 
   function loadMusicProvider(id) {
-    return Restangular.one('musicProviders', id).get().then(loadMusicProviderComplete);
+    return LoggedInRestangular.one('musicProviders', id).get().then(loadMusicProviderComplete);
 
     function loadMusicProviderComplete(data, status, headers, config) {
       return data;

@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Genres', GenresFactory);
 
-GenresFactory.$inject = ['Restangular'];
+GenresFactory.$inject = ['LoggedInRestangular'];
 
-function GenresFactory(Restangular) {
+function GenresFactory(LoggedInRestangular) {
   var self = this;
   var genres = [];
 
@@ -17,7 +17,7 @@ function GenresFactory(Restangular) {
   return genresFactory;
 
   function loadGenres() {
-    return Restangular.all('genres').getList().then(loadGenresComplete);
+    return LoggedInRestangular.all('genres').getList().then(loadGenresComplete);
 
     function loadGenresComplete(data, status, headers, config) {
       self.genres = data;
@@ -30,7 +30,7 @@ function GenresFactory(Restangular) {
   }
 
   function loadGenre(id) {
-    return Restangular.one('genres', id).get().then(loadGenreComplete);
+    return LoggedInRestangular.one('genres', id).get().then(loadGenreComplete);
 
     function loadGenreComplete(data, status, headers, config) {
       return data;

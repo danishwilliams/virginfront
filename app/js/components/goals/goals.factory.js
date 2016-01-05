@@ -5,12 +5,12 @@ angular
   .module("app")
   .factory('Goals', GoalsFactory);
 
-GoalsFactory.$inject = ['Restangular'];
+GoalsFactory.$inject = ['LoggedInRestangular'];
 
-function GoalsFactory(Restangular) {
+function GoalsFactory(LoggedInRestangular) {
   // TODO: if we want multiple controllers/services to be able to use this data, then add a GoalsService
   // which has methods for a private goals variable with get/set
-  var service = Restangular.service('goals');
+  var service = LoggedInRestangular.service('goals');
 
   var self = this;
   var goals = [];
@@ -23,7 +23,7 @@ function GoalsFactory(Restangular) {
   return goalsFactory;
 
   function loadGoals() {
-    return Restangular.all('goals').getList().then(loadGoalsComplete);
+    return LoggedInRestangular.all('goals').getList().then(loadGoalsComplete);
 
     function loadGoalsComplete(data, status, headers, config) {
       self.goals = data;
@@ -32,7 +32,7 @@ function GoalsFactory(Restangular) {
   }
 
   function loadFreestyleGoals() {
-    return Restangular.all('goals/freestyle').withHttpConfig({ cache: true}).getList().then(loadFreestyleGoalsComplete);
+    return LoggedInRestangular.all('goals/freestyle').withHttpConfig({ cache: true}).getList().then(loadFreestyleGoalsComplete);
 
     function loadFreestyleGoalsComplete(data, status, headers, config) {
       _.mapObject(data, function (val, key) {

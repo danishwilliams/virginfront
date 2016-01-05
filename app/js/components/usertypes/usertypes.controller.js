@@ -1,4 +1,4 @@
-angular.module("app.usertypes", []).controller('UsertypesController', function ($stateParams, UserTypes, uuid2, Restangular) {
+angular.module("app.usertypes", []).controller('UsertypesController', function ($stateParams, UserTypes, uuid2, LoggedInRestangular) {
   var self = this;
   this.title = "User Types";
   this.id = $stateParams.id;
@@ -9,7 +9,7 @@ angular.module("app.usertypes", []).controller('UsertypesController', function (
   });
 
   this.create = function () {
-    Restangular.one("usertypes", self.newUserType.Id).customPUT(self.newUserType).then(function () {
+    LoggedInRestangular.one("usertypes", self.newUserType.Id).customPUT(self.newUserType).then(function () {
       console.log('Push successful!');
       self.usertypes.push(self.newUserType);
       self.createBlankUserType();

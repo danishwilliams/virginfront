@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Sync', SyncFactory);
 
-SyncFactory.$inject = ['Restangular'];
+SyncFactory.$inject = ['LoggedInRestangular'];
 
-function SyncFactory(Restangular) {
+function SyncFactory(LoggedInRestangular) {
   var self = this;
 
   var syncFactory = {
@@ -15,7 +15,7 @@ function SyncFactory(Restangular) {
   return syncFactory;
 
   function loadDevicePlaylists(id) {
-    return Restangular.all('sync/playlists', id).getList().then(loadDevicePlaylistsComplete);
+    return LoggedInRestangular.all('sync/playlists', id).getList().then(loadDevicePlaylistsComplete);
 
     function loadDevicePlaylistsComplete(data, status, headers, config) {
       return data;
@@ -23,7 +23,7 @@ function SyncFactory(Restangular) {
   }
 
   function loadDevicePlaylistQueue(id) {
-    return Restangular.all('sync/playlistsyncqueue', id).getList().then(loadDevicePlaylistQueueComplete);
+    return LoggedInRestangular.all('sync/playlistsyncqueue', id).getList().then(loadDevicePlaylistQueueComplete);
 
     function loadDevicePlaylistQueueComplete(data, status, headers, config) {
       return data;

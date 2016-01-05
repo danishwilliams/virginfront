@@ -5,9 +5,9 @@ angular
   .module("app")
   .service('Tracks', TracksFactory);
 
-TracksFactory.$inject = ['$rootScope', '$location', '$interval', 'Restangular', 'Playlists'];
+TracksFactory.$inject = ['$rootScope', '$location', '$interval', 'LoggedInRestangular', 'Playlists'];
 
-function TracksFactory($rootScope, $location, $interval, Restangular, Playlists) {
+function TracksFactory($rootScope, $location, $interval, LoggedInRestangular, Playlists) {
   var self = this;
   self.userGenresTracks = [];
   self.tracks = []; // A list of track objects
@@ -42,12 +42,12 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
 
   function loadUserGenresTracks(bpmLow, bpmHigh, genres) {
     if (genres) {
-      return Restangular.one('music/genres').customPOST(genres, '', {
+      return LoggedInRestangular.one('music/genres').customPOST(genres, '', {
         bpmLow: bpmLow,
         bpmHigh: bpmHigh
       }).then(loadUserGenresTracksComplete);
     } else {
-      return Restangular.all('music/usergenres').getList({
+      return LoggedInRestangular.all('music/usergenres').getList({
         bpmLow: bpmLow,
         bpmHigh: bpmHigh
       }).then(loadUserGenresTracksComplete);
@@ -60,7 +60,7 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
   }
 
   function searchTracks(term) {
-    return Restangular.one('music/search').get({
+    return LoggedInRestangular.one('music/search').get({
       searchText: term,
       resultCount: 25,
       page: 0
@@ -237,7 +237,7 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
    * Gets a track download URL
    */
   function loadDownloadUrl(id) {
-    return Restangular.one('music/track/downloadurl', id).get().then(loadDownloadUrlComplete);
+    return LoggedInRestangular.one('music/track/downloadurl', id).get().then(loadDownloadUrlComplete);
 
     function loadDownloadUrlComplete(data, status, headers, config) {
       return data;
@@ -258,7 +258,7 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
       PlayDateTime: date,
       TrackState: "stream"
     }];
-    return Restangular.one('music/usage/track').customPOST(usage).then(postTrackUsageComplete);
+    return LoggedInRestangular.one('music/usage/track').customPOST(usage).then(postTrackUsageComplete);
 
     function postTrackUsageComplete(data, status, headers, config) {
       localStorage.removeItem('musicProviderTrackId');

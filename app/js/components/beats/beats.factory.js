@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Beats', BeatsFactory);
 
-BeatsFactory.$inject = ['Restangular'];
+BeatsFactory.$inject = ['LoggedInRestangular'];
 
-function BeatsFactory(Restangular) {
+function BeatsFactory(LoggedInRestangular) {
   var self = this;
   var beats = [];
 
@@ -17,7 +17,7 @@ function BeatsFactory(Restangular) {
   return beatsFactory;
 
   function loadBeats() {
-    return Restangular.all('beats').getList().then(loadBeatsComplete);
+    return LoggedInRestangular.all('beats').getList().then(loadBeatsComplete);
 
     function loadBeatsComplete(data, status, headers, config) {
       self.beats = data;
@@ -30,7 +30,7 @@ function BeatsFactory(Restangular) {
   }
 
   function loadBeat(id) {
-    return Restangular.one('beats', id).get().then(loadBeatComplete);
+    return LoggedInRestangular.one('beats', id).get().then(loadBeatComplete);
 
     function loadBeatComplete(data, status, headers, config) {
       return data;
