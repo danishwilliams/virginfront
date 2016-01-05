@@ -2,15 +2,16 @@ angular
   .module("app")
   .factory('Users', UsersFactory);
 
-UsersFactory.$inject = ['Restangular'];
+UsersFactory.$inject = ['Restangular', 'LoggedInRestangular'];
 
-function UsersFactory(Restangular) {
+function UsersFactory(Restangular, LoggedInRestangular) {
   var users = [];
   var currentUser = {};
 
   var usersFactory = {
-    initAuthHeader: initAuthHeader,
-    setAuthHeader: setAuthHeader,
+    getAccessToken: getAccessToken,
+    loadAccessToken: loadAccessToken,
+    setAccessToken: setAccessToken,
     logout: logout,
     loadUsers: loadUsers,
     getUsers: getUsers,
@@ -21,29 +22,34 @@ function UsersFactory(Restangular) {
 
   return usersFactory;
 
-  // Initializes the Authentication header, if we have the value in localstorage (return true) else return false
-  function initAuthHeader() {
-    var base64 = localStorage.getItem('base64', base64);
-    if (base64) {
-      Restangular.setDefaultHeaders({Authorization: 'Basic ' + base64});
-      return true;
-    }
-    return false;
+  function getAccessToken() {
+    return localStorage.getItem('token');
   }
 
-  function setAuthHeader(credentials) {
-    var base64 = btoa(credentials.username + ':' + credentials.password);
-    localStorage.setItem('base64', base64);
-    Restangular.setDefaultHeaders({Authorization: 'Basic ' + base64});
+  function loadAccessToken(credentials) {
+    return Restangular.one('auth').get({
+      username: credentials.username,
+      password: credentials.password
+    }).then(loadAccessTokenComplete);
+
+    function loadAccessTokenComplete(data, status, headers, config) {
+      return data.Value;
+    }
+  }
+
+  function setAccessToken(value) {
+    localStorage.setItem('token', value);
   }
 
   function logout() {
     localStorage.removeItem('base64');
+    localStorage.removeItem('token');
+    users = [];
     currentUser = [];
   }
 
   function loadUsers() {
-    return Restangular.all('users').getList().then(loadUsersComplete);
+    return LoggedInRestangular.all('users').getList().then(loadUsersComplete);
 
     function loadUsersComplete(data, status, headers, config) {
       users = data;
@@ -56,7 +62,7 @@ function UsersFactory(Restangular) {
   }
 
   function loadUser(id) {
-    return Restangular.one('users', id).get().then(loadUserComplete);
+    return LoggedInRestangular.one('users', id).get().then(loadUserComplete);
 
     function loadUserComplete(data, status, headers, config) {
       return data;
@@ -64,7 +70,7 @@ function UsersFactory(Restangular) {
   }
 
   function loadCurrentUser() {
-    return Restangular.one('users/me').get().then(loadCurrentUserComplete);
+    return LoggedInRestangular.one('users/me').get().then(loadCurrentUserComplete);
 
     function loadCurrentUserComplete(data, status, headers, config) {
       currentUser = data;
