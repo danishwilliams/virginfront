@@ -1,4 +1,4 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $document, Tracks, Playlists, Templates, spinnerService, uuid2) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $document, Tracks, Playlists, Templates, spinnerService, uuid2, $location) {
   var self = this;
   var playing = false; // If music is playing or not
 
@@ -223,6 +223,15 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Save the playlist to the API
   this.savePlaylist = function () {
+    if (self.playlist.Name.length < 1) {
+      self.required = {
+        error: true
+      };
+      // Shift focus to the form and input box
+      $location.hash('playlistForm');
+      document.getElementById('class_name').focus();
+      return;
+    }
     if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Probably hit 'enter' in the ride name inputbox
       return;

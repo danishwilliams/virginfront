@@ -9,8 +9,11 @@
   <div class="row playlist-container">
     <div class="small-18 medium-18 medium-centered large-centered columns goals-container">
       <div class="row">
-        <form id="playlistForm" ng-submit="playlist_edit.savePlaylist()">
-          <input required name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}..." ng-model="playlist_edit.playlist.Name">
+        <form id="playlistForm" ng-submit="playlist_edit.savePlaylist()" novalidate>
+          <div ng-messages="playlist_edit.required">
+            <p class="error" ng-message="error">The ride class needs a name.</p>
+          </div>
+          <input id="class_name" name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}" ng-model="playlist_edit.playlist.Name">
         </form>
       </div>
       <div class="row goal-name ride-type" sticky-header>
