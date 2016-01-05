@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Users', UsersFactory);
 
-UsersFactory.$inject = ['Restangular', 'LoggedInRestangular'];
+UsersFactory.$inject = ['Restangular'];
 
-function UsersFactory(Restangular, LoggedInRestangular) {
+function UsersFactory(Restangular) {
   var users = [];
   var currentUser = {};
 
@@ -33,6 +33,9 @@ function UsersFactory(Restangular, LoggedInRestangular) {
     }).then(loadAccessTokenComplete);
 
     function loadAccessTokenComplete(data, status, headers, config) {
+      Restangular.setDefaultHeaders({
+        "Authorization": "Token " + data.Value || ''
+      });
       return data.Value;
     }
   }
@@ -44,12 +47,15 @@ function UsersFactory(Restangular, LoggedInRestangular) {
   function logout() {
     localStorage.removeItem('base64');
     localStorage.removeItem('token');
+    Restangular.setDefaultHeaders({
+        "Authorization": "none"
+      });
     users = [];
     currentUser = [];
   }
 
   function loadUsers() {
-    return LoggedInRestangular.all('users').getList().then(loadUsersComplete);
+    return Restangular.all('users').getList().then(loadUsersComplete);
 
     function loadUsersComplete(data, status, headers, config) {
       users = data;
@@ -62,7 +68,7 @@ function UsersFactory(Restangular, LoggedInRestangular) {
   }
 
   function loadUser(id) {
-    return LoggedInRestangular.one('users', id).get().then(loadUserComplete);
+    return Restangular.one('users', id).get().then(loadUserComplete);
 
     function loadUserComplete(data, status, headers, config) {
       return data;
@@ -70,7 +76,7 @@ function UsersFactory(Restangular, LoggedInRestangular) {
   }
 
   function loadCurrentUser() {
-    return LoggedInRestangular.one('users/me').get().then(loadCurrentUserComplete);
+    return Restangular.one('users/me').get().then(loadCurrentUserComplete);
 
     function loadCurrentUserComplete(data, status, headers, config) {
       currentUser = data;

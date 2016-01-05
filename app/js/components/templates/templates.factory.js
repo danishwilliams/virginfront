@@ -5,9 +5,9 @@ angular
   .module("app")
   .factory('Templates', TemplatesFactory);
 
-TemplatesFactory.$inject = ['LoggedInRestangular'];
+TemplatesFactory.$inject = ['Restangular'];
 
-function TemplatesFactory(LoggedInRestangular) {
+function TemplatesFactory(Restangular) {
   var self = this;
   var templates = [];
   var templateGroups = [];
@@ -25,7 +25,7 @@ function TemplatesFactory(LoggedInRestangular) {
   return templatesFactory;
 
   function loadTemplates(includeGoals) {
-    return LoggedInRestangular.all('templates').getList({
+    return Restangular.all('templates').getList({
       includeGoals: includeGoals
     }).then(loadTemplatesComplete);
 
@@ -40,7 +40,7 @@ function TemplatesFactory(LoggedInRestangular) {
   }
 
   function loadTemplate(id) {
-    return LoggedInRestangular.one('templates', id).get({
+    return Restangular.one('templates', id).get({
       includeGoals: true
     }).then(loadTemplateComplete);
 
@@ -67,7 +67,7 @@ function TemplatesFactory(LoggedInRestangular) {
   }
 
   function loadTemplateGroups(includeGoals) {
-    return LoggedInRestangular.all('templategroups').getList({
+    return Restangular.all('templategroups').getList({
       includeGoals: includeGoals
     }).then(loadTemplateGroupsComplete);
 
@@ -82,7 +82,7 @@ function TemplatesFactory(LoggedInRestangular) {
   }
 
   function loadTemplateGroup(id) {
-    return LoggedInRestangular.one('templategroups', id).get().then(loadTemplateGroupComplete);
+    return Restangular.one('templategroups', id).get().then(loadTemplateGroupComplete);
 
     function loadTemplateGroupComplete(data, status, headers, config) {
       return data;
@@ -90,7 +90,7 @@ function TemplatesFactory(LoggedInRestangular) {
   }
 
   function loadTemplateGroupClasses(id) {
-    return LoggedInRestangular.one('templategroups/classlengthoptions', id).get().then(loadTemplateGroupClassesComplete);
+    return Restangular.one('templategroups/classlengthoptions', id).get().then(loadTemplateGroupClassesComplete);
 
     function loadTemplateGroupClassesComplete(data, status, headers, config) {
       return data;

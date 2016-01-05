@@ -1,4 +1,4 @@
-angular.module("app.goals", []).controller('GoalsController', function (Goals, LoggedInRestangular, uuid2, spinnerService) {
+angular.module("app.goals", []).controller('GoalsController', function (Goals, Restangular, uuid2, spinnerService) {
   var self = this;
   this.goals = [];
   this.newGoal = {};
@@ -22,7 +22,7 @@ angular.module("app.goals", []).controller('GoalsController', function (Goals, L
 
   this.delete = function (goal) {
     spinnerService.show('goalsSpinner');
-    LoggedInRestangular.one("goals", goal.Id).remove().then(function () {
+    Restangular.one("goals", goal.Id).remove().then(function () {
       // Updating the list and removing the goal after the response is OK.
       var index = self.goals.indexOf(goal);
       if (index > -1) {
@@ -37,7 +37,7 @@ angular.module("app.goals", []).controller('GoalsController', function (Goals, L
       console.log("Missing attributes on the goal");
       return;
     }
-    LoggedInRestangular.one("goals", goal.Id).customPUT(goal).then(function () {
+    Restangular.one("goals", goal.Id).customPUT(goal).then(function () {
       console.log('Push successful!');
       self.goals.push(goal);
       self.createBlankGoal();

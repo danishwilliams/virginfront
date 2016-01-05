@@ -26,10 +26,17 @@ angular.module("app").config(function (RestangularProvider) {
   });
   */
 
+  var token = localStorage.getItem('token');
+  if (token) {
+    RestangularProvider.setDefaultHeaders({
+      "Authorization": "Token " + token
+    });
+  }
+
   // DELETEs are sent without a body
-  RestangularProvider.setRequestInterceptor(function(elem, operation) {
+  RestangularProvider.setRequestInterceptor(function (elem, operation) {
     if (operation === "remove") {
-       return null;
+      return null;
     }
     return elem;
   });

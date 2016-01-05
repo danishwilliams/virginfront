@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Countries', CountriesFactory);
 
-CountriesFactory.$inject = ['LoggedInRestangular'];
+CountriesFactory.$inject = ['Restangular'];
 
-function CountriesFactory(LoggedInRestangular) {
+function CountriesFactory(Restangular) {
   var self = this;
   var countries = [];
 
@@ -17,7 +17,7 @@ function CountriesFactory(LoggedInRestangular) {
   return countriesFactory;
 
   function loadCountries() {
-    return LoggedInRestangular.all('countries').getList().then(loadCountriesComplete);
+    return Restangular.all('countries').getList().then(loadCountriesComplete);
 
     function loadCountriesComplete(data, status, headers, config) {
       self.countries = data;
@@ -30,7 +30,7 @@ function CountriesFactory(LoggedInRestangular) {
   }
 
   function loadCountry(id) {
-    return LoggedInRestangular.one('countries', id).get().then(loadCountryComplete);
+    return Restangular.one('countries', id).get().then(loadCountryComplete);
 
     function loadCountryComplete(data, status, headers, config) {
       return data;

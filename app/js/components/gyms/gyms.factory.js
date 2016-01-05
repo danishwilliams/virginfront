@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Gyms', GymsFactory);
 
-GymsFactory.$inject = ['LoggedInRestangular'];
+GymsFactory.$inject = ['Restangular'];
 
-function GymsFactory(LoggedInRestangular) {
+function GymsFactory(Restangular) {
   var self = this;
   var gyms = [];
   var gymsAll = [];
@@ -20,7 +20,7 @@ function GymsFactory(LoggedInRestangular) {
   return gymsFactory;
 
   function loadGyms() {
-    return LoggedInRestangular.all('gyms').getList({
+    return Restangular.all('gyms').getList({
       onlyActiveDevices: true
     });
 
@@ -31,7 +31,7 @@ function GymsFactory(LoggedInRestangular) {
   }
 
   function loadAllGyms() {
-    return LoggedInRestangular.all('gyms').getList({
+    return Restangular.all('gyms').getList({
       onlyActiveDevices: false
     }).then(loadGymsComplete);
 
@@ -42,7 +42,7 @@ function GymsFactory(LoggedInRestangular) {
   }
 
   function loadAvailableGyms() {
-    return LoggedInRestangular.all('gyms/syncinfo').getList().then(loadAvailableGymsComplete);
+    return Restangular.all('gyms/syncinfo').getList().then(loadAvailableGymsComplete);
 
     function loadAvailableGymsComplete(data, status, headers, config) {
       return data;
@@ -54,7 +54,7 @@ function GymsFactory(LoggedInRestangular) {
   }
 
   function loadGym(id) {
-    return LoggedInRestangular.one('gyms', id).get().then(loadGymComplete);
+    return Restangular.one('gyms', id).get().then(loadGymComplete);
 
     function loadGymComplete(data, status, headers, config) {
       return data;

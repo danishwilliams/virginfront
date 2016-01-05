@@ -5,9 +5,9 @@ angular
   .module("app")
   .factory('Playlists', PlaylistsFactory);
 
-PlaylistsFactory.$inject = ['LoggedInRestangular', 'uuid2', 'Users'];
+PlaylistsFactory.$inject = ['Restangular', 'uuid2', 'Users'];
 
-function PlaylistsFactory(LoggedInRestangular, uuid2, Users) {
+function PlaylistsFactory(Restangular, uuid2, Users) {
   var self = this;
   var steps = initSteps(); // The full steps array
   var currentStep = 0; // Which step we're currently on
@@ -71,7 +71,7 @@ function PlaylistsFactory(LoggedInRestangular, uuid2, Users) {
    */
   function createNewPlaylistFromTemplate(template) {
     var playlistId = uuid2.newuuid().toString();
-    playlist = LoggedInRestangular.one('playlists', playlistId);
+    playlist = Restangular.one('playlists', playlistId);
     playlist.PlaylistGoalId = playlistId;
     playlist.Name = '';
     playlist.TemplateId = template.Id;
@@ -198,7 +198,7 @@ function PlaylistsFactory(LoggedInRestangular, uuid2, Users) {
   }
 
   function loadPlaylists(resultCount) {
-    return LoggedInRestangular.one('playlists').get({
+    return Restangular.one('playlists').get({
       resultCount: resultCount,
       includeGoals: false
     }).then(loadPlaylistsComplete);
@@ -214,7 +214,7 @@ function PlaylistsFactory(LoggedInRestangular, uuid2, Users) {
   }
 
   function loadPlaylist(id) {
-    return LoggedInRestangular.one('playlists', id).get({
+    return Restangular.one('playlists', id).get({
       includeGoals: true
     }).then(loadPlaylistComplete);
 
@@ -244,7 +244,7 @@ function PlaylistsFactory(LoggedInRestangular, uuid2, Users) {
   }
 
   function loadGymsPlaylistSyncInfoDetailed() {
-    return LoggedInRestangular.one('gyms/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
+    return Restangular.one('gyms/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
 
     function loadGymsPlaylistSyncInfoDetailedComplete(data, status, headers, config) {
       /*
@@ -271,16 +271,16 @@ function PlaylistsFactory(LoggedInRestangular, uuid2, Users) {
 
   // Gets all Gyms with their playlists
   function loadGymsPlaylists() {
-    return LoggedInRestangular.one('playlists/gyms').get();
+    return Restangular.one('playlists/gyms').get();
   }
 
   // Gets all complete playlists not in a particular gym
   function loadPlaylistsNotInGym(id) {
-    return LoggedInRestangular.one('gyms/playlistsnotpublished', id).get();
+    return Restangular.one('gyms/playlistsnotpublished', id).get();
   }
 
   function addPlaylistToGym(playlistId, gymId) {
-    return LoggedInRestangular.one('playlists/gym/' + playlistId, gymId).post().then(addPlaylistToGymComplete);
+    return Restangular.one('playlists/gym/' + playlistId, gymId).post().then(addPlaylistToGymComplete);
 
     function addPlaylistToGymComplete(data, status, headers, config) {
       return data;
@@ -288,7 +288,7 @@ function PlaylistsFactory(LoggedInRestangular, uuid2, Users) {
   }
 
   function addPlaylistToGyms(playlistId, gyms) {
-    return LoggedInRestangular.all('playlists/gym/' + playlistId).post(gyms).then(addPlaylistToGymsComplete);
+    return Restangular.all('playlists/gym/' + playlistId).post(gyms).then(addPlaylistToGymsComplete);
 
     function addPlaylistToGymsComplete(data, status, headers, config) {
       return data;
@@ -296,7 +296,7 @@ function PlaylistsFactory(LoggedInRestangular, uuid2, Users) {
   }
 
   function removePlaylistFromGym(playlistId, gymId) {
-    return LoggedInRestangular.one('playlists/gym/' + playlistId, gymId).remove().then(removePlaylistFromGymComplete);
+    return Restangular.one('playlists/gym/' + playlistId, gymId).remove().then(removePlaylistFromGymComplete);
 
     function removePlaylistFromGymComplete(data, status, headers, config) {
       return data;
@@ -308,7 +308,7 @@ function PlaylistsFactory(LoggedInRestangular, uuid2, Users) {
   }
 
   function publishPlaylist(id) {
-    return LoggedInRestangular.one('playlists/sync', id).post().then(publishPlaylistComplete);
+    return Restangular.one('playlists/sync', id).post().then(publishPlaylistComplete);
 
     function publishPlaylistComplete(data, status, headers, config) {
       return data;
@@ -319,7 +319,7 @@ function PlaylistsFactory(LoggedInRestangular, uuid2, Users) {
    * Publishes a playlist to a Music Provider i.e. creates/edits a playlist on Simfy
    */
   function publishPlaylistToMusicProvider(id) {
-    return LoggedInRestangular.one('music/playlist', id).post().then(publishPlaylistToMusicProviderComplete);
+    return Restangular.one('music/playlist', id).post().then(publishPlaylistToMusicProviderComplete);
 
     function publishPlaylistToMusicProviderComplete(data, status, headers, config) {
       // TODO: build in error handling here if this fails

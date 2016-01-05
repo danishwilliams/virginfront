@@ -1,4 +1,4 @@
-angular.module("app.locations", []).controller('LocationsController', function (Locations, LoggedInRestangular, uuid2) {
+angular.module("app.locations", []).controller('LocationsController', function (Locations, Restangular, uuid2) {
   var self = this;
   this.title = "Locations";
 
@@ -11,7 +11,7 @@ angular.module("app.locations", []).controller('LocationsController', function (
   };
 
   this.create = function () {
-    LoggedInRestangular.one("locations", self.newLocation.Id).customPUT(self.newLocation).then(function () {
+    Restangular.one("locations", self.newLocation.Id).customPUT(self.newLocation).then(function () {
       self.locations.push(self.newLocation);
       self.createBlankLocation();
     });
