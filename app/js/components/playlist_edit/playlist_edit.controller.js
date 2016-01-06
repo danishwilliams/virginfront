@@ -60,6 +60,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     // Load an existing playlist so we can edit it
     Playlists.loadPlaylist(this.id).then(function () {
       self.playlist = Playlists.getPlaylist();
+      if (!self.playlist.IsSyncedToGyms) {
+        self.newPlaylist = true;
+      }
       self.playlistTracksLength = Playlists.getPlaylistLength();
       self.currentgoal = Playlists.getCurrentGoal();
       if (self.checkPlaylistLength() === false) {
