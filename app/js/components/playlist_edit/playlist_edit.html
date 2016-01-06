@@ -44,7 +44,7 @@
               </h4>
             </div>
             <div class="large-8 columns text-right">
-              <a ng-show="playlistGoal.PlaylistGoalTracks.length === 0">+ Add a song</a>
+              <a ng-show="playlistGoal.PlaylistGoalTracks.length === 0" ng-click="playlistGoal.editFreeStyleGoal = false">+ Add a song</a>
             </div>
           </div>
           <div class="row" ng-show="playlistGoal.PlaylistGoalTracks.length > 0">
