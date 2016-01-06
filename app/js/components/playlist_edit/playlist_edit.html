@@ -54,7 +54,7 @@
                   <a href="#">{{'PLAY' | translate}}</a>
                 </div>
                 <div class="small-16 medium-12 columns" ng-class="{'long-name' : track.Track.Name.length + track.Track.Artist.length > 50}">
-                  <span class="track-name">{{track.Track.Name | limitTo : 25}}<span ng-if="track.Track.Name.length > 25">&hellip;</span></span> <span class="artist">{{track.Track.Artist | limitTo : 25}}</span> | <span class="bpm">{{track.Track.Bpm}} {{'BPM' | translate}}</span>
+                  <span class="track-name">{{track.Track.Name | limitTo : 25}}<span ng-if="track.Track.Name.length > 25">&hellip;</span></span> <span class="artist">{{track.Track.Artist | limitTo : 25}}<span ng-if="track.Track.Artist.length > 25">&hellip;</span></span> | <span class="bpm">{{track.Track.Bpm}} {{'BPM' | translate}}</span>
                 </div>
                 <div class="small-9 medium-3 columns time text-center">
                   <span class="position" ng-show="track.Track.currentTime >= 0">{{track.Track.currentTime | minutes}}</span> {{track.Track.DurationSeconds | minutes}}
