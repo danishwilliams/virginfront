@@ -37,6 +37,10 @@ function gymRidesController(Playlists) {
         SecondsLeft: 3600
       }]
     };
+    if (!self.gym.PlaylistSyncInfos) {
+      // Because sometimes PlaylistSyncInfos doesn't exist i.e. when there are 0 playlists
+      self.gym.PlaylistSyncInfos = [];
+    }
     self.gym.PlaylistSyncInfos.push(playlist);
     self.playlistCount++;
     if (self.gym.PlaylistSyncInfos.length === self.playlistLimitPerGym) {
