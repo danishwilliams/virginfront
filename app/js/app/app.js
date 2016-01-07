@@ -1,6 +1,5 @@
 angular
   .module("app", [
-    "ngResource", // TODO: probably not needed
     "ngSanitize",
     "ngMessages",
     "angularSpinners",
