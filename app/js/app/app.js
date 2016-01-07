@@ -116,9 +116,11 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
     function hasAccessToRoute(user) {
       var authenticator, permissions;
       permissions = next && next.data ? next.data.permissions : null;
+      /*
       if (permissions != null) {
         console.log(permissions + ' ' + Authorizer.canAccess(permissions, user));
       }
+      */
       if ((permissions != null) && !Authorizer.canAccess(permissions, user)) {
         event.preventDefault();
         // If the user has navigated directly to this page by typing it in the address bar
