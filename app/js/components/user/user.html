@@ -5,7 +5,11 @@
   <div class="large-14 columns">
     <div class="profile-header">
       <h1>{{user.user.FirstName}} {{user.user.LastName}}</h1>
-      <p>{{user.user.Location.City}}, {{user.user.Location.Country.Code}}</p>
+      <p>{{user.user.Location.City}}, {{user.user.Location.Country.Code}}
+        <span ng-if="user.user.LastClassDate"><br>
+          <em>Last class: {{user.user.LastClassDate | date : 'dd MMMM yyyy'}}</em>
+        </span>
+      </p>
     </div>
     <div class="row">
       <div class="columns large-9">
