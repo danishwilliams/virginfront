@@ -160,7 +160,9 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
       self.audio.currentTime = track.currentTime;
     }
     self.progress = $interval(function () {
-      track.currentTime = parseInt(self.audio.currentTime);
+      if (self.currentPlayingTrack.Id === track.Id) {
+        track.currentTime = parseInt(self.audio.currentTime);
+      }
     }, 100);
     self.audio.play();
   }
