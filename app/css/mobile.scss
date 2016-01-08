@@ -5,6 +5,15 @@
     max-width: 95%;
   }
 
+  /* Typography */
+
+  h1 { font-size: $h1-font-size - $h1-font-reduction; }
+  h2 { font-size: $h2-font-size - $h2-font-reduction; }
+  h3 { font-size: $h3-font-size; }
+  h4 { font-size: $h4-font-size; }
+  h5 { font-size: $h5-font-size; }
+  h6 { font-size: $h6-font-size; }
+
   /* Dashboard */
 
   ride a, .dashboard .new a, #rides .new a {
