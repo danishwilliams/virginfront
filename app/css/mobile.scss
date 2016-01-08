@@ -1,0 +1,20 @@
+/* Overrides for mobile */
+
+@media #{$small-only} {
+  .row {
+    max-width: 95%;
+  }
+
+  /* Dashboard */
+
+  ride a, .dashboard .new a, #rides .new a {
+    margin: auto;
+    max-width: 70%;
+  }
+
+  .gym-rides {
+    h3 {
+      min-height: rem-calc(24px);
+    }
+  }
+}
