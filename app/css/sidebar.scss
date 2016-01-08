@@ -101,3 +101,27 @@ $sidebar-width: 90px;
     opacity: 0.5;
   }
 }
+
+/* The top mobile menu */
+
+.top-bar {
+  height: rem-calc(60px);
+  background: $grey_light;
+  .logo {
+    background-size: rem-calc(60px);
+  }
+  .toggle-topbar.menu-icon {
+    a {
+      height: rem-calc(55px);
+      line-height: rem-calc(82px);
+      padding: 0 rem-calc(7px) 0 rem-calc(1px);
+      color: $cherry;
+      text-transform: none;
+      font-weight: normal;
+      span::after {
+        margin-top: rem-calc(-16px);
+        box-shadow: 0 0 0 2px $cherry, 0 7px 0 2px $cherry, 0 14px 0 2px $cherry;
+      }
+    }
+  }
+}

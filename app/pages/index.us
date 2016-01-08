@@ -9,7 +9,16 @@
   <link type="text/plain" rel="author" href="/humans.txt" />
 </head>
 <body ng-app="app" ng-controller="AppController as app">
-<div class="off-canvas-wrap move-right" data-offcanvas="">
+
+<nav class="top-bar show-for-small-only" data-topbar role="navigation" ng-if="app.loggedIn">
+  <div class="logo left"></div>
+  <ul class="title-area">
+    <li class="name"></li>
+    <li class="toggle-topbar menu-icon" ng-click="app.menu = !app.menu"><a href="#"><span>Menu</span></a></li>
+  </ul>
+</nav>
+
+<div class="off-canvas-wrap" mobile-menu data-offcanvas ng-class="{'move-right' : app.menu}">
   <div ng-class="{'inner-wrap':app.loggedIn}">
     <div class="logo left" ng-if="!app.loggedIn"></div>
     <!-- Off Canvas Menu -->
