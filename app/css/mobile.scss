@@ -16,6 +16,10 @@
 
   /* Dashboard */
 
+  .dashboard .heading a {
+    padding-top: rem-calc(32px);
+  }
+
   ride a, .dashboard .new a, #rides .new a {
     margin: auto;
     max-width: 70%;
@@ -25,5 +29,11 @@
     h3 {
       min-height: rem-calc(24px);
     }
+  }
+}
+
+@media #{$medium-only} {
+ .row {
+    max-width: 95%;
   }
 }
