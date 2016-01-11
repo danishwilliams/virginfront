@@ -61,7 +61,8 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getCurrentStep: getCurrentStep,
     setStep: setStep,
     getCurrentGoal: getCurrentGoal,
-    setCurrentGoal: setCurrentGoal
+    setCurrentGoal: setCurrentGoal,
+    loadRecentClasses: loadRecentClasses
   };
 
   return playlistFactory;
@@ -490,6 +491,16 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     else {
       currentgoal.ArrayId = playlistGoal.ArrayId;
       currentgoal.PlaylistGoalId = playlistGoal.Id;
+    }
+  }
+
+  function loadRecentClasses(resultCount) {
+    return Restangular.one('playlists/recentclasses').get({
+      resultCount: resultCount
+    }).then(loadRecentClassesComplete);
+
+    function loadRecentClassesComplete(data, status, headers, config) {
+      return data;
     }
   }
 }

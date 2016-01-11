@@ -16,8 +16,24 @@
 
   /* Dashboard */
 
-  .dashboard .heading a {
-    padding-top: rem-calc(32px);
+  .dashboard {
+    .heading a {
+      padding-top: rem-calc(32px);
+    }
+    table {
+      border: none;
+    }
+    table, tbody, td, tr {
+      display: block;
+    }
+    td {
+      width: 50%;
+      float: left;
+      // Because floating add td's left means we can't give tr a border
+      &:last-child, &:nth-last-child(2) {
+        border-bottom: 1px solid $grey_darker;
+      }
+    }
   }
 
   ride a, .dashboard .new a, #rides .new a {

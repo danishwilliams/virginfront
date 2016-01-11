@@ -42,7 +42,6 @@
       </ul>
 
     </div>
-    <!--
     <div class="row classes heading">
       <div class="columns large-14">
         <h1>Recent classes</h1>
@@ -52,8 +51,22 @@
       </div>
     </div>
     <div class="row">
-      [List of classes]
+      <spinner class="spinner" name="dashboardClassesSpinner" show="true"></spinner>
+
+      <table style="width: 100%;">
+        <tbody>
+        <tr ng-repeat="class in dashboard.classes">
+          <td>{{class.ClassTaughtDate | date : 'dd MMMM yyyy'}}</td>
+          <td>{{class.ClassTaughtDate  | date : 'H:mm'}}</td>
+          <td>{{class.GymName}}</td>
+          <td>{{class.TemplateName}}</td>
+          <td>{{class.PlaylistName}}</td>
+          <td>{{class.ClassLengthMinutes}} mins</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
+    <!--
     <div class="row rides heading">
       <div class="columns large-14">
         <h1>Rides shared by others</h1>
