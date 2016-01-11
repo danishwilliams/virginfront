@@ -20,6 +20,22 @@
     .heading a {
       padding-top: rem-calc(32px);
     }
+  }
+
+  ride a, .dashboard .new a, #rides .new a {
+    margin: auto;
+    max-width: 70%;
+  }
+
+  .gym-rides {
+    h3 {
+      min-height: rem-calc(24px);
+    }
+  }
+
+  /* Recent classes */
+
+  .dashboard, #classes {
     table {
       border: none;
     }
@@ -36,16 +52,6 @@
     }
   }
 
-  ride a, .dashboard .new a, #rides .new a {
-    margin: auto;
-    max-width: 70%;
-  }
-
-  .gym-rides {
-    h3 {
-      min-height: rem-calc(24px);
-    }
-  }
 }
 
 @media #{$medium-only} {

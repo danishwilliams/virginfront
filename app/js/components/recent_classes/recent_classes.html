@@ -1,0 +1,19 @@
+<div id="classes" class="large-14 large-centered columns">
+  <h1>Recent classes</h1>
+  <div class="row">
+    <spinner class="spinner" name="classesSpinner" show="true"></spinner>
+
+    <table style="width: 100%;" ng-if="classes.classes">
+      <tbody>
+        <tr ng-repeat="class in classes.classes">
+          <td>{{class.ClassTaughtDate | date : 'dd MMMM yyyy'}}</td>
+          <td>{{class.ClassTaughtDate | date : 'H:mm'}}</td>
+          <td>{{class.GymName}}</td>
+          <td>{{class.TemplateName}}</td>
+          <td>{{class.PlaylistName}}</td>
+          <td>{{class.ClassLengthMinutes}} mins</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

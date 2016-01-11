@@ -29,6 +29,16 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Recent classes
+  .state('recent-classes', {
+    url: '/classes',
+    templateUrl: '../js/components/recent_classes/recent_classes.html',
+    controller: 'Recent_classesController as classes',
+    data: {
+      permissions: [APP_PERMISSIONS.viewContent]
+    }
+  })
+
   // Countries
   .state('countries-admin', {
     url: '/admin/countries',
