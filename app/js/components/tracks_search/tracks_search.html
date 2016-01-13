@@ -14,6 +14,10 @@
               <input ng-model="vm.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
             </form>
           </div>
+          <div class="show-for-small genres">
+            <h3>Filter by genre</h3>
+            <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -50,9 +54,7 @@
         <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-large-up genres">
           <h3>Filter by genre</h3>
 
-          <label ng-repeat="genre in vm.genres | orderBy: 'Name'">
-            <input ng-click="vm.genreSearch()" type="checkbox" ng-model="genre.selected"> {{genre.Name}}
-          </label>
+          <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
         </div>
       </div>
     </div>
