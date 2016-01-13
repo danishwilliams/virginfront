@@ -37,7 +37,6 @@
     margin-bottom: rem-calc(30px);
   }
   .search {
-    margin-bottom: rem-calc(30px);
     input {
       border-width: 0px;
       color: $grey_light;
@@ -70,10 +69,6 @@
   color: $white;
   &.in-bpm-range:hover {
     background-color: $blue_dark;
-  }
-  .columns {
-    padding-left: rem-calc(10px);
-    padding-right: rem-calc(10px);
   }
   .selectable {
     cursor: pointer;
@@ -123,11 +118,15 @@
   margin-right: rem-calc(10px);
 }
 
+.play-container.columns {
+  min-width: rem-calc(35px);
+}
+
 .play {
   cursor: default;
   text-indent: -2000px;
   min-height: 30px;
-  min-width: 30px;
+  min-width: rem-calc(27px);
   background: url('/img/play.svg') no-repeat;
   background-position: center;
 }
