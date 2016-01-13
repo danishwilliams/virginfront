@@ -14,7 +14,7 @@
               <input ng-model="vm.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
             </form>
           </div>
-          <div class="show-for-small genres">
+          <div class="show-for-small genres" ng-if-responsive="tablet-down">
             <h3>Filter by genre</h3>
             <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
           </div>
@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-large-up genres">
+        <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-large-up genres" ng-if-responsive="desktop">
           <h3>Filter by genre</h3>
 
           <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
