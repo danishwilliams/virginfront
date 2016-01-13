@@ -12,12 +12,6 @@
   overflow: scroll;
 }
 
-@media #{$small-only} { 
-  .tracks-modal {
-    padding: 4px;
-  }
-}
-
 /* The right tracks sidebar */
 
 .tracks {

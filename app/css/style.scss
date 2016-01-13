@@ -118,9 +118,3 @@ body {
   background-color: $grey_lighter;
   padding: rem-calc(30px);
 }
-
-@media #{$large-up} {
-  .max-content {
-    max-width: rem-calc(800px);
-  }
-}
