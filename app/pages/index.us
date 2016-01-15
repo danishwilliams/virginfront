@@ -63,7 +63,7 @@
         <a class="item" ui-sref="playlists_admin" ng-if-permission="viewAdmin">
           <label>Playlists</label>
         </a>
-        <a class="item" ui-sref="templates-admin" ng-if-permission="viewAdmin">
+        <a class="item" ui-sref="templates-admin" ng-if-permission="viewTemplates">
           <label>Templates</label>
         </a>
         <a class="item" ui-sref="users-admin" ng-if-permission="viewUsers">
