@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
   <base href="/"></base>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= pkg.title %></title>
+  <title ng-bind="($title || 'Home') + ' - Management Console'">Management Console</title>
   <link rel="stylesheet" type="text/css" href="/css/app.css" media="all"/>
   <link type="text/plain" rel="author" href="/humans.txt" />
 </head>
-<body ng-app="app" ng-controller="AppController as app">
+<body ng-controller="AppController as app">
 
 <nav class="top-bar show-for-small-only" data-topbar role="navigation" ng-if="app.loggedIn">
   <div class="logo left"></div>

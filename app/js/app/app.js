@@ -4,6 +4,7 @@ angular
     "ngMessages",
     "angularSpinners",
     "ui.router",
+    "ui.router.title",
     "angularUUID2",
     "MassAutoComplete",
     "pascalprecht.translate",
