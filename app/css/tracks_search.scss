@@ -12,6 +12,7 @@
   overflow: scroll;
 }
 
+
 /* The right tracks sidebar */
 
 .tracks {
@@ -22,12 +23,19 @@
     top: 0;
     right: -1px;
   }
-
+  /* The genre sidebar on mobile and tablet */
+  .genre-menu .left-off-canvas-menu {
+    width: 0px;
+  }
+  .move-right .left-off-canvas-menu {
+    width: 75%;
+    max-width: rem-calc(400px);
+    padding: rem-calc(4px);
+  }
   .track-search-results {
     overflow: scroll;
     height: 70vh;
   }
-
   h1 {
     color: $white;
   }
@@ -131,7 +139,8 @@
   background-position: center;
 }
 
-button.play, button.add {
+button.play,
+button.add {
   border: none;
   background-color: $grey_darker;
   padding: 0;
@@ -142,7 +151,6 @@ button.play, button.add {
   &:hover {
     background-color: $grey_darker;
   }
-
   &[disabled] {
     color: $grey_lighter;
     background-color: $grey_darker;
@@ -165,8 +173,8 @@ button.add {
 
 .out-of-bpm-range {
   color: $grey;
-
-  .artist, .bpm {
+  .artist,
+  .bpm {
     color: $grey;
   }
 }
@@ -175,7 +183,8 @@ button.add {
   background-color: $grey_dark;
   padding: rem-calc(10px);
   border-radius: $radius-tiny;
-  h3, label {
+  h3,
+  label {
     color: $white;
   }
 }
