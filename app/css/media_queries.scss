@@ -58,6 +58,14 @@
     }
   }
 
+  /* Choose template */
+
+  .template {
+    min-height: inherit;
+    max-width: 70%;
+    margin: auto;
+  }
+
   /* Track search */
 
   .tracks-modal {
