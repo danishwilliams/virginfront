@@ -29,6 +29,7 @@ function LoginController($state, Users, spinnerService) {
         };
       });
     }, function () {
+      spinnerService.hide('loginSpinner');
       self.error = {
         error: true
       };
