@@ -52,6 +52,7 @@ input[type="text"].class_name {
   padding-left: 10px;
   position: fixed;
   top: 0;
+  left: inherit; // only needed to override foundation's top-bar.css
   z-index: 99;
   background: $white;
   border-bottom: 2px solid $grey_lighter;

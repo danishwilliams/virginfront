@@ -25,7 +25,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'CHOOSE_TRACK': 'Choose a track for',
     'SEARCH': 'Search for a song',
     'TRACKS': 'songs',
-    'SHOWING': 'showing',
+    'SHOWING': 'Showing',
     'ADD_FILTER': 'Add filter',
     'HALF_TIME': 'Half time',
     'ON_THE_BEAT': 'On the beat'

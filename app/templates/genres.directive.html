@@ -1,0 +1,3 @@
+<label ng-repeat="genre in gvm.genres | orderBy: 'Name'">
+  <input type="checkbox" ng-model="genre.selected" ng-change="changed()"> {{genre.Name}}
+</label>

@@ -12,11 +12,6 @@
   overflow: scroll;
 }
 
-@media #{$small-only} { 
-  .tracks-modal {
-    padding: 4px;
-  }
-}
 
 /* The right tracks sidebar */
 
@@ -28,12 +23,19 @@
     top: 0;
     right: -1px;
   }
-
+  /* The genre sidebar on mobile and tablet */
+  .genre-menu .left-off-canvas-menu {
+    width: 0px;
+  }
+  .move-right .left-off-canvas-menu {
+    width: 75%;
+    max-width: rem-calc(400px);
+    padding: rem-calc(4px);
+  }
   .track-search-results {
     overflow: scroll;
     height: 70vh;
   }
-
   h1 {
     color: $white;
   }
@@ -43,7 +45,6 @@
     margin-bottom: rem-calc(30px);
   }
   .search {
-    margin-bottom: rem-calc(30px);
     input {
       border-width: 0px;
       color: $grey_light;
@@ -76,10 +77,6 @@
   color: $white;
   &.in-bpm-range:hover {
     background-color: $blue_dark;
-  }
-  .columns {
-    padding-left: rem-calc(10px);
-    padding-right: rem-calc(10px);
   }
   .selectable {
     cursor: pointer;
@@ -129,16 +126,21 @@
   margin-right: rem-calc(10px);
 }
 
+.play-container.columns {
+  min-width: rem-calc(35px);
+}
+
 .play {
   cursor: default;
   text-indent: -2000px;
   min-height: 30px;
-  min-width: 30px;
+  min-width: rem-calc(27px);
   background: url('/img/play.svg') no-repeat;
   background-position: center;
 }
 
-button.play, button.add {
+button.play,
+button.add {
   border: none;
   background-color: $grey_darker;
   padding: 0;
@@ -149,7 +151,6 @@ button.play, button.add {
   &:hover {
     background-color: $grey_darker;
   }
-
   &[disabled] {
     color: $grey_lighter;
     background-color: $grey_darker;
@@ -172,8 +173,8 @@ button.add {
 
 .out-of-bpm-range {
   color: $grey;
-
-  .artist, .bpm {
+  .artist,
+  .bpm {
     color: $grey;
   }
 }
@@ -182,7 +183,8 @@ button.add {
   background-color: $grey_dark;
   padding: rem-calc(10px);
   border-radius: $radius-tiny;
-  h3, label {
+  h3,
+  label {
     color: $white;
   }
 }

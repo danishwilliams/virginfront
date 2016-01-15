@@ -8,11 +8,21 @@
           {{'SHOWING' | translate}}: <span class="bpm-range">{{vm.currentgoal.BpmLow}} - {{vm.currentgoal.BpmHigh}} {{'BPM' | translate}}</span>
           <span class="bpm-range" ng-if="vm.bpm2">{{vm.bpmLow2}} - {{vm.bpmHigh2}} {{'BPM' | translate}}</span>
         </div>
-        <div class="small-5 columns">
+        <div class="large-5 columns">
           <div class="search">
             <form ng-submit="vm.trackSearch()">
               <input ng-model="vm.search" name="tracks" type="text" placeholder="{{'SEARCH' | translate}}">
             </form>
+          </div>
+          <div class="genres" ng-if-responsive="tablet-down">
+            <h3 ng-click="app.genreMenu = !app.genreMenu">Filter by genre</h3>
+            <div class="off-canvas-wrap genre-menu" data-offcanvas ng-class="{'move-right' : app.genreMenu}">
+              <aside class="left-off-canvas-menu">
+                <div ng-click="app.genreMenu = !app.genreMenu">Back</div>
+                <h3>Filter by genre</h3>
+                <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
+              </aside>
+            </div>
           </div>
         </div>
       </div>
@@ -23,7 +33,7 @@
             <div class="error" ng-message="server">There was an issue with the server. Your Music Provider access details may be incorrect.</div>
           </div>
           <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
-            <div class="small-1 columns">
+            <div class="play-container small-1 columns">
               <button class="play" ng-class="{'playing': track.playing}" ng-click="vm.playTrack(track);">{{'PLAY' | translate}}</button>
             </div>
             <div ng-class="{'selectable' : !vm.outOfBpmRange(track.Bpm)}" ng-click="vm.addTrack(track)">
@@ -47,12 +57,10 @@
             </div>
           </div>
         </div>
-        <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-large-up genres">
+        <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-large-up genres" ng-if-responsive="desktop">
           <h3>Filter by genre</h3>
 
-          <label ng-repeat="genre in vm.genres | orderBy: 'Name'">
-            <input ng-click="vm.genreSearch()" type="checkbox" ng-model="genre.selected"> {{genre.Name}}
-          </label>
+          <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
         </div>
       </div>
     </div>

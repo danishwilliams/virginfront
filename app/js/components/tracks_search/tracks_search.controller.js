@@ -1,4 +1,4 @@
-angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Genres, Tracks, Playlists, spinnerService, Users) {
+angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Tracks, Playlists, spinnerService, Users) {
   var self = this;
 
   this.currentgoal = Playlists.getCurrentGoal();
@@ -39,23 +39,6 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     }
   }
 
-  Genres.loadGenres().then(function (data) {
-    self.genres = data;
-    // Auto-select the user's genres
-    Users.loadCurrentUser().then(function (data) {
-      _.mapObject(self.genres, function (val, key) {
-        if (key >= 0) {
-          data.UserGenres.forEach(function (genre) {
-            if (genre.GenreId === val.Id) {
-              val.selected = true;
-              return val;
-            }
-          });
-        }
-      });
-    });
-  });
-
   this.cancel = function () {
     Tracks.stopTrack();
     $state.go('^');
@@ -85,7 +68,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
         });
       }
     });
-    if (genres) {
+    if (!_.isEmpty(genres)) {
       spinnerService.show('trackSpinner');
       self.tracks = [];
       self.error = {};
