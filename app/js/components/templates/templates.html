@@ -20,9 +20,9 @@
       </thead>
       <tbody>
         <tr ng-repeat="templateGroup in templates.templateGroups | orderBy:'Name'">
-          <td contentEditable ng-change="templates.updateTemplateGroup(templateGroup)" ng-model-options="{updateOn : 'change blur'}" ng-model="templateGroup.Name"></td>
-          <td contentEditable ng-change="templates.updateTemplateGroup(templateGroup)" ng-model-options="{updateOn : 'change blur'}" ng-model="templateGroup.Description"></td>
-          <td contentEditable ng-change="templates.updateTemplateGroup(templateGroup)" ng-model-options="{updateOn : 'change blur'}" ng-model="templateGroup.IconFileName"></td>
+          <td><a ui-sref="templategroup({id:templateGroup.Id})">{{templateGroup.Name}}</a></td>
+          <td>{{templateGroup.Description}}</td>
+          <td>{{templateGroup.IconFileName}}</td>
           <td><img src="/img/templates/{{templateGroup.IconFileName}}"></td>
           <td>
             <div class="classlength" ng-repeat="template in templateGroup.ClassLengths">

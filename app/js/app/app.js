@@ -39,6 +39,7 @@ angular
     "app.users",
     "app.usertypes",
     "app.templates",
+    "app.templategroup_view",
     "app.template_view"
   ])
   .constant('APP_PERMISSIONS', {

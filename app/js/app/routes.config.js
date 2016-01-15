@@ -387,10 +387,22 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  .state('templategroup', {
+    url: '/admin/templates/group/:id',
+    templateUrl: '../js/components/templategroup/templategroup.html',
+    controller: 'Templategroup_viewController as vm',
+    resolve: {
+      $title: function() { return 'Template Group | Admin'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.viewAdmin]
+    }
+  })
+
   .state('template', {
     url: '/admin/templates/:id',
     templateUrl: '../js/components/template_view/template_view.html',
-    controller: 'Template_viewController as template_view',
+    controller: 'Template_viewController as vm',
     resolve: {
       $title: function() { return 'Template | Admin'; }
     },
