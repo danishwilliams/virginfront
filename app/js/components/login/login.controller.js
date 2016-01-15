@@ -10,7 +10,6 @@ function LoginController($state, Users, spinnerService) {
     password: ""
   };
   //b2c_login_check();
-  Users.logout();
 
   var onLoginSuccess = function () {
     console.log('onLoginSuccess');
