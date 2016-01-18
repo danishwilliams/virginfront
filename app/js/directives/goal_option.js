@@ -12,7 +12,8 @@ function goalOption() {
       bpm: '@',
       freestyle: '@',
       effort: '=',
-      efforthigh: '='
+      efforthigh: '=',
+      customrpm: '@'
     }
   };
   return directive;
