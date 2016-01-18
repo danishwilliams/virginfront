@@ -1,58 +1,27 @@
 <div class="templates row">
   <div class="large-14 large-centered columns">
+    <div class="row heading">
+      <div class="columns small-12 medium-14">
+        <h1>Templates</h1>
+      </div>
+      <div class="columns small-6 medium-4">
+        <a ui-sref="templates">+ Create new template</a>
+      </div>
+    </div>
+    <div class="row">
 
-    <h1>Templates</h1>
+      <!--<spinner class="spinner" name="templatesSpinner" show="true"></spinner>-->
 
-    <!--<spinner class="spinner" name="templatesSpinner" show="true"></spinner>-->
+      <tabset>
+        <tab heading="Active templates">
+          <templategroups kind="active"></templategroups>
+        </tab>
+        <tab heading="Archived templates">
+          <templategroups kind="inactive"></templategroups>
+        </tab>
+      </tabset>
 
-    <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
-      <li ng-repeat="templateGroup in templates.templateGroups | orderBy:'Type':'Name'">
-        <div class="template {{templateGroup.Type}}">
-          <div class="icon"><img src="/img/templates/{{templateGroup.IconFileName}}"></div>
-          <h2 ng-bind-html="templateGroup.Name"></h2>
-          <p>Templates:
-            <span class="classlength" ng-repeat="template in templateGroup.ClassLengths | orderBy: 'ClassLengthMinutes'">
-              <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
-            </span>
-          </p>
-          <div>
-            <a class="choose-template" ui-sref="templategroup({id:templateGroup.Id})">Edit settings</a>
-            <a class="choose-template" ui-sref="templategroup({id:templateGroup.Id})">Delete</a>
-          </div>
-        </div>
-      </li>
-    </ul>
+    </div>
 
   </div>
 </div>
-
-<div class="templates row">
-  <div class="large-14 large-centered columns">
-    <h1>Templates</h1>
-
-    <table>
-      <thead>
-        <tr>
-          <td>Template Name</td>
-          <td>Description</td>
-          <td>Icon name</td>
-          <td>Icon</td>
-          <td>Class lengths</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="templateGroup in templates.templateGroups | orderBy:'Name'">
-          <td><a ui-sref="templategroup({id:templateGroup.Id})">{{templateGroup.Name}}</a></td>
-          <td>{{templateGroup.Description}}</td>
-          <td>{{templateGroup.IconFileName}}</td>
-          <td><img src="/img/templates/{{templateGroup.IconFileName}}"></td>
-          <td>
-            <div class="classlength" ng-repeat="template in templateGroup.ClassLengths">
-              <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  </tbody>
