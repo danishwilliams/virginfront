@@ -13,11 +13,11 @@
       <!--<spinner class="spinner" name="templatesSpinner" show="true"></spinner>-->
 
       <tabset>
-        <tab heading="Active templates">
-          <templategroups kind="active"></templategroups>
+        <tab heading="Active templates ({{templates.active}})">
+          <templategroups kind="active" ng-model="templates.active"></templategroups>
         </tab>
-        <tab heading="Archived templates">
-          <templategroups kind="inactive"></templategroups>
+        <tab heading="Archived templates ({{templates.inactive}})">
+          <templategroups kind="inactive" ng-model="templates.inactive"></templategroups>
         </tab>
       </tabset>
 

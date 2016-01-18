@@ -6,13 +6,17 @@ angular.module('app').directive('templategroups', function () {
     controllerAs: 'vm',
     templateUrl: 'templategroups.directive.html',
     scope: {
-      kind: '@'
+      kind: '@',
+      ngModel: '='
     }
   };
   return directive;
 
   function link(scope, element, attrs) {
     scope.vm.kind = scope.kind;
+    scope.vm.setModelValue = function(val) {
+      scope.ngModel = val;
+    };
   }
 });
 
@@ -24,9 +28,12 @@ function templateGroupsController(Templates) {
   Templates.loadTemplateGroups(true).then(function (templateGroups) {
     self.templateGroups = templateGroups;
 
+    var i = 0;
+
     templateGroups.forEach(function (val) {
       val.visible = false;
       if ((self.kind === 'active' && val.Enabled === true) || (self.kind === 'inactive' && val.Enabled === false)) {
+        i++;
         val.visible = true;
         Templates.loadTemplateGroupClasses(val.Id).then(function (data) {
           // TODO: there *must* be a way of updating an object within an array rather than searching through it by ID
@@ -44,5 +51,6 @@ function templateGroupsController(Templates) {
         });
       }
     });
+    self.setModelValue(i);
   });
 }
