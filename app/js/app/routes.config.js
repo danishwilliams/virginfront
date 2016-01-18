@@ -387,6 +387,18 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  .state('templategroup-new', {
+    url: '/admin/templates/group/new',
+    templateUrl: '../js/components/templategroup/templategroup_new.html',
+    controller: 'Templategroup_viewController as vm',
+    resolve: {
+      $title: function() { return 'Create New Template | Admin'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.createTemplate]
+    }
+  })
+
   .state('templategroup', {
     url: '/admin/templates/group/:id',
     templateUrl: '../js/components/templategroup/templategroup.html',

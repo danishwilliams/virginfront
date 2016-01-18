@@ -1,0 +1,30 @@
+<div class="templates row">
+  <div class="large-14 large-centered columns">
+
+    <h1>{{vm.title}}</h1>
+
+    <form>
+      <label>Template name</label>
+      <input ng-model="vm.templategroup.Name">
+
+      <label>Description</label>
+      <input ng-model="vm.templategroup.Description">
+
+      <label>Icon</label>
+      <select ng-model="vm.templategroup.IconFileName"></select>
+
+      <label>Class length</label>
+      <span class="classlength" ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'">
+        <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
+      </span>
+      <a>+ Add class length</a>
+
+      <button class="cancel" style="float:left" ui-sref="templates-admin">Cancel</button>
+      <button class="round" style="float:right" ng-click="vm.saveTemplate()">
+        <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
+        Save
+      </button>
+
+    </form>
+  </div>
+</div>
