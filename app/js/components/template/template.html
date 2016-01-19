@@ -18,15 +18,18 @@
           </div>
 
           <div class="row">
-            <div ng-if="$index === 0" class="large-6 medium-9 columns">
-              <label>BPM</label>
-              <select ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmLow">
-              </select>
-              -
-              <select ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmHigh">
-              </select>
+            <div class="large-5 medium-9 columns">
+              <span ng-if="$index === 0">
+                <label>BPM</label>
+                <select ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmLow">
+                </select>
+                -
+                <select ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmHigh">
+                </select>
+              </span>
+              <span ng-if="$index > 0">&nbsp;</span>
             </div>
-            <div class="large-6 medium-9 columns">
+            <div class="large-5 medium-9 columns">
               <label>Effort</label>
               <select ng-options="v for v in vm.effortOptions" ng-model="goaloption.Effort">
               </select>
@@ -34,7 +37,15 @@
               <select ng-options="v for v in vm.effortOptions" ng-model="goaloption.EffortHigh">
               </select>%
             </div>
-            <div class="large-6 columns">
+            <div class="large-5 medium-9 columns">
+              <label>RPM</label>
+              <select ng-options="v for v in vm.bpmOptions" ng-model="goal.RpmLow">
+              </select>
+              -
+              <select ng-options="v for v in vm.bpmOptions" ng-model="goal.RpmHigh">
+              </select>
+            </div>
+            <div class="large-3 medium-9 columns">
               <label>Beat ratio</label>
               <select ng-options="v.Name for v in vm.beats track by v.Id" ng-change="goaloption.BeatId = goaloption.Beat.Id" ng-model="goaloption.Beat">
               </select>
