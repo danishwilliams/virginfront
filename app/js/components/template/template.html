@@ -1,0 +1,100 @@
+<div class="templates row">
+  <div class="large-14 large-centered columns">
+    <div class="row text-center">
+      <h1>Add goals to template</h1></div>
+    <div class="row heading">
+      <h2>{{vm.template.TemplateGroup.Name}}</h2></div>
+    <div class="row">tabs containing template times</div>
+    <div class="row goal" data-ng-repeat="goal in vm.template.Goals | orderBy:'SortOrder' track by $index">
+      <div class="goal-container">
+        <div class="row goal-name">
+          <img ng-class="{'freestyle' : vm.template.TemplateGroup.Name === 'Freestyle'}" ng-if="goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
+
+          Name: {{goal.Name}}
+        </div>
+        <div class="row goal-meta" ng-click="goal.show = !goal.show">
+          <br> IsCustomRpm: {{vm.template.TemplateGroup.IsCustomRpm}}
+          <br> BpmLow: {{goal.BpmLow}}
+          <br> BpmHigh: {{goal.BpmHigh}}
+          <br> Aim: {{goal.Aim}}
+          <br> RpmLow: {{goal.RpmLow}}
+          <br> RpmHigh: {{goal.RpmHigh}}
+          <br>
+        </div>
+
+        <div class="row goal-meta">
+          <div class="row">
+            <div class="large-6 medium-9 columns">
+              <p>BPM</p>
+              range
+            </div>
+            <div class="large-6 medium-9 columns">
+              <p>Effort</p>
+              Range
+            </div>
+            <div class="large-6 columns">
+              <p>RPM</p>
+              dropdown
+            </div>
+          </div>
+          <div class="row">
+            Track notes guideline
+          </div>
+          <div class="row">
+            <p>Interval option</p>
+            dropdown
+          </div>
+        </div>
+
+        <div class="row goal-meta" ng-show="goal.show">
+          <ul class="large-block-grid-2">
+            <li ng-repeat="goaloption in goal.GoalOptions">
+              <goal_option data-freestyle="{{playlist_edit.freestyleTemplate}}" data-effort="goaloption.Effort" data-efforthigh="goaloption.EffortHigh" data-bpm="{{goal.BpmLow}}"></goal_option>
+            </li>
+          </ul>
+          <div class="row notes">
+            {{'TRACK_NOTES' | translate}}
+            <form name="playlistGoalNote{{playlistGoal.ArrayId}}">
+              <textarea name="note" maxlength="200" ng-maxlength="200" ng-change="playlist_edit.playlistGoalNoteCreate(playlistGoal.ArrayId, 0)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.Aim"></textarea>
+              <span class="maxlength">Max 200 characters</span>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <freestyle-goals ng-if="playlistGoal.ArrayId > 0" data-index="{{playlistGoal.ArrayId}}" data-total-goals="{{playlist_edit.playlist.MaxFreestyleGoals}}" data-selected-goal-id="{{playlistGoal.Goal.Id}}" ng-change="playlist_edit.changeFreestyleGoal(playlistGoal)" ng-model="playlist_edit.freestyleGoal" ng-click="playlistGoal.editFreeStyleGoal = true"></freestyle-goals>
+
+      <freestyle-goals data-ng-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{playlist_edit.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="medium-18 large-14 small-centered large-centered columns">
+    <h1>{{vm.template.TemplateGroup.Name}} template</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <td>Description</td>
+          <td>Icon</td>
+          <td>Class length</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{vm.template.TemplateGroup.Description}}</td>
+          <td><img src="/img/templates/{{vm.template.TemplateGroup.IconFileName}}"></td>
+          <td>{{vm.template.ClassLengthMinutes}} minutes</td>
+        </tr>
+      </tbody>
+    </table>
+
+    TODO: list all goals in this template
+  </div>
+</div>

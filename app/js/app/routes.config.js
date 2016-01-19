@@ -413,8 +413,8 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
 
   .state('template', {
     url: '/admin/templates/:id',
-    templateUrl: '../js/components/template_view/template_view.html',
-    controller: 'Template_viewController as vm',
+    templateUrl: '../js/components/template/template.html',
+    controller: 'TemplateController as vm',
     resolve: {
       $title: function() { return 'Template | Admin'; }
     },
