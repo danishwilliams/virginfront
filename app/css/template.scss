@@ -1,0 +1,10 @@
+.templates {
+  select {
+    min-width: rem-calc(50px);
+    width: auto;
+    &.beat {
+      min-width: rem-calc(120px);
+    }
+  }
+
+}
