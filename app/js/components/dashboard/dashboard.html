@@ -53,7 +53,7 @@
     <div class="row">
       <spinner class="spinner" name="dashboardClassesSpinner" show="true"></spinner>
 
-      <table style="width: 100%;" ng-if="dashboard.classes">
+      <table style="width: 100%;" ng-if="dashboard.classes.length > 0">
         <tbody>
         <tr ng-repeat="class in dashboard.classes">
           <td>{{class.ClassTaughtDate | date : 'dd MMMM yyyy'}}</td>
