@@ -13,7 +13,9 @@ function goalOption() {
       freestyle: '@',
       effort: '=',
       efforthigh: '=',
-      customrpm: '@'
+      customrpm: '@',
+      rpmlow: '=',
+      rpmhigh: '='
     }
   };
   return directive;
@@ -24,7 +26,8 @@ goalOptionController.$inject = ['$scope'];
 function goalOptionController($scope) {
   $scope.goaloption = $scope.$parent.goaloption;
 
-  $scope.options = [40, 50, 60, 70, 80, 90, 100];
+  $scope.effortOptions = [40, 50, 60, 70, 80, 90, 100];
+  $scope.rpmOptions = [60, 70, 80, 90, 100, 110, 120, 130, 140];
 
   // Only show the name of goaloptions if there are more than 1
   if (parseInt($scope.goaloption.length) === 1) {
@@ -56,6 +59,8 @@ function goalOptionController($scope) {
   });
 
   function updateBpm() {
-    $scope.rpm = parseInt($scope.bpm * $scope.goaloption.Beat.Ratio);
+    if (!$scope.customrpm) {
+      $scope.rpm = parseInt($scope.bpm * $scope.goaloption.Beat.Ratio);
+    }
   }
 }
