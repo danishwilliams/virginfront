@@ -14,6 +14,20 @@ angular.module("app.template", []).controller('TemplateController', function ($s
     self.beats = data;
   });
 
+  /**
+   * The user has just clicked on a goal; open/close it. Need this function so we can click on the input box
+   * inside of the goal (which itself has an ng-click on it).
+   * @param goal
+   */
+  self.goalClicked = function (goal) {
+    if (goal.editGoalName) {
+      // We're currently selecting a different freestyle goal, so don't do anything else
+      return;
+    }
+    goal.show = !goal.show;
+  };
+
+
   self.saveTemplate = function() {
     spinnerService.show('saveTemplateTimeSpinner');
     self.template.put().then(function() {
