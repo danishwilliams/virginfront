@@ -7,45 +7,57 @@
     <div class="row">tabs containing template times</div>
     <div class="row goal" data-ng-repeat="goal in vm.template.Goals | orderBy:'SortOrder' track by $index">
       <div class="goal-container">
-        <div class="row goal-name">
-          <img ng-class="{'freestyle' : vm.template.TemplateGroup.Name === 'Freestyle'}" ng-if="goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
-
-          Name: {{goal.Name}}
+        <div class="row goal-name" ng-click="goal.show = !goal.show">
+          <img ng-class="{'freestyle' : vm.template.TemplateGroup.Name === 'Freestyle'}" ng-if="goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg"> Name: {{goal.Name}}
         </div>
-        <div class="row goal-meta" ng-click="goal.show = !goal.show">
-          <br> IsCustomRpm: {{vm.template.TemplateGroup.IsCustomRpm}}
-          <br> BpmLow: {{goal.BpmLow}}
-          <br> BpmHigh: {{goal.BpmHigh}}
-          <br> Aim: {{goal.Aim}}
-          <br> RpmLow: {{goal.RpmLow}}
-          <br> RpmHigh: {{goal.RpmHigh}}
-          <br>
-        </div>
-
         <div class="row goal-meta">
+          <br> IsCustomRpm: {{vm.template.TemplateGroup.IsCustomRpm}}
+          <br> Aim: {{goal.Aim}}
+        </div>
+
+        <div class="row goal-meta" ng-show="goal.show" ng-repeat="goaloption in goal.GoalOptions track by $index">
+          <div ng-show="goal.GoalOptions.length > 1" class="row">
+            <label>Goal name</label>
+            <input ng-model="goaloption.Name">
+          </div>
+
           <div class="row">
-            <div class="large-6 medium-9 columns">
-              <p>BPM</p>
-              range
+            <div ng-if="$index === 0" class="large-6 medium-9 columns">
+              <label>BPM</label>
+              <select ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmLow">
+              </select>
+              -
+              <select ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmHigh">
+              </select>
             </div>
             <div class="large-6 medium-9 columns">
-              <p>Effort</p>
-              Range
+              <label>Effort</label>
+              <select ng-options="v for v in vm.effortOptions" ng-model="goaloption.Effort">
+              </select>
+              -
+              <select ng-options="v for v in vm.effortOptions" ng-model="goaloption.EffortHigh">
+              </select>%
             </div>
             <div class="large-6 columns">
-              <p>RPM</p>
-              dropdown
+              <label>Beat ratio</label>
+              <select ng-options="v.Name for v in vm.beats track by v.Id" ng-change="goaloption.BeatId = goaloption.Beat.Id" ng-model="goaloption.Beat">
+              </select>
             </div>
           </div>
+
           <div class="row">
-            Track notes guideline
-          </div>
-          <div class="row">
-            <p>Interval option</p>
-            dropdown
+            <a ng-show="goal.GoalOptions.length === 1" ng-click="goal.GoalOptions.push({});">+ Add interval</a>
+            <a ng-show="$index === 1" ng-click="goal.GoalOptions.splice(1,1);">- Remove interval</a>
           </div>
         </div>
 
+        <div class="row notes" ng-show="goal.show">
+          <label>Track notes guideline</label>
+          <textarea name="note" maxlength="200" ng-maxlength="200" ng-model="goal.Aim"></textarea>
+          <span class="maxlength">Max 200 characters</span>
+        </div>
+
+        <!--
         <div class="row goal-meta" ng-show="goal.show">
           <ul class="large-block-grid-2">
             <li ng-repeat="goaloption in goal.GoalOptions">
@@ -60,6 +72,7 @@
             </form>
           </div>
         </div>
+        -->
 
       </div>
 
@@ -69,6 +82,15 @@
       <freestyle-goals ng-if="playlistGoal.ArrayId > 0" data-index="{{playlistGoal.ArrayId}}" data-total-goals="{{playlist_edit.playlist.MaxFreestyleGoals}}" data-selected-goal-id="{{playlistGoal.Goal.Id}}" ng-change="playlist_edit.changeFreestyleGoal(playlistGoal)" ng-model="playlist_edit.freestyleGoal" ng-click="playlistGoal.editFreeStyleGoal = true"></freestyle-goals>
 
       <freestyle-goals data-ng-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{playlist_edit.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
+    </div>
+
+    <div class="row">
+      <button class="cancel" style="float:left" ui-sref="templategroup({id:template.TemplateGroup.Id})">Cancel</button>
+      <button class="round" style="float:right" ng-click="vm.saveTemplate()">
+        <spinner class="spinner" name="saveTemplateTimeSpinner" show="false"></spinner>
+        Save template
+      </button>
+
     </div>
 
   </div>
