@@ -5,16 +5,12 @@
     <div class="row heading">
       <h2>{{vm.template.TemplateGroup.Name}}</h2></div>
     <div class="row">tabs containing template times</div>
+    <br> IsCustomRpm: {{vm.template.TemplateGroup.IsCustomRpm}}
     <div class="row goal" data-ng-repeat="goal in vm.template.Goals | orderBy:'SortOrder' track by $index">
       <div class="goal-container">
         <div class="row goal-name" ng-click="goal.show = !goal.show">
-          <img ng-class="{'freestyle' : vm.template.TemplateGroup.Name === 'Freestyle'}" ng-if="goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg"> Name: {{goal.Name}}
+          <img ng-class="{'freestyle' : vm.template.TemplateGroup.Name === 'Freestyle'}" ng-if="goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg"> {{goal.Name}}
         </div>
-        <div class="row goal-meta">
-          <br> IsCustomRpm: {{vm.template.TemplateGroup.IsCustomRpm}}
-          <br> Aim: {{goal.Aim}}
-        </div>
-
         <div class="row goal-meta" ng-show="goal.show" ng-repeat="goaloption in goal.GoalOptions track by $index">
           <div ng-show="goal.GoalOptions.length > 1" class="row">
             <label>Goal name</label>
@@ -85,7 +81,7 @@
     </div>
 
     <div class="row">
-      <button class="cancel" style="float:left" ui-sref="templategroup({id:template.TemplateGroup.Id})">Cancel</button>
+      <button class="cancel" style="float:left" ui-sref="templategroup({id:vm.template.TemplateGroup.Id})">Cancel</button>
       <button class="round" style="float:right" ng-click="vm.saveTemplate()">
         <spinner class="spinner" name="saveTemplateTimeSpinner" show="false"></spinner>
         Save template
