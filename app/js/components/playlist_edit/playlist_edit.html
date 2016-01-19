@@ -66,7 +66,7 @@
           <div class="row goal-meta" ng-click="goal.show = !playlistGoal.show" ng-show="playlistGoal.show && playlistGoal.PlaylistGoalTracks.length > 0">
             <ul class="large-block-grid-2">
               <li ng-repeat="goaloption in playlistGoal.Goal.GoalOptions">
-                <goal_option data-freestyle="{{playlist_edit.freestyleTemplate}}" data-effort="goaloption.Effort" data-efforthigh="goaloption.EffortHigh" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}" data-customrpm="{{!playlist_edit.playlist.TemplateGroup.IsCustomRpm}}" data-rpmlow="goaloption.RpmLow" data-rpmhigh="goaloption.RpmHigh"></goal_option>
+                <goal_option data-freestyle="{{playlist_edit.freestyleTemplate}}" data-effort="goaloption.Effort" data-efforthigh="goaloption.EffortHigh" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}" data-customrpm="{{playlist_edit.playlist.TemplateGroup.IsCustomRpm}}" data-rpmlow="goaloption.RpmLow" data-rpmhigh="goaloption.RpmHigh"></goal_option>
               </li>
             </ul>
             <div class="row notes">
