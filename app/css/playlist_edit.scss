@@ -178,6 +178,7 @@ goal_option {
     border-width: 1px 0 0;
   }
   select {
+    min-width: rem-calc(50px);
     width: auto;
   }
 }
