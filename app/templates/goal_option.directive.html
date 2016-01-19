@@ -7,15 +7,8 @@
 
 <hr ng-if="goaloption.Name">
 
-<div ng-if="customrpm">
-  RPM
-  <span>
-  <select ng-options="v for v in rpmOptions" ng-model="rpmlow">
-  </select>
-  -
-  <select ng-options="v for v in rpmOptions" ng-model="rpmhigh">
-  </select>
-</span>
+<div ng-if="customrpm && rpmlow > 0">
+  RPM {{rpmlow}} - {{rpmhigh}}
 </div>
 
 <div>
