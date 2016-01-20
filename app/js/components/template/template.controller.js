@@ -4,7 +4,8 @@ angular.module("app.template", []).controller('TemplateController', function ($s
   this.template = {};
 
   self.effortOptions = [40, 50, 60, 70, 80, 90, 100];
-  self.bpmOptions = [60, 70, 80, 90, 100, 110, 120, 130, 140];
+  // TODO: don't show 0
+  self.bpmOptions = [0, 60, 70, 80, 90, 100, 110, 120, 130, 140];
 
   Templates.loadTemplate(this.id).then(function (data) {
     self.template = data;

@@ -40,14 +40,16 @@
               <select ng-options="v for v in vm.effortOptions" ng-model="goaloption.EffortHigh">
               </select>%
             </div>
+            <!-- TODO: don't show RPM if IsCustomRpm is false -->
             <div class="large-5 medium-9 columns">
               <label>RPM</label>
-              <select ng-options="v for v in vm.bpmOptions" ng-model="goal.RpmLow">
+              <select ng-options="v for v in vm.bpmOptions" ng-model="goaloption.RpmLow">
               </select>
               -
-              <select ng-options="v for v in vm.bpmOptions" ng-model="goal.RpmHigh">
+              <select ng-options="v for v in vm.bpmOptions" ng-model="goaloption.RpmHigh">
               </select>
             </div>
+            <!-- TODO: only show Beat Ratio if IsCustomRpm is true -->
             <div class="large-3 medium-9 columns">
               <label>Beat ratio</label>
               <select class="beat" ng-options="v.Name for v in vm.beats track by v.Id" ng-change="goaloption.BeatId = goaloption.Beat.Id" ng-model="goaloption.Beat">

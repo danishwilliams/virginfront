@@ -5,6 +5,7 @@ angular.module("app.users", []).controller('UsersController', function ($statePa
 
   Users.loadUsers().then(function (data) {
     self.users = data;
+    // TODO: correctly show which roles this user has
   });
 
   this.update = function (user) {

@@ -18,7 +18,10 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   this.saveContactDetails = function () {
     self.user.Telephone = self.telephone;
     self.user.Email = self.email;
+    // TODO: client side email address validation
+    // TODO: submit form on enter
     self.update(self.user, 'contact');
+    // TODO: handle an error state - this email address is already in use
   };
 
   this.cancelContactDetails = function () {
