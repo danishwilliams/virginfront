@@ -395,7 +395,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Create New Template | Admin'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.createTemplate]
+      permissions: [APP_PERMISSIONS.editTemplates]
     }
   })
 
@@ -420,6 +420,18 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     },
     data: {
       permissions: [APP_PERMISSIONS.viewAdmin]
+    }
+  })
+
+  .state('template-new', {
+    url: '/admin/templates/new/:id/:mins',
+    templateUrl: '../js/components/template/template.html',
+    controller: 'TemplateController as vm',
+    resolve: {
+      $title: function() { return 'Template | Admin'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.editTemplates]
     }
   })
 

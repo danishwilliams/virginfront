@@ -21,8 +21,12 @@
     <div class="field">
       <strong>Class length</strong>
       <span class="classlength" ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'">
-          <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
-        </span>
+        <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
+      </span>
+
+      <br>
+      <a ui-sref="template-new({id:vm.templategroup.Id, mins: 65})">Manually a 65 minute-long class because reasons. And testing.</a>
+      <br>
       <a>+ Add class length</a>
     </div>
 

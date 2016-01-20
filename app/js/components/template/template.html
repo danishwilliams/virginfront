@@ -72,12 +72,9 @@
       </div>
     </div>
 
-    <div class="row">
-      <!--
-      <freestyle-goals ng-if="playlistGoal.ArrayId > 0" data-index="{{playlistGoal.ArrayId}}" data-total-goals="{{playlist_edit.playlist.MaxFreestyleGoals}}" data-selected-goal-id="{{playlistGoal.Goal.Id}}" ng-change="playlist_edit.changeFreestyleGoal(playlistGoal)" ng-model="playlist_edit.freestyleGoal" ng-click="playlistGoal.editFreeStyleGoal = true"></freestyle-goals>
-
-      <freestyle-goals data-ng-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{playlist_edit.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
-      -->
+    <div ng-if="vm.newTemplate" class="row">
+      <spinner class="spinner" name="playlistFreestyleSpinner"></spinner>
+      <freestyle-goals data-ng-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{vm.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in vm.freestyleGoals" ng-change="vm.addFreestyleGoal(goal)" ng-model="vm.freestyleGoal"></freestyle-goals>
     </div>
 
     <div class="row">

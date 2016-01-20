@@ -7,6 +7,10 @@
     }
   }
 
+  freestyle-goals select {
+    width: 100%;
+  }
+
   .goal-meta {
     background-color: $grey_medium;
     padding: rem-calc(6px);
