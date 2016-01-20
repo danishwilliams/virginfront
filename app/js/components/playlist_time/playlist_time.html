@@ -10,7 +10,7 @@
      <spinner class="spinner" name="playlistTimeSpinner" show="true"></spinner>
 
       <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-3">
-        <li ng-repeat="template in playlist_time.templates | orderBy:'ClassLengthMinutes'">
+        <li ng-if="template.Enabled" ng-repeat="template in playlist_time.templates | orderBy:'ClassLengthMinutes'">
           <a class="choose-template" ui-sref="playlist-new-edit({id:template.TemplateId})">
             <div class="template">
               <div class="icon"><img src="/img/templates/intervals.svg"></div>
