@@ -12,7 +12,7 @@
         <a ng-if="!playlist.removed" ng-click="vm.remove(playlist, gym.Gym.Id)"><div class="remove">Remove</div></a>
         <a ng-if="playlist.removed" ng-click="vm.undoRemove(playlist, gym.Gym.Id)">Undo</a>
       </span>
-      <span class="right time" ng-if="!playlist.DevicePlaylistSyncs[0].SyncSuccess && playlist.DevicePlaylistSyncs[0].SecondsLeft >= 0">{{playlist.DevicePlaylistSyncs[0].SecondsLeft | hours}} mins remaining</span>
+      <span ng-show="!playlist.removed" class="right time" ng-if="!playlist.DevicePlaylistSyncs[0].SyncSuccess && playlist.DevicePlaylistSyncs[0].SecondsLeft >= 0">{{playlist.DevicePlaylistSyncs[0].SecondsLeft | hours}} mins remaining</span>
     </li>
   </ul>
 
