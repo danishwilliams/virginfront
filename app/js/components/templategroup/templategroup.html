@@ -19,7 +19,7 @@
     </div>
 
     <div class="field">
-      <strong>Class length</strong>
+      <strong>Class lengths</strong>
       <span class="classlength" ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'">
         <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
       </span>
