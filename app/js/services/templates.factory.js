@@ -5,14 +5,15 @@ angular
   .module("app")
   .factory('Templates', TemplatesFactory);
 
-TemplatesFactory.$inject = ['Restangular'];
+TemplatesFactory.$inject = ['Restangular', 'uuid2'];
 
-function TemplatesFactory(Restangular) {
+function TemplatesFactory(Restangular, uuid2) {
   var self = this;
   var templates = [];
   var templateGroups = [];
 
   var templatesFactory = {
+    createBlankTemplate: createBlankTemplate,
     loadTemplates: loadTemplates,
     getTemplates: getTemplates,
     loadTemplate: loadTemplate,
@@ -23,6 +24,30 @@ function TemplatesFactory(Restangular) {
   };
 
   return templatesFactory;
+
+  function createBlankTemplate(templateGroupId, mins) {
+    return loadTemplateGroup(templateGroupId).then(function (data) {
+      var id = uuid2.newuuid().toString();
+      template = Restangular.one('templates', id);
+
+      template.TemplateGroup = {
+        Name: data.Name,
+        Description: data.Description,
+        Type: data.Type,
+        Id: data.Id,
+        CountryId: data.CountryId
+      };
+      template.Goals = [];
+      template.CountryId = data.CountryId;
+      template.TemplateGroupId = data.Id;
+      template.ClassLengthMinutes = mins;
+      template.IsCustomRpm = false;
+      template.Enabled = true;
+      // TODO: don't hard-code this
+      template.MaxFreestyleGoals = 11;
+      return template;
+    });
+  }
 
   function loadTemplates(includeGoals) {
     return Restangular.all('templates').getList({

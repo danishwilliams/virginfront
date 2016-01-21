@@ -1,9 +1,32 @@
-angular.module("mm.foundation", ["mm.foundation.tpls", "mm.foundation.modal","mm.foundation.offcanvas"]);
-angular.module("mm.foundation.tpls", ["template/modal/backdrop.html","template/modal/window.html"]);
+angular.module("mm.foundation", ["mm.foundation.tpls", "mm.foundation.modal","mm.foundation.offcanvas","mm.foundation.tabs"]);
+angular.module("mm.foundation.tpls", ["template/modal/backdrop.html","template/tabs/tab.html","template/tabs/tabset.html","template/modal/window.html"]);
 
 angular.module("template/modal/backdrop.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/modal/backdrop.html",
     "<div class=\"reveal-modal-bg fade\" ng-class=\"{in: animate}\" ng-click=\"close($event)\" style=\"display: block\"></div>\n" +
+    "");
+}]);
+
+angular.module("template/tabs/tab.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/tabs/tab.html",
+    "<dd ng-class=\"{active: active}\">\n" +
+    "  <a ng-click=\"select()\" tab-heading-transclude>{{heading}}</a>\n" +
+    "</dd>\n" +
+    "");
+}]);
+
+angular.module("template/tabs/tabset.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/tabs/tabset.html",
+    "<div class=\"tabbable\">\n" +
+    "  <dl class=\"tabs\" ng-class=\"{'vertical': vertical}\" ng-transclude></dl>\n" +
+    "  <div class=\"tabs-content\" ng-class=\"{'vertical': vertical}\">\n" +
+    "    <div class=\"content\" \n" +
+    "      ng-repeat=\"tab in tabs\" \n" +
+    "      ng-class=\"{active: tab.active}\">\n" +
+    "      <div tab-content-transclude=\"tab\"></div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>\n" +
     "");
 }]);
 

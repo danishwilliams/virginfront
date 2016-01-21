@@ -6,6 +6,26 @@ $top_padding: rem-calc(30px);
 $radius: rem-calc(15px);
 $radius-tiny: 2px;
 
+/* Headings */
+
+.heading {
+  border-bottom: 1px solid $grey_light;
+  color: $grey_light;
+  h1 {
+    margin-bottom: 0;
+  }
+  a {
+    padding-top: rem-calc(42px);
+    display: block;
+    float: right !important;
+  }
+}
+
+.row .heading {
+  margin: 0 0 rem-calc(18px) 0;
+}
+
+
 /* Buttons */
 
 $bg_opacity: 0.09;

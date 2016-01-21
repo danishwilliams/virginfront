@@ -1,0 +1,20 @@
+.templates {
+  select {
+    min-width: rem-calc(50px);
+    width: auto;
+    &.beat {
+      min-width: rem-calc(120px);
+    }
+  }
+
+  freestyle-goals select {
+    width: 100%;
+  }
+
+  .goal-meta {
+    background-color: $grey_medium;
+    padding: rem-calc(6px);
+    margin-bottom: rem-calc(10px);
+  }
+
+}

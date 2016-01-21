@@ -31,15 +31,18 @@
             <div class="large-10 columns">
               <h4 ng-class="{'has-track' : playlistGoal.PlaylistGoalTracks.length > 0}">
                 <img ng-class="{'freestyle' : playlist_edit.playlist.TemplateName === 'Freestyle'}" ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
+
                 <span ng-if="playlist_edit.playlist.TemplateName !== 'Freestyle'">
                   {{playlistGoal.Goal.Name}}
                 </span>
+
                 <span ng-if="playlist_edit.playlist.TemplateName === 'Freestyle'">
                   <span ng-if="playlistGoal.ArrayId === 0">
                     {{playlistGoal.Goal.Name}}
                   </span>
                   <freestyle-goals ng-if="playlistGoal.ArrayId > 0" data-index="{{playlistGoal.ArrayId}}" data-total-goals="{{playlist_edit.playlist.MaxFreestyleGoals}}" data-selected-goal-id="{{playlistGoal.Goal.Id}}" ng-change="playlist_edit.changeFreestyleGoal(playlistGoal)" ng-model="playlist_edit.freestyleGoal" ng-click="playlistGoal.editFreeStyleGoal = true"></freestyle-goals>
                 </span>
+
                 <em ng-if="playlistGoal.Goal.GoalChallengeId">Challenge</em>
               </h4>
             </div>
@@ -66,7 +69,7 @@
           <div class="row goal-meta" ng-click="goal.show = !playlistGoal.show" ng-show="playlistGoal.show && playlistGoal.PlaylistGoalTracks.length > 0">
             <ul class="large-block-grid-2">
               <li ng-repeat="goaloption in playlistGoal.Goal.GoalOptions">
-                <goal_option data-freestyle="{{playlist_edit.freestyleTemplate}}" data-effort="goaloption.Effort" data-efforthigh="goaloption.EffortHigh" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}"></goal_option>
+                <goal_option data-freestyle="{{playlist_edit.freestyleTemplate}}" data-effort="goaloption.Effort" data-efforthigh="goaloption.EffortHigh" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}" data-customrpm="{{playlist_edit.playlist.IsCustomRpm}}" data-rpmlow="goaloption.RpmLow" data-rpmhigh="goaloption.RpmHigh"></goal_option>
               </li>
             </ul>
             <div class="row notes">

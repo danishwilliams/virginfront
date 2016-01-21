@@ -1,37 +1,27 @@
 <div class="templates row">
   <div class="large-14 large-centered columns">
+    <div class="row heading">
+      <div class="columns small-12 medium-14">
+        <h1>Templates</h1>
+      </div>
+      <div class="columns small-6 medium-4">
+        <a ui-sref="templategroup-new">+ Create new template</a>
+      </div>
+    </div>
+    <div class="row">
+
+      <!--<spinner class="spinner" name="templatesSpinner" show="true"></spinner>-->
+
+      <tabset>
+        <tab heading="Active templates ({{templates.active}})">
+          <templategroups kind="active" ng-model="templates.active"></templategroups>
+        </tab>
+        <tab heading="Archived templates ({{templates.inactive}})">
+          <templategroups kind="inactive" ng-model="templates.inactive"></templategroups>
+        </tab>
+      </tabset>
+
+    </div>
+
   </div>
 </div>
-
-<div class="templates row">
-  <div class="large-14 large-centered columns">
-    <h1>Templates</h1>
-
-    <table>
-      <thead>
-        <tr>
-          <td>Template Name</td>
-          <td>Description</td>
-          <td>Icon name</td>
-          <td>Icon</td>
-          <td>Class lengths</td>
-          <td>TemplateGroup Id</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="templateGroup in templates.templateGroups | orderBy:'Name'">
-          <td><a ui-sref="templategroup({id:templateGroup.Id})">{{templateGroup.Name}}</a></td>
-          <td>{{templateGroup.Description}}</td>
-          <td>{{templateGroup.IconFileName}}</td>
-          <td><img src="/img/templates/{{templateGroup.IconFileName}}"></td>
-          <td>
-            <div class="classlength" ng-repeat="template in templateGroup.ClassLengths">
-              <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
-            </div>
-          </td>
-          <td>{{templateGroup.Id}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  </tbody>

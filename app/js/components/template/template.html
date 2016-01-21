@@ -1,0 +1,90 @@
+<div class="templates row">
+  <div class="large-14 large-centered columns">
+    <div class="row text-center">
+      <h1>Add goals to template</h1></div>
+    <div class="row heading">
+      <h2>{{vm.template.TemplateGroup.Name}} ({{vm.template.ClassLengthMinutes}} minutes)</h2>
+    </div>
+    <div class="row goal" data-ng-repeat="goal in vm.template.Goals | orderBy:'SortOrder' track by $index">
+      <div class="goal-container">
+
+        <div class="row goal-name" ng-click="vm.goalClicked(goal)">
+          <img ng-if="goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
+          <span ng-hide="goal.show">{{goal.Name}}</span>
+          <input ng-show="goal.show" placeholder="Name" ng-model="goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false">
+          <em ng-if="goal.GoalChallengeId">Challenge</em>
+        </div>
+
+        <div class="row goal-meta" ng-show="goal.show" ng-repeat="goaloption in goal.GoalOptions track by $index">
+          <div ng-show="goal.GoalOptions.length > 1" class="row">
+            <input placeholder="Goal name" ng-model="goaloption.Name">
+          </div>
+
+          <div class="row">
+            <div class="large-5 medium-9 columns">
+              <span ng-if="$index === 0">
+                <label>BPM</label>
+                <select ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmLow">
+                </select>
+                -
+                <select ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmHigh">
+                </select>
+              </span>
+              <span ng-if="$index > 0">&nbsp;</span>
+            </div>
+            <div class="large-5 medium-9 columns">
+              <label>Effort</label>
+              <select ng-options="v for v in vm.effortOptions" ng-model="goaloption.Effort">
+              </select>
+              -
+              <select ng-options="v for v in vm.effortOptions" ng-model="goaloption.EffortHigh">
+              </select>%
+            </div>
+            <!-- TODO: don't show RPM if IsCustomRpm is false -->
+            <div class="large-5 medium-9 columns">
+              <label>RPM</label>
+              <select ng-options="v for v in vm.bpmOptions" ng-model="goaloption.RpmLow">
+              </select>
+              -
+              <select ng-options="v for v in vm.bpmOptions" ng-model="goaloption.RpmHigh">
+              </select>
+            </div>
+            <!-- TODO: only show Beat Ratio if IsCustomRpm is true -->
+            <div class="large-3 medium-9 columns">
+              <label>Beat ratio</label>
+              <select class="beat" ng-options="v.Name for v in vm.beats track by v.Id" ng-change="goaloption.BeatId = goaloption.Beat.Id" ng-model="goaloption.Beat">
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <a ng-show="goal.GoalOptions.length === 1" ng-click="goal.GoalOptions.push({});">+ Add interval</a>
+            <a ng-show="$index === 1" ng-click="goal.GoalOptions.splice(1,1);">- Remove interval</a>
+          </div>
+        </div>
+
+        <div class="row notes" ng-show="goal.show">
+          <label>Track notes guideline</label>
+          <textarea name="note" maxlength="200" ng-maxlength="200" ng-model="goal.Aim"></textarea>
+          <span class="maxlength">Max 200 characters</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div ng-if="vm.newTemplate" class="row">
+      <spinner class="spinner" name="playlistFreestyleSpinner"></spinner>
+      <freestyle-goals data-ng-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{vm.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in vm.freestyleGoals" ng-change="vm.addFreestyleGoal(goal)" ng-model="vm.freestyleGoal"></freestyle-goals>
+    </div>
+
+    <div class="row">
+      <button class="cancel" style="float:left" ui-sref="templategroup({id:vm.template.TemplateGroup.Id})">Cancel</button>
+      <button class="round" style="float:right" ng-click="vm.saveTemplate()">
+        <spinner class="spinner" name="saveTemplateTimeSpinner" show="false"></spinner>
+        Save template
+      </button>
+
+    </div>
+
+  </div>
+</div>

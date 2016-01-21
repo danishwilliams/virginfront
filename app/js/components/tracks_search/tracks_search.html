@@ -33,7 +33,7 @@
         <div class="large-13 columns track-search-results">
           <spinner class="spinner" name="trackSpinner" show="true"></spinner>
           <div ng-messages="vm.error">
-            <div class="error" ng-message="server">There was an issue with the server. Your Music Provider access details may be incorrect.</div>
+            <div class="error" ng-message="server">There was an issue with the song search. Please try again later.</div>
           </div>
           <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
             <div class="play-container small-1 columns">

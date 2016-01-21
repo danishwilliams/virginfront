@@ -78,6 +78,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     playlist.TemplateId = template.Id;
     playlist.TemplateName = template.TemplateGroup.Name;
     playlist.TemplateIconFileName = template.TemplateGroup.IconFileName;
+    playlist.IsCustomRpm = template.TemplateGroup.IsCustomRpm;
     playlist.Shared = false;
     playlist.ClassLengthMinutes = template.ClassLengthMinutes;
     Users.loadCurrentUser().then(function (user) {

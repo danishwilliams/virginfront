@@ -40,7 +40,7 @@ angular
     "app.usertypes",
     "app.templates",
     "app.templategroup_view",
-    "app.template_view"
+    "app.template"
   ])
   .constant('APP_PERMISSIONS', {
     viewAdmin: "viewAdmin",

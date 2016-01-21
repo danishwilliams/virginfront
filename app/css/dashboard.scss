@@ -3,18 +3,4 @@
   h3 {
     color: $grey_light;
   }
-
-  .heading {
-    border-bottom: 1px solid $grey_light;
-    margin-bottom: rem-calc(18px);
-    color: $grey_light;
-    h1 {
-      margin-bottom: 0;
-    }
-    a {
-      padding-top: rem-calc(42px);
-      display: block;
-      float: right !important;
-    }
-  }
 }
