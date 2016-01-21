@@ -8,7 +8,7 @@
     <li ng-class="{'syncing' : !playlist.DevicePlaylistSyncs[0].SyncSuccess, 'removed' : playlist.removed}" ng-repeat="playlist in vm.gym.PlaylistSyncInfos | orderBy:'Playlist.Name'">
       <span class="icon"></span><span class="name">{{playlist.Playlist.Name}}</span>
       <!--<span class="right remove" ng-if="playlist.DevicePlaylistSyncs[0].SyncSuccess">-->
-      <span class="right remove" ng-if="!playlist.DevicePlaylistSyncs[0].SyncSuccess">
+      <span class="right remove">
         <a ng-if="!playlist.removed" ng-click="vm.remove(playlist, gym.Gym.Id)"><div class="remove">Remove</div></a>
         <a ng-if="playlist.removed" ng-click="vm.undoRemove(playlist, gym.Gym.Id)">Undo</a>
       </span>
