@@ -89,6 +89,12 @@ button {
   }
 }
 
+.back {
+  &::before {
+    content: "\02190";
+  }
+  padding-bottom: rem-calc(10px);
+}
 
 /*
 html {
