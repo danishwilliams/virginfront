@@ -28,9 +28,24 @@
     width: 0px;
   }
   .move-right .left-off-canvas-menu {
-    width: 75%;
-    max-width: rem-calc(400px);
-    padding: rem-calc(4px);
+    width: 100%;
+    height: 100%;
+    background: none;
+    .genre-container {
+      width: 75%;
+      height: 100%;
+      max-width: rem-calc(400px);
+      padding: rem-calc(4px);
+      background: $grey_dark;
+    }
+    .full-width {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+    }
   }
   .track-search-results {
     overflow: scroll;

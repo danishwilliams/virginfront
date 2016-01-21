@@ -18,9 +18,12 @@
             <h3 ng-click="app.genreMenu = !app.genreMenu">Filter by genre</h3>
             <div class="off-canvas-wrap genre-menu" data-offcanvas ng-class="{'move-right' : app.genreMenu}">
               <aside class="left-off-canvas-menu">
-                <div ng-click="app.genreMenu = !app.genreMenu">Back</div>
-                <h3>Filter by genre</h3>
-                <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
+                <div class="genre-container">
+                  <div ng-click="app.genreMenu = !app.genreMenu">Back</div>
+                  <h3>Filter by genre</h3>
+                  <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
+                </div>
+                <div class="full-width" ng-click="app.genreMenu = !app.genreMenu"></div>
               </aside>
             </div>
           </div>
