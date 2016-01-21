@@ -138,3 +138,7 @@ body {
   background-color: $grey_lighter;
   padding: rem-calc(30px);
 }
+
+select {
+  padding-right: rem-calc(20px);
+}
