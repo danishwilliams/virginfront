@@ -18,4 +18,11 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
       $state.go('templates-admin');
     });
   };
+
+  self.createNewTemplate = function () {
+    $state.go('template-new', {
+      id: self.templategroup.Id,
+      mins: self.mins
+    });
+  };
 });

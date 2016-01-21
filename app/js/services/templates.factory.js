@@ -14,6 +14,7 @@ function TemplatesFactory(Restangular, uuid2) {
 
   var templatesFactory = {
     createBlankTemplate: createBlankTemplate,
+    getClassLengths: getClassLengths,
     loadTemplates: loadTemplates,
     getTemplates: getTemplates,
     loadTemplate: loadTemplate,
@@ -46,6 +47,14 @@ function TemplatesFactory(Restangular, uuid2) {
       template.MaxFreestyleGoals = numGoalsInClass(mins);
       return template;
     });
+  }
+
+  function getClassLengths() {
+    var options = [];
+    for (var i = 25; i < 125; i = i + 5) {
+      options.push(i);
+    }
+    return options;
   }
 
   function loadTemplates(includeGoals) {
