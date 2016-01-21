@@ -20,9 +20,9 @@ angular.module('app').directive('templategroups', function () {
   }
 });
 
-templateGroupsController.$inject = ['Templates'];
+templateGroupsController.$inject = ['Templates', 'spinnerService'];
 
-function templateGroupsController(Templates) {
+function templateGroupsController(Templates, spinnerService) {
   var self = this;
 
   Templates.loadTemplateGroups(true).then(function (templateGroups) {
@@ -48,6 +48,7 @@ function templateGroupsController(Templates) {
             }
             return val;
           });
+          spinnerService.hide('templates' + val.Id + 'Spinner');
         });
       }
     });

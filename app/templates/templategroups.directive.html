@@ -1,17 +1,16 @@
 <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
   <li ng-if="templateGroup.visible" ng-repeat="templateGroup in vm.templateGroups | orderBy:'Type':'Name' track by $index">
-    <div class="template {{templateGroup.Type}}">
-      <div class="icon"><img src="/img/templates/{{templateGroup.IconFileName}}"></div>
-      <h2 ng-bind-html="templateGroup.Name"></h2>
-      <p>Times:
-        <span class="classlength" ng-repeat="template in templateGroup.ClassLengths | orderBy: 'ClassLengthMinutes'">
-              <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
-            </span>
-      </p>
-      <div>
-        <a class="choose-template" ui-sref="templategroup({id:templateGroup.Id})">Edit settings</a>
-        <a class="choose-template" ui-sref="templategroup({id:templateGroup.Id})">Archive</a>
+    <a class="choose-template" ui-sref="templategroup({id:templateGroup.Id})">
+      <div class="template {{templateGroup.Type}}">
+        <div class="icon"><img src="/img/templates/{{templateGroup.IconFileName}}"></div>
+        <h2 ng-bind-html="templateGroup.Name"></h2>
+        <spinner class="spinner inline" name="templates{{templateGroup.Id}}Spinner" show="true"></spinner>
+        <p ng-if="templateGroup.ClassLengths">Templates:
+          <span class="classlength" ng-repeat="template in templateGroup.ClassLengths | orderBy: 'ClassLengthMinutes' track by $index">
+            <span ng-if="$index > 0"> / </span>{{template.ClassLengthMinutes}}
+          </span>
+        </p>
       </div>
-    </div>
+    </a>
   </li>
 </ul>
