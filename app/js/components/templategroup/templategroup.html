@@ -1,36 +1,50 @@
 <div class="templates row">
-  <div class="large-14 large-centered columns">
+  <div class="large-9 large-centered columns">
 
     <h1>Edit template</h1>
 
-    <div class="field">
-      <strong>Template name</strong>
-      <div contenteditable ng-model="vm.templategroup.Name"></div>
-    </div>
+    <spinner class="spinner" name="loadTemplateGroupSpinner" show="true"></spinner>
 
-    <div class="field">
-      <strong>Description</strong>
-      <div contenteditable ng-model="vm.templategroup.Description"></div>
-    </div>
+    <span ng-show="vm.templategroup.Name">
 
-    <div class="field">
-      <strong>Icon</strong>
-      <div contenteditable ng-model="vm.templategroup.IconFileName"></div>
-    </div>
+      <div class="field">
+        <strong>Template name</strong>
+        <div contenteditable ng-model="vm.templategroup.Name"></div>
+      </div>
 
-    <div class="field">
-      <strong>Class lengths</strong>
-      <span class="classlength" ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'">
-        <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
-      </span>
+      <div class="field">
+        <strong>Description</strong>
+        <div contenteditable ng-model="vm.templategroup.Description"></div>
+      </div>
 
-      <template-lengths data-action="Add class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
-    </div>
+      <div class="field">
+        <strong>Icon</strong>
+        <div contenteditable ng-model="vm.templategroup.IconFileName"></div>
+      </div>
 
-    <button class="cancel" style="float:left" ui-sref="templates-admin">Cancel</button>
-    <button class="round" style="float:right" ng-click="vm.saveTemplate()">
-      <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
-      Save
-    </button>
+      <div class="field">
+        <strong>Class lengths</strong>
+        <spinner class="spinner inline" name="loadClassLengthsSpinner" show="true"></spinner>
+        <span class="classlength" ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'">
+          <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
+        </span>
+
+        <template-lengths data-action="Add class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
+      </div>
+
+      <div class="field">
+        <spinner class="spinner" name="archiveTemplateGroupSpinner" show="false"></spinner>
+        <a ng-show="vm.templategroup.Enabled" ng-click="vm.archiveTemplateGroup()">Archive this template type</a>
+        <a ng-show="!vm.templategroup.Enabled" ng-click="vm.unArchiveTemplateGroup()">Unarchive this template type</a>
+      </div>
+
+      <p>&nbsp;</p>
+
+      <button class="cancel" style="float:left" ui-sref="templates-admin">Cancel</button>
+      <button class="round" style="float:right" ng-click="vm.saveTemplate()">
+        <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
+        Save
+      </button>
+    </span>
   </div>
 </div>

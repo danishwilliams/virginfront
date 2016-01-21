@@ -18,9 +18,13 @@ function TemplatesFactory(Restangular, uuid2) {
     loadTemplates: loadTemplates,
     getTemplates: getTemplates,
     loadTemplate: loadTemplate,
+    enableTemplate: enableTemplate,
+    disableTemplate: disableTemplate,
     loadTemplateGroups: loadTemplateGroups,
     getTemplateGroups: getTemplateGroups,
     loadTemplateGroup: loadTemplateGroup,
+    disableTemplateGroup: disableTemplateGroup,
+    enableTemplateGroup: enableTemplateGroup,
     loadTemplateGroupClasses: loadTemplateGroupClasses
   };
 
@@ -86,6 +90,14 @@ function TemplatesFactory(Restangular, uuid2) {
     }
   }
 
+  function disableTemplate(id) {
+    return Restangular.one('templates/disable', id).post();
+  }
+
+  function enableTemplate(id) {
+    return Restangular.one('templates/enable', id).post();
+  }
+
   /**
    * Given a certain class length, calculate how many goals are in that class
    */
@@ -114,6 +126,14 @@ function TemplatesFactory(Restangular, uuid2) {
     function loadTemplateGroupComplete(data, status, headers, config) {
       return data;
     }
+  }
+
+  function disableTemplateGroup(id) {
+    return Restangular.one('templategroups/disable', id).post();
+  }
+
+  function enableTemplateGroup(id) {
+    return Restangular.one('templategroups/enable', id).post();
   }
 
   function loadTemplateGroupClasses(id) {

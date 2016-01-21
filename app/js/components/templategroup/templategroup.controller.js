@@ -5,8 +5,10 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
 
   Templates.loadTemplateGroup(this.id).then(function (data) {
     self.templategroup = data;
+    spinnerService.hide('loadTemplateGroupSpinner');
 
     Templates.loadTemplateGroupClasses(self.id).then(function (data) {
+      spinnerService.hide('loadClassLengthsSpinner');
       self.templategroup.ClassLengths = data.TemplateClassLength;
     });
   });
@@ -23,6 +25,22 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     $state.go('template-new', {
       id: self.templategroup.Id,
       mins: self.mins
+    });
+  };
+
+  self.archiveTemplateGroup = function (){
+    spinnerService.show('archiveTemplateGroupSpinner');
+    Templates.disableTemplateGroup(self.templategroup.Id).then(function(data) {
+      spinnerService.hide('archiveTemplateGroupSpinner');
+      self.templategroup.Enabled = false;
+    });
+  };
+
+  self.unArchiveTemplateGroup = function (){
+    spinnerService.show('archiveTemplateGroupSpinner');
+    Templates.enableTemplateGroup(self.templategroup.Id).then(function(data) {
+      spinnerService.hide('archiveTemplateGroupSpinner');
+      self.templategroup.Enabled = true;
     });
   };
 });

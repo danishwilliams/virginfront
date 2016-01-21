@@ -10,9 +10,11 @@
     </div>
     <div class="row">
 
-      <tabset>
+      <spinner class="spinner" name="templatesSpinner" show="true"></spinner>
+
+      <tabset ng-show="templates.active">
         <tab heading="Active templates ({{templates.active}})">
-          <templategroups kind="active" ng-model="templates.active"></templategroups>
+          <templategroups kind="active" ng-change="templates.activeLoaded()" ng-model="templates.active"></templategroups>
         </tab>
         <tab heading="Archived templates ({{templates.inactive}})">
           <templategroups kind="inactive" ng-model="templates.inactive"></templategroups>

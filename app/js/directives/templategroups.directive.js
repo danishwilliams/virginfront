@@ -8,14 +8,16 @@ angular.module('app').directive('templategroups', function () {
     scope: {
       kind: '@',
       ngModel: '='
-    }
+    },
+    require: 'ngModel'
   };
   return directive;
 
-  function link(scope, element, attrs) {
+  function link(scope, element, attrs, ngModel) {
     scope.vm.kind = scope.kind;
     scope.vm.setModelValue = function(val) {
       scope.ngModel = val;
+      ngModel.$setViewValue(scope.ngModel);
     };
   }
 });
