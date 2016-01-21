@@ -43,8 +43,7 @@ function TemplatesFactory(Restangular, uuid2) {
       template.ClassLengthMinutes = mins;
       template.IsCustomRpm = false;
       template.Enabled = true;
-      // TODO: don't hard-code this
-      template.MaxFreestyleGoals = 11;
+      template.MaxFreestyleGoals = numGoalsInClass(mins);
       return template;
     });
   }
@@ -72,23 +71,17 @@ function TemplatesFactory(Restangular, uuid2) {
     function loadTemplateComplete(data, status, headers, config) {
       // TODO: get Dane to add MaxGoals into the API
       if (data.TemplateGroup.Type === 'freestyle') {
-        switch (data.ClassLengthMinutes) {
-          case 30:
-            data.MaxFreestyleGoals = 7;
-            break;
-          case 45:
-            data.MaxFreestyleGoals = 11;
-            break;
-          case 60:
-            data.MaxFreestyleGoals = 14;
-            break;
-          case 90:
-            data.MaxFreestyleGoals = 22;
-            break;
-        }
+        data.MaxFreestyleGoals = numGoalsInClass(data.ClassLengthMinutes) - 1; // -1, because Warm Up already exists
       }
       return data;
     }
+  }
+
+  /**
+   * Given a certain class length, calculate how many goals are in that class
+   */
+  function numGoalsInClass(mins) {
+    return Math.floor(mins / 4) + 1;
   }
 
   function loadTemplateGroups(includeGoals) {
