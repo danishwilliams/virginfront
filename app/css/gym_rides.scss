@@ -67,6 +67,12 @@
   .remove {
     font-size: smaller;
   }
+  a .remove {
+    width: 15px;
+    text-indent: -2000px;
+    background: url('/img/remove.svg') no-repeat;
+    background-position: center;
+  }
   .time {
     overflow: hidden;
     font-size: x-small;
