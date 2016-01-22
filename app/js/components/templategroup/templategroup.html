@@ -21,28 +21,29 @@
       </div>
 
       <div class="field">
-        <strong>Class lengths</strong>
-        <spinner class="spinner inline" name="loadClassLengthsSpinner" show="true"></spinner>
-        <span class="classlength" ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'">
-          <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}} minute</a>
-        </span>
-
-        <template-lengths data-action="Add class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
-      </div>
-
-      <div class="field">
         <spinner class="spinner" name="archiveTemplateGroupSpinner" show="false"></spinner>
         <a ng-show="vm.templategroup.Enabled" ng-click="vm.archiveTemplateGroup()">Archive this template type</a>
         <a ng-show="!vm.templategroup.Enabled" ng-click="vm.unArchiveTemplateGroup()">Unarchive this template type</a>
       </div>
 
-      <p>&nbsp;</p>
+      <div class="row">
+        <button class="cancel" style="float:left" ui-sref="templates-admin">Cancel</button>
+        <button class="round" style="float:right" ng-click="vm.saveTemplate()">
+          <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
+          Save
+        </button>
+      </div>
 
-      <button class="cancel" style="float:left" ui-sref="templates-admin">Cancel</button>
-      <button class="round" style="float:right" ng-click="vm.saveTemplate()">
-        <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
-        Save
-      </button>
+      <div class="row">
+        <template-lengths data-action="Add class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
+        <tabset>
+          <spinner class="spinner inline" name="loadClassLengthsSpinner" show="true"></spinner>
+          <tab ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'" heading="{{template.ClassLengthMinutes}}">
+            <template-length data-id="{{template.TemplateId}}" data-createnew="{{template.CreateNew}}" data-mins="{{template.ClassLengthMinutes}}"></template-length>
+          </tab>
+        </tabset>
+      </div>
+
     </span>
   </div>
 </div>

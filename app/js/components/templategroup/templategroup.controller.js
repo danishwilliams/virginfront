@@ -40,10 +40,13 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
   };
 
   self.createNewTemplate = function () {
-    $state.go('template-new', {
-      id: self.templategroup.Id,
-      mins: self.mins
-    });
+    var template = {
+      ClassLengthMinutes: self.mins,
+      Enabled: true,
+      TemplateId: self.templategroup.Id,
+      CreateNew: true
+    };
+    self.templategroup.ClassLengths.push(template);
   };
 
   self.archiveTemplateGroup = function () {
