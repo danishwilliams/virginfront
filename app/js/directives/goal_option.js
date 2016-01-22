@@ -59,7 +59,7 @@ function goalOptionController($scope) {
   });
 
   function updateBpm() {
-    if (!$scope.customrpm) {
+    if ($scope.customrpm === 'false') {
       $scope.rpm = parseInt($scope.bpm * $scope.goaloption.Beat.Ratio);
     }
   }
