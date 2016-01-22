@@ -1,13 +1,13 @@
 <h5>{{goaloption.Name}}</h5>
 
-<div ng-if="!customrpm">
+<div ng-if="customrpm === false">
   <div class="beat" translate="{{beat}}"></div>
   <div>{{'LEG_SPEED' | translate}} <em>{{rpm}} {{'RPM' | translate}}</em></div>
 </div>
 
 <hr ng-if="goaloption.Name">
 
-<div ng-if="customrpm">
+<div ng-if="customrpm === true">
   RPM {{rpmlow}} - {{rpmhigh}}
 </div>
 
