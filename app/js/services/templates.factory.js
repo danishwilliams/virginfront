@@ -20,6 +20,7 @@ function TemplatesFactory(Restangular, uuid2) {
     loadTemplate: loadTemplate,
     enableTemplate: enableTemplate,
     disableTemplate: disableTemplate,
+    createBlankTemplateGroup: createBlankTemplateGroup,
     loadTemplateGroups: loadTemplateGroups,
     getTemplateGroups: getTemplateGroups,
     loadTemplateGroup: loadTemplateGroup,
@@ -103,6 +104,19 @@ function TemplatesFactory(Restangular, uuid2) {
    */
   function numGoalsInClass(mins) {
     return Math.floor(mins / 4) + 1;
+  }
+
+  function createBlankTemplateGroup() {
+    var id = uuid2.newuuid().toString();
+    var templategroup = Restangular.one('templategroups', id);
+
+    templategroup.Id = id;
+    templategroup.Name = '';
+    templategroup.Type = 'ride'; // default: can also be 'pack' or 'freestyle'
+    templategroup.Description = '';
+    templategroup.Enabled = true;
+    templategroup.IconFileName = '';
+    return templategroup;
   }
 
   function loadTemplateGroups(includeGoals) {
