@@ -1,4 +1,6 @@
-angular.module('app').directive('templateLengths', function() {
+angular.module('app').directive('templateLengths', templateLengths);
+
+function templateLengths() {
   var directive = {
     link: link,
     restrict: 'E',
@@ -19,17 +21,17 @@ angular.module('app').directive('templateLengths', function() {
       ngModel.$setViewValue(scope.ngModel);
     };
   }
+}
 
-  newTemplateController.$inject = ['Templates'];
+newTemplateController.$inject = ['Templates'];
 
-  function newTemplateController(Templates) {
-    var self = this;
+function newTemplateController(Templates) {
+  var self = this;
 
-    // Create the list of possible class length options
-    self.options = Templates.getClassLengths();
+  // Create the list of possible class length options
+  self.options = Templates.getClassLengths();
 
-    self.createNewTemplate = function() {
-      self.selected();
-    };
-  }
-});
+  self.createNewTemplate = function () {
+    self.selected();
+  };
+}
