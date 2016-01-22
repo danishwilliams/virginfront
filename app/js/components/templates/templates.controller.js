@@ -2,6 +2,8 @@ angular.module("app.templates", []).controller('TemplatesController', function (
   var self = this;
 
   self.activeLoaded = function () {
-    spinnerService.hide('templatesSpinner');
+    if (self.active >= 0 && self.inactive >= 0) {
+      spinnerService.hide('templatesSpinner');
+    }
   };
 });

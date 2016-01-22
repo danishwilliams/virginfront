@@ -2,10 +2,10 @@
   <div class="large-14 large-centered columns">
     <div class="row heading">
       <div class="columns small-12 medium-14">
-        <h1>Template types</h1>
+        <h1>Template</h1>
       </div>
       <div class="columns small-6 medium-4">
-        <a ui-sref="templategroup-new">+ Create new template type</a>
+        <a ui-sref="templategroup-new">+ Create new template</a>
       </div>
     </div>
     <div class="row">
@@ -17,7 +17,7 @@
           <templategroups kind="active" ng-change="templates.activeLoaded()" ng-model="templates.active"></templategroups>
         </tab>
         <tab heading="Archived templates ({{templates.inactive}})">
-          <templategroups kind="inactive" ng-model="templates.inactive"></templategroups>
+          <templategroups kind="inactive" ng-change="templates.activeLoaded()" ng-model="templates.inactive"></templategroups>
         </tab>
       </tabset>
 

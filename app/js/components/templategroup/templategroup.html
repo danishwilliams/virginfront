@@ -1,14 +1,12 @@
 <div class="templates row">
   <div class="large-9 large-centered columns">
 
-    <h1>Edit template</h1>
-
     <spinner class="spinner" name="loadTemplateGroupSpinner" show="true"></spinner>
 
     <span ng-show="vm.templategroup.Name">
 
       <div class="field">
-        <strong>Template name</strong>
+        <strong>Template name</strong> <a>Edit</a>
         <div contenteditable ng-model="vm.templategroup.Name"></div>
       </div>
 
@@ -26,7 +24,7 @@
         <strong>Class lengths</strong>
         <spinner class="spinner inline" name="loadClassLengthsSpinner" show="true"></spinner>
         <span class="classlength" ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'">
-          <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
+          <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}} minute</a>
         </span>
 
         <template-lengths data-action="Add class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
