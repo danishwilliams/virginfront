@@ -17,7 +17,7 @@
 
       <div class="field">
         <strong>Icon</strong>
-        <div contenteditable ng-model="vm.templategroup.IconFileName"></div>
+        <select ng-options="v for v in vm.iconFileNames" ng-model="vm.templategroup.IconFileName"></select>
       </div>
 
       <div class="field">

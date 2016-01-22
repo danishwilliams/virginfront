@@ -11,13 +11,7 @@
       <input ng-model="vm.templategroup.Description">
 
       <label>Icon</label>
-      <select ng-model="vm.templategroup.IconFileName"></select>
-
-      <label>Class length</label>
-      <span class="classlength" ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'">
-        <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
-      </span>
-      <a>+ Add class length</a>
+      <select ng-options="v for v in vm.iconFileNames"></select>
 
       <button class="cancel" style="float:left" ui-sref="templates-admin">Cancel</button>
       <button class="round" style="float:right" ng-click="vm.saveTemplate()">
