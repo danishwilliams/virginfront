@@ -69,6 +69,7 @@ button {
     @include button-style($bg: rgba($white, 0), $radius: $button-round);
     border: none;
     color: $blue;
+    margin: 0;
     &:hover,
     &:focus {
       color: $blue;

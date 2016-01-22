@@ -1,7 +1,5 @@
 <div class="templates row">
-  <div class="large-14 large-centered columns">
-    <div class="row text-center">
-      <h1>Add goals to template</h1></div>
+  <div class="large-18 large-centered columns">
     <div class="row heading">
       <h2>{{vm.template.TemplateGroup.Name}} ({{vm.template.ClassLengthMinutes}} minutes)</h2>
     </div>
@@ -78,10 +76,9 @@
     <div class="row">
       <button class="cancel" style="float:left" ui-sref="templategroup({id:vm.template.TemplateGroup.Id})">Cancel</button>
       <button ng-disabled="vm.freestyleGoals.length > 0" class="round" style="float:right" ng-click="vm.saveTemplate()">
-        <spinner class="spinner" name="saveTemplateTimeSpinner" show="false"></spinner>
+        <!--<spinner class="spinner" name="saveTemplateTimeSpinner" show="false"></spinner>-->
         Save template
       </button>
-
     </div>
 
   </div>

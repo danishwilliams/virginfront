@@ -1,31 +1,32 @@
 <div class="templates row">
-  <div class="large-9 large-centered columns">
+  <div class="large-12 medium-17 small-18 large-centered columns">
 
     <spinner class="spinner" name="loadTemplateGroupSpinner" show="true"></spinner>
 
     <span ng-show="vm.templategroup.Name">
 
-      <div class="field">
-        <strong>Template name</strong> <a>Edit</a>
-        <div contenteditable ng-model="vm.templategroup.Name"></div>
+    <div class="heading row">
+      <div class="large-14 columns">
+        <h1><img class="icon" src="/img/playlists/{{vm.templategroup.IconFileName}}"> {{vm.templategroup.Name}} <button class="edit">Edit</button></h1>
       </div>
-
-      <div class="field">
-        <strong>Description</strong>
-        <div contenteditable ng-model="vm.templategroup.Description"></div>
-      </div>
-
-      <div class="field">
-        <strong>Icon</strong>
-        <select ng-options="v for v in vm.iconFileNames" ng-model="vm.templategroup.IconFileName"></select>
-      </div>
-
-      <div class="field">
+      <div class="large-4 columns">
         <spinner class="spinner" name="archiveTemplateGroupSpinner" show="false"></spinner>
         <a ng-show="vm.templategroup.Enabled" ng-click="vm.archiveTemplateGroup()">Archive this template type</a>
         <a ng-show="!vm.templategroup.Enabled" ng-click="vm.unArchiveTemplateGroup()">Unarchive this template type</a>
       </div>
+    </div>
 
+      <div class="field">
+        <strong ng-hide="true">Description</strong>
+        <div contenteditable ng-model="vm.templategroup.Description"></div>
+      </div>
+
+      <div class="field" ng-hide="true">
+        <strong>Icon</strong>
+        <select ng-options="v for v in vm.iconFileNames" ng-model="vm.templategroup.IconFileName"></select>
+      </div>
+
+      <!--
       <div class="row">
         <button class="cancel" style="float:left" ui-sref="templates-admin">Cancel</button>
         <button class="round" style="float:right" ng-click="vm.saveTemplate()">
@@ -33,8 +34,10 @@
           Save
         </button>
       </div>
+      -->
 
       <div class="row">
+        <p>&nbsp;</p>
         <template-lengths data-action="Add class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
         <tabset>
           <spinner class="spinner inline" name="loadClassLengthsSpinner" show="true"></spinner>
