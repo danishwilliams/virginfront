@@ -30,8 +30,12 @@ function GoalsFactory(Restangular, uuid2) {
         GoalOptions: [{
           Name: '',
           BeatId: 0,
-          Beat: {}
+          Beat: {},
+          RpmLow: 0,
+          RpmHigh: 0
         }],
+        Interval: false,
+        CountryId: '', // this needs a value GAH
         // TODO: IsCustomRpm: how do we know this? Can we grab it from country? Or can the API give us a blank template json?
         IsCustomRpm: false
       }
