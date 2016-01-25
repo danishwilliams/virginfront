@@ -7,6 +7,7 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     // Viewing/editing a template group
     Templates.loadTemplateGroup(this.id).then(function (data) {
       self.templategroup = data;
+      console.log(self.templategroup);
       spinnerService.hide('loadTemplateGroupSpinner');
 
       Templates.loadTemplateGroupClasses(self.id).then(function (data) {
@@ -29,6 +30,8 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     'speed.svg',
     'strengthendurance.svg'
   ];
+
+  self.types = ['ride', 'pack', 'freestyle'];
 
   self.editClick = function () {
     self.edit = true;

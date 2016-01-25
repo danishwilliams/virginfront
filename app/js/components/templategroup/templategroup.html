@@ -36,6 +36,11 @@
           <select ng-options="v for v in vm.iconFileNames" ng-model="vm.templategroup.IconFileName"></select>
         </div>
 
+        <div ng-if-permission="editAdmin" class="field">
+          <label>Type</label>
+          <select ng-options="v for v in vm.types" ng-model="vm.templategroup.Type"></select>
+        </div>
+
         <div class="row">
           <button class="cancel" style="float:left" ng-click="vm.editCancelled()">Cancel</button>
           <button class="round" style="float:right" ng-click="vm.saveTemplate()">
