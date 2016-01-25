@@ -85,12 +85,13 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     freestyleGoal.ArrayId = i;
     freestyleGoal.SortOrder = i + 1;
     self.template.Goals.push(freestyleGoal);
+    self.goalClicked(freestyleGoal);
   };
 
   self.saveTemplate = function () {
-    //spinnerService.show('saveTemplateTimeSpinner');
+    //spinnerService.show('saveTemplateTime' + self.template.TemplateGroup.Id + 'Spinner');
     self.template.put().then(function () {
-      //spinnerService.hide('saveTemplateTimeSpinner');
+      //spinnerService.hide('saveTemplateTime' + self.template.TemplateGroup.Id + 'Spinner');
     });
   };
 }
