@@ -1,0 +1,10 @@
+.tabs {
+  border-bottom: 1px solid $grey_light;
+  dd {
+    &.active {
+      a {
+        font-weight: bold;
+      }
+    }
+  }
+}
