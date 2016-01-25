@@ -70,13 +70,13 @@
 
     <div ng-if="vm.newTemplate" class="row">
       <spinner class="spinner" name="playlistFreestyleSpinner"></spinner>
-      <freestyle-goals data-ng-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{vm.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in vm.freestyleGoals" ng-change="vm.addFreestyleGoal(goal)" ng-model="vm.freestyleGoal"></freestyle-goals>
+      <freestyle-goals data-ng-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{vm.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in vm.freestyleGoals" ng-change="vm.addFreestyleGoal(goal)" ng-model="vm.freestyleGoal" data-allow-create-new-goal="true"></freestyle-goals>
     </div>
 
     <div class="row">
       <button class="cancel" style="float:left" ui-sref="templategroup({id:vm.template.TemplateGroup.Id})">Cancel</button>
       <button ng-disabled="vm.freestyleGoals.length > 0" class="round" style="float:right" ng-click="vm.saveTemplate()">
-        <!--<spinner class="spinner" name="saveTemplateTimeSpinner" show="false"></spinner>-->
+        <!--<spinner class="spinner" name="saveTemplate{{vm.template.TemplateGroup.Id}}TimeSpinner" show="false"></spinner>-->
         Save template
       </button>
     </div>

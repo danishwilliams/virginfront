@@ -47,6 +47,7 @@ function TemplatesFactory(Restangular, uuid2) {
       template.CountryId = data.CountryId;
       template.TemplateGroupId = data.Id;
       template.ClassLengthMinutes = mins;
+      // TODO: IsCustomRpm: how do we know this? Can we grab it from country? Or can the API give us a blank template json?
       template.IsCustomRpm = false;
       template.Enabled = true;
       template.MaxFreestyleGoals = numGoalsInClass(mins);

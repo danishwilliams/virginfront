@@ -11,9 +11,10 @@ function freestyleGoals() {
     scope: {
       ngModel: '=',
       selectedGoalId: '@',
-      ngDisabled: '@',
+      ngDisabled: '@', // if this dropdown should be disabled
       totalGoals: '@',
-      index: '@'
+      index: '@',
+      allowCreateNewGoal: '@' // allows for the creation of a new default freestyle goal i.e. in template creation
     },
     require: '?ngModel',
     link: link
@@ -25,9 +26,19 @@ function freestyleGoals() {
     scope.vm.disabled = scope.ngDisabled;
     scope.vm.index = scope.index;
     scope.vm.totalGoals = scope.totalGoals;
+    scope.vm.allowCreateNewGoal = scope.allowCreateNewGoal;
     scope.selected = function (id) {
       // This triggers the ng-change on the directive so the parent controller can get the value
-      ngModel.$setViewValue(scope.vm.goals[id]);
+      // We're passing an entire goal object back to the parent
+      if (scope.allowCreateNewGoal && id === 'newGoal') {
+        // Pass a blank goal to the parent
+        ngModel.$setViewValue(scope.vm.newGoal);
+        //ngModel.$setViewValue(scope.vm.newGoal);
+      }
+      else {
+        // Pass the chosen goal to the parent
+        ngModel.$setViewValue(scope.vm.goals[id]);
+      }
     };
   }
 }
@@ -42,6 +53,11 @@ function freestyleGoalsController(Goals, spinnerService) {
 
   Goals.loadFreestyleGoals().then(function (data) {
     self.goals = data;
+
+    // Creating a new goal i.e. in template creation
+    if (self.allowCreateNewGoal) {
+      self.newGoal = Goals.createBlankGoal();
+    }
 
     // This is a Cool Down goal!
     if (parseInt(self.index) + 1 === parseInt(self.totalGoals)) {
