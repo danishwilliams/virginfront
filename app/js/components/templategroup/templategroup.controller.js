@@ -44,7 +44,8 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
       ClassLengthMinutes: self.mins,
       Enabled: true,
       TemplateId: self.templategroup.Id,
-      CreateNew: true
+      CreateNew: true,
+      active: true
     };
     self.templategroup.ClassLengths.push(template);
     self.addClassLength = false;

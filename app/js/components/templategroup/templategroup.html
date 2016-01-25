@@ -44,7 +44,7 @@
 
         <tabset>
           <spinner class="spinner inline" name="loadClassLengthsSpinner" show="true"></spinner>
-          <tab ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'" heading="{{template.ClassLengthMinutes}}">
+          <tab ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'" heading="{{template.ClassLengthMinutes}}" active="template.active">
             <template-length data-id="{{template.TemplateId}}" data-createnew="{{template.CreateNew}}" data-mins="{{template.ClassLengthMinutes}}"></template-length>
           </tab>
         </tabset>
