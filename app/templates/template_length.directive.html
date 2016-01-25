@@ -54,8 +54,8 @@
           </div>
 
           <div class="row">
-            <a ng-show="goal.GoalOptions.length === 1" ng-click="goal.GoalOptions.push({});">+ Add interval</a>
-            <a ng-show="$index === 1" ng-click="goal.GoalOptions.splice(1,1);">- Remove interval</a>
+            <a ng-show="goal.GoalOptions.length === 1" ng-click="vm.addIntervalGoal(goal)">+ Add interval</a>
+            <a ng-show="$index === 1" ng-click="vm.removeIntervalGoal(goal)">- Remove interval</a>
           </div>
         </div>
 

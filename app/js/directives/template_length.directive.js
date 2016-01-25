@@ -74,6 +74,16 @@ function TemplateController($scope, $stateParams, Templates, Beats, spinnerServi
     goal.show = !goal.show;
   };
 
+  self.addIntervalGoal = function(goal) {
+    goal.GoalOptions.push({});
+    goal.Interval = true;
+  };
+
+  self.removeIntervalGoal = function(goal) {
+    goal.GoalOptions.splice(1,1);
+    goal.Interval = false;
+  };
+
   this.addFreestyleGoal = function (goal) {
     goal.show = false;
     var freestyleGoal = angular.copy(self.freestyleGoal.Goal);
