@@ -5,52 +5,51 @@
 
     <span ng-show="vm.templategroup.Name">
 
-    <div class="heading row">
-      <div class="large-13 columns">
-        <h1>
-          <img class="icon" src="/img/playlists/{{vm.templategroup.IconFileName}}">
-          {{vm.templategroup.Name}}
-          <button class="edit" ng-click="vm.editClick()">Edit</button>
-        </h1>
-      </div>
-      <div class="large-5 columns" ng-hide="vm.edit">
-        <spinner class="spinner" name="archiveTemplateGroupSpinner" show="false"></spinner>
-        <a ng-show="vm.templategroup.Enabled" ng-click="vm.archiveTemplateGroup()">Archive this template type</a>
-        <a ng-show="!vm.templategroup.Enabled" ng-click="vm.unArchiveTemplateGroup()">Unarchive this template type</a>
-      </div>
-    </div>
-
-    <div class="row" ng-show="vm.edit">
-      <div class="field">
-        <label>Template name</label>
-        <input size="60" maxlength="60" ng-model="vm.templategroup.Name">
+      <div class="heading row">
+        <div class="large-13 columns">
+          <h1>
+            <img class="icon" src="/img/playlists/{{vm.templategroup.IconFileName}}">
+            {{vm.templategroup.Name}}
+            <button class="edit" ng-click="vm.editClick()">Edit</button>
+          </h1>
+        </div>
+        <div class="large-5 columns" ng-hide="vm.edit">
+          <spinner class="spinner" name="archiveTemplateGroupSpinner" show="false"></spinner>
+          <a ng-show="vm.templategroup.Enabled" ng-click="vm.archiveTemplateGroup()">Archive this template type</a>
+          <a ng-show="!vm.templategroup.Enabled" ng-click="vm.unArchiveTemplateGroup()">Unarchive this template type</a>
+        </div>
       </div>
 
-      <div class="field">
-        <label>Description</label>
-        <input size="120" maxlength="120" ng-model="vm.templategroup.Description">
+      <div class="row" ng-show="vm.edit">
+        <div class="field">
+          <label>Template name</label>
+          <input size="60" maxlength="60" ng-model="vm.templategroup.Name">
+        </div>
+
+        <div class="field">
+          <label>Description</label>
+          <input size="120" maxlength="120" ng-model="vm.templategroup.Description">
+        </div>
+
+        <div class="field">
+          <label>Icon</label>
+          <select ng-options="v for v in vm.iconFileNames" ng-model="vm.templategroup.IconFileName"></select>
+        </div>
+
+        <div class="row">
+          <button class="cancel" style="float:left" ng-click="vm.editCancelled()">Cancel</button>
+          <button class="round" style="float:right" ng-click="vm.saveTemplate()">
+            <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
+            Save
+          </button>
+        </div>
       </div>
 
-      <div class="field">
-        <label>Icon</label>
-        <select ng-options="v for v in vm.iconFileNames" ng-model="vm.templategroup.IconFileName"></select>
+      <alert ng-repeat="alert in vm.alerts" type="alert.type" close="vm.alerts.splice($index, 1)">{{alert.msg}}</alert>
+
+      <div class="row" ng-hide="vm.edit">
+        {{vm.templategroup.Description}}
       </div>
-
-      <div class="row">
-        <button class="cancel" style="float:left" ng-click="vm.editCancelled()">Cancel</button>
-        <button class="round" style="float:right" ng-click="vm.saveTemplate()">
-          <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
-          Save
-        </button>
-      </div>
-    </div>
-
-    <alert ng-repeat="alert in vm.alerts" type="alert.type" close="vm.alerts.splice($index, 1)">{{alert.msg}}</alert>
-
-    <div class="row" ng-hide="vm.edit">
-      {{vm.templategroup.Description}}
-    </div>
-
 
       <div class="row" ng-hide="vm.edit">
         <p>&nbsp;</p>
