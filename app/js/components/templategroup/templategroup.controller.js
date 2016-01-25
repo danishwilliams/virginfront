@@ -48,10 +48,13 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
 
   self.saveTemplate = function () {
     spinnerService.show('saveTemplateSpinner');
-    console.log(self.templategroup);
     self.templategroup.put().then(function () {
       spinnerService.hide('saveTemplateSpinner');
-      $state.go('templates-admin');
+      self.edit = false;
+      self.alerts = [{
+        type: 'success',
+        msg: 'Template successfully saved!'
+      }];
     });
   };
 

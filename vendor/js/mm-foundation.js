@@ -1,9 +1,18 @@
-angular.module("mm.foundation", ["mm.foundation.tpls", "mm.foundation.modal","mm.foundation.offcanvas","mm.foundation.tabs"]);
-angular.module("mm.foundation.tpls", ["template/modal/backdrop.html","template/tabs/tab.html","template/tabs/tabset.html","template/modal/window.html"]);
+angular.module("mm.foundation", ["mm.foundation.tpls", "mm.foundation.alert", "mm.foundation.modal","mm.foundation.offcanvas","mm.foundation.tabs"]);
+angular.module("mm.foundation.tpls", ["template/modal/backdrop.html","template/alert/alert.html","template/tabs/tab.html","template/tabs/tabset.html","template/modal/window.html"]);
 
 angular.module("template/modal/backdrop.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/modal/backdrop.html",
     "<div class=\"reveal-modal-bg fade\" ng-class=\"{in: animate}\" ng-click=\"close($event)\" style=\"display: block\"></div>\n" +
+    "");
+}]);
+
+angular.module("template/alert/alert.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/alert/alert.html",
+    "<div class='alert-box' ng-class='(type || \"\")'>\n" +
+    "  <span ng-transclude></span>\n" +
+    "  <a ng-show='closeable' class='close' ng-click='close()'>&times;</a>\n" +
+    "</div>\n" +
     "");
 }]);
 

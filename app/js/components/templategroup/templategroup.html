@@ -45,6 +45,8 @@
       </div>
     </div>
 
+    <alert ng-repeat="alert in vm.alerts" type="alert.type" close="vm.alerts.splice($index, 1)">{{alert.msg}}</alert>
+
     <div class="row" ng-hide="vm.edit">
       {{vm.templategroup.Description}}
     </div>
