@@ -30,6 +30,22 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     'strengthendurance.svg'
   ];
 
+  self.editClick = function () {
+    self.edit = true;
+    self.snapshot = {
+      name: self.templategroup.Name,
+      description: self.templategroup.Description,
+      icon: self.templategroup.IconFileName
+    };
+  };
+
+  self.editCancelled = function () {
+    self.templategroup.Name = self.snapshot.name;
+    self.templategroup.Description = self.snapshot.description;
+    self.templategroup.IconFileName = self.snapshot.icon;
+    self.edit = false;
+  };
+
   self.saveTemplate = function () {
     spinnerService.show('saveTemplateSpinner');
     console.log(self.templategroup);
