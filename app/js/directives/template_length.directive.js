@@ -89,9 +89,9 @@ function TemplateController($scope, $stateParams, Templates, Beats, spinnerServi
   };
 
   self.saveTemplate = function () {
-    //spinnerService.show('saveTemplateTime' + self.template.TemplateGroup.Id + 'Spinner');
+    spinnerService.show('saveTemplate' + self.template.Id + 'TimeSpinner');
     self.template.put().then(function () {
-      //spinnerService.hide('saveTemplateTime' + self.template.TemplateGroup.Id + 'Spinner');
+      spinnerService.hide('saveTemplate' + self.template.Id + 'TimeSpinner');
     });
   };
 }
