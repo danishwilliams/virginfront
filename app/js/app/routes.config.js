@@ -411,30 +411,6 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
-  .state('template', {
-    url: '/admin/templates/:id',
-    templateUrl: '../js/components/template/template.html',
-    controller: 'TemplateController as vm',
-    resolve: {
-      $title: function() { return 'Template | Admin'; }
-    },
-    data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
-    }
-  })
-
-  .state('template-new', {
-    url: '/admin/templates/new/:id/:mins',
-    templateUrl: '../js/components/template/template.html',
-    controller: 'TemplateController as vm',
-    resolve: {
-      $title: function() { return 'Template | Admin'; }
-    },
-    data: {
-      permissions: [APP_PERMISSIONS.editTemplates]
-    }
-  })
-
   // Tracks
   .state('tracks-admin', {
     url: '/admin/tracks',

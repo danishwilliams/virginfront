@@ -4,7 +4,7 @@ function template() {
   var directive = {
     link: link,
     restrict: 'E',
-    templateUrl: '../js/components/template/template.html',
+    templateUrl: 'template_length.directive.html',
     controller: TemplateController,
     controllerAs: 'vm',
     scope: {
