@@ -21,19 +21,18 @@ input[type="text"].class_name {
   margin: auto;
 }
 
-.icon {
-  height: rem-calc(50px);
-  width: rem-calc(50px);
-  float: left;
-  padding-right: rem-calc(10px);
-  line-height: rem-calc(50px);
-}
-
 .ride-type {
   border-top: 1px solid $grey_medium;
   font-size: $h5-font-size;
   color: $grey_darker;
   line-height: $chunk_height;
+  .icon {
+    height: rem-calc(50px);
+    width: rem-calc(50px);
+    float: left;
+    padding-right: rem-calc(10px);
+    line-height: rem-calc(50px);
+  }
   h2 {
     display: inline;
   }

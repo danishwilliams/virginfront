@@ -1,4 +1,11 @@
 .templates {
+  .icon {
+    height: rem-calc(50px);
+    width: rem-calc(50px);
+    float: left;
+    padding-right: rem-calc(10px);
+  }
+
   select {
     min-width: rem-calc(50px);
     width: auto;
