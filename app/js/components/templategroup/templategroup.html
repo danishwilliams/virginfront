@@ -38,7 +38,10 @@
 
       <div class="row">
         <p>&nbsp;</p>
-        <template-lengths data-action="Add class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
+        <a ng-show="!vm.addClassLength && !vm.addedClassLength" ng-click="vm.addClassLength = true">+ Add class length</a>
+
+        <template-lengths ng-show="vm.addClassLength" data-action="Choose class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
+
         <tabset>
           <spinner class="spinner inline" name="loadClassLengthsSpinner" show="true"></spinner>
           <tab ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'" heading="{{template.ClassLengthMinutes}}">

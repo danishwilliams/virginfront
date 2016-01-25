@@ -47,6 +47,8 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
       CreateNew: true
     };
     self.templategroup.ClassLengths.push(template);
+    self.addClassLength = false;
+    self.addedClassLength = true;
   };
 
   self.archiveTemplateGroup = function () {
