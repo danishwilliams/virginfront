@@ -83,7 +83,7 @@ function TemplatesFactory(Restangular, uuid2) {
     }).then(loadTemplateComplete);
 
     function loadTemplateComplete(data, status, headers, config) {
-      // TODO: get Dane to add MaxGoals into the API
+      // this _could_ be done in the API but doesn't have to be
       if (data.TemplateGroup.Type === 'freestyle') {
         data.MaxFreestyleGoals = numGoalsInClass(data.ClassLengthMinutes) - 1; // -1, because Warm Up already exists
       }
