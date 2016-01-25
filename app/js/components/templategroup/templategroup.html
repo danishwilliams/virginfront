@@ -10,10 +10,10 @@
           <h1>
             <img class="icon" src="/img/playlists/{{vm.templategroup.IconFileName}}">
             {{vm.templategroup.Name}}
-            <button class="edit" ng-click="vm.editClick()">Edit</button>
+            <button class="edit" ng-hide="vm.edit" ng-click="vm.editClick()">Edit</button>
           </h1>
         </div>
-        <div class="large-5 columns" ng-hide="vm.edit">
+        <div class="large-5 columns">
           <spinner class="spinner" name="archiveTemplateGroupSpinner" show="false"></spinner>
           <a ng-show="vm.templategroup.Enabled" ng-click="vm.archiveTemplateGroup()">Archive this template type</a>
           <a ng-show="!vm.templategroup.Enabled" ng-click="vm.unArchiveTemplateGroup()">Unarchive this template type</a>
@@ -51,7 +51,7 @@
         {{vm.templategroup.Description}}
       </div>
 
-      <div class="row" ng-hide="vm.edit">
+      <div class="row">
         <p>&nbsp;</p>
         <a ng-show="!vm.addClassLength && !vm.addedClassLength && !vm.edit" ng-click="vm.addClassLength = true">+ Add class length</a>
 
