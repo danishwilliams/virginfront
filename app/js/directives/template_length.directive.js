@@ -38,7 +38,7 @@ function TemplateController($scope, $stateParams, Templates, Beats, spinnerServi
 
   self.effortOptions = [40, 50, 60, 70, 80, 90, 100];
   // TODO: don't show 0
-  self.bpmOptions = [0, 60, 70, 80, 90, 100, 110, 120, 130, 140];
+  self.bpmOptions = [0, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180];
 
   if (!self.newTemplate) {
     // Editing a template
