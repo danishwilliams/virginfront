@@ -37,7 +37,7 @@
               </select>%
             </div>
 
-            <div class="large-9 columns" ng-if="goal.IsCustomRpm">
+            <div class="large-9 columns" ng-if="vm.template.TemplateGroup.IsCustomRpm">
               <label>RPM</label>
               <select ng-options="v for v in vm.bpmOptions" ng-model="goaloption.RpmLow">
               </select>
@@ -46,7 +46,7 @@
               </select>
             </div>
 
-            <div class="large-9 columns" ng-if="!goal.IsCustomRpm">
+            <div class="large-9 columns" ng-if="!vm.template.TemplateGroup.IsCustomRpm">
               <label>Beat ratio</label>
               <select class="beat" ng-options="v.Name for v in vm.beats track by v.Id" ng-change="goaloption.BeatId = goaloption.Beat.Id" ng-model="goaloption.Beat">
               </select>

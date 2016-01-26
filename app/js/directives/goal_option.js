@@ -63,4 +63,8 @@ function goalOptionController($scope) {
       $scope.rpm = parseInt($scope.bpm * $scope.goaloption.Beat.Ratio);
     }
   }
+
+  $scope.isCustomRpm = function() {
+    return $scope.customrpm;
+  };
 }
