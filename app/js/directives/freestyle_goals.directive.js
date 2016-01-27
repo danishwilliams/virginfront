@@ -33,7 +33,6 @@ function freestyleGoals() {
       if (scope.allowCreateNewGoal && id === 'newGoal') {
         // Pass a blank goal to the parent
         ngModel.$setViewValue(scope.vm.newGoal);
-        //ngModel.$setViewValue(scope.vm.newGoal);
       }
       else {
         // Pass the chosen goal to the parent
@@ -56,7 +55,7 @@ function freestyleGoalsController(Goals, spinnerService) {
 
     // Creating a new goal i.e. in template creation
     if (self.allowCreateNewGoal) {
-      self.newGoal = Goals.createBlankGoal();
+      self.newGoal = Goals.createBlankDefaultGoal();
     }
 
     // This is a Cool Down goal!
