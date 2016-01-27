@@ -1,24 +1,28 @@
-<div class="templates row">
-  <div class="large-14 large-centered columns">
+<div class="templategroup row">
+  <div class="large-12 medium-17 small-18 large-centered columns">
 
     <h1>Create new template</h1>
 
     <form>
       <label>Template name</label>
-      <input ng-model="vm.templategroup.Name">
+      <input size="60" maxlength="60" ng-model="vm.templategroup.Name">
 
       <label>Description</label>
-      <input ng-model="vm.templategroup.Description">
+      <input size="120" maxlength="120" ng-model="vm.templategroup.Description">
 
       <label>Icon</label>
-      <select ng-options="v for v in vm.iconFileNames"></select>
+      <select ng-options="v for v in vm.iconFileNames" ng-model="vm.templategroup.IconFileName"></select>
 
-      <button class="cancel" style="float:left" ui-sref="templates-admin">Cancel</button>
-      <button class="round" style="float:right" ng-click="vm.saveTemplate()">
-        <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
-        Save
-      </button>
+      <label>Type</label>
+      <select ng-options="v for v in vm.types" ng-model="vm.templategroup.Type"></select>
 
+      <div class="row">
+        <button class="cancel" style="float:left" ui-sref="templates-admin">Cancel</button>
+        <button class="round" style="float:right" ng-click="vm.saveTemplateGroup()">
+          <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
+          Save
+        </button>
+      </div>
     </form>
   </div>
 </div>

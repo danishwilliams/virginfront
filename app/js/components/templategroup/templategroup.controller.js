@@ -49,15 +49,20 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     self.edit = false;
   };
 
-  self.saveTemplate = function () {
+  self.saveTemplateGroup = function () {
     spinnerService.show('saveTemplateSpinner');
     self.templategroup.put().then(function () {
-      spinnerService.hide('saveTemplateSpinner');
-      self.edit = false;
-      self.alerts = [{
-        type: 'success',
-        msg: 'Template successfully saved!'
-      }];
+      if (self.templategroup.NewTemplate) {
+        $state.go('templategroup', {id: self.templategroup.Id});
+      }
+      else {
+        spinnerService.hide('saveTemplateSpinner');
+        self.edit = false;
+        self.alerts = [{
+          type: 'success',
+          msg: 'Template successfully saved!'
+        }];
+      }
     });
   };
 

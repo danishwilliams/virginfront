@@ -111,6 +111,7 @@ function TemplatesFactory(Restangular, uuid2, Users) {
     var id = uuid2.newuuid().toString();
     var templategroup = Restangular.one('templategroups', id);
 
+    templategroup.NewTemplate = true;
     templategroup.Id = id;
     templategroup.Name = '';
     templategroup.Type = 'ride'; // default: can also be 'pack' or 'freestyle'
