@@ -5,9 +5,9 @@ angular
   .module("app")
   .factory('Goals', GoalsFactory);
 
-GoalsFactory.$inject = ['Restangular', 'uuid2', 'Users'];
+GoalsFactory.$inject = ['Restangular', 'uuid2'];
 
-function GoalsFactory(Restangular, uuid2, Users) {
+function GoalsFactory(Restangular, uuid2) {
   // TODO: if we want multiple controllers/services to be able to use this data, then add a GoalsService
   // which has methods for a private goals variable with get/set
   var service = Restangular.service('goals');
@@ -35,8 +35,7 @@ function GoalsFactory(Restangular, uuid2, Users) {
           RpmLow: 0,
           RpmHigh: 0
         }],
-        Interval: false,
-        CountryId: user.Location.CountryId
+        Interval: false
       }
     };
   }
