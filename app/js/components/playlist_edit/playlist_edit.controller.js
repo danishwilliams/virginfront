@@ -260,9 +260,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
           id: self.playlist.Id
         });
       } else {
-        // TODO: Add a playlist view state and go to it
-        $state.go('playlist-view', {
-          id: self.playlist.Id
+        // Publish the completed, edited playlist then view it
+        Playlists.publishPlaylist(self.id).then(function (data) {
+          $state.go('playlist-view', {
+            id: self.playlist.Id
+          });
         });
       }
     }, function (response) {
