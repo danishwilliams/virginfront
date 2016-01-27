@@ -5,9 +5,9 @@ angular
   .module("app")
   .factory('Templates', TemplatesFactory);
 
-TemplatesFactory.$inject = ['Restangular', 'uuid2'];
+TemplatesFactory.$inject = ['Restangular', 'uuid2', 'Users'];
 
-function TemplatesFactory(Restangular, uuid2) {
+function TemplatesFactory(Restangular, uuid2, Users) {
   var self = this;
   var templates = [];
   var templateGroups = [];
@@ -34,6 +34,7 @@ function TemplatesFactory(Restangular, uuid2) {
   function createBlankTemplate(templateGroupId, mins) {
     return loadTemplateGroup(templateGroupId).then(function (data) {
       var id = uuid2.newuuid().toString();
+      var user = Users.getCurrentUser();
       template = Restangular.one('templates', id);
 
       template.TemplateGroup = {
@@ -47,8 +48,7 @@ function TemplatesFactory(Restangular, uuid2) {
       template.CountryId = data.CountryId;
       template.TemplateGroupId = data.Id;
       template.ClassLengthMinutes = mins;
-      // TODO: IsCustomRpm: how do we know this? Can we grab it from country? Or can the API give us a blank template json?
-      template.IsCustomRpm = false;
+      template.IsCustomRpm = user.Location.Country.CustomRpm;
       template.Enabled = true;
       template.MaxFreestyleGoals = numGoalsInClass(mins);
       return template;
