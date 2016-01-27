@@ -42,13 +42,13 @@ function TemplatesFactory(Restangular, uuid2, Users) {
         Description: data.Description,
         Type: data.Type,
         Id: data.Id,
-        CountryId: data.CountryId
+        CountryId: data.CountryId,
+        IsCustomRpm: user.Location.Country.CustomRpm
       };
       template.Goals = [];
       template.CountryId = data.CountryId;
       template.TemplateGroupId = data.Id;
       template.ClassLengthMinutes = mins;
-      template.IsCustomRpm = user.Location.Country.CustomRpm;
       template.Enabled = true;
       template.MaxFreestyleGoals = numGoalsInClass(mins);
       return template;

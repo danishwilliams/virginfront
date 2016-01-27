@@ -50,8 +50,7 @@ angular.module("app.goals", []).controller('GoalsController', function (Goals, R
       Id: uuid2.newuuid().toString(),
       BpmLow: "",
       BpmHigh: "",
-      Aim: "",
-      CountryId: "8c816daf-70b9-4ecf-b6df-16b5c80fbb31" // South Africa
+      Aim: ""
     };
   };
 

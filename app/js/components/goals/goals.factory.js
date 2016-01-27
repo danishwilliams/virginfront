@@ -16,14 +16,18 @@ function GoalsFactory(Restangular, uuid2) {
   var goals = [];
 
   var goalsFactory = {
-    createBlankGoal: createBlankGoal,
+    createBlankDefaultGoal: createBlankDefaultGoal,
     loadGoals: loadGoals,
     loadFreestyleGoals: loadFreestyleGoals
   };
 
   return goalsFactory;
 
-  function createBlankGoal() {
+  /**
+   * Creates a new blank default (i.e. freestyle) goal, which shows up in the dropdown when
+   * adding default goals to a new template
+   */
+  function createBlankDefaultGoal() {
     var user = Users.getCurrentUser();
     return {
       Id: uuid2.newuuid().toString(),
@@ -36,7 +40,8 @@ function GoalsFactory(Restangular, uuid2) {
           RpmHigh: 0
         }],
         Interval: false
-      }
+      },
+      NewGoal: true
     };
   }
 

@@ -1,5 +1,5 @@
 <div class="templates row">
-  <div class="large-18 large-centered columns">
+  <div class="large-18 large-centered columns" ng-show="vm.template.Id">
     <div class="row heading">
       <h2>{{vm.template.TemplateGroup.Name}} ({{vm.template.ClassLengthMinutes}} minutes)</h2>
     </div>
@@ -39,10 +39,10 @@
 
             <div class="large-9 columns" ng-if="vm.template.TemplateGroup.IsCustomRpm">
               <label>RPM</label>
-              <select ng-options="v for v in vm.bpmOptions" ng-model="goaloption.RpmLow">
+              <select ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow">
               </select>
               -
-              <select ng-options="v for v in vm.bpmOptions" ng-model="goaloption.RpmHigh">
+              <select ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmHigh">
               </select>
             </div>
 
