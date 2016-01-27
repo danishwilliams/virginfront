@@ -5,9 +5,9 @@ angular
   .module("app")
   .factory('Goals', GoalsFactory);
 
-GoalsFactory.$inject = ['Restangular', 'uuid2'];
+GoalsFactory.$inject = ['Restangular', 'uuid2', 'Users'];
 
-function GoalsFactory(Restangular, uuid2) {
+function GoalsFactory(Restangular, uuid2, Users) {
   // TODO: if we want multiple controllers/services to be able to use this data, then add a GoalsService
   // which has methods for a private goals variable with get/set
   var service = Restangular.service('goals');
@@ -24,6 +24,7 @@ function GoalsFactory(Restangular, uuid2) {
   return goalsFactory;
 
   function createBlankGoal() {
+    var user = Users.getCurrentUser();
     return {
       Id: uuid2.newuuid().toString(),
       Goal: {
@@ -35,9 +36,7 @@ function GoalsFactory(Restangular, uuid2) {
           RpmHigh: 0
         }],
         Interval: false,
-        CountryId: '', // this needs a value GAH
-        // TODO: IsCustomRpm: how do we know this? Can we grab it from country? Or can the API give us a blank template json?
-        IsCustomRpm: false
+        CountryId: user.Location.CountryId
       }
     };
   }
