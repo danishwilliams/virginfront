@@ -6,6 +6,12 @@ $top_padding: rem-calc(30px);
 $radius: rem-calc(15px);
 $radius-tiny: 2px;
 
+/* Forms */
+
+input.ng-invalid, select.ng-invalid {
+  margin-bottom: 0;
+}
+
 /* Headings */
 
 .heading {
@@ -34,7 +40,7 @@ $radius-tiny: 2px;
 /* Buttons */
 
 $bg_opacity: 0.09;
-button {
+button, input[type="submit"] {
   outline: none;
   @include button-style($bg: $cherry, $radius: $button-round);
   padding: rem-calc(7px) rem-calc(20px) rem-calc(7px) rem-calc(20px);

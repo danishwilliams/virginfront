@@ -65,7 +65,18 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     self.edit = false;
   };
 
+  function validateTemplateGroup() {
+    if (!self.templategroup.Name || !self.templategroup.Description || !self.templategroup.IconFileName || !!self.templategroup.Type) {
+      return false;
+    }
+    return true;
+  }
+
   self.saveTemplateGroup = function () {
+    if (!validateTemplateGroup()) {
+      return;
+    }
+
     spinnerService.show('saveTemplateSpinner');
     self.templategroup.put().then(function () {
       if (self.templategroup.NewTemplate) {
