@@ -21,7 +21,15 @@
   .goal-meta {
     background-color: $grey_medium;
     padding: rem-calc(6px);
-    margin-bottom: rem-calc(10px);
+    margin-top: rem-calc(10px);
+  }
+
+  .interval {
+    margin-top: rem-calc(10px);
+  }
+
+  input.ng-invalid, select.ng-invalid {
+    margin-bottom: 0;
   }
 }
 
