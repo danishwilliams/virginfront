@@ -3,6 +3,23 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
   this.id = $stateParams.id;
   this.templategroup = {};
 
+  // If a template has just been saved or added
+  if ($stateParams.action) {
+    var message = '';
+    switch ($stateParams.action) {
+      case 'edited':
+        message = 'Template successfully edited.';
+        break;
+      case 'saved':
+        message = 'Template successfully added.';
+        break;
+    }
+    self.messages = [{
+      type: 'success',
+      msg: message
+    }];
+  }
+
   if ($state.current.name === 'templategroup') {
     // Viewing/editing a template group
     Templates.loadTemplateGroup(this.id).then(function (data) {
@@ -53,9 +70,10 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     spinnerService.show('saveTemplateSpinner');
     self.templategroup.put().then(function () {
       if (self.templategroup.NewTemplate) {
-        $state.go('templategroup', {id: self.templategroup.Id});
-      }
-      else {
+        $state.go('templategroup', {
+          id: self.templategroup.Id
+        });
+      } else {
         spinnerService.hide('saveTemplateSpinner');
         self.edit = false;
         self.alerts = [{

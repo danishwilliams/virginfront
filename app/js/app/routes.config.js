@@ -400,7 +400,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   .state('templategroup', {
-    url: '/admin/templates/group/:id',
+    url: '/admin/templates/group/:id?action',
     templateUrl: '../js/components/templategroup/templategroup.html',
     controller: 'Templategroup_viewController as vm',
     resolve: {

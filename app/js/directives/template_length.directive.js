@@ -20,9 +20,9 @@ function template() {
   }
 }
 
-TemplateController.$inject = ['$scope', '$stateParams', 'Templates', 'Beats', 'spinnerService', 'uuid2'];
+TemplateController.$inject = ['$scope', '$state', '$stateParams', 'Templates', 'Beats', 'spinnerService', 'uuid2', 'Goals'];
 
-function TemplateController($scope, $stateParams, Templates, Beats, spinnerService, uuid2) {
+function TemplateController($scope, $state, $stateParams, Templates, Beats, spinnerService, uuid2, Goals) {
   var self = this;
   self.id = $scope.id;
   self.template = {};
@@ -38,7 +38,14 @@ function TemplateController($scope, $stateParams, Templates, Beats, spinnerServi
 
   self.effortOptions = [40, 50, 60, 70, 80, 90, 100];
   // TODO: don't show 0
-  self.bpmOptions = [0, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180];
+  self.bpmOptions = [0];
+  for (i = 60; i <= 180; i = i + 10) {
+    self.bpmOptions.push(i);
+  }
+  self.rpmOptions = [0];
+  for (i = 60; i <= 180; i = i + 5) {
+    self.rpmOptions.push(i);
+  }
 
   if (!self.newTemplate) {
     // Editing a template
@@ -74,13 +81,13 @@ function TemplateController($scope, $stateParams, Templates, Beats, spinnerServi
     goal.show = !goal.show;
   };
 
-  self.addIntervalGoal = function(goal) {
+  self.addIntervalGoal = function (goal) {
     goal.GoalOptions.push({});
     goal.Interval = true;
   };
 
-  self.removeIntervalGoal = function(goal) {
-    goal.GoalOptions.splice(1,1);
+  self.removeIntervalGoal = function (goal) {
+    goal.GoalOptions.splice(1, 1);
     goal.Interval = false;
   };
 
@@ -100,8 +107,26 @@ function TemplateController($scope, $stateParams, Templates, Beats, spinnerServi
 
   self.saveTemplate = function () {
     spinnerService.show('saveTemplate' + self.template.Id + 'TimeSpinner');
+
+    // See if there are any new default goals which must be added
+    if ($scope.createnew) {
+      self.template.Goals.forEach(function (goal) {
+        if (goal.NewGoal) {
+          //Goals.saveDefaultGoal(goal);
+        }
+      });
+    }
+
+    // Save the template
     self.template.put().then(function () {
       spinnerService.hide('saveTemplate' + self.template.Id + 'TimeSpinner');
+      var action = self.newTemplate ? 'saved' : 'edited';
+      $state.go('templategroup', {
+        id: self.template.TemplateGroup.Id,
+        action: action
+      }, {
+        reload: true
+      });
     });
   };
 }

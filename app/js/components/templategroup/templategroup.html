@@ -20,6 +20,8 @@
         </div>
       </div>
 
+      <alert ng-repeat="message in vm.messages" type="message.type" close="vm.messages.splice($index, 1)">{{message.msg}}</alert>
+
       <div class="row" ng-show="vm.edit">
         <div class="field">
           <label>Template name</label>
