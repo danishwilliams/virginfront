@@ -38,7 +38,8 @@ angular.module("app.goals", []).controller('GoalsController', function (Goals, R
       return;
     }
     Restangular.one("goals", goal.Id).customPUT(goal).then(function () {
-      console.log('Push successful!');
+      // TODO: figure out how to move the above into the Goals factory
+      console.log('Goal successfully saved');
       self.goals.push(goal);
       self.createBlankGoal();
     });
