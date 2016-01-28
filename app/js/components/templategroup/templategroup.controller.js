@@ -3,6 +3,8 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
   this.id = $stateParams.id;
   this.templategroup = {};
 
+  // TODO: refactor templategroup-new so that we don't have to duplicate adding/editing templates
+
   // If a template has just been saved or added
   if ($stateParams.action) {
     var message = '';
@@ -66,7 +68,7 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
   };
 
   function validateTemplateGroup() {
-    if (!self.templategroup.Name || !self.templategroup.Description || !self.templategroup.IconFileName || !!self.templategroup.Type) {
+    if (!self.templategroup.Name || !self.templategroup.Description || !self.templategroup.IconFileName || !self.templategroup.Type) {
       return false;
     }
     return true;
