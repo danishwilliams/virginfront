@@ -105,7 +105,22 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     self.goalClicked(freestyleGoal);
   };
 
+  /**
+   * Validates the template
+   */
+  function validateTemplate() {
+    var result = Templates.isValidTemplate(self.template);
+    if (!result.valid) {
+      self.template = result.template;
+    }
+    return result.valid;
+  }
+
   self.saveTemplate = function () {
+    if (!validateTemplate()) {
+      return;
+    }
+
     spinnerService.show('saveTemplate' + self.template.Id + 'TimeSpinner');
 
     // See if there are any new default goals which must be added

@@ -6,65 +6,91 @@
     <div class="row goal" data-ng-repeat="goal in vm.template.Goals | orderBy:'SortOrder' track by $index">
       <div class="goal-container">
 
-        <div class="row goal-name" ng-click="vm.goalClicked(goal)">
-          <img ng-if="goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
-          <span ng-hide="goal.show">{{goal.Name}}</span>
-          <input ng-show="goal.show" placeholder="Name" ng-model="goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false">
-          <em ng-if="goal.GoalChallengeId">Challenge</em>
-        </div>
+        <ng-form name="goalForm">
 
-        <div class="row" ng-show="goal.show">
-          <label>BPM</label>
-          <select ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmLow">
-          </select>
-          -
-          <select ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmHigh">
-          </select>
-        </div>
-
-        <div class="row goal-meta" ng-show="goal.show" ng-repeat="goaloption in goal.GoalOptions track by $index">
-          <div ng-show="goal.GoalOptions.length > 1" class="row">
-            <input placeholder="Goal name" ng-model="goaloption.Name">
-          </div>
-
-          <div class="row">
-            <div class="large-9 columns">
-              <label>Effort</label>
-              <select ng-options="v for v in vm.effortOptions" ng-model="goaloption.Effort">
-              </select>
-              -
-              <select ng-options="v for v in vm.effortOptions" ng-model="goaloption.EffortHigh">
-              </select>%
-            </div>
-
-            <div class="large-9 columns" ng-if="vm.template.TemplateGroup.IsCustomRpm">
-              <label>RPM</label>
-              <select ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow">
-              </select>
-              -
-              <select ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmHigh">
-              </select>
-            </div>
-
-            <div class="large-9 columns" ng-if="!vm.template.TemplateGroup.IsCustomRpm">
-              <label>Beat ratio</label>
-              <select class="beat" ng-options="v.Name for v in vm.beats track by v.Id" ng-change="goaloption.BeatId = goaloption.Beat.Id" ng-model="goaloption.Beat">
-              </select>
+          <div class="row goal-name" ng-click="vm.goalClicked(goal)">
+            <img ng-if="goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
+            <span ng-hide="goal.show">{{goal.Name}}</span>
+            <input type="text" name="name" ng-show="goal.show" placeholder="Name" ng-model="goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false" required />
+            <em ng-if="goal.GoalChallengeId">Challenge</em>
+            <div ng-show="goalForm.$submitted || goalForm.name.$touched && goal.show">
+              <small class="error" ng-show="goalForm.name.$error.required">Please give this goal a name.</small>
             </div>
           </div>
 
-          <div class="row">
-            <a ng-show="goal.GoalOptions.length === 1" ng-click="vm.addIntervalGoal(goal)">+ Add interval</a>
-            <a ng-show="$index === 1" ng-click="vm.removeIntervalGoal(goal)">- Remove interval</a>
+          <div class="row" ng-show="goal.show">
+            <label>BPM</label>
+            <select name="bpm" ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmLow" required>
+            </select>
+            -
+            <select ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmHigh">
+            </select>
+            <div ng-show="goalForm.$submitted || goalForm.bpm.$touched">
+              <small class="error" ng-show="goalForm.bpm.$error.required || goal.BpmLow === 0">BPM is required.</small>
+            </div>
           </div>
-        </div>
 
-        <div class="row notes" ng-show="goal.show">
-          <label>Track notes guideline</label>
-          <textarea name="note" maxlength="200" ng-maxlength="200" ng-model="goal.Aim"></textarea>
-          <span class="maxlength">Max 200 characters</span>
-        </div>
+          <div class="row goal-meta" ng-show="goal.show" ng-repeat="goaloption in goal.GoalOptions track by $index">
+            <ng-form name="goaloptionForm">
+              <div ng-show="goal.GoalOptions.length > 1" class="row">
+                <input type="text" name="goalName" placeholder="Goal name" ng-model="goaloption.Name" required />
+                <div ng-show="goaloptionForm.$submitted || goaloptionForm.goalName.$touched">
+                  <small class="error" ng-show="goaloptionForm.goalName.$error.required">This interval needs a name.</small>
+                </div>
+              </div>
 
+              <div class="row">
+                <div class="large-9 columns">
+                  <label>Effort</label>
+                  <select name="effort" ng-options="v for v in vm.effortOptions" ng-model="goaloption.Effort" required>
+                  </select>
+                  -
+                  <select ng-options="v for v in vm.effortOptions" ng-model="goaloption.EffortHigh">
+                  </select>%
+
+                  <div ng-show="goaloptionForm.$submitted || goaloptionForm.effort.$touched">
+                    <small class="error" ng-show="goaloptionForm.effort.$error.required">Please make an effort!</small>
+                  </div>
+                </div>
+
+                <div class="large-9 columns" ng-if="vm.template.TemplateGroup.IsCustomRpm">
+                  <label>RPM</label>
+                  <select name="rpm" ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow">
+                  </select>
+                  -
+                  <select ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmHigh">
+                  </select>
+
+                  <div ng-show="goaloptionForm.$submitted || goaloptionForm.rpm.$touched">
+                    <small class="error" ng-show="goaloptionForm.rpm.$error.required">Please pick an RPM.</small>
+                  </div>
+                </div>
+
+                <div class="large-9 columns" ng-if="!vm.template.TemplateGroup.IsCustomRpm">
+                  <label>Beat ratio</label>
+                  <select name="beat" class="beat" ng-options="v.Name for v in vm.beats track by v.Id" ng-change="goaloption.BeatId = goaloption.Beat.Id" ng-model="goaloption.Beat" required>
+                  </select>
+
+                  <div ng-show="goaloptionForm.$submitted || goaloptionForm.beat.$touched">
+                    <small class="error" ng-show="goaloptionForm.beat.$error.required">Please pick a beat ratio.</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row interval">
+                <a ng-show="goal.GoalOptions.length === 1" ng-click="vm.addIntervalGoal(goal)">+ Add interval</a>
+                <a ng-show="$index === 1" ng-click="vm.removeIntervalGoal(goal)">- Remove interval</a>
+              </div>
+
+            </ng-form>
+          </div>
+
+          <div class="row notes" ng-show="goal.show">
+            <label>Track notes guideline</label>
+            <textarea name="note" maxlength="200" ng-maxlength="200" ng-model="goal.Aim"></textarea>
+            <span class="maxlength">Max 200 characters</span>
+          </div>
+        </ng-form>
       </div>
     </div>
 

@@ -20,6 +20,7 @@ function TemplatesFactory(Restangular, uuid2, Users) {
     loadTemplate: loadTemplate,
     enableTemplate: enableTemplate,
     disableTemplate: disableTemplate,
+    isValidTemplate: isValidTemplate,
     createBlankTemplateGroup: createBlankTemplateGroup,
     loadTemplateGroups: loadTemplateGroups,
     getTemplateGroups: getTemplateGroups,
@@ -98,6 +99,19 @@ function TemplatesFactory(Restangular, uuid2, Users) {
 
   function enableTemplate(id) {
     return Restangular.one('templates/enable', id).post();
+  }
+
+  /**
+   * Checks if a template is valid
+   */
+  function isValidTemplate(template) {
+    // TODO: iterate through all goals, an if a goal has an error set goal.show = true
+    // as well as the error on the specific place i.e. bpm, effort, rpm, beat ratio
+    // so it can be displayed in the frontend
+    return {
+      template: template,
+      valid: true
+    };
   }
 
   /**
