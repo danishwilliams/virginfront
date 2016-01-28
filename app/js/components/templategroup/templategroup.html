@@ -23,7 +23,7 @@
     <div class="row" ng-show="vm.edit">
       <form name="form" novalidate>
         <label>Template name</label>
-        <input type="text" name="name" size="60" maxlength="60" ng-model="vm.templategroup.Name" ng-invalid="error" required />
+        <input type="text" name="name" size="60" maxlength="60" ng-model="vm.templategroup.Name" required />
         <div ng-show="form.$submitted || form.name.$touched">
           <small class="error" ng-show="form.name.$error.required">Please give this template a name.</small>
         </div>
