@@ -383,7 +383,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Templates | Admin'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.editTemplates]
     }
   })
 
@@ -407,7 +407,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Template Group | Admin'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.editTemplates]
     }
   })
 
