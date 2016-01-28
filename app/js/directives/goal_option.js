@@ -40,13 +40,15 @@ function goalOptionController($scope) {
     $scope.goaloption.effortrange = $scope.goaloption.Effort;
   }
 
-  switch ($scope.goaloption.Beat.Ratio) {
-    case 0.5:
-      $scope.beat = 'HALF_TIME';
-      break;
-    case 1:
-      $scope.beat = 'ON_THE_BEAT';
-      break;
+  if ($scope.goaloption.Beat) {
+    switch ($scope.goaloption.Beat.Ratio) {
+      case 0.5:
+        $scope.beat = 'HALF_TIME';
+        break;
+      case 1:
+        $scope.beat = 'ON_THE_BEAT';
+        break;
+    }
   }
 
   $scope.rpm = '';
@@ -59,7 +61,7 @@ function goalOptionController($scope) {
   });
 
   function updateBpm() {
-    if ($scope.customrpm === 'false') {
+    if ($scope.customrpm === 'false' && $scope.goaloption.Beat) {
       $scope.rpm = parseInt($scope.bpm * $scope.goaloption.Beat.Ratio);
     }
   }
