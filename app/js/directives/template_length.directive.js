@@ -112,7 +112,7 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     if ($scope.createnew) {
       self.template.Goals.forEach(function (goal) {
         if (goal.NewGoal) {
-          //Goals.saveDefaultGoal(goal);
+          Goals.saveNewDefaultGoal(goal).then(function (data) {});
         }
       });
     }

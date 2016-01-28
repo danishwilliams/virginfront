@@ -5,9 +5,9 @@ angular
   .module("app")
   .factory('Goals', GoalsFactory);
 
-GoalsFactory.$inject = ['Restangular', 'uuid2'];
+GoalsFactory.$inject = ['Restangular', 'uuid2', 'Users'];
 
-function GoalsFactory(Restangular, uuid2) {
+function GoalsFactory(Restangular, uuid2, Users) {
   // TODO: if we want multiple controllers/services to be able to use this data, then add a GoalsService
   // which has methods for a private goals variable with get/set
   var service = Restangular.service('goals');
@@ -17,6 +17,7 @@ function GoalsFactory(Restangular, uuid2) {
 
   var goalsFactory = {
     createBlankDefaultGoal: createBlankDefaultGoal,
+    saveNewDefaultGoal: saveNewDefaultGoal,
     loadGoals: loadGoals,
     loadFreestyleGoals: loadFreestyleGoals
   };
@@ -30,19 +31,40 @@ function GoalsFactory(Restangular, uuid2) {
   function createBlankDefaultGoal() {
     var user = Users.getCurrentUser();
     return {
-      Id: uuid2.newuuid().toString(),
       Goal: {
         GoalOptions: [{
           Name: '',
-          BeatId: 0,
-          Beat: {},
           RpmLow: 0,
           RpmHigh: 0
         }],
-        Interval: false
-      },
-      NewGoal: true
+        Interval: false,
+        NewGoal: true,
+        IsFreestyleVisible: true
+      }
     };
+  }
+
+  /**
+   * Saves a new default goal
+   *
+   * @param goal
+   *   This needs to be converted to a freestyle goal object
+   */
+  function saveNewDefaultGoal(goal) {
+    // This is a new default goal, created by createBlankDefaultGoal() - but that function is actually
+    // expecting that if that goal is saved in the api, it's a Goal not a Freestyle Goal, and we want
+    // the latter
+    var freestyleGoal = {
+      Goal: goal,
+      GoalId: goal.Id,
+      Id: uuid2.newuuid().toString(),
+      IsFreestyleVisible: true
+    };
+    return Restangular.one("goals/freestyle", freestyleGoal.Id).customPUT(freestyleGoal).then(saveNewDefaultGoalComplete);
+
+    function saveNewDefaultGoalComplete(data, status, headers, config) {
+      return data;
+    }
   }
 
   function loadGoals() {
@@ -55,7 +77,7 @@ function GoalsFactory(Restangular, uuid2) {
   }
 
   function loadFreestyleGoals() {
-    return Restangular.all('goals/freestyle').withHttpConfig({ cache: true}).getList().then(loadFreestyleGoalsComplete);
+    return Restangular.all('goals/freestyle').getList().then(loadFreestyleGoalsComplete);
 
     function loadFreestyleGoalsComplete(data, status, headers, config) {
       _.mapObject(data, function (val, key) {
