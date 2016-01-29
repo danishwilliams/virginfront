@@ -60,7 +60,7 @@
 
     <div class="row">
       <p>&nbsp;</p>
-      <a ng-show="!vm.addClassLength && !vm.addedClassLength && !vm.edit" ng-click="vm.addClassLength = true">+ Add class length</a>
+      <a ng-if="vm.templategroup.Type !== 'freestyle'" ng-show="!vm.addClassLength && !vm.addedClassLength && !vm.edit" ng-click="vm.addClassLength = true">+ Add class length</a>
 
       <template-lengths ng-show="vm.addClassLength" data-action="Choose class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
 
