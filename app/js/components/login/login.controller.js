@@ -19,6 +19,9 @@ function LoginController($state, Users, spinnerService) {
   };
 
   this.login = function () {
+    if (!this.credentials.username || !this.credentials.password) {
+      return;
+    }
     self.error = false;
     spinnerService.show('loginSpinner');
     Users.loadAccessToken(self.credentials).then(function (data) {

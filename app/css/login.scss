@@ -13,9 +13,13 @@
   form {
     max-width: rem-calc(600px);
   }
-  input {
+  input[type="email"], input[type="password"] {
     background: $black;
     border: none;
     color: $white;
+  }
+  input {
+    margin-bottom: 0;
+    margin-top: rem-calc(16px);
   }
 }
