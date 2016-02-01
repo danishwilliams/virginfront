@@ -102,7 +102,8 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
       Enabled: true,
       TemplateId: self.templategroup.Id,
       CreateNew: true,
-      active: true
+      active: true,
+      visible:true
     };
     self.templategroup.ClassLengths.push(template);
     self.addClassLength = false;
