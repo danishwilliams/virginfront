@@ -21,7 +21,7 @@
             <em ng-if="goal.GoalChallengeId">Challenge</em>
             <!--<spinner class="spinner" name="playlistFreestyleSpinner"></spinner>-->
             <freestyle-goals ng-show="goal.edit" data-index="{{$index}}" data-total-goals="{{vm.freestyleGoals.length}}" ng-change="vm.changeFreestyleGoal(goal)" ng-model="vm.freestyleGoal" data-allow-editing-goal="true"></freestyle-goals>
-            <a ng-hide="goal.edit" ng-click="goal.edit = true">Edit</a>
+            <a ng-hide="goal.edit" ng-click="goal.edit = true">Change goal</a>
             <a ng-show="goal.edit" ng-click="goal.edit = false">Cancel</a>
             <div ng-show="goalForm.$submitted || goalForm.name.$touched">
               <small class="error" ng-show="goalForm.name.$error.required">Please give this goal a name.</small>

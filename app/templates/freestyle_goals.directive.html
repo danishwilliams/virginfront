@@ -4,6 +4,8 @@
   <option ng-if="vm.allowCreateNewGoal" value="" disabled></option>
 
   <option ng-if="vm.allowEditingGoal" value="" disabled selected>Select a different goal</option>
+  <option ng-if="vm.allowEditingGoal" value="newGoal">Create a new goal</option>
+  <option ng-if="vm.allowEditingGoal" value="" disabled></option>
 
   <option ng-if="vm.addAGoal" value="" disabled selected>Add a goal</option>
   <option ng-if="!vm.coolDown && !goal.Goal.GoalChallengeId && goal.Goal.Name !== 'Cool Down'" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>

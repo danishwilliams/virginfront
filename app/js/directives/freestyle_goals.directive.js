@@ -12,8 +12,8 @@ function freestyleGoals() {
       ngModel: '=',
       selectedGoalId: '@',
       ngDisabled: '@', // if this dropdown should be disabled
-      totalGoals: '@',
-      index: '@',
+      totalGoals: '@', // total goals in the list. @see index
+      index: '@', // the current goal number in the list, so that we know when we're rendering the last dropdown (for 'Cool Down')
       allowCreateNewGoal: '@', // allows for the creation of a new default freestyle goal i.e. in template creation
       allowEditingGoal: '@' // Shows 'Select a different' as default
     },
@@ -36,9 +36,11 @@ function freestyleGoals() {
     scope.selected = function (id) {
       // This triggers the ng-change on the directive so the parent controller can get the value
       // We're passing an entire goal object back to the parent
-      if (scope.allowCreateNewGoal && id === 'newGoal') {
-        // Pass a blank goal to the parent
-        ngModel.$setViewValue(scope.vm.newGoal);
+      if (id === 'newGoal') {
+        if (scope.allowCreateNewGoal || scope.allowEditingGoal) {
+          // Pass a blank goal to the parent
+          ngModel.$setViewValue(scope.vm.newGoal);
+        }
       }
       else {
         // Pass the chosen goal to the parent
@@ -53,13 +55,13 @@ freestyleGoalsController.$inject = ['Goals', 'spinnerService'];
 function freestyleGoalsController(Goals, spinnerService) {
   var self = this;
   self.coolDown = false;
-  spinnerService.show('playlistFreestyleSpinner');
+  //spinnerService.show('playlistFreestyleSpinner');
 
   Goals.loadFreestyleGoals().then(function (data) {
     self.goals = data;
 
     // Creating a new goal i.e. in template creation
-    if (self.allowCreateNewGoal) {
+    if (self.allowCreateNewGoal || self.allowEditingGoal) {
       self.newGoal = Goals.createBlankDefaultGoal();
     }
 
@@ -80,6 +82,6 @@ function freestyleGoalsController(Goals, spinnerService) {
         }
       });
     }
-    spinnerService.hide('playlistFreestyleSpinner');
+    //spinnerService.hide('playlistFreestyleSpinner');
   });
 }
