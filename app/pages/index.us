@@ -3,7 +3,7 @@
 <head>
   <base href="/">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <title ng-bind="($title || 'Home') + ' - Management Console'">Management Console</title>
   <link rel="stylesheet" type="text/css" href="/css/app.css" media="all"/>
   <link type="text/plain" rel="author" href="/humans.txt" />
@@ -87,7 +87,7 @@
       <div class="logo fixed"></div>
       <p class="error" ng-message="error">The site is temporarily unavailable. Please try again later.</p>
     </div>
-    <div ui-view ng-if="app.ready" class="row header content">
+    <div ui-view ng-if="app.ready" class="row header uiview">
     </div>
   </div>
 </div>

@@ -2,7 +2,11 @@
 
 @media #{$small-only} {
   .row {
-    max-width: 95%;
+    max-width: 100%;
+  }
+
+  .uiview div.row:first-of-type {
+    padding: 0 rem-calc(4px) 0 rem-calc(4px);
   }
 
   /* Login */
