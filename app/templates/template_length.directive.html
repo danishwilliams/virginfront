@@ -15,8 +15,10 @@
           </div>
 
           <div class="row goal-name" ng-click="vm.goalClicked(goal)" ng-show="goal.show">
+            <img class="open" ng-if="goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
             <span ng-show="goal.edit">{{goal.Name}}</span>
-            <input type="text" name="name" ng-hide="goal.edit" placeholder="Name" ng-model="goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false" required />
+            <input type="text" name="name" ng-hide="goal.edit" placeholder="Name" ng-disabled="goal.GoalChallengeId" ng-model="goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false" required />
+            <em ng-if="goal.GoalChallengeId">Challenge</em>
             <!--<spinner class="spinner" name="playlistFreestyleSpinner"></spinner>-->
             <freestyle-goals ng-show="goal.edit" data-index="{{$index}}" data-total-goals="{{vm.freestyleGoals.length}}" ng-change="vm.changeFreestyleGoal(goal)" ng-model="vm.freestyleGoal" data-allow-editing-goal="true"></freestyle-goals>
             <a ng-hide="goal.edit" ng-click="goal.edit = true">Edit</a>
