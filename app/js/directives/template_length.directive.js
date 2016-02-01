@@ -74,7 +74,7 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
    * @param goal
    */
   self.goalClicked = function (goal) {
-    if (goal.editFreeStyleGoal) {
+    if (goal.edit) {
       // We're currently selecting a different freestyle goal, so don't do anything else
       return;
     }
@@ -120,6 +120,7 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     goal.GoalOptions = self.freestyleGoal.Goal.GoalOptions;
     goal.Name = self.freestyleGoal.Goal.Name;
     goal.show = true;
+    goal.edit = false;
   };
 
   /**
