@@ -2,7 +2,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   // use the HTML5 History API
   $locationProvider.html5Mode(true);
 
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/dashboard');
 
   $stateProvider.state('login', {
     url: '/login',
