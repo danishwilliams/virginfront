@@ -74,6 +74,10 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
    * @param goal
    */
   self.goalClicked = function (goal) {
+    if (goal.editFreeStyleGoal) {
+      // We're currently selecting a different freestyle goal, so don't do anything else
+      return;
+    }
     if (goal.editGoalName) {
       // We're currently selecting a different freestyle goal, so don't do anything else
       return;
@@ -97,12 +101,25 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     var i = self.template.Goals.length;
     // Remove a goal from freestyle goals, so that we can tell the <freestyle-goals> directive
     self.freestyleGoals.splice(0, 1);
-    // Setting Id allows the API to save a new playlist goal
-    freestyleGoal.Id = uuid2.newuuid().toString();
     freestyleGoal.ArrayId = i;
     freestyleGoal.SortOrder = i + 1;
     self.template.Goals.push(freestyleGoal);
     self.goalClicked(freestyleGoal);
+  };
+
+  this.changeFreestyleGoal = function (goal) {
+    // Without explicitly defining each variable, angular doesn't trigger a $digest. Urgh.
+    goal.Id = self.freestyleGoal.Goal.Id;
+    goal.ArrayId = self.freestyleGoal.ArrayId;
+    goal.GoalId = goal.Id;
+    goal.Name = self.freestyleGoal.Goal.Name;
+    goal.BpmLow = self.freestyleGoal.Goal.BpmLow;
+    goal.BpmHigh =  self.freestyleGoal.Goal.BpmHigh;
+    goal.GoalChallenge = self.freestyleGoal.Goal.GoalChallenge;
+    goal.GoalChallengeId = self.freestyleGoal.Goal.GoalChallengeId;
+    goal.GoalOptions = self.freestyleGoal.Goal.GoalOptions;
+    goal.Name = self.freestyleGoal.Goal.Name;
+    goal.show = true;
   };
 
   /**

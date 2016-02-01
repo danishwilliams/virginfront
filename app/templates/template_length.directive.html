@@ -19,6 +19,11 @@
           </div>
 
           <div class="row" ng-show="goal.show">
+            <!--<spinner class="spinner" name="playlistFreestyleSpinner"></spinner>-->
+            <freestyle-goals ng-show="goal.show" data-index="{{$index}}" data-total-goals="{{vm.freestyleGoals.length}}" ng-change="vm.changeFreestyleGoal(goal)" ng-model="vm.freestyleGoal" data-allow-editing-goal="true"></freestyle-goals>
+          </div>
+
+          <div class="row" ng-show="goal.show">
             <label>BPM</label>
             <select name="bpm" ng-options="v for v in vm.bpmOptions" ng-model="goal.BpmLow" required>
             </select>

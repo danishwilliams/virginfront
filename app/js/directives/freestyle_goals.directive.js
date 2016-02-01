@@ -14,7 +14,8 @@ function freestyleGoals() {
       ngDisabled: '@', // if this dropdown should be disabled
       totalGoals: '@',
       index: '@',
-      allowCreateNewGoal: '@' // allows for the creation of a new default freestyle goal i.e. in template creation
+      allowCreateNewGoal: '@', // allows for the creation of a new default freestyle goal i.e. in template creation
+      allowEditingGoal: '@' // Shows 'Select a different' as default
     },
     require: '?ngModel',
     link: link
@@ -27,6 +28,11 @@ function freestyleGoals() {
     scope.vm.index = scope.index;
     scope.vm.totalGoals = scope.totalGoals;
     scope.vm.allowCreateNewGoal = scope.allowCreateNewGoal;
+    scope.vm.allowEditingGoal = scope.allowEditingGoal;
+    scope.vm.addAGoal = true;
+    if (scope.vm.allowEditingGoal) {
+      scope.vm.addAGoal = false;
+    }
     scope.selected = function (id) {
       // This triggers the ng-change on the directive so the parent controller can get the value
       // We're passing an entire goal object back to the parent
@@ -47,7 +53,6 @@ freestyleGoalsController.$inject = ['Goals', 'spinnerService'];
 function freestyleGoalsController(Goals, spinnerService) {
   var self = this;
   self.coolDown = false;
-  self.addAGoal = true;
   spinnerService.show('playlistFreestyleSpinner');
 
   Goals.loadFreestyleGoals().then(function (data) {
