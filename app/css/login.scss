@@ -13,7 +13,7 @@
   form {
     max-width: rem-calc(600px);
   }
-  input[type="email"], input[type="password"] {
+  input[type="text"], input[type="email"], input[type="password"] {
     background: $black;
     border: none;
     color: $white;
