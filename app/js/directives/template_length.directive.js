@@ -36,7 +36,10 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     });
   }
 
-  self.effortOptions = [40, 50, 60, 70, 80, 90, 100];
+  self.effortOptions = [40];
+  for (i = 45; i <= 100; i = i + 5) {
+    self.effortOptions.push(i);
+  }
   // TODO: don't show 0
   self.bpmOptions = [0];
   for (i = 60; i <= 180; i = i + 10) {
