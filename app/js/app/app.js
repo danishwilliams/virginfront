@@ -78,6 +78,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
   };
 
   $rootScope.$on("$stateChangeStart", function (event, next) {
+    self.menu = false;
     var user = Users.getCurrentUser();
     self.userName = user.FirstName;
     if (!_.isEmpty(user)) {
