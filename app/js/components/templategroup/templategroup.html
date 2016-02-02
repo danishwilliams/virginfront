@@ -1,17 +1,17 @@
 <div class="templategroup row">
-  <div class="large-12 medium-17 small-18 large-centered columns">
+  <div class="large-12 medium-18 small-18 large-centered columns">
 
     <spinner class="spinner" name="loadTemplateGroupSpinner" show="true"></spinner>
 
     <div class="heading row">
-      <div class="large-13 columns">
+      <div class="large-13 medium-12 columns">
         <h1>
           <img class="icon" src="/img/playlists/{{vm.templategroup.IconFileName}}">
           {{vm.templategroup.Name}}
           <button class="edit" ng-hide="vm.edit" ng-click="vm.editClick()">Edit</button>
         </h1>
       </div>
-      <div class="large-5 columns">
+      <div class="large-5 medium-6 columns">
         <spinner class="spinner" name="archiveTemplateGroupSpinner" show="false"></spinner>
         <a ng-show="vm.templategroup.Enabled" ng-click="vm.archiveTemplateGroup()">Archive this template type</a>
         <a ng-show="!vm.templategroup.Enabled" ng-click="vm.unArchiveTemplateGroup()">Unarchive this template type</a>
