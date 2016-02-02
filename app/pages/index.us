@@ -42,13 +42,13 @@
         <a class="item" ui-sref="beats-admin" ng-if-permission="viewAdmin">
           <label>Beats</label>
         </a>
-        <a class="item" ui-sref="gyms-admin" ng-if-permission="viewAdmin">
+        <a class="item" ui-sref="gyms-admin" ng-if-permission="gyms">
           <label>Clubs</label>
         </a>
         <a class="item" ui-sref="countries-admin" ng-if-permission="viewAdmin">
           <label>Countries</label>
         </a>
-        <a class="item" ui-sref="devices-admin" ng-if-permission="viewAdmin">
+        <a class="item" ui-sref="devices-admin" ng-if-permission="devices">
           <label>Devices</label>
         </a>
         <a class="item" ui-sref="goals-admin" ng-if-permission="viewAdmin">
@@ -63,20 +63,20 @@
         <a class="item" ui-sref="playlists_admin" ng-if-permission="viewAdmin">
           <label>Playlists</label>
         </a>
-        <a class="item" ui-sref="templates-admin" ng-if-permission="viewTemplates">
+        <a class="item" ui-sref="templates-admin" ng-if-permission="templates">
           <label>Templates</label>
         </a>
-        <a class="item" ui-sref="users-admin" ng-if-permission="viewUsers">
+        <a class="item" ui-sref="users-admin" ng-if-permission="users">
           <label>Users</label>
         </a>
         <a class="item" ui-sref="usertypes-admin" ng-if-permission="viewAdmin">
           <label>User types</label>
         </a>
-        <a class="item" ui-sref="user" ng-if-permission="viewUser">
+        <a class="item" ui-sref="user" ng-if-permission="user">
           <i class="user"></i>
           <label>{{app.userName}}</label>
         </a>
-        <a class="item" ng-click="app.logout()" ng-if-permission="viewUser">
+        <a class="item" ng-click="app.logout()" ng-if-permission="user">
           <label>Logout</label>
         </a>
       </div>

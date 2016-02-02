@@ -44,17 +44,16 @@ angular
   .constant('APP_PERMISSIONS', {
     viewAdmin: "viewAdmin",
     editAdmin: "editAdmin",
+    devices: "devices",
+    gyms: "gyms",
     viewContent: "viewContent",
     createPlaylist: "createPlaylist",
     viewPlaylist: "viewPlaylist",
     editPlaylist: "editPlaylist",
     editAnyPlaylist: "editAnyPlaylist",
-    viewTemplates: "viewTemplates",
-    editTemplates: "editTemplates",
-    viewUser: "viewUser",
-    editUser: "editUser",
-    viewUsers: "viewUsers",
-    editUsers: "editUsers"
+    templates: "templates",
+    user: "user",
+    users: "users"
   })
   .constant('USER_ROLES', {
     user: "User",

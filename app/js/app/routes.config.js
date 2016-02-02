@@ -86,7 +86,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Devices | Admin'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.devices]
     }
   })
 
@@ -158,7 +158,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Clubs | Admin'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.gyms]
     }
   })
 
@@ -383,7 +383,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Templates | Admin'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.editTemplates]
+      permissions: [APP_PERMISSIONS.templates]
     }
   })
 
@@ -395,7 +395,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Create New Template | Admin'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.editTemplates]
+      permissions: [APP_PERMISSIONS.templates]
     }
   })
 
@@ -407,7 +407,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Template Group | Admin'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.editTemplates]
+      permissions: [APP_PERMISSIONS.templates]
     }
   })
 
@@ -433,7 +433,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Users | Admin'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewUsers]
+      permissions: [APP_PERMISSIONS.users]
     }
   })
 
@@ -445,7 +445,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'User profile'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewUser]
+      permissions: [APP_PERMISSIONS.user]
     }
   })
 

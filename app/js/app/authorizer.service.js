@@ -24,7 +24,7 @@ angular.module("app").service('Authorizer', function (APP_PERMISSIONS, USER_ROLE
       if (user && user.Roles) {
         switch (permission) {
           // Everyone
-          case APP_PERMISSIONS.viewUser:
+          case APP_PERMISSIONS.user:
             return hasRole(USER_ROLES.user) || hasRole(USER_ROLES.instructor) || hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.admin);
 
             // Instructors, Managers, Admins
@@ -32,14 +32,13 @@ angular.module("app").service('Authorizer', function (APP_PERMISSIONS, USER_ROLE
           case APP_PERMISSIONS.viewPlaylist:
           case APP_PERMISSIONS.createPlaylist:
           case APP_PERMISSIONS.editPlaylist:
-          case APP_PERMISSIONS.editUser:
             return hasRole(USER_ROLES.instructor) || hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.admin);
 
             // Managers, Admins
-          case APP_PERMISSIONS.viewTemplates:
-          case APP_PERMISSIONS.editTemplates:
-          case APP_PERMISSIONS.viewUsers:
-          case APP_PERMISSIONS.editUsers:
+          case APP_PERMISSIONS.devices:
+          case APP_PERMISSIONS.gyms:
+          case APP_PERMISSIONS.templates:
+          case APP_PERMISSIONS.users:
           case APP_PERMISSIONS.editAnyPlaylist:
             // TODO: add permissions: devices, clubs
             return hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.admin);
