@@ -87,7 +87,7 @@
                 </div>
               </div>
 
-              <div class="row interval">
+              <div class="row interval" ng-if="!vm.template.TemplateGroup.IsCustomRpm">
                 <a ng-show="goal.GoalOptions.length === 1" ng-click="vm.addIntervalGoal(goal)">+ Add interval</a>
                 <a ng-show="$index === 1" ng-click="vm.removeIntervalGoal(goal)">- Remove interval</a>
               </div>
