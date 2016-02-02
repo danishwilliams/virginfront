@@ -17,8 +17,9 @@
     max-width: 100%;
   }
 
-  .uiview div.row:first-of-type {
-    padding: inherit rem-calc(4px) 0 rem-calc(4px);
+  .uiview div.row:first-of-type, .playlist-edit {
+    padding-left: rem-calc(4px);
+    padding-right: rem-calc(4px);
   }
 
   /* Login */
@@ -36,13 +37,17 @@
   h5 { font-size: $h5-font-size; }
   h6 { font-size: $h6-font-size; }
 
-  /* Dashboard */
+  /* Headings */
 
-  .dashboard {
-    .heading a {
-      padding-top: rem-calc(32px);
-    }
+  .templategroup .heading a {
+    padding-top: 0;
   }
+
+  .heading a {
+    padding-top: rem-calc(32px);
+  }
+
+  /* Dashboard */
 
   ride a, .dashboard .new a, #rides .new a {
     margin: auto;
@@ -98,6 +103,10 @@
 }
 
 @media #{$medium-only} {
+ .uiview.row {
+   max-width: 100%;
+ }
+
  .row {
     max-width: 95%;
   }
