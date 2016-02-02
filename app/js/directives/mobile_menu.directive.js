@@ -5,27 +5,36 @@ angular
 mobileMenu.$inject = ['$window'];
 
 function mobileMenu($window) {
+  var currentWidth = screen.width;
   var directive = {
     restrict: 'A',
     link: link
   };
   return directive;
 
-  function link(scope, element, attrs) {
-    var $win = angular.element($window);
-    addClass($window, element);
 
-    // When resizing the screen, if the element is already fixed, re-calculate its width
-    $win.on('resize', function (e) {
-      addClass($win[0], element);
+  function link(scope, element, attrs) {
+    sidebarVisible(element);
+
+    angular.element($window).on('resize', function (e) {
+      sidebarVisible(element);
     });
   }
 
-  function addClass(win, element) {
-    if (win.innerWidth < 641 ) {
-      element.removeClass('move-right');
+  /**
+   * If the screen has been resized and the viewport is now mobile, hide the sidebar.
+   * If the screen is currently larger than mobile, show sidebar
+   */
+  function sidebarVisible(element) {
+    // Check window width has actually changed and it's not just iOS triggering a resize event on scroll
+    if (currentWidth !== screen.width) {
+      currentWidth = screen.width;
+      if (screen.width < 641 ) {
+        element.removeClass('move-right');
+      }
     }
-    else if (!element.hasClass('move-right')) {
+    if (screen.width > 640 && !element.hasClass('move-right')) {
+      // Show the sidebar on tablet and desktop
       element.addClass('move-right');
     }
   }

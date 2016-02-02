@@ -63,19 +63,39 @@ angular
   })
   .controller("AppController", AppController);
 
-AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Authorizer'];
+AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Authorizer', '$window', '$scope'];
 
-function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
+function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $window, $scope) {
   var self = this;
   self.ready = false;
   self.loggedIn = false;
   self.userName = {};
+  self.menu = false;
 
   self.logout = function () {
     Users.logout();
     self.loggedIn = false;
     $state.go('login');
   };
+
+  self.menuClicked = function() {
+    self.menu = !self.menu;
+  };
+
+  var currentWidth = screen.width;
+
+  // When resizing the window
+  angular.element($window).on('resize', function(e) {
+    // Check window width has actually changed and it's not just iOS triggering a resize event on scroll
+    if (currentWidth !== screen.width) {
+      currentWidth = screen.width;
+      if (screen.width < 641) {
+        self.menu = false;
+        // Without this angular doesn't know the variable has changed. Why? Mysteries of $digest.
+        $scope.$apply();
+      }
+    }
+  });
 
   $rootScope.$on("$stateChangeStart", function (event, next) {
     self.menu = false;

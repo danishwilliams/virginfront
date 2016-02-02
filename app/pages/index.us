@@ -14,7 +14,7 @@
   <div class="logo left"></div>
   <ul class="title-area">
     <li class="name"></li>
-    <li class="toggle-topbar menu-icon" ng-click="app.menu = !app.menu"><a href="#"><span>Menu</span></a></li>
+    <li class="toggle-topbar menu-icon" ng-click="app.menuClicked()"><a href="#"><span>Menu</span></a></li>
   </ul>
 </nav>
 
