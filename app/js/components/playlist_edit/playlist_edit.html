@@ -1,12 +1,11 @@
 <div ui-view></div>
 
-<div class="playlist-edit">
+<div class="playlist-edit row">
   <playlist-workflow ng-if="playlist_edit.newPlaylist"></playlist-workflow>
   <h1 class="text-center">{{playlist_edit.title}}</h1>
 
   <spinner class="spinner overlay" name="playlistEditSpinner" show="true"></spinner>
 
-  <div class="row playlist-container">
     <div class="small-18 medium-18 medium-centered large-centered columns goals-container">
       <div class="row">
         <form name="playlistForm" ng-submit="playlist_edit.savePlaylist()" novalidate>
@@ -28,7 +27,7 @@
       <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder' track by $index">
         <div class="goal-container" ng-class="{'active': playlist_edit.isGoalActive(playlistGoal)}">
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
-            <div class="large-10 columns">
+            <div class="small-10 columns">
               <h4 ng-class="{'has-track' : playlistGoal.PlaylistGoalTracks.length > 0}">
                 <img ng-class="{'freestyle' : playlist_edit.playlist.TemplateName === 'Freestyle'}" ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
 
@@ -46,7 +45,7 @@
                 <em ng-if="playlistGoal.Goal.GoalChallengeId">Challenge</em>
               </h4>
             </div>
-            <div class="large-8 columns text-right">
+            <div class="small-8 columns text-right">
               <a ng-show="playlistGoal.PlaylistGoalTracks.length === 0" ng-click="playlistGoal.editFreeStyleGoal = false">+ Add a song</a>
             </div>
           </div>
@@ -100,5 +99,4 @@
         </button>
       </div>
     </div>
-  </div>
 </div>

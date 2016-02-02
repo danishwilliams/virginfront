@@ -18,7 +18,7 @@
   }
 
   .uiview div.row:first-of-type {
-    padding: 0 rem-calc(4px) 0 rem-calc(4px);
+    padding: inherit rem-calc(4px) 0 rem-calc(4px);
   }
 
   /* Login */
@@ -47,6 +47,10 @@
   ride a, .dashboard .new a, #rides .new a {
     margin: auto;
     max-width: 70%;
+  }
+
+  .dashboard .new a, #rides .new a {
+    min-height: rem-calc(120px);
   }
 
   .gym-rides {
