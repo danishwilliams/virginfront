@@ -27,6 +27,7 @@ function mobileMenu($window) {
    */
   function sidebarVisible(element) {
     // Check window width has actually changed and it's not just iOS triggering a resize event on scroll
+    console.log(currentWidth, screen.width);
     if (currentWidth !== screen.width) {
       currentWidth = screen.width;
       if (screen.width < 641 ) {
