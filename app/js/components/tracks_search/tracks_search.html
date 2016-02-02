@@ -23,7 +23,7 @@
                   <h3>Filter by genre</h3>
                   <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
                 </div>
-                <div class="full-width" ng-click="app.genreMenu = !app.genreMenu"></div>
+                <div class="full-width" ng-show="app.genreMenu" ng-click="app.genreMenu = !app.genreMenu"></div>
               </aside>
             </div>
           </div>
