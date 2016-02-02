@@ -105,6 +105,7 @@ $sidebar-width: 90px;
 /* The top mobile menu */
 
 .top-bar {
+  z-index: 1;
   height: rem-calc(60px);
   background: $grey_light;
   .logo {
