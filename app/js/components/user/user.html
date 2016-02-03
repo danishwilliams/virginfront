@@ -39,9 +39,9 @@
               <p class="error" ng-message="email">{{user.error.message}}</p>
             </div>
             <div class="right">
+              <a class="cancel" ng-click="user.contactEdit = !user.contactEdit">Cancel</a>
               <spinner class="spinner inline" name="userContactSpinner" show="false"></spinner>
               <input type="submit" value="Save">
-              <button class="round cancel" ng-click="user.contactEdit = !user.contactEdit">Cancel</button>
             </div>
             &nbsp;
           </form>
@@ -67,9 +67,9 @@
             </label>
 
             <div class="right">
+              <a class="cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</a>
               <spinner class="spinner inline" name="userTypesSpinner" show="false"></spinner>
               <input type="submit" value="Save">
-              <button class="round cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</button>
             </div>
             &nbsp;
           </form>
@@ -95,9 +95,9 @@
               <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
             </label>
             <div class="right">
+              <a class="cancel" ng-click="user.gymEdit = !user.gymEdit">Cancel</a>
               <spinner class="spinner inline" name="userGymsSpinner" show="false"></spinner>
               <input type="submit" value="Save">
-              <button class="round cancel" ng-click="user.gymEdit = !user.gymEdit">Cancel</button>
             </div>
             &nbsp;
           </form>
@@ -120,9 +120,9 @@
               <input type="checkbox" ng-model="genre.selected"> {{genre.Name}}
             </label>
             <div class="right">
+              <a class="cancel" ng-click="user.genreEdit = !user.genreEdit">Cancel</a>
               <spinner class="spinner inline" name="userGenresSpinner" show="false"></spinner>
               <input type="submit" value="Save">
-              <button class="round cancel" ng-click="user.genreEdit = !user.genreEdit">Cancel</button>
             </div>
             &nbsp;
           </form>

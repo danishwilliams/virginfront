@@ -58,18 +58,6 @@ button, input[type="submit"] {
       background-color: $white;
     }
   }
-  &.cancel {
-    @include button-style($bg: rgba($white, 0), $radius: $button-round);
-    border: none;
-    color: $red;
-    &:hover,
-    &:focus {
-      color: $red;
-      font-weight: bold;
-      text-decoration: underline;
-      background-color: rgba($white, 0);
-    }
-  }
   &.edit {
     @include button-style($bg: rgba($white, 0), $radius: $button-round);
     border: none;
@@ -92,6 +80,16 @@ button, input[type="submit"] {
       color: $red;
       background-color: rgba($red, $bg_opacity);
     }
+  }
+}
+
+.cancel {
+  color: $red;
+  &:hover,
+  &:focus {
+    color: $red;
+    font-weight: bold;
+    text-decoration: underline;
   }
 }
 

@@ -110,7 +110,7 @@
     </div>
 
     <div class="row">
-      <!--<button class="cancel" style="float:left" ui-sref="templategroup({id:vm.template.TemplateGroup.Id})">Cancel</button>-->
+      <!--<a class="cancel" style="float:left" ui-sref="templategroup({id:vm.template.TemplateGroup.Id})">Cancel</a>-->
       <button ng-disabled="vm.freestyleGoals.length > 0" class="round" style="float:right" ng-click="vm.saveTemplate()">
         <spinner ng-if="vm.template.Id" class="spinner" name="saveTemplate{{vm.template.Id}}TimeSpinner" show="false"></spinner>
         Save template

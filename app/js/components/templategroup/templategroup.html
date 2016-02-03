@@ -44,7 +44,7 @@
         <select name="type" ng-options="v for v in vm.types" ng-model="vm.templategroup.Type" required></select>
 
         <div class="row">
-          <button class="cancel" style="float:left" ng-click="vm.editCancelled()">Cancel</button>
+          <a class="cancel" style="float:left" ng-click="vm.editCancelled()">Cancel</a>
           <input type="submit" style="float:right" ng-click="vm.saveTemplateGroup()" value="Save">
           <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
           </input>
