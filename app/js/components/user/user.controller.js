@@ -1,4 +1,4 @@
-angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms) {
+angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService) {
   var self = this;
   this.title = "User profile";
   this.id = $stateParams.id;
@@ -152,24 +152,42 @@ angular.module("app.user", []).controller('UserController', function ($statePara
 
   // Save the user
   this.update = function (user, type) {
+    switch (type) {
+      case 'contact':
+        spinnerService.show('userContactSpinner');
+        break;
+      case 'userTypes':
+        spinnerService.show('userTypesSpinner');
+        break;
+      case 'gyms':
+        spinnerService.show('userGymsSpinner');
+        break;
+      case 'genres':
+        spinnerService.show('userGenresSpinner');
+        break;
+    }
     user.put().then(function (data) {
       var message = '';
       switch (type) {
         case 'contact':
           self.contactEdit = false;
           message = 'Contact details saved.';
+          spinnerService.hide('userContactSpinner');
           break;
         case 'userTypes':
           self.userTypesEdit = false;
           message = 'Permissions saved.';
+          spinnerService.hide('userTypesSpinner');
           break;
         case 'gyms':
           self.gymEdit = false;
           message = 'Resident clubs saved.';
+          spinnerService.hide('userGymsSpinner');
           break;
         case 'genres':
           self.genreEdit = false;
           message = 'Genres saved.';
+          spinnerService.hide('userGSpinner');
           break;
       }
       self.messages = [{
