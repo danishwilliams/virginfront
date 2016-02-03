@@ -90,9 +90,10 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
     if (currentWidth !== screen.width) {
       currentWidth = screen.width;
       if (screen.width < 641) {
-        self.menu = false;
         // Without this angular doesn't know the variable has changed. Why? Mysteries of $digest.
-        $scope.$apply();
+        $scope.$apply(function() {
+          self.menu = false;
+        });
       }
     }
   });
