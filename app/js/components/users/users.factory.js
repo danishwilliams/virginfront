@@ -27,7 +27,7 @@ function UsersFactory(Restangular) {
   }
 
   function loadAccessToken(credentials) {
-    return Restangular.one('auth').get({
+    return Restangular.one('auth').customPOST({
       username: credentials.username,
       password: credentials.password
     }).then(loadAccessTokenComplete);
