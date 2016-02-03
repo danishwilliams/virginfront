@@ -22,6 +22,12 @@
     padding-right: rem-calc(4px);
   }
 
+  /* 500 front page error */
+
+  .front-error .error {
+    margin-left: rem-calc(90px);
+  }
+
   /* Login */
 
   #login {
@@ -31,9 +37,7 @@
     }
     h1 {
       padding-left: rem-calc(100px);
-    }
-    input[type="text"] {
-      margin-top: rem-calc(36px);
+      min-height: rem-calc(80px);
     }
   }
 
