@@ -16,12 +16,13 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   }
 
   this.saveContactDetails = function () {
+    if (!self.email) {
+      return;
+    }
     self.user.Telephone = self.telephone;
     self.user.Email = self.email;
     // TODO: client side email address validation
-    // TODO: submit form on enter
     self.update(self.user, 'contact');
-    // TODO: handle an error state - this email address is already in use
   };
 
   this.cancelContactDetails = function () {
@@ -152,19 +153,32 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   // Save the user
   this.update = function (user, type) {
     user.put().then(function (data) {
+      var message = '';
       switch (type) {
         case 'contact':
           self.contactEdit = false;
+          message = 'Contact details saved.';
           break;
         case 'userTypes':
           self.userTypesEdit = false;
+          message = 'Permissions saved.';
           break;
         case 'gyms':
           self.gymEdit = false;
+          message = 'Resident clubs saved.';
           break;
         case 'genres':
           self.genreEdit = false;
+          message = 'Genres saved.';
           break;
+      }
+      self.messages = [{
+        type: 'success',
+        msg: message
+      }];
+    }, function(res) {
+      if (res.status === 500 && res.data.Message) {
+        console.log(res.data.Message);
       }
     });
   };

@@ -11,6 +11,11 @@
         </span>
       </p>
     </div>
+    <div class="row" ng-show="user.messages">
+      <div class="small-18 medium-12 large-9 large-centered medium-centered columns">
+        <alert ng-repeat="message in user.messages" type="message.type" close="user.messages.splice($index, 1)">{{message.msg}}</alert>
+      </div>
+    </div>
     <div class="row">
       <div class="columns large-9">
         <div class="box">
