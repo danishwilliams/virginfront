@@ -19,6 +19,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
     if (!self.email) {
       return;
     }
+    self.error = {};
     self.user.Telephone = self.telephone;
     self.user.Email = self.email;
     // TODO: client side email address validation
@@ -152,6 +153,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
 
   // Save the user
   this.update = function (user, type) {
+    self.messages = {};
     switch (type) {
       case 'contact':
         spinnerService.show('userContactSpinner');
@@ -187,7 +189,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
         case 'genres':
           self.genreEdit = false;
           message = 'Genres saved.';
-          spinnerService.hide('userGSpinner');
+          spinnerService.hide('userGenresSpinner');
           break;
       }
       self.messages = [{
@@ -195,8 +197,19 @@ angular.module("app.user", []).controller('UserController', function ($statePara
         msg: message
       }];
     }, function(res) {
+      spinnerService.hide('userContactSpinner');
+      self.contactEdit = true;
       if (res.status === 500 && res.data.Message) {
-        console.log(res.data.Message);
+        // Possible responses:
+        // * Email address already exists
+        self.error = {
+          error: true,
+          message: res.data.Message
+        };
+        if (res.data.Message === 'Email address already exists') {
+          self.error.email = true;
+          self.error.error = false; // Workaround for showing errors at the top of the page too
+        }
       }
     });
   };

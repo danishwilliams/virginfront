@@ -11,8 +11,11 @@
         </span>
       </p>
     </div>
-    <div class="row" ng-show="user.messages">
+    <div class="row" ng-show="user.messages || user.error">
       <div class="small-18 medium-12 large-9 large-centered medium-centered columns">
+        <div ng-messages="user.error">
+          <p class="error" ng-message="error">{{user.error.message}}</p>
+        </div>
         <alert ng-repeat="message in user.messages" type="message.type" close="user.messages.splice($index, 1)">{{message.msg}}</alert>
       </div>
     </div>
@@ -32,10 +35,13 @@
             <div ng-show="contactForm.$submitted || contactForm.email.$touched">
               <small class="error" ng-show="contactForm.email.$error.required">Please enter your email address.</small>
             </div>
+            <div ng-messages="user.error">
+              <p class="error" ng-message="email">{{user.error.message}}</p>
+            </div>
             <div class="right">
-              <button class="round cancel" ng-click="user.contactEdit = !user.contactEdit">Cancel</button>
               <spinner class="spinner inline" name="userContactSpinner" show="false"></spinner>
               <input type="submit" value="Save">
+              <button class="round cancel" ng-click="user.contactEdit = !user.contactEdit">Cancel</button>
             </div>
             &nbsp;
           </form>
@@ -61,9 +67,9 @@
             </label>
 
             <div class="right">
-              <button class="round cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</button>
               <spinner class="spinner inline" name="userTypesSpinner" show="false"></spinner>
               <input type="submit" value="Save">
+              <button class="round cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</button>
             </div>
             &nbsp;
           </form>
@@ -89,9 +95,9 @@
               <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
             </label>
             <div class="right">
-              <button class="round cancel" ng-click="user.gymEdit = !user.gymEdit">Cancel</button>
               <spinner class="spinner inline" name="userGymsSpinner" show="false"></spinner>
               <input type="submit" value="Save">
+              <button class="round cancel" ng-click="user.gymEdit = !user.gymEdit">Cancel</button>
             </div>
             &nbsp;
           </form>
@@ -114,9 +120,9 @@
               <input type="checkbox" ng-model="genre.selected"> {{genre.Name}}
             </label>
             <div class="right">
-              <button class="round cancel" ng-click="user.genreEdit = !user.genreEdit">Cancel</button>
               <spinner class="spinner inline" name="userGenresSpinner" show="false"></spinner>
               <input type="submit" value="Save">
+              <button class="round cancel" ng-click="user.genreEdit = !user.genreEdit">Cancel</button>
             </div>
             &nbsp;
           </form>
