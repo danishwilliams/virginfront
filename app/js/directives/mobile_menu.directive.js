@@ -27,14 +27,23 @@ function mobileMenu($window) {
    */
   function sidebarVisible(element) {
     // Check window width has actually changed and it's not just iOS triggering a resize event on scroll
-    console.log(currentWidth, screen.width);
-    if (currentWidth !== screen.width) {
-      currentWidth = screen.width;
-      if (screen.width < 641 ) {
+    var width = 0;
+
+    // Detect mobile/tablet device
+    if (typeof window.orientation !== 'undefined') {
+      width = screen.width;
+    }
+    else {
+      width = angular.element($window)[0].innerWidth;
+    }
+
+    if (currentWidth !== width) {
+      currentWidth = width;
+      if (width < 641 ) {
         element.removeClass('move-right');
       }
     }
-    if (screen.width > 640 && !element.hasClass('move-right')) {
+    if (width > 640 && !element.hasClass('move-right')) {
       // Show the sidebar on tablet and desktop
       element.addClass('move-right');
     }

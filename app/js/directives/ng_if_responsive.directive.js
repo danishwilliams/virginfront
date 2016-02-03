@@ -23,9 +23,8 @@ function ngIfResponsive($animate, $window) {
 
   function link($scope, $element, $attr, ctrl, $transclude) {
     var block, childScope, previousElements;
-    var $win = angular.element($window);
 
-    $win.on('resize', function (e) {
+    angular.element($window).on('resize', function (e) {
       main();      
     });
 
@@ -71,21 +70,41 @@ function ngIfResponsive($animate, $window) {
   }
 
   function canView(value) {
-    var $win = angular.element($window);
+    var width = 0;
+
+    // Calculating width is hard because window.innerWidth is doubled on iOS thanks to retina.
+    // The solution is to use screen.width on iOS (and any mobile browser)
+
+    //alert('innerWidth: ' + $win[0].innerWidth + ' screen.width: ' + screen.width);
+    // iOS simulator: 980, 375
+    // Chrome iPhone 6 emulator: 375, 375
+    // Chrome desktop external monitor: 1015, 1920
+    // Chrome desktop on retina: 1317, 1680
+
+    //alert(window.devicePixelRatio);
+    // iOS simulator: 2
+    // Chrome desktop: 1 on external monitor; 2 on retina display
+
+    if (typeof window.orientation !== 'undefined') {
+      width = screen.width;
+    }
+    else {
+      width = angular.element($window)[0].innerWidth;
+    }
 
     switch (value) {
       case 'mobile':
-        if ($win[0].innerWidth < 641) {
+        if (width < 641) {
           return true;
         }
         break;
       case 'tablet-down':
-        if ($win[0].innerWidth < 1024) {
+        if (width < 1024) {
           return true;
         }
         break;
       case 'desktop':
-        if ($win[0].innerWidth > 1023) {
+        if (width > 1023) {
           return true;
         }
         break;
