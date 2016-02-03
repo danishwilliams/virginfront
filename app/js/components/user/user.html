@@ -20,15 +20,20 @@
             {{user.user.Telephone}}
             <br> <a href="mailto:{{user.user.Email}}">{{user.user.Email}}</a>
           </div>
-          <div ng-show="user.contactEdit">
-            <input type="text" ng-model="user.telephone">
-            <input type="text" ng-model="user.email">
+
+          <form name="contactForm" ng-show="user.contactEdit" ng-submit="user.saveContactDetails()">
+            <input type="text" ng-model="user.telephone" />
+            <input type="email" name="email" ng-model="user.email" required />
+            <div ng-show="contactForm.$submitted || contactForm.email.$touched">
+              <small class="error" ng-show="contactForm.email.$error.required">Please enter your email address.</small>
+            </div>
             <div class="right">
               <button class="round cancel" ng-click="user.contactEdit = !user.contactEdit">Cancel</button>
-              <button class="round " ng-click="user.saveContactDetails()">Save</button>
+              <input type="submit" value="Save">
             </div>
             &nbsp;
-          </div>
+          </form>
+
         </div>
       </div>
       <div class="columns large-9">
@@ -43,17 +48,18 @@
               </li>
             </ul>
           </div>
-          <div ng-show="user.userTypesEdit" ng-if-permission="editAdmin">
+
+          <form ng-show="user.userTypesEdit" ng-if-permission="editAdmin" ng-submit="user.saveUserTypes()">
             <label ng-repeat="userType in user.userTypes | orderBy: 'Name'" ng-if="userType.PublicRole">
               <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name}}
             </label>
 
             <div class="right">
               <button class="round cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</button>
-              <button class="round" ng-click="user.saveUserTypes()">Save</button>
+              <input type="submit" value="Save">
             </div>
             &nbsp;
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -70,16 +76,17 @@
               </li>
             </ul>
           </div>
-          <div ng-show="user.gymEdit">
+
+          <form ng-show="user.gymEdit" ng-submit="user.saveGyms()">
             <label ng-repeat="gym in user.gyms | orderBy: 'Name'">
               <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
             </label>
             <div class="right">
               <button class="round cancel" ng-click="user.gymEdit = !user.gymEdit">Cancel</button>
-              <button class="round" ng-click="user.saveGyms()">Save</button>
+              <input type="submit" value="Save">
             </div>
             &nbsp;
-          </div>
+          </form>
         </div>
       </div>
       <div class="columns large-9">
@@ -93,16 +100,17 @@
               </li>
             </ul>
           </div>
-          <div ng-show="user.genreEdit">
+
+          <form ng-show="user.genreEdit" ng-submit="user.saveGenres()">
             <label ng-repeat="genre in user.genres | orderBy: 'Name'">
               <input type="checkbox" ng-model="genre.selected"> {{genre.Name}}
             </label>
             <div class="right">
               <button class="round cancel" ng-click="user.genreEdit = !user.genreEdit">Cancel</button>
-              <button class="round" ng-click="user.saveGenres()">Save</button>
+              <input type="submit" value="Save">
             </div>
             &nbsp;
-          </div>
+          </form>
         </div>
       </div>
     </div>
