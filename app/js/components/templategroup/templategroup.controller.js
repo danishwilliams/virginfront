@@ -49,7 +49,20 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     'strengthendurance.svg'
   ];
 
-  self.types = ['ride', 'pack', 'freestyle'];
+  self.types = ['ride', 'pack'];
+
+  // If freestyle hasn't been created yet, add it in
+  Templates.loadTemplateGroups().then(function(data) {
+    var freestyleExists = false;
+    data.forEach(function(val) {
+      if (val.Type === 'freestyle') {
+        freestyleExists = true;
+      }
+    });
+    if (!freestyleExists) {
+      self.types.push('freestyle');
+    }
+  });
 
   self.editClick = function () {
     self.edit = true;

@@ -141,8 +141,8 @@ function TemplatesFactory(Restangular, uuid2, Users) {
     }).then(loadTemplateGroupsComplete);
 
     function loadTemplateGroupsComplete(data, status, headers, config) {
-      self.templateGroups = data;
-      return self.templateGroups;
+      templateGroups = data;
+      return templateGroups;
     }
   }
 
