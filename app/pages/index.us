@@ -11,11 +11,11 @@
 <body ng-controller="AppController as app">
 
 <nav class="top-bar show-for-small-only" data-topbar role="navigation" ng-if="app.loggedIn">
-  <div class="logo left"></div>
-  <ul class="title-area">
+  <ul class="title-area left" ng-class="{'move-right' : app.menu}">
     <li class="name"></li>
     <li class="toggle-topbar menu-icon" ng-click="app.menuClicked()"><a href="#"><span>Menu</span></a></li>
   </ul>
+  <div class="logo"></div>
 </nav>
 
 <div class="off-canvas-wrap" mobile-menu data-offcanvas ng-class="{'move-right' : app.menu}">

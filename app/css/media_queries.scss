@@ -13,6 +13,15 @@
       margin-left: 0;
     }
   }
+
+  .off-canvas-wrap aside {
+    margin-top: rem-calc(60px);
+  }
+
+  aside .logo {
+    display: none;
+  }
+
   .row {
     max-width: 100%;
   }
