@@ -26,6 +26,15 @@
 
   #login {
     background-image: url('/img/background_640.jpg');
+    .container {
+      top: inherit;
+    }
+    h1 {
+      padding-left: rem-calc(100px);
+    }
+    input[type="text"] {
+      margin-top: rem-calc(36px);
+    }
   }
 
   /* Typography */
