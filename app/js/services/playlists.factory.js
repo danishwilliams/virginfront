@@ -41,6 +41,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getPlaylist: getPlaylist,
     setPlaylist: setPlaylist,
     loadGymsPlaylistSyncInfoDetailed: loadGymsPlaylistSyncInfoDetailed,
+    loadGymsDevicePlaylistSyncInfo: loadGymsDevicePlaylistSyncInfo,
     loadGymsPlaylists: loadGymsPlaylists,
     loadPlaylistsNotInGym: loadPlaylistsNotInGym,
     addPlaylistToGym: addPlaylistToGym,
@@ -249,24 +250,14 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return Restangular.one('gyms/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
 
     function loadGymsPlaylistSyncInfoDetailedComplete(data, status, headers, config) {
-      /*
-      // Some dummy data for testing
-      var i = 0;
-      _.mapObject(data, function (val, key) {
-        if (key >= 0) {
-          _.mapObject(val.DevicePlaylistSyncs, function (val1, key1) {
-            i++;
-            if (i >= 3 && i <= 5) {
-              val1.PercentDone = 20;
-              val1.SecondsLeft = 120;
-              val1.SyncStarted = true;
-              return val1;
-            }
-          });
-        }
-        return val;
-      });
-      */
+      return data;
+    }
+  }
+
+  function loadGymsDevicePlaylistSyncInfo(deviceId, playlistId) {
+    return Restangular.one('gyms/syncinfo/deviceplaylistsync').get({deviceId: deviceId, playlistId: playlistId}).then(loadGymsDevicePlaylistSyncInfoComplete);
+
+    function loadGymsDevicePlaylistSyncInfoComplete(data, status, headers, config) {
       return data;
     }
   }
