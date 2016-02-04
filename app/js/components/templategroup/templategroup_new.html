@@ -1,33 +1,34 @@
 <div class="templategroup row">
   <div class="large-12 medium-17 small-18 large-centered columns">
 
-    <h1>Create new template</h1>
+    <h1>{{'TEMPLATE_CREATE' | translate}}</h1>
 
     <form name="form" novalidate>
-      <label>Template name</label>
+      <label>{{'TEMPLATE_NAME' | translate}}</label>
       <input type="text" name="name" size="60" maxlength="60" ng-model="vm.templategroup.Name" ng-invalid="error" required />
       <div ng-show="form.$submitted || form.name.$touched">
-        <small class="error" ng-show="form.name.$error.required">Please give this template a name.</small>
+        <small class="error" ng-show="form.name.$error.required">{{'TEMPLATE_NAME_REQ' | translate}}</small>
       </div>
 
-      <label>Description</label>
+      <label>{{'DESCRIPTION' | translate}}</label>
       <input type="text" name="description" size="120" maxlength="120" ng-model="vm.templategroup.Description" required />
       <div ng-show="form.$submitted || form.description.$touched">
-        <small class="error" ng-show="form.description.$error.required">Please give this template a description.</small>
+        <small class="error" ng-show="form.description.$error.required">{{'TEMPLATE_DESC_REQ' | translate}}</small>
       </div>
 
-      <label>Icon</label>
+      <label>{{'ICON' | translate}}</label>
       <select name="icon" ng-options="v for v in vm.iconFileNames" ng-model="vm.templategroup.IconFileName" required></select>
       <div ng-show="form.$submitted || form.icon.$touched">
-        <small class="error" ng-show="form.icon.$error.required">Please choose an icon.</small>
+        <small class="error" ng-show="form.icon.$error.required">{{'ICON_REQ' | translate}}</small>
       </div>
 
-      <label>Type</label>
+      <label>{{'TYPE' | translate}}</label>
       <select name="type" ng-options="v for v in vm.types" ng-model="vm.templategroup.Type" required></select>
 
       <div class="row">
-        <a class="cancel" style="float:left" ui-sref="templates-admin">Cancel</a>
-        <input type="submit" style="float:right" ng-click="vm.saveTemplateGroup()" value="Save"><spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner></input>
+        <a class="cancel" style="float:left" ui-sref="templates-admin">{{'CANCEL' | translate}}</a>
+        <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
+        <input type="submit" style="float:right" ng-click="vm.saveTemplateGroup()" value="{{'SAVE' | translate}}">
       </div>
     </form>
   </div>

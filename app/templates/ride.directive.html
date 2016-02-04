@@ -3,9 +3,9 @@
   <div class="content">
     <h5>{{playlist.Name}}</h5>
     <p>
-      <span class="tracks">{{playlist.TrackCount}} songs</span>
-      <span class="duration">{{playlist.TotalDurationSeconds | minutes}} mins</span>
-      <span class="created">Created: {{playlist.CreateDate | date:'dd MMMM yyyy'}}</span>
+      <span class="tracks">{{playlist.TrackCount}} {{'TRACKS' | translate}}</span>
+      <span class="duration">{{playlist.TotalDurationSeconds | minutes}} {{'MINS' | translate}}</span>
+      <span class="created">{{'CREATED' | translate}}: {{playlist.CreateDate | date:'dd MMMM yyyy'}}</span>
     </p>
   </div>
 </a>

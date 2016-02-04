@@ -8,13 +8,13 @@
         <h1>
           <img class="icon" src="/img/playlists/{{vm.templategroup.IconFileName}}">
           {{vm.templategroup.Name}}
-          <button class="edit" ng-hide="vm.edit" ng-click="vm.editClick()">Edit</button>
+          <button class="edit" ng-hide="vm.edit" ng-click="vm.editClick()">{{'EDIT' | translate}}</button>
         </h1>
       </div>
       <div class="large-5 medium-6 columns">
         <spinner class="spinner" name="archiveTemplateGroupSpinner" show="false"></spinner>
-        <a ng-show="vm.templategroup.Enabled" ng-click="vm.archiveTemplateGroup()">Archive this template type</a>
-        <a ng-show="!vm.templategroup.Enabled" ng-click="vm.unArchiveTemplateGroup()">Unarchive this template type</a>
+        <a ng-show="vm.templategroup.Enabled" ng-click="vm.archiveTemplateGroup()">{{'TEMPLATE_TYPE_ARCHIVE' | translate}}</a>
+        <a ng-show="!vm.templategroup.Enabled" ng-click="vm.unArchiveTemplateGroup()">{{'TEMPLATE_TYPE_UNARCHIVE' | translate}}</a>
       </div>
     </div>
 
@@ -22,30 +22,30 @@
 
     <div class="row" ng-show="vm.edit">
       <form name="form" novalidate>
-        <label>Template name</label>
+        <label>{{'TEMPLATE_NAME' | translate}}</label>
         <input type="text" name="name" size="60" maxlength="60" ng-model="vm.templategroup.Name" required />
         <div ng-show="form.$submitted || form.name.$touched">
-          <small class="error" ng-show="form.name.$error.required">Please give this template a name.</small>
+          <small class="error" ng-show="form.name.$error.required">{{'TEMPLATE_NAME_REQ' | translate}}</small>
         </div>
 
-        <label>Description</label>
+        <label>{{'DESCRIPTION' | translate}}</label>
         <input type="text" name="description" size="120" maxlength="120" ng-model="vm.templategroup.Description" required />
         <div ng-show="form.$submitted || form.description.$touched">
-          <small class="error" ng-show="form.description.$error.required">Please give this template a description.</small>
+          <small class="error" ng-show="form.description.$error.required">{{'TEMPLATE_DESC_REQ' | translate}}</small>
         </div>
 
-        <label>Icon</label>
+        <label>{{'ICON' | translate}}</label>
         <select name="icon" ng-options="v for v in vm.iconFileNames" ng-model="vm.templategroup.IconFileName" required></select>
         <div ng-show="form.$submitted || form.icon.$touched">
-          <small class="error" ng-show="form.icon.$error.required">Please choose an icon.</small>
+          <small class="error" ng-show="form.icon.$error.required">{{'ICON_REQ' | translate}}</small>
         </div>
 
-        <label>Type</label>
+        <label>{{'TYPE' | translate}}</label>
         <select name="type" ng-options="v for v in vm.types" ng-model="vm.templategroup.Type" required></select>
 
         <div class="row">
-          <a class="cancel" style="float:left" ng-click="vm.editCancelled()">Cancel</a>
-          <input type="submit" style="float:right" ng-click="vm.saveTemplateGroup()" value="Save">
+          <a class="cancel" style="float:left" ng-click="vm.editCancelled()">{{'CANCEL' | translate}}</a>
+          <input type="submit" style="float:right" ng-click="vm.saveTemplateGroup()" value="{{'SAVE' | translate}}">
           <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
           </input>
         </div>
@@ -60,7 +60,7 @@
 
     <div class="row">
       <p>&nbsp;</p>
-      <a ng-if="vm.templategroup.Type !== 'freestyle'" ng-show="!vm.addClassLength && !vm.addedClassLength && !vm.edit" ng-click="vm.addClassLength = true">+ Add class length</a>
+      <a ng-if="vm.templategroup.Type !== 'freestyle'" ng-show="!vm.addClassLength && !vm.addedClassLength && !vm.edit" ng-click="vm.addClassLength = true">+ {{'CLASS_LENGTH_ADD' | translate}}</a>
 
       <template-lengths ng-show="vm.addClassLength" data-action="Choose class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
 
