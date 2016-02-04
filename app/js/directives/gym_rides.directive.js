@@ -98,7 +98,7 @@ function gymRidesController(Playlists, $scope, $interval) {
         val.DevicePlaylistSyncs[0].SecondsLeft = data.SecondsLeft;
         val.DevicePlaylistSyncs[0].SyncError = data.SyncError;
         val.DevicePlaylistSyncs[0].SyncStarted = data.SyncStarted;
-        val.DevicePlaylistSyncs[0].SyncSuccess = data.SyncSuccess = true;
+        val.DevicePlaylistSyncs[0].SyncSuccess = data.SyncSuccess;
         self.test = !self.test;
         val.DevicePlaylistSyncs[0].Test = self.test;
 
