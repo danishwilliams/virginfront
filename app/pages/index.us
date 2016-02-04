@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="/css/app.css" media="all"/>
   <link type="text/plain" rel="author" href="/humans.txt" />
 </head>
-<body ng-controller="AppController as app" ng-class="{'noscroll' : app.menu}">
+<body ng-controller="AppController as app">
 
 <nav class="top-bar show-for-small-only" data-topbar role="navigation" ng-if="app.loggedIn">
   <ul class="title-area left" ng-class="{'move-right' : app.menu}">
