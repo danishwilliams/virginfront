@@ -1,13 +1,10 @@
 <div class="profile row">
-  <div class="large-2 columns">
-    &nbsp;
-  </div>
-  <div class="large-14 columns">
+  <div class="large-14 medium-18 small-18 large-centered columns">
     <div class="profile-header">
       <h1>{{user.user.FirstName}} {{user.user.LastName}}</h1>
       <p>{{user.user.Location.City}}, {{user.user.Location.Country.Code}}
         <span ng-if="user.user.LastClassDate"><br>
-          <em>Last class: {{user.user.LastClassDate | date : 'dd MMMM yyyy'}}</em>
+          <em>{{'LAST_CLASS' | translate}}: {{user.user.LastClassDate | date : 'dd MMMM yyyy'}}</em>
         </span>
       </p>
     </div>
@@ -22,8 +19,8 @@
     <div class="row">
       <div class="columns large-9">
         <div class="box">
-          <button ng-show="!user.contactEdit" class="edit right" ng-click="user.contactEdit = true">Edit</button>
-          <h3>Contact details</h3>
+          <button ng-show="!user.contactEdit" class="edit right" ng-click="user.contactEdit = true">{{'EDIT' | translate}}</button>
+          <h3>{{'CONTACT_DETAILS' | translate}}</h3>
           <div ng-show="!user.contactEdit">
             {{user.user.Telephone}}
             <br> <a href="mailto:{{user.user.Email}}">{{user.user.Email}}</a>
@@ -33,15 +30,15 @@
             <input type="text" ng-model="user.telephone" />
             <input type="email" name="email" ng-model="user.email" required />
             <div ng-show="contactForm.$submitted || contactForm.email.$touched">
-              <small class="error" ng-show="contactForm.email.$error.required">Please enter your email address.</small>
+              <small class="error" ng-show="contactForm.email.$error.required">{{'EMAIL_REQ' | translate}}</small>
             </div>
             <div ng-messages="user.error">
               <p class="error" ng-message="email">{{user.error.message}}</p>
             </div>
             <div class="right">
-              <a class="cancel" ng-click="user.contactEdit = !user.contactEdit">Cancel</a>
+              <a class="cancel" ng-click="user.contactEdit = !user.contactEdit">{{'CANCEL' | translate}}</a>
               <spinner class="spinner inline" name="userContactSpinner" show="false"></spinner>
-              <input type="submit" value="Save">
+              <input type="submit" value="{{'SAVE' | translate}}">
             </div>
             &nbsp;
           </form>
@@ -50,8 +47,8 @@
       </div>
       <div class="columns large-9">
         <div class="box">
-          <button ng-show="!user.userTypesEdit" ng-if-permission="editAdmin" class="edit right" ng-click="user.loadUserTypes()">Edit</button>
-          <h3>Permissions</h3>
+          <button ng-show="!user.userTypesEdit" ng-if-permission="editAdmin" class="edit right" ng-click="user.loadUserTypes()">{{'EDIT' | translate}}</button>
+          <h3>{{'PERMISSIONS' | translate}}</h3>
           <div ng-show="!user.userTypesEdit">
             {{user.user.UserType.Name}}
             <ul>
@@ -67,9 +64,9 @@
             </label>
 
             <div class="right">
-              <a class="cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</a>
+              <a class="cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">{{'CANCEL' | translate}}</a>
               <spinner class="spinner inline" name="userTypesSpinner" show="false"></spinner>
-              <input type="submit" value="Save">
+              <input type="submit" value="{{'SAVE' | translate}}">
             </div>
             &nbsp;
           </form>
@@ -79,8 +76,8 @@
     <div class="row">
       <div class="columns large-9">
         <div class="box">
-          <button ng-show="!user.gymEdit" class="edit right" ng-click="user.loadGyms()">Edit</button>
-          <h3>Resident clubs</h3>
+          <button ng-show="!user.gymEdit" class="edit right" ng-click="user.loadGyms()">{{'EDIT' | translate}}</button>
+          <h3>{{'RESIDENT_CLUBS' | translate}}</h3>
           <!--TODO: convert the following into a directive, and conditionally include it-->
           <div ng-show="!user.gymEdit">
             <ul>
@@ -95,9 +92,9 @@
               <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
             </label>
             <div class="right">
-              <a class="cancel" ng-click="user.gymEdit = !user.gymEdit">Cancel</a>
+              <a class="cancel" ng-click="user.gymEdit = !user.gymEdit">{{'CANCEL' | translate}}</a>
               <spinner class="spinner inline" name="userGymsSpinner" show="false"></spinner>
-              <input type="submit" value="Save">
+              <input type="submit" value="{{'SAVE' | translate}}">
             </div>
             &nbsp;
           </form>
@@ -105,8 +102,8 @@
       </div>
       <div class="columns large-9">
         <div class="box">
-          <button ng-show="!user.genreEdit" class="edit right" ng-click="user.loadGenres()">Edit</button>
-          <h3>Genres</h3>
+          <button ng-show="!user.genreEdit" class="edit right" ng-click="user.loadGenres()">{{'EDIT' | translate}}</button>
+          <h3>{{'GENRES' | translate}}</h3>
           <div ng-show="!user.genreEdit">
             <ul>
               <li ng-repeat="genre in user.user.UserGenres | orderBy: 'Name'">
@@ -120,9 +117,9 @@
               <input type="checkbox" ng-model="genre.selected"> {{genre.Name}}
             </label>
             <div class="right">
-              <a class="cancel" ng-click="user.genreEdit = !user.genreEdit">Cancel</a>
+              <a class="cancel" ng-click="user.genreEdit = !user.genreEdit">{{'CANCEL' | translate}}</a>
               <spinner class="spinner inline" name="userGenresSpinner" show="false"></spinner>
-              <input type="submit" value="Save">
+              <input type="submit" value="{{'SAVE' | translate}}">
             </div>
             &nbsp;
           </form>
@@ -132,14 +129,11 @@
     <div class="row" ng-if="user.user.UserMusicProvider.MusicProvider.Name == 'Simfy'">
       <div class="columns large-9">
         <div class="box">
-          <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} account details</h3>
-          <p>Username: <em>{{user.user.UserMusicProvider.Username}}</em>
-            <br> Password: <em>{{user.user.UserMusicProvider.Password}}</em></p>
+          <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} {{'ACC_DETAILS' | translate}}</h3>
+          <p>{{'USERNAME' | translate}}: <em>{{user.user.UserMusicProvider.Username}}</em>
+            <br> {{'PASSWORD' | translate}}: <em>{{user.user.UserMusicProvider.Password}}</em></p>
         </div>
       </div>
     </div>
-  </div>
-  <div class="large-2 columns">
-    &nbsp;
   </div>
 </div>

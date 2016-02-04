@@ -1,17 +1,17 @@
 <select class="freestyle-goal" ng-model="vm.goalArrayId" ng-change="selected(vm.goalArrayId)" ng-disabled="ngDisabled === 'true'">
-  <option ng-if="vm.allowCreateNewGoal" value="" disabled selected>Create a goal</option>
-  <option ng-if="vm.allowCreateNewGoal" value="newGoal">Create a new goal</option>
+  <option ng-if="vm.allowCreateNewGoal" value="" disabled selected>{{'CREATE_GOAL' | translate}}</option>
+  <option ng-if="vm.allowCreateNewGoal" value="newGoal">{{'CREATE_NEW_GOAL' | translate}}</option>
   <option ng-if="vm.allowCreateNewGoal" value="" disabled></option>
 
-  <option ng-if="vm.allowEditingGoal" value="" disabled selected>Select a different goal</option>
-  <option ng-if="vm.allowEditingGoal" value="newGoal">Create a new goal</option>
+  <option ng-if="vm.allowEditingGoal" value="" disabled selected>{{'SELECT_GOAL' | translate}}</option>
+  <option ng-if="vm.allowEditingGoal" value="newGoal">{{'CREATE_NEW_GOAL' | translate}}</option>
   <option ng-if="vm.allowEditingGoal" value="" disabled></option>
 
-  <option ng-if="vm.addAGoal" value="" disabled selected>Add a goal</option>
+  <option ng-if="vm.addAGoal" value="" disabled selected>{{'ADD_GOAL' | translate}}</option>
   <option ng-if="!vm.coolDown && !goal.Goal.GoalChallengeId && goal.Goal.Name !== 'Cool Down'" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
   <option ng-if="!vm.coolDown" value="" disabled></option>
 
-  <option ng-if="!vm.coolDown" value="" disabled>Challenge goals</option>
+  <option ng-if="!vm.coolDown" value="" disabled>{{'CHALLENGE_GOALS' | translate}}</option>
   <option ng-if="!vm.coolDown && goal.Goal.GoalChallengeId" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" ng-if="goal.Goal.GoalChallengeId" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
 
   <option ng-if="vm.coolDown && goal.Goal.Name === 'Cool Down'" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>

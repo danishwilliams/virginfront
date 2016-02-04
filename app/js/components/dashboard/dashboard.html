@@ -2,10 +2,10 @@
   <div class="large-14 large-centered columns">
     <div class="row playlists heading">
       <div class="columns small-12 medium-14">
-        <h1>Recent rides</h1>
+        <h1>{{'RECENT_RIDES' | translate}}</h1>
       </div>
       <div class="columns small-6 medium-4">
-        <a ui-sref="playlists">View all your rides</a>
+        <a ui-sref="playlists">{{'VIEW_RIDES' | translate}}</a>
       </div>
     </div>
     <div class="row">
@@ -15,7 +15,7 @@
           <a ui-sref="playlist-new-template">
             <span class="clearfix"><img class="right" src="/img/playlists_grey/new.svg"></span>
             <div class="content">
-              <h5>Create a new ride class</h5>
+              <h5>{{'CREATE_RIDE' | translate}}</h5>
             </div>
           </a>
         </li>
@@ -26,10 +26,10 @@
     </div>
     <div class="row gyms heading">
       <div class="columns small-10 medium-14">
-        <h1>Rides available at Clubs</h1>
+        <h1>{{'RIDES_CLUBS' | translate}}</h1>
       </div>
       <div class="columns small-8 medium-4">
-        <a ui-sref="user" ng-if-permission="createPlaylist">Manage clubs</a>
+        <a ui-sref="user" ng-if-permission="createPlaylist">{{'MANAGE_CLUBS' | translate}}</a>
       </div>
     </div>
     <div class="row">
@@ -44,10 +44,10 @@
     </div>
     <div class="row classes heading">
       <div class="columns small-10 medium-">
-        <h1>Recent classes</h1>
+        <h1>{{'RECENT_CLASSES' | translate}}</h1>
       </div>
       <div class="columns small-8 medium-4">
-        <a ui-sref="recent-classes" ng-if-permission="viewContent">View all classes this month</a>
+        <a ui-sref="recent-classes" ng-if-permission="viewContent">{{'VIEW_ALL_CLASSES' | translate}}</a>
       </div>
     </div>
     <div class="row">
@@ -69,10 +69,10 @@
     <!--
     <div class="row rides heading">
       <div class="columns large-14">
-        <h1>Rides shared by others</h1>
+        <h1>{{'SHARED_RIDES' | translate}}</h1>
       </div>
       <div class="columns large-4">
-        <a>Browse all rides</a>
+        <a>{{'BROWSE_RIDES' | translate}}</a>
       </div>
     </div>
     <div class="row">

@@ -5,10 +5,10 @@
     <h1>{{playlist_view.playlist.Name}}</h1>
     <div class="row">
       <div class="columns large-5">
-        <em>{{playlist_view.playlist.TemplateName}}</em> | {{playlist_view.playlist.TrackCount}} songs | {{playlist_view.playlist.TotalDurationSeconds | minutes}} minutes
+        <em>{{playlist_view.playlist.TemplateName}}</em> | {{playlist_view.playlist.TrackCount}} {{'TRACKS' | translate}} | {{playlist_view.playlist.TotalDurationSeconds | minutes}} {{'MINUTES' | translate}}
       </div>
       <div class="columns large-13">
-        <button class="edit" ui-sref="playlist-edit({id:playlist_view.playlist.Id})" ng-if="playlist_view.showEdit()">Edit</button>
+        <button class="edit" ui-sref="playlist-edit({id:playlist_view.playlist.Id})" ng-if="playlist_view.showEdit()">{{'EDIT' | translate}}</button>
       </div>
     </div>
 
@@ -46,9 +46,9 @@
     </div>
 
     <div class="row">
-      <a ng-if="!playlist_view.newPlaylist" style="float:left;" ui-sref="dashboard">Return to dashboard</a>
-      <button ng-if="playlist_view.newPlaylist" class="round secondary" style="float:left; background: none;">Cancel</button>
-      <button ng-if="playlist_view.newPlaylist" class="round" style="float:right" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})">Next: Send to club</button>
+      <a ng-if="!playlist_view.newPlaylist" style="float:left;" ui-sref="dashboard">{{'RETURN_DASHBOARD' | translate}}</a>
+      <a class="cancel" ng-if="playlist_view.newPlaylist" class="round secondary" style="float:left; background: none;">{{'CANCEL' | translate}}</a>
+      <button ng-if="playlist_view.newPlaylist" class="round" style="float:right" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})">{{'SEND_CLUB' | translate}}</button>
     </div>
 
   </div>

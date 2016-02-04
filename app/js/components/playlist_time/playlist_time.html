@@ -1,11 +1,8 @@
 <div class="create-playlist">
   <playlist-workflow></playlist-workflow>
   <div class="row">
-    <div class="large-2 columns">
-      &nbsp;
-    </div>
-    <div class="large-14 columns">
-      <h1>How long is your class?</h1>
+    <div class="medium-18 large-14 small-centered large-centered columns">
+      <h1>{{'CLASS_LENGTH' | translate}}</h1>
 
      <spinner class="spinner" name="playlistTimeSpinner" show="true"></spinner>
 
@@ -14,14 +11,11 @@
           <a class="choose-template" ui-sref="playlist-new-edit({id:template.TemplateId})">
             <div class="template">
               <div class="icon"><img src="/img/templates/intervals.svg"></div>
-              <h4><span ng-bind-html="template.ClassLengthMinutes"></span> mins</h4>
+              <h4><span ng-bind-html="template.ClassLengthMinutes"></span> {{'MINS' | translate}}</h4>
             </div>
           </a>
         </li>
       </ul>
-    </div>
-    <div class="large-2 columns">
-      &nbsp;
     </div>
   </div>
 </div>

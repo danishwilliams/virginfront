@@ -5,7 +5,7 @@
         <div class="icon"><img src="/img/templates/{{templateGroup.IconFileName}}"></div>
         <h2 ng-bind-html="templateGroup.Name"></h2>
         <spinner class="spinner inline" name="templates{{templateGroup.Id}}Spinner" show="true"></spinner>
-        <p ng-if="templateGroup.ClassLengths">Templates:
+        <p ng-if="templateGroup.ClassLengths">{{'TEMPLATES' | translate}}:
           <span class="classlength" ng-repeat="template in templateGroup.ClassLengths | orderBy: 'ClassLengthMinutes' track by $index">
             <span ng-if="$index > 0"> / </span>{{template.ClassLengthMinutes}}
           </span>

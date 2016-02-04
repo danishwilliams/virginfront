@@ -4,11 +4,11 @@
       <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">
           <img ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
           {{playlistGoal.Goal.Name}} 
-          <em ng-if="playlistGoal.Goal.GoalChallengeId">Challenge</em>
+          <em ng-if="playlistGoal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
         </h4>
     </div>
     <div class="large-8 columns text-right">
-      <a ng-show="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length === 0">+ Add a song</a>
+      <a ng-show="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length === 0">+ {{'ADD_SONG' | translate}}</a>
     </div>
   </div>
   <div class="row" ng-show="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0">
@@ -37,7 +37,7 @@
       {{'TRACK_NOTES' | translate}}
       <form name="playlistGoalNote{{playlistGoal.ArrayId}}">
         <textarea name="note" maxlength="200" ng-maxlength="200" ng-change="playlist_edit.playlistGoalNoteCreate(playlistGoal.ArrayId, 0)" ng-model-options="{updateOn : 'change blur'}" ng-model="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalNotes[0].NoteText"></textarea>
-        <span class="maxlength">Max 200 characters</span>
+        <span class="maxlength">{{'NOTE_MAX' | translate}}</span>
       </form>
     </div>
   </div>
