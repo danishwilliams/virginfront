@@ -11,11 +11,16 @@
     */
     .inner-wrap {
       margin-left: 0;
+      height: inherit;
     }
   }
 
-  .off-canvas-wrap aside {
-    margin-top: rem-calc(60px);
+  .off-canvas-wrap {
+    height: inherit;
+  }
+
+  .left-off-canvas-menu {
+    position: absolute;
   }
 
   aside .logo {
