@@ -254,11 +254,12 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     }
   }
 
-  function loadGymsDevicePlaylistSyncInfo(deviceId, playlistId) {
-    return Restangular.one('gyms/syncinfo/deviceplaylistsync').get({deviceId: deviceId, playlistId: playlistId}).then(loadGymsDevicePlaylistSyncInfoComplete);
+  function loadGymsDevicePlaylistSyncInfo(gymId, playlistId) {
+    return Restangular.one('gyms/syncinfo/deviceplaylistsync').get({gymId: gymId, playlistId: playlistId}).then(loadGymsDevicePlaylistSyncInfoComplete);
 
     function loadGymsDevicePlaylistSyncInfoComplete(data, status, headers, config) {
-      return data;
+      // TODO: this only returns the primary device. At some point we need to handle multiple devices
+      return data[0];
     }
   }
 

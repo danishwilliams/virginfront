@@ -35,7 +35,7 @@ function gymRidesController(Playlists, $scope, $interval) {
 
         // Refresh the syncing details for this playlist
         intervalPromise = $interval(function () {
-          Playlists.loadGymsDevicePlaylistSyncInfo(val.DevicePlaylistSyncs[0].DeviceId, val.DevicePlaylistSyncs[0].PlaylistId).then(function (data) {
+          Playlists.loadGymsDevicePlaylistSyncInfo($scope.$parent.gym.Gym.Id, val.DevicePlaylistSyncs[0].PlaylistId).then(function (data) {
             console.log('calling interval!');
             val.DevicePlaylistSyncs[0].PercentDone = data.PercentDone;
             val.DevicePlaylistSyncs[0].SecondsLeft = data.SecondsLeft;
@@ -47,7 +47,7 @@ function gymRidesController(Playlists, $scope, $interval) {
               $interval.cancel(intervalPromise);
             }
           });
-        }, 2000);
+        }, 5000);
 
       }
     });
@@ -77,6 +77,30 @@ function gymRidesController(Playlists, $scope, $interval) {
     if (self.gym.PlaylistSyncInfos.length === self.playlistLimitPerGym) {
       self.gym.LimitReached = true;
     }
+
+    // Start the interval timer
+
+    var i = self.gym.PlaylistSyncInfos.length - 1;
+    var val = self.gym.PlaylistSyncInfos[i];
+    console.log(playlist);
+    console.log(self.gym.PlaylistSyncInfos);
+    console.log(val);
+
+    // Refresh the syncing details for this playlist
+    intervalPromise = $interval(function () {
+      Playlists.loadGymsDevicePlaylistSyncInfo(self.gym.Gym.Id, playlist.Playlist.Id).then(function (data) {
+        //console.log('calling add interval!');
+        val.DevicePlaylistSyncs[0].PercentDone = data.PercentDone;
+        val.DevicePlaylistSyncs[0].SecondsLeft = data.SecondsLeft;
+        val.DevicePlaylistSyncs[0].SyncError = data.SyncError;
+        val.DevicePlaylistSyncs[0].SyncStarted = data.SyncStarted;
+        val.DevicePlaylistSyncs[0].SyncSuccess = data.SyncSuccess;
+
+        if (data.SyncSuccess) {
+          $interval.cancel(intervalPromise);
+        }
+      });
+    }, 5000);
   };
 
   self.remove = function (playlist, gymId) {
@@ -102,7 +126,7 @@ function gymRidesController(Playlists, $scope, $interval) {
 
       // Refresh the syncing details for this playlist
       intervalPromise = $interval(function () {
-        Playlists.loadGymsDevicePlaylistSyncInfo(playlist.DevicePlaylistSyncs[0].DeviceId, playlist.DevicePlaylistSyncs[0].PlaylistId).then(function (data) {
+        Playlists.loadGymsDevicePlaylistSyncInfo(gymId, playlist.Playlist.Id).then(function (data) {
           //console.log('calling interval for an undoRemoved playlist!');
           playlist.DevicePlaylistSyncs[0].PercentDone = data.PercentDone;
           playlist.DevicePlaylistSyncs[0].SecondsLeft = data.SecondsLeft;
@@ -114,7 +138,7 @@ function gymRidesController(Playlists, $scope, $interval) {
             $interval.cancel(intervalPromise);
           }
         });
-      }, 2000);
+      }, 5000);
 
     }, function (response) {
       // There was some error
