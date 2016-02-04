@@ -87,14 +87,21 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
   // When resizing the window
   angular.element($window).on('resize', function(e) {
     // Check window width has actually changed and it's not just iOS triggering a resize event on scroll
-    if (currentWidth !== screen.width) {
-      currentWidth = screen.width;
-      if (screen.width < 641) {
-        // Without this angular doesn't know the variable has changed. Why? Mysteries of $digest.
-        $scope.$apply(function() {
-          self.menu = false;
-        });
-      }
+    //console.log('resized!');
+    var width = 0;
+    if (typeof window.orientation !== 'undefined') {
+      width = screen.width;
+    }
+    else {
+      width = angular.element($window)[0].innerWidth;
+    }
+
+    if (currentWidth !== width) {
+      currentWidth = width;
+      // Without this angular doesn't know the variable has changed. Why? Mysteries of $digest.
+      $scope.$apply(function() {
+        self.menu = false;
+      });
     }
   });
 

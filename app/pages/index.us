@@ -4,16 +4,16 @@
   <base href="/">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-  <title ng-bind="($title || 'Home') + ' - Management Console'">Management Console</title>
+  <title ng-bind="($title || {{'HOME' | translate}}) + ' - {{'TITLE' | translate}}'"></title>
   <link rel="stylesheet" type="text/css" href="/css/app.css" media="all"/>
   <link type="text/plain" rel="author" href="/humans.txt" />
 </head>
-<body ng-controller="AppController as app">
+<body ng-controller="AppController as app" ng-class="{'noscroll' : app.menu}">
 
 <nav class="top-bar show-for-small-only" data-topbar role="navigation" ng-if="app.loggedIn">
   <ul class="title-area left" ng-class="{'move-right' : app.menu}">
     <li class="name"></li>
-    <li class="toggle-topbar menu-icon" ng-click="app.menuClicked()"><a href="#"><span>Menu</span></a></li>
+    <li class="toggle-topbar menu-icon" ng-click="app.menuClicked()"><a href="#"><span>{{'MENU' | translate}}</span></a></li>
   </ul>
   <div class="logo"></div>
 </nav>
@@ -29,15 +29,15 @@
         </span>
         <a class="item" ui-sref="dashboard" ng-if-permission="viewContent">
           <i class="dashboard"></i>
-          <label>Dashboard</label>
+          <label>{{'DASHBOARD' | translate}}</label>
         </a>
         <a class="item create-ride" ui-sref="playlist-new-template" ng-if-permission="createPlaylist">
           <i class="create-ride"></i>
-          <label>Create a ride</label>
+          <label>{{'CREATE_RIDE_MENU' | translate}}</label>
         </a>
         <a class="item my-rides" ui-sref="playlists" ng-if-permission="viewContent">
           <i class="my-rides"></i>
-          <label>My rides</label>
+          <label>{{'MY_RIDES' | translate}}</label>
         </a>
         <a class="item" ui-sref="beats-admin" ng-if-permission="viewAdmin">
           <label>Beats</label>
@@ -64,10 +64,10 @@
           <label>Playlists</label>
         </a>
         <a class="item" ui-sref="templates-admin" ng-if-permission="templates">
-          <label>Templates</label>
+          <label>{{'TEMPLATES' | translate}}</label>
         </a>
         <a class="item" ui-sref="users-admin" ng-if-permission="users">
-          <label>Users</label>
+          <label>{{'USERS' | translate}}</label>
         </a>
         <a class="item" ui-sref="usertypes-admin" ng-if-permission="viewAdmin">
           <label>User types</label>
@@ -77,7 +77,7 @@
           <label>{{app.userName}}</label>
         </a>
         <a class="item" ng-click="app.logout()" ng-if-permission="user">
-          <label>Logout</label>
+          <label>{{'LOGOUT' | translate}}</label>
         </a>
       </div>
 
@@ -88,7 +88,7 @@
     <spinner class="spinner overlay" name="bodySpinner" show="true"></spinner>
     <div style="display:none;" class="front-error" ng-class="{'show':app.error}" ng-messages="app.error">
       <div class="logo fixed"></div>
-      <p class="error" ng-message="error">The site is temporarily unavailable. Please try again later.</p>
+      <p class="error" ng-message="error">{{'ERROR' | translate}}</p>
     </div>
     <div ui-view ng-if="app.ready" class="row header uiview">
     </div>
