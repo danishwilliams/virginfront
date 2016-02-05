@@ -5,6 +5,11 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
   self.playlist = Playlists.getPlaylist();
   self.user = Users.getCurrentUser();
 
+  if (self.playlist.Id !== self.id) {
+    // We're loading up a new playlist, so self.playlist is an older cached version
+    self.playlist = {};
+  }
+
   if ($state.current.name === 'playlist-new-view') {
     // We're viewing a newly created playlist!
     self.newPlaylist = true;
