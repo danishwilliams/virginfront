@@ -11,10 +11,13 @@
     */
     .inner-wrap {
       margin-left: 0;
-      height: inherit;
+      // Experiment: giving menu 100% height
+      //height: inherit;
     }
   }
 
+  // Experiment: giving menu 100% height
+  /*
   .off-canvas-wrap {
     height: inherit;
   }
@@ -22,6 +25,7 @@
   .left-off-canvas-menu {
     position: absolute;
   }
+  */
 
   aside .logo {
     display: none;
