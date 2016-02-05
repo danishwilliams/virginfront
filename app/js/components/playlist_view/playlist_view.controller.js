@@ -14,6 +14,10 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     // Load an existing playlist
     Playlists.loadPlaylist(self.id).then(function () {
       self.playlist = Playlists.getPlaylist();
+      // If playlist is incomplete, edit it
+      if (!Playlists.checkAllGoalsHaveTracks()) {
+        $state.go('playlist-edit', {id: self.id});
+      }
       spinnerService.hide('playlistViewSpinner');
     });
   }
