@@ -2,7 +2,7 @@
 
 <div class="playlist-edit row">
   <playlist-workflow ng-if="playlist_edit.newPlaylist"></playlist-workflow>
-  <h1 class="text-center">{{playlist_edit.title}}</h1>
+  <h1 class="text-center">{{playlist_edit.title | translate}}</h1>
 
   <spinner class="spinner overlay" name="playlistEditSpinner" show="true"></spinner>
 
@@ -10,7 +10,7 @@
       <div class="row">
         <form name="playlistForm" ng-submit="playlist_edit.savePlaylist()" novalidate>
           <div ng-messages="playlist_edit.required">
-            <p class="error" ng-message="error">The ride class needs a name.</p>
+            <p class="error" ng-message="error">{{'RIDE_NAME_REQ' | translate}}</p>
           </div>
           <input id="class_name" name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}" ng-model="playlist_edit.playlist.Name" required />
         </form>
@@ -20,8 +20,8 @@
           <div class="icon"><img src="/img/playlists/{{playlist_edit.playlist.TemplateIconFileName}}"></div>
           <h2 ng-bind-html="playlist_edit.playlist.TemplateName"></h2> {{playlist_edit.playlist.ClassLengthMinutes}}:00
           <span class="length" ng-class="{'error': !playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()}"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
-          <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
-          <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">Each goal needs a track.</p>
+          <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">{{'CLASS_LENGTH_ERROR' | translate}}Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
+          <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">{{'GOAL_TRACK_REQ' | translate}}</p>
         </div>
       </div>
       <div class="row goal" data-ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder' track by $index">
@@ -42,11 +42,11 @@
                   <freestyle-goals ng-if="playlistGoal.ArrayId > 0" data-index="{{playlistGoal.ArrayId}}" data-total-goals="{{playlist_edit.playlist.MaxFreestyleGoals}}" data-selected-goal-id="{{playlistGoal.Goal.Id}}" ng-change="playlist_edit.changeFreestyleGoal(playlistGoal)" ng-model="playlist_edit.freestyleGoal" ng-click="playlistGoal.editFreeStyleGoal = true"></freestyle-goals>
                 </span>
 
-                <em ng-if="playlistGoal.Goal.GoalChallengeId">Challenge</em>
+                <em ng-if="playlistGoal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
               </h4>
             </div>
             <div class="small-8 columns text-right">
-              <a ng-show="playlistGoal.PlaylistGoalTracks.length === 0" ng-click="playlistGoal.editFreeStyleGoal = false">+ Add a song</a>
+              <a ng-show="playlistGoal.PlaylistGoalTracks.length === 0" ng-click="playlistGoal.editFreeStyleGoal = false">+ {{'ADD_SONG' | translate}}</a>
             </div>
           </div>
           <div class="row" ng-show="playlistGoal.PlaylistGoalTracks.length > 0">
@@ -75,7 +75,7 @@
               {{'TRACK_NOTES' | translate}}
               <form name="playlistGoalNote{{playlistGoal.ArrayId}}">
                 <textarea name="note" maxlength="200" ng-maxlength="200" ng-change="playlist_edit.playlistGoalNoteCreate(playlistGoal.ArrayId, 0)" ng-model-options="{updateOn : 'change blur'}" ng-model="playlistGoal.PlaylistGoalNotes[0].NoteText"></textarea>
-                <span class="maxlength">Max 200 characters</span>
+                <span class="maxlength">{{'NOTE_MAX' | translate}}</span>
               </form>
             </div>
           </div>
@@ -90,12 +90,12 @@
       </div>
       <div class="row">
         <div ng-messages="playlist_edit.error">
-          <p class="error" ng-message="error">Ride cannot be saved. Please try again later.</p>
+          <p class="error" ng-message="error">{{'RIDE_ERROR' | translate}}</p>
         </div>
-        <a class="cancel" style="float:left" ui-sref="dashboard">Cancel</a>
+        <a class="cancel" style="float:left" ui-sref="dashboard">{{'CANCEL' | translate}}</a>
         <button ng-disabled="playlist_edit.saving" ng-show="playlist_edit.checkWhenEditingEveryGoalHasATrack()" type="submit" ng-click="playlist_edit.savePlaylist()" class="round" style="float:right">
           <spinner class="spinner" name="playlistEditSaveSpinner" show="false"></spinner>
-          {{playlist_edit.submitButtonText()}}
+          {{playlist_edit.submitButtonText() | translate}}
         </button>
       </div>
     </div>

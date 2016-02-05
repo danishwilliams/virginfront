@@ -4,13 +4,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // TODO: do we want to sanitize this?
   this.id = $stateParams.id;
-  self.title = "Edit your playlist";
+  self.title = 'RIDE_EDIT';
 
   if (Playlists.getCreatingNewPlaylist() || $state.current.name === 'playlist-new-edit') {
     // We're creating a new playlist!
     Playlists.setCreatingNewPlaylist(true);
     self.newPlaylist = true;
-    self.title = "Create your playlist";
+    self.title = 'RIDE_CREATE';
     self.playlistTracksLength = 0;
   }
 
@@ -331,14 +331,14 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.submitButtonText = function () {
     if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Editing a playlist but not all tracks have goals
-      return 'Each goal needs a track';
+      return 'GOAL_TRACK_REQ';
     } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
-      return 'Save and continue later';
+      return 'SAVE_CONTINUE_LATER';
     }
     if (self.newPlaylist) {
-      return 'Next: preview my ride';
+      return 'NEXT_PREVIEW';
     }
-    return 'Update changes';
+    return 'UPDATE';
   };
 
 });

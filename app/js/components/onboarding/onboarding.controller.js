@@ -1,6 +1,5 @@
 angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms) {
   var self = this;
-  this.title = "Onboarding";
 
   this.id = $stateParams.id;
 

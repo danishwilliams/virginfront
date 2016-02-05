@@ -13,7 +13,7 @@
         <div ng-messages="user.error">
           <p class="error" ng-message="error">{{user.error.message}}</p>
         </div>
-        <alert ng-repeat="message in user.messages" type="message.type" close="user.messages.splice($index, 1)">{{message.msg}}</alert>
+        <alert ng-repeat="message in user.messages" type="message.type" close="user.messages.splice($index, 1)">{{message.msg | translate}}</alert>
       </div>
     </div>
     <div class="row">

@@ -1,6 +1,5 @@
-angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService) {
+angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter) {
   var self = this;
-  this.title = "User profile";
   this.id = $stateParams.id;
 
   if (!this.id) {
@@ -173,22 +172,22 @@ angular.module("app.user", []).controller('UserController', function ($statePara
       switch (type) {
         case 'contact':
           self.contactEdit = false;
-          message = 'Contact details saved.';
+          message = 'CONTACTS_SAVED';
           spinnerService.hide('userContactSpinner');
           break;
         case 'userTypes':
           self.userTypesEdit = false;
-          message = 'Permissions saved.';
+          message = 'PERMISSIONS_SAVED';
           spinnerService.hide('userTypesSpinner');
           break;
         case 'gyms':
           self.gymEdit = false;
-          message = 'Resident clubs saved.';
+          message = 'CLUBS_SAVED';
           spinnerService.hide('userGymsSpinner');
           break;
         case 'genres':
           self.genreEdit = false;
-          message = 'Genres saved.';
+          message = 'GENRES_SAVED';
           spinnerService.hide('userGenresSpinner');
           break;
       }
@@ -207,8 +206,11 @@ angular.module("app.user", []).controller('UserController', function ($statePara
           message: res.data.Message
         };
         if (res.data.Message === 'Email address already exists') {
-          self.error.email = true;
-          self.error.error = false; // Workaround for showing errors at the top of the page too
+          self.error = {
+            error: false, // Workaround for showing errors at the top of the page too
+            email: true,
+            message: $filter('translate')('EMAIL_EXISTS')
+          };
         }
       }
     });

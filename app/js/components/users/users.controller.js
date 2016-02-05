@@ -1,6 +1,5 @@
 angular.module("app.users", []).controller('UsersController', function ($stateParams, Users, uuid2, Restangular) {
   var self = this;
-  this.title = "Users";
   this.id = $stateParams.id;
 
   Users.loadUsers().then(function (data) {

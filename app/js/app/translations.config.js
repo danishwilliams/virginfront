@@ -6,14 +6,14 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     // Routes
     // TODO: get these working
     'OB_PASSWORD': 'Password | Onboarding',
-    'OB_CLUBS': 'Clubs | Onboarding',
+    'OB_CLUBS_TITLE': 'Clubs | Onboarding',
     'OB_GENRES': 'Genres | Onboarding',
     'OB_DONE': 'Get started | Onboarding',
     'RIDES': 'Rides',
-    'RIDE_EDIT': 'Ride edit',
+    'RIDE_EDIT_TITLE': 'Ride edit',
     'TRACKS_SEARCH': 'Song search',
     'RIDE_TIME': 'Ride | Choose a time',
-    'RIDE_CREATE': 'Create ride',
+    'RIDE_CREATE_TITLE': 'Create ride',
     'RIDE_VIEW': 'View ride',
     'RIDE_SYNC': 'Sync ride',
     'TEMPLATE_PAGE': 'Template | Admin',
@@ -21,6 +21,26 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'TEMPLATE_NEW_PAGE': 'Create New Template | Admin',
     'PROFILE_PAGE': 'User profile',
     'USER': 'User',
+    'USERS': 'Users',
+
+    // Onboarding
+    'OB_STARTED': 'Get started',
+    'OB_BROWSE_RIDES': 'Browse rides shared by others',
+    'OB_KNOW': 'Help us get to know you a little.',
+    'OB_CLUBS': 'Which clubs do you regularly teach at?',
+    'OB_HEY': 'Hey',
+    'OB_INVITED': "You've been invited to",
+    'OB_TITLE_APP': 'Group Exercise Instructor App',
+    'OB_ENDORSED': 'Up your game with <em>professionally endorsed ride terrain templates.</em>',
+    'OB_SONGS': "It's never been this easy with over <em>1 million BPM tagged songs of all genres.</em>",
+    'OB_SYNC': "<em>Sync your playlist directly to the studio,</em> no more hassling with CD's.",
+    'OB_SETUP': "Let's get you set up!",
+    'OB_HI': 'Hi',
+    'OB_WELCOME': 'Welcome to Group Instructor app',
+    'OB_CHOOSE_PASSWORD': 'Choose a password',
+    'OB_FIRST_TIME': 'You will be asked to enter your email address and this password next time you log in',
+    'PASSWORD_CONFIRM': 'Confirm password',
+    'PASSWORD_SAVE': 'Save password',
 
     // Container page
     'HOME': 'Home',
@@ -80,7 +100,11 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'MINS': 'mins',
 
     // Playlist edit
+    'RIDE_EDIT': 'Edit your playlist',
+    'RIDE_CREATE': 'Create your playlist',
     'RIDE_NAME_REQ': 'The ride class needs a name.',
+    //TODO: 'CLASS_LENGTH_ERROR': 'Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.',
+    'CLASS_LENGTH_ERROR': '',
     'CLASS_GIVE_NAME': 'Give your class a name...',
     'GOAL_TRACK_REQ': 'Each goal needs a track.',
     'DRAG_DROP_TRACK': 'Add a track',
@@ -93,6 +117,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'CHALLENGE': 'Challenge',
     'NOTE_MAX': 'Max 200 characters',
     'RIDE_ERROR': 'Ride cannot be saved. Please try again later.',
+    'NEXT_PREVIEW': 'Next: preview my ride',
+    'UPDATE': 'Update changes',
 
     'BG_MUSIC': 'Background music',
 
@@ -124,6 +150,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'SEND_CLUBS': 'Send to your clubs',
     'SAVE_SEND_CLUB': 'Save and send to clubs',
     'SAVE_CONTINUE_LATER': 'Save and continue later',
+    // TODO: 'CLUB_RIDE_LIMIT_REACHED': '(This club already has {{playlist_sync.playlistLimitPerGym}} rides)',
+    'CLUB_RIDE_LIMIT_REACHED': '',
     'SELECT_CLUBS_EXPLANATION': 'Select which clubs you would like to send your ride class to. This will make sure that all of your music and notes will be available on the tablet in the studio when you arrive.',
     'SELECT_CLUB_REQ': 'Please select at least one club',
 
@@ -136,6 +164,11 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'GENRES': 'Genres',
     'ACC_DETAILS': 'account details',
     'USERNAME': 'Username',
+    'EMAIL_EXISTS': 'Email address already exists',
+    'CONTACTS_SAVED': 'Contact details saved.',
+    'PERMISSIONS_SAVED': 'Permissions saved.',
+    'CLUBS_SAVED': 'Resident clubs saved.',
+    'GENRES_SAVED': 'Genres saved.',
 
     // Templates
     'TEMPLATES': 'Templates',
@@ -166,6 +199,9 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'BEAT_RATIO_REQ': 'Please select a beat ratio.',
     'NOTES_GUIDELINE': 'Track notes guideline',
     'TEMPLATE_SAVE': 'Save template',
+    'TEMPLATE_EDITED': 'Template successfully edited.',
+    'TEMPLATE_ADDED': 'Template successfully added.',
+    'TEMPLATE_SAVED': 'Template successfully saved!'
   });
  
   $translateProvider.translations('es', {
