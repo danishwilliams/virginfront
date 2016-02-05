@@ -99,6 +99,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
 
     // Playlist edit
     'RIDE_NAME_REQ': 'The ride class needs a name.',
+    //TODO: 'CLASS_LENGTH_ERROR': 'Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.',
+    'CLASS_LENGTH_ERROR': '',
     'CLASS_GIVE_NAME': 'Give your class a name...',
     'GOAL_TRACK_REQ': 'Each goal needs a track.',
     'DRAG_DROP_TRACK': 'Add a track',
@@ -142,6 +144,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'SEND_CLUBS': 'Send to your clubs',
     'SAVE_SEND_CLUB': 'Save and send to clubs',
     'SAVE_CONTINUE_LATER': 'Save and continue later',
+    // TODO: 'CLUB_RIDE_LIMIT_REACHED': '(This club already has {{playlist_sync.playlistLimitPerGym}} rides)',
+    'CLUB_RIDE_LIMIT_REACHED': '',
     'SELECT_CLUBS_EXPLANATION': 'Select which clubs you would like to send your ride class to. This will make sure that all of your music and notes will be available on the tablet in the studio when you arrive.',
     'SELECT_CLUB_REQ': 'Please select at least one club',
 
