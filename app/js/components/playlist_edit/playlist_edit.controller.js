@@ -4,13 +4,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // TODO: do we want to sanitize this?
   this.id = $stateParams.id;
-  self.title = "Edit your playlist";
+  self.title = 'RIDE_EDIT';
 
   if (Playlists.getCreatingNewPlaylist() || $state.current.name === 'playlist-new-edit') {
     // We're creating a new playlist!
     Playlists.setCreatingNewPlaylist(true);
     self.newPlaylist = true;
-    self.title = "Create your playlist";
+    self.title = 'RIDE_CREATE';
     self.playlistTracksLength = 0;
   }
 

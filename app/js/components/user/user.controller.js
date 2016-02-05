@@ -1,6 +1,5 @@
 angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService) {
   var self = this;
-  this.title = "User profile";
   this.id = $stateParams.id;
 
   if (!this.id) {

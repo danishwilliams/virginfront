@@ -4,7 +4,6 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
   // TODO: do we want to sanitize this?
   this.id = $stateParams.id;
 
-  this.title = "Sync a Ride";
   Playlists.setStep(5);
 
   Users.loadCurrentUser().then(function (data) {

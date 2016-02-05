@@ -212,7 +212,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/onboarding/gyms.html',
     controller: 'OnboardingController as onboarding',
     resolve: {
-      $title: function() { return 'Clubs | Onboarding'; /* OB_CLUBS */ }
+      $title: function() { return 'Clubs | Onboarding'; /* OB_CLUBS_TITLE */ }
     }
   })
 
@@ -265,7 +265,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/playlist_edit/playlist_edit.html',
     controller: 'Playlist_editController as playlist_edit',
     resolve: {
-      $title: function() { return 'Ride edit'; /* RIDE_EDIT */ }
+      $title: function() { return 'Ride edit'; /* RIDE_EDIT_TITLE */ }
     },
     data: {
       permissions: [APP_PERMISSIONS.editPlaylist]
@@ -316,7 +316,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/playlist_edit/playlist_edit.html',
     controller: 'Playlist_editController as playlist_edit',
     resolve: {
-      $title: function() { return 'Create ride'; /* RIDE_CREATE */ }
+      $title: function() { return 'Create ride'; /* RIDE_CREATE_TITLE */ }
     },
     data: {
       permissions: [APP_PERMISSIONS.createPlaylist]

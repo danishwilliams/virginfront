@@ -6,14 +6,14 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     // Routes
     // TODO: get these working
     'OB_PASSWORD': 'Password | Onboarding',
-    'OB_CLUBS': 'Clubs | Onboarding',
+    'OB_CLUBS_TITLE': 'Clubs | Onboarding',
     'OB_GENRES': 'Genres | Onboarding',
     'OB_DONE': 'Get started | Onboarding',
     'RIDES': 'Rides',
-    'RIDE_EDIT': 'Ride edit',
+    'RIDE_EDIT_TITLE': 'Ride edit',
     'TRACKS_SEARCH': 'Song search',
     'RIDE_TIME': 'Ride | Choose a time',
-    'RIDE_CREATE': 'Create ride',
+    'RIDE_CREATE_TITLE': 'Create ride',
     'RIDE_VIEW': 'View ride',
     'RIDE_SYNC': 'Sync ride',
     'TEMPLATE_PAGE': 'Template | Admin',
@@ -98,6 +98,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'MINS': 'mins',
 
     // Playlist edit
+    'RIDE_EDIT': 'Edit your playlist',
+    'RIDE_CREATE': 'Create your playlist',
     'RIDE_NAME_REQ': 'The ride class needs a name.',
     //TODO: 'CLASS_LENGTH_ERROR': 'Try to get your class closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.',
     'CLASS_LENGTH_ERROR': '',

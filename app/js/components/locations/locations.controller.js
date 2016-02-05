@@ -1,6 +1,5 @@
 angular.module("app.locations", []).controller('LocationsController', function (Locations, Restangular, uuid2) {
   var self = this;
-  this.title = "Locations";
 
   Locations.loadLocations().then(function (data) {
     self.locations = data;
