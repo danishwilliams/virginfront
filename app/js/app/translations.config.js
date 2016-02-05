@@ -160,6 +160,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'GENRES': 'Genres',
     'ACC_DETAILS': 'account details',
     'USERNAME': 'Username',
+    'EMAIL_EXISTS': 'Email address already exists',
 
     // Templates
     'TEMPLATES': 'Templates',
@@ -190,6 +191,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'BEAT_RATIO_REQ': 'Please select a beat ratio.',
     'NOTES_GUIDELINE': 'Track notes guideline',
     'TEMPLATE_SAVE': 'Save template',
+    'TEMPLATE_EDITED': 'Template successfully edited.',
+    'TEMPLATE_SAVED': 'Template successfully added.'
   });
  
   $translateProvider.translations('es', {

@@ -10,10 +10,10 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     var message = '';
     switch ($stateParams.action) {
       case 'edited':
-        message = 'Template successfully edited.';
+        message = 'TEMPLATE_EDITED';
         break;
       case 'saved':
-        message = 'Template successfully added.';
+        message = 'TEMPLATE_SAVED';
         break;
     }
     self.messages = [{

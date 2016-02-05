@@ -1,4 +1,4 @@
-angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService) {
+angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter) {
   var self = this;
   this.id = $stateParams.id;
 
@@ -206,8 +206,11 @@ angular.module("app.user", []).controller('UserController', function ($statePara
           message: res.data.Message
         };
         if (res.data.Message === 'Email address already exists') {
-          self.error.email = true;
-          self.error.error = false; // Workaround for showing errors at the top of the page too
+          self.error = {
+            error: false, // Workaround for showing errors at the top of the page too
+            email: true,
+            message: $filter('translate')('EMAIL_EXISTS')
+          };
         }
       }
     });
