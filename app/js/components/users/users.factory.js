@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Users', UsersFactory);
 
-UsersFactory.$inject = ['Restangular'];
+UsersFactory.$inject = ['Restangular', 'Storage'];
 
-function UsersFactory(Restangular) {
+function UsersFactory(Restangular, Storage) {
   var users = [];
   var currentUser = {};
 
@@ -23,7 +23,7 @@ function UsersFactory(Restangular) {
   return usersFactory;
 
   function getAccessToken() {
-    return localStorage.getItem('token');
+    return Storage.getItem('token');
   }
 
   function loadAccessToken(credentials) {
@@ -41,12 +41,12 @@ function UsersFactory(Restangular) {
   }
 
   function setAccessToken(value) {
-    localStorage.setItem('token', value);
+    Storage.setItem('token', value);
   }
 
   function logout() {
-    localStorage.removeItem('base64');
-    localStorage.removeItem('token');
+    Storage.removeItem('base64');
+    Storage.removeItem('token');
     Restangular.setDefaultHeaders({
         "Authorization": "none"
       });

@@ -26,7 +26,26 @@ angular.module("app").config(function (RestangularProvider) {
   });
   */
 
+  // Have to put this here because can't inject Storage service at this stage
+  function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
   var token = localStorage.getItem('token');
+  if (!token) {
+    token = getCookie('token');
+  }
   if (token) {
     RestangularProvider.setDefaultHeaders({
       "Authorization": "Token " + token
