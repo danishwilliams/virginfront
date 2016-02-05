@@ -22,6 +22,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PROFILE_PAGE': 'User profile',
     'USER': 'User',
     'USERS': 'Users',
+
+    // Onboarding
     'OB_STARTED': 'Get started',
     'OB_BROWSE_RIDES': 'Browse rides shared by others',
     'OB_KNOW': 'Help us get to know you a little.',
