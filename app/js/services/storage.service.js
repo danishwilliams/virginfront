@@ -27,30 +27,46 @@ function StorageService() {
     return storageImpl;
   }
 
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+  }
+
+  function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
   function LocalStorageAlternative() {
-    var structureLocalStorage = {};
 
     this.setItem = function (key, value) {
-      structureLocalStorage[key] = value;
+      setCookie(key, value, 10);
     };
 
     this.getItem = function (key) {
-      if (typeof structureLocalStorage[key] !== 'undefined') {
-        return structureLocalStorage[key];
-      } else {
-        return null;
-      }
+      return getCookie(key);
     };
 
     this.removeItem = function (key) {
-      structureLocalStorage[key] = undefined;
+      setCookie(key, undefined);
     };
   }
 
   storage = getStorage();
 
   function getItem(item) {
-    console.log('getting ', item);
     return storage.getItem(item);
   }
 
