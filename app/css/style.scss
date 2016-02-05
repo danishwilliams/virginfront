@@ -6,6 +6,11 @@ $top_padding: rem-calc(30px);
 $radius: rem-calc(15px);
 $radius-tiny: 2px;
 
+.uiview div.row:first-of-type, .playlist-edit {
+  padding-left: rem-calc(4px);
+  padding-right: rem-calc(4px);
+}
+
 /* Headings */
 
 .heading {
