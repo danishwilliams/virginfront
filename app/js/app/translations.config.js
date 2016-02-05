@@ -115,6 +115,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'CHALLENGE': 'Challenge',
     'NOTE_MAX': 'Max 200 characters',
     'RIDE_ERROR': 'Ride cannot be saved. Please try again later.',
+    'NEXT_PREVIEW': 'Next: preview my ride',
+    'UPDATE': 'Update changes',
 
     'BG_MUSIC': 'Background music',
 
@@ -161,6 +163,10 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'ACC_DETAILS': 'account details',
     'USERNAME': 'Username',
     'EMAIL_EXISTS': 'Email address already exists',
+    'CONTACTS_SAVED': 'Contact details saved.',
+    'PERMISSIONS_SAVED': 'Permissions saved.',
+    'CLUBS_SAVED': 'Resident clubs saved.',
+    'GENRES_SAVED': 'Genres saved.',
 
     // Templates
     'TEMPLATES': 'Templates',
@@ -192,7 +198,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'NOTES_GUIDELINE': 'Track notes guideline',
     'TEMPLATE_SAVE': 'Save template',
     'TEMPLATE_EDITED': 'Template successfully edited.',
-    'TEMPLATE_SAVED': 'Template successfully added.'
+    'TEMPLATE_ADDED': 'Template successfully added.',
+    'TEMPLATE_SAVED': 'Template successfully saved!'
   });
  
   $translateProvider.translations('es', {

@@ -172,22 +172,22 @@ angular.module("app.user", []).controller('UserController', function ($statePara
       switch (type) {
         case 'contact':
           self.contactEdit = false;
-          message = 'Contact details saved.';
+          message = 'CONTACTS_SAVED';
           spinnerService.hide('userContactSpinner');
           break;
         case 'userTypes':
           self.userTypesEdit = false;
-          message = 'Permissions saved.';
+          message = 'PERMISSIONS_SAVED';
           spinnerService.hide('userTypesSpinner');
           break;
         case 'gyms':
           self.gymEdit = false;
-          message = 'Resident clubs saved.';
+          message = 'CLUBS_SAVED';
           spinnerService.hide('userGymsSpinner');
           break;
         case 'genres':
           self.genreEdit = false;
-          message = 'Genres saved.';
+          message = 'GENRES_SAVED';
           spinnerService.hide('userGenresSpinner');
           break;
       }

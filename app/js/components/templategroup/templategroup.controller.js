@@ -13,7 +13,7 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
         message = 'TEMPLATE_EDITED';
         break;
       case 'saved':
-        message = 'TEMPLATE_SAVED';
+        message = 'TEMPLATE_ADDED';
         break;
     }
     self.messages = [{
@@ -103,7 +103,7 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
         self.edit = false;
         self.alerts = [{
           type: 'success',
-          msg: 'Template successfully saved!'
+          msg: 'TEMPLATE_ADDED'
         }];
       }
     });
