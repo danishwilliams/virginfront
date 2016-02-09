@@ -7,11 +7,15 @@ UsersFactory.$inject = ['Restangular', 'Storage'];
 function UsersFactory(Restangular, Storage) {
   var users = [];
   var currentUser = {};
+  var onboardingStatus = false; // true if we're onboarding, false if we're not or if we're done
 
   var usersFactory = {
+    getOnboardingStatus: getOnboardingStatus,
+    setOnboardingStatus: setOnboardingStatus,
     getAccessToken: getAccessToken,
     loadAccessToken: loadAccessToken,
     setAccessToken: setAccessToken,
+    changePassword: changePassword,
     logout: logout,
     loadUsers: loadUsers,
     getUsers: getUsers,
@@ -21,6 +25,14 @@ function UsersFactory(Restangular, Storage) {
   };
 
   return usersFactory;
+
+  function getOnboardingStatus() {
+    return onboardingStatus;
+  }
+
+  function setOnboardingStatus(value) {
+    onboardingStatus = value;
+  }
 
   function getAccessToken() {
     return Storage.getItem('token');
@@ -42,6 +54,10 @@ function UsersFactory(Restangular, Storage) {
 
   function setAccessToken(value) {
     Storage.setItem('token', value);
+  }
+
+  function changePassword(value) {
+    return Restangular.one('users/changepassword').get({newPassword: value});
   }
 
   function logout() {

@@ -1,7 +1,18 @@
-angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms) {
+angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms, Users) {
   var self = this;
 
-  this.id = $stateParams.id;
+  var token = $stateParams.id;
+
+  // We need to be able to get to this point WITHOUT being logged in.
+
+  // Use this token as our authentication
+  Users.setAccessToken(token);
+  Users.setOnboardingStatus(true);
+
+  // Grab the user's account
+  Users.loadCurrentUser().then(function(data) {
+    self.user = data;
+  });
 
   switch ($state.current.name) {
   case 'onboarding-genres':
@@ -21,16 +32,24 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     break;
   }
 
-  this.save_password = function () {
-    // TODO: check that passwords match
-    // TODO: save password
+  self.save_password = function () {
+    // check that passwords match
+    if (self.password !== self.password1) {
+      return;
+    }
 
-    $state.go('onboarding-gyms', {
-      id: self.id
+    // Save password and go to the dashboard
+    Users.changePassword(self.password).then(function() {
+      console.log('password changed!');
+      Users.setOnboardingStatus(false);
+      $state.go('dashboard');
+      //$state.go('onboarding-gyms', {
+      //  id: self.id
+      //});
     });
   };
 
-  this.save_gyms = function () {
+  self.save_gyms = function () {
     console.log(self.gyms);
 
     // TODO: find all selected gyms
@@ -42,7 +61,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     });
   };
 
-  this.save_genres = function () {
+  self.save_genres = function () {
     $state.go('onboarding-get-started', {
       id: self.id
     });

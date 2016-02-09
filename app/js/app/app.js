@@ -107,6 +107,15 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
 
   $rootScope.$on("$stateChangeStart", function (event, next) {
     self.menu = false;
+
+    // Skip login check
+    if (next.name === 'onboarding' && !Users.getOnboardingStatus()) {
+      // The first onboarding page skips login check
+      spinnerService.hide('bodySpinner');
+      self.ready = true;
+      return;
+    }
+
     var user = Users.getCurrentUser();
     self.userName = user.FirstName;
     if (!_.isEmpty(user)) {

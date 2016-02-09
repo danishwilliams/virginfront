@@ -191,15 +191,6 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   // Onboarding - invite
   .state('onboarding', {
     url: '/onboarding/:id',
-    templateUrl: '../js/components/onboarding/invitation.html',
-    controller: 'OnboardingController as onboarding',
-    resolve: {
-      $title: function() { return 'Login'; /* LOGIN */ }
-    }
-  })
-
-  .state('onboarding-password', {
-    url: '/onboarding/:id/password',
     templateUrl: '../js/components/onboarding/password.html',
     controller: 'OnboardingController as onboarding',
     resolve: {

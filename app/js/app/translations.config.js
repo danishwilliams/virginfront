@@ -41,6 +41,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'OB_FIRST_TIME': 'You will be asked to enter your email address and this password next time you log in',
     'PASSWORD_CONFIRM': 'Confirm password',
     'PASSWORD_SAVE': 'Save password',
+    'PASSWORD_CONFIRM_REQ': 'Please confirm your password',
+    'PASSWORDS_DONT_MATCH': "Your passwords don't match",
 
     // Container page
     'HOME': 'Home',
