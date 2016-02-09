@@ -10,7 +10,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
   Users.setOnboardingStatus(true);
 
   // Grab the user's account
-  Users.loadCurrentUser().then(function(data) {
+  Users.loadCurrentUser(token).then(function(data) {
     self.user = data;
   });
 

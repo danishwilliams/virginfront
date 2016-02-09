@@ -91,7 +91,11 @@ function UsersFactory(Restangular, Storage) {
     }
   }
 
-  function loadCurrentUser() {
+  function loadCurrentUser(token) {
+    // If there is a token, we're manually passing this through because this is the onboarding first login
+    if (token) {
+      return Restangular.one('users/me').get({}, {'Authorization': 'Token ' + token}).then(loadCurrentUserComplete);
+    }
     return Restangular.one('users/me').get().then(loadCurrentUserComplete);
 
     function loadCurrentUserComplete(data, status, headers, config) {
