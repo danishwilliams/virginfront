@@ -58,15 +58,19 @@ function UsersFactory(Restangular, Storage) {
 
   function changePassword(value) {
     var token = Storage.getItem('token');
-    return Restangular.one('users/password/change').get({newPassword: value}, {Authorization: 'Token ' + token});
+    return Restangular.one('users/password/change').customPOST({
+      NewPassword: value
+    }, '', {}, {
+      Authorization: 'Token ' + token
+    });
   }
 
   function logout() {
     Storage.removeItem('base64');
     Storage.removeItem('token');
     Restangular.setDefaultHeaders({
-        "Authorization": "none"
-      });
+      "Authorization": "none"
+    });
     users = [];
     currentUser = [];
   }
@@ -95,7 +99,9 @@ function UsersFactory(Restangular, Storage) {
   function loadCurrentUser(token) {
     // If there is a token, we're manually passing this through because this is the onboarding first login
     if (token) {
-      return Restangular.one('users/me').get({}, {Authorization: 'Token ' + token}).then(loadCurrentUserComplete);
+      return Restangular.one('users/me').get({}, {
+        Authorization: 'Token ' + token
+      }).then(loadCurrentUserComplete);
     }
     return Restangular.one('users/me').get().then(loadCurrentUserComplete);
 
