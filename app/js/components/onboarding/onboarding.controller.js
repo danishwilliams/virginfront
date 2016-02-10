@@ -40,12 +40,20 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
 
     // Save password and go to the dashboard
     Users.changePassword(self.password).then(function() {
-      console.log('password changed!');
       Users.setOnboardingStatus(false);
-      $state.go('dashboard');
-      //$state.go('onboarding-gyms', {
-      //  id: self.id
-      //});
+
+      // delete the onboarding token
+      Users.deleteAccessToken(token).then(function() {
+        // Get a new login token (i.e. post username and password to api/auth)
+        Users.loadAccessToken({username: Users.getCurrentUser().Username, password: self.password}).then(function(data) {
+          // Save new login token in local storage
+          Users.setAccessToken(data);
+          $state.go('dashboard');
+          //$state.go('onboarding-gyms', {
+          //  id: self.id
+          //});
+        });
+      });
     });
   };
 

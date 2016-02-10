@@ -14,6 +14,7 @@ function UsersFactory(Restangular, Storage) {
     setOnboardingStatus: setOnboardingStatus,
     getAccessToken: getAccessToken,
     loadAccessToken: loadAccessToken,
+    deleteAccessToken: deleteAccessToken,
     setAccessToken: setAccessToken,
     changePassword: changePassword,
     logout: logout,
@@ -42,6 +43,8 @@ function UsersFactory(Restangular, Storage) {
     return Restangular.one('auth').customPOST({
       username: credentials.username,
       password: credentials.password
+    }, '', {}, {
+      Authorization: ''
     }).then(loadAccessTokenComplete);
 
     function loadAccessTokenComplete(data, status, headers, config) {
@@ -52,20 +55,34 @@ function UsersFactory(Restangular, Storage) {
     }
   }
 
+  function deleteAccessToken(accessToken) {
+    var token = Storage.getItem('token');
+    return Restangular.one('users/token/remove').customPOST({}, '', {
+      token: accessToken
+    }, {
+      Authorization: 'Token ' + token
+    });
+  }
+
   function setAccessToken(value) {
     Storage.setItem('token', value);
   }
 
   function changePassword(value) {
-    return Restangular.one('users/changepassword').get({newPassword: value});
+    var token = Storage.getItem('token');
+    return Restangular.one('users/password/change').customPOST({
+      NewPassword: value
+    }, '', {}, {
+      Authorization: 'Token ' + token
+    });
   }
 
   function logout() {
     Storage.removeItem('base64');
     Storage.removeItem('token');
     Restangular.setDefaultHeaders({
-        "Authorization": "none"
-      });
+      "Authorization": "none"
+    });
     users = [];
     currentUser = [];
   }
@@ -94,7 +111,9 @@ function UsersFactory(Restangular, Storage) {
   function loadCurrentUser(token) {
     // If there is a token, we're manually passing this through because this is the onboarding first login
     if (token) {
-      return Restangular.one('users/me').get({}, {Authorization: 'Token ' + token}).then(loadCurrentUserComplete);
+      return Restangular.one('users/me').get({}, {
+        Authorization: 'Token ' + token
+      }).then(loadCurrentUserComplete);
     }
     return Restangular.one('users/me').get().then(loadCurrentUserComplete);
 
