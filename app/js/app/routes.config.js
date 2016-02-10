@@ -428,6 +428,18 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  .state('user-new', {
+    url: '/admin/users/new',
+    templateUrl: '../js/components/user_new/user_new.html',
+    controller: 'UserNewController as vm',
+    resolve: {
+      $title: function() { return 'Create new user'; /* CREATE_USER */ }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
+    }
+  })
+
   .state('user', {
     url: '/user',
     templateUrl: '../js/components/user/user.html',

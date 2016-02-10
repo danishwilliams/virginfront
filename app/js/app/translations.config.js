@@ -22,6 +22,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PROFILE_PAGE': 'User profile',
     'USER': 'User',
     'USERS': 'Users',
+    'CREATE_USER': 'Create new user',
 
     // Onboarding
     'OB_STARTED': 'Get started',
@@ -171,6 +172,17 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PERMISSIONS_SAVED': 'Permissions saved.',
     'CLUBS_SAVED': 'Resident clubs saved.',
     'GENRES_SAVED': 'Genres saved.',
+    'PHONE': 'Phone number',
+    'CITY': 'City',
+
+    // Adding a user
+    'FIRST_NAME': 'First name',
+    'LAST_NAME': 'Last name',
+    'EMPLOYEE_ID': 'Employee ID',
+    'FIRST_NAME_REQ': 'First name is required',
+    'LAST_NAME_REQ': 'Last name is required',
+    'GYMS': 'Clubs',
+    'EMAIL_VALID': 'Please enter a valid email address',
 
     // Templates
     'TEMPLATES': 'Templates',
