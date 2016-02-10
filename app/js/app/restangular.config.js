@@ -67,11 +67,8 @@ angular.module("app").config(function (RestangularProvider) {
       //console.log(params);
       //element = 
     }
-    return {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
+    headers['Content-Type'] = 'application/json';
+    return headers;
   });
 
   // TODO: figure out how to retry requests
