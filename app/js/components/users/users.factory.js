@@ -57,7 +57,8 @@ function UsersFactory(Restangular, Storage) {
   }
 
   function changePassword(value) {
-    return Restangular.one('users/changepassword').get({newPassword: value});
+    var token = Storage.getItem('token');
+    return Restangular.one('users/changepassword').get({newPassword: value}, {Authorization: 'Token ' + token});
   }
 
   function logout() {
