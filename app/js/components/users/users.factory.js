@@ -14,6 +14,7 @@ function UsersFactory(Restangular, Storage) {
     setOnboardingStatus: setOnboardingStatus,
     getAccessToken: getAccessToken,
     loadAccessToken: loadAccessToken,
+    deleteAccessToken: deleteAccessToken,
     setAccessToken: setAccessToken,
     changePassword: changePassword,
     logout: logout,
@@ -42,6 +43,8 @@ function UsersFactory(Restangular, Storage) {
     return Restangular.one('auth').customPOST({
       username: credentials.username,
       password: credentials.password
+    }, '', {}, {
+      Authorization: ''
     }).then(loadAccessTokenComplete);
 
     function loadAccessTokenComplete(data, status, headers, config) {
@@ -50,6 +53,15 @@ function UsersFactory(Restangular, Storage) {
       });
       return data.Value;
     }
+  }
+
+  function deleteAccessToken(accessToken) {
+    var token = Storage.getItem('token');
+    return Restangular.one('users/token/remove').customPOST({}, '', {
+      token: accessToken
+    }, {
+      Authorization: 'Token ' + token
+    });
   }
 
   function setAccessToken(value) {
