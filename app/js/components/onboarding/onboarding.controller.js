@@ -42,16 +42,17 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     Users.changePassword(self.password).then(function() {
       Users.setOnboardingStatus(false);
 
-      // TODO: delete the onboarding token
-
-      // Get a new login token (i.e. post username and password to api/auth)
-      Users.loadAccessToken({username: Users.getCurrentUser().Username, password: self.password}).then(function(data) {
-        // Save new login token in local storage
-        Users.setAccessToken(data);
-        $state.go('dashboard');
-        //$state.go('onboarding-gyms', {
-        //  id: self.id
-        //});
+      // delete the onboarding token
+      Users.deleteAccessToken(token).then(function() {
+        // Get a new login token (i.e. post username and password to api/auth)
+        Users.loadAccessToken({username: Users.getCurrentUser().Username, password: self.password}).then(function(data) {
+          // Save new login token in local storage
+          Users.setAccessToken(data);
+          $state.go('dashboard');
+          //$state.go('onboarding-gyms', {
+          //  id: self.id
+          //});
+        });
       });
     });
   };
