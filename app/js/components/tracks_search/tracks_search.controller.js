@@ -1,42 +1,43 @@
-angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Genres, Tracks, Playlists, spinnerService, Users) {
+angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Tracks, Playlists, spinnerService, Users) {
   var self = this;
 
   this.currentgoal = Playlists.getCurrentGoal();
   this.tracks = Tracks.getTracks();
+  self.error = {};
 
   if (this.currentgoal.BpmLow === -1) {
     $state.go('^');
   } else {
     // Load tracks from the user's default genre selection
+    self.error = {};
     Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
       self.tracks = data;
       spinnerService.hide('trackSpinner');
+    }, function () {
+      spinnerService.hide('trackSpinner');
+      self.error = {
+        server: true
+      };
     });
   }
 
   // Set up addition bpm range
-  if (this.currentgoal.BpmLow < 90 && !this.currentgoal.BackgroundSection) {
-    this.bpm2 = true;
-    this.bpmLow2 = this.currentgoal.BpmLow * 2;
-    this.bpmHigh2 = this.currentgoal.BpmHigh * 2;
+  if (!this.currentgoal.BackgroundSection) {
+    // If bpm less than 90, then high range is doubled
+    if (this.currentgoal.BpmLow < 90) {
+      this.bpm2 = true;
+      this.bpmLow2 = this.currentgoal.BpmLow * 2;
+      this.bpmHigh2 = this.currentgoal.BpmHigh * 2;
+    }
+    // If bpm greater than 120, then halve it too
+    else if (this.currentgoal.BpmLow >= 120) {
+      this.bpm2 = true;
+      this.bpmLow2 = this.currentgoal.BpmLow;
+      this.bpmHigh2 = this.currentgoal.BpmHigh;
+      this.currentgoal.BpmLow = this.currentgoal.BpmLow / 2;
+      this.currentgoal.BpmHigh = this.currentgoal.BpmHigh / 2;
+    }
   }
-
-  Genres.loadGenres().then(function (data) {
-    self.genres = data;
-    // Auto-select the user's genres
-    Users.loadCurrentUser().then(function(data) {
-      _.mapObject(self.genres, function(val, key) {
-        if (key >= 0) {
-          data.UserGenres.forEach(function(genre) {
-            if (genre.GenreId === val.Id) {
-              val.selected = true;
-              return val;
-            }
-          });
-        }
-      });
-    });
-  });
 
   this.cancel = function () {
     Tracks.stopTrack();
@@ -46,9 +47,15 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   this.trackSearch = function () {
     spinnerService.show('trackSpinner');
     self.tracks = [];
+    self.error = {};
     Tracks.searchTracks(self.search).then(function (data) {
       self.tracks = data;
       spinnerService.hide('trackSpinner');
+    }, function () {
+      spinnerService.hide('trackSpinner');
+      self.error = {
+        server: true
+      };
     });
   };
 
@@ -56,15 +63,23 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     var genres = [];
     self.genres.forEach(function (val) {
       if (val.selected) {
-        genres.push({Id: val.Id});
+        genres.push({
+          Id: val.Id
+        });
       }
     });
-    if (genres) {
+    if (!_.isEmpty(genres)) {
       spinnerService.show('trackSpinner');
       self.tracks = [];
+      self.error = {};
       Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, genres).then(function (data) {
         self.tracks = data;
         spinnerService.hide('trackSpinner');
+      }, function () {
+        spinnerService.hide('trackSpinner');
+        self.error = {
+          server: true
+        };
       });
     }
   };

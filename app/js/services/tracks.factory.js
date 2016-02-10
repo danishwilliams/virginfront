@@ -5,14 +5,16 @@ angular
   .module("app")
   .service('Tracks', TracksFactory);
 
-TracksFactory.$inject = ['$rootScope', '$location', '$interval', 'Restangular', 'Playlists'];
+TracksFactory.$inject = ['$rootScope', '$location', '$interval', 'Restangular', 'Playlists', 'Storage'];
 
-function TracksFactory($rootScope, $location, $interval, Restangular, Playlists) {
+function TracksFactory($rootScope, $location, $interval, Restangular, Playlists, Storage) {
   var self = this;
   self.userGenresTracks = [];
   self.tracks = []; // A list of track objects
   self.audio = new Audio(); // An audio object for playing a track
-  self.audio.preload = "none";
+  // Without these, Safari hates us
+  self.audio.preload = "auto";
+  self.audio.autoplay = "true";
   self.currentPlayingTrack = {}; // The track which is currently playing
   self.selectedSearchedTrack = {}; // A track which has been selected from a search
 
@@ -97,10 +99,10 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
           track.playing = false;
 
           // Store track duration played (and date) locally
-          localStorage.setItem('musicProviderTrackId', track.MusicProviderTrackId);
-          localStorage.setItem('durationSeconds', self.audio.currentTime);
+          Storage.setItem('musicProviderTrackId', track.MusicProviderTrackId);
+          Storage.setItem('durationSeconds', self.audio.currentTime);
           var d = new Date();
-          localStorage.setItem('date', d.toISOString());
+          Storage.setItem('date', d.toISOString());
         } else {
           // User is resuming a paused track
           track.playing = true;
@@ -120,10 +122,10 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
       playTrackWithSource(track, sortOrder);
 
       // If a track was paused in the last browser session, post a track usage count
-      var musicProviderTrackId = localStorage.getItem('musicProviderTrackId');
+      var musicProviderTrackId = Storage.getItem('musicProviderTrackId');
       if (musicProviderTrackId) {
-        var duration = localStorage.getItem('durationSeconds');
-        var dateLocal = localStorage.getItem('date');
+        var duration = Storage.getItem('durationSeconds');
+        var dateLocal = Storage.getItem('date');
         if (duration >= 1 && dateLocal) {
           postTrackUsage(musicProviderTrackId, parseInt(duration), dateLocal);
         }
@@ -158,7 +160,9 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
       self.audio.currentTime = track.currentTime;
     }
     self.progress = $interval(function () {
-      track.currentTime = parseInt(self.audio.currentTime);
+      if (self.currentPlayingTrack.Id === track.Id) {
+        track.currentTime = parseInt(self.audio.currentTime);
+      }
     }, 100);
     self.audio.play();
   }
@@ -259,9 +263,9 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists)
     return Restangular.one('music/usage/track').customPOST(usage).then(postTrackUsageComplete);
 
     function postTrackUsageComplete(data, status, headers, config) {
-      localStorage.removeItem('musicProviderTrackId');
-      localStorage.removeItem('durationSeconds');
-      localStorage.removeItem('date');
+      Storage.removeItem('musicProviderTrackId');
+      Storage.removeItem('durationSeconds');
+      Storage.removeItem('date');
       return data;
     }
   }

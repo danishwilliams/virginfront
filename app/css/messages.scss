@@ -1,8 +1,12 @@
-.error {
+.error, small.error {
   background: $apricot;
   color: $peach;
   padding: rem-calc(20px);
   font-style: normal;
+}
+
+small.error {
+  padding: rem-calc(10px);
 }
 
 span.error {

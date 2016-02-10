@@ -1,10 +1,10 @@
 angular
   .module("app", [
-    "ngResource", // TODO: probably not needed
     "ngSanitize",
     "ngMessages",
     "angularSpinners",
     "ui.router",
+    "ui.router.title",
     "angularUUID2",
     "MassAutoComplete",
     "pascalprecht.translate",
@@ -31,6 +31,7 @@ angular
     "app.playlist_edit",
     "app.playlist_sync",
     "app.playlist_view",
+    "app.recent_classes",
     "app.sync",
     "app.tracks",
     "app.tracks_search",
@@ -38,22 +39,21 @@ angular
     "app.users",
     "app.usertypes",
     "app.templates",
-    "app.template_view"
+    "app.templategroup_view"
   ])
   .constant('APP_PERMISSIONS', {
     viewAdmin: "viewAdmin",
     editAdmin: "editAdmin",
+    devices: "devices",
+    gyms: "gyms",
     viewContent: "viewContent",
     createPlaylist: "createPlaylist",
     viewPlaylist: "viewPlaylist",
     editPlaylist: "editPlaylist",
     editAnyPlaylist: "editAnyPlaylist",
-    viewTemplates: "viewTemplates",
-    editTemplates: "editTemplates",
-    viewUser: "viewUser",
-    editUser: "editUser",
-    viewUsers: "viewUsers",
-    editUsers: "editUsers"
+    templates: "templates",
+    user: "user",
+    users: "users"
   })
   .constant('USER_ROLES', {
     user: "User",
@@ -63,13 +63,14 @@ angular
   })
   .controller("AppController", AppController);
 
-AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Authorizer'];
+AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Authorizer', '$window', '$scope'];
 
-function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
+function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $window, $scope) {
   var self = this;
   self.ready = false;
   self.loggedIn = false;
   self.userName = {};
+  self.menu = false;
 
   self.logout = function () {
     Users.logout();
@@ -77,7 +78,44 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
     $state.go('login');
   };
 
+  self.menuClicked = function() {
+    self.menu = !self.menu;
+  };
+
+  var currentWidth = screen.width;
+
+  // When resizing the window
+  angular.element($window).on('resize', function(e) {
+    // Check window width has actually changed and it's not just iOS triggering a resize event on scroll
+    //console.log('resized!');
+    var width = 0;
+    if (typeof window.orientation !== 'undefined') {
+      width = screen.width;
+    }
+    else {
+      width = angular.element($window)[0].innerWidth;
+    }
+
+    if (currentWidth !== width) {
+      currentWidth = width;
+      // Without this angular doesn't know the variable has changed. Why? Mysteries of $digest.
+      $scope.$apply(function() {
+        self.menu = false;
+      });
+    }
+  });
+
   $rootScope.$on("$stateChangeStart", function (event, next) {
+    self.menu = false;
+
+    // Skip login check
+    if (next.name === 'onboarding' && !Users.getOnboardingStatus()) {
+      // The first onboarding page skips login check
+      spinnerService.hide('bodySpinner');
+      self.ready = true;
+      return;
+    }
+
     var user = Users.getCurrentUser();
     self.userName = user.FirstName;
     if (!_.isEmpty(user)) {
@@ -85,7 +123,6 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
     }
 
     if (!self.ready && next.name !== 'login') {
-      Users.initAuthHeader();
       // The app isn't ready yet, so load up a user and then check if they have permission to access the route
       Users.loadCurrentUser().then(function (data) {
         user = data;
@@ -117,9 +154,11 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer) {
     function hasAccessToRoute(user) {
       var authenticator, permissions;
       permissions = next && next.data ? next.data.permissions : null;
+      /*
       if (permissions != null) {
         console.log(permissions + ' ' + Authorizer.canAccess(permissions, user));
       }
+      */
       if ((permissions != null) && !Authorizer.canAccess(permissions, user)) {
         event.preventDefault();
         // If the user has navigated directly to this page by typing it in the address bar

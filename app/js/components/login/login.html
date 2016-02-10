@@ -1,22 +1,28 @@
 <div id="login" class="row">
   <div class="small-17 small-centered medium-12 medium-centered large-8 large-centered columns">
     <span class="container">
-    <h1>Instructor App sign in</h1>
+    <h1>{{'LOGIN_TITLE' | translate}}</h1>
 
-    <form ng-submit="login.login()">
+    <form name="form" novalidate ng-submit="login.login()">
       <div class="row">
         <div ng-messages="login.error">
-          <p class="error" ng-message="error">Your username or password is incorrect.</p>
+          <p class="error" ng-message="error">{{'LOGIN_ERROR' | translate}}</p>
         </div>
-        <input type="text" name="username" placeholder="Email address" ng-model="login.credentials.username" required/>
-        <input type="password" name="password" placeholder="Password" ng-model="login.credentials.password" required/>
+
+        <input type="text" name="username" placeholder="{{'EMAIL' | translate}}" ng-model="login.credentials.username" required />
+        <div ng-show="form.$submitted || form.username.$touched">
+          <small class="error" ng-show="form.username.$error.required">{{'EMAIL_REQ' | translate}}</small>
+        </div>
+
+        <input type="password" name="password" placeholder="{{'PASSWORD' | translate}}" ng-model="login.credentials.password" required />
+        <div ng-show="form.$submitted || form.password.$touched">
+          <small class="error" ng-show="form.password.$error.required">{{'PASSWORD_REQ' | translate}}</small>
+        </div>
       </div>
       <div class="row">
-        <div class="large-18 columns">
-          <button id="log-in" type="submit" class="right">
-            <spinner class="spinner" name="loginSpinner" show="false"></spinner>
-             Log In
-          </button>
+        <div class="large-18 columns text-right">
+          <spinner class="spinner" name="loginSpinner" show="false"></spinner>
+          <input type="submit" value="{{'LOGIN' | translate}}" />
         </div>
       </div>
     </form>

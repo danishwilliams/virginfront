@@ -1,0 +1,17 @@
+.templates {
+  input[type="text"] {
+    width: inherit;
+  }
+
+  .goal-container {
+    select {
+      margin-bottom: 0;
+    }
+    input {
+      display: inline;
+    }
+    .goal-name img.open {
+      vertical-align: inherit;
+    }
+  }
+}

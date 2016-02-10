@@ -9,7 +9,13 @@ function freestyleGoals() {
     controller: freestyleGoalsController,
     controllerAs: 'vm',
     scope: {
-      ngModel: '='
+      ngModel: '=',
+      selectedGoalId: '@',
+      ngDisabled: '@', // if this dropdown should be disabled
+      totalGoals: '@', // total goals in the list. @see index
+      index: '@', // the current goal number in the list, so that we know when we're rendering the last dropdown (for 'Cool Down')
+      allowCreateNewGoal: '@', // allows for the creation of a new default freestyle goal i.e. in template creation
+      allowEditingGoal: '@' // Shows 'Select a different' as default
     },
     require: '?ngModel',
     link: link
@@ -17,22 +23,65 @@ function freestyleGoals() {
   return directive;
 
   function link(scope, element, attrs, ngModel) {
+    scope.vm.selectedGoalId = scope.selectedGoalId;
+    scope.vm.disabled = scope.ngDisabled;
+    scope.vm.index = scope.index;
+    scope.vm.totalGoals = scope.totalGoals;
+    scope.vm.allowCreateNewGoal = scope.allowCreateNewGoal;
+    scope.vm.allowEditingGoal = scope.allowEditingGoal;
+    scope.vm.addAGoal = true;
+    if (scope.vm.allowEditingGoal) {
+      scope.vm.addAGoal = false;
+    }
     scope.selected = function (id) {
       // This triggers the ng-change on the directive so the parent controller can get the value
-      ngModel.$setViewValue(scope.vm.goals[id]);
-      // reset select list to not select anything
-      scope.vm.goalArrayId = undefined;
+      // We're passing an entire goal object back to the parent
+      if (id === 'newGoal') {
+        if (scope.allowCreateNewGoal || scope.allowEditingGoal) {
+          // Pass a blank goal to the parent
+          ngModel.$setViewValue(scope.vm.newGoal);
+        }
+      }
+      else {
+        // Pass the chosen goal to the parent
+        ngModel.$setViewValue(scope.vm.goals[id]);
+      }
     };
   }
 }
 
-freestyleGoalsController.$inject = ['$scope', 'Goals', 'spinnerService'];
+freestyleGoalsController.$inject = ['Goals', 'spinnerService'];
 
-function freestyleGoalsController($scope, Goals, spinnerService) {
+function freestyleGoalsController(Goals, spinnerService) {
   var self = this;
-  spinnerService.show('playlistFreestyleSpinner');
+  self.coolDown = false;
+  //spinnerService.show('playlistFreestyleSpinner');
+
   Goals.loadFreestyleGoals().then(function (data) {
     self.goals = data;
-    spinnerService.hide('playlistFreestyleSpinner');
+
+    // Creating a new goal i.e. in template creation
+    if (self.allowCreateNewGoal || self.allowEditingGoal) {
+      self.newGoal = Goals.createBlankDefaultGoal();
+    }
+
+    // This is a Cool Down goal!
+    if (parseInt(self.index) + 1 === parseInt(self.totalGoals)) {
+      self.coolDown = true;
+    }
+
+    // Set the selected goal
+    if (self.selectedGoalId) {
+      self.addAGoal = false; // We're editing a goal
+      // Auto-select the current goal
+      _.mapObject(self.goals, function (val, key) {
+        if (key >= 0) {
+          if (val.GoalId === self.selectedGoalId) {
+            self.goalArrayId = val.ArrayId;
+          }
+        }
+      });
+    }
+    //spinnerService.hide('playlistFreestyleSpinner');
   });
 }

@@ -4,11 +4,11 @@
       <h4 ng-class="{'has-track' : playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0}">
           <img ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
           {{playlistGoal.Goal.Name}} 
-          <em ng-if="playlistGoal.Goal.GoalChallengeId">Challenge</em>
+          <em ng-if="playlistGoal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
         </h4>
     </div>
     <div class="large-8 columns text-right">
-      <a ng-show="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length === 0">+ Add a song</a>
+      <a ng-show="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length === 0">+ {{'ADD_SONG' | translate}}</a>
     </div>
   </div>
   <div class="row" ng-show="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0">
@@ -30,14 +30,14 @@
   <div class="row goal-meta" ng-click="goal.show = !playlistGoal.show" ng-show="playlistGoal.show && playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalTracks.length > 0">
     <ul class="large-block-grid-2">
       <li ng-repeat="goaloption in playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].Goal.GoalOptions">
-        <goal_option data-freestyle="{{playlist_edit.freestyleTemplate}}" data-effort="goaloption.Effort" data-efforthigh="goaloption.EffortHigh" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}"></goal_option>
+        <goal_option data-freestyle="{{playlist_edit.freestyleTemplate}}" data-effort="goaloption.Effort" data-efforthigh="goaloption.EffortHigh" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}" data-customrpm="playlist_edit.playlist.TemplateGroup.IsCustomRpm"></goal_option>
       </li>
     </ul>
     <div class="row notes">
       {{'TRACK_NOTES' | translate}}
       <form name="playlistGoalNote{{playlistGoal.ArrayId}}">
         <textarea name="note" maxlength="200" ng-maxlength="200" ng-change="playlist_edit.playlistGoalNoteCreate(playlistGoal.ArrayId, 0)" ng-model-options="{updateOn : 'change blur'}" ng-model="playlist_edit.playlist.PlaylistGoals[playlistGoal.ArrayId].PlaylistGoalNotes[0].NoteText"></textarea>
-        <span class="maxlength">Max 200 characters</span>
+        <span class="maxlength">{{'NOTE_MAX' | translate}}</span>
       </form>
     </div>
   </div>

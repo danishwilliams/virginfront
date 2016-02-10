@@ -1,10 +1,10 @@
 <div class="onboarding row">
-  <h3>Hey {{onboarding.user.Name}}</h3>
+  <h3>{{'OB_HEY' | translate}} {{onboarding.user.Name}}</h3>
   <p>
-    You've been invited to
+    {{'OB_INVITED' | translate}}
   </p>
   <h1>
-    Group Exercise Instructor App
+    {{'OB_TITLE_APP' | translate}}
   </h1>
   <div class="row">
     <div class="columns large-5">
@@ -12,9 +12,9 @@
     </div>
     <div class="columns large-8">
       <ul class="large-block-grid-3 medium-block-grid-3">
-        <li>Up your game with <em>professionally endorsed ride terrain templates.</em></li>
-        <li>It's never been this easy with over <em>1 million BPM tagged songs of all genres.</em></li>
-        <li><em>Sync your playlist directly to the studio,</em> no more hassling with CD's.</li>
+        <li>{{'OB_ENDORSED' | translate}}</li>
+        <li>{{'OB_SONGS' | translate}}</li>
+        <li>{{'OB_SYNC' | translate}}</li>
       </ul>
     </div>
     <div class="columns large-5">
@@ -22,9 +22,9 @@
     </div>
   </div>
   <p>
-    Let's get you set up!
+    {{'OB_SETUP' | translate}}
   </p>
   <button class="round" ui-sref="onboarding-password({id:onboarding.id})">
-    Get started
+    {{'OB_STARTED' | translate}}`
   </button>
 </div>

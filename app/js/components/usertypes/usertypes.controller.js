@@ -1,6 +1,5 @@
 angular.module("app.usertypes", []).controller('UsertypesController', function ($stateParams, UserTypes, uuid2, Restangular) {
   var self = this;
-  this.title = "User Types";
   this.id = $stateParams.id;
   this.newUserType = {};
 

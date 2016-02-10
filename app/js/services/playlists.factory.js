@@ -41,6 +41,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getPlaylist: getPlaylist,
     setPlaylist: setPlaylist,
     loadGymsPlaylistSyncInfoDetailed: loadGymsPlaylistSyncInfoDetailed,
+    loadGymsDevicePlaylistSyncInfo: loadGymsDevicePlaylistSyncInfo,
     loadGymsPlaylists: loadGymsPlaylists,
     loadPlaylistsNotInGym: loadPlaylistsNotInGym,
     addPlaylistToGym: addPlaylistToGym,
@@ -61,7 +62,8 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getCurrentStep: getCurrentStep,
     setStep: setStep,
     getCurrentGoal: getCurrentGoal,
-    setCurrentGoal: setCurrentGoal
+    setCurrentGoal: setCurrentGoal,
+    loadRecentClasses: loadRecentClasses
   };
 
   return playlistFactory;
@@ -77,6 +79,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     playlist.TemplateId = template.Id;
     playlist.TemplateName = template.TemplateGroup.Name;
     playlist.TemplateIconFileName = template.TemplateGroup.IconFileName;
+    playlist.IsCustomRpm = template.TemplateGroup.IsCustomRpm;
     playlist.Shared = false;
     playlist.ClassLengthMinutes = template.ClassLengthMinutes;
     Users.loadCurrentUser().then(function (user) {
@@ -110,6 +113,9 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
       playlistGoal.ArrayId = i;
       playlistGoal.PlaylistGoalTracks = [];
       playlistGoal.PlaylistGoalNotes = [];
+      if (goal.Aim) {
+        playlistGoal.PlaylistGoalNotes.push(createPlaylistGoalNote(goal.Aim));
+      }
       playlist.PlaylistGoals.push(playlistGoal);
       i++;
     });
@@ -244,25 +250,16 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return Restangular.one('gyms/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
 
     function loadGymsPlaylistSyncInfoDetailedComplete(data, status, headers, config) {
-      /*
-      // Some dummy data for testing
-      var i = 0;
-      _.mapObject(data, function (val, key) {
-        if (key >= 0) {
-          _.mapObject(val.DevicePlaylistSyncs, function (val1, key1) {
-            i++;
-            if (i >= 3 && i <= 5) {
-              val1.PercentDone = 20;
-              val1.SecondsLeft = 120;
-              val1.SyncStarted = true;
-              return val1;
-            }
-          });
-        }
-        return val;
-      });
-      */
       return data;
+    }
+  }
+
+  function loadGymsDevicePlaylistSyncInfo(gymId, playlistId) {
+    return Restangular.one('gyms/syncinfo/deviceplaylistsync').get({gymId: gymId, playlistId: playlistId}).then(loadGymsDevicePlaylistSyncInfoComplete);
+
+    function loadGymsDevicePlaylistSyncInfoComplete(data, status, headers, config) {
+      // TODO: this only returns the primary device. At some point we need to handle multiple devices
+      return data[0];
     }
   }
 
@@ -319,7 +316,6 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return Restangular.one('music/playlist', id).post().then(publishPlaylistToMusicProviderComplete);
 
     function publishPlaylistToMusicProviderComplete(data, status, headers, config) {
-      console.log(data);
       // TODO: build in error handling here if this fails
       return data;
     }
@@ -337,19 +333,24 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
    *
    * @param noteText
    *   The note's text
-   * @param trackId
-   *   The track id which this note belongs to
+   * @param trackId (optional)
+   *   The track id which this note belongs to.
    *
    * @return
    *   A playlist goal note object
    */
   function createPlaylistGoalNote(noteText, trackId) {
-    return {
+    var note = {
       NoteText: noteText,
       Id: uuid2.newuuid().toString(),
-      SortOrder: 1,
-      TrackId: trackId
+      SortOrder: 1
     };
+
+    if (trackId) {
+      note.TrackId = trackId;
+    }
+
+    return note;
   }
 
   function getPlaylistLength() {
@@ -483,6 +484,16 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     else {
       currentgoal.ArrayId = playlistGoal.ArrayId;
       currentgoal.PlaylistGoalId = playlistGoal.Id;
+    }
+  }
+
+  function loadRecentClasses(resultCount) {
+    return Restangular.one('playlists/recentclasses').get({
+      resultCount: resultCount
+    }).then(loadRecentClassesComplete);
+
+    function loadRecentClassesComplete(data, status, headers, config) {
+      return data;
     }
   }
 }

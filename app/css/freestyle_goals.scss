@@ -1,0 +1,17 @@
+.goal-container {
+  .freestyle {
+    border: none;
+  }
+  select.freestyle-goal {
+    width: rem-calc(220px);
+    margin-bottom: 0;
+  }
+}
+
+select.freestyle-goal:disabled {
+  opacity: 0.3;
+}
+
+img.freestyle {
+  vertical-align: middle;
+}

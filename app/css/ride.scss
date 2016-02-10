@@ -11,8 +11,8 @@ ride, .dashboard .new, #rides .new  {
     background: $grey_lighter;
     border-bottom: 2px solid $grey_light;
     border-radius: 6px;
-    min-height: calc(168px);
-    max-width: calc(61px * 3);
+    min-height: rem-calc(168px);
+    max-width: rem-calc(61px * 3);
     overflow: hidden;
   }
   .content {

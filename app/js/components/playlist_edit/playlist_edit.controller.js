@@ -1,16 +1,16 @@
-angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $document, Tracks, Playlists, Templates, spinnerService, uuid2) {
+angular.module("app.playlist_edit", []).controller('Playlist_editController', function ($stateParams, $scope, $state, $rootScope, $document, Tracks, Playlists, Templates, spinnerService, uuid2, $location) {
   var self = this;
   var playing = false; // If music is playing or not
 
   // TODO: do we want to sanitize this?
   this.id = $stateParams.id;
-  self.title = "Edit your playlist";
+  self.title = 'RIDE_EDIT';
 
   if (Playlists.getCreatingNewPlaylist() || $state.current.name === 'playlist-new-edit') {
     // We're creating a new playlist!
     Playlists.setCreatingNewPlaylist(true);
     self.newPlaylist = true;
-    self.title = "Create your playlist";
+    self.title = 'RIDE_CREATE';
     self.playlistTracksLength = 0;
   }
 
@@ -53,25 +53,28 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     Templates.loadTemplate(self.id).then(function (data) {
       self.playlist = Playlists.createNewPlaylistFromTemplate(data);
       self.currentgoal = Playlists.getCurrentGoal();
-      self.initFreestylePlaylist();
+      self.initFreestyleGoals();
       spinnerService.hide('playlistEditSpinner');
     });
   } else if (self.id) {
     // Load an existing playlist so we can edit it
     Playlists.loadPlaylist(this.id).then(function () {
       self.playlist = Playlists.getPlaylist();
+      if (!self.playlist.IsSyncedToGyms) {
+        self.newPlaylist = true;
+      }
       self.playlistTracksLength = Playlists.getPlaylistLength();
       self.currentgoal = Playlists.getCurrentGoal();
       if (self.checkPlaylistLength() === false) {
         self.newPlaylist = true;
       }
-      self.initFreestylePlaylist();
+      self.initFreestyleGoals();
       spinnerService.hide('playlistEditSpinner');
     });
   }
 
-  // This is a Freestyle playlist
-  this.initFreestylePlaylist = function () {
+  // This is a Freestyle playlist, so create a list of freestyle goals which can then be added
+  this.initFreestyleGoals = function () {
     if (self.playlist.TemplateName !== 'Freestyle') {
       return;
     }
@@ -102,11 +105,46 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     var i = self.playlist.PlaylistGoals.length;
     // .copy because otherwise we change the model within the <freestyle-goals> directive
     var freestyleGoal = angular.copy(self.freestyleGoal);
+    // Remove a goal from freestyle goals, so that we can tell the <freestyle-goals> directive
+    self.freestyleGoals.splice(0, 1);
     // Setting Id allows the API to save a new playlist goal
     freestyleGoal.Id = uuid2.newuuid().toString();
     freestyleGoal.ArrayId = i;
     freestyleGoal.SortOrder = i + 1;
     self.playlist.PlaylistGoals.push(freestyleGoal);
+  };
+
+  /* Changes a Freestyle goal to another one */
+  this.changeFreestyleGoal = function (playlistGoal) {
+    var sortOrder = playlistGoal.SortOrder;
+    var tracks = playlistGoal.PlaylistGoalTracks;
+    var goalOptions = playlistGoal.Goal.GoalOptions;
+
+    // Following 7 lines trigger a $digest which refreshes the data in the view
+    playlistGoal.Goal.Name = self.freestyleGoal.Goal.Name;
+    playlistGoal.Goal.Id = self.freestyleGoal.Goal.Id;
+    playlistGoal.Goal.GoalOptions = self.freestyleGoal.Goal.GoalOptions;
+    playlistGoal.Goal.GoalChallengeId = self.freestyleGoal.Goal.GoalChallengeId;
+    playlistGoal.Goal.BpmLow = self.freestyleGoal.Goal.BpmLow;
+    playlistGoal.Goal.BpmHigh = self.freestyleGoal.Goal.BpmHigh;
+    playlistGoal.editFreeStyleGoal = false;
+    // Remove any existing tracks
+    playlistGoal.PlaylistGoalTracks = [];
+
+    // Maintain effort percentage, at least for the first goal option
+    var i = 0;
+    self.freestyleGoal.Goal.GoalOptions.forEach(function (val) {
+      if (goalOptions[i]) {
+        playlistGoal.Goal.GoalOptions[i].Effort = goalOptions[i].Effort;
+        playlistGoal.Goal.GoalOptions[i].EffortHigh = goalOptions[i].EffortHigh;
+      }
+      i++;
+    });
+
+    playlistGoal = self.freestyleGoal;
+    playlistGoal.editFreeStyleGoal = false;
+    playlistGoal.SortOrder = sortOrder;
+    self.freestyleGoal = {};
   };
 
   this.playTrack = function (track) {
@@ -118,6 +156,10 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * @param goal
    */
   this.goalClicked = function (playlistGoal) {
+    if (playlistGoal.editFreeStyleGoal) {
+      // We're currently selecting a different freestyle goal, so don't do anything else
+      return;
+    }
     if (playlistGoal.show) {
       // User has clicked on an open goal
 
@@ -136,10 +178,14 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     // If there aren't any tracks, find some!
     if (playlistGoal.PlaylistGoalTracks.length === 0) {
       angular.element($document[0].body).addClass('noscroll');
-      if (self.newPlaylist) {
-        $state.go('playlist-new-edit.tracks-search', {id: self.id});
+      if ($state.current.name === 'playlist-new-edit') {
+        $state.go('playlist-new-edit.tracks-search', {
+          id: self.id
+        });
       } else {
-        $state.go('playlist-edit.tracks-search', {id: self.id});
+        $state.go('playlist-edit.tracks-search', {
+          id: self.id
+        });
       }
     }
   };
@@ -180,6 +226,15 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Save the playlist to the API
   this.savePlaylist = function () {
+    if (self.playlist.Name.length < 1) {
+      self.required = {
+        error: true
+      };
+      // Shift focus to the form and input box
+      $location.hash('playlistForm');
+      document.getElementById('class_name').focus();
+      return;
+    }
     if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Probably hit 'enter' in the ride name inputbox
       return;
@@ -205,9 +260,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
           id: self.playlist.Id
         });
       } else {
-        // TODO: Add a playlist view state and go to it
-        $state.go('playlist-view', {
-          id: self.playlist.Id
+        // Publish the completed, edited playlist then view it
+        Playlists.publishPlaylist(self.playlist.Id).then(function (data) {
+          $state.go('playlist-view', {
+            id: self.playlist.Id
+          });
         });
       }
     }, function (response) {
@@ -239,7 +296,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   this.checkHasPreRideBackgroundTracks = function () {
     var found = false;
-    self.playlist.BackgroundTracks.forEach(function(val) {
+    self.playlist.BackgroundTracks.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === 'before') {
         found = true;
       }
@@ -249,7 +306,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   this.checkHasPostRideBackgroundTracks = function () {
     var found = false;
-    self.playlist.BackgroundTracks.forEach(function(val) {
+    self.playlist.BackgroundTracks.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === 'after') {
         found = true;
       }
@@ -274,14 +331,14 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.submitButtonText = function () {
     if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Editing a playlist but not all tracks have goals
-      return 'Each goal needs a track';
+      return 'GOAL_TRACK_REQ';
     } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
-      return 'Save and continue later';
+      return 'SAVE_CONTINUE_LATER';
     }
     if (self.newPlaylist) {
-      return 'Next: preview my ride';
+      return 'NEXT_PREVIEW';
     }
-    return 'Update changes';
+    return 'UPDATE';
   };
 
 });

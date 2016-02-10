@@ -8,6 +8,7 @@
 @import 'foundation';
 @import 'foundation-overrides';
 @import 'style';
+@import 'tabs';
 @import 'messages';
 @import 'tracks_search';
 @import 'sidebar';
@@ -18,9 +19,13 @@
 @import 'playlist_edit';
 @import 'playlist_view';
 @import 'playlist_sync';
+@import 'templategroup';
+@import 'templates';
+@import 'freestyle_goals';
 @import 'ride';
 @import 'user_profile';
 @import 'dashboard';
 @import 'spinner';
 @import 'gym_rides';
 @import 'style_guide';
+@import 'media_queries';

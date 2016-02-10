@@ -79,6 +79,9 @@
     top: 15vh;
     z-index:99;
   }
+  &.inline {
+    position: inherit;
+  }
 }
 
 button .spinner {

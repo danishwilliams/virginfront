@@ -1,31 +1,19 @@
-<div class="view-playlist">
+<div class="row view-playlist">
   <playlist-workflow ng-if="playlist_view.newPlaylist"></playlist-workflow>
-  <div class="row">
-    <div class="large-1 columns">
-      &nbsp;
-    </div>
-    <div class="large-16 columns">
-      <spinner class="spinner overlay" name="playlistViewSpinner" show="true"></spinner>
-      <h1>{{playlist_view.playlist.Name}}</h1>
-      <div class="row">
-        <div class="columns large-5">
-          <em>{{playlist_view.playlist.TemplateName}}</em> | {{playlist_view.playlist.TrackCount}} songs | {{playlist_view.playlist.TotalDurationSeconds | minutes}} minutes
-        </div>
-        <div class="columns large-13">
-          <a ui-sref="playlist-edit({id:playlist_view.playlist.Id})">Edit</a>
-        </div>
+  <spinner class="spinner overlay" name="playlistViewSpinner" show="true"></spinner>
+  <div style="display:none;" class="large-16 large-centered columns playlist-container" ng-class="{'show':playlist_view.playlist.Id}">
+    <h1>{{playlist_view.playlist.Name}}</h1>
+    <div class="row">
+      <div class="columns large-5">
+        <em>{{playlist_view.playlist.TemplateName}}</em> | {{playlist_view.playlist.TrackCount}} {{'TRACKS' | translate}} | {{playlist_view.playlist.TotalDurationSeconds | minutes}} {{'MINUTES' | translate}}
+      </div>
+      <div class="columns large-13">
+        <button class="edit" ui-sref="playlist-edit({id:playlist_view.playlist.Id})" ng-if="playlist_view.showEdit()">{{'EDIT' | translate}}</button>
       </div>
     </div>
-    <div class="large-1 columns">
-      &nbsp;
-    </div>
-  </div>
-  <div class="row goal" data-ng-repeat="playlistGoal in playlist_view.playlist.PlaylistGoals | orderBy:'SortOrder'">
-    <div class="row" id="playlist{{playlistGoal.Id}}{{track.id}}" data-ng-repeat="track in playlistGoal.PlaylistGoalTracks">
-      <div class="large-1 columns">
-        &nbsp;
-      </div>
-      <div class="large-16 columns">
+
+    <div class="row goal" data-ng-repeat="playlistGoal in playlist_view.playlist.PlaylistGoals | orderBy:'SortOrder'">
+      <div class="row" id="playlist{{playlistGoal.Id}}{{track.id}}" data-ng-repeat="track in playlistGoal.PlaylistGoalTracks">
         <div class="row track">
           <div class="small-8 columns">
             <div class="row">
@@ -46,8 +34,7 @@
                 {{track.Track.Artist}}
               </div>
               <div class="small-3 columns time text-right">
-                <span class="position" ng-show="track.Track.currentTime >= 0">{{track.Track.currentTime | minutes}}</span>
-                {{track.Track.DurationSeconds | minutes}}
+                <span class="position" ng-show="track.Track.currentTime >= 0">{{track.Track.currentTime | minutes}}</span> {{track.Track.DurationSeconds | minutes}}
               </div>
               <div class="small-2 columns play" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_view.playTrack(track.Track, playlistGoal.SortOrder);" ng-class="{'playing': track.Track.playing}">
                 <a href="#">{{'PLAY' | translate}}</a>
@@ -56,22 +43,13 @@
           </div>
         </div>
       </div>
-      <div class="large-1 columns">
-        &nbsp;
-      </div>
     </div>
-  </div>
-  <div class="row">
-      <div class="small-1 columns">
-        &nbsp;
-      </div>
-      <div class="small-16 columns">
-        <a ng-if="!playlist_view.newPlaylist" style="float:left;" ui-sref="dashboard">Return to dashboard</a>
-        <button ng-if="playlist_view.newPlaylist" class="round secondary" style="float:left; background: none;">Cancel</button>
-        <button ng-if="playlist_view.newPlaylist" class="round" style="float:right" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})">Next: Send to club</button>
-      </div>
-      <div class="large-1 columns">
-        &nbsp;
-      </div>
+
+    <div class="row">
+      <a ng-if="!playlist_view.newPlaylist" style="float:left;" ui-sref="dashboard">{{'RETURN_DASHBOARD' | translate}}</a>
+      <a class="cancel" ng-if="playlist_view.newPlaylist" class="round secondary" style="float:left; background: none;">{{'CANCEL' | translate}}</a>
+      <button ng-if="playlist_view.newPlaylist" class="round" style="float:right" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})">{{'SEND_CLUB' | translate}}</button>
+    </div>
+
   </div>
 </div>

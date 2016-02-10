@@ -2,6 +2,7 @@
   overflow: hidden;
 }
 
+
 /***** Create a ride *****/
 
 input[type="text"].class_name {
@@ -52,6 +53,7 @@ input[type="text"].class_name {
   padding-left: 10px;
   position: fixed;
   top: 0;
+  left: inherit; // only needed to override foundation's top-bar.css
   z-index: 99;
   background: $white;
   border-bottom: 2px solid $grey_lighter;
@@ -74,14 +76,13 @@ input[type="text"].class_name {
   .goal-meta {
     cursor: pointer;
     @include user-select('none');
-    min-height: 40px;
+    min-height: rem-calc(40px);
   }
   .goal-name a {
     line-height: 2.2;
     font-size: $label-font-size;
   }
   .bpm {
-    line-height: rem-calc(45px);
     text-align: right;
   }
   .active {}
@@ -178,6 +179,7 @@ goal_option {
     border-width: 1px 0 0;
   }
   select {
+    min-width: rem-calc(50px);
     width: auto;
   }
 }

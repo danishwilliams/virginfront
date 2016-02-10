@@ -15,18 +15,8 @@ function tracks() {
     },
     //require: '?ngModel',
     require: 'ngModel',
-    //link: link
   };
   return directive;
-
-  function link(scope, element, attrs, ngModel) {
-    scope.selected = function (id) {
-      // This triggers the ng-change on the directive so the parent controller can get the value
-      //ngModel.$setViewValue(scope.vm.goals[id]);
-      // reset select list to not select anything
-      //scope.vm.goalArrayId = undefined;
-    };
-  }
 }
 
 tracksController.$inject = ['$scope', 'Tracks'];
@@ -38,9 +28,6 @@ function tracksController($scope, Tracks) {
   if ($scope.playlistPosition) {
     self.backgroundMusic = true;
   }
-
-  console.log('tracksController');
-  console.log($scope);
 
   // Generate a unique bin id, either from the background music "before"/"after" or from a playlist Goal Array id
   self.binId = function() {

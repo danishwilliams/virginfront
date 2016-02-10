@@ -10,6 +10,7 @@ function LoginController($state, Users, spinnerService) {
     password: ""
   };
   //b2c_login_check();
+  Users.logout();
 
   var onLoginSuccess = function () {
     console.log('onLoginSuccess');
@@ -18,9 +19,20 @@ function LoginController($state, Users, spinnerService) {
   };
 
   this.login = function () {
+    if (!this.credentials.username || !this.credentials.password) {
+      return;
+    }
+    self.error = false;
     spinnerService.show('loginSpinner');
-    Users.setAuthHeader(self.credentials);
-    Users.loadCurrentUser().then(onLoginSuccess, function () {
+    Users.loadAccessToken(self.credentials).then(function (data) {
+      Users.setAccessToken(data);
+      Users.loadCurrentUser().then(onLoginSuccess, function () {
+        spinnerService.hide('loginSpinner');
+        self.error = {
+          error: true
+        };
+      });
+    }, function () {
       spinnerService.hide('loginSpinner');
       self.error = {
         error: true

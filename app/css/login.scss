@@ -1,15 +1,6 @@
 #login {
   background-color: $grey_darker;
   height: 100vh;
-  @media #{$small-only} {
-    background-image: url('/img/background_640.jpg');
-  }
-  @media #{$medium-only} {
-    background-image: url('/img/background_1024.jpg');
-  }
-  @media #{$large-up} {
-    background-image: url('/img/background_big.jpg');
-  }
   background-position: center top;
   background-repeat: no-repeat;
   .container {
@@ -22,9 +13,13 @@
   form {
     max-width: rem-calc(600px);
   }
-  input {
+  input[type="text"], input[type="email"], input[type="password"] {
     background: $black;
     border: none;
     color: $white;
+  }
+  input {
+    margin-bottom: 0;
+    margin-top: rem-calc(16px);
   }
 }

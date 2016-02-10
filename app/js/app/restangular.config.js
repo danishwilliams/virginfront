@@ -26,10 +26,36 @@ angular.module("app").config(function (RestangularProvider) {
   });
   */
 
+  // Have to put this here because can't inject Storage service at this stage
+  function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  var token = localStorage.getItem('token');
+  if (!token) {
+    token = getCookie('token');
+  }
+  if (token) {
+    RestangularProvider.setDefaultHeaders({
+      "Authorization": "Token " + token
+    });
+  }
+
   // DELETEs are sent without a body
-  RestangularProvider.setRequestInterceptor(function(elem, operation) {
+  RestangularProvider.setRequestInterceptor(function (elem, operation) {
     if (operation === "remove") {
-       return null;
+      return null;
     }
     return elem;
   });
@@ -41,11 +67,8 @@ angular.module("app").config(function (RestangularProvider) {
       //console.log(params);
       //element = 
     }
-    return {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
+    headers['Content-Type'] = 'application/json';
+    return headers;
   });
 
   // TODO: figure out how to retry requests

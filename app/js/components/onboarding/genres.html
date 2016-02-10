@@ -1,5 +1,5 @@
 <div class="onboarding row">
-  <h2>What's your vibe?</h2>
+  <h2>{{'GENRES_HEADING' | translate}}</h2>
 
   <form ng-submit="onboarding.save_genres()">
     <ul class="align-left">
@@ -7,6 +7,6 @@
         {{genre.Name}}
       </li>
     </ul>
-    <button class="round">Done</button>
+    <button class="round">{{'DONE' | translate}}</button>
   </form>
 </div>

@@ -6,10 +6,40 @@ $top_padding: rem-calc(30px);
 $radius: rem-calc(15px);
 $radius-tiny: 2px;
 
+.uiview div.row:first-of-type, .playlist-edit {
+  padding-left: rem-calc(4px);
+  padding-right: rem-calc(4px);
+}
+
+/* Headings */
+
+.heading {
+  border-bottom: 1px solid $grey_light;
+  color: $grey_light;
+  h1 {
+    margin-bottom: 0;
+  }
+  a {
+    padding-top: rem-calc(42px);
+    display: block;
+    float: right !important;
+  }
+  button {
+    &.secondary {
+      margin: rem-calc(30px) 0 0;
+    }
+  }
+}
+
+.row .heading {
+  margin: 0 0 rem-calc(18px) 0;
+}
+
+
 /* Buttons */
 
 $bg_opacity: 0.09;
-button {
+button, input[type="submit"] {
   outline: none;
   @include button-style($bg: $cherry, $radius: $button-round);
   padding: rem-calc(7px) rem-calc(20px) rem-calc(7px) rem-calc(20px);
@@ -33,14 +63,14 @@ button {
       background-color: $white;
     }
   }
-  &.cancel {
+  &.edit {
     @include button-style($bg: rgba($white, 0), $radius: $button-round);
     border: none;
-    color: $red;
+    color: $blue;
+    margin: 0;
     &:hover,
     &:focus {
-      color: $red;
-      font-weight: bold;
+      color: $blue;
       text-decoration: underline;
       background-color: rgba($white, 0);
     }
@@ -58,6 +88,22 @@ button {
   }
 }
 
+.cancel {
+  color: $red;
+  &:hover,
+  &:focus {
+    color: $red;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
+
+.back {
+  &::before {
+    content: "\02190";
+  }
+  padding-bottom: rem-calc(10px);
+}
 
 /*
 html {
@@ -108,8 +154,15 @@ body {
   padding: rem-calc(30px);
 }
 
-@media #{$large-up} {
-  .max-content {
-    max-width: rem-calc(800px);
-  }
+select {
+  padding-right: rem-calc(20px);
+}
+
+.full-width {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
 }

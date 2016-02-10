@@ -1,7 +1,10 @@
-angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms) {
+angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter) {
   var self = this;
-  this.title = "User profile";
   this.id = $stateParams.id;
+
+  if (!this.id) {
+    this.id = Users.getCurrentUser().Id;
+  }
 
   if (this.id) {
     Users.loadUser(this.id).then(function (data) {
@@ -10,17 +13,15 @@ angular.module("app.user", []).controller('UserController', function ($statePara
       self.email = self.user.Email;
     });
   }
-  else {
-    Users.loadCurrentUser().then(function (data) {
-      self.user = data;
-      self.telephone = self.user.Telephone;
-      self.email = self.user.Email;
-    });
-  }
 
   this.saveContactDetails = function () {
+    if (!self.email) {
+      return;
+    }
+    self.error = {};
     self.user.Telephone = self.telephone;
     self.user.Email = self.email;
+    // TODO: client side email address validation
     self.update(self.user, 'contact');
   };
 
@@ -32,15 +33,50 @@ angular.module("app.user", []).controller('UserController', function ($statePara
 
   // Load all userTypes
   this.loadUserTypes = function () {
-    self.userTypesEdit = true;
+    UserTypes.loadUserTypes().then(function (data) {
+      self.userTypesEdit = true;
+      self.userTypes = data;
+
+      _.mapObject(self.userTypes, function (val, key) {
+        if (key >= 0) {
+          var item = _.find(self.user.UserUserTypes, function (item) {
+            return item.UserType.Name === val.Name;
+          });
+          if (item) {
+            val.selected = true;
+          }
+          return val;
+        }
+      });
+    });
   };
 
   // Save userTypes
   this.saveUserTypes = function () {
-    // Find the right user type
-    self.user.UserType = _.find(self.userTypes, function (item) {
-      return item.Id === self.user.UserTypeId;
+    // We want all roles which are selected or not a public role
+    var userUserTypes = angular.copy(self.user.UserUserTypes);
+    self.user.UserUserTypes = [];
+
+    // Find all non public user types which this user already belongs to
+    userUserTypes.forEach(function (val) {
+      if (val.UserType.PublicRole === false) {
+        self.user.UserUserTypes.push(val);
+      }
     });
+
+    // Add the user types which have been chosen in the UI
+    self.userTypes.forEach(function (val) {
+      if (val.selected) {
+        val.UserTypeId = val.Id;
+        val.Id = undefined;
+        val.UserType = {
+          Name: val.Name,
+          PublicRole: val.PublicRole
+        };
+        self.user.UserUserTypes.push(val);
+      }
+    });
+
     self.update(self.user, 'userTypes');
   };
 
@@ -66,7 +102,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
 
   // Save gyms
   this.saveGyms = function () {
-    // Replace the gyms in the userobject for saving
+    // Replace the gyms in the user object for saving
     self.user.UserGyms = [];
     self.gyms.forEach(function (val) {
       if (val.selected) {
@@ -116,20 +152,66 @@ angular.module("app.user", []).controller('UserController', function ($statePara
 
   // Save the user
   this.update = function (user, type) {
+    self.messages = {};
+    switch (type) {
+      case 'contact':
+        spinnerService.show('userContactSpinner');
+        break;
+      case 'userTypes':
+        spinnerService.show('userTypesSpinner');
+        break;
+      case 'gyms':
+        spinnerService.show('userGymsSpinner');
+        break;
+      case 'genres':
+        spinnerService.show('userGenresSpinner');
+        break;
+    }
     user.put().then(function (data) {
+      var message = '';
       switch (type) {
         case 'contact':
           self.contactEdit = false;
+          message = 'CONTACTS_SAVED';
+          spinnerService.hide('userContactSpinner');
           break;
         case 'userTypes':
           self.userTypesEdit = false;
+          message = 'PERMISSIONS_SAVED';
+          spinnerService.hide('userTypesSpinner');
           break;
         case 'gyms':
           self.gymEdit = false;
+          message = 'CLUBS_SAVED';
+          spinnerService.hide('userGymsSpinner');
           break;
         case 'genres':
           self.genreEdit = false;
+          message = 'GENRES_SAVED';
+          spinnerService.hide('userGenresSpinner');
           break;
+      }
+      self.messages = [{
+        type: 'success',
+        msg: message
+      }];
+    }, function(res) {
+      spinnerService.hide('userContactSpinner');
+      self.contactEdit = true;
+      if (res.status === 500 && res.data.Message) {
+        // Possible responses:
+        // * Email address already exists
+        self.error = {
+          error: true,
+          message: res.data.Message
+        };
+        if (res.data.Message === 'Email address already exists') {
+          self.error = {
+            error: false, // Workaround for showing errors at the top of the page too
+            email: true,
+            message: $filter('translate')('EMAIL_EXISTS')
+          };
+        }
       }
     });
   };

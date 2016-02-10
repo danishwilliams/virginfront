@@ -3,8 +3,8 @@
     color: $black;
     padding-left: rem-calc(40px);
     background-repeat: no-repeat;
-    background-size: 16px;
-    min-height: 16px;
+    background-size: rem-calc(14px);
+    min-height: rem-calc(16px);
     background-position: left center;
     background-position-x: rem-calc(12px);
     background-image: url('/img/location.svg');
@@ -66,6 +66,12 @@
   }
   .remove {
     font-size: smaller;
+  }
+  a .remove {
+    width: 15px;
+    text-indent: -2000px;
+    background: url('/img/remove.svg') no-repeat;
+    background-position: center;
   }
   .time {
     overflow: hidden;

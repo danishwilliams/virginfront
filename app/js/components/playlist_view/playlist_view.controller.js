@@ -1,8 +1,14 @@
-angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $state, Playlists, Tracks, spinnerService) {
+angular.module("app.playlist_view", []).controller('Playlist_viewController', function ($stateParams, $state, Users, Playlists, Tracks, spinnerService, Authorizer) {
   var self = this;
   Playlists.setStep(3);
   self.id = $stateParams.id;
   self.playlist = Playlists.getPlaylist();
+  self.user = Users.getCurrentUser();
+
+  if (self.playlist.Id !== self.id) {
+    // We're loading up a new playlist, so self.playlist is an older cached version
+    self.playlist = {};
+  }
 
   if ($state.current.name === 'playlist-new-view') {
     // We're viewing a newly created playlist!
@@ -13,12 +19,27 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     // Load an existing playlist
     Playlists.loadPlaylist(self.id).then(function () {
       self.playlist = Playlists.getPlaylist();
-      spinnerService.hide('playlistViewSpinner');
-      if (!self.newPlaylist && !self.checkPlaylistLength()) {
-        $state.go('playlist-edit', {id: self.playlist.Id});
+      // If playlist is incomplete, edit it
+      if (!Playlists.checkAllGoalsHaveTracks()) {
+        $state.go('playlist-edit', {id: self.id});
       }
+      spinnerService.hide('playlistViewSpinner');
     });
   }
+
+  // Show the edit link under certain conditions
+  self.showEdit = function () {
+    // If the current user created the playlist and has the editPlaylist permission
+    if (self.playlist.UserId === self.user.Id) {
+      return Authorizer.canAccess('editPlaylist', self.user);
+    }
+    else {
+      // If the user has editAnyPlaylist permission
+      return Authorizer.canAccess('editAnyPlaylist', self.user);
+    }
+
+    return false;
+  };
 
   self.playTrack = function (track, sortOrder) {
     Tracks.playTrack(track, sortOrder);

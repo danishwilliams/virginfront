@@ -1,38 +1,27 @@
-<h1>Templates</h1>
+<div class="templates row">
+  <div class="large-14 large-centered columns">
+    <div class="row heading">
+      <div class="columns small-10 medium-12">
+        <h1>{{'TEMPLATE' | translate}}</h1>
+      </div>
+      <div class="columns small-8 medium-6 text-center">
+        <button class="secondary" ui-sref="templategroup-new">+ {{'TEMPLATE_CREATE' | translate}}</button>
+      </div>
+    </div>
+    <div class="row">
 
-<table>
-  <thead>
-    <tr>
-      <td>Template Name</td>
-      <td>Description</td>
-      <td>Icon name</td>
-      <td>Icon</td>
-      <td>Class lengths</td>
-      <td>TemplateGroup Id</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="templateGroup in templates.templateGroups | orderBy:'Name'">
-      <td contentEditable ng-change="templates.updateTemplateGroup(templateGroup)" ng-model-options="{updateOn : 'change blur'}" ng-model="templateGroup.Name"></td>
-      <td contentEditable ng-change="templates.updateTemplateGroup(templateGroup)" ng-model-options="{updateOn : 'change blur'}" ng-model="templateGroup.Description"></td>
-      <td contentEditable ng-change="templates.updateTemplateGroup(templateGroup)" ng-model-options="{updateOn : 'change blur'}" ng-model="templateGroup.IconFileName"></td>
-      <td><img src="/img/templates/{{templateGroup.IconFileName}}"></td>
-      <td>
-        <div class="classlength" ng-repeat="template in templateGroup.ClassLengths">
-          <a ui-sref="template({id:template.TemplateId})">{{template.ClassLengthMinutes}}</a>
-        </div>
-      </td>
-      <td>{{templateGroup.Id}}</td>
-    </tr>
-    <!--
-    <tr>
-    <td colspan="7"><h5>Add new template</h5></td>
-    </tr>
-    <tr>
-      <td contentEditable ng-model="templates.newtemplate.Name"></td>
-      <td contentEditable ng-model="templates.newtemplate.ClassLengthMinutes"></td>
-      <td>{{templates.newtemplate.Id}}</td>
-      <td><button ng-click="templates.create(templates.newtemplate)" type="button" class="tiny round">Add new template</button></td>
-    </tr>
-    -->
-</table>
+      <spinner class="spinner" name="templatesSpinner" show="true"></spinner>
+
+      <tabset ng-show="templates.active">
+        <tab heading="Active templates ({{templates.active}})">
+          <templategroups kind="active" ng-change="templates.activeLoaded()" ng-model="templates.active"></templategroups>
+        </tab>
+        <tab heading="Archived templates ({{templates.inactive}})">
+          <templategroups kind="inactive" ng-change="templates.activeLoaded()" ng-model="templates.inactive"></templategroups>
+        </tab>
+      </tabset>
+
+    </div>
+
+  </div>
+</div>

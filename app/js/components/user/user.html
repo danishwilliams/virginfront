@@ -1,98 +1,139 @@
 <div class="profile row">
-  <div class="large-2 columns">
-    &nbsp;
-  </div>
-  <div class="large-14 columns">
+  <div class="large-14 medium-18 small-18 large-centered columns">
     <div class="profile-header">
       <h1>{{user.user.FirstName}} {{user.user.LastName}}</h1>
-      <p>{{user.user.Location.City}}, {{user.user.Location.Country.Code}}</p>
-      <p>[active/inactive] Last class: [2 Sept 2015]</p>
+      <p>{{user.user.Location.City}}, {{user.user.Location.Country.Code}}
+        <span ng-if="user.user.LastClassDate"><br>
+          <em>{{'LAST_CLASS' | translate}}: {{user.user.LastClassDate | date : 'dd MMMM yyyy'}}</em>
+        </span>
+      </p>
+    </div>
+    <div class="row" ng-show="user.messages || user.error">
+      <div class="small-18 medium-12 large-9 large-centered medium-centered columns">
+        <div ng-messages="user.error">
+          <p class="error" ng-message="error">{{user.error.message}}</p>
+        </div>
+        <alert ng-repeat="message in user.messages" type="message.type" close="user.messages.splice($index, 1)">{{message.msg | translate}}</alert>
+      </div>
     </div>
     <div class="row">
       <div class="columns large-9">
-        <h3>Contact details</h3>
-        <span ng-show="!user.contactEdit">
-          <a ng-click="user.contactEdit = true">Edit</a><br>
-          {{user.user.Telephone}}<br>
-          {{user.user.Email}}
-        </span>
-        <span ng-show="user.contactEdit">
-          <span contentEditable ng-model="user.telephone"></span>
-        <br>
-        <span contentEditable ng-model="user.email"></span>
-        <br>
-        <button class="round secondary" ng-click="user.contactEdit = !user.contactEdit">Cancel</button>
-        <button class="round" ng-click="user.saveContactDetails()">Save</button>
-        </span>
-      </div>
-      <div class="columns large-9">
-        <h3>Permissions</h3>
-        <span ng-show="!user.userTypesEdit">
-          <a ng-click="user.loadUserTypes()">Edit</a><br>
-          {{user.user.UserType.Name}}
-        </span>
-        <span ng-show="user.userTypesEdit">
-          <user-types ng-model="user.user.UserTypeId"></user-types>
+        <div class="box">
+          <button ng-show="!user.contactEdit" class="edit right" ng-click="user.contactEdit = true">{{'EDIT' | translate}}</button>
+          <h3>{{'CONTACT_DETAILS' | translate}}</h3>
+          <div ng-show="!user.contactEdit">
+            {{user.user.Telephone}}
+            <br> <a href="mailto:{{user.user.Email}}">{{user.user.Email}}</a>
+          </div>
 
-          <button class="round secondary" ng-click="user.userTypesEdit = !user.userTypesEdit">Cancel</button>
-          <button class="round" ng-click="user.saveUserTypes()">Save</button>
-        </span>
+          <form name="contactForm" ng-show="user.contactEdit" ng-submit="user.saveContactDetails()">
+            <input type="text" ng-model="user.telephone" />
+            <input type="email" name="email" ng-model="user.email" required />
+            <div ng-show="contactForm.$submitted || contactForm.email.$touched">
+              <small class="error" ng-show="contactForm.email.$error.required">{{'EMAIL_REQ' | translate}}</small>
+            </div>
+            <div ng-messages="user.error">
+              <p class="error" ng-message="email">{{user.error.message}}</p>
+            </div>
+            <div class="right">
+              <a class="cancel" ng-click="user.contactEdit = !user.contactEdit">{{'CANCEL' | translate}}</a>
+              <spinner class="spinner inline" name="userContactSpinner" show="false"></spinner>
+              <input type="submit" value="{{'SAVE' | translate}}">
+            </div>
+            &nbsp;
+          </form>
+
+        </div>
+      </div>
+      <div class="columns large-9">
+        <div class="box">
+          <button ng-show="!user.userTypesEdit" ng-if-permission="editAdmin" class="edit right" ng-click="user.loadUserTypes()">{{'EDIT' | translate}}</button>
+          <h3>{{'PERMISSIONS' | translate}}</h3>
+          <div ng-show="!user.userTypesEdit">
+            {{user.user.UserType.Name}}
+            <ul>
+              <li ng-repeat="role in user.user.UserUserTypes" ng-if="role.UserType.PublicRole">
+                {{role.UserType.Name}}
+              </li>
+            </ul>
+          </div>
+
+          <form ng-show="user.userTypesEdit" ng-if-permission="editAdmin" ng-submit="user.saveUserTypes()">
+            <label ng-repeat="userType in user.userTypes | orderBy: 'Name'" ng-if="userType.PublicRole">
+              <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name}}
+            </label>
+
+            <div class="right">
+              <a class="cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">{{'CANCEL' | translate}}</a>
+              <spinner class="spinner inline" name="userTypesSpinner" show="false"></spinner>
+              <input type="submit" value="{{'SAVE' | translate}}">
+            </div>
+            &nbsp;
+          </form>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="columns large-9">
-        <h3>Resident clubs</h3>
-        <!--TODO: convert the following into a directive, and conditionally include it-->
-        <span ng-show="!user.gymEdit">
-        <a ng-click="user.loadGyms()">Edit</a>
-        <ul>
-          <li ng-repeat="gym in user.user.UserGyms | orderBy: 'Gym.Name'">
-            {{gym.Gym.Name}}
-          </li>
-        </ul>
-        </span>
-        <span ng-show="user.gymEdit">
-          <label ng-repeat="gym in user.gyms | orderBy: 'Name'">
-            <input type="checkbox" ng-model="gym.selected">{{gym.Name}}
-          </label>
-          <button class="round secondary" ng-click="user.gymEdit = !user.gymEdit">Cancel</button>
-          <button class="round" ng-click="user.saveGyms()">Save</button>
-        </span>
+        <div class="box">
+          <button ng-show="!user.gymEdit" class="edit right" ng-click="user.loadGyms()">{{'EDIT' | translate}}</button>
+          <h3>{{'RESIDENT_CLUBS' | translate}}</h3>
+          <!--TODO: convert the following into a directive, and conditionally include it-->
+          <div ng-show="!user.gymEdit">
+            <ul>
+              <li ng-repeat="gym in user.user.UserGyms | orderBy: 'Gym.Name'">
+                {{gym.Gym.Name}}
+              </li>
+            </ul>
+          </div>
+
+          <form ng-show="user.gymEdit" ng-submit="user.saveGyms()">
+            <label ng-repeat="gym in user.gyms | orderBy: 'Name'">
+              <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
+            </label>
+            <div class="right">
+              <a class="cancel" ng-click="user.gymEdit = !user.gymEdit">{{'CANCEL' | translate}}</a>
+              <spinner class="spinner inline" name="userGymsSpinner" show="false"></spinner>
+              <input type="submit" value="{{'SAVE' | translate}}">
+            </div>
+            &nbsp;
+          </form>
+        </div>
       </div>
       <div class="columns large-9">
-        <h3>Genres</h3>
-        <span ng-show="!user.genreEdit">
-          <a ng-click="user.loadGenres()">Edit</a>
-          <ul>
-            <li ng-repeat="genre in user.user.UserGenres | orderBy: 'Name'">
-              {{genre.Genre.Name}}
-            </li>
-          </ul>
-        </span>
-        <span ng-show="user.genreEdit">
-          <label ng-repeat="genre in user.genres | orderBy: 'Name'">
-            <input type="checkbox" ng-model="genre.selected">{{genre.Name}}
-          </label>
-          <button class="round secondary" ng-click="user.genreEdit = !user.genreEdit">Cancel</button>
-          <button class="round" ng-click="user.saveGenres()">Save</button>
-        </span>
+        <div class="box">
+          <button ng-show="!user.genreEdit" class="edit right" ng-click="user.loadGenres()">{{'EDIT' | translate}}</button>
+          <h3>{{'GENRES' | translate}}</h3>
+          <div ng-show="!user.genreEdit">
+            <ul>
+              <li ng-repeat="genre in user.user.UserGenres | orderBy: 'Name'">
+                {{genre.Genre.Name}}
+              </li>
+            </ul>
+          </div>
+
+          <form ng-show="user.genreEdit" ng-submit="user.saveGenres()">
+            <label ng-repeat="genre in user.genres | orderBy: 'Name'">
+              <input type="checkbox" ng-model="genre.selected"> {{genre.Name}}
+            </label>
+            <div class="right">
+              <a class="cancel" ng-click="user.genreEdit = !user.genreEdit">{{'CANCEL' | translate}}</a>
+              <spinner class="spinner inline" name="userGenresSpinner" show="false"></spinner>
+              <input type="submit" value="{{'SAVE' | translate}}">
+            </div>
+            &nbsp;
+          </form>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <h3>Recent classes</h3>
-      <p>[List of recent classes]</p>
+    <div class="row" ng-if="user.user.UserMusicProvider.MusicProvider.Name == 'Simfy'">
+      <div class="columns large-9">
+        <div class="box">
+          <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} {{'ACC_DETAILS' | translate}}</h3>
+          <p>{{'USERNAME' | translate}}: <em>{{user.user.UserMusicProvider.Username}}</em>
+            <br> {{'PASSWORD' | translate}}: <em>{{user.user.UserMusicProvider.Password}}</em></p>
+        </div>
+      </div>
     </div>
-    <div class="row">
-      <h3>Recent rides</h3>
-      <p>[List recent playlists]</p>
-    </div>
-    <div class="row" ng-show="user.user.UserMusicProvider">
-      <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} account details</h3>
-      <p>Username: {{user.user.UserMusicProvider.Username}}
-        <br> Password: {{user.user.UserMusicProvider.Password}}</p>
-    </div>
-  </div>
-  <div class="large-2 columns">
-    &nbsp;
   </div>
 </div>

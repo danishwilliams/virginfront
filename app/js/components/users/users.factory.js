@@ -2,15 +2,20 @@ angular
   .module("app")
   .factory('Users', UsersFactory);
 
-UsersFactory.$inject = ['Restangular'];
+UsersFactory.$inject = ['Restangular', 'Storage'];
 
-function UsersFactory(Restangular) {
+function UsersFactory(Restangular, Storage) {
   var users = [];
   var currentUser = {};
+  var onboardingStatus = false; // true if we're onboarding, false if we're not or if we're done
 
   var usersFactory = {
-    initAuthHeader: initAuthHeader,
-    setAuthHeader: setAuthHeader,
+    getOnboardingStatus: getOnboardingStatus,
+    setOnboardingStatus: setOnboardingStatus,
+    getAccessToken: getAccessToken,
+    loadAccessToken: loadAccessToken,
+    setAccessToken: setAccessToken,
+    changePassword: changePassword,
     logout: logout,
     loadUsers: loadUsers,
     getUsers: getUsers,
@@ -21,24 +26,47 @@ function UsersFactory(Restangular) {
 
   return usersFactory;
 
-  // Initializes the Authentication header, if we have the value in localstorage (return true) else return false
-  function initAuthHeader() {
-    var base64 = localStorage.getItem('base64', base64);
-    if (base64) {
-      Restangular.setDefaultHeaders({Authorization: 'Basic ' + base64});
-      return true;
-    }
-    return false;
+  function getOnboardingStatus() {
+    return onboardingStatus;
   }
 
-  function setAuthHeader(credentials) {
-    var base64 = btoa(credentials.username + ':' + credentials.password);
-    localStorage.setItem('base64', base64);
-    Restangular.setDefaultHeaders({Authorization: 'Basic ' + base64});
+  function setOnboardingStatus(value) {
+    onboardingStatus = value;
+  }
+
+  function getAccessToken() {
+    return Storage.getItem('token');
+  }
+
+  function loadAccessToken(credentials) {
+    return Restangular.one('auth').customPOST({
+      username: credentials.username,
+      password: credentials.password
+    }).then(loadAccessTokenComplete);
+
+    function loadAccessTokenComplete(data, status, headers, config) {
+      Restangular.setDefaultHeaders({
+        "Authorization": "Token " + data.Value || ''
+      });
+      return data.Value;
+    }
+  }
+
+  function setAccessToken(value) {
+    Storage.setItem('token', value);
+  }
+
+  function changePassword(value) {
+    return Restangular.one('users/changepassword').get({newPassword: value});
   }
 
   function logout() {
-    localStorage.removeItem('base64');
+    Storage.removeItem('base64');
+    Storage.removeItem('token');
+    Restangular.setDefaultHeaders({
+        "Authorization": "none"
+      });
+    users = [];
     currentUser = [];
   }
 
@@ -63,7 +91,11 @@ function UsersFactory(Restangular) {
     }
   }
 
-  function loadCurrentUser() {
+  function loadCurrentUser(token) {
+    // If there is a token, we're manually passing this through because this is the onboarding first login
+    if (token) {
+      return Restangular.one('users/me').get({}, {Authorization: 'Token ' + token}).then(loadCurrentUserComplete);
+    }
     return Restangular.one('users/me').get().then(loadCurrentUserComplete);
 
     function loadCurrentUserComplete(data, status, headers, config) {
