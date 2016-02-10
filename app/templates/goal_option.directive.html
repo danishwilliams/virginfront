@@ -1,4 +1,4 @@
-<h5 ng-if="isCustomRpm() === 'true'">{{goaloption.Name}}</h5>
+<h5 ng-if="isCustomRpm() === 'false' && totalGoaloptions > 1">{{goaloption.Name}}</h5>
 
 <div ng-if="isCustomRpm() === 'false'">
   <div class="beat" translate="{{beat}}"></div>
