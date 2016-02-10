@@ -150,7 +150,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
 
     // Playlist sync
     'SEND_CLUBS': 'Send to your clubs',
-    'SAVE_SEND_CLUB': 'Save and send to clubs',
+    'SAVE_SEND_CLUBS': 'Save and send to clubs',
     'SAVE_CONTINUE_LATER': 'Save and continue later',
     // TODO: 'CLUB_RIDE_LIMIT_REACHED': '(This club already has {{playlist_sync.playlistLimitPerGym}} rides)',
     'CLUB_RIDE_LIMIT_REACHED': '',
