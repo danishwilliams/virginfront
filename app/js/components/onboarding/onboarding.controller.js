@@ -12,6 +12,8 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
   // Grab the user's account
   Users.loadCurrentUser(token).then(function(data) {
     self.user = data;
+  }, function(res) {
+    self.onboardingTokenFailed = true;
   });
 
   switch ($state.current.name) {
