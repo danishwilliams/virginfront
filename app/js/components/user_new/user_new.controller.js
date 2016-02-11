@@ -1,9 +1,7 @@
-angular.module("app.user_new", []).controller('UserNewController', function (Users, UserTypes, Gyms, uuid2, Restangular) {
+angular.module("app.user_new", []).controller('UserNewController', function (Users, UserTypes, Gyms, Restangular, $state) {
   var self = this;
 
-  self.newUser = {
-    Id: uuid2.newuuid().toString()
-  };
+  self.newUser = {};
 
   UserTypes.loadUserTypes().then(function (data) {
     self.userTypes = data;
@@ -11,6 +9,7 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
     self.userTypes.forEach(function (val) {
       if (val.Name === 'Instructor') {
         val.selected = true;
+        self.newUser.sendInviteEmail = true;
       }
     });
   });
@@ -25,7 +24,7 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
   self.createUser = function () {
     console.log(self.newUser);
     // Validation
-    if (!self.newUser.FirstName || !self.newUser.LastName || !self.newUser.email) {
+    if (!self.newUser.FirstName || !self.newUser.LastName || !self.newUser.Email) {
       return;
     }
 
@@ -36,13 +35,12 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
 
     // TODO: save the new user
     self.newUser.Username = self.newUser.Email;
-    Restangular.one("users", self.newUser.Id).customPUT(self.newUser).then(function () {
+    Users.createNewUser(self.newUser).then(function() {
       $state.go('users-admin');
     });
   };
 
   self.hasLocation = function() {
-    console.log('has location called');
     // If no City has been chosen, determine a location a Gym    
     var found = false;
     if (!self.newUser.LocationId) {
