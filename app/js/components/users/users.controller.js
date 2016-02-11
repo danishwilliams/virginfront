@@ -10,4 +10,8 @@ angular.module("app.users", []).controller('UsersController', function ($statePa
   this.update = function (user) {
     user.put();
   };
+
+  self.sendInvite = function (id) {
+    Users.sendInvite(id).then(function() {});
+  };
 });

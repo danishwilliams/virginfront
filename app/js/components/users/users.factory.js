@@ -23,6 +23,7 @@ function UsersFactory(Restangular, Storage, uuid2) {
     loadUser: loadUser,
     loadCurrentUser: loadCurrentUser,
     getCurrentUser: getCurrentUser,
+    sendInvite: sendInvite,
     createNewUser: createNewUser
   };
 
@@ -132,6 +133,17 @@ function UsersFactory(Restangular, Storage, uuid2) {
 
   function getCurrentUser() {
     return currentUser;
+  }
+
+  /**
+   * Sends an email invite to a user
+   */
+  function sendInvite(userId) {
+    return Restangular.one("users/invite", userId).post().then(createInviteComplete);
+
+    function createInviteComplete(data, status, headers, config) {
+      return data;
+    }
   }
 
   function createNewUser(user) {

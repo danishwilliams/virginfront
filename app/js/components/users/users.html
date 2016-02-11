@@ -21,6 +21,7 @@
           <td>City, Province, Country</td>
           <td>User type</td>
           <td>View</td>
+          <td>Invite</td>
         </tr>
       </thead>
       <tbody>
@@ -33,6 +34,7 @@
           <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
           <td><ul><li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li></ul></td>
           <td><a ui-sref="users({id:user.Id})">View</a></td>
+          <td><button class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
         </tr>
       </tbody>
     </table>
