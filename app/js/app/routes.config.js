@@ -13,6 +13,13 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  /* A registered user, but has no roles */
+  .state('registered', {
+    url: '/registered',
+    templateUrl: 'registered.html',
+    controller: 'LoginController as login',
+  })
+
   .state('admin', {
     url: '/admin',
     templateUrl: '../js/components/admin/admin.html',
