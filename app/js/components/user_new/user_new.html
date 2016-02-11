@@ -68,6 +68,10 @@
       </div>
 
       <div class="row">
+        <input type="checkbox" name="invite" ng-model="vm.newUser.sendInviteEmail"> <label for="invite">{{'EMAIL_INVITE' | translate}}</label>
+      </div>
+
+      <div class="row">
         <a class="cancel" ui-sref="users-admin">{{'CANCEL' | translate}}</a>
         <input class="right" type="submit" value="{{'CREATE_USER' | translate}}">
       </div>

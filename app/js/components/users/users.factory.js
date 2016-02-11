@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Users', UsersFactory);
 
-UsersFactory.$inject = ['Restangular', 'Storage'];
+UsersFactory.$inject = ['Restangular', 'Storage', 'uuid2'];
 
-function UsersFactory(Restangular, Storage) {
+function UsersFactory(Restangular, Storage, uuid2) {
   var users = [];
   var currentUser = {};
   var onboardingStatus = false; // true if we're onboarding, false if we're not or if we're done
@@ -22,7 +22,8 @@ function UsersFactory(Restangular, Storage) {
     getUsers: getUsers,
     loadUser: loadUser,
     loadCurrentUser: loadCurrentUser,
-    getCurrentUser: getCurrentUser
+    getCurrentUser: getCurrentUser,
+    createNewUser: createNewUser
   };
 
   return usersFactory;
@@ -131,5 +132,20 @@ function UsersFactory(Restangular, Storage) {
 
   function getCurrentUser() {
     return currentUser;
+  }
+
+  function createNewUser(user) {
+    if (!user.Id) {
+      user.Id = uuid2.newuuid().toString();
+    }
+    var queryString = {};
+    if (user.sendInviteEmail) {
+      queryString = {sendInviteEmail: true};
+    }
+    return Restangular.one("users", user.Id).customPUT(user, '', queryString).then(createNewUserComplete);
+
+    function createNewUserComplete(data, status, headers, config) {
+      return data;
+    }
   }
 }
