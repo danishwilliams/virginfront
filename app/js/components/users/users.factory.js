@@ -139,8 +139,10 @@ function UsersFactory(Restangular, Storage, uuid2) {
       user.Id = uuid2.newuuid().toString();
     }
     var queryString = {};
+    user.State = 'created';
     if (user.sendInviteEmail) {
       queryString = {sendInviteEmail: true};
+      user.State = 'invite_emailed';
     }
     return Restangular.one("users", user.Id).customPUT(user, '', queryString).then(createNewUserComplete);
 
