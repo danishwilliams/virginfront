@@ -46,11 +46,16 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
 
       // delete the onboarding token
       Users.deleteAccessToken(token).then(function() {
+        var user = Users.getCurrentUser();
         // Get a new login token (i.e. post username and password to api/auth)
-        Users.loadAccessToken({username: Users.getCurrentUser().Username, password: self.password}).then(function(data) {
+        Users.loadAccessToken({username: user.Username, password: self.password}).then(function(data) {
           // Save new login token in local storage
           Users.setAccessToken(data);
-          $state.go('dashboard');
+          if (!_.isEmpty(user.UserUserTypes)) {
+            $state.go('dashboard');
+          }
+          // This is a user with no roles
+          $state.go('registered');
           //$state.go('onboarding-gyms', {
           //  id: self.id
           //});
