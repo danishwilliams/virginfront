@@ -21,11 +21,16 @@ gymsController.$inject = ['Gyms', 'Users'];
 function gymsController(Gyms, Users) {
   var self = this;
 
-  Users.loadCurrentUser().then(function (data) {
-    self.user = data;
-    console.log(data);
+  self.user = Users.getCurrentUser();
+  if (!self.user) {
+    Users.loadCurrentUser().then(function (data) {
+      self.user = data;
+      loadGyms();
+    });
+  }
+  else {
     loadGyms();
-  });
+  }
 
   function loadGyms() {
     // Load all gyms

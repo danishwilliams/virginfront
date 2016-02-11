@@ -6,10 +6,16 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
 
   Playlists.setStep(5);
 
-  Users.loadCurrentUser().then(function (data) {
-    self.user = data;
+  self.user = Users.getCurrentUser();
+  if (!self.user) {
+    Users.loadCurrentUser().then(function (data) {
+      self.user = data;
+      loadGyms();
+    });
+  }
+  else {
     loadGyms();
-  });
+  }
 
   this.playlistLimitPerGym = Playlists.getPlaylistLimitPerGym();
 
