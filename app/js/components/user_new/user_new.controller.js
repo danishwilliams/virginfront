@@ -29,14 +29,11 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
       return;
     }
 
-    // Check if there is a location
-    if (!self.hasLocation()) {
-      return;
-    }
-
-    // Add the user types which have been chosen in the UI
+    // Add the user types:
+    // If the user is an admin: which have been chosen in the UI
+    // If the user is a manager: if the "Is Pack Instructor" has been checked in the UI
     self.userTypes.forEach(function (val) {
-      if (val.selected) {
+      if (val.selected || (self.packInstructor && val.Name === 'Pack Instructor')) {
         val.UserTypeId = val.Id;
         val.Id = undefined;
         val.UserType = {
@@ -64,31 +61,5 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
         message: res.data.Message
       };
     });
-  };
-
-  self.hasLocation = function () {
-    // If no City has been chosen, determine a location a Gym    
-    var found = false;
-    if (!self.newUser.LocationId) {
-      self.gyms.forEach(function (val) {
-        if (!found && val.selected) {
-          found = true;
-          self.newUser.LocationId = val.LocationId;
-        }
-      });
-    } else {
-      found = true;
-    }
-    // If no location, show some error messaging
-    if (!found) {
-      self.error = {
-        locationError: true
-      };
-      console.log('no location found');
-      return false;
-    } else {
-      self.error = {};
-      return true;
-    }
   };
 });

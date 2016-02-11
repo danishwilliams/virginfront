@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="large-12 medium-18 small-18 large-centered columns">
+  <div class="large-9 medium-9 small-18 large-centered columns">
 
     <h1>{{'CREATE_USER' | translate}}</h1>
 
@@ -8,81 +8,57 @@
     </div>
 
     <form name="form" ng-submit="vm.createUser()" novalidate>
-      <div class="row">
-        <div class="large-6 columns">
-          <label for="firstname">{{'FIRST_NAME' | translate}}</label>
-          <input type="text" name="firstname" ng-model="vm.newUser.FirstName" required />
-          <div ng-show="form.$submitted || form.firstname.$touched">
-            <small class="error" ng-show="form.firstname.$error.required">{{'FIRST_NAME_REQ' | translate}}</small>
-          </div>
-        </div>
-        <div class="large-6 columns">
-          <label for="lastname">{{'LAST_NAME' | translate}}</label>
-          <input type="text" name="lastname" ng-model="vm.newUser.LastName" required />
-          <div ng-show="form.$submitted || form.lastname.$touched">
-            <small class="error" ng-show="form.lastname.$error.required">{{'LAST_NAME_REQ' | translate}}</small>
-          </div>
-        </div>
-        <div class="large-6 columns">
-          <label for="id">{{'EMPLOYEE_ID' | translate}}</label>
-          <input type="text" name="id" ng-model="vm.newUser.EmployeeId">
-        </div>
+      <label for="firstname">{{'FIRST_NAME' | translate}}</label>
+      <input type="text" name="firstname" ng-model="vm.newUser.FirstName" required />
+      <div ng-show="form.$submitted || form.firstname.$touched">
+        <small class="error" ng-show="form.firstname.$error.required">{{'FIRST_NAME_REQ' | translate}}</small>
       </div>
 
-      <div class="row">
-        <div class="large-9 columns">
-          <label for="email">{{'EMAIL' | translate}}</label>
-          <input type="email" name="email" ng-model="vm.newUser.Email" required>
-          <div ng-show="form.$submitted || form.email.$touched">
-            <small class="error" ng-show="form.email.$error.required">{{'EMAIL_REQ' | translate}}</small>
-            <small class="error" ng-show="form.email.$error.email">{{'EMAIL_VALID' | translate}}</small>
-          </div>
-        </div>
-        <div class="large-9 columns">
-          <label for="phone">{{'PHONE' | translate}}</label>
-          <input type="text" name="phone" ng-model="vm.newUser.Telephone">
-        </div>
+      <label for="lastname">{{'LAST_NAME' | translate}}</label>
+      <input type="text" name="lastname" ng-model="vm.newUser.LastName" required />
+      <div ng-show="form.$submitted || form.lastname.$touched">
+        <small class="error" ng-show="form.lastname.$error.required">{{'LAST_NAME_REQ' | translate}}</small>
       </div>
 
-      <div class="row">
-        <label>{{'CITY' | translate}}</label>
-        <cities ng-change="vm.hasLocation()" ng-model="vm.newUser.LocationId"></cities>
-        <div ng-messages="vm.error">
-          <small class="error" ng-message="locationError">Please enter a city or select a club</small>
-        </div>
-
+      <label for="email">{{'EMAIL' | translate}}</label>
+      <input type="email" name="email" ng-model="vm.newUser.Email" required>
+      <div ng-show="form.$submitted || form.email.$touched">
+        <small class="error" ng-show="form.email.$error.required">{{'EMAIL_REQ' | translate}}</small>
+        <small class="error" ng-show="form.email.$error.email">{{'EMAIL_VALID' | translate}}</small>
       </div>
 
-      <div class="row">
-        <div class="large-9 columns">
-          <label>{{'GYMS' | translate}}</label>
-          <label ng-repeat="gym in vm.gyms | orderBy: 'Name'">
-            <input ng-change="vm.hasLocation()" type="checkbox" ng-model="gym.selected"> {{gym.Name}}
-          </label>
-        </div>
-        <div class="large-9 columns">
-          <div class="row" ng-if-permission="editAdmin">
-            <label for="usertypes">{{'PERMISSIONS' | translate}}</label>
+      <label for="phone">{{'PHONE' | translate}} {{'OPTIONAL' | translate}}</label>
+      <input type="text" name="phone" ng-model="vm.newUser.Telephone">
 
-            <label ng-repeat="userType in vm.userTypes | orderBy: 'Name'" ng-if="userType.PublicRole">
-              <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name}}
-            </label>
-          </div>
-        </div>
+      <label for="id">{{'EMPLOYEE_ID' | translate}} {{'OPTIONAL' | translate}}</label>
+      <input type="text" name="id" ng-model="vm.newUser.EmployeeId">
+
+      <label>{{'GYMS' | translate}} {{'OPTIONAL' | translate}}</label>
+      <label class="no-bold" ng-repeat="gym in vm.gyms | orderBy: 'Name'">
+        <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
+      </label>
+
+      <div class="row" ng-if-permission="isManager">
+        <label>{{'INSTRUCTOR_TYPE' | translate}}</label>
+        <label class="no-bold">
+        <input type="checkbox" name="packInstructor" ng-model="vm.packInstructor"> {{'PACK_INSTRUCTOR_INFO' | translate}}
+        </label>
       </div>
 
-      <div class="row">
-        <input type="checkbox" name="invite" ng-model="vm.newUser.sendInviteEmail"> <label for="invite">{{'EMAIL_INVITE' | translate}}</label>
+      <div class="row" ng-if-permission="editAdmin">
+        <label for="usertypes">{{'PERMISSIONS' | translate}}</label>
+
+        <label class="no-bold" ng-repeat="userType in vm.userTypes | orderBy: 'Name'" ng-if="userType.PublicRole">
+          <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name}}
+        </label>
       </div>
 
       <div class="row">
         <a class="cancel" ui-sref="users-admin">{{'CANCEL' | translate}}</a>
         <spinner class="spinner inline" name="creatingUser" show="false"></spinner>
-        <input class="right" type="submit" value="{{'CREATE_USER' | translate}}" ng-disabled="vm.saving">
+        <input class="right" type="submit" value="{{'INVITE_NEW_USER' | translate}}" ng-disabled="vm.saving">
       </div>
     </form>
-
-{{vm.newUser}}
 
   </div>
 </div>

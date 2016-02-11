@@ -22,7 +22,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PROFILE_PAGE': 'User profile',
     'USER': 'User',
     'USERS': 'Users',
-    'CREATE_USER': 'Create new user',
+    'CREATE_USER': 'Invite new instructor',
 
     // Onboarding
     'OB_STARTED': 'Get started',
@@ -63,7 +63,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'LOGIN_ERROR': 'Your username or password is incorrect.',
     'EMAIL': 'Email address',
     'PASSWORD': 'Password',
-    'EMAIL_REQ': 'Please enter your email address.',
+    'EMAIL_REQ': 'Please enter an email address.',
     'PASSWORD_REQ': 'Please enter your password.',
     'LOGIN': 'Log in',
 
@@ -184,6 +184,10 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'LAST_NAME_REQ': 'Last name is required',
     'GYMS': 'Clubs',
     'EMAIL_VALID': 'Please enter a valid email address',
+    'OPTIONAL': '(optional)',
+    'INVITE_NEW_USER': 'Send invite',
+    'INSTRUCTOR_TYPE': 'Instructor type',
+    'PACK_INSTRUCTOR_INFO': 'This user is a Pack Instructor',
 
     // Templates
     'TEMPLATES': 'Templates',

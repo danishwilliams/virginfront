@@ -165,6 +165,14 @@ select {
   padding-right: rem-calc(20px);
 }
 
+form label {
+  font-weight: bold;
+}
+
+.no-bold {
+  font-weight: normal;
+}
+
 .full-width {
   position: fixed;
   top: 0;
