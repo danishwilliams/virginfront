@@ -3,6 +3,10 @@
 
     <h1>{{'CREATE_USER' | translate}}</h1>
 
+    <div ng-messages="vm.serverError">
+      <small class="error" ng-message="error">{{vm.serverError.message}} Please try again later.</small>
+    </div>
+
     <form name="form" ng-submit="vm.createUser()" novalidate>
       <div class="row">
         <div class="large-6 columns">
@@ -73,9 +77,9 @@
 
       <div class="row">
         <a class="cancel" ui-sref="users-admin">{{'CANCEL' | translate}}</a>
-        <input class="right" type="submit" value="{{'CREATE_USER' | translate}}">
+        <spinner class="spinner inline" name="creatingUser" show="false"></spinner>
+        <input class="right" type="submit" value="{{'CREATE_USER' | translate}}" ng-disabled="vm.saving">
       </div>
-
     </form>
 
 {{vm.newUser}}

@@ -86,6 +86,13 @@ button, input[type="submit"] {
       background-color: rgba($red, $bg_opacity);
     }
   }
+  &[disabled] {
+    color: $grey_lighter;
+    background-color: $grey_darker;
+    font-weight: lighter;
+    border: none;
+    opacity: 0.7;
+  }
 }
 
 .cancel {
