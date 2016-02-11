@@ -45,6 +45,7 @@ angular
   .constant('APP_PERMISSIONS', {
     viewAdmin: "viewAdmin",
     editAdmin: "editAdmin",
+    isManager: "isManager",
     devices: "devices",
     gyms: "gyms",
     viewContent: "viewContent",
