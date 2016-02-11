@@ -23,6 +23,7 @@ function UsersFactory(Restangular, Storage, uuid2) {
     loadUser: loadUser,
     loadCurrentUser: loadCurrentUser,
     getCurrentUser: getCurrentUser,
+    sendInvite: sendInvite,
     createNewUser: createNewUser
   };
 
@@ -134,13 +135,26 @@ function UsersFactory(Restangular, Storage, uuid2) {
     return currentUser;
   }
 
+  /**
+   * Sends an email invite to a user
+   */
+  function sendInvite(userId) {
+    return Restangular.one("users/invite", userId).post().then(createInviteComplete);
+
+    function createInviteComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
   function createNewUser(user) {
     if (!user.Id) {
       user.Id = uuid2.newuuid().toString();
     }
     var queryString = {};
+    user.State = 'created';
     if (user.sendInviteEmail) {
       queryString = {sendInviteEmail: true};
+      user.State = 'invite_emailed';
     }
     return Restangular.one("users", user.Id).customPUT(user, '', queryString).then(createNewUserComplete);
 
