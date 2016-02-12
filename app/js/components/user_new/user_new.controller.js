@@ -32,10 +32,10 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
     // Add the user types:
     // If the user is an admin: which have been chosen in the UI
     // If the user is a manager: if the "Is Pack Instructor" has been checked in the UI
+    self.newUser.UserUserTypes = [];
     self.userTypes.forEach(function (val) {
       if (val.selected || (self.packInstructor && val.Name === 'Pack Instructor')) {
         val.UserTypeId = val.Id;
-        val.Id = undefined;
         val.UserType = {
           Name: val.Name,
           PublicRole: val.PublicRole

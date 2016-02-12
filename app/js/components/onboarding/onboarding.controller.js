@@ -54,8 +54,10 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
           if (!_.isEmpty(user.UserUserTypes)) {
             $state.go('dashboard');
           }
-          // This is a user with no roles
-          $state.go('registered');
+          else {
+            // This is a user with no roles
+            $state.go('registered');
+          }
           //$state.go('onboarding-gyms', {
           //  id: self.id
           //});

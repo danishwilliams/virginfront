@@ -1,13 +1,25 @@
-angular.module("app.users", []).controller('UsersController', function ($stateParams, Users, uuid2, Restangular) {
+angular.module("app.users", []).controller('UsersController', function (Users, spinnerService) {
   var self = this;
-  this.id = $stateParams.id;
 
   Users.loadUsers().then(function (data) {
     self.users = data;
-    // TODO: correctly show which roles this user has
+    spinnerService.hide('users');
+
+    // Hide non-instructor user types
+    self.users.forEach(function(user) {
+      user.Technical = false;
+      user.UserUserTypes.forEach(function (type) {
+        switch (type.UserType.Name) {
+          case 'Admin':
+          case 'API User':
+          case 'Device':
+            user.Technical = true;
+        }
+      });
+    });
   });
 
-  this.update = function (user) {
+  self.update = function (user) {
     user.put();
   };
 

@@ -6,9 +6,25 @@
         <h1>{{'USERS' | translate}}</h1>
       </div>
       <div class="large-5 medium-6 columns">
-        <a ui-sref="user-new">{{'CREATE_USER' | translate}}</a>
+        <button class="secondary" ui-sref="user-new">{{'CREATE_USER' | translate}}</button>
       </div>
     </div>
+
+    <spinner class="spinner" name="users" show="true"></spinner>
+
+    <!--
+    <tabset>
+      <tab heading="Active Instructors (Registered Instructors and Invited Instructors  - allow filtering)">
+        <users data-type="enabled"></users>
+      </tab>
+      <tab heading="Disabled accounts">
+        <users data-type="disabled"></users>
+      </tab>
+      <tab heading="Technical users">
+        <users data-type="technical"></users>
+      </tab>
+    </tabset>
+    -->
 
     <table>
       <thead>
@@ -21,11 +37,11 @@
           <td>City, Province, Country</td>
           <td>User type</td>
           <td>View</td>
-          <td>Invite</td>
+          <td ng-if-permission="editAdmin">Invite</td>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="user in users.users | orderBy:'Name'">
+        <tr ng-if="!user.Technical" ng-repeat="user in users.users | orderBy:'FirstName'">
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
@@ -34,7 +50,7 @@
           <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
           <td><ul><li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li></ul></td>
           <td><a ui-sref="users({id:user.Id})">View</a></td>
-          <td><button class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
+          <td ng-if-permission="editAdmin"><button class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
         </tr>
       </tbody>
     </table>
