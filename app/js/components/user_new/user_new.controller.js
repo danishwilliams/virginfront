@@ -20,14 +20,22 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
     self.gyms = data;
   });
 
-  // TODO: a new user either needs at least one Gym, or a City
-  // If City, use that for Location. If no City and a Gym, use the Gym's location
-
   self.createUser = function () {
     // Validation
     if (!self.newUser.FirstName || !self.newUser.LastName || !self.newUser.Email) {
       return;
     }
+
+    // Add the clubs
+    self.newUser.UserGyms = [];
+    self.gyms.forEach(function (val) {
+      if (val.selected) {
+        self.newUser.UserGyms.push({
+          Gym: val,
+          GymId: val.Id
+        });
+      }
+    });
 
     // Add the user types:
     // If the user is an admin: which have been chosen in the UI
