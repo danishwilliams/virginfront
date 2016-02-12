@@ -21,7 +21,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'TEMPLATE_NEW_PAGE': 'Create New Template | Admin',
     'PROFILE_PAGE': 'User profile',
     'USER': 'User',
-    'USERS': 'Users',
+    'USERS': 'Team Directory',
+    'CREATE_USER': 'Invite new instructor',
 
     // Onboarding
     'OB_STARTED': 'Get started',
@@ -43,6 +44,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PASSWORD_SAVE': 'Save password',
     'PASSWORD_CONFIRM_REQ': 'Please confirm your password',
     'PASSWORDS_DONT_MATCH': "Your passwords don't match",
+    'EMAIL_INVITE': 'Send email invitation',
 
     // Container page
     'HOME': 'Home',
@@ -61,7 +63,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'LOGIN_ERROR': 'Your username or password is incorrect.',
     'EMAIL': 'Email address',
     'PASSWORD': 'Password',
-    'EMAIL_REQ': 'Please enter your email address.',
+    'EMAIL_REQ': 'Please enter an email address.',
     'PASSWORD_REQ': 'Please enter your password.',
     'LOGIN': 'Log in',
 
@@ -171,6 +173,21 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PERMISSIONS_SAVED': 'Permissions saved.',
     'CLUBS_SAVED': 'Resident clubs saved.',
     'GENRES_SAVED': 'Genres saved.',
+    'PHONE': 'Phone number',
+    'CITY': 'City',
+
+    // Adding a user
+    'FIRST_NAME': 'First name',
+    'LAST_NAME': 'Last name',
+    'EMPLOYEE_ID': 'Employee ID',
+    'FIRST_NAME_REQ': 'First name is required',
+    'LAST_NAME_REQ': 'Last name is required',
+    'GYMS': 'Clubs',
+    'EMAIL_VALID': 'Please enter a valid email address',
+    'OPTIONAL': '(optional)',
+    'INVITE_NEW_USER': 'Send invite',
+    'INSTRUCTOR_TYPE': 'Instructor type',
+    'PACK_INSTRUCTOR_INFO': 'This user is a Pack Instructor',
 
     // Templates
     'TEMPLATES': 'Templates',

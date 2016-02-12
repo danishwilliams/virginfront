@@ -10,12 +10,17 @@ function LoginController($state, Users, spinnerService) {
     password: ""
   };
   //b2c_login_check();
-  Users.logout();
 
   var onLoginSuccess = function () {
     console.log('onLoginSuccess');
     spinnerService.hide('loginSpinner');
-    $state.go('dashboard');
+    if (!_.isEmpty(Users.getCurrentUser().UserUserTypes)) {
+      $state.go('dashboard');
+    }
+    else {
+      // This is a user with no roles
+      $state.go('registered');
+    }
   };
 
   this.login = function () {

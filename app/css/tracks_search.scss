@@ -161,11 +161,6 @@ button.add {
   &:hover {
     background-color: $grey_darker;
   }
-  &[disabled] {
-    color: $grey_lighter;
-    background-color: $grey_darker;
-    font-weight: lighter;
-  }
 }
 
 .in-bpm-range:hover button.play {

@@ -82,9 +82,12 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     playlist.IsCustomRpm = template.TemplateGroup.IsCustomRpm;
     playlist.Shared = false;
     playlist.ClassLengthMinutes = template.ClassLengthMinutes;
-    Users.loadCurrentUser().then(function (user) {
-      playlist.UserId = user.Id;
-    });
+    playlist.UserId = Users.getCurrentUser().Id;
+    if (!playlist.UserId) {
+      Users.loadCurrentUser().then(function (user) {
+        playlist.UserId = user.Id;
+      });
+    }
     playlist.PlaylistGoals = [];
     playlist.BackgroundTracks = [];
     if (template.TemplateGroup.Type === 'freestyle') {

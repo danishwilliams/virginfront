@@ -1,0 +1,8 @@
+/* Mixins */
+
+@mixin input-black {
+  background: $black;
+  border: none;
+  color: $white;
+}
+

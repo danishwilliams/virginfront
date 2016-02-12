@@ -13,6 +13,13 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  /* A registered user, but has no roles */
+  .state('registered', {
+    'url': '/registered',
+    templateUrl: '../js/components/registered/registered.html',
+    controller: 'RegisteredController'
+  })
+
   .state('admin', {
     url: '/admin',
     templateUrl: '../js/components/admin/admin.html',
@@ -422,6 +429,18 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     controller: 'UsersController as users',
     resolve: {
       $title: function() { return 'Users | Admin'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
+    }
+  })
+
+  .state('user-new', {
+    url: '/admin/users/new',
+    templateUrl: '../js/components/user_new/user_new.html',
+    controller: 'UserNewController as vm',
+    resolve: {
+      $title: function() { return 'Create new user'; /* CREATE_USER */ }
     },
     data: {
       permissions: [APP_PERMISSIONS.users]

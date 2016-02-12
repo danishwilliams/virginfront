@@ -14,9 +14,7 @@
     max-width: rem-calc(600px);
   }
   input[type="text"], input[type="email"], input[type="password"] {
-    background: $black;
-    border: none;
-    color: $white;
+    @include input-black;
   }
   input {
     margin-bottom: 0;

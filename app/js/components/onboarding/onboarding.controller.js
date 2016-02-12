@@ -12,6 +12,8 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
   // Grab the user's account
   Users.loadCurrentUser(token).then(function(data) {
     self.user = data;
+  }, function(res) {
+    self.onboardingTokenFailed = true;
   });
 
   switch ($state.current.name) {
@@ -40,12 +42,27 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
 
     // Save password and go to the dashboard
     Users.changePassword(self.password).then(function() {
-      console.log('password changed!');
       Users.setOnboardingStatus(false);
-      $state.go('dashboard');
-      //$state.go('onboarding-gyms', {
-      //  id: self.id
-      //});
+
+      // delete the onboarding token
+      Users.deleteAccessToken(token).then(function() {
+        var user = Users.getCurrentUser();
+        // Get a new login token (i.e. post username and password to api/auth)
+        Users.loadAccessToken({username: user.Username, password: self.password}).then(function(data) {
+          // Save new login token in local storage
+          Users.setAccessToken(data);
+          if (!_.isEmpty(user.UserUserTypes)) {
+            $state.go('dashboard');
+          }
+          else {
+            // This is a user with no roles
+            $state.go('registered');
+          }
+          //$state.go('onboarding-gyms', {
+          //  id: self.id
+          //});
+        });
+      });
     });
   };
 

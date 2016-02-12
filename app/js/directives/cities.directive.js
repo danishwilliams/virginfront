@@ -4,6 +4,7 @@ angular
 
 function cities() {
   var directive = {
+    link: link,
     templateUrl: 'cities.directive.html',
     restrict: 'E',
     controller: citiesController,
@@ -11,10 +12,16 @@ function cities() {
     scope: {
       ngModel: '='
     },
-    required: ['ngModel']
+    require: '?ngModel'
   };
 
   return directive;
+
+  function link(scope, element, attrs, ngModel) {
+    scope.selected = function (id) {
+      ngModel.$setViewValue(id); // because ng-change isn't firing
+    };
+  }
 }
 
 citiesController.$inject = ['Locations', '$scope'];
@@ -44,6 +51,7 @@ function citiesController(Locations, $scope) {
     suggest: suggest_city,
     on_select: function(selected) {
       $scope.ngModel = selected.locationId;
+      $scope.selected(selected.locationId); // because ng-change isn't firing
     }
   };
 }
