@@ -15,9 +15,9 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
 
   /* A registered user, but has no roles */
   .state('registered', {
-    url: '/registered',
-    templateUrl: 'registered.html',
-    controller: 'LoginController as login',
+    'url': '/registered',
+    templateUrl: '../js/components/registered/registered.html',
+    controller: 'RegisteredController'
   })
 
   .state('admin', {
