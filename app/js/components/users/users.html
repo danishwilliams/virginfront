@@ -52,6 +52,20 @@
           <td><a ui-sref="users({id:user.Id})">View</a></td>
           <td ng-if-permission="editAdmin"><button class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
         </tr>
+        <tr ng-if-permission="viewAdmin">
+          <td colspan="9"><h2>Technical users</h2></td>
+        </tr>
+        <tr ng-if="user.Technical" ng-if-permission="viewAdmin" ng-repeat="user in users.users | orderBy:'FirstName'">
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
+          <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
+          <td><ul><li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li></ul></td>
+          <td><a ui-sref="users({id:user.Id})">View</a></td>
+          <td ng-if-permission="editAdmin"><button class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
+        </tr>
       </tbody>
     </table>
   </div>
