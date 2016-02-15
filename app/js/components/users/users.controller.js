@@ -13,6 +13,7 @@ angular.module("app.users", []).controller('UsersController', function (Users, s
           case 'Admin':
           case 'API User':
           case 'Device':
+          case 'Import':
             user.Technical = true;
         }
       });
