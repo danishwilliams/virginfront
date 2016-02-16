@@ -37,6 +37,7 @@ angular
     "app.tracks",
     "app.tracks_search",
     "app.user",
+    "app.user_invite",
     "app.user_new",
     "app.users",
     "app.usertypes",

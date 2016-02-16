@@ -32,31 +32,6 @@
       padding-right: rem-calc(10px);
     }
   }
-  .syncing {
-    background-color: $green;
-    .icon {
-      -webkit-animation-duration: 1.3s;
-      -moz-animation-duration: 1.3s;
-      animation-duration: 1.3s;
-      -webkit-animation-iteration-count: infinite;
-      -moz-animation-iteration-count: infinite;
-      animation-iteration-count: infinite;
-      -webkit-animation-name: rotate-forever;
-      -moz-animation-name: rotate-forever;
-      animation-name: rotate-forever;
-      -webkit-animation-timing-function: linear;
-      -moz-animation-timing-function: linear;
-      animation-timing-function: linear;
-      background-size: 16px auto;
-      background-position: center;
-      width: 18px;
-      height: 18px;
-      vertical-align: text-top;
-      -moz-vertical-align: sub;
-      display: inline-block;
-      background-image: url('/img/syncing.svg');
-    }
-  }
   .removed {
     .icon,
     .name {
@@ -77,5 +52,31 @@
     overflow: hidden;
     font-size: x-small;
     font-style: italic;
+  }
+}
+
+.syncing {
+  background-color: $green;
+  .icon {
+    -webkit-animation-duration: 1.3s;
+    -moz-animation-duration: 1.3s;
+    animation-duration: 1.3s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: rotate-forever;
+    -moz-animation-name: rotate-forever;
+    animation-name: rotate-forever;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    animation-timing-function: linear;
+    background-size: 16px auto;
+    background-position: center;
+    width: 18px;
+    height: 18px;
+    vertical-align: text-top;
+    -moz-vertical-align: sub;
+    display: inline-block;
+    background-image: url('/img/syncing.svg');
   }
 }

@@ -447,6 +447,18 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  .state('user-invite', {
+    url: '/admin/users/invite',
+    templateUrl: '../js/components/user_invite/user_invite.html',
+    controller: 'UserInviteController as vm',
+    resolve: {
+      $title: function() { return 'Invite'; /* INVITE */ }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
+    }
+  })
+
   .state('user', {
     url: '/user',
     templateUrl: '../js/components/user/user.html',
