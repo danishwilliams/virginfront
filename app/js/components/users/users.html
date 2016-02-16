@@ -45,10 +45,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-if="!user.Technical" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+        <tr ng-if="user.Type !== 'Technical'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
-          <td>{{user.State}}</td>
+          <td>{{user.Type}}</td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
@@ -62,7 +62,7 @@
         <tr>
           <td colspan="10"><h2>Technical users</h2></td>
         </tr>
-        <tr ng-if="user.Technical" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+        <tr ng-if="user.Type === 'Technical'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
