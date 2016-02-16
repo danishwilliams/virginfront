@@ -197,6 +197,9 @@ angular.module("app.user", []).controller('UserController', function ($statePara
       }];
     }, function(res) {
       spinnerService.hide('userContactSpinner');
+      spinnerService.hide('userGenresSpinner');
+      spinnerService.hide('userGymsSpinner');
+      spinnerService.hide('userTypesSpinner');
       self.contactEdit = true;
       if (res.status === 500 && res.data.Message) {
         // Possible responses:

@@ -30,3 +30,10 @@ span.length.error {
 .front-error {
   display: none;
 }
+
+.success, small.success {
+  background: #43AC6A; // TODO: make this a variable
+  color: $white;
+  padding: rem-calc(10px);
+  font-style: normal;
+}
