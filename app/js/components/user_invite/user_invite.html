@@ -14,18 +14,18 @@
       <table>
         <thead>
           <tr>
-            <td><input type="checkbox" ng-change="vm.selectAll(vm.instructors, vm.selectInstructors)" ng-model="vm.selectInstructors"></td>
-            <td>Instructor</td>
+            <td><label><input type="checkbox" ng-change="vm.selectAll(vm.instructors, vm.selectInstructors)" ng-model="vm.selectInstructors"> Select all</label></td>
+            <td>Instructor name</td>
             <td>Email</td>
-            <td><label><input type="checkbox" ng-change="vm.selectAllPackInstructors()" ng-model="vm.selectPackInstructors"> Pack instructor</label></td>
+            <td><label><input type="checkbox" ng-change="vm.selectAllPackInstructors()" ng-model="vm.selectPackInstructors"> Select all</label></td>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="instructor in vm.instructors | filter:query | orderBy:'FirstName'">
-            <td><input type="checkbox" ng-model="instructor.selected"></td>
+            <td><label class="no-bold"><input type="checkbox" ng-model="instructor.selected"> Invite</label></td>
             <td>{{instructor.FirstName}} {{instructor.LastName}}</td>
             <td>{{instructor.Email}}</td>
-            <td><input type="checkbox" ng-model="instructor.packInstructor"></td>
+            <td><label class="no-bold"><input type="checkbox" ng-model="instructor.packInstructor"> Pack instructor</label></td>
           </tr>
         </tbody>
       </table>
