@@ -7,14 +7,26 @@ angular.module("app.users", []).controller('UsersController', function (Users, s
 
     // Hide non-instructor user types
     self.users.forEach(function(user) {
-      user.Technical = false;
+      user.Type = 'Registered';
       user.UserUserTypes.forEach(function (type) {
+        user.Type = 'Technical'; // So that if any users show up there we know something has screwed up
         switch (type.UserType.Name) {
           case 'Admin':
           case 'API User':
           case 'Device':
           case 'Import':
-            user.Technical = true;
+            user.Type = 'Technical';
+        }
+        switch (user.State) {
+          case 'invite_emailed':
+          case 'invite_email_failed':
+          case 'onboarding_password':
+          case 'onboarding_genre':
+          case 'onboarding_clubs':
+            user.Type = 'Invited';
+            break;
+          case 'registered':
+            user.Type = 'Registered';
         }
       });
     });

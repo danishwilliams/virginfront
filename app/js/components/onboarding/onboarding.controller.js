@@ -51,6 +51,12 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
         Users.loadAccessToken({username: user.Username, password: self.password}).then(function(data) {
           // Save new login token in local storage
           Users.setAccessToken(data);
+
+          // Update the user state to say we're registered
+          self.user.State = 'registered';
+          self.user.route = "users";
+          self.user.put();
+
           if (!_.isEmpty(user.UserUserTypes)) {
             $state.go('dashboard');
           }
