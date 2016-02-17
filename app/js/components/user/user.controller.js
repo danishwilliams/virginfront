@@ -9,6 +9,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   if (this.id) {
     Users.loadUser(this.id).then(function (data) {
       self.user = data;
+      self.employeeId = self.user.EmployeeId;
       self.telephone = self.user.Telephone;
       self.email = self.user.Email;
     });
@@ -19,6 +20,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
       return;
     }
     self.error = {};
+    self.user.EmployeeId = self.employeeId;
     self.user.Telephone = self.telephone;
     self.user.Email = self.email;
     // TODO: client side email address validation
@@ -26,6 +28,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   };
 
   this.cancelContactDetails = function () {
+    self.employeeId = self.user.EmployeeId;
     self.telephone = self.user.Telephone;
     self.email = self.user.Email;
     self.contactEdit = false;
