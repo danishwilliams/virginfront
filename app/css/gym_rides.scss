@@ -32,7 +32,31 @@
       padding-right: rem-calc(10px);
     }
   }
-  .syncing {
+  .removed {
+    .icon,
+    .name {
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+  }
+  .remove {
+    font-size: smaller;
+  }
+  a .remove {
+    width: 15px;
+    text-indent: -2000px;
+    background: url('/img/remove.svg') no-repeat;
+    background-position: center;
+  }
+  .time {
+    overflow: hidden;
+    font-size: x-small;
+    font-style: italic;
+  }
+}
+
+.gym-rides, .user-invite {
+    .syncing {
     background-color: $green;
     .icon {
       -webkit-animation-duration: 1.3s;
@@ -56,26 +80,5 @@
       display: inline-block;
       background-image: url('/img/syncing.svg');
     }
-  }
-  .removed {
-    .icon,
-    .name {
-      opacity: 0.5;
-      text-decoration: line-through;
-    }
-  }
-  .remove {
-    font-size: smaller;
-  }
-  a .remove {
-    width: 15px;
-    text-indent: -2000px;
-    background: url('/img/remove.svg') no-repeat;
-    background-position: center;
-  }
-  .time {
-    overflow: hidden;
-    font-size: x-small;
-    font-style: italic;
   }
 }

@@ -6,6 +6,7 @@
         <h1>{{'USERS' | translate}}</h1>
       </div>
       <div class="large-5 medium-6 columns">
+        <button ng-if-permission="viewAdmin" class="secondary" ui-sref="user-invite">Batch invite</button>
         <button class="secondary" ui-sref="user-new">{{'CREATE_USER' | translate}}</button>
       </div>
     </div>
@@ -26,11 +27,14 @@
     </tabset>
     -->
 
+    <input ng-model="query" type="text" placeholder="Filter by" autofocus>
+
     <table>
       <thead>
         <tr>
           <td>First name</td>
           <td>Last name</td>
+          <td>Status</td>
           <td>Employee ID</td>
           <td>Email</td>
           <td>Phone number</td>
@@ -41,7 +45,24 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-if="!user.Technical" ng-repeat="user in users.users | orderBy:'FirstName'">
+        <tr ng-if="user.Type !== 'Technical'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
+          <td>{{user.Type}}</td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
+          <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
+          <td><ul><li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li></ul></td>
+          <td><a ui-sref="users({id:user.Id})">View</a></td>
+          <td ng-if-permission="editAdmin"><button class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
+        </tr>
+      </tbody>
+      <tbody ng-if-permission="viewAdmin">
+        <tr>
+          <td colspan="10"><h2>Technical users</h2></td>
+        </tr>
+        <tr ng-if="user.Type === 'Technical'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
@@ -50,7 +71,7 @@
           <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
           <td><ul><li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li></ul></td>
           <td><a ui-sref="users({id:user.Id})">View</a></td>
-          <td ng-if-permission="editAdmin"><button class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
+          <td colspan="2"><button ng-if-permission="editAdmin" class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
         </tr>
       </tbody>
     </table>

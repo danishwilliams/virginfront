@@ -23,6 +23,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'USER': 'User',
     'USERS': 'Team Directory',
     'CREATE_USER': 'Invite new instructor',
+    'INVITE': 'Invite',
 
     // Onboarding
     'OB_STARTED': 'Get started',

@@ -27,8 +27,8 @@
           </div>
 
           <form name="contactForm" ng-show="user.contactEdit" ng-submit="user.saveContactDetails()">
-            <input type="text" ng-model="user.telephone" />
-            <input type="email" name="email" ng-model="user.email" required />
+            <input type="text" ng-model="user.telephone" placeholder="{{'PHONE' | translate}}" />
+            <input type="email" name="email" ng-model="user.email" placeholder="{{'EMAIL' | translate}}" required />
             <div ng-show="contactForm.$submitted || contactForm.email.$touched">
               <small class="error" ng-show="contactForm.email.$error.required">{{'EMAIL_REQ' | translate}}</small>
             </div>
@@ -52,14 +52,14 @@
           <div ng-show="!user.userTypesEdit">
             {{user.user.UserType.Name}}
             <ul>
-              <li ng-repeat="role in user.user.UserUserTypes" ng-if="role.UserType.PublicRole">
+              <li ng-repeat="role in user.user.UserUserTypes">
                 {{role.UserType.Name}}
               </li>
             </ul>
           </div>
 
           <form ng-show="user.userTypesEdit" ng-if-permission="editAdmin" ng-submit="user.saveUserTypes()">
-            <label ng-repeat="userType in user.userTypes | orderBy: 'Name'" ng-if="userType.PublicRole">
+            <label ng-repeat="userType in user.userTypes | orderBy: 'Name'">
               <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name}}
             </label>
 
