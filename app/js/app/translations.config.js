@@ -195,7 +195,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'TEMPLATE': 'Template',
     'TEMPLATE_CREATE': 'Create new template',
     'TEMPLATE_TYPE_ARCHIVE': 'Archive this template type',
-    'TEMPLATE_TYPE_UNARCHIVE': 'Archive this template type',
+    'TEMPLATE_TYPE_UNARCHIVE': 'Unarchive this template type',
     'TEMPLATE_NAME': 'Template name',
     'TEMPLATE_NAME_REQ': 'Please give this template a name.',
     'DESCRIPTION': 'Description',
