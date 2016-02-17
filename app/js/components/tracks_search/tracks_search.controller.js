@@ -70,6 +70,12 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
       }
     });
     if (!_.isEmpty(genres)) {
+      // Save the genre selection for later
+
+      // Replace the genres in the user
+      Users.updateGenres(self.genres);
+
+      // Do the genre track search
       spinnerService.show('trackSpinner');
       self.tracks = [];
       self.error = {};
