@@ -169,7 +169,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'GENRES': 'Genres',
     'ACC_DETAILS': 'account details',
     'USERNAME': 'Username',
-    'EMAIL_EXISTS': 'Email address already exists',
+    'EMAIL_EXISTS': 'This instructor already exists',
     'CONTACTS_SAVED': 'Contact details saved.',
     'PERMISSIONS_SAVED': 'Permissions saved.',
     'CLUBS_SAVED': 'Resident clubs saved.',
