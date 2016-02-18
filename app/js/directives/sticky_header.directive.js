@@ -21,6 +21,9 @@ function stickyHeader($window, $compile) {
 
     $win.on('scroll', function (e) {
       if (!scrolled) {
+        // Doing the position calculation here because another directive is loaded before this one,
+        // and it's not rendered at the point we do a document.noready so the value returned by .top
+        // exludes the <playlist-workflow> height. *sigh*
         rect = element[0].getBoundingClientRect();
         offsetTop = rect.top; // get element's offset top relative to document
         width = rect.width;
