@@ -24,7 +24,7 @@ function limitEnters() {
         // Count the number of Enters already present in the element and if it's 4, allow no more
         if (element[0].value) {
           var matches = element[0].value.match(/[\n\r]/g);
-          if (matches && matches.length > 3) {
+          if (matches && matches.length > 2) {
             event.preventDefault();
             return false;
           }
