@@ -19,6 +19,7 @@ angular
     "app.device_playlists",
     "app.genres",
     "app.goals",
+    "app.default_goals",
     "app.gyms",
     "app.locations",
     "app.login",
