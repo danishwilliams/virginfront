@@ -27,7 +27,20 @@
     </tabset>
     -->
 
-    <input ng-model="query" type="text" placeholder="Filter by" autofocus>
+    <div class="row">
+      <div class="medium-9 large-9 columns">
+        <label>Search</label>
+        <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
+      </div>
+      <div class="medium-9  large-9 columns">
+        <label>Filter by Instructor status</label>
+        <select ng-model="users.status">
+          <option value="" selected>All</option>
+          <option value="Registered">Registered</option>
+          <option value="Invited">Invited</option>
+        </select>
+      </div>
+    </div>
 
     <table>
       <thead>
@@ -45,7 +58,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-if="user.Type !== 'Technical'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+        <tr ng-if="user.Type !== 'Technical'" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
           <td>{{user.Type}}</td>
