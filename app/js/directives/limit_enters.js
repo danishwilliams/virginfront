@@ -1,4 +1,5 @@
 // @see http://codepen.io/TheLarkInn/post/angularjs-directive-labs-allowpattern-directive-more-fun-with-keycodes
+// Limits the number of times "Enter" can be hit in a textarea
 angular
   .module("app")
   .directive("limitEnters", limitEnters);
