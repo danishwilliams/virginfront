@@ -226,7 +226,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Save the playlist to the API
   this.savePlaylist = function () {
-    if (self.playlist.Name.length < 1) {
+    if (!self.playlist.Name || self.playlist.Name.length < 1) {
       self.required = {
         error: true
       };

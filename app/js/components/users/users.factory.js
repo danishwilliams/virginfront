@@ -21,6 +21,7 @@ function UsersFactory(Restangular, Storage, uuid2) {
     loadUsers: loadUsers,
     getUsers: getUsers,
     loadUser: loadUser,
+    updateGenres: updateGenres,
     loadCurrentUser: loadCurrentUser,
     getCurrentUser: getCurrentUser,
     sendInvite: sendInvite,
@@ -86,7 +87,7 @@ function UsersFactory(Restangular, Storage, uuid2) {
       "Authorization": "none"
     });
     users = [];
-    currentUser = [];
+    currentUser = {};
   }
 
   function loadUsers() {
@@ -110,6 +111,25 @@ function UsersFactory(Restangular, Storage, uuid2) {
     }
   }
 
+  /**
+   * Updates the chosen genres for a user
+   *
+   * @param A restangular user object
+   * @param genres (e.g. from the Genres directive)
+   */
+  function updateGenres(genres) {
+    currentUser.UserGenres = [];
+    genres.forEach(function (val) {
+      if (val.selected) {
+        currentUser.UserGenres.push({
+          Genre: val,
+          GenreId: val.Id
+        });
+      }
+    });
+    currentUser.put();
+  }
+
   function loadCurrentUser(token) {
     // If there is a token, we're manually passing this through because this is the onboarding first login
     if (token) {
@@ -121,6 +141,7 @@ function UsersFactory(Restangular, Storage, uuid2) {
 
     function loadCurrentUserComplete(data, status, headers, config) {
       currentUser = data;
+      currentUser.route = 'users';
       currentUser.Roles = [];
       currentUser.UserUserTypes.forEach(function (val) {
         currentUser.Roles.push(val.UserType.Name);
@@ -153,7 +174,9 @@ function UsersFactory(Restangular, Storage, uuid2) {
     var queryString = {};
     user.State = 'created';
     if (user.sendInviteEmail) {
-      queryString = {sendInviteEmail: true};
+      queryString = {
+        sendInviteEmail: true
+      };
     }
     return Restangular.one("users", user.Id).customPUT(user, '', queryString).then(createNewUserComplete);
 

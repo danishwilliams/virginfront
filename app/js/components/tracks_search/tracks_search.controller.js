@@ -2,6 +2,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   var self = this;
 
   this.currentgoal = Playlists.getCurrentGoal();
+  var isCustomRpm = Playlists.getPlaylistCustomRpm();
   this.tracks = Tracks.getTracks();
   self.error = {};
 
@@ -21,8 +22,8 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     });
   }
 
-  // Set up addition bpm range
-  if (!this.currentgoal.BackgroundSection) {
+  // Set up addition bpm range for non-UK (i.e. the playlist IsCustomRpm value is true)
+  if (!this.currentgoal.BackgroundSection && !isCustomRpm) {
     // If bpm less than 90, then high range is doubled
     if (this.currentgoal.BpmLow < 90) {
       this.bpm2 = true;
@@ -69,6 +70,12 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
       }
     });
     if (!_.isEmpty(genres)) {
+      // Save the genre selection for later
+
+      // Replace the genres in the user
+      Users.updateGenres(self.genres);
+
+      // Do the genre track search
       spinnerService.show('trackSpinner');
       self.tracks = [];
       self.error = {};
