@@ -1,5 +1,6 @@
 angular.module("app.users", []).controller('UsersController', function (Users, spinnerService) {
   var self = this;
+  self.status = '';
 
   Users.loadUsers().then(function (data) {
     self.users = data;
@@ -37,6 +38,13 @@ angular.module("app.users", []).controller('UsersController', function (Users, s
       });
     });
   });
+
+  self.filterInstructors = function(user) {
+    if (self.status.length > 0) {
+      return user.Type === self.status;
+    }
+    return true;
+  };
 
   self.update = function (user) {
     user.put();
