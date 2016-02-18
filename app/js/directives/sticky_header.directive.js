@@ -29,12 +29,13 @@ function stickyHeader($window, $compile) {
         width = rect.width;
         height = rect.height;
 
+        // Create the placeholder height node
         node = document.createElement('div');
         node.style.height = height + 'px';
         scrolled = true;
       }
 
-      if ($win[0].scrollY >= offsetTop) {
+      if ($win[0].pageYOffset >= offsetTop) {
         if (element.hasClass('fixed')) {
           return;
         }
