@@ -1,7 +1,10 @@
+/**
+ * Does duty both as onboarding and password reset
+ */
 angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms, Users) {
   var self = this;
 
-  var token = $stateParams.id;
+  var token = $stateParams.token;
 
   // We need to be able to get to this point WITHOUT being logged in.
 
@@ -13,7 +16,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
   Users.loadCurrentUser(token).then(function(data) {
     self.user = data;
   }, function(res) {
-    self.onboardingTokenFailed = true;
+    self.tokenFailed = true;
   });
 
   switch ($state.current.name) {
@@ -51,6 +54,12 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
         Users.loadAccessToken({username: user.Username, password: self.password}).then(function(data) {
           // Save new login token in local storage
           Users.setAccessToken(data);
+
+          // If this is a password reset, skip onboarding and go to the dashboard
+          if ($state.current.name === 'resetpassword') {
+            $state.go('dashboard');
+            return;
+          }
 
           // Update the user state to say we're registered
           self.user.State = 'registered';

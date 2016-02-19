@@ -24,6 +24,7 @@ angular
     "app.login",
     "app.music_providers",
     "app.onboarding",
+    "app.passwordreset",
     "app.playlists",
     "app.playlists_admin",
     "app.playlist_template",
@@ -112,9 +113,10 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
   $rootScope.$on("$stateChangeStart", function (event, next) {
     self.menu = false;
 
-    // Skip login check
-    if (next.name === 'onboarding' && !Users.getOnboardingStatus()) {
-      // The first onboarding page skips login check
+    // Skip login check for:
+    // - onboarding
+    // - password reset
+    if (next.name === 'passwordreset' || (next.name === 'onboarding' && !Users.getOnboardingStatus())) {
       spinnerService.hide('bodySpinner');
       self.ready = true;
       return;
