@@ -97,7 +97,7 @@
 
           <div class="row notes" ng-show="goal.show">
             <label>{{'NOTES_GUIDELINE' | translate}}</label>
-            <textarea name="note" maxlength="200" ng-maxlength="200" ng-model="goal.Aim"></textarea>
+            <textarea limit-enters name="note" maxlength="200" ng-maxlength="200" ng-model="goal.Aim"></textarea>
             <span class="maxlength">{{'NOTE_MAX' | translate}}</span>
           </div>
         </ng-form>
