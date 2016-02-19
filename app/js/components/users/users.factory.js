@@ -17,6 +17,7 @@ function UsersFactory(Restangular, Storage, uuid2) {
     deleteAccessToken: deleteAccessToken,
     setAccessToken: setAccessToken,
     changePassword: changePassword,
+    resetPassword: resetPassword,
     logout: logout,
     loadUsers: loadUsers,
     getUsers: getUsers,
@@ -77,6 +78,12 @@ function UsersFactory(Restangular, Storage, uuid2) {
       NewPassword: value
     }, '', {}, {
       Authorization: 'Token ' + token
+    });
+  }
+
+  function resetPassword(username) {
+    return Restangular.one('users/password/reset').customPOST({}, '', {
+      username: username
     });
   }
 
