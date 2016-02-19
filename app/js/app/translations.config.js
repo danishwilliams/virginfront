@@ -24,6 +24,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'USERS': 'Team Directory',
     'CREATE_USER': 'Invite new instructor',
     'INVITE': 'Invite',
+    'PASSWORD_RESET': 'Password reset',
 
     // Onboarding
     'OB_STARTED': 'Get started',
