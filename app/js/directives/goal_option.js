@@ -15,7 +15,8 @@ function goalOption() {
       efforthigh: '=',
       customrpm: '@',
       rpmlow: '=',
-      rpmhigh: '='
+      rpmhigh: '=',
+      'totalGoaloptions': '@' // Only show the Goal Option name if IsCustomRpm is false and there is more than 1 goaloption
     }
   };
   return directive;

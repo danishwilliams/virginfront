@@ -1,0 +1,34 @@
+<table>
+  <thead>
+    <tr>
+      <td>First name</td>
+      <td>Last name</td>
+      <td>Employee ID</td>
+      <td>Email</td>
+      <td>Phone number</td>
+      <td>City, Province, Country</td>
+      <td>User type</td>
+      <td>View</td>
+      <td ng-if-permission="editAdmin">Invite</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users.users | orderBy:'Name'">
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
+      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
+      <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
+      <td>
+        <ul>
+          <li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li>
+        </ul>
+      </td>
+      <td><a ui-sref="users({id:user.Id})">View</a></td>
+      <td ng-if-permission="editAdmin">
+        <button class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

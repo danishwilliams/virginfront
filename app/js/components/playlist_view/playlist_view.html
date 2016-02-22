@@ -1,7 +1,7 @@
 <div class="row view-playlist">
   <playlist-workflow ng-if="playlist_view.newPlaylist"></playlist-workflow>
   <spinner class="spinner overlay" name="playlistViewSpinner" show="true"></spinner>
-  <div style="display:none;" class="large-16 large-centered columns playlist-container" ng-class="{'show': playlist_view.playlist}">
+  <div style="display:none;" class="large-16 large-centered columns playlist-container" ng-class="{'show':playlist_view.playlist.Id}">
     <h1>{{playlist_view.playlist.Name}}</h1>
     <div class="row">
       <div class="columns large-5">

@@ -10,12 +10,18 @@ function LoginController($state, Users, spinnerService) {
     password: ""
   };
   //b2c_login_check();
-  Users.logout();
+  self.step = 'login';
 
   var onLoginSuccess = function () {
     console.log('onLoginSuccess');
     spinnerService.hide('loginSpinner');
-    $state.go('dashboard');
+    if (!_.isEmpty(Users.getCurrentUser().UserUserTypes)) {
+      $state.go('dashboard');
+    }
+    else {
+      // This is a user with no roles
+      $state.go('registered');
+    }
   };
 
   this.login = function () {
@@ -37,6 +43,30 @@ function LoginController($state, Users, spinnerService) {
       self.error = {
         error: true
       };
+    });
+  };
+
+  self.forgotPassword = function() {
+    if (!self.credentials.username) {
+      return;
+    }
+
+    self.forgotPasswordSubmit = true;
+    self.emailNotFoundError = false;
+    self.forgotPasswordError = false;
+
+    Users.resetPassword(self.credentials.username).then(function() {
+      self.forgotPasswordSubmit = false;
+      self.step = 'resetSuccess';
+    }, function(res) {
+      self.forgotPasswordSubmit = false;
+      if (res.data.Message === 'Email address not found') {
+        self.emailNotFoundError = true;
+      }
+      else {
+        // Some generic error
+        self.forgotPasswordError = true;
+      }
     });
   };
 

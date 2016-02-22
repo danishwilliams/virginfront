@@ -2,25 +2,42 @@ angular
   .module("app")
   .factory('Users', UsersFactory);
 
-UsersFactory.$inject = ['Restangular', 'Storage'];
+UsersFactory.$inject = ['Restangular', 'Storage', 'uuid2'];
 
-function UsersFactory(Restangular, Storage) {
+function UsersFactory(Restangular, Storage, uuid2) {
   var users = [];
   var currentUser = {};
+  var onboardingStatus = false; // true if we're onboarding, false if we're not or if we're done
 
   var usersFactory = {
+    getOnboardingStatus: getOnboardingStatus,
+    setOnboardingStatus: setOnboardingStatus,
     getAccessToken: getAccessToken,
     loadAccessToken: loadAccessToken,
+    deleteAccessToken: deleteAccessToken,
     setAccessToken: setAccessToken,
+    changePassword: changePassword,
+    resetPassword: resetPassword,
     logout: logout,
     loadUsers: loadUsers,
     getUsers: getUsers,
     loadUser: loadUser,
+    updateGenres: updateGenres,
     loadCurrentUser: loadCurrentUser,
-    getCurrentUser: getCurrentUser
+    getCurrentUser: getCurrentUser,
+    sendInvite: sendInvite,
+    createNewUser: createNewUser
   };
 
   return usersFactory;
+
+  function getOnboardingStatus() {
+    return onboardingStatus;
+  }
+
+  function setOnboardingStatus(value) {
+    onboardingStatus = value;
+  }
 
   function getAccessToken() {
     return Storage.getItem('token');
@@ -30,6 +47,8 @@ function UsersFactory(Restangular, Storage) {
     return Restangular.one('auth').customPOST({
       username: credentials.username,
       password: credentials.password
+    }, '', {}, {
+      Authorization: ''
     }).then(loadAccessTokenComplete);
 
     function loadAccessTokenComplete(data, status, headers, config) {
@@ -40,18 +59,42 @@ function UsersFactory(Restangular, Storage) {
     }
   }
 
+  function deleteAccessToken(accessToken) {
+    var token = Storage.getItem('token');
+    return Restangular.one('users/token/remove').customPOST({}, '', {
+      token: accessToken
+    }, {
+      Authorization: 'Token ' + token
+    });
+  }
+
   function setAccessToken(value) {
     Storage.setItem('token', value);
+  }
+
+  function changePassword(value) {
+    var token = Storage.getItem('token');
+    return Restangular.one('users/password/change').customPOST({
+      NewPassword: value
+    }, '', {}, {
+      Authorization: 'Token ' + token
+    });
+  }
+
+  function resetPassword(username) {
+    return Restangular.one('users/password/reset').customPOST({}, '', {
+      username: username
+    });
   }
 
   function logout() {
     Storage.removeItem('base64');
     Storage.removeItem('token');
     Restangular.setDefaultHeaders({
-        "Authorization": "none"
-      });
+      "Authorization": "none"
+    });
     users = [];
-    currentUser = [];
+    currentUser = {};
   }
 
   function loadUsers() {
@@ -75,11 +118,37 @@ function UsersFactory(Restangular, Storage) {
     }
   }
 
-  function loadCurrentUser() {
+  /**
+   * Updates the chosen genres for a user
+   *
+   * @param A restangular user object
+   * @param genres (e.g. from the Genres directive)
+   */
+  function updateGenres(genres) {
+    currentUser.UserGenres = [];
+    genres.forEach(function (val) {
+      if (val.selected) {
+        currentUser.UserGenres.push({
+          Genre: val,
+          GenreId: val.Id
+        });
+      }
+    });
+    currentUser.put();
+  }
+
+  function loadCurrentUser(token) {
+    // If there is a token, we're manually passing this through because this is the onboarding first login
+    if (token) {
+      return Restangular.one('users/me').get({}, {
+        Authorization: 'Token ' + token
+      }).then(loadCurrentUserComplete);
+    }
     return Restangular.one('users/me').get().then(loadCurrentUserComplete);
 
     function loadCurrentUserComplete(data, status, headers, config) {
       currentUser = data;
+      currentUser.route = 'users';
       currentUser.Roles = [];
       currentUser.UserUserTypes.forEach(function (val) {
         currentUser.Roles.push(val.UserType.Name);
@@ -92,5 +161,34 @@ function UsersFactory(Restangular, Storage) {
 
   function getCurrentUser() {
     return currentUser;
+  }
+
+  /**
+   * Sends an email invite to a user
+   */
+  function sendInvite(userId) {
+    return Restangular.one("users/invite", userId).post().then(createInviteComplete);
+
+    function createInviteComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function createNewUser(user) {
+    if (!user.Id) {
+      user.Id = uuid2.newuuid().toString();
+    }
+    var queryString = {};
+    user.State = 'created';
+    if (user.sendInviteEmail) {
+      queryString = {
+        sendInviteEmail: true
+      };
+    }
+    return Restangular.one("users", user.Id).customPUT(user, '', queryString).then(createNewUserComplete);
+
+    function createNewUserComplete(data, status, headers, config) {
+      return data;
+    }
   }
 }

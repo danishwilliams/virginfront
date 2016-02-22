@@ -13,6 +13,25 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Password reset
+  .state('passwordreset', {
+    url: '/passwordreset/:token',
+    //templateUrl: '../js/components/password_reset/password_reset.html',
+    //controller: 'PasswordResetController as vm',
+    templateUrl: '../js/components/onboarding/password.html',
+    controller: 'OnboardingController as vm',
+    resolve: {
+      $title: function() { return 'Password reset'; /* PASSWORD_RESET */ }
+    }
+  })
+
+  /* A registered user, but has no roles */
+  .state('registered', {
+    'url': '/registered',
+    templateUrl: '../js/components/registered/registered.html',
+    controller: 'RegisteredController'
+  })
+
   .state('admin', {
     url: '/admin',
     templateUrl: '../js/components/admin/admin.html',
@@ -190,18 +209,9 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
 
   // Onboarding - invite
   .state('onboarding', {
-    url: '/onboarding/:id',
-    templateUrl: '../js/components/onboarding/invitation.html',
-    controller: 'OnboardingController as onboarding',
-    resolve: {
-      $title: function() { return 'Login'; /* LOGIN */ }
-    }
-  })
-
-  .state('onboarding-password', {
-    url: '/onboarding/:id/password',
+    url: '/onboarding/:token',
     templateUrl: '../js/components/onboarding/password.html',
-    controller: 'OnboardingController as onboarding',
+    controller: 'OnboardingController as vm',
     resolve: {
       $title: function() { return 'Password | Onboarding'; /* OB_PASSWORD */ }
     }
@@ -431,6 +441,30 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     controller: 'UsersController as users',
     resolve: {
       $title: function() { return 'Users | Admin'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
+    }
+  })
+
+  .state('user-new', {
+    url: '/admin/users/new',
+    templateUrl: '../js/components/user_new/user_new.html',
+    controller: 'UserNewController as vm',
+    resolve: {
+      $title: function() { return 'Create new user'; /* CREATE_USER */ }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
+    }
+  })
+
+  .state('user-invite', {
+    url: '/admin/users/invite',
+    templateUrl: '../js/components/user_invite/user_invite.html',
+    controller: 'UserInviteController as vm',
+    resolve: {
+      $title: function() { return 'Invite'; /* INVITE */ }
     },
     data: {
       permissions: [APP_PERMISSIONS.users]

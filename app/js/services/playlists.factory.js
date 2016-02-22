@@ -15,6 +15,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   var playlists = [];
   var playlistLimitPerGym = 5;
   playlist.creatingNewPlaylist = false;
+  var isCustomRpm = false; // The isCustomRpm value for a playlist
 
   // The currently selected goal which tracks can be added to
   var currentgoal = {
@@ -40,6 +41,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     loadPlaylist: loadPlaylist,
     getPlaylist: getPlaylist,
     setPlaylist: setPlaylist,
+    getPlaylistCustomRpm: getPlaylistCustomRpm,
     loadGymsPlaylistSyncInfoDetailed: loadGymsPlaylistSyncInfoDetailed,
     loadGymsDevicePlaylistSyncInfo: loadGymsDevicePlaylistSyncInfo,
     loadGymsPlaylists: loadGymsPlaylists,
@@ -79,12 +81,15 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     playlist.TemplateId = template.Id;
     playlist.TemplateName = template.TemplateGroup.Name;
     playlist.TemplateIconFileName = template.TemplateGroup.IconFileName;
-    playlist.IsCustomRpm = template.TemplateGroup.IsCustomRpm;
+    playlist.IsCustomRpm = isCustomRpm = template.TemplateGroup.IsCustomRpm;
     playlist.Shared = false;
     playlist.ClassLengthMinutes = template.ClassLengthMinutes;
-    Users.loadCurrentUser().then(function (user) {
-      playlist.UserId = user.Id;
-    });
+    playlist.UserId = Users.getCurrentUser().Id;
+    if (!playlist.UserId) {
+      Users.loadCurrentUser().then(function (user) {
+        playlist.UserId = user.Id;
+      });
+    }
     playlist.PlaylistGoals = [];
     playlist.BackgroundTracks = [];
     if (template.TemplateGroup.Type === 'freestyle') {
@@ -223,6 +228,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
 
     function loadPlaylistComplete(data) {
       playlist = data;
+      isCustomRpm = data.IsCustomRpm;
 
       var found = false;
       _.mapObject(playlist.PlaylistGoals, function (val, key) {
@@ -244,6 +250,10 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
 
   function setPlaylist(value) {
     playlist = value;
+  }
+
+  function getPlaylistCustomRpm() {
+    return isCustomRpm;
   }
 
   function loadGymsPlaylistSyncInfoDetailed() {

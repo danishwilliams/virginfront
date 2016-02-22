@@ -226,7 +226,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Save the playlist to the API
   this.savePlaylist = function () {
-    if (self.playlist.Name.length < 1) {
+    if (!self.playlist.Name || self.playlist.Name.length < 1) {
       self.required = {
         error: true
       };
@@ -239,7 +239,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // Probably hit 'enter' in the ride name inputbox
       return;
     }
-    if (self.checkAllGoalsHaveTracks()) {
+    if (self.checkAllGoalsHaveTracks() && self.checkPlaylistLength() && self.checkHasPreRideBackgroundTracks() && self.checkHasPostRideBackgroundTracks()) {
       self.playlist.Complete = true;
     } else {
       self.playlist.Complete = false;
@@ -252,7 +252,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     self.playlist.put({
       syncPlaylist: false
     }).then(function () {
-      if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
+      if (!self.playlist.Complete) {
         $state.go('dashboard');
       } else if (self.newPlaylist) {
         // New playlist view

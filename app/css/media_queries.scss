@@ -35,11 +35,6 @@
     max-width: 100%;
   }
 
-  .uiview div.row:first-of-type, .playlist-edit {
-    padding-left: rem-calc(4px);
-    padding-right: rem-calc(4px);
-  }
-
   /* 500 front page error */
 
   .front-error .error {
@@ -48,8 +43,10 @@
 
   /* Login */
 
-  #login {
+  #login, .onboarding {
     background-image: url('/img/background_640.jpg');
+  }
+  #login {
     .container {
       top: inherit;
     }
@@ -144,7 +141,7 @@
 
   /* Login */
 
-  #login {
+  #login, .onboarding {
     background-image: url('/img/background_1024.jpg');
   }
 
@@ -166,7 +163,11 @@
 
   /* Login */
 
-  #login {
+  #login, .onboarding {
     background-image: url('/img/background_big.jpg');
+  }
+
+  .onboarding .content {
+    margin-top: rem-calc(90px);
   }
 }

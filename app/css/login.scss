@@ -1,5 +1,6 @@
 #login {
   background-color: $grey_darker;
+  color: $white;
   height: 100vh;
   background-position: center top;
   background-repeat: no-repeat;
@@ -14,12 +15,13 @@
     max-width: rem-calc(600px);
   }
   input[type="text"], input[type="email"], input[type="password"] {
-    background: $black;
-    border: none;
-    color: $white;
+    @include input-black;
   }
   input {
     margin-bottom: 0;
     margin-top: rem-calc(16px);
+  }
+  .email {
+    text-decoration: underline;
   }
 }

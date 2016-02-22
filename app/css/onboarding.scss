@@ -4,6 +4,11 @@
   min-height: calc(100vh);
   text-align: center;
 
+  .content {
+    max-width: rem-calc(600px);
+    margin: auto;
+  }
+
   h1, h2, h3 {
   	color: $white;
   }
@@ -16,8 +21,13 @@
   label {
   	color: $white;
   }
+
+  input[type="password"] {
+    @include input-black;
+  }
 }
 
 .dark-block {
-	background: $black;
+  background-color: rgba($black, 0.6);
+  padding: rem-calc(10px);
 }

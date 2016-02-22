@@ -1,52 +1,105 @@
-<h1>Users</h1>
-<table>
-  <thead>
-    <tr>
-      <td>First name</td>
-      <td>Last name</td>
-      <td>Email</td>
-      <td>Phone number</td>
-      <td>City</td>
-      <td>Province</td>
-      <td>Country</td>
-      <td>User type</td>
-      <td>Id</td>
-      <td>View</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="user in users.users | orderBy:'Name'">
-      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
-      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
-      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
-      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
-      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Location.City"></td>
-      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Location.Province"></td>
-      <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Location.Country.Name"></td>
-      <td>{{user.UserType.Name}}</td>
-      <td>{{user.Id}}</td>
-      <td><a ui-sref="users({id:user.Id})">View</a>
-    </tr>
-    <tr>
-      <td colspan="10">
-        <h5>Add new user</h5></td>
-    </tr>
-    <tr>
-      <td contentEditable ng-model="users.newUser.FirstName"></td>
-      <td contentEditable ng-model="users.newUser.LastName"></td>
-      <td contentEditable ng-model="users.newUser.Email"></td>
-      <td contentEditable ng-model="users.newUser.Telephone"></td>
-      <td colspan="3">
-        <cities ng-model="users.newUser.LocationId"></cities>
-      </td>
-      <td><user-types ng-model="users.newUser.UserTypeId"></user-types></td>
-      <td>{{users.newUser.Id}}</td>
-      <td>
-        <button ng-click="users.create()" type="button" class="tiny round">Add new user</button>
-      </td>
-    </tr>
-    <tr>
-    <td colspan="10">{{users.newUser}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+  <div class="large-12 medium-18 small-18 large-centered columns">
+
+    <div class="heading row">
+      <div class="large-13 medium-12 columns">
+        <h1>{{'USERS' | translate}}</h1>
+      </div>
+      <div class="large-5 medium-6 columns">
+        <button ng-if-permission="viewAdmin" class="secondary" ui-sref="user-invite">Batch invite</button>
+        <button class="secondary" ui-sref="user-new">{{'CREATE_USER' | translate}}</button>
+      </div>
+    </div>
+
+    <spinner class="spinner" name="users" show="true"></spinner>
+
+    <!--
+    <tabset>
+      <tab heading="Active Instructors (Registered Instructors and Invited Instructors  - allow filtering)">
+        <users data-type="enabled"></users>
+      </tab>
+      <tab heading="Disabled accounts">
+        <users data-type="disabled"></users>
+      </tab>
+      <tab heading="Technical users">
+        <users data-type="technical"></users>
+      </tab>
+    </tabset>
+    -->
+
+    <div class="row">
+      <div class="medium-9 large-9 columns">
+        <label>Search</label>
+        <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
+      </div>
+      <div class="medium-9  large-9 columns">
+        <label>Filter by Instructor status</label>
+        <select ng-model="users.status">
+          <option value="" selected>All</option>
+          <option value="Registered">Registered</option>
+          <option value="Invited">Invited</option>
+        </select>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <td>First name</td>
+          <td>Last name</td>
+          <td>Status</td>
+          <td>Employee ID</td>
+          <td>Email</td>
+          <td>Phone number</td>
+          <td>City, Province, Country</td>
+          <td>User type</td>
+          <td>View</td>
+          <td ng-if-permission="editAdmin">Invite</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-if="user.Type !== 'Technical'" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
+          <td>{{user.Type}}</td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
+          <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
+          <td><ul><li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li></ul></td>
+          <td><a ui-sref="users({id:user.Id})">View</a></td>
+          <td ng-if-permission="editAdmin"><button class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
+        </tr>
+        <tr ng-if="users.hasArchived">
+          <td colspan="10"><h2>Archived users</h2></td>
+        </tr>
+        <tr ng-if="!user.Enabled" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
+          <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
+          <td><ul><li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li></ul></td>
+          <td colspan="3"><a ui-sref="users({id:user.Id})">View</a></td>
+        </tr>
+      </tbody>
+      <tbody ng-if-permission="viewAdmin">
+        <tr>
+          <td colspan="10"><h2>Technical users</h2></td>
+        </tr>
+        <tr ng-if="user.Type === 'Technical'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
+          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
+          <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
+          <td><ul><li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li></ul></td>
+          <td><a ui-sref="users({id:user.Id})">View</a></td>
+          <td colspan="2"><button ng-if-permission="editAdmin" class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

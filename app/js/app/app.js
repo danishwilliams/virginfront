@@ -24,6 +24,7 @@ angular
     "app.login",
     "app.music_providers",
     "app.onboarding",
+    "app.passwordreset",
     "app.playlists",
     "app.playlists_admin",
     "app.playlist_template",
@@ -32,10 +33,13 @@ angular
     "app.playlist_sync",
     "app.playlist_view",
     "app.recent_classes",
+    "app.registered",
     "app.sync",
     "app.tracks",
     "app.tracks_search",
     "app.user",
+    "app.user_invite",
+    "app.user_new",
     "app.users",
     "app.usertypes",
     "app.templates",
@@ -44,6 +48,7 @@ angular
   .constant('APP_PERMISSIONS', {
     viewAdmin: "viewAdmin",
     editAdmin: "editAdmin",
+    isManager: "isManager",
     devices: "devices",
     gyms: "gyms",
     viewContent: "viewContent",
@@ -107,6 +112,16 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
 
   $rootScope.$on("$stateChangeStart", function (event, next) {
     self.menu = false;
+
+    // Skip login check for:
+    // - onboarding
+    // - password reset
+    if (next.name === 'passwordreset' || (next.name === 'onboarding' && !Users.getOnboardingStatus())) {
+      spinnerService.hide('bodySpinner');
+      self.ready = true;
+      return;
+    }
+
     var user = Users.getCurrentUser();
     self.userName = user.FirstName;
     if (!_.isEmpty(user)) {

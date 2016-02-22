@@ -22,13 +22,18 @@
           <button ng-show="!user.contactEdit" class="edit right" ng-click="user.contactEdit = true">{{'EDIT' | translate}}</button>
           <h3>{{'CONTACT_DETAILS' | translate}}</h3>
           <div ng-show="!user.contactEdit">
-            {{user.user.Telephone}}
-            <br> <a href="mailto:{{user.user.Email}}">{{user.user.Email}}</a>
+            <div ng-if-permission="viewAdmin"><label>{{'EMPLOYEE_ID' | translate}}</label> {{user.user.EmployeeId}}</div>
+            {{user.user.Telephone}}<br>
+            <a href="mailto:{{user.user.Email}}">{{user.user.Email}}</a>
           </div>
 
           <form name="contactForm" ng-show="user.contactEdit" ng-submit="user.saveContactDetails()">
-            <input type="text" ng-model="user.telephone" />
-            <input type="email" name="email" ng-model="user.email" required />
+            <label ng-if-permission="editAdmin">{{'EMPLOYEE_ID' | translate}}</label>
+            <input type="text" ng-if-permission="editAdmin" ng-model="user.employeeId" placeholder="{{'EMPLOYEE_ID' | translate}}" />
+            <label>{{'PHONE' | translate}}</label>
+            <input type="text" ng-model="user.telephone" placeholder="{{'PHONE' | translate}}" />
+            <label>{{'EMAIL' | translate}}</label>
+            <input type="email" name="email" ng-model="user.email" placeholder="{{'EMAIL' | translate}}" required />
             <div ng-show="contactForm.$submitted || contactForm.email.$touched">
               <small class="error" ng-show="contactForm.email.$error.required">{{'EMAIL_REQ' | translate}}</small>
             </div>
@@ -36,7 +41,7 @@
               <p class="error" ng-message="email">{{user.error.message}}</p>
             </div>
             <div class="right">
-              <a class="cancel" ng-click="user.contactEdit = !user.contactEdit">{{'CANCEL' | translate}}</a>
+              <a class="cancel" ng-click="user.cancelContactDetails()">{{'CANCEL' | translate}}</a>
               <spinner class="spinner inline" name="userContactSpinner" show="false"></spinner>
               <input type="submit" value="{{'SAVE' | translate}}">
             </div>
@@ -52,14 +57,14 @@
           <div ng-show="!user.userTypesEdit">
             {{user.user.UserType.Name}}
             <ul>
-              <li ng-repeat="role in user.user.UserUserTypes" ng-if="role.UserType.PublicRole">
+              <li ng-repeat="role in user.user.UserUserTypes">
                 {{role.UserType.Name}}
               </li>
             </ul>
           </div>
 
           <form ng-show="user.userTypesEdit" ng-if-permission="editAdmin" ng-submit="user.saveUserTypes()">
-            <label ng-repeat="userType in user.userTypes | orderBy: 'Name'" ng-if="userType.PublicRole">
+            <label ng-repeat="userType in user.userTypes | orderBy: 'Name'">
               <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name}}
             </label>
 
