@@ -47,6 +47,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PASSWORD_CONFIRM_REQ': 'Please confirm your password',
     'PASSWORDS_DONT_MATCH': "Your passwords don't match",
     'EMAIL_INVITE': 'Send email invitation',
+    'CHOOSE_NEW_PASSWORD': 'Choose a new password',
 
     // Container page
     'HOME': 'Home',
