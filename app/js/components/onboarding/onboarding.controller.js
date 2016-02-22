@@ -8,6 +8,11 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
 
   // We need to be able to get to this point WITHOUT being logged in.
 
+  // Because this controller handles both onboarding and password reset
+  if ($state.current.name !== 'passwordreset') {
+    self.onboarding = true;
+  }
+
   // Use this token as our authentication
   Users.setAccessToken(token);
   Users.setOnboardingStatus(true);
