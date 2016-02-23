@@ -11,17 +11,6 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   var self = this;
   self.userGenresTracks = [];
   self.tracks = []; // A list of track objects
-  self.audio = new Audio(); // An audio object for playing a track
-  // Without these, Safari hates us
-  self.audio.preload = "auto";
-  self.audio.autoplay = "true";
-  self.currentPlayingTrack = {}; // The track which is currently playing
-  self.selectedSearchedTrack = {}; // A track which has been selected from a search
-
-  // When navigating away from any place where a track might be playing, stop it from playing
-  $rootScope.$on('$locationChangeStart', function (event, next, prev) {
-    stopTrack();
-  });
 
   var tracksFactory = {
     loadUserGenresTracks: loadUserGenresTracks,
@@ -37,6 +26,47 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
     loadDownloadUrl: loadDownloadUrl,
     postTrackUsage: postTrackUsage
   };
+
+  // Everything to do with audio
+
+  self.audio = new Audio(); // An audio object for playing a track
+  // Without these, Safari hates us
+  self.audio.preload = "auto";
+  self.audio.autoplay = "true";
+  self.currentPlayingTrack = {}; // The track which is currently playing
+  self.selectedSearchedTrack = {}; // A track which has been selected from a search
+
+  // Fix for stupid iOS which otherwise doesn't believe that a click is a click
+  window.addEventListener("click", twiddle);
+
+  function twiddle() {
+    console.log('twiddle!');
+    self.audio.play();
+    self.audio.pause();
+    window.removeEventListener("click", twiddle);
+  }
+
+  self.audio.addEventListener('error', function(e) {
+    console.error(e);
+  });
+
+  self.audio.addEventListener('play', function(e) {
+    console.log('play!', e);
+  });
+
+  self.audio.addEventListener('playing', function(e) {
+    console.log('playing!', e);
+    window.removeEventListener("click",twiddle);
+  });
+
+  self.audio.addEventListener('canplay', function(e) {
+    console.log('canplay!', e);
+  });
+
+  // When navigating away from any place where a track might be playing, stop it from playing
+  $rootScope.$on('$locationChangeStart', function (event, next, prev) {
+    stopTrack();
+  });
 
   return tracksFactory;
 
@@ -118,6 +148,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       }
     } else {
       // Starting to play a track for the first time
+      track.loading = true;
       playTrackWithSource(track, sortOrder);
 
       // If a track was paused in the last browser session, post a track usage count
@@ -135,8 +166,19 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   // We don't store track Sources in the API (since Simfy tracks expire after 2 days) so if Source
   // doesn't exist, do an API call to find it
   function playTrackWithSource(track, sortOrder) {
-    track.playing = true;
     self.currentPlayingTrack = track;
+    self.audio.addEventListener('loadstart', function(e) {
+      if (self.currentPlayingTrack.Id === track.Id) {
+        track.loading = true;
+      }
+    });
+    self.audio.addEventListener('playing', function(e) {
+      if (self.currentPlayingTrack.Id === track.Id) {
+        track.loading = false;
+        track.playing = true;
+      }
+    });
+
     if (track.Source) {
       self.audio.src = track.Source; // = "http://localhost:8000/moments.mp3";
       self.audio.onended = function () {

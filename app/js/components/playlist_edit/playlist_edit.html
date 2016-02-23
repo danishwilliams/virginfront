@@ -52,7 +52,7 @@
           <div class="row" ng-show="playlistGoal.PlaylistGoalTracks.length > 0">
             <div class="bin" ng-class="{'dropped' : playlistGoal.PlaylistGoalTracks.length > 0}" id="bin{{playlistGoal.ArrayId}}">
               <div class="row track dropped" id="playlist{{playlistGoal.Id}}{{track.Track.MusicProviderTrackId}}" data-ng-repeat="track in playlistGoal.PlaylistGoalTracks">
-                <div class="small-1 columns play" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_edit.playTrack(track.Track);" ng-class="{'playing': track.Track.playing}">
+                <div class="small-1 columns play" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_edit.playTrack(track.Track);" ng-class="{'playing': track.Track.playing, 'loading': track.Track.loading}">
                   <a href="#">{{'PLAY' | translate}}</a>
                 </div>
                 <div class="small-16 medium-12 columns" ng-class="{'long-name' : track.Track.Name.length + track.Track.Artist.length > 50}">
