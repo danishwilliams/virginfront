@@ -5,9 +5,9 @@ angular
   .module("app")
   .service('Tracks', TracksFactory);
 
-TracksFactory.$inject = ['$rootScope', '$location', '$interval', 'Restangular', 'Playlists', 'Storage'];
+TracksFactory.$inject = ['$rootScope', '$location', 'Restangular', 'Playlists', 'Storage'];
 
-function TracksFactory($rootScope, $location, $interval, Restangular, Playlists, Storage) {
+function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   var self = this;
   self.userGenresTracks = [];
   self.tracks = []; // A list of track objects
@@ -112,7 +112,6 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists,
       } else {
         // A track was playing, but the user is now playing a new track
         self.currentPlayingTrack.playing = false;
-        cancelTimer();
         var date = new Date();
         postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), date.toISOString());
         playTrackWithSource(track, sortOrder);
@@ -159,11 +158,16 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists,
     if (track.currentTime) {
       self.audio.currentTime = track.currentTime;
     }
-    self.progress = $interval(function () {
+
+    // Update the timer
+    self.audio.addEventListener("timeupdate", function() {
       if (self.currentPlayingTrack.Id === track.Id) {
-        track.currentTime = parseInt(self.audio.currentTime);
+        $rootScope.$apply(function () {
+          track.currentTime = Math.round(self.audio.currentTime);
+        });
       }
-    }, 100);
+    });
+
     self.audio.play();
   }
 
@@ -179,13 +183,11 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists,
       }
     }
     self.currentPlayingTrack = {};
-    cancelTimer();
   }
 
   function playEnded(track, sortOrder) {
     track.playing = false;
     self.currentPlayingTrack = {};
-    cancelTimer();
 
     // Have to load up the DOM element and change it there, because can't do a $scope.apply() due to using Controller-As syntax
     // I feel very, very bad about having controller logic in a factory. I am ashamed.
@@ -208,14 +210,6 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists,
         // Play the next track
         playTrack(track, newSortOrder);
       }
-    }
-  }
-
-  function cancelTimer() {
-    // Cancel the existing timer
-    if (angular.isDefined(self.progress)) {
-      $interval.cancel(self.progress);
-      self.progress = undefined;
     }
   }
 
