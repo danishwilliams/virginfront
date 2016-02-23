@@ -36,8 +36,14 @@
               <div class="small-3 columns time text-right">
                 <span class="position" ng-show="track.Track.currentTime >= 0 && track.Track.playing === true">{{track.Track.currentTime | minutes}}</span> {{track.Track.DurationSeconds | minutes}}
               </div>
-              <div class="small-2 columns play" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_view.playTrack(track.Track, playlistGoal.SortOrder);" ng-class="{'playing': track.Track.playing, 'loading': track.Track.loading}">
-                <a href="#">{{'PLAY' | translate}}</a>
+              <div class="small-2 columns" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_view.playTrack(track.Track, playlistGoal.SortOrder);" ng-class="{'play': !track.Track.playing && !track.Track.loading, 'play playing': track.Track.playing}">
+                <div class="spinner1" ng-if="track.Track.loading">
+                  <div class="rect1"></div>
+                  <div class="rect2"></div>
+                  <div class="rect3"></div>
+                  <div class="rect4"></div>
+                  <div class="rect5"></div>
+                </div>
               </div>
             </div>
           </div>

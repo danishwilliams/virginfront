@@ -118,6 +118,10 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
    *   track has finished playing, play the next one in the playlist
    */
   function playTrack(track, sortOrder) {
+    if (track.loading) {
+      return;
+    }
+
     // Is a track playing?
     if (self.currentPlayingTrack.MusicProviderTrackId) {
       // Is the track the user has just clicked on the currently playing track?
@@ -141,8 +145,10 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       } else {
         // A track was playing, but the user is now playing a new track
         self.currentPlayingTrack.playing = false;
+        self.currentPlayingTrack.loading = false;
         var date = new Date();
         postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), date.toISOString());
+        track.loading = true;
         playTrackWithSource(track, sortOrder);
       }
     } else {

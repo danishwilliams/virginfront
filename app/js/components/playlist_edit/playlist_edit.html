@@ -52,8 +52,15 @@
           <div class="row" ng-show="playlistGoal.PlaylistGoalTracks.length > 0">
             <div class="bin" ng-class="{'dropped' : playlistGoal.PlaylistGoalTracks.length > 0}" id="bin{{playlistGoal.ArrayId}}">
               <div class="row track dropped" id="playlist{{playlistGoal.Id}}{{track.Track.MusicProviderTrackId}}" data-ng-repeat="track in playlistGoal.PlaylistGoalTracks">
-                <div class="small-1 columns play" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_edit.playTrack(track.Track);" ng-class="{'playing': track.Track.playing, 'loading': track.Track.loading}">
-                  <a href="#">{{'PLAY' | translate}}</a>
+                <div class="small-1 columns" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_edit.playTrack(track.Track);" ng-class="{'play': !track.Track.playing && !track.Track.loading, 'play playing': track.Track.playing}">
+                <a href="#" ng-show="!track.Track.loading">{{'PLAY' | translate}}</a>
+                  <div class="spinner1" ng-if="track.Track.loading">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                  </div>
                 </div>
                 <div class="small-16 medium-12 columns" ng-class="{'long-name' : track.Track.Name.length + track.Track.Artist.length > 50}">
                   <span class="track-name">{{track.Track.Name | limitTo : 25}}<span ng-if="track.Track.Name.length > 25">&hellip;</span></span> <span class="artist">{{track.Track.Artist | limitTo : 25}}<span ng-if="track.Track.Artist.length > 25">&hellip;</span></span> | <span class="bpm">{{track.Track.Bpm}} {{'BPM' | translate}}</span>
