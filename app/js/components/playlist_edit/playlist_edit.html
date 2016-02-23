@@ -59,7 +59,7 @@
                   <span class="track-name">{{track.Track.Name | limitTo : 25}}<span ng-if="track.Track.Name.length > 25">&hellip;</span></span> <span class="artist">{{track.Track.Artist | limitTo : 25}}<span ng-if="track.Track.Artist.length > 25">&hellip;</span></span> | <span class="bpm">{{track.Track.Bpm}} {{'BPM' | translate}}</span>
                 </div>
                 <div class="small-9 medium-3 columns time text-center">
-                  <span class="position" ng-show="track.Track.currentTime >= 0">{{track.Track.currentTime | minutes}}</span> {{track.Track.DurationSeconds | minutes}}
+                  <span class="position" ng-show="track.Track.currentTime >= 0 && track.Track.playing === true">{{track.Track.currentTime | minutes}}</span> {{track.Track.DurationSeconds | minutes}}
                 </div>
                 <div class="small-9 medium-1 columns remove" ng-click="playlist_edit.removeTrack(playlistGoal.ArrayId, track)"> - </div>
               </div>
