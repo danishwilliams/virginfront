@@ -155,10 +155,6 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   }
 
   function playAudio(track) {
-    if (track.currentTime) {
-      self.audio.currentTime = track.currentTime;
-    }
-
     // Update the timer
     self.audio.addEventListener("timeupdate", function() {
       if (self.currentPlayingTrack.Id === track.Id) {
