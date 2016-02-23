@@ -56,7 +56,6 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
 
   self.audio.addEventListener('playing', function(e) {
     console.log('playing!', e);
-    window.removeEventListener("click",twiddle);
   });
 
   self.audio.addEventListener('canplay', function(e) {
