@@ -53,16 +53,7 @@ button, input[type="submit"] {
     background-color: $red;
   }
   &.secondary {
-    @include button-style($bg: $white, $radius: $button-round);
-    padding: rem-calc(7px) rem-calc(15px) rem-calc(7px) rem-calc(15px);
-    font-size: $label-font-size;
-    border: 2px solid $cherry;
-    color: $cherry;
-    &:hover,
-    &:focus {
-      color: $red;
-      background-color: $white;
-    }
+    @include secondary-button;
   }
   &.edit {
     @include button-style($bg: rgba($white, 0), $radius: $button-round);

@@ -5,7 +5,7 @@
         <h1>{{'TEMPLATE' | translate}}</h1>
       </div>
       <div class="columns small-8 medium-6 text-center">
-        <button class="secondary" ui-sref="templategroup-new">+ {{'TEMPLATE_CREATE' | translate}}</button>
+        <a ui-sref="default-goals-admin">{{'MANAGE_DEFAULT_GOALS' | translate}}</a>
       </div>
     </div>
     <div class="row">
@@ -18,6 +18,8 @@
         </tab>
         <tab heading="Archived templates ({{templates.inactive}})">
           <templategroups kind="inactive" ng-change="templates.activeLoaded()" ng-model="templates.inactive"></templategroups>
+        </tab>
+        <tab class="secondary" ui-sref="templategroup-new" heading="+ {{'TEMPLATE_CREATE' | translate}}">
         </tab>
       </tabset>
 
