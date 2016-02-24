@@ -13,8 +13,8 @@
       </div>
       <div class="large-5 medium-6 columns">
         <spinner class="spinner" name="archiveTemplateGroupSpinner" show="false"></spinner>
-        <a ng-show="vm.templategroup.Enabled" ng-click="vm.archiveTemplateGroup()">{{'TEMPLATE_TYPE_ARCHIVE' | translate}}</a>
-        <a ng-show="!vm.templategroup.Enabled" ng-click="vm.unArchiveTemplateGroup()">{{'TEMPLATE_TYPE_UNARCHIVE' | translate}}</a>
+        <button class="secondary" ng-show="vm.templategroup.Enabled" ng-click="vm.archiveTemplateGroup()">{{'TEMPLATE_TYPE_ARCHIVE' | translate}}</button>
+        <button class="secondary" ng-show="!vm.templategroup.Enabled" ng-click="vm.unArchiveTemplateGroup()">{{'TEMPLATE_TYPE_UNARCHIVE' | translate}}</button>
       </div>
     </div>
 
