@@ -16,8 +16,6 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   // Password reset
   .state('passwordreset', {
     url: '/passwordreset/:token',
-    //templateUrl: '../js/components/password_reset/password_reset.html',
-    //controller: 'PasswordResetController as vm',
     templateUrl: '../js/components/onboarding/password.html',
     controller: 'OnboardingController as vm',
     resolve: {

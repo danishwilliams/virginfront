@@ -24,7 +24,6 @@ angular
     "app.login",
     "app.music_providers",
     "app.onboarding",
-    "app.passwordreset",
     "app.playlists",
     "app.playlists_admin",
     "app.playlist_template",
@@ -117,6 +116,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
     // - onboarding
     // - password reset
     if (next.name === 'passwordreset' || (next.name === 'onboarding' && !Users.getOnboardingStatus())) {
+      // The first onboarding page skips login check
       spinnerService.hide('bodySpinner');
       self.ready = true;
       return;
