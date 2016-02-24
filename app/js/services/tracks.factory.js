@@ -27,7 +27,45 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
     postTrackUsage: postTrackUsage
   };
 
-  // Everything to do with audio
+  /**
+   * Everything to do with audio
+   *
+   * @author Roger Saner
+   * @date 2016.02.24
+   *
+   * Audio playback uses the javascript Audio object (which uses the functionality of the <audio> tag).
+   * This was chosen because of solid cross-browser support and simplicity of implementation. Boy, was I in for a surprise.
+   * There are no dependencies on jQuery or any other javascript library.
+   *
+   * Testing:
+   * A basic audio test file is available at /audio-test.html (although you'll need to edit it and add 2 mp3 files of your choice,
+   * since I haven't added those 2 files to the codebase) which test audio playback through both the <audio> tag and Audio object.
+   *
+   * Functionality:
+   * - Multiple tracks can be played, all through the same Audio object, one at a time.
+   * - Audio tracks are streamed as data is available, rather than downloaded.
+   * - Track played duration is reported back to the music provider so they know about track usage.
+   * - Current playback time is displayed.
+   * - A loading animation is displayed while the track is loaded.
+   * - A playing animation is displayed when the track is playing.
+   *
+   * Some gotchas:
+   * - iOS playback won't work on clicking the "play" button due to (probably) iOS not recognising ng-click as an onclick
+   *   on the play button, and it has a rule that audio can only be played on a user interaction. The twiddle function
+   *   gets called on the first play button click which plays and pauses audio so audio can play again.
+   * - All mobile devices should allow audio playback due to the above fix.
+   * - Audio will play in all major browsers, except Opera mini (which doesn't support the audio tag).
+   * - IE11 playback was initially screwed - sounded like it was playing back in a tunnel at a 10/th of the speed. We
+   *   couldn't re-create this bug in SA, on the UK people could, and it was probably because I was using an angular
+   *   $interval to poll the currenttime of the playing track every 100 milliseconds. Converting this logic to listening
+   *   to the audio 'timeupdate' event instead fixed this.
+   *
+   * @see
+   * - Overcoming iOS HTML5 audio limitations http://www.ibm.com/developerworks/library/wa-ioshtml5/
+   * - https://developer.mozilla.org/en/docs/Web/HTML/Element/audio
+   * - Native Audio with HTML5 https://msdn.microsoft.com/en-us/magazine/hh527168.aspx
+   * - Using Media Events to Add a Progress Bar https://msdn.microsoft.com/en-us/library/gg589528(v=vs.85).aspx
+   */
 
   self.audio = new Audio(); // An audio object for playing a track
   // Without these, Safari hates us
@@ -46,6 +84,8 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
     window.removeEventListener("click", twiddle);
   }
 
+  /*
+  // Debugging
   self.audio.addEventListener('error', function(e) {
     console.error(e);
   });
@@ -61,6 +101,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   self.audio.addEventListener('canplay', function(e) {
     console.log('canplay!', e);
   });
+  */
 
   // When navigating away from any place where a track might be playing, stop it from playing
   $rootScope.$on('$locationChangeStart', function (event, next, prev) {
