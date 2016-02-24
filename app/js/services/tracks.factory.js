@@ -37,9 +37,14 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
    * This was chosen because of solid cross-browser support and simplicity of implementation. Boy, was I in for a surprise.
    * There are no dependencies on jQuery or any other javascript library.
    *
+   * Music sources:
+   * - There are currently 2 music providers: Simfy in South Africa, and OpenEar in the UK.
+   *
    * Testing:
-   * A basic audio test file is available at /audio-test.html (although you'll need to edit it and add 2 mp3 files of your choice,
-   * since I haven't added those 2 files to the codebase) which test audio playback through both the <audio> tag and Audio object.
+   * - A basic audio test file is available at /audio-test.html (although you'll need to edit it and add 2 mp3 files of your choice,
+   *   since I haven't added those 2 files to the codebase) which test audio playback through both the <audio> tag and Audio object.
+   * - To remove the dependency on a music provider, search this file for moments.mp3 and uncomment that code, which will set all
+   *   track sources to be that mp3.
    *
    * Functionality:
    * - Multiple tracks can be played, all through the same Audio object, one at a time.
