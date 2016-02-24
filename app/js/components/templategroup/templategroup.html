@@ -61,13 +61,14 @@
     <div class="row">
       <p>&nbsp;</p>
 
+      <a ng-if="vm.templategroup.Type !== 'freestyle'" ng-show="!vm.addClassLength && !vm.addedClassLength && !vm.edit" ng-click="vm.addClassLength = true">+ {{'CLASS_LENGTH_ADD' | translate}}</a>
+
+      <template-lengths ng-show="vm.addClassLength" data-action="Choose class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
+
       <tabset>
         <spinner class="spinner inline" name="loadClassLengthsSpinner" show="true"></spinner>
         <tab ng-click="template.visible = true" ng-repeat="template in vm.templategroup.ClassLengths | orderBy: 'ClassLengthMinutes'" heading="{{template.ClassLengthMinutes}}" active="template.active">
           <template-length ng-if="template.visible || $index === 0" data-id="{{template.TemplateId}}" data-createnew="{{template.CreateNew}}" data-mins="{{template.ClassLengthMinutes}}"></template-length>
-        </tab>
-        <tab class="secondary" heading="+ {{'CLASS_LENGTH_ADD' | translate}}" ng-if="vm.templategroup.Type !== 'freestyle'" ng-show="!vm.addedClassLength && !vm.edit" ng-click="vm.addClassLength = true">
-          <template-lengths ng-show="vm.addClassLength" data-action="Choose class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
         </tab>
       </tabset>
     </div>
