@@ -37,13 +37,13 @@
           </div>
           <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
             <div class="play-container small-1 columns">
-              <button class="play" ng-class="{'playing': track.playing}" ng-click="vm.playTrack(track);" ng-hide="track.loading">{{'PLAY' | translate}}</button>
-                <div class="spinner1" ng-if="track.loading">
-                  <div class="rect1"></div>
-                  <div class="rect2"></div>
-                  <div class="rect3"></div>
-                  <div class="rect4"></div>
-                </div>
+              <div ng-class="{'play': !track.playing && !track.loading, 'play playing': track.playing}" ng-click="vm.playTrack(track);"></div>
+              <div class="spinner1" ng-if="track.loading">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+              </div>
             </div>
             <div ng-class="{'selectable' : !vm.outOfBpmRange(track.Bpm)}" ng-click="vm.addTrack(track)">
               <div class="small-9 columns">
