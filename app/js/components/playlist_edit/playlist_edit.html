@@ -92,11 +92,9 @@
         <div ng-messages="playlist_edit.error">
           <p class="error" ng-message="error">{{'RIDE_ERROR' | translate}}</p>
         </div>
-        <a class="cancel" style="float:left" ui-sref="dashboard">{{'CANCEL' | translate}}</a>
-        <button ng-disabled="playlist_edit.saving" ng-show="playlist_edit.checkWhenEditingEveryGoalHasATrack()" type="submit" ng-click="playlist_edit.savePlaylist()" class="round" style="float:right">
-          <spinner class="spinner" name="playlistEditSaveSpinner" show="false"></spinner>
-          {{playlist_edit.submitButtonText() | translate}}
-        </button>
+        <a class="cancel" ui-sref="dashboard">{{'CANCEL' | translate}}</a>
+        <spinner class="spinner" name="playlistEditSaveSpinner" show="false"></spinner>
+        <input ng-disabled="playlist_edit.saving" ng-show="playlist_edit.checkWhenEditingEveryGoalHasATrack()" type="submit" ng-click="playlist_edit.savePlaylist()" value="{{playlist_edit.submitButtonText() | translate}}">
       </div>
     </div>
 </div>

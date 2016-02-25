@@ -47,8 +47,8 @@
 
     <div class="row">
       <a ng-if="!playlist_view.newPlaylist" style="float:left;" ui-sref="dashboard">{{'RETURN_DASHBOARD' | translate}}</a>
-      <a class="cancel" ng-if="playlist_view.newPlaylist" class="round secondary" style="float:left; background: none;">{{'CANCEL' | translate}}</a>
-      <button ng-if="playlist_view.newPlaylist" class="round" style="float:right" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})">{{'SEND_CLUB' | translate}}</button>
+      <a class="cancel" ng-if="playlist_view.newPlaylist">{{'CANCEL' | translate}}</a>
+      <input type="submit" ng-if="playlist_view.newPlaylist" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})" value="{{'SEND_CLUB' | translate}}">
     </div>
 
   </div>
