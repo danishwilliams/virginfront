@@ -58,7 +58,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-if="user.Type !== 'Technical'" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+        <tr ng-if="user.Type !== 'Technical' && user.Enabled === true" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
           <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
           <td>{{user.Type}}</td>
