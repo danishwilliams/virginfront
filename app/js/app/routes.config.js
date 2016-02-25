@@ -13,6 +13,16 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Password reset
+  .state('passwordreset', {
+    url: '/passwordreset/:token',
+    templateUrl: '../js/components/onboarding/password.html',
+    controller: 'OnboardingController as vm',
+    resolve: {
+      $title: function() { return 'Password reset'; /* PASSWORD_RESET */ }
+    }
+  })
+
   /* A registered user, but has no roles */
   .state('registered', {
     'url': '/registered',

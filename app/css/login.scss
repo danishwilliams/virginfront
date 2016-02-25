@@ -8,7 +8,7 @@
     position: relative;
     top: 20vh;
   }
-  h1 {
+  h1, label {
     color: $white;
   }
   form {
@@ -17,11 +17,14 @@
   input[type="text"], input[type="email"], input[type="password"] {
     @include input-black;
   }
-  input {
-    margin-bottom: 0;
-    margin-top: rem-calc(16px);
-  }
   .email {
     text-decoration: underline;
   }
+  .dark-block {
+    max-width: rem-calc(620px);
+  }
+}
+
+h1 .welcome {
+  font-size: x-large;
 }
