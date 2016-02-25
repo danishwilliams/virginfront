@@ -2,6 +2,14 @@
 @email rsaner@deloitte.co.za
 @twitter twitter.com/rogersaner
 
+# First run
+
+* Clone the repo
+* $ npm install
+* $ lineman run
+
+Open http://localhost:8000
+
 # TODO
 
 Document how to get this project up and running
@@ -22,6 +30,12 @@ Include:
 
 Server must be configured to run in HTML5 mode.
 @see https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode
+
+# Importing instructors
+
+$ node app/instructor-import/instructor-export.js
+
+More details in that file.
 
 # Running on IIS
 

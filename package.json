@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "coffee-script": "^1.6.3",
+    "google-spreadsheet": "^1.1.4",
     "grunt-sass": "^1.0.0",
     "jasmine-given": "^2.6.2",
     "lineman": "^0.34.0",
