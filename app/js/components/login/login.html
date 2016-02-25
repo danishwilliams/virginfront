@@ -5,7 +5,7 @@
   <div class="small-17 small-centered medium-12 medium-centered large-8 large-centered columns">
     <span class="container" ng-show="login.step === 'login'">
 
-    <h1><span class="welcome">Welcome to</span><br>{{'OB_TITLE_APP' | translate}}</h1>
+    <h1><span class="welcome">{{'OB_WELCOME_ONLY' | translate}}</span><br>{{'OB_TITLE_APP' | translate}}</h1>
 
     <form name="form" novalidate ng-submit="login.login()">
       <div ng-messages="login.error">
@@ -27,27 +27,27 @@
       <div class="row submit">
         <spinner class="spinner" name="loginSpinner" show="false"></spinner>
         <a class="secondary" ng-click="login.step = 'forgot'">Forgot your password?</a>
-        <input type="submit" value="{{'LOGIN' | translate}}" />
+        <input ng-disabled="!login.credentials.username || !login.credentials.password" type="submit" value="{{'LOGIN' | translate}}" />
       </div>
     </form>
     </span>
 
     <div class="container dark-block" ng-show="login.step === 'forgot'">
-      <h2>Forgot password</h2>
+      <h2>{{'FORGOT_PASSWORD' | translate}}</h2>
 
-      <p>Enter your email address and we'll send you a link to change your password.</p>
+      <p>{{'EMAIL_PASSWORD_LINK' | translate}}</p>
 
       <form name="forgotForm" novalidate ng-submit="login.forgotPassword()">
           <label for="username">{{'EMAIL' | translate}}</label>
           <input type="text" name="username" ng-model="login.credentials.username" required />
           <div ng-show="forgotForm.$submitted || forgotForm.username.$touched">
             <small class="error" ng-show="forgotForm.username.$error.required">{{'EMAIL_REQ' | translate}}</small>
-            <small class="error" ng-show="login.emailNotFoundError">Email does not exist, sorry.</small>
-            <small class="error" ng-show="login.forgotPasswordError">Password reset had an error, sorry.</small>
+            <small class="error" ng-show="login.emailNotFoundError">{{'EMAIL_UNRECOGNISED' | translate}}</small>
+            <small class="error" ng-show="login.forgotPasswordError">{{'PASSWORD_RESET_ERROR' | translate}}</small>
           </div>
         <div class="row submit">
-            <a class="cancel" ng-hide="login.forgotPasswordSubmit" ng-click="login.step = 'login'">Cancel</a>
-            <input ng-disabled="login.forgotPasswordSubmit" type="submit" value="Send reset email" />
+            <a class="cancel" ng-hide="login.forgotPasswordSubmit" ng-click="login.step = 'login'">{{'CANCEL' | translate}}</a>
+            <input ng-disabled="!login.credentials.username" type="submit" value="{{'PASSWORD_RESET' | translate}}" />
         </div>
       </form>
     </div>

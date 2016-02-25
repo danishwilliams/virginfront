@@ -40,6 +40,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'OB_SETUP': "Let's get you set up!",
     'OB_HI': 'Hi',
     'OB_WELCOME': 'Welcome to Group Instructor app',
+    'OB_WELCOME_ONLY': 'Welcome to',
     'OB_CHOOSE_PASSWORD': 'Choose a password',
     'OB_FIRST_TIME': 'You will be asked to enter your email address and this password next time you log in',
     'PASSWORD_CONFIRM': 'Confirm password',
@@ -47,7 +48,15 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PASSWORD_CONFIRM_REQ': 'Please confirm your password',
     'PASSWORDS_DONT_MATCH': "Your passwords don't match",
     'EMAIL_INVITE': 'Send email invitation',
+
+    // Forgotten password
+    'FORGOT_PASSWORD': 'Forgot password',
+    'EMAIL_PASSWORD_LINK': 'Enter your email address and we\'ll send you a link to change your password.',
     'CHOOSE_NEW_PASSWORD': 'Choose a new password',
+    'INVALID_LINK': 'This link is no longer valid. Please try',
+    'LOGGING_IN': 'logging in',
+    'EMAIL_UNRECOGNISED': 'We don\'t recognise this email address. Try retyping it to make sure you didn\'t make a mistake.',
+    'PASSWORD_RESET_ERROR': 'Password reset had an error, sorry.',
 
     // Container page
     'HOME': 'Home',
