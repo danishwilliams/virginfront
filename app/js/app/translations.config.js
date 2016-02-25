@@ -232,7 +232,10 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'TEMPLATE_SAVE': 'Save template',
     'TEMPLATE_EDITED': 'Template successfully edited.',
     'TEMPLATE_ADDED': 'Template successfully added.',
-    'TEMPLATE_SAVED': 'Template successfully saved!'
+    'TEMPLATE_SAVED': 'Template successfully saved!',
+
+    // Default goals
+    'MANAGE_DEFAULT_GOALS': 'Manage default goals',
   });
  
   $translateProvider.translations('es', {

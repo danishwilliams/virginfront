@@ -54,6 +54,9 @@
         <a class="item" ui-sref="goals-admin" ng-if-permission="viewAdmin">
           <label>Goals</label>
         </a>
+        <a class="item" ui-sref="default-goals-admin" ng-if-permission="viewAdmin">
+          <label>Default Goals</label>
+        </a>
         <a class="item" ui-sref="locations-admin" ng-if-permission="viewAdmin">
           <label>Locations</label>
         </a>

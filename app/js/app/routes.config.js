@@ -166,6 +166,19 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Default Goals
+  .state('default-goals-admin', {
+    url: '/admin/default-goals',
+    templateUrl: '../js/components/default_goals/default_goals.html',
+    controller: 'DefaultGoalsController as vm',
+    resolve: {
+      $title: function() { return 'Goals | Admin'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.viewAdmin]
+    }
+  })
+
   // Gyms
   .state('gyms-admin', {
     url: '/admin/gyms',
