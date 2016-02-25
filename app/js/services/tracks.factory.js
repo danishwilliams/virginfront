@@ -83,7 +83,6 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   window.addEventListener("click", twiddle);
 
   function twiddle() {
-    console.log('twiddle!');
     self.audio.play();
     self.audio.pause();
     window.removeEventListener("click", twiddle);
@@ -218,14 +217,9 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   // doesn't exist, do an API call to find it
   function playTrackWithSource(track, sortOrder) {
     self.currentPlayingTrack = track;
-    self.audio.addEventListener('loadstart', function(e) {
-      if (self.currentPlayingTrack.Id === track.Id) {
-        track.loading = true;
-      }
-    });
     self.audio.addEventListener('playing', function(e) {
-      if (self.currentPlayingTrack.Id === track.Id) {
-        track.loading = false;
+      track.loading = false;
+      if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
         track.playing = true;
       }
     });
@@ -250,7 +244,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   function playAudio(track) {
     // Update the timer
     self.audio.addEventListener("timeupdate", function() {
-      if (self.currentPlayingTrack.Id === track.Id) {
+      if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
         $rootScope.$apply(function () {
           track.currentTime = Math.round(self.audio.currentTime);
         });
