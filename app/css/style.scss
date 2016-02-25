@@ -13,6 +13,11 @@ $radius-tiny: 2px;
 
 /* Headings */
 
+h1.site-heading {
+  text-align: left;
+  margin-left: rem-calc(100px);
+}
+
 .heading {
   border-bottom: 1px solid $grey_light;
   color: $grey_light;
@@ -96,7 +101,22 @@ button, input[type="submit"] {
   }
 }
 
-.cancel {
+/* Forms */
+
+input[type="text"], input[type="password"] {
+  margin: 0;
+}
+input[type="submit"] {
+  float: right;
+}
+
+.row.submit {
+  margin-top: rem-calc(16px);
+}
+
+form a.secondary, .cancel {
+  float: left;
+  padding-top: rem-calc(6px);
   color: $red;
   &:hover,
   &:focus {
@@ -104,6 +124,12 @@ button, input[type="submit"] {
     font-weight: bold;
     text-decoration: underline;
   }
+}
+
+label {
+  font-weight: bold;
+  padding-bottom: rem-calc(4px);
+  padding-top: rem-calc(6px);
 }
 
 .back {
@@ -164,10 +190,6 @@ body {
 
 select {
   padding-right: rem-calc(20px);
-}
-
-form label {
-  font-weight: bold;
 }
 
 .no-bold {

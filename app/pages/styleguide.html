@@ -201,6 +201,32 @@
             <label>Class name</label>
             <input required name="class_name" class="class_name" type="text" placeholder="Name your class">
 
+            <div class="row submit">
+              <a class="cancel">Cancel</a>
+              <input type="submit" value="Submit" />
+            </div>
+          </form>
+
+          <p>&nbsp;</p>
+
+          <form name="form" novalidate>
+            <p class="error" ng-message="error">An error about the form submission, shows after submission.</p>
+
+            <label for="username">Email</label>
+            <input type="text" name="username" required />
+
+            <label for="username">Email</label>
+            <input type="text" name="username1" required />
+            <small class="error">Email is required.</small>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" ng-model="login.credentials.password" required />
+            <small class="error">Password is required.</small>
+
+            <div class="row submit">
+              <a class="secondary">Forgot your password?</a>
+              <input type="submit" value="Log in" />
+            </div>
           </form>
 
         </div>

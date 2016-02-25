@@ -10,16 +10,12 @@
   }
 
   h1, h2, h3 {
-  	color: $white;
+    color: $white;
   }
 
   em {
   	font-style: normal;
   	font-weight: bold;
-  }
-
-  label {
-  	color: $white;
   }
 
   input[type="password"] {
@@ -28,6 +24,15 @@
 }
 
 .dark-block {
-  background-color: rgba($black, 0.6);
-  padding: rem-calc(10px);
+  background-color: rgba($black, 0.3);
+  padding: rem-calc(30px) rem-calc(10px) rem-calc(30px) rem-calc(10px);
+  color: $white;
+
+  label {
+    color: $white;
+  }
+
+  h1, h2, h3 {
+    color: $white;
+  }
 }
