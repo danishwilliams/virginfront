@@ -35,6 +35,7 @@ function gymRidesController(Playlists, $scope, $interval) {
 
         // Refresh the syncing details for this playlist
         val.IntervalId = intervalPromise.length;
+        /*
         intervalPromise.push($interval(function () {
           Playlists.loadGymsDevicePlaylistSyncInfo($scope.$parent.gym.Gym.Id, val.DevicePlaylistSyncs[0].PlaylistId).then(function (data) {
             //console.log('calling interval!');
@@ -49,6 +50,7 @@ function gymRidesController(Playlists, $scope, $interval) {
             }
           });
         }, 5000));
+        */
 
       }
     });
@@ -131,6 +133,15 @@ function gymRidesController(Playlists, $scope, $interval) {
     playlist.removed = false;
     self.playlistCount++;
 
+    addPlaylistToGym(playlist, gymId);
+  };
+
+  self.publish = function (playlist, gymId) {
+    playlist.DevicePlaylistSyncs[0].SyncError = false;
+    addPlaylistToGym(playlist, gymId);
+  };
+
+  function addPlaylistToGym(playlist, gymId) {
     Playlists.addPlaylistToGym(playlist.Playlist.Id, gymId).then(function (data) {
       // It worked!
 
@@ -157,5 +168,5 @@ function gymRidesController(Playlists, $scope, $interval) {
       playlist.removed = true;
       self.playlistCount--;
     });
-  };
+  }
 }

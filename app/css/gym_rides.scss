@@ -53,6 +53,20 @@
     font-size: x-small;
     font-style: italic;
   }
+  .error {
+    padding: 0;
+    background-color: $savannah;
+    .name {
+      color: $body-font-color;
+    }
+    .icon {
+      background-image: none;
+    }
+    a {
+      color: $peach;
+      text-decoration: underline;
+    }
+  }
 }
 
 .gym-rides, .user-invite {
