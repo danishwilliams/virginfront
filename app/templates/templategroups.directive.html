@@ -1,4 +1,13 @@
 <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+  <li ng-if="vm.kind === 'active'">
+    <a class="choose-template" ui-sref="templategroup-new">
+      <div class="template ride">
+        <div class="icon"><img src="/img/playlists_grey/new.svg"></div>
+        <h2>&nbsp;</h2>
+        <p>+ {{'TEMPLATE_CREATE' | translate}}</p>
+      </div>
+    </a>
+  </li>
   <li ng-if="templateGroup.visible" ng-repeat="templateGroup in vm.templateGroups | orderBy:'Type':'Name' track by $index">
     <a class="choose-template" ui-sref="templategroup({id:templateGroup.Id})">
       <div class="template {{templateGroup.Type}}">
