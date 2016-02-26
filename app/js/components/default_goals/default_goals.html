@@ -110,32 +110,5 @@
       </div>
     </div>
 
-    <table>
-      <thead>
-        <tr>
-          <td>Goal Name</td>
-          <td>BPM Low</td>
-          <td>BPM High</td>
-          <td>Aim</td>
-          <td>Goal Challenge</td>
-          <td>Goal Challenge Id</td>
-          <td>Interval goal</td>
-          <td>Visible to freestyle goals</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="goal in vm.goals">
-          <td>{{goal.Goal.Name}}</td>
-          <td contentEditable ng-change="vm.update(goal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.Goal.BpmLow"></td>
-          <td contentEditable ng-change="vm.update(goal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.Goal.BpmHigh"></td>
-          <td contentEditable ng-change="vm.update(goal)" ng-model-options="{updateOn : 'change blur'}" ng-model="goal.Goal.Aim"></td>
-          <td>{{goal.Goal.GoalChallenge}}</td>
-          <td>{{goal.Goal.GoalChallengeId}}</td>
-          <td>{{goal.Goal.Interval}}</td>
-          <td>{{goal.IsFreestyleVisible}}</td>
-        </tr>
-      </tbody>
-    </table>
-
   </div>
 </div>
