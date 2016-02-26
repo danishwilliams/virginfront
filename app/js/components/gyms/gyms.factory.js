@@ -6,34 +6,27 @@ GymsFactory.$inject = ['Restangular'];
 
 function GymsFactory(Restangular) {
   var self = this;
-  var gyms = [];
   var gymsAll = [];
 
   var gymsFactory = {
     loadGyms: loadGyms,
     loadAllGyms: loadAllGyms,
     loadAvailableGyms: loadAvailableGyms,
-    getGyms: getGyms,
     loadGym: loadGym
   };
 
   return gymsFactory;
 
-  function loadGyms() {
+  function loadGyms(onlyActiveDevices) {
     return Restangular.all('gyms').getList({
-      onlyActiveDevices: true
+      onlyActiveDevices: onlyActiveDevices
     });
-
-    function loadGymsComplete(data, status, headers, config) {
-      self.gyms = data;
-      return self.gyms;
-    }
   }
 
   function loadAllGyms() {
     return Restangular.all('gyms').getList({
       onlyActiveDevices: false
-    }).then(loadGymsComplete);
+    }).then(loadAllGymsComplete);
 
     function loadAllGymsComplete(data, status, headers, config) {
       self.gymsAll = data;
@@ -47,10 +40,6 @@ function GymsFactory(Restangular) {
     function loadAvailableGymsComplete(data, status, headers, config) {
       return data;
     }
-  }
-
-  function getGyms() {
-    return gyms;
   }
 
   function loadGym(id) {
