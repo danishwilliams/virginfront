@@ -1,5 +1,7 @@
-angular.module("app.default_goals", []).controller('DefaultGoalsController', function (Goals, Beats, spinnerService) {
+angular.module("app.default_goals", []).controller('DefaultGoalsController', function (Users, Goals, Beats, spinnerService) {
   var self = this;
+
+  self.isCustomRpm = Users.getCurrentUser().Location.Country.CustomRpm;
 
   Goals.loadFreestyleGoals().then(function (data) {
     spinnerService.hide('freestyleAdminGoals');
@@ -41,8 +43,11 @@ angular.module("app.default_goals", []).controller('DefaultGoalsController', fun
     goal.show = !goal.show;
   };
 
-
   self.update = function(goal) {
-    goal.put();
+    goal.saving = true;
+    goal.put().then(function() {
+      goal.saving = false;
+      goal.saved = true;
+    });
   };
 });
