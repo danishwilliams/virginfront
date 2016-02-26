@@ -99,11 +99,16 @@ button .spinner {
 // @see http://tobiasahlin.com/spinkit/
 
 .spinner1 {
-  //width: 50px;
+  width: 30px;
   height: 25px;
   text-align: center;
   font-size: 7px;
   position: inherit;
+  margin: auto;
+}
+
+.playlist-edit .spinner1 {
+  margin-top: 5px;
 }
 
 .spinner1 > div {
