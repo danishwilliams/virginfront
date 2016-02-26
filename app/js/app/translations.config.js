@@ -172,6 +172,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'SELECT_CLUB_REQ': 'Please select at least one club',
 
     // User profile
+    'PROFILE': 'Profile',
     'LAST_CLASS': 'Last ride',
     'CONTACT_DETAILS': 'Contact details',
     'SAVE': 'Save',

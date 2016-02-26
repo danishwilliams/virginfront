@@ -68,9 +68,9 @@ angular
   })
   .controller("AppController", AppController);
 
-AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Authorizer', '$window', '$scope'];
+AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Authorizer', '$window', '$scope', '$filter'];
 
-function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $window, $scope) {
+function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $window, $scope, $filter) {
   var self = this;
   self.ready = false;
   self.loggedIn = false;
@@ -125,6 +125,9 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
 
     var user = Users.getCurrentUser();
     self.userName = user.FirstName;
+    if (self.userName && self.userName.length > 9) {
+      self.userName = $filter('translate')('PROFILE');
+    }
     if (!_.isEmpty(user)) {
       self.loggedIn = true;
     }
@@ -134,6 +137,9 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
       Users.loadCurrentUser().then(function (data) {
         user = data;
         self.userName = user.FirstName;
+        if (self.userName && self.userName.length > 9) {
+          self.userName = $filter('translate')('PROFILE');
+        }
         spinnerService.hide('bodySpinner');
         self.ready = true;
         self.loggedIn = true;
