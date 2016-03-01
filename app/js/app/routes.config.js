@@ -175,7 +175,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Goals | Admin'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.templates]
     }
   })
 

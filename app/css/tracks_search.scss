@@ -140,15 +140,6 @@
   min-width: rem-calc(35px);
 }
 
-.play {
-  cursor: default;
-  text-indent: -2000px;
-  min-height: 30px;
-  min-width: rem-calc(40px);
-  background: url('/img/play.svg') no-repeat;
-  background-position: center;
-}
-
 button.play,
 button.add {
   border: none;
@@ -169,11 +160,6 @@ button.add {
 
 button.add {
   background: none;
-}
-
-.playing {
-  background: url('/img/playing_dark.gif') no-repeat;
-  background-position: center;
 }
 
 .out-of-bpm-range {
