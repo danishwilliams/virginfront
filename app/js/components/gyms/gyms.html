@@ -1,18 +1,39 @@
-<h1>Gyms</h1>
+<div class="row">
+  <div class="large-12 medium-18 small-18 large-centered columns">
+    <div class="heading row">
+      <div class="large-13 medium-12 columns">
+        <h1>Gyms</h1>
+      </div>
+      <div class="large-5 medium-6 columns">
+        <!--<button class="secondary" ui-sref="club-new">Create new club</button>-->
+      </div>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <td>Gym</td>
-      <td>Location ID</td>
-      <td>Id</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="gym in gyms.gyms | orderBy:'Name'">
-      <td contentEditable ng-change="gyms.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
-      <td>{{gym.LocationId}}</td>
-      <td>{{gym.Id}}</td>
-    </tr>
-  </tbody>
-</table>
+    <table>
+      <thead>
+        <tr>
+          <td>Clubs with devices</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="gym in gyms.gyms | orderBy:'Name'">
+          <td contentEditable ng-change="gyms.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <td>Clubs without devices</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="gym in gyms.gymsNoActiveDevices | orderBy:'Name'">
+          <td contentEditable ng-change="gyms.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

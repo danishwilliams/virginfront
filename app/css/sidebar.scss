@@ -36,6 +36,10 @@ $sidebar-width: 90px;
   }
 }
 
+aside label {
+  font-weight: normal;
+}
+
 .move-right .left-off-canvas-menu {
   width: $sidebar-width;
 }

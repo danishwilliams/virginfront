@@ -13,6 +13,16 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Password reset
+  .state('passwordreset', {
+    url: '/passwordreset/:token',
+    templateUrl: '../js/components/onboarding/password.html',
+    controller: 'OnboardingController as vm',
+    resolve: {
+      $title: function() { return 'Password reset'; /* PASSWORD_RESET */ }
+    }
+  })
+
   /* A registered user, but has no roles */
   .state('registered', {
     'url': '/registered',
@@ -148,6 +158,19 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     url: '/admin/goals',
     templateUrl: '../js/components/goals/goals.html',
     controller: 'GoalsController as goals',
+    resolve: {
+      $title: function() { return 'Goals | Admin'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.viewAdmin]
+    }
+  })
+
+  // Default Goals
+  .state('default-goals-admin', {
+    url: '/admin/default-goals',
+    templateUrl: '../js/components/default_goals/default_goals.html',
+    controller: 'DefaultGoalsController as vm',
     resolve: {
       $title: function() { return 'Goals | Admin'; }
     },
