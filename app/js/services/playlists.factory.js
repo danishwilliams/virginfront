@@ -230,6 +230,21 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
       playlist = data;
       isCustomRpm = data.IsCustomRpm;
 
+      // Assign random values to tracks so they're loading or playing, to test the load/play animations
+      /*
+      playlist.PlaylistGoals.forEach(function(val) {
+        var i = Math.random();
+        if (i > 0.7) {
+          val.PlaylistGoalTracks[0].Track.loading = true;
+        }
+        else if (i > 0.3) {
+        }
+        else {
+          val.PlaylistGoalTracks[0].Track.playing = true;
+        }
+      });
+      */
+
       var found = false;
       _.mapObject(playlist.PlaylistGoals, function (val, key) {
         val.ArrayId = key;
