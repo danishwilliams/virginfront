@@ -121,6 +121,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'RIDE_NAME_REQ': 'The ride class needs a name.',
     //TODO: 'CLASS_LENGTH_ERROR': 'Try to get your ride closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.',
     'CLASS_LENGTH_ERROR': '',
+    'EFFORTS_REQ': 'All effort ranges must have a value.',
     'CLASS_GIVE_NAME': 'Give your ride a name...',
     'GOAL_TRACK_REQ': 'Each goal needs a song.',
     'DRAG_DROP_TRACK': 'Add a song',

@@ -231,7 +231,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
         error: true
       };
       // Shift focus to the form and input box
-      $location.hash('playlistForm');
       document.getElementById('class_name').focus();
       return;
     }
@@ -239,6 +238,20 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // Probably hit 'enter' in the ride name inputbox
       return;
     }
+
+    // If this is a freestyle playlist, all effort ranges must have a value
+    if (self.playlist.TemplateName === 'Freestyle' && !checkEffortRanges()) {
+      self.error = {
+        effortRanges: true
+      };
+      document.getElementById('class_name').focus();
+      return;
+    }
+    else if (self.error.effortRanges) {
+      self.error.effortRanges = undefined;
+    }
+
+    // Check if the playlist can be marked as 'complete'
     if (self.checkAllGoalsHaveTracks() && self.checkPlaylistLength() && self.checkHasPreRideBackgroundTracks() && self.checkHasPostRideBackgroundTracks()) {
       self.playlist.Complete = true;
     } else {
@@ -286,6 +299,26 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.updateCurrentGoal = function () {
     self.currentgoal = Playlists.getCurrentGoal();
   };
+
+  /**
+   * Does every effort range have at least one entry? (In the case of IsCustomRpm = true and )
+   */
+  function checkEffortRanges() {
+    // Load up all Goal Options and iterate through them
+    var error = false;
+    self.playlist.PlaylistGoals.forEach(function(val) {
+      val.Goal.GoalOptions.forEach(function(goaloptions) {
+        if (goaloptions.RpmLow > 0) {
+          // Yay
+        }
+        else {
+          val.show = true;
+          error = true;
+        }
+      });
+    });
+    return !error;
+  }
 
   /**
    * Does every goal have a track?
