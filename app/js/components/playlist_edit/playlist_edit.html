@@ -36,7 +36,7 @@
                 </span>
 
                 <span ng-if="playlist_edit.playlist.TemplateName === 'Freestyle'">
-                  <span ng-if="playlistGoal.ArrayId === 0">
+                  <span ng-if="playlistGoal.ArrayId == 0">
                     {{playlistGoal.Goal.Name}}
                   </span>
                   <freestyle-goals ng-if="playlistGoal.ArrayId > 0" data-index="{{playlistGoal.ArrayId}}" data-total-goals="{{playlist_edit.playlist.MaxFreestyleGoals}}" data-selected-goal-id="{{playlistGoal.Goal.Id}}" ng-change="playlist_edit.changeFreestyleGoal(playlistGoal)" ng-model="playlist_edit.freestyleGoal" ng-click="playlistGoal.editFreeStyleGoal = true"></freestyle-goals>
