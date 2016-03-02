@@ -31,11 +31,11 @@ function gymRidesController(Playlists, $scope, $interval) {
   // If playlist at the gym's device hasn't been synced, set up a timer
   if ($scope.$parent.gym.PlaylistSyncInfos) {
     $scope.$parent.gym.PlaylistSyncInfos.forEach(function (val) {
+      val.DevicePlaylistSyncs[0].SyncError = true;
       if (!val.DevicePlaylistSyncs[0].SyncSuccess) {
 
         // Refresh the syncing details for this playlist
         val.IntervalId = intervalPromise.length;
-        /*
         intervalPromise.push($interval(function () {
           Playlists.loadGymsDevicePlaylistSyncInfo($scope.$parent.gym.Gym.Id, val.DevicePlaylistSyncs[0].PlaylistId).then(function (data) {
             //console.log('calling interval!');
@@ -50,7 +50,6 @@ function gymRidesController(Playlists, $scope, $interval) {
             }
           });
         }, 5000));
-        */
 
       }
     });
@@ -87,9 +86,11 @@ function gymRidesController(Playlists, $scope, $interval) {
 
     var i = self.gym.PlaylistSyncInfos.length - 1;
     var val = self.gym.PlaylistSyncInfos[i];
+    /*
     console.log(playlist);
     console.log(self.gym.PlaylistSyncInfos);
     console.log(val);
+    */
 
     // Refresh the syncing details for this playlist
     val.IntervalId = intervalPromise.length;

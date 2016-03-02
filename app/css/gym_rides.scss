@@ -60,7 +60,8 @@
       color: $body-font-color;
     }
     .icon {
-      background-image: none;
+      background: url('/img/ico16orng_syncerror.svg') no-repeat;
+      background-position: center;
     }
     a {
       color: $peach;
