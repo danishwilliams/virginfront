@@ -5,7 +5,8 @@
       <h1>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'{{vm.currentgoal.Name}}'</span></h1>
       <div class="row showing">
         <div class="small-18 large-13 columns" ng-show="!vm.currentgoal.BackgroundSection">
-          {{'SHOWING' | translate}}: <span class="bpm-range">{{vm.currentgoal.BpmLow}} - {{vm.currentgoal.BpmHigh}} {{'BPM' | translate}}</span>
+          {{'SHOWING' | translate}}: <span ng-if="vm.bpm2"><span ng-if-responsive="mobile"><br><br></span></span>
+          <span class="bpm-range">{{vm.currentgoal.BpmLow}} - {{vm.currentgoal.BpmHigh}} {{'BPM' | translate}}</span>
           <span class="bpm-range" ng-if="vm.bpm2">{{vm.bpmLow2}} - {{vm.bpmHigh2}} {{'BPM' | translate}}</span>
         </div>
         <div class="large-5 columns">
