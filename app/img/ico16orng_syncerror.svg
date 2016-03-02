@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5.2 (25235) - http://www.bohemiancoding.com/sketch -->
+    <title>ico16orng_syncerror</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Style-guide-VA-manager" sketch:type="MSArtboardGroup" transform="translate(-181.000000, -5421.000000)">
+            <g id="Icons" sketch:type="MSLayerGroup" transform="translate(-20.000000, 5160.000000)">
+                <g id="Sync" transform="translate(201.000000, 208.000000)" sketch:type="MSShapeGroup">
+                    <g id="ico16orng_syncerror" transform="translate(0.000000, 52.000000)">
+                        <polygon id="Triangle-6" fill="#F0851A" points="8 1 16 15 0 15 "></polygon>
+                        <path d="M7,11.998 L7,14 L9,14 L9,11.998 L7,11.998 Z M9,7.92 L9,6 L7,6 L7,7.92 L7.51351351,11 L8.47297297,11 L9,7.92 Z" id="!" fill="#FFFFFF"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
