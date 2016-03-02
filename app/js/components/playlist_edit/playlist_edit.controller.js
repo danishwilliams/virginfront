@@ -235,7 +235,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // Shift focus to the form and input box
       document.getElementById('class_name').focus();
     }
-    else if (self.required.error) {
+    else if (self.required) {
       self.required.error = undefined;
     }
 
@@ -248,7 +248,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       document.getElementById('class_name').focus();
       return;
     }
-    else if (self.error.effortRanges) {
+    else if (self.error) {
       self.error.effortRanges = undefined;
     }
 
