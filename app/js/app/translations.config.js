@@ -196,6 +196,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'EMPLOYEE_ID': 'Employee ID',
     'FIRST_NAME_REQ': 'First name is required',
     'LAST_NAME_REQ': 'Last name is required',
+    'ID_REQ': 'A unique ID number is required',
     'GYMS': 'Clubs',
     'EMAIL_VALID': 'Please enter a valid email address',
     'OPTIONAL': '(optional)',
