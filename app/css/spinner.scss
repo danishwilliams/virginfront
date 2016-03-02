@@ -184,13 +184,14 @@ button .spinner {
       margin-top: 2px;
     }
     .arrow-right {
-      height: 9px;
+      height: 6px;
       width: 10px;
       background-color: $cherry;
       border: none;
       animation: none;
       -webkit-animation: none;
       position: absolute;
+      left: 10px;
       z-index: 100;
       margin-top: 20px;
     }
