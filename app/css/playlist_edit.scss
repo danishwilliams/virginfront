@@ -140,9 +140,6 @@ input[type="text"].class_name {
   vertical-align: middle;
   cursor: default;
   background-color: $grey_black;
-  > div:not(:first-of-type) {
-    padding-top: 8px;
-  }
 }
 
 .dropped {
