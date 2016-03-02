@@ -226,21 +226,22 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // Save the playlist to the API
   this.savePlaylist = function () {
+    var error = false;
     if (!self.playlist.Name || self.playlist.Name.length < 1) {
+      error = true;
       self.required = {
         error: true
       };
       // Shift focus to the form and input box
       document.getElementById('class_name').focus();
-      return;
     }
-    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
-      // Probably hit 'enter' in the ride name inputbox
-      return;
+    else if (self.required.error) {
+      self.required.error = undefined;
     }
 
     // If this is a freestyle playlist, all effort ranges must have a value
     if (self.playlist.TemplateName === 'Freestyle' && !checkEffortRanges()) {
+      error = true;
       self.error = {
         effortRanges: true
       };
@@ -249,6 +250,15 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
     else if (self.error.effortRanges) {
       self.error.effortRanges = undefined;
+    }
+
+    if (error) {
+      return;
+    }
+
+    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
+      // Probably hit 'enter' in the ride name inputbox
+      return;
     }
 
     // Check if the playlist can be marked as 'complete'
@@ -302,13 +312,17 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   /**
    * Does every effort range have at least one entry? (In the case of IsCustomRpm = true and )
+   *
+   * @param return
+   *   True, if there are no errors
+   *   False, if at least one effort range doesn't have a value
    */
   function checkEffortRanges() {
     // Load up all Goal Options and iterate through them
     var error = false;
     self.playlist.PlaylistGoals.forEach(function(val) {
       val.Goal.GoalOptions.forEach(function(goaloptions) {
-        if (goaloptions.RpmLow > 0) {
+        if (goaloptions.Effort > 0) {
           // Yay
         }
         else {
