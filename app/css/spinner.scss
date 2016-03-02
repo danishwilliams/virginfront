@@ -146,6 +146,8 @@ button .spinner {
     }
   }
   &.loading {
+    padding-top: 10px;
+    height: 20px;
     > div {
       background-color: $grey_medium;
       -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
