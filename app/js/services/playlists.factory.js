@@ -311,8 +311,20 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return playlistLimitPerGym;
   }
 
-  function publishPlaylist(id) {
-    return Restangular.one('playlists/sync', id).post().then(publishPlaylistComplete);
+  /**
+   * Publishes a playlist to all gyms (if no Gym Id is provided) or to a specific gym
+   *
+   * @param playlistId
+   * @param gymId
+   *   Optional
+   */
+  function publishPlaylist(playlistId, gymId) {
+    if (gymId) {
+      return Restangular.one('playlists/sync', playlistId).post({gymId: gymId}).then(publishPlaylistComplete);
+    }
+    else {
+      return Restangular.one('playlists/sync', playlistId).post().then(publishPlaylistComplete);
+    }
 
     function publishPlaylistComplete(data, status, headers, config) {
       return data;

@@ -142,7 +142,7 @@ function gymRidesController(Playlists, $scope, $interval) {
   };
 
   function addPlaylistToGym(playlist, gymId) {
-    Playlists.addPlaylistToGym(playlist.Playlist.Id, gymId).then(function (data) {
+    Playlists.publishPlaylist(playlist.Playlist.Id, gymId).then(function (data) {
       // It worked!
 
       // Refresh the syncing details for this playlist
