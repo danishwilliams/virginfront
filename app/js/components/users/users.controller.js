@@ -6,26 +6,26 @@ angular.module("app.users", []).controller('UsersController', function (Users, s
     self.users = data;
     spinnerService.hide('users');
 
+    // Counts of each kind of user
+    self.numActive = 0;
+    self.numTechnical = 0;
+    self.numDisabled = 0;
+
     // Hide non-instructor user types
     self.users.forEach(function(user) {
+      var counted = false;
       if (user.Enabled) {
         user.Archived = false;
       }
       else {
+        self.numDisabled++;
+        counted = true;
         user.Archived = true;
       }
 
       // Set the user type. Onee of Registered, Technical, Invited
       user.Type = 'Registered';
       user.UserUserTypes.forEach(function (type) {
-        user.Type = 'Technical'; // So that if any users show up there we know something has screwed up
-        switch (type.UserType.Name) {
-          case 'Admin':
-          case 'API User':
-          case 'Device':
-          case 'Import':
-            user.Type = 'Technical';
-        }
         switch (user.State) {
           case 'invite_emailed':
           case 'invite_email_failed':
@@ -33,9 +33,32 @@ angular.module("app.users", []).controller('UsersController', function (Users, s
           case 'onboarding_genre':
           case 'onboarding_clubs':
             user.Type = 'Invited';
+            if (!counted) {
+              self.numActive++;
+              counted = true;
+            }
             break;
           case 'registered':
             user.Type = 'Registered';
+            if (!counted) {
+              self.numActive++;
+              counted = true;
+            }
+        }
+        switch (type.UserType.Name) {
+          case 'Admin':
+          case 'API User':
+          case 'Device':
+          case 'Import':
+            if (!counted) {
+              self.numTechnical++;
+              counted = true;
+            }
+            user.Type = 'Technical';
+        }
+        if (!counted) {
+          self.numTechnical++;
+          user.Type = 'Technical'; // So that if any users show up there we know something has screwed up
         }
       });
     });
