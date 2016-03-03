@@ -16,6 +16,10 @@
   </accordion-heading>
 
   <div class="row">
+    <alert ng-show="vm.user.archiveMessage" type="vm.user.archiveMessage.type" close="vm.user.archiveMessage = undefined">{{vm.user.archiveMessage.msg | translate}} <a ng-show="vm.user.archiveMessage.undo" ng-click="vm.enable(user)">{{'UNDO' | translate}}</a></alert>
+  </div>
+
+  <div class="row">
     <div class="large-9 columns">
       <div class="row">
         <div class="small-6 columns">
@@ -64,7 +68,6 @@
         <button class="secondary" ng-show="user.Enabled" ng-click="vm.disable(user)">{{'DISABLE_ACCOUNT' | translate}}</button>
         <button class="secondary" ng-hide="user.Enabled" ng-click="vm.enable(user)">{{'ENABLE_ACCOUNT' | translate}}</button>
       </div>
-      <alert ng-show="vm.user.archiveMessage" type="vm.user.archiveMessage.type" close="vm.user.archiveMessage = undefined">{{vm.user.archiveMessage.msg | translate}} <a ng-show="vm.user.archiveMessage.undo" ng-click="vm.enable(user)">{{'UNDO' | translate}}</a></alert>
     </div>
   </div>
 
