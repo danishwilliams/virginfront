@@ -8,11 +8,9 @@
   <option ng-if="vm.allowEditingGoal" value="" disabled></option>
 
   <option ng-if="vm.addAGoal" value="" disabled selected>{{'ADD_GOAL' | translate}}</option>
-  <option ng-if="!vm.coolDown && !goal.Goal.GoalChallengeId && goal.Goal.Name !== 'Cool Down'" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
-  <option ng-if="!vm.coolDown" value="" disabled></option>
+  <option ng-if="!goal.Goal.GoalChallengeId" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
+  <option value="" disabled></option>
 
-  <option ng-if="!vm.coolDown" value="" disabled>{{'CHALLENGE_GOALS' | translate}}</option>
-  <option ng-if="!vm.coolDown && goal.Goal.GoalChallengeId" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" ng-if="goal.Goal.GoalChallengeId" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
-
-  <option ng-if="vm.coolDown && goal.Goal.Name === 'Cool Down'" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
+  <option value="" disabled>{{'CHALLENGE_GOALS' | translate}}</option>
+  <option ng-if="goal.Goal.GoalChallengeId" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" ng-if="goal.Goal.GoalChallengeId" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
 </select>
