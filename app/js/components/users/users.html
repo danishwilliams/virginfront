@@ -14,7 +14,7 @@
     </div>
 
     <tabset>
-      <tab heading="Active Instructors">
+      <tab heading="Active Instructors ({{users.numActive}})">
         <div class="row">
           <div class="medium-9 large-9 columns">
             <label>Search</label>
@@ -36,7 +36,7 @@
         </accordion>
       </tab>
 
-      <tab heading="Disabled accounts">
+      <tab heading="Disabled accounts ({{users.numDisabled}})">
         <label>Search</label>
         <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
         <accordion>
@@ -45,7 +45,7 @@
         <accordion>
       </tab>
 
-      <tab heading="Technical users">
+      <tab heading="Technical users ({{users.numTechnical}})">
         <label>Search</label>
         <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
         <accordion>
