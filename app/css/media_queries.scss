@@ -170,4 +170,14 @@
   .onboarding .content {
     margin-top: rem-calc(90px);
   }
+
+  /* Playlist workflow */
+
+  .workflow {
+    li {
+      min-width: inherit;
+      margin-bottom: 0;
+    }
+  }
+
 }
