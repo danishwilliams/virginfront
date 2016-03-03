@@ -50,7 +50,4 @@ angular.module("app.users", []).controller('UsersController', function (Users, s
     user.put();
   };
 
-  self.sendInvite = function (id) {
-    Users.sendInvite(id).then(function() {});
-  };
 });

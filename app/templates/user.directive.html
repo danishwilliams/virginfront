@@ -1,0 +1,37 @@
+<accordion-group is-open="isopen">
+  <accordion-heading>
+    <div class="row">
+      <div class="small-6 columns">
+        {{vm.user.FirstName}} {{vm.user.LastName}}
+      </div>
+      <div class="small-6 columns">
+        {{vm.user.Type}}
+      </div>
+      <div class="small-6 columns text-right">
+        Manage account <i class="right" ng-class="{'chevron-down': isopen, 'chevron-right': !isopen}"></i>
+      </div>
+    </div>
+  </accordion-heading>
+
+  <div class="row">
+    <div class="large-9 columns">
+      <label>Employee Id</label> {{vm.user.EmployeeId}}
+      <label>{{'EMAIL' | translate}}</label> {{vm.user.Email}}
+      <label>Phone number</label> {{vm.user.Telephone}}
+      <label>City, Province, Country</label> {{vm.user.Location.City}}, {{vm.user.Location.Province}}, {{vm.user.Location.Country.Name}}
+      <label>User Type</label>
+      <ul>
+        <li ng-repeat="type in vm.user.UserUserTypes">{{type.UserType.Name}}</li>
+      </ul>
+    </div>
+
+    <div class="large-9 columns text-right">
+      <a ui-sref="users({id:vm.user.Id})">View</a>
+      <br>
+      <a ng-click="vm.archive(user)">Archive</a>
+      <br>
+      <button ng-if-permission="editAdmin" class="secondary" ng-click="vm.sendInvite(vm.user.Id)">Invite</button>
+    </div>
+  </div>
+
+</accordion-group>
