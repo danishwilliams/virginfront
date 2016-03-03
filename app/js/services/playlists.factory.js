@@ -320,7 +320,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
    */
   function publishPlaylist(playlistId, gymId) {
     if (gymId) {
-      return Restangular.one('playlists/sync', playlistId).customPOST({gymId: gymId}).then(publishPlaylistComplete);
+      return Restangular.one('playlists/sync', playlistId).customPOST({}, '', {gymId: gymId}).then(publishPlaylistComplete);
     }
     else {
       return Restangular.one('playlists/sync', playlistId).post().then(publishPlaylistComplete);
