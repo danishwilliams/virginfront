@@ -29,7 +29,22 @@ function userController(Users) {
     });
   };
 
-  self.archive = function (user) {
+  self.enable = function (user) {
+    user.Enabled = true;
+    user.archiveMessage = {
+      type: 'success',
+      msg: 'USER_ENABLED'
+    };
+
+    Users.enableUser(user.Id).then(function() {}, function() {
+      user.archiveMessage = {
+        type: 'danger',
+        msg: 'ENABLE_ACCOUNT_FAILED',
+      };
+    });
+  };
+
+  self.disable = function (user) {
     user.Enabled = false;
     user.archiveMessage = {
       type: 'success',
@@ -37,15 +52,11 @@ function userController(Users) {
       undo: true
     };
 
-    //user.put();
-  };
-
-  self.unarchive = function (user) {
-    user.Enabled = true;
-    user.archiveMessage = {
-      type: 'success',
-      msg: 'USER_ENABLED'
-    };
-    //user.put();
+    Users.disableUser(user.Id).then(function() {}, function() {
+      user.archiveMessage = {
+        type: 'danger',
+        msg: 'DISABLE_ACCOUNT_FAILED',
+      };
+    });
   };
 }

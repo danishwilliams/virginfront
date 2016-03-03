@@ -26,7 +26,9 @@ function UsersFactory(Restangular, Storage, uuid2) {
     loadCurrentUser: loadCurrentUser,
     getCurrentUser: getCurrentUser,
     sendInvite: sendInvite,
-    createNewUser: createNewUser
+    createNewUser: createNewUser,
+    disableUser: disableUser,
+    enableUser: enableUser
   };
 
   return usersFactory;
@@ -188,6 +190,22 @@ function UsersFactory(Restangular, Storage, uuid2) {
     return Restangular.one("users", user.Id).customPUT(user, '', queryString).then(createNewUserComplete);
 
     function createNewUserComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function disableUser(userId) {
+    return Restangular.one("users/disable", userId).post().then(disableUserComplete);
+
+    function disableUserComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function enableUser(userId) {
+    return Restangular.one("users/enable", userId).post().then(enableUserComplete);
+
+    function enableUserComplete(data, status, headers, config) {
       return data;
     }
   }

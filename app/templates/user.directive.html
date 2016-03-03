@@ -61,10 +61,10 @@
     <div class="large-9 columns">
       <div class="text-right">
         <a ng-if-permission="editAdmin" ng-click="vm.sendInvite(vm.user.Id)">{{'RE_INVITE' | translate}}</a>
-        <button class="secondary" ng-show="user.Enabled" ng-click="vm.archive(user)">{{'DISABLE_ACCOUNT' | translate}}</button>
-        <button class="secondary" ng-hide="user.Enabled" ng-click="vm.unarchive(user)">{{'ENABLE_ACCOUNT' | translate}}</button>
+        <button class="secondary" ng-show="user.Enabled" ng-click="vm.disable(user)">{{'DISABLE_ACCOUNT' | translate}}</button>
+        <button class="secondary" ng-hide="user.Enabled" ng-click="vm.enable(user)">{{'ENABLE_ACCOUNT' | translate}}</button>
       </div>
-      <alert ng-show="vm.user.archiveMessage" type="vm.user.archiveMessage.type" close="vm.user.archiveMessage = undefined">{{vm.user.archiveMessage.msg | translate}} <a ng-show="vm.user.archiveMessage.undo" ng-click="vm.unarchive(user)">{{'UNDO' | translate}}</a></alert>
+      <alert ng-show="vm.user.archiveMessage" type="vm.user.archiveMessage.type" close="vm.user.archiveMessage = undefined">{{vm.user.archiveMessage.msg | translate}} <a ng-show="vm.user.archiveMessage.undo" ng-click="vm.enable(user)">{{'UNDO' | translate}}</a></alert>
     </div>
   </div>
 

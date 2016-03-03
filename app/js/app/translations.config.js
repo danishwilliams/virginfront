@@ -201,6 +201,8 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'RE_INVITE': 'Re-invite',
     'DISABLE_ACCOUNT': 'Disable account',
     'ENABLE_ACCOUNT': 'Enable account',
+    'DISABLE_ACCOUNT_FAILED': "This user's Music Provider's account couldn't be disabled.",
+    'ENABLE_ACCOUNT_FAILED': "This user's Music Provider's account couldn't be enabled.",
 
     // Adding a user
     'FIRST_NAME': 'First name',
