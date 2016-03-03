@@ -1,11 +1,21 @@
-.fa-chevron-down:before {
-  content: "\f078";
+.chevron-down {
+  background: url('/img/chevron.svg') no-repeat;
 }
-.fa-chevron-right:before {
-  content: "\f054";
+.chevron-right {
+  background: url('/img/chevron.svg') no-repeat;
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
 }
 
 .accordion {
+  i {
+    margin: rem-calc(4px) 0 0 rem-calc(4px);
+    width: rem-calc(20px);
+    height: rem-calc(20px);
+  }
   label {
     display: inline;
     font-size: inherit;
