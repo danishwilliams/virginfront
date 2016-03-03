@@ -21,6 +21,8 @@ function user() {
 userController.$inject = ['Users'];
 
 function userController(Users) {
+  var self = this;
+
   self.sendInvite = function (id) {
     Users.sendInvite(id).then(function() {
       
@@ -28,11 +30,22 @@ function userController(Users) {
   };
 
   self.archive = function (user) {
-    self.hasArchived = true;
     user.Enabled = false;
+    user.archiveMessage = {
+      type: 'success',
+      msg: 'USER_DISABLED',
+      undo: true
+    };
+
+    //user.put();
   };
 
   self.unarchive = function (user) {
     user.Enabled = true;
+    user.archiveMessage = {
+      type: 'success',
+      msg: 'USER_ENABLED'
+    };
+    //user.put();
   };
 }

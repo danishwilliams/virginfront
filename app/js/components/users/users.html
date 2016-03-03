@@ -1,6 +1,8 @@
 <div class="row">
   <div class="large-12 medium-18 small-18 large-centered columns">
 
+    <spinner class="spinner" name="users" show="true"></spinner>
+
     <div class="heading row">
       <div class="large-13 medium-12 columns">
         <h1>{{'USERS' | translate}}</h1>
@@ -10,8 +12,6 @@
         <button class="secondary" ui-sref="user-new">{{'CREATE_USER' | translate}}</button>
       </div>
     </div>
-
-    <spinner class="spinner" name="users" show="true"></spinner>
 
     <tabset>
       <tab heading="Active Instructors">
@@ -31,16 +31,16 @@
         </div>
 
         <accordion>
-          <user ng-if="user.Type !== 'Technical' && user.Enabled === true" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+          <user ng-if="user.Type !== 'Technical' && user.Archived === false" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
           </user>
         </accordion>
       </tab>
 
-      <tab heading="Archived accounts">
+      <tab heading="Disabled accounts">
         <label>Search</label>
         <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
         <accordion>
-          <user ng-if="!user.Enabled" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+          <user ng-if="user.Archived" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
           </user>
         <accordion>
       </tab>

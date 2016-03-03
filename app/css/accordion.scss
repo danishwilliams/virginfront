@@ -5,6 +5,16 @@
   content: "\f054";
 }
 
-accordion dd {
-  margin-top: rem-calc(10px);
+.accordion {
+  label {
+    display: inline;
+    font-size: inherit;
+  }
+  dd {
+    > .content.active {
+      padding-top: rem-calc(10px);
+      background: $grey_lighter;
+    }
+    margin-top: rem-calc(10px);
+  }
 }

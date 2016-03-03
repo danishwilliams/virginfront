@@ -190,6 +190,18 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PHONE': 'Phone number',
     'CITY': 'City',
 
+    // Team directory
+    'USER_DISABLED': 'This user account has been disabled.',
+    'USER_ENABLED': 'This user account has been enabled.',
+    'STATUS': 'Status',
+    'MANAGE_ACCOUNT': 'Manage account',
+    'DISABLED_ACCOUNT': 'Disabled account',
+    'USER_TYPE': 'User type',
+    'EDIT_USER_PROFILE': 'Edit details',
+    'RE_INVITE': 'Re-invite',
+    'DISABLE_ACCOUNT': 'Disable account',
+    'ENABLE_ACCOUNT': 'Enable account',
+
     // Adding a user
     'FIRST_NAME': 'First name',
     'LAST_NAME': 'Last name',

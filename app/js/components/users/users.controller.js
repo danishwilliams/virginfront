@@ -8,9 +8,11 @@ angular.module("app.users", []).controller('UsersController', function (Users, s
 
     // Hide non-instructor user types
     self.users.forEach(function(user) {
-      // If at least one user is not enabled, show this in the view
-      if (!user.Enabled) {
-        self.hasArchived = true;
+      if (user.Enabled) {
+        user.Archived = false;
+      }
+      else {
+        user.Archived = true;
       }
 
       // Set the user type. Onee of Registered, Technical, Invited

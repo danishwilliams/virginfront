@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5.2 (25235) - http://www.bohemiancoding.com/sketch -->
+    <title>ico16blu_syncedit</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Style-guide-VA-manager" sketch:type="MSArtboardGroup" transform="translate(-183.000000, -5369.000000)">
+            <g id="Icons" sketch:type="MSLayerGroup" transform="translate(-20.000000, 5160.000000)">
+                <g id="Sync" transform="translate(201.000000, 208.000000)" sketch:type="MSShapeGroup">
+                    <g id="ico16blu_syncedit">
+                        <rect id="Rectangle-75" x="0" y="0" width="16" height="16" rx="100"></rect>
+                        <path d="M2.06068243,13.9520286 C2.10088468,13.9888517 2.15313558,14.0063193 2.19959332,13.998467 L6.68599473,13.2373965 L2.76292125,9.31432304 L2.00185077,13.8007245 C1.99310723,13.8524552 2.01578507,13.9108662 2.06053798,13.9518841 M7.09192306,12.8193061 L12.6499475,7.26142606 L8.7384295,3.34990802 L3.18040502,8.90793249 L7.09192306,12.8194505 M13.0617547,6.8496189 L13.2675861,6.64378754 L14.0910559,5.82031766 L14.9145258,4.99699222 C15.0284914,4.88302665 15.0284914,4.69929508 14.9145258,4.5853295 L11.4146705,1.08547418 C11.3005605,0.971508607 11.1169734,0.971508607 11.0030078,1.08547418 L10.1795379,1.90879962 L9.35606802,2.73212505 L9.15023666,2.93795641 L9.35606802,3.14378777 L12.8559233,6.6436431 L13.0617547,6.84947446" id="ico16blue_syncedit" fill="#6EA4E4"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
