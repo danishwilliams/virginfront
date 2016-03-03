@@ -58,7 +58,7 @@
                 {{track.Bpm}} {{'BPM' | translate}}
               </div>
               <div class="small-2 columns text-right time">
-                <span class="position" ng-show="track.currentTime >= 0 && track.Track.playing === true">{{track.currentTime | minutes}}</span> {{track.DurationSeconds | minutes}}
+                <span class="position" ng-show="track.currentTime >= 0 && track.playing === true">{{track.currentTime | minutes}}</span> {{track.DurationSeconds | minutes}}
               </div>
               <div class="small-1 columns">
                 <button class="add" ng-disabled="{{vm.outOfBpmRange(track.Bpm)}}">+</button>
