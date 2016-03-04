@@ -78,6 +78,10 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'EMAIL_REQ': 'Please enter an email address.',
     'PASSWORD_REQ': 'Please enter your password.',
     'LOGIN': 'Log in',
+    'PASSWORD_LINK_MAILED': 'Password reset link emailed',
+    'CHECK_EMAIL': 'Please check your email at',
+    'CHECK_EMAIL_1': 'for the password reset link.',
+    'CHECK_JUNK': "If you haven't received it, double-check your junk email.",
 
     // Dashboard
     'DASHBOARD': 'Dashboard',

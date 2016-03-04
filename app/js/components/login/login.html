@@ -53,9 +53,10 @@
     </div>
 
     <div class="container dark-block" ng-show="login.step === 'resetSuccess'">
-      <h1>Password reset link emailed</h1>
+      <h1>{{'PASSWORD_LINK_MAILED' | translate}}</h1>
 
-      <p>Please check your email at <span class="email">{{login.credentials.username}}</span> for the password reset link.</p>
+      <p>{{'CHECK_EMAIL' | translate}} <span class="email">{{login.credentials.username}}</span> {{'CHECK_EMAIL_1' | translate}}</p>
+      <p>{{'CHECK_JUNK' | translate}}</p>
     </div>
   </div>
 </div>
