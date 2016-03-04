@@ -61,35 +61,36 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   };
 
   this.genreSearch = function () {
-    var genres = [];
-    self.genres.forEach(function (val) {
-      if (val.selected) {
-        genres.push({
-          Id: val.Id
-        });
-      }
-    });
-    if (!_.isEmpty(genres)) {
+    if (!_.isEmpty(self.genres)) {
       // Save the genre selection for later
-
-      // Replace the genres in the user
-      Users.updateGenres(self.genres);
 
       // Do the genre track search
       spinnerService.show('trackSpinner');
       self.tracks = [];
       self.error = {};
-      Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, genres).then(function (data) {
-        self.tracks = data;
-        spinnerService.hide('trackSpinner');
-      }, function () {
-        spinnerService.hide('trackSpinner');
-        self.error = {
-          server: true
-        };
-      });
+
+      if (self.genres.Id === 'All') {
+        // To search all genres, just don't pass any through
+        Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(loadTracksSuccess, loadTracksFailed);
+      }
+      else {
+        Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, [{Id: self.genres.Id}]).then(loadTracksSuccess, loadTracksFailed);
+      }
     }
   };
+
+  function loadTracksSuccess (data) {
+    self.tracks = data;
+    spinnerService.hide('trackSpinner');
+  }
+
+  function loadTracksFailed () {
+    spinnerService.hide('trackSpinner');
+    self.error = {
+      server: true
+    };
+  }
+
 
   this.outOfBpmRange = function (bpm) {
     $in_range = false;
