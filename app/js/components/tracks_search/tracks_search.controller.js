@@ -17,18 +17,19 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
         genres = [{Id: genre}];
       }
       Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, genres).then(loadTracksSuccess, loadTracksFailed);
-      return;
     }
-    // Load tracks from the user's default genre selection
-    Tracks.loadUserDefaultGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
-      self.tracks = data;
-      spinnerService.hide('trackSpinner');
-    }, function () {
-      spinnerService.hide('trackSpinner');
-      self.error = {
-        server: true
-      };
-    });
+    else {
+      // Load tracks from the user's default genre selection
+      Tracks.loadUserDefaultGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
+        self.tracks = data;
+        spinnerService.hide('trackSpinner');
+      }, function () {
+        spinnerService.hide('trackSpinner');
+        self.error = {
+          server: true
+        };
+      });
+    }
   }
 
   // Set up addition bpm range for non-UK (i.e. the playlist IsCustomRpm value is true)
