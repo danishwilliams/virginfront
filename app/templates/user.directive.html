@@ -21,7 +21,7 @@
 
   <div class="row">
     <div class="large-9 columns">
-      <div class="row">
+      <div ng-if="vm.user.EmployeeId" class="row">
         <div class="small-6 columns">
           <label>{{'EMPLOYEE_ID' | translate}}</label>
         </div>
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div ng-if="vm.user.Email" class="row">
         <div class="small-6 columns">
           <label>{{'EMAIL' | translate}}</label>
         </div>
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div ng-if="vm.user.Telephone" class="row">
         <div class="small-6 columns">
           <label>{{'PHONE' | translate}}</label>
         </div>
