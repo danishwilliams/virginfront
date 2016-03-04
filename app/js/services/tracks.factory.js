@@ -13,6 +13,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   self.tracks = []; // A list of track objects
 
   var tracksFactory = {
+    loadUserDefaultGenresTracks: loadUserDefaultGenresTracks,
     loadUserGenresTracks: loadUserGenresTracks,
     searchTracks: searchTracks,
     addTrack: addTrack,
@@ -114,18 +115,22 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
 
   return tracksFactory;
 
-  function loadUserGenresTracks(bpmLow, bpmHigh, genres) {
-    if (genres) {
-      return Restangular.one('music/genres').customPOST(genres, '', {
+  function loadUserDefaultGenresTracks(bpmLow, bpmHigh) {
+    return Restangular.all('music/usergenres').getList({
         bpmLow: bpmLow,
         bpmHigh: bpmHigh
-      }).then(loadUserGenresTracksComplete);
-    } else {
-      return Restangular.all('music/usergenres').getList({
-        bpmLow: bpmLow,
-        bpmHigh: bpmHigh
-      }).then(loadUserGenresTracksComplete);
+    }).then(loadUserDefaultGenresTracksComplete);
+
+    function loadUserDefaultGenresTracksComplete(data, status, headers, config) {
+      return data;
     }
+  }
+
+  function loadUserGenresTracks(bpmLow, bpmHigh, genres) {
+    return Restangular.one('music/genres').customPOST(genres, '', {
+      bpmLow: bpmLow,
+      bpmHigh: bpmHigh
+    }).then(loadUserGenresTracksComplete);
 
     function loadUserGenresTracksComplete(data, status, headers, config) {
       self.userGenresTracks = data;
