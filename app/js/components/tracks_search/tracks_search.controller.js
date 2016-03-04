@@ -1,4 +1,4 @@
-angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Tracks, Playlists, spinnerService, Users) {
+angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Tracks, Playlists, spinnerService, Users, Storage) {
   var self = this;
 
   this.currentgoal = Playlists.getCurrentGoal();
@@ -9,9 +9,18 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   if (this.currentgoal.BpmLow === -1) {
     $state.go('^');
   } else {
-    // Load tracks from the user's default genre selection
     self.error = {};
-    Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
+    var genre = Storage.getItem('genre');
+    if (genre) {
+      var genres = [];
+      if (genre !== 'All') {
+        genres = [{Id: genre}];
+      }
+      Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, genres).then(loadTracksSuccess, loadTracksFailed);
+      return;
+    }
+    // Load tracks from the user's default genre selection
+    Tracks.loadUserDefaultGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
       self.tracks = data;
       spinnerService.hide('trackSpinner');
     }, function () {
@@ -69,13 +78,15 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
       self.tracks = [];
       self.error = {};
 
+      var genres = [];
       if (self.genres.Id === 'All') {
-        // To search all genres, just don't pass any through
-        Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(loadTracksSuccess, loadTracksFailed);
+        // To search all genres, just don't pass any through, so genres stays as an empty array
       }
       else {
-        Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, [{Id: self.genres.Id}]).then(loadTracksSuccess, loadTracksFailed);
+        genres = [{Id: self.genres.Id}];
       }
+
+      Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, genres).then(loadTracksSuccess, loadTracksFailed);
     }
   };
 
