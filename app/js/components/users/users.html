@@ -45,7 +45,7 @@
         <accordion>
       </tab>
 
-      <tab heading="Technical users ({{users.numTechnical}})">
+      <tab ng-if-permission="viewAdmin" heading="Technical users ({{users.numTechnical}})">
         <label>Search</label>
         <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
         <accordion>
