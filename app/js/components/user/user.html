@@ -52,7 +52,7 @@
       </div>
       <div class="columns large-9">
         <div class="box">
-          <button ng-show="!user.userTypesEdit" ng-if-permission="editAdmin" class="edit right" ng-click="user.loadUserTypes()">{{'EDIT' | translate}}</button>
+          <button ng-show="!user.userTypesEdit" ng-if-permission="users" class="edit right" ng-click="user.loadUserTypes()">{{'EDIT' | translate}}</button>
           <h3>{{'PERMISSIONS' | translate}}</h3>
           <div ng-show="!user.userTypesEdit">
             {{user.user.UserType.Name}}
@@ -63,8 +63,8 @@
             </ul>
           </div>
 
-          <form ng-show="user.userTypesEdit" ng-if-permission="editAdmin" ng-submit="user.saveUserTypes()">
-            <label ng-repeat="userType in user.userTypes | orderBy: 'Name'">
+          <form ng-show="user.userTypesEdit" ng-if-permission="users" ng-submit="user.saveUserTypes()">
+            <label ng-hide="userType.hide" ng-repeat="userType in user.userTypes | orderBy: 'Name'">
               <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name}}
             </label>
 
