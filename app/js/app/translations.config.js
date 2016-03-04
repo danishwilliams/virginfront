@@ -207,7 +207,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     // Adding a user
     'FIRST_NAME': 'First name',
     'LAST_NAME': 'Last name',
-    'EMPLOYEE_ID': 'Employee ID',
+    'EMPLOYEE_ID': 'Instructor ID',
     'FIRST_NAME_REQ': 'First name is required',
     'LAST_NAME_REQ': 'Last name is required',
     'ID_REQ': 'A unique ID number is required',
