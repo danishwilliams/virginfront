@@ -68,9 +68,11 @@
           <label>Playlists</label>
         </a>
         <a class="item" ui-sref="templates-admin" ng-if-permission="templates">
+          <i class="templates"></i>
           <label>{{'TEMPLATES' | translate}}</label>
         </a>
         <a class="item" ui-sref="users-admin" ng-if-permission="users">
+          <i class="users"></i>
           <label>{{'USERS' | translate}}</label>
         </a>
         <a class="item" ui-sref="usertypes-admin" ng-if-permission="viewAdmin">
