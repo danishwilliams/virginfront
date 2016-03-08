@@ -1,4 +1,4 @@
-Instructor App 0.3, 2015-02-18
+Instructor App 0.3, 2016-02-18
 ------------------------------
 - Freestyle playlists
 - English translations
