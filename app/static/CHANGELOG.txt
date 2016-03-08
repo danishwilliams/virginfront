@@ -5,7 +5,7 @@ Instructor App 0.3, 2016-02-18
 - Template editing
 - Instructor invites
 
-Instructor App 0.2, 2016-12-11
+Instructor App 0.2, 2015-12-11
 ------------------------------
 MVP!!! Includes:
 - Freestyle and Pack class creation
