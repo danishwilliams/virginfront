@@ -18,9 +18,9 @@
         <div class="row">
           <div class="medium-9 large-9 columns">
             <label>Search</label>
-            <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
+            <input ng-model="users.query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
           </div>
-          <div class="medium-9  large-9 columns">
+          <div class="medium-9 large-9 columns">
             <label>Filter by Instructor status</label>
             <select ng-model="users.status">
               <option value="" selected>All</option>
@@ -31,7 +31,7 @@
         </div>
 
         <accordion>
-          <user ng-if="user.Type !== 'Technical' && user.Archived === false" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+          <user ng-if="user.Type !== 'Technical' && user.Archived === false" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:users.userFilter | orderBy:'FirstName'">
           </user>
         </accordion>
       </tab>

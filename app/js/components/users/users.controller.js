@@ -1,6 +1,7 @@
 angular.module("app.users", []).controller('UsersController', function (Users, spinnerService) {
   var self = this;
   self.status = '';
+  self.query = '';
 
   Users.loadUsers().then(function (data) {
     self.users = data;
@@ -63,6 +64,19 @@ angular.module("app.users", []).controller('UsersController', function (Users, s
       });
     });
   });
+
+  self.userFilter = function(user) {
+    self.query = self.query.toLowerCase();
+    if (user.FirstName && user.FirstName.toLowerCase().indexOf(self.query) > -1) {
+      return user;
+    }
+    else if (user.LastName && user.LastName.toLowerCase().indexOf(self.query) > -1) {
+      return user;
+    }
+    else if (user.Email && user.Email.toLowerCase().indexOf(self.query) > -1) {
+      return user;
+    }
+  };
 
   self.filterInstructors = function(user) {
     if (self.status.length > 0) {
