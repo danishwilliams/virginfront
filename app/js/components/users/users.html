@@ -16,9 +16,17 @@
     <tabset>
       <tab heading="Active Instructors ({{users.numActive}})">
         <div class="row">
-          <div class="medium-9 large-9 columns">
+          <div class="medium-3 large-3 columns">
             <label>Search</label>
-            <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
+            <input ng-model="query.firstname" type="text" placeholder="First name" autofocus>
+          </div>
+          <div class="medium-3 large-3 columns">
+            <label>&nbsp;</label>
+            <input ng-model="query.id" type="text" placeholder="Employee ID" autofocus>
+          </div>
+          <div class="medium-3 large-3 columns">
+            <label>&nbsp;</label>
+            <input ng-model="query.email" type="text" placeholder="Email" autofocus>
           </div>
           <div class="medium-9  large-9 columns">
             <label>Filter by Instructor status</label>
@@ -31,7 +39,7 @@
         </div>
 
         <accordion>
-          <user ng-if="user.Type !== 'Technical' && user.Archived === false" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+          <user ng-if="user.Type !== 'Technical' && user.Archived === false" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:{FirstName:query.firstname, EmployeeId: query.id, Email: query.email} | orderBy:'FirstName'">
           </user>
         </accordion>
       </tab>
