@@ -123,6 +123,15 @@ button .spinner {
   }
 }
 
+.playlist-edit .spinner1 {
+  &.loading {
+    padding-top: 0px;
+  }
+  &.playing:hover {
+    font-size: 4px;
+  }
+}
+
 .spinner1 > div {
   height: 100%;
   width: 4px;
@@ -206,6 +215,26 @@ button .spinner {
     .rect4 {
       -webkit-animation-delay: -0.8s;
       animation-delay: -0.8s;
+    }
+    &:hover {
+      background-color: $grey;
+      > div {
+        -webkit-animation: none;
+        animation: none;
+        margin-top: 9px;
+      }
+      .arrow-right {
+        display: none;
+      }
+      .rect1, .rect2 {
+        height: 40%;
+        width: 3px;
+      }
+      .rect1 {
+      }
+      .rect3 {
+        display: none;
+      }
     }
   }
 }
