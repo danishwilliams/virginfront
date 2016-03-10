@@ -2,6 +2,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 </head>
 
 <body>
@@ -21,7 +22,7 @@
 
 @see https://msdn.microsoft.com/en-us/library/gg589529(v=vs.85).aspx
 
-Note  If you are developing on an intranet and have rendering issues for HTML5, you can add <meta http-equiv-“X-UA-Compatible” content=”IE=edge”/> to the <head> block of a webpage to force Internet Explorer to use the latest standards. If you prefer, configure your web development server to send a meta http-equiv-“X-UA-Compatible” header with IE=edge instead. For more information about document compatibility, see Defining Document Compatibility.
+Note  If you are developing on an intranet and have rendering issues for HTML5, you can add <meta http-equiv="X-UA-Compatible" content="IE=edge"/> to the <head> block of a webpage to force Internet Explorer to use the latest standards. If you prefer, configure your web development server to send a meta http-equiv="X-UA-Compatible" header with IE=edge instead. For more information about document compatibility, see Defining Document Compatibility.
 
 */
 
@@ -50,8 +51,14 @@ Note  If you are developing on an intranet and have rendering issues for HTML5, 
 
   function play1() {
     var audio1 = document.getElementById('audio1');
-    audio1.play();
-    console.log('playing 1!');
+    try {
+      audio1.play();
+      console.log('playing 1!');
+      console.log('muted?', audio1.muted);
+    }
+    catch (e) {
+      if(window.console && console.error("Error:" + e));
+    }
   }
 
   function pause1() {
@@ -105,14 +112,10 @@ Note  If you are developing on an intranet and have rendering issues for HTML5, 
 //]]>
 </script>
 
-<!--
-
 <h3>Basic audio playback</h3>
 
   <p>Uses the audio tag.</p>
   <audio src="moments.mp3" controls></audio>
-
--->
 
   <!-- IE 11: plays after a few seconds -->  
 
