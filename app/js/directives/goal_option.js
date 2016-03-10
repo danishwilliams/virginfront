@@ -27,8 +27,15 @@ goalOptionController.$inject = ['$scope'];
 function goalOptionController($scope) {
   $scope.goaloption = $scope.$parent.goaloption;
 
-  $scope.effortOptions = [40, 50, 60, 70, 80, 90, 100];
-  $scope.rpmOptions = [60, 70, 80, 90, 100, 110, 120, 130, 140];
+  $scope.effortOptions = [40];
+  for (i = 45; i <= 100; i = i + 5) {
+    $scope.effortOptions.push(i);
+  }
+
+  $scope.rpmOptions = [0];
+  for (i = 60; i <= 180; i = i + 5) {
+    $scope.rpmOptions.push(i);
+  }
 
   // Only show the name of goaloptions if there are more than 1
   if (parseInt($scope.goaloption.length) === 1) {
