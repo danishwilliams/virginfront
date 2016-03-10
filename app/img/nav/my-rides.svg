@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="36px" height="28px" viewBox="0 0 36 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.5.2 (25235) - http://www.bohemiancoding.com/sketch -->
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
     <title>ico40nav_myrides</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="Style-guide-VA-manager" sketch:type="MSArtboardGroup" transform="translate(-183.000000, -5758.000000)">
-            <g id="Icons" sketch:type="MSLayerGroup" transform="translate(-20.000000, 5160.000000)">
-                <g id="NAV" transform="translate(177.000000, 434.000000)" sketch:type="MSShapeGroup">
-                    <g id="ico40nav_myrides" transform="translate(24.000000, 157.674662)">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Style-guide-VA-manager" transform="translate(-182.000000, -5752.000000)">
+            <g id="Icons" transform="translate(-20.000000, 5160.000000)">
+                <g id="NAV" transform="translate(177.000000, 434.000000)">
+                    <g id="ico40nav_myrides" transform="translate(25.000000, 158.000000)">
                         <rect id="Rectangle-89" x="0" y="0" width="40" height="40" rx="100"></rect>
                         <path d="M9.49975458,19.3253377 C7.43177073,19.3253377 5.66476659,20.0652884 4.19874215,21.545094 C2.73281588,23.0244213 2,24.7976243 2,26.8636506 C2,28.9301553 2.73281588,30.6901568 4.19874215,32.1441335 C5.66476659,33.5985885 7.43177073,34.3253377 9.49975458,34.3253377 C11.5678366,34.3253377 13.3348407,33.5985885 14.800767,32.1441335 C16.2667914,30.6901568 17,28.9301553 17,26.8636506 C17,24.7976243 16.2667914,23.0244213 14.800767,21.545094 C13.3348407,20.0652884 11.5678366,19.3253377 9.49975458,19.3253377 L9.49975458,19.3253377 Z" id="Fill-1" stroke="#93939A" stroke-width="2"></path>
                         <path d="M30.4997546,19.3253377 C28.4317707,19.3253377 26.6647666,20.0652884 25.1987422,21.5446157 C23.7328159,23.0244213 23,24.7971459 23,26.8636506 C23,28.9301553 23.7328159,30.6901568 25.1987422,32.1441335 C26.6647666,33.5981102 28.4317707,34.3253377 30.4997546,34.3253377 C32.5678366,34.3253377 34.3348407,33.5981102 35.800767,32.1441335 C37.2667914,30.6901568 38,28.9301553 38,26.8636506 C38,24.7971459 37.2667914,23.0244213 35.800767,21.5446157 C34.3348407,20.0652884 32.5678366,19.3253377 30.4997546,19.3253377 Z" id="Fill-2" stroke="#93939A" stroke-width="2"></path>

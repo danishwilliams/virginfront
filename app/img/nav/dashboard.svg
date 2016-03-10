@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="20px" height="22px" viewBox="0 0 20 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.5.2 (25235) - http://www.bohemiancoding.com/sketch -->
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
     <title>ico40nav_home</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="Style-guide-VA-manager" sketch:type="MSArtboardGroup" transform="translate(-191.000000, -5613.000000)">
-            <g id="Icons" sketch:type="MSLayerGroup" transform="translate(-20.000000, 5160.000000)">
-                <g id="NAV" transform="translate(177.000000, 434.000000)" sketch:type="MSShapeGroup">
-                    <g id="ico40nav_home" transform="translate(24.000000, 11.000000)">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Style-guide-VA-manager" transform="translate(-182.000000, -5605.000000)">
+            <g id="Icons" transform="translate(-20.000000, 5160.000000)">
+                <g id="NAV" transform="translate(177.000000, 434.000000)">
+                    <g id="ico40nav_home" transform="translate(25.000000, 11.000000)">
                         <rect id="Rectangle-89" x="0" y="0" width="40" height="40" rx="100"></rect>
                         <path d="M29.9116156,15.9922563 L29.9116156,29.0441783 L23.0295671,29.0441778 L23.0295671,22.736882 C23.0295671,22.3161299 22.6884529,21.9749321 22.2677008,21.9749321 L17.4525905,21.9749326 C17.0315042,21.9749326 16.9826782,22.3161299 16.9826782,22.736882 L16.9826782,29.0441778 L10.0726741,29.0441783 L10.0726741,15.9922563 L19.9921449,8.06322263 L29.9116156,15.9922563 Z" id="Path" fill="#93939A"></path>
                         <path d="M11,9 L13,9 L13.0932591,14 L11,15.7372702 L11,9 Z" id="Path" fill="#93939A"></path>
