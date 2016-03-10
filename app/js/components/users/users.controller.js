@@ -76,6 +76,16 @@ angular.module("app.users", []).controller('UsersController', function (Users, s
     else if (user.Email && user.Email.toLowerCase().indexOf(self.query) > -1) {
       return user;
     }
+    else if (self.query.indexOf(' ') > -1) {
+      var firstName = self.query.substring(0, self.query.indexOf(' '));
+      var lastName = self.query.substring(self.query.indexOf(' '));
+      if (user.FirstName && user.FirstName.toLowerCase().indexOf(firstName) > -1) {
+        return user;
+      }
+      else if (user.LastName && user.LastName.toLowerCase().indexOf(lastName) > -1) {
+        return user;
+      }
+    }
   };
 
   self.filterInstructors = function(user) {
