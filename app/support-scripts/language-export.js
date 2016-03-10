@@ -96,7 +96,7 @@ my_sheet.useServiceAccountAuth(creds, function (err) {
 
       // Write files
       language.forEach(function(value) {
-        fs.writeFile("../static/l10n/" + value.code + ".json", JSON.stringify(value.words[0]), function(err) {
+        fs.writeFile("../static/l10n/" + value.code + ".json", JSON.stringify(value.words[0], null, 2), function(err) {
             if(err) {
                 return console.log(err);
             }
