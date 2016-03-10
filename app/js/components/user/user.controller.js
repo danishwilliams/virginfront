@@ -236,7 +236,5 @@ angular.module("app.user", []).controller('UserController', function ($statePara
 
   self.changeLanguage = function (langKey) {
     $translate.use(langKey);
-    console.log('changed!', langKey);
   };
-
 });
