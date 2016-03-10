@@ -1,4 +1,4 @@
-angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer) {
+angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer, $translate) {
   var self = this;
   this.id = $stateParams.id;
 
@@ -55,7 +55,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
 
       // Managers can only see certain user types
       if (Authorizer.canAccess('isManager', Users.getCurrentUser())) {
-        self.userTypes.forEach(function(val) {
+        self.userTypes.forEach(function (val) {
           if (val.Name === 'Pack Instructor' || val.Name === 'Manager') {
             val.show = true;
           } else {
@@ -210,7 +210,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
         type: 'success',
         msg: message
       }];
-    }, function(res) {
+    }, function (res) {
       spinnerService.hide('userContactSpinner');
       spinnerService.hide('userGenresSpinner');
       spinnerService.hide('userGymsSpinner');
@@ -232,5 +232,9 @@ angular.module("app.user", []).controller('UserController', function ($statePara
         }
       }
     });
+  };
+
+  self.changeLanguage = function (langKey) {
+    $translate.use(langKey);
   };
 });
