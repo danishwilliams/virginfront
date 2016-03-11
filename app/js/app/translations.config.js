@@ -8,6 +8,7 @@ angular.module("app").config(function ($translateProvider, defaultI18n) {
   $translateProvider.useSanitizeValueStrategy(null);
 
   // Prevent FUOC (Flash of untranslated content) pre loading english translations
+  // Adapted from https://github.com/angular-translate/angular-translate/issues/921
   $translateProvider.translations('en', defaultI18n.en);
 
   // Register a loader for the static files

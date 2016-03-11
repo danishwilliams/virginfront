@@ -95,7 +95,7 @@
   "RIDE_EDIT": "Editar o teu percurso",
   "RIDE_CREATE": "Criar o teu percurso",
   "RIDE_NAME_REQ": "O percurso necessita um nome",
-  "CLASS_LENGTH_ERROR": "",
+  "CLASS_LENGTH_ERROR": "tenta aproximar a tua aula de {{minutes}} minutos, ao rever as tuas escolhas",
   "EFFORTS_REQ": "",
   "CLASS_GIVE_NAME": "Dá um nome ao teu percurso",
   "GOAL_TRACK_REQ": "Cada objectivo necessita una musica",

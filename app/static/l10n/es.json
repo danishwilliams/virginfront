@@ -95,7 +95,7 @@
   "RIDE_EDIT": "Editar o teu camino",
   "RIDE_CREATE": "Crear tu camino",
   "RIDE_NAME_REQ": "El camino necesita un nombre",
-  "CLASS_LENGTH_ERROR": "",
+  "CLASS_LENGTH_ERROR": "Intenta aproximar tu clase de {{minutes}} minutos, revisando tus opciones",
   "EFFORTS_REQ": "",
   "CLASS_GIVE_NAME": "Nombra tu camino",
   "GOAL_TRACK_REQ": "Cada objetivo necesita una musica",
