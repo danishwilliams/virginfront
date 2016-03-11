@@ -19,7 +19,18 @@ angular.module("app").config(function ($translateProvider, defaultI18n) {
     suffix: '.json'
   });
 
-  $translateProvider.preferredLanguage('en');
+  // .co.za .co.uk .co.it .co.pt
+  var language = 'en';
+  switch (window.location) {
+    case 'ride.virginactive.co.it':
+      language = 'it';
+      break;
+    case 'ride.virginactive.co.pt':
+      language = 'pt';
+      break;
+  }
+
+  $translateProvider.preferredLanguage(language);
 
   // Tells angular-translate to use the English language if translations are not available in current selected language
   //$translateProvider.fallbackLanguage('en');
