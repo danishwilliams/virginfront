@@ -8,24 +8,24 @@
         <h1>{{'USERS' | translate}}</h1>
       </div>
       <div class="large-5 medium-6 columns">
-        <button ng-if-permission="viewAdmin" class="secondary" ui-sref="user-invite">Batch invite</button>
+        <button ng-if-permission="viewAdmin" class="secondary" ui-sref="user-invite">{{'BATCH_INVITE' | translate}}</button>
         <button class="secondary" ui-sref="user-new">{{'CREATE_USER' | translate}}</button>
       </div>
     </div>
 
     <tabset>
-      <tab heading="Active Instructors ({{users.numActive}})">
+      <tab heading="{{'ACTIVE_USERS' | translate}} ({{users.numActive}})">
         <div class="row">
           <div class="medium-9 large-9 columns">
-            <label>Search</label>
-            <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
+            <label>{{'SEARCH' | translate}}</label>
+            <input ng-model="query" type="text" placeholder="{{'INSTRUCTOR_SEARCH' | translate}}" autofocus>
           </div>
           <div class="medium-9  large-9 columns">
-            <label>Filter by Instructor status</label>
+            <label>{{'INSTRUCTOR_FILTER' | translate}}</label>
             <select ng-model="users.status">
-              <option value="" selected>All</option>
-              <option value="Registered">Registered</option>
-              <option value="Invited">Invited</option>
+              <option value="" selected>{{'ALL' | translate}}</option>
+              <option value="Registered">{{'Registered' | translate}}</option>
+              <option value="Invited">{{'INVITED' | translate}}</option>
             </select>
           </div>
         </div>
@@ -36,18 +36,18 @@
         </accordion>
       </tab>
 
-      <tab heading="Disabled accounts ({{users.numDisabled}})">
-        <label>Search</label>
-        <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
+      <tab heading="{{'DISABLED_USERS' | translate}} ({{users.numDisabled}})">
+        <label>{{'SEARCH' | translate}}</label>
+        <input ng-model="query" type="text" placeholder="{{'INSTRUCTOR_SEARCH' | translate}}" autofocus>
         <accordion>
           <user ng-if="user.Archived" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
           </user>
         <accordion>
       </tab>
 
-      <tab ng-if-permission="viewAdmin" heading="Technical users ({{users.numTechnical}})">
-        <label>Search</label>
-        <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
+      <tab ng-if-permission="viewAdmin" heading="{{'TECHNICAL_USERS' | translate}} ({{users.numTechnical}})">
+        <label>{{'SEARCH' | translate}}</label>
+        <input ng-model="query" type="text" placeholder="{{'INSTRUCTOR_SEARCH' | translate}}" autofocus>
         <accordion>
           <user ng-if="user.Type === 'Technical'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
           </user>
