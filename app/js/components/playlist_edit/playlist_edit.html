@@ -23,7 +23,7 @@
           <div class="icon"><img src="/img/playlists/{{playlist_edit.playlist.TemplateIconFileName}}"></div>
           <h2 ng-bind-html="playlist_edit.playlist.TemplateName"></h2> {{playlist_edit.playlist.ClassLengthMinutes}}:00
           <span class="length" ng-class="{'error': !playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()}"><span class="box">{{playlist_edit.playlistTracksLength | minutes}}</span></span>
-          <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()">{{'CLASS_LENGTH_ERROR' | translate}}Try to get your ride closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.</p>
+          <p class="error" ng-if="!playlist_edit.checkPlaylistLength() && playlist_edit.checkAllGoalsHaveTracks()" translate="CLASS_LENGTH_ERROR" translate-values="{minutes: playlist_edit.playlist.ClassLengthMinutes}"></p>
           <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">{{'GOAL_TRACK_REQ' | translate}}</p>
         </div>
       </div>

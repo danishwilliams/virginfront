@@ -95,7 +95,7 @@
   "RIDE_EDIT": "Modifica il tuo corso",
   "RIDE_CREATE": "Crea il tuo corso",
   "RIDE_NAME_REQ": "Il corso ha bisogno di un nome",
-  "CLASS_LENGTH_ERROR": "",
+  "CLASS_LENGTH_ERROR": "Prova a strutturare il tuo corso entro i {{minutes}} minuti rivedendo le scelte delle canzoni",
   "EFFORTS_REQ": "",
   "CLASS_GIVE_NAME": "Dai un nome al tuo corso...",
   "GOAL_TRACK_REQ": "Ogni goal ha bisogno di una canzone",
