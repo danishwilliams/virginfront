@@ -22,7 +22,7 @@
       <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
       <td>
         <ul>
-          <li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li>
+          <li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name | translate}}</li>
         </ul>
       </td>
       <td><a ui-sref="users({id:user.Id})">View</a></td>
