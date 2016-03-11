@@ -6,7 +6,7 @@
     <table style="width: 100%;" ng-if="classes.classes">
       <tbody>
         <tr ng-repeat="class in classes.classes">
-          <td>{{class.ClassTaughtDate | date : 'dd MMMM yyyy'}}</td>
+          <td>{{class.ClassTaughtDate | date : 'dd'}} {{class.ClassTaughtDate | date : 'MMMM' | uppercase | translate}} {{class.ClassTaughtDate | date : 'yyyy'}}</td>
           <td>{{class.ClassTaughtDate | date : 'H:mm'}}</td>
           <td>{{class.GymName}}</td>
           <td>{{class.TemplateName}}</td>

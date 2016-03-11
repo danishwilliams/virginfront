@@ -4,7 +4,7 @@
       <h1>{{user.user.FirstName}} {{user.user.LastName}}</h1>
       <p>{{user.user.Location.City}}, {{user.user.Location.Country.Code}}
         <span ng-if="user.user.LastClassDate"><br>
-          <em>{{'LAST_CLASS' | translate}}: {{user.user.LastClassDate | date : 'dd MMMM yyyy'}}</em>
+          <em>{{'LAST_CLASS' | translate}}: {{user.user.LastClassDate | date : 'dd'}} {{user.user.LastClassDate | date : 'MMMM' | uppercase | translate}} {{user.user.LastClassDate | date : 'yyyy'}}</em>
         </span>
       </p>
     </div>
