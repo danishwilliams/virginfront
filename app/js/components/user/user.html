@@ -55,17 +55,16 @@
           <button ng-show="!user.userTypesEdit" ng-if-permission="users" class="edit right" ng-click="user.loadUserTypes()">{{'EDIT' | translate}}</button>
           <h3>{{'PERMISSIONS' | translate}}</h3>
           <div ng-show="!user.userTypesEdit">
-            {{user.user.UserType.Name}}
             <ul>
               <li ng-repeat="role in user.user.UserUserTypes">
-                {{role.UserType.Name}}
+                {{role.UserType.Name | translate}}
               </li>
             </ul>
           </div>
 
           <form ng-show="user.userTypesEdit" ng-if-permission="users" ng-submit="user.saveUserTypes()">
             <label ng-hide="userType.hide" ng-repeat="userType in user.userTypes | orderBy: 'Name'">
-              <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name}}
+              <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name | translate}}
             </label>
 
             <div class="right">
