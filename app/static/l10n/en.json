@@ -41,7 +41,7 @@
   "PASSWORDS_DONT_MATCH": "Your passwords don't match",
   "EMAIL_INVITE": "Send email invitation",
   "FORGOT_PASSWORD": "Forgot password",
-  "EMAIL_PASSWORD_LINK": "Enter your email address and we\\'ll send you a link to change your password.",
+  "EMAIL_PASSWORD_LINK": "Enter your email address and we'll send you a link to change your password.",
   "CHOOSE_NEW_PASSWORD": "Choose a new password",
   "INVALID_LINK": "This link is no longer valid. Please try",
   "LOGGING_IN": "logging in",
