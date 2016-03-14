@@ -180,6 +180,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
         if (track.playing === true) {
           // User is pausing a playing track
           self.audio.pause();
+          track.paused = true;
           track.playing = false;
 
           // Store track duration played (and date) locally
@@ -196,6 +197,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       } else {
         // A track was playing, but the user is now playing a new track
         self.currentPlayingTrack.playing = false;
+        self.currentPlayingTrack.paused = false;
         self.currentPlayingTrack.loading = false;
         var date = new Date();
         postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), date.toISOString());
