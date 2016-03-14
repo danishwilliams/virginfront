@@ -15,7 +15,7 @@
   "TEMPLATE_NEW_PAGE": "Create New Template | Admin",
   "PROFILE_PAGE": "User profile",
   "USER": "User",
-  "USERS": "Users",
+  "USERS": "Team Directory",
   "CREATE_USER": "Invite new instructor",
   "INVITE": "Invite",
   "PASSWORD_RESET": "Password reset",
