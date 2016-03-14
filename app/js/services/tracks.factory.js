@@ -252,6 +252,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
         $rootScope.$apply(function () {
           track.currentTime = Math.round(self.audio.currentTime);
+          track.progress = self.audio.currentTime / track.DurationSeconds * 100;
         });
       }
     });

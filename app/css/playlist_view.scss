@@ -42,8 +42,8 @@
     padding-right: 0;
     margin-bottom: 0;
     .meter {
-      -webkit-transition: width 0.5s; /* Safari */
-      transition: width 0.5s;
+      -webkit-transition: width 200ms linear; /* Safari */
+      transition: width 200ms linear;
     }
   }
   progress {

@@ -44,9 +44,9 @@
           </div>
         </div>
         <div class="row track-progress" ng-show="track.Track.playing">
-          <!--<progress value="{{track.Track.currentTime}}" max="{{track.Track.DurationSeconds}}"></progress>-->
+          <!--<progress value="{{track.Track.progress}}" max="100"></progress>-->
           <div class="progress">
-            <span class="meter" style="width: {{track.Track.currentTime / track.Track.DurationSeconds * 100}}%"></span>
+            <span class="meter" style="width: {{track.Track.progress}}%"></span>
           </div>
         </div>
       </div>
