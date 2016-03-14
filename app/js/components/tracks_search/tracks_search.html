@@ -36,7 +36,8 @@
           <div ng-messages="vm.error">
             <div class="error" ng-message="server">{{'SEARCH_ERROR' | translate}}</div>
           </div>
-          <div class="row track" id="track{{track.MusicProviderTrackId}}" data-ng-repeat="track in vm.tracks" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
+          <span data-ng-repeat="track in vm.tracks">
+          <div class="row track" id="track{{track.MusicProviderTrackId}}" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
             <div class="play-container small-1 columns" ng-click="vm.playTrack(track);">
               <div class="spinner1" ng-class="{'play': !track.playing && !track.loading, 'loading': track.loading, 'playing': track.playing}">
                 <div class="arrow-right"></div>
@@ -65,6 +66,10 @@
               </div>
             </div>
           </div>
+          <div class="row track-progress" ng-show="track.playing || track.paused">
+            <track-progress data-progress="{{track.progress}}" data-duration="{{track.DurationSeconds}}"></track-progress>
+          </div>
+          </span>
         </div>
         <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-large-up genres" ng-if-responsive="desktop">
           <h3>{{'GENRE_FILTER' | translate}}</h3>
