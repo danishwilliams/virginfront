@@ -50,6 +50,12 @@ aside label {
 
 .icon-bar {
   background: $grey_darker;
+  span.item {
+    padding-bottom: 0px;
+  }
+  > * i + label {
+    font-size: 0.875rem;
+  }
 }
 
 .icon-bar.vertical,
@@ -69,10 +75,6 @@ aside label {
     position: fixed;
     left: 0;
   }
-}
-
-.item:first-of-type {
-  padding-bottom: 0px;
 }
 
 .item {
@@ -124,6 +126,9 @@ aside label {
     width: 50px;
     height: 30px;
     opacity: 0.5;
+  }
+  &.logout {
+    border-top: 1px solid $grey;
   }
 }
 
