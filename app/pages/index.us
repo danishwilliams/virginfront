@@ -82,7 +82,7 @@
           <i class="user"></i>
           <label>{{app.userName}}</label>
         </a>
-        <a class="item" ng-click="app.logout()" ng-if-permission="user">
+        <a class="item logout" ng-click="app.logout()" ng-if-permission="user">
           <label>{{'LOGOUT' | translate}}</label>
         </a>
       </div>
