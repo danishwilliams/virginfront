@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        <div class="row track-progress" ng-show="track.Track.playing">
+        <div class="row track-progress" ng-show="track.Track.playing || track.Track.paused">
           <track-progress data-progress="{{track.Track.progress}}" data-duration="{{track.Track.DurationSeconds}}"></track-progress>
         </div>
       </div>
