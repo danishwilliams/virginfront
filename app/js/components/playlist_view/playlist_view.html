@@ -43,8 +43,15 @@
             </div>
           </div>
         </div>
+        <div class="row track-progress" ng-show="track.Track.playing">
+          <!--<progress value="{{track.Track.currentTime}}" max="{{track.Track.DurationSeconds}}"></progress>-->
+          <div class="progress">
+            <span class="meter" style="width: {{track.Track.currentTime / track.Track.DurationSeconds * 100}}%"></span>
+          </div>
+        </div>
       </div>
     </div>
+
 
     <div class="row">
       <a ng-if="!playlist_view.newPlaylist" style="float:left;" ui-sref="dashboard">{{'RETURN_DASHBOARD' | translate}}</a>
