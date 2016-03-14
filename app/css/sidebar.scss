@@ -56,6 +56,9 @@ aside label {
   > * i + label {
     font-size: 0.875rem;
   }
+  a.item:first-of-type {
+    padding-top: rem-calc(33);
+  }
 }
 
 .icon-bar.vertical,
