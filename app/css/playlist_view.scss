@@ -7,6 +7,10 @@
     font-weight: bold;
     min-height: inherit;
   }
+  .play-container {
+    margin-top: rem-calc(-6px);
+    margin-bottom: rem-calc(6px);
+  }
   .track {
     cursor: auto;
     color: $black;
