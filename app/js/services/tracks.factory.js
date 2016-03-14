@@ -21,6 +21,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
     playTrack: playTrack,
     stopTrack: stopTrack,
     getTrackCurrentTime: getTrackCurrentTime,
+    setTrackCurrentTime: setTrackCurrentTime,
     getCurrentlyPlayingTrack: getCurrentlyPlayingTrack,
     getSearchedTrack: getSearchedTrack,
     setSearchedTrack: setSearchedTrack,
@@ -304,6 +305,10 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
 
   function getTrackCurrentTime() {
     return self.audio.currentTime;
+  }
+
+  function setTrackCurrentTime(time) {
+    self.audio.currentTime = time;
   }
 
   function getCurrentlyPlayingTrack() {
