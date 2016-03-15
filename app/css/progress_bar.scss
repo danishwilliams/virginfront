@@ -1,0 +1,16 @@
+.uiview div.row .track-progress {
+  margin-top: rem-calc(-8);
+  padding-left: 0;
+  padding-right: 0;
+  .progress {
+    padding: 0 0 0 0;
+    margin-bottom: 0;
+    .meter {
+      -webkit-transition: width 200ms linear; /* Safari */
+      transition: width 200ms linear;
+    }
+  }
+  progress {
+    width: 100%;
+  }
+}
