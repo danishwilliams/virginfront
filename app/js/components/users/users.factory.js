@@ -7,11 +7,8 @@ UsersFactory.$inject = ['Restangular', 'Storage', 'uuid2'];
 function UsersFactory(Restangular, Storage, uuid2) {
   var users = [];
   var currentUser = {};
-  var onboardingStatus = false; // true if we're onboarding, false if we're not or if we're done
 
   var usersFactory = {
-    getOnboardingStatus: getOnboardingStatus,
-    setOnboardingStatus: setOnboardingStatus,
     getAccessToken: getAccessToken,
     loadAccessToken: loadAccessToken,
     deleteAccessToken: deleteAccessToken,
@@ -32,14 +29,6 @@ function UsersFactory(Restangular, Storage, uuid2) {
   };
 
   return usersFactory;
-
-  function getOnboardingStatus() {
-    return onboardingStatus;
-  }
-
-  function setOnboardingStatus(value) {
-    onboardingStatus = value;
-  }
 
   function getAccessToken() {
     return Storage.getItem('token');

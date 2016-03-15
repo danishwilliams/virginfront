@@ -122,7 +122,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
     // Skip login check for:
     // - onboarding
     // - password reset
-    if (next.name === 'passwordreset' || (next.name === 'onboarding' && !Users.getOnboardingStatus())) {
+    if (next.name === 'passwordreset' || (next.name === 'onboarding' && !Storage.getItem('onboarding'))) {
       // The first onboarding page skips login check
       spinnerService.hide('bodySpinner');
       self.ready = true;
@@ -134,7 +134,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
     if (self.userName && self.userName.length > 9) {
       self.userName = $filter('translate')('PROFILE');
     }
-    if (!_.isEmpty(user)) {
+    if (!_.isEmpty(user) && !Storage.getItem('onboarding')) {
       self.loggedIn = true;
     }
 
@@ -148,7 +148,9 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
         }
         spinnerService.hide('bodySpinner');
         self.ready = true;
-        self.loggedIn = true;
+        if (!Storage.getItem('onboarding')) {
+          self.loggedIn = true;
+        }
         hasAccessToRoute(user);
       }, function (response) {
         // Catastropic error!
