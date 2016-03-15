@@ -17,6 +17,7 @@ angular
     "app.devices",
     "app.device",
     "app.device_playlists",
+    "app.emails",
     "app.genres",
     "app.goals",
     "app.default_goals",

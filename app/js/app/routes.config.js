@@ -514,6 +514,19 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     data: {
       permissions: [APP_PERMISSIONS.viewAdmin]
     }
+  })
+
+  // Bounced emails
+  .state('emails', {
+    url: '/admin/emails',
+    templateUrl: '../js/components/emails/emails.html',
+    controller: 'EmailsController as vm',
+    resolve: {
+      $title: function() { return 'EMAILS_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
+    }
   });
 
 });
