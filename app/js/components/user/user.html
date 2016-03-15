@@ -140,12 +140,12 @@
       </div>
       <div class="columns large-9">
         <div class="box">
-          <h3>Change language</h3>
+          <h3>{{'CHANGE_LANGUAGE' | translate}}</h3>
           <select ng-model="user.langKey" ng-change="user.changeLanguage(user.langKey)">
-            <option value="en">English</option>
-            <option value="it">Italian</option>
-            <option value="pt">Portugeuse</option>
-            <option value="es">Spanish</option>
+            <option value="en">{{'LANG_EN' | translate}}</option>
+            <option value="it">{{'LANG_IT' | translate}}</option>
+            <option value="pt">{{'LANG_PT' | translate}}</option>
+            <option value="es">{{'LANG_ES' | translate}}</option>
           </select>
         </div>
       </div>
