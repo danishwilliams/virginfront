@@ -33,5 +33,5 @@ angular.module("app").config(function ($translateProvider, defaultI18n) {
   $translateProvider.preferredLanguage(language);
 
   // Tells angular-translate to use the English language if translations are not available in current selected language
-  //$translateProvider.fallbackLanguage('en');
+  $translateProvider.fallbackLanguage('en');
 });

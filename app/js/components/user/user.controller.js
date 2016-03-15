@@ -1,6 +1,7 @@
-angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer, $translate) {
+angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer, $translate, Storage) {
   var self = this;
   this.id = $stateParams.id;
+  self.langKey = Storage.getItem('language');
 
   if (!this.id) {
     this.id = Users.getCurrentUser().Id;
@@ -235,6 +236,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   };
 
   self.changeLanguage = function (langKey) {
+    Storage.setItem('language', langKey);
     $translate.use(langKey);
   };
 });

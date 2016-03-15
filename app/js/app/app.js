@@ -68,14 +68,20 @@ angular
   })
   .controller("AppController", AppController);
 
-AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Authorizer', '$window', '$scope', '$filter'];
+AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Authorizer', '$window', '$scope', '$filter', '$translate', 'Storage'];
 
-function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $window, $scope, $filter) {
+function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $window, $scope, $filter, $translate, Storage) {
   var self = this;
   self.ready = false;
   self.loggedIn = false;
   self.userName = {};
   self.menu = false;
+
+  // Set language (if previously saved)
+  var langKey = Storage.getItem('language');
+  if (langKey) {
+    $translate.use(langKey);
+  }
 
   self.logout = function () {
     Users.logout();

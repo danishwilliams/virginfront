@@ -111,14 +111,14 @@
           <div ng-show="!user.genreEdit">
             <ul>
               <li ng-repeat="genre in user.user.UserGenres | orderBy: 'Name'">
-                {{genre.Genre.Name}}
+                {{genre.Genre.Name | translate}}
               </li>
             </ul>
           </div>
 
           <form ng-show="user.genreEdit" ng-submit="user.saveGenres()">
             <label ng-repeat="genre in user.genres | orderBy: 'Name'">
-              <input type="checkbox" ng-model="genre.selected"> {{genre.Name}}
+              <input type="checkbox" ng-model="genre.selected"> {{genre.Name | translate}}
             </label>
             <div class="right">
               <a class="cancel" ng-click="user.genreEdit = !user.genreEdit">{{'CANCEL' | translate}}</a>
@@ -138,14 +138,14 @@
             <br> {{'PASSWORD' | translate}}: <em>{{user.user.UserMusicProvider.Password}}</em></p>
         </div>
       </div>
-      <div class="columns large-9">
+      <div class="columns large-9" ng-if-permission="users">
         <div class="box">
-          <h3>Change language</h3>
+          <h3>{{'CHANGE_LANGUAGE' | translate}}</h3>
           <select ng-model="user.langKey" ng-change="user.changeLanguage(user.langKey)">
-            <option value="en">English</option>
-            <option value="it">Italian</option>
-            <option value="pt">Portugeuse</option>
-            <option value="es">Spanish</option>
+            <option value="en">{{'LANG_EN' | translate}}</option>
+            <option value="it">{{'LANG_IT' | translate}}</option>
+            <option value="pt">{{'LANG_PT' | translate}}</option>
+            <option value="es">{{'LANG_ES' | translate}}</option>
           </select>
         </div>
       </div>
