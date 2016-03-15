@@ -83,7 +83,9 @@ my_sheet.useServiceAccountAuth(creds, function (err) {
         if (rowNumber > 5 && val.word.indexOf('//') !== 0 && val.word !== '-') {
           language.forEach(function (value) {
              var result = _.pick(val, value.language);
-             value.words[0][val.word] = _.values(result)[0];
+             if (_.values(result)[0]) {
+               value.words[0][val.word] = _.values(result)[0];
+             }
              //value.words.push({[val.word]: _.values(result)[0]});
           });          
         }
