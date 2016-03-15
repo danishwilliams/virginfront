@@ -63,7 +63,7 @@
 
       <a ng-if="vm.templategroup.Type !== 'freestyle'" ng-show="!vm.addClassLength && !vm.addedClassLength && !vm.edit" ng-click="vm.addClassLength = true">+ {{'CLASS_LENGTH_ADD' | translate}}</a>
 
-      <template-lengths ng-show="vm.addClassLength" data-action="Choose class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
+      <template-lengths ng-show="vm.addClassLength" data-action="{{'CLASS_LENGTH_CHOOSE' | translate}}" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
 
       <tabset>
         <spinner class="spinner inline" name="loadClassLengthsSpinner" show="true"></spinner>
