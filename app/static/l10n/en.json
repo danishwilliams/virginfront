@@ -226,6 +226,7 @@
   "ICON_REQ": "Please choose an icon.",
   "TYPE": "Type",
   "CLASS_LENGTH_ADD": "Add class length",
+  "CLASS_LENGTH_CHOOSE": "Choose class length",
   "NAME": "Name",
   "CHANGE_GOAL": "Change goal",
   "GOAL_NAME": "Goal name",
