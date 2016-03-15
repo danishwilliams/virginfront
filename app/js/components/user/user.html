@@ -111,14 +111,14 @@
           <div ng-show="!user.genreEdit">
             <ul>
               <li ng-repeat="genre in user.user.UserGenres | orderBy: 'Name'">
-                {{genre.Genre.Name}}
+                {{genre.Genre.Name | translate}}
               </li>
             </ul>
           </div>
 
           <form ng-show="user.genreEdit" ng-submit="user.saveGenres()">
             <label ng-repeat="genre in user.genres | orderBy: 'Name'">
-              <input type="checkbox" ng-model="genre.selected"> {{genre.Name}}
+              <input type="checkbox" ng-model="genre.selected"> {{genre.Name | translate}}
             </label>
             <div class="right">
               <a class="cancel" ng-click="user.genreEdit = !user.genreEdit">{{'CANCEL' | translate}}</a>
