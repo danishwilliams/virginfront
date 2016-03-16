@@ -216,6 +216,7 @@
   "PACK_INSTRUCTOR_INFO": "This user is a Pack Instructor",
   "EMAILS": "Emails",
   "REASON": "Reason",
+  "INVITE_FAILED_REASON": "The following invites failed due to invalid email addresses.",
   "TEMPLATES": "Templates",
   "TEMPLATE": "Template",
   "TEMPLATE_CREATE": "Create new template",
