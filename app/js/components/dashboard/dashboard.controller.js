@@ -1,4 +1,4 @@
-angular.module("app.dashboard", []).controller('DashboardController', function (Playlists, spinnerService) {
+angular.module("app.dashboard", []).controller('DashboardController', function (Playlists, spinnerService, $timeout) {
   var self = this;
 
   Playlists.loadPlaylists(4).then(function (data) {
@@ -7,10 +7,14 @@ angular.module("app.dashboard", []).controller('DashboardController', function (
     //spinnerService.hide('dashboardSharedSpinner');
   });
 
-  Playlists.loadGymsPlaylistSyncInfoDetailed().then(function (data) {
-    spinnerService.hide('dashboardGymsSpinner');
-    self.gyms = data;
-  });
+  self.loadGyms = function() {
+    Playlists.loadGymsPlaylistSyncInfoDetailed().then(function (data) {
+      spinnerService.hide('dashboardGymsSpinner');
+      self.gyms = data;
+    });
+  };
+
+  self.loadGyms();
 
   Playlists.loadRecentClasses(4).then(function (data) {
     self.classes = data;

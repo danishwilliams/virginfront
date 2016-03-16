@@ -5,7 +5,7 @@
   <div ng-if="!gym.LimitReached"><gym-possible-rides ng-change="vm.addRide()" ng-model="vm.playlist"></gym-possible-rides></div>
 
   <ul>
-    <li ng-hide="playlist.removedExpired" ng-class="{'syncing' : !playlist.DevicePlaylistSyncs[0].SyncSuccess && !playlist.DevicePlaylistSyncs[0].SyncError, 'removed' : playlist.removed, 'error': playlist.DevicePlaylistSyncs[0].SyncError}" ng-repeat="playlist in vm.gym.PlaylistSyncInfos | orderBy:'Playlist.Name'">
+    <li ng-hide="playlist.removedExpired" ng-class="{'syncing' : !playlist.DevicePlaylistSyncs[0].SyncSuccess && !playlist.DevicePlaylistSyncs[0].SyncError, 'removed' : playlist.removed, 'error': playlist.DevicePlaylistSyncs[0].SyncError}" ng-repeat="playlist in $parent.gym.PlaylistSyncInfos | orderBy:'Playlist.Name'">
       <span class="icon"></span><span class="name">{{playlist.Playlist.Name}}</span>
       <!--<span class="right remove" ng-if="playlist.DevicePlaylistSyncs[0].SyncSuccess">-->
       <span class="right remove">

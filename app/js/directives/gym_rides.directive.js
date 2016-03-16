@@ -128,6 +128,7 @@ function gymRidesController(Playlists, $scope, $interval, $timeout) {
         if (playlist.removed) {
           playlist.removedExpired = true;
         }
+        $scope.$parent.dashboard.loadGyms();
       }, 8000);
     }, function (response) {
       // There was some error
