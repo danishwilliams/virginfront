@@ -1,9 +1,9 @@
 angular.module("app.login", [])
   .controller('LoginController', LoginController);
 
-LoginController.$inject = ['$state', 'Users', 'spinnerService'];
+LoginController.$inject = ['$state', 'Users', 'spinnerService', 'USER_STATES'];
 
-function LoginController($state, Users, spinnerService) {
+function LoginController($state, Users, spinnerService, USER_STATES) {
   var self = this;
   this.credentials = {
     username: "",
@@ -15,8 +15,18 @@ function LoginController($state, Users, spinnerService) {
   var onLoginSuccess = function () {
     console.log('onLoginSuccess');
     spinnerService.hide('loginSpinner');
-    if (!_.isEmpty(Users.getCurrentUser().UserUserTypes)) {
-      $state.go('dashboard');
+    var user = Users.getCurrentUser();
+    if (!_.isEmpty(user.UserUserTypes)) {
+      // Handle various onboarding cases i.e. user has just logged in but is in some part of onboarding
+      if (user.State === USER_STATES.onboarding_clubs) {
+        $state.go('onboarding-gyms');
+      }
+      else if (user.State === USER_STATES.onboarding_genres) {
+        $state.go('onboarding-genres');
+      }
+      else {
+        $state.go('dashboard');
+      }
     }
     else {
       // This is a user with no roles

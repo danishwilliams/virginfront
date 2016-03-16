@@ -1,7 +1,7 @@
 /**
  * Does duty both as onboarding and password reset
  */
-angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms, Users) {
+angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms, Users, Storage, USER_STATES) {
   var self = this;
 
   var token = $stateParams.token;
@@ -13,16 +13,25 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     self.onboarding = true;
   }
 
-  // Use this token as our authentication
-  Users.setAccessToken(token);
-  Users.setOnboardingStatus(true);
+  if ($state.current.name === 'onboarding-get-started') {
+    Storage.removeItem('onboarding');
+  }
 
   // Grab the user's account
-  Users.loadCurrentUser(token).then(function(data) {
-    self.user = data;
-  }, function(res) {
-    self.tokenFailed = true;
-  });
+  if (token) {
+    // Use this token as our authentication
+    Users.setAccessToken(token);
+    // Set onboarding status
+    Storage.setItem('onboarding', true);
+    Users.loadCurrentUser(token).then(function(data) {
+      self.user = data;
+    }, function(res) {
+      self.tokenFailed = true;
+    });
+  }
+  else {
+    self.user = Users.getCurrentUser();
+  }
 
   switch ($state.current.name) {
   case 'onboarding-genres':
@@ -50,7 +59,6 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
 
     // Save password and go to the dashboard
     Users.changePassword(self.password).then(function() {
-      Users.setOnboardingStatus(false);
 
       // delete the onboarding token
       Users.deleteAccessToken(token).then(function() {
@@ -66,41 +74,42 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
             return;
           }
 
-          // Update the user state to say we're registered
-          self.user.State = 'registered';
+          // Update the user state
+          self.user.State = USER_STATES.onboarding_clubs;
           self.user.route = "users";
           self.user.put();
 
           if (!_.isEmpty(user.UserUserTypes)) {
-            $state.go('dashboard');
+            $state.go('onboarding-gyms', {token: data});
           }
           else {
             // This is a user with no roles
             $state.go('registered');
           }
-          //$state.go('onboarding-gyms', {
-          //  id: self.id
-          //});
         });
       });
     });
   };
 
   self.save_gyms = function () {
+    // Update the user state
+    self.user.State = USER_STATES.onboarding_genres;
+    self.user.put();
+
     console.log(self.gyms);
 
     // TODO: find all selected gyms
 
     // TODO: save the user with the selected gyms
 
-    $state.go('onboarding-genres', {
-      id: self.id
-    });
+    $state.go('onboarding-genres');
   };
 
   self.save_genres = function () {
-    $state.go('onboarding-get-started', {
-      id: self.id
-    });
+    // Update the user state to say we're registered
+    self.user.State = USER_STATES.registered;
+    self.user.put();
+
+    $state.go('onboarding-get-started');
   };
 });

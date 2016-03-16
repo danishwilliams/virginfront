@@ -220,7 +220,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
 
   // Onboarding - invite
   .state('onboarding', {
-    url: '/onboarding/:token',
+    url: '/onboarding/start/:token',
     templateUrl: '../js/components/onboarding/password.html',
     controller: 'OnboardingController as vm',
     resolve: {
@@ -229,7 +229,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   .state('onboarding-gyms', {
-    url: '/onboarding/:id/gyms',
+    url: '/onboarding/gyms',
     templateUrl: '../js/components/onboarding/gyms.html',
     controller: 'OnboardingController as onboarding',
     resolve: {
@@ -238,7 +238,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   .state('onboarding-genres', {
-    url: '/onboarding/:id/genres',
+    url: '/onboarding/genres',
     templateUrl: '../js/components/onboarding/genres.html',
     controller: 'OnboardingController as onboarding',
     resolve: {
@@ -247,7 +247,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   .state('onboarding-get-started', {
-    url: '/onboarding/:id/get-started',
+    url: '/onboarding/get-started',
     templateUrl: '../js/components/onboarding/get_started.html',
     controller: 'OnboardingController as onboarding',
     resolve: {
