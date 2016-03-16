@@ -220,7 +220,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
 
   // Onboarding - invite
   .state('onboarding', {
-    url: '/onboarding/start/:token',
+    url: '/onboarding/:token',
     templateUrl: '../js/components/onboarding/password.html',
     controller: 'OnboardingController as vm',
     resolve: {
