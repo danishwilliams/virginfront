@@ -3,8 +3,11 @@
  */
 angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms, Users, Storage, USER_STATES) {
   var self = this;
+  var token;
 
-  var token = $stateParams.token;
+  if ($state.current.name === 'onboarding') {
+    token = $stateParams.token;
+  }
 
   // We need to be able to get to this point WITHOUT being logged in.
 

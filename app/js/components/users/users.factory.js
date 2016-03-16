@@ -114,13 +114,13 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES) {
           switch (user.State) {
             case USER_STATES.invite_emailed:
             case USER_STATES.invite_email_failed:
-            case USER_STATES.onboarding_genres:
-            case USER_STATES.onboarding_clubs:
               user.Type = 'Invited';
               if (!counted) {
                 counted = true;
               }
               break;
+            case USER_STATES.onboarding_genres:
+            case USER_STATES.onboarding_clubs:
             case USER_STATES.registered:
               user.Type = 'Registered';
               if (!counted) {
