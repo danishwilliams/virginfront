@@ -5,22 +5,8 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
 
   // TODO: refactor templategroup-new so that we don't have to duplicate adding/editing templates
 
-  // If a template has just been saved or added
-  if ($stateParams.action) {
-    var message = '';
-    switch ($stateParams.action) {
-      case 'edited':
-        message = 'TEMPLATE_EDITED';
-        break;
-      case 'saved':
-        message = 'TEMPLATE_ADDED';
-        break;
-    }
-    self.messages = [{
-      type: 'success',
-      msg: message
-    }];
-  }
+  // If a template has just been saved or added, show that message
+  self.messages = Templates.getMessages();
 
   if ($state.current.name === 'templategroup') {
     // Viewing/editing a template group

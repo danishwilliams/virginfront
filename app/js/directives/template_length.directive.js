@@ -156,10 +156,11 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     // Save the template
     self.template.put().then(function () {
       spinnerService.hide('saveTemplate' + self.template.Id + 'TimeSpinner');
-      var action = self.newTemplate ? 'saved' : 'edited';
+
+      var message = self.newTemplate ? 'TEMPLATE_ADDED' : 'TEMPLATE_EDITED';
+      Templates.setMessage('success', message);
       $state.go('templategroup', {
-        id: self.template.TemplateGroup.Id,
-        action: action
+        id: self.template.TemplateGroup.Id
       }, {
         reload: true
       });
