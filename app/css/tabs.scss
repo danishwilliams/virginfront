@@ -13,3 +13,11 @@
   @include secondary-button;
   margin: rem-calc(8px) 0 rem-calc(8px) rem-calc(32px);
 }
+
+.inline-tab {
+  float: right;
+  padding: 1rem 2rem;
+  select {
+    margin-bottom: 0;
+  }
+}
