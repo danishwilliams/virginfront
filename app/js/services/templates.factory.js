@@ -11,6 +11,7 @@ function TemplatesFactory(Restangular, uuid2, Users) {
   var self = this;
   var templates = [];
   var templateGroups = [];
+  var messages = []; // A list of messages each consisting of an object: {type: 'success', msg: 'The message'}
 
   var templatesFactory = {
     createBlankTemplate: createBlankTemplate,
@@ -27,7 +28,10 @@ function TemplatesFactory(Restangular, uuid2, Users) {
     loadTemplateGroup: loadTemplateGroup,
     disableTemplateGroup: disableTemplateGroup,
     enableTemplateGroup: enableTemplateGroup,
-    loadTemplateGroupClasses: loadTemplateGroupClasses
+    loadTemplateGroupClasses: loadTemplateGroupClasses,
+    addMessage: addMessage,
+    setMessage: setMessage,
+    getMessages: getMessages
   };
 
   return templatesFactory;
@@ -172,5 +176,17 @@ function TemplatesFactory(Restangular, uuid2, Users) {
     function loadTemplateGroupClassesComplete(data, status, headers, config) {
       return data;
     }
+  }
+
+  function addMessage(type, msg) {
+    messages.push({type: type, msg: msg});
+  }
+
+  function setMessage(type, msg) {
+    messages = [{type: type, msg: msg}];
+  }
+
+  function getMessages() {
+    return messages;
   }
 }
