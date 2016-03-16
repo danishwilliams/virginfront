@@ -92,6 +92,57 @@ function UsersFactory(Restangular, Storage, uuid2) {
     return Restangular.all('users').getList().then(loadUsersComplete);
 
     function loadUsersComplete(data, status, headers, config) {
+      /** Determine the type of the user:
+       *  - 'Invited' if the user has been invited but hasn't ever logged in before
+       *  - 'Registered' if the user has logged in at least once (includes onboarding)
+       *  - 'Technical' if the user is a technical user (or we don't know what to do with them due to some error)
+       */
+
+      data.forEach(function (user) {
+        var counted = false;
+        if (user.Enabled) {
+          user.Archived = false;
+        }
+        else {
+          counted = true;
+          user.Archived = true;
+        }
+
+        // Set the user type. One of Registered, Technical, Invited
+        user.Type = 'Registered';
+        user.UserUserTypes.forEach(function (type) {
+          switch (user.State) {
+            case 'invite_emailed':
+            case 'invite_email_failed':
+            case 'onboarding_password':
+            case 'onboarding_genre':
+            case 'onboarding_clubs':
+              user.Type = 'Invited';
+              if (!counted) {
+                counted = true;
+              }
+              break;
+            case 'registered':
+              user.Type = 'Registered';
+              if (!counted) {
+                counted = true;
+              }
+          }
+          switch (type.UserType.Name) {
+            case 'Admin':
+            case 'API User':
+            case 'Device':
+            case 'Import':
+              if (!counted) {
+                counted = true;
+              }
+              user.Type = 'Technical';
+          }
+          if (!counted) {
+            user.Type = 'Technical'; // So that if any users show up there we know something has screwed up
+          }
+        });
+      });
       users = data;
       return users;
     }
