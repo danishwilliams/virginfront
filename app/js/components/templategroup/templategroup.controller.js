@@ -2,6 +2,7 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
   var self = this;
   this.id = $stateParams.id;
   this.templategroup = {};
+  self.classLengths = []; // List of template times this template group contains
 
   // TODO: refactor templategroup-new so that we don't have to duplicate adding/editing templates
 
@@ -31,6 +32,9 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
       Templates.loadTemplateGroupClasses(self.id).then(function (data) {
         spinnerService.hide('loadClassLengthsSpinner');
         self.templategroup.ClassLengths = data.TemplateClassLength;
+        self.templategroup.ClassLengths.forEach(function (template) {
+          self.classLengths.push(template.ClassLengthMinutes);
+        });
       });
     });
   } else {
