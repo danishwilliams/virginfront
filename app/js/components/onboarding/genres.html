@@ -1,12 +1,22 @@
 <div class="onboarding row">
-  <h2>{{'GENRES_HEADING' | translate}}</h2>
+  <div class="large-8 large-centered columns">
+    <div class="content">
 
-  <form ng-submit="onboarding.save_genres()">
-    <ul class="align-left">
-      <li ng-repeat="genre in onboarding.genres | orderBy:'Name'">
-        {{genre.Name}}
-      </li>
-    </ul>
-    <button class="round">{{'DONE' | translate}}</button>
-  </form>
+      <div class="dark-block text-left row">
+        <div class="large-16 large-centered columns">
+
+        <h2>{{'GENRES_HEADING' | translate}}</h2>
+        <spinner class="spinner" name="obGenresSpinner" show="true"></spinner>
+
+        <form ng-submit="vm.save_genres()">
+          <span class="align-left" ng-repeat="genre in vm.genres | orderBy:'Name'">
+            <label>
+              <input type="checkbox" ng-model="genre.selected"> {{genre.Name | translate}}
+            </label>
+          </span>
+          <input type="submit" ng-show="vm.genres.length > 0" class="right" value="{{'DONE' | translate}}" ng-disabled="vm.saving">
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

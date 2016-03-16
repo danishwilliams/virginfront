@@ -218,6 +218,36 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Onboarding - gyms
+  .state('onboarding-gyms', {
+    url: '/onboarding/gyms',
+    templateUrl: '../js/components/onboarding/gyms.html',
+    controller: 'OnboardingController as vm',
+    resolve: {
+      $title: function() { return 'OB_CLUBS_TITLE'; }
+    }
+  })
+
+  // Onboarding - genres
+  .state('onboarding-genres', {
+    url: '/onboarding/genres',
+    templateUrl: '../js/components/onboarding/genres.html',
+    controller: 'OnboardingController as vm',
+    resolve: {
+      $title: function() { return 'OB_GENRES'; }
+    }
+  })
+
+  // Onboarding - last page
+  .state('onboarding-get-started', {
+    url: '/onboarding/get-started',
+    templateUrl: '../js/components/onboarding/get_started.html',
+    controller: 'OnboardingController as vm',
+    resolve: {
+      $title: function() { return 'OB_DONE'; }
+    },
+  })
+
   // Onboarding - invite
   .state('onboarding', {
     url: '/onboarding/:token',
@@ -226,33 +256,6 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     resolve: {
       $title: function() { return 'OB_PASSWORD'; }
     }
-  })
-
-  .state('onboarding-gyms', {
-    url: '/onboarding/gyms',
-    templateUrl: '../js/components/onboarding/gyms.html',
-    controller: 'OnboardingController as onboarding',
-    resolve: {
-      $title: function() { return 'OB_CLUBS_TITLE'; }
-    }
-  })
-
-  .state('onboarding-genres', {
-    url: '/onboarding/genres',
-    templateUrl: '../js/components/onboarding/genres.html',
-    controller: 'OnboardingController as onboarding',
-    resolve: {
-      $title: function() { return 'OB_GENRES'; }
-    }
-  })
-
-  .state('onboarding-get-started', {
-    url: '/onboarding/get-started',
-    templateUrl: '../js/components/onboarding/get_started.html',
-    controller: 'OnboardingController as onboarding',
-    resolve: {
-      $title: function() { return 'OB_DONE'; }
-    },
   })
 
   // Playlists

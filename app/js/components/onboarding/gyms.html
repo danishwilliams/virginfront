@@ -1,14 +1,25 @@
 <div class="onboarding row">
-  <p>{{'OB_KNOW' | translate}}</p>
-  <h2>{{'OB_CLUBS' | translate}}</h2>
-  <form ng-submit="onboarding.save_gyms()">
-    <ul class="align-left">
-      <li ng-repeat="gym in onboarding.gyms | orderBy:'Name'">
-        <label>
-          <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
-        </label>
-      </li>
-    </ul>
-    <button class="round">{{'SAVE' | translate}}</button>
-  </form>
+  <div class="large-8 large-centered columns">
+    <div class="content">
+
+      <div class="dark-block text-left row">
+        <div class="large-16 large-centered columns">
+
+          <p>{{'OB_KNOW' | translate}}</p>
+          <h2>{{'OB_CLUBS' | translate}}</h2>
+          <spinner class="spinner" name="obGymsSpinner" show="true"></spinner>
+
+          <form ng-submit="vm.save_gyms()">
+            <span class="align-left" ng-repeat="gym in vm.gyms | orderBy:'Name'">
+              <label>
+                <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
+              </label>
+            </span>
+            <input type="submit" ng-show="vm.gyms.length > 0" class="right" value="{{'SAVE' | translate}}" ng-disabled="vm.saving">
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
