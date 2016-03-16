@@ -306,5 +306,6 @@
   "CONNECTING_EXPERIENCE_MANAGER": "Connecting to the Experience manager",
   "FAILED_EXPERIENCE_MANAGER": "Failed to connect to the Experience manager",
   "CONTINUE_ANYWAY_BTN": "Continue anyway",
-  "CONTACT_ADMIN": "Please contact your administrator"
+  "CONTACT_ADMIN": "Please contact your administrator",
+  "CONNECTED": "Connected"
 }
