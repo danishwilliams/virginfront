@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
+    <div class="row heading">
+      <h1>Emails</h1>
+    </div>
+
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <td>{{'STATUS' | translate}}</td>
+            <td>{{'CREATED' | translate}}</td>
+            <td>{{'REASON' | translate}}</td>
+            <td>{{'EMAIL' | translate}}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entry in vm.emails">
+            <td>{{entry.status}}</td>
+            <td>{{entry.created}}</td>
+            <td>{{entry.reason}}</td>
+            <td>{{entry.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
