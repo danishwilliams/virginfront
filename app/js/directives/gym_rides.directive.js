@@ -21,9 +21,9 @@ function gymRides() {
   }
 }
 
-gymRidesController.$inject = ['Playlists', '$scope', '$interval'];
+gymRidesController.$inject = ['Playlists', '$scope', '$interval', '$timeout'];
 
-function gymRidesController(Playlists, $scope, $interval) {
+function gymRidesController(Playlists, $scope, $interval, $timeout) {
   var self = this;
   var intervalPromise = [];
   self.playlistLimitPerGym = Playlists.getPlaylistLimitPerGym();
@@ -114,6 +114,7 @@ function gymRidesController(Playlists, $scope, $interval) {
   self.remove = function (playlist, gymId) {
     playlist.removed = true;
     self.playlistCount--;
+
     Playlists.removePlaylistFromGym(playlist.Playlist.Id, gymId).then(function (data) {
       // It worked!
 
@@ -121,6 +122,13 @@ function gymRidesController(Playlists, $scope, $interval) {
       if (playlist.IntervalId) {
         $interval.cancel(intervalPromise[playlist.IntervalId]);
       }
+
+      // Hide it from the list after 8 seconds
+      $timeout(function() {
+        if (playlist.removed) {
+          playlist.removedExpired = true;
+        }
+      }, 8000);
     }, function (response) {
       // There was some error
       console.log("Error with status code", response.status);
