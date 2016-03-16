@@ -211,5 +211,20 @@
   "SEPTEMBER": "Setembro",
   "OCTOBER": "Outubro",
   "NOVEMBER": "Novembro",
-  "DECEMBER": "Dezembro"
+  "DECEMBER": "Dezembro",
+  "NO_RIDES": "You have no rides available.",
+  "SELECT_RIDE_FOR_DEVICE": "Select a ride to make available on this device now.",
+  "MIN_REMAINING": "min remaining",
+  "RECEIVING": "Receiving",
+  "TRY_AGAIN": "Try again",
+  "CONNECTION_ERROR": "Please check your internet connection and try again",
+  "GETTING_RIDES": "Getting your rides",
+  "VERSION": "Version",
+  "LOGIN_VALIDATION_ERROR": "Your email address or password appears to be incorrect, please check your details and try again",
+  "RIDES_AT_CLUB": "Rides available at",
+  "DAYS_REMAINING": "Due to not being a regular instructor at this club, your playlist will only be available for {$days} days from today",
+  "CONNECTING_EXPERIENCE_MANAGER": "Connecting to the Experience manager",
+  "FAILED_EXPERIENCE_MANAGER": "Failed to connect to the Experience manager",
+  "CONTINUE_ANYWAY_BTN": "Continue anyway",
+  "CONTACT_ADMIN": "Please contact your administrator"
 }

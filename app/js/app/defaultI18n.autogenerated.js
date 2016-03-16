@@ -222,6 +222,8 @@
   "TEMPLATE_CREATE": "Create new template",
   "TEMPLATE_TYPE_ARCHIVE": "Archive this template type",
   "TEMPLATE_TYPE_UNARCHIVE": "Unarchive this template type",
+  "TEMPLATE_ARCHIVED": "Template archived",
+  "TEMPLATE_UNARCHIVED": "Template unarchived",
   "TEMPLATE_NAME": "Template name",
   "TEMPLATE_NAME_REQ": "Please give this template a name.",
   "DESCRIPTION": "Description",
