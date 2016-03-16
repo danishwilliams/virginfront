@@ -6,14 +6,15 @@
         <div class="large-16 large-centered columns">
 
         <h2>{{'GENRES_HEADING' | translate}}</h2>
+        <spinner class="spinner" name="obGenresSpinner" show="true"></spinner>
 
-        <form ng-submit="onboarding.save_genres()">
-          <span class="align-left" ng-repeat="genre in onboarding.genres | orderBy:'Name'">
+        <form ng-submit="vm.save_genres()">
+          <span class="align-left" ng-repeat="genre in vm.genres | orderBy:'Name'">
             <label>
-              <input type="checkbox" ng-model="gym.selected"> {{genre.Name | translate}}
+              <input type="checkbox" ng-model="genre.selected"> {{genre.Name | translate}}
             </label>
           </span>
-          <button class="round">{{'DONE' | translate}}</button>
+          <input type="submit" ng-show="vm.genres.length > 0" class="right" value="{{'DONE' | translate}}" ng-disabled="vm.saving">
         </form>
       </div>
     </div>

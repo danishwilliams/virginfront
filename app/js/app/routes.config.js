@@ -222,7 +222,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('onboarding-gyms', {
     url: '/onboarding/gyms',
     templateUrl: '../js/components/onboarding/gyms.html',
-    controller: 'OnboardingController as onboarding',
+    controller: 'OnboardingController as vm',
     resolve: {
       $title: function() { return 'OB_CLUBS_TITLE'; }
     }
@@ -232,7 +232,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('onboarding-genres', {
     url: '/onboarding/genres',
     templateUrl: '../js/components/onboarding/genres.html',
-    controller: 'OnboardingController as onboarding',
+    controller: 'OnboardingController as vm',
     resolve: {
       $title: function() { return 'OB_GENRES'; }
     }
@@ -242,7 +242,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('onboarding-get-started', {
     url: '/onboarding/get-started',
     templateUrl: '../js/components/onboarding/get_started.html',
-    controller: 'OnboardingController as onboarding',
+    controller: 'OnboardingController as vm',
     resolve: {
       $title: function() { return 'OB_DONE'; }
     },

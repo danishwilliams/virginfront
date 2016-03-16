@@ -1,8 +1,9 @@
 /**
  * Does duty both as onboarding and password reset
  */
-angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms, Users, Storage, USER_STATES) {
+angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms, Users, Storage, USER_STATES, spinnerService) {
   var self = this;
+  self.saving = false;
 
   // Because this controller handles both onboarding and password reset
   if ($state.current.name !== 'passwordreset') {
@@ -36,11 +37,13 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
   switch ($state.current.name) {
   case 'onboarding-genres':
     Genres.loadGenres().then(function (data) {
+      spinnerService.hide('obGenresSpinner');
       self.genres = data;
     });
     break;
   case 'onboarding-gyms':
     Gyms.loadGyms().then(function (data) {
+      spinnerService.hide('obGymsSpinner');
       self.gyms = data;
     });
     break;
@@ -56,6 +59,8 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     if (self.password !== self.password1) {
       return;
     }
+
+    self.saving = true;
 
     // Save password and go to the dashboard
     Users.changePassword(self.password).then(function() {
@@ -92,24 +97,45 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
   };
 
   self.save_gyms = function () {
+    self.saving = true;
+
     // Update the user state
     self.user.State = USER_STATES.onboarding_genres;
-    self.user.put();
 
-    console.log(self.gyms);
+    self.user.UserGyms = [];
+    self.gyms.forEach(function (val) {
+      if (val.selected) {
+        self.user.UserGyms.push({
+          Gym: val,
+          GymId: val.Id
+        });
+      }
+    });
 
-    // TODO: find all selected gyms
-
-    // TODO: save the user with the selected gyms
-
-    $state.go('onboarding-genres');
+    self.user.put().then(function() {
+      $state.go('onboarding-genres');
+    });
   };
 
   self.save_genres = function () {
+    self.saving = true;
+
     // Update the user state to say we're registered
     self.user.State = USER_STATES.registered;
-    self.user.put();
 
-    $state.go('onboarding-get-started');
+    // Replace the genres in the userobject for saving
+    self.user.UserGenres = [];
+    self.genres.forEach(function (val) {
+      if (val.selected) {
+        self.user.UserGenres.push({
+          Genre: val,
+          GenreId: val.Id
+        });
+      }
+    });
+
+    self.user.put().then(function() {
+      $state.go('onboarding-get-started');
+    });
   };
 });

@@ -7,13 +7,15 @@
 
           <p>{{'OB_KNOW' | translate}}</p>
           <h2>{{'OB_CLUBS' | translate}}</h2>
-          <form ng-submit="onboarding.save_gyms()">
-            <span class="align-left" ng-repeat="gym in onboarding.gyms | orderBy:'Name'">
+          <spinner class="spinner" name="obGymsSpinner" show="true"></spinner>
+
+          <form ng-submit="vm.save_gyms()">
+            <span class="align-left" ng-repeat="gym in vm.gyms | orderBy:'Name'">
               <label>
                 <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
               </label>
             </span>
-            <button class="round">{{'SAVE' | translate}}</button>
+            <input type="submit" ng-show="vm.gyms.length > 0" class="right" value="{{'SAVE' | translate}}" ng-disabled="vm.saving">
           </form>
         </div>
       </div>
