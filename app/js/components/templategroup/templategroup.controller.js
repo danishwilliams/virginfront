@@ -128,6 +128,10 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     Templates.disableTemplateGroup(self.templategroup.Id).then(function (data) {
       spinnerService.hide('archiveTemplateGroupSpinner');
       self.templategroup.Enabled = false;
+      self.messages = [{
+        type: 'success',
+        msg: TEMPLATE_ARCHIVED
+      }];
     });
   };
 
@@ -136,6 +140,10 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     Templates.enableTemplateGroup(self.templategroup.Id).then(function (data) {
       spinnerService.hide('archiveTemplateGroupSpinner');
       self.templategroup.Enabled = true;
+      self.messages = [{
+        type: 'success',
+        msg: TEMPLATE_UNARCHIVED
+      }];
     });
   };
 });
