@@ -218,16 +218,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
-  // Onboarding - invite
-  .state('onboarding', {
-    url: '/onboarding/:token',
-    templateUrl: '../js/components/onboarding/password.html',
-    controller: 'OnboardingController as vm',
-    resolve: {
-      $title: function() { return 'OB_PASSWORD'; }
-    }
-  })
-
+  // Onboarding - gyms
   .state('onboarding-gyms', {
     url: '/onboarding/gyms',
     templateUrl: '../js/components/onboarding/gyms.html',
@@ -237,6 +228,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Onboarding - genres
   .state('onboarding-genres', {
     url: '/onboarding/genres',
     templateUrl: '../js/components/onboarding/genres.html',
@@ -246,6 +238,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Onboarding - last page
   .state('onboarding-get-started', {
     url: '/onboarding/get-started',
     templateUrl: '../js/components/onboarding/get_started.html',
@@ -253,6 +246,16 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     resolve: {
       $title: function() { return 'OB_DONE'; }
     },
+  })
+
+  // Onboarding - invite
+  .state('onboarding', {
+    url: '/onboarding/:token',
+    templateUrl: '../js/components/onboarding/password.html',
+    controller: 'OnboardingController as vm',
+    resolve: {
+      $title: function() { return 'OB_PASSWORD'; }
+    }
   })
 
   // Playlists

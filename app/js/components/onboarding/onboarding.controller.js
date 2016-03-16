@@ -3,13 +3,6 @@
  */
 angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms, Users, Storage, USER_STATES) {
   var self = this;
-  var token;
-
-  if ($state.current.name === 'onboarding') {
-    token = $stateParams.token;
-  }
-
-  // We need to be able to get to this point WITHOUT being logged in.
 
   // Because this controller handles both onboarding and password reset
   if ($state.current.name !== 'passwordreset') {
@@ -21,7 +14,11 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
   }
 
   // Grab the user's account
-  if (token) {
+  if ($state.current.name === 'onboarding') {
+    // We need to be able to get to this point WITHOUT being logged in.
+
+    var token = $stateParams.token;
+
     // Use this token as our authentication
     Users.setAccessToken(token);
     // Set onboarding status
