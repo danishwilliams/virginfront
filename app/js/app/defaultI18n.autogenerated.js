@@ -300,5 +300,9 @@
   "VERSION": "Version",
   "LOGIN_VALIDATION_ERROR": "Your email address or password appears to be incorrect, please check your details and try again",
   "RIDES_AT_CLUB": "Rides available at",
-  "DAYS_REMAINING": "Due to not being a regular instructor at this club, your playlist will only be available for {$days} days from today"
+  "DAYS_REMAINING": "Due to not being a regular instructor at this club, your playlist will only be available for {$days} days from today",
+  "CONNECTING_EXPERIENCE_MANAGER": "Connecting to the Experience manager",
+  "FAILED_EXPERIENCE_MANAGER": "Failed to connect to the Experience manager",
+  "CONTINUE_ANYWAY_BTN": "Continue anyway",
+  "CONTACT_ADMIN": "Please contact your administrator"
 } });
