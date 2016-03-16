@@ -36,6 +36,9 @@
           <div ng-messages="vm.error">
             <div class="error" ng-message="server">{{'SEARCH_ERROR' | translate}}</div>
           </div>
+          <span ng-show="!vm.searching && vm.tracks.length === 0">
+            {{'NO_TRACKS' | translate}}
+          </span>
           <span data-ng-repeat="track in vm.tracks">
           <div class="row track" id="track{{track.MusicProviderTrackId}}" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
             <div class="play-container small-1 columns" ng-click="vm.playTrack(track);">

@@ -5,6 +5,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   var isCustomRpm = Playlists.getPlaylistCustomRpm();
   this.tracks = Tracks.getTracks();
   self.error = {};
+  self.searching = true; // A search is in progress
 
   if (this.currentgoal.BpmLow === -1) {
     $state.go('^');
@@ -22,14 +23,19 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
       // Load tracks from the user's default genre selection
       Tracks.loadUserDefaultGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
         self.tracks = data;
-        spinnerService.hide('trackSpinner');
+        searchFinished();
       }, function () {
-        spinnerService.hide('trackSpinner');
+        searchFinished();
         self.error = {
           server: true
         };
       });
     }
+  }
+
+  function searchFinished() {
+    self.searching = false;
+    spinnerService.hide('trackSpinner');
   }
 
   // Set up addition bpm range for non-UK (i.e. the playlist IsCustomRpm value is true)
@@ -57,13 +63,14 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
 
   this.trackSearch = function () {
     spinnerService.show('trackSpinner');
+    self.searching = true;
     self.tracks = [];
     self.error = {};
     Tracks.searchTracks(self.search).then(function (data) {
       self.tracks = data;
-      spinnerService.hide('trackSpinner');
+      searchFinished();
     }, function () {
-      spinnerService.hide('trackSpinner');
+      searchFinished();
       self.error = {
         server: true
       };
@@ -75,6 +82,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
       // Save the genre selection for later
 
       // Do the genre track search
+      self.searching = true;
       spinnerService.show('trackSpinner');
       self.tracks = [];
       self.error = {};
@@ -93,11 +101,11 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
 
   function loadTracksSuccess (data) {
     self.tracks = data;
-    spinnerService.hide('trackSpinner');
+    searchFinished();
   }
 
   function loadTracksFailed () {
-    spinnerService.hide('trackSpinner');
+    searchFinished();
     self.error = {
       server: true
     };

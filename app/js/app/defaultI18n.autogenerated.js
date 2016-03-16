@@ -126,6 +126,7 @@
   "ON_THE_BEAT": "On the beat",
   "GENRE_FILTER": "Filter by genre",
   "SEARCH_ERROR": "There was an issue with the song search. Please try again later.",
+  "NO_TRACKS": "No tracks to show.",
   "All": "All",
   "Blues": "Blues",
   "Classical": "Classical",
