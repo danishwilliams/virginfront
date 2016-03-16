@@ -289,5 +289,9 @@
   "VERSION": "Versione",
   "LOGIN_VALIDATION_ERROR": "Il tuo indirizzo email o password sono incorretti, per favore controlla i tuoi dettagli ed inserisci nuovamente.",
   "RIDES_AT_CLUB": "Corsi disponibili a",
-  "DAYS_REMAINING": "Dal momento che non sei un istruttore fisso in questo club, la tua playlist sarà disponibile solo per  giorni da oggi."
+  "DAYS_REMAINING": "Dal momento che non sei un istruttore fisso in questo club, la tua playlist sarà disponibile solo per  giorni da oggi.",
+  "CONNECTING_EXPERIENCE_MANAGER": "Connecting to the Experience manager",
+  "FAILED_EXPERIENCE_MANAGER": "Failed to connect to the Experience manager",
+  "CONTINUE_ANYWAY_BTN": "Continue anyway",
+  "CONTACT_ADMIN": "Please contact your administrator"
 }
