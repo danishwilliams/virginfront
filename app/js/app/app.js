@@ -66,6 +66,13 @@ angular
     manager: "Manager",
     admin: "Admin"
   })
+  .constant('USER_STATES', {
+    invite_emailed: "invite_emailed",
+    invite_email_failed: "invite_email_failed",
+    onboarding_genres: "onboarding_genres",
+    onboarding_clubs: "onboarding_clubs",
+    registered: "registered",
+  })
   .controller("AppController", AppController);
 
 AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Authorizer', '$window', '$scope', '$filter', '$translate', 'Storage'];

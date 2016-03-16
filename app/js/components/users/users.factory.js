@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Users', UsersFactory);
 
-UsersFactory.$inject = ['Restangular', 'Storage', 'uuid2'];
+UsersFactory.$inject = ['Restangular', 'Storage', 'uuid2', 'USER_STATES'];
 
-function UsersFactory(Restangular, Storage, uuid2) {
+function UsersFactory(Restangular, Storage, uuid2, USER_STATES) {
   var users = [];
   var currentUser = {};
 
@@ -112,17 +112,16 @@ function UsersFactory(Restangular, Storage, uuid2) {
         user.Type = 'Registered';
         user.UserUserTypes.forEach(function (type) {
           switch (user.State) {
-            case 'invite_emailed':
-            case 'invite_email_failed':
-            case 'onboarding_password':
-            case 'onboarding_genre':
-            case 'onboarding_clubs':
+            case USER_STATES.invite_emailed:
+            case USER_STATES.invite_email_failed:
+            case USER_STATES.onboarding_genres:
+            case USER_STATES.onboarding_clubs:
               user.Type = 'Invited';
               if (!counted) {
                 counted = true;
               }
               break;
-            case 'registered':
+            case USER_STATES.registered:
               user.Type = 'Registered';
               if (!counted) {
                 counted = true;

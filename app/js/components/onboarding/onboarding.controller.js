@@ -1,7 +1,7 @@
 /**
  * Does duty both as onboarding and password reset
  */
-angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms, Users, Storage) {
+angular.module("app.onboarding", []).controller('OnboardingController', function ($stateParams, $state, Genres, Gyms, Users, Storage, USER_STATES) {
   var self = this;
 
   var token = $stateParams.token;
@@ -75,7 +75,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
           }
 
           // Update the user state
-          self.user.State = 'ob_gyms';
+          self.user.State = USER_STATES.onboarding_clubs;
           self.user.route = "users";
           self.user.put();
 
@@ -93,7 +93,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
 
   self.save_gyms = function () {
     // Update the user state
-    self.user.State = 'ob_genres';
+    self.user.State = USER_STATES.onboarding_genres;
     self.user.put();
 
     console.log(self.gyms);
@@ -107,7 +107,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
 
   self.save_genres = function () {
     // Update the user state to say we're registered
-    self.user.State = 'registered';
+    self.user.State = USER_STATES.registered;
     self.user.put();
 
     $state.go('onboarding-get-started');
