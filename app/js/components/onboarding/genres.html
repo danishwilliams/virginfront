@@ -1,12 +1,21 @@
 <div class="onboarding row">
-  <h2>{{'GENRES_HEADING' | translate}}</h2>
+  <div class="large-8 large-centered columns">
+    <div class="content">
 
-  <form ng-submit="onboarding.save_genres()">
-    <ul class="align-left">
-      <li ng-repeat="genre in onboarding.genres | orderBy:'Name'">
-        {{genre.Name}}
-      </li>
-    </ul>
-    <button class="round">{{'DONE' | translate}}</button>
-  </form>
+      <div class="dark-block text-left row">
+        <div class="large-16 large-centered columns">
+
+        <h2>{{'GENRES_HEADING' | translate}}</h2>
+
+        <form ng-submit="onboarding.save_genres()">
+          <span class="align-left" ng-repeat="genre in onboarding.genres | orderBy:'Name'">
+            <label>
+              <input type="checkbox" ng-model="gym.selected"> {{genre.Name | translate}}
+            </label>
+          </span>
+          <button class="round">{{'DONE' | translate}}</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
