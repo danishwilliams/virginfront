@@ -3,6 +3,7 @@
     <div class="row heading">
       <h2>{{vm.template.TemplateGroup.Name}} ({{vm.template.ClassLengthMinutes}} {{'MINUTES_SMALL' | translate}})</h2>
     </div>
+    <form name="form" novalidate>
     <div class="row goal" data-ng-repeat="goal in vm.template.Goals | orderBy:'SortOrder' track by $index">
       <div class="goal-container">
 
@@ -111,11 +112,10 @@
 
     <div class="row">
       <!--<a class="cancel" style="float:left" ui-sref="templategroup({id:vm.template.TemplateGroup.Id})">Cancel</a>-->
-      <button ng-disabled="vm.freestyleGoals.length > 0" class="round" style="float:right" ng-click="vm.saveTemplate()">
-        <spinner ng-if="vm.template.Id" class="spinner" name="saveTemplate{{vm.template.Id}}TimeSpinner" show="false"></spinner>
-        {{'TEMPLATE_SAVE' | translate}}
-      </button>
+      <input type="submit" ng-disabled="vm.freestyleGoals.length > 0 || form.$pristine" class="round" style="float:right" ng-click="vm.saveTemplate()" value="{{'TEMPLATE_SAVE' | translate}}">
+      <spinner ng-if="vm.template.Id" class="spinner" name="saveTemplate{{vm.template.Id}}TimeSpinner" show="false"></spinner>
     </div>
+    </form>
 
   </div>
 </div>
