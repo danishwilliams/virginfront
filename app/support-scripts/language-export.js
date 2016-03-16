@@ -81,10 +81,17 @@ my_sheet.useServiceAccountAuth(creds, function (err) {
 
         // This is a translation, so pop it into the array
         if (rowNumber > 5 && val.word.indexOf('//') !== 0 && val.word !== '-') {
+          var englishWord = ''; // The english translation
           language.forEach(function (value) {
              var result = _.pick(val, value.language);
              if (_.values(result)[0]) {
                value.words[0][val.word] = _.values(result)[0];
+               if (!englishWord) {
+                 englishWord = _.values(result)[0];
+               }
+             }
+             else {
+               value.words[0][val.word] = englishWord;
              }
              //value.words.push({[val.word]: _.values(result)[0]});
           });          
