@@ -183,3 +183,9 @@ goal_option {
     width: auto;
   }
 }
+
+.playlist-edit {
+  .progress {
+    background-color: $grey_black;
+  }
+}
