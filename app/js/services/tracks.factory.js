@@ -274,7 +274,9 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
         playTrack(self.currentPlayingTrack);
       }
     }
-    track.playing = track.paused = false;
+    if (track) {
+      track.playing = track.paused = false;
+    }
     self.currentPlayingTrack = {};
   }
 
