@@ -127,8 +127,8 @@ function gymRidesController(Playlists, $scope, $interval, $timeout) {
       $timeout(function() {
         if (playlist.removed) {
           playlist.removedExpired = true;
+          $scope.$parent.dashboard.loadGyms();
         }
-        $scope.$parent.dashboard.loadGyms();
       }, 8000);
     }, function (response) {
       // There was some error
