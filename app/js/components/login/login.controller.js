@@ -55,6 +55,8 @@ function LoginController($state, Users, spinnerService) {
     self.emailNotFoundError = false;
     self.forgotPasswordError = false;
 
+    Users.removeLocalAccessToken();
+
     Users.resetPassword(self.credentials.username).then(function() {
       self.forgotPasswordSubmit = false;
       self.step = 'resetSuccess';

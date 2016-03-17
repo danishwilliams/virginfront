@@ -14,7 +14,8 @@ function UsersFactory(Restangular, Storage, uuid2) {
     setOnboardingStatus: setOnboardingStatus,
     getAccessToken: getAccessToken,
     loadAccessToken: loadAccessToken,
-    deleteAccessToken: deleteAccessToken,
+    deleteAccessToken: deleteAccessToken, // Deletes the access token from the API
+    removeLocalAccessToken: removeLocalAccessToken, // Removes the local access token
     setAccessToken: setAccessToken,
     changePassword: changePassword,
     resetPassword: resetPassword,
@@ -68,6 +69,10 @@ function UsersFactory(Restangular, Storage, uuid2) {
     }, {
       Authorization: 'Token ' + token
     });
+  }
+
+  function removeLocalAccessToken() {
+    Storage.removeItem('token');
   }
 
   function setAccessToken(value) {
