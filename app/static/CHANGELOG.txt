@@ -1,3 +1,18 @@
+Instructor App 1.01, 2016-03-17
+-------------------------------
+- Implemented translations
+- Track progress showing; can jump to any point in a track
+- Full onboarding process
+
+Instructor App 1.0, 2016-03-03
+------------------------------
+- Can invite (and batch invite) Instructors
+- Start of onboarding process
+- Forgotten poassword
+- Added sync failed state to playlist syncing
+- Team directory
+- Track loading animation
+
 Instructor App 0.3, 2016-02-18
 ------------------------------
 - Freestyle playlists
