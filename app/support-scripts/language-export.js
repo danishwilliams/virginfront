@@ -106,7 +106,7 @@ my_sheet.useServiceAccountAuth(creds, function (err) {
       // Write files
       // File encoding is UTF-8 with BOM so that they play nicely with Windows
       language.forEach(function(value) {
-        fs.writeFile("../static/l10n/" + value.code + ".json", '\ufeff' + JSON.stringify(value.words[0], null, 2), function(err) {
+        fs.writeFile("../static/l10n/" + value.code + ".js", '\ufeff' + JSON.stringify(value.words[0], null, 2), function(err) {
             if(err) {
                 return console.log(err);
             }

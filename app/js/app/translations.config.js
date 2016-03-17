@@ -16,7 +16,7 @@ angular.module("app").config(function ($translateProvider, defaultI18n) {
   // Those urls are [prefix][langKey][suffix].
   $translateProvider.useStaticFilesLoader({
     prefix: 'l10n/',
-    suffix: '.json'
+    suffix: '.js'
   });
 
   // .co.za .co.uk .co.it .co.pt
