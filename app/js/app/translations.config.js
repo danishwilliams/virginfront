@@ -24,6 +24,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'USERS': 'Team Directory',
     'CREATE_USER': 'Invite new instructor',
     'INVITE': 'Invite',
+    'PASSWORD_RESET': 'Password reset',
 
     // Onboarding
     'OB_STARTED': 'Get started',
@@ -39,6 +40,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'OB_SETUP': "Let's get you set up!",
     'OB_HI': 'Hi',
     'OB_WELCOME': 'Welcome to Group Instructor app',
+    'OB_WELCOME_ONLY': 'Welcome to',
     'OB_CHOOSE_PASSWORD': 'Choose a password',
     'OB_FIRST_TIME': 'You will be asked to enter your email address and this password next time you log in',
     'PASSWORD_CONFIRM': 'Confirm password',
@@ -46,6 +48,15 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PASSWORD_CONFIRM_REQ': 'Please confirm your password',
     'PASSWORDS_DONT_MATCH': "Your passwords don't match",
     'EMAIL_INVITE': 'Send email invitation',
+
+    // Forgotten password
+    'FORGOT_PASSWORD': 'Forgot password',
+    'EMAIL_PASSWORD_LINK': 'Enter your email address and we\'ll send you a link to change your password.',
+    'CHOOSE_NEW_PASSWORD': 'Choose a new password',
+    'INVALID_LINK': 'This link is no longer valid. Please try',
+    'LOGGING_IN': 'logging in',
+    'EMAIL_UNRECOGNISED': 'We don\'t recognise this email address. Try retyping it to make sure you didn\'t make a mistake.',
+    'PASSWORD_RESET_ERROR': 'Password reset had an error, sorry.',
 
     // Container page
     'HOME': 'Home',
@@ -110,6 +121,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'RIDE_NAME_REQ': 'The ride class needs a name.',
     //TODO: 'CLASS_LENGTH_ERROR': 'Try to get your ride closer to {{playlist_edit.playlist.ClassLengthMinutes}} minutes by reviewing your track choices.',
     'CLASS_LENGTH_ERROR': '',
+    'EFFORTS_REQ': 'All effort ranges must have a value.',
     'CLASS_GIVE_NAME': 'Give your ride a name...',
     'GOAL_TRACK_REQ': 'Each goal needs a song.',
     'DRAG_DROP_TRACK': 'Add a song',
@@ -161,6 +173,7 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'SELECT_CLUB_REQ': 'Please select at least one club',
 
     // User profile
+    'PROFILE': 'Profile',
     'LAST_CLASS': 'Last ride',
     'CONTACT_DETAILS': 'Contact details',
     'SAVE': 'Save',
@@ -177,12 +190,27 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'PHONE': 'Phone number',
     'CITY': 'City',
 
+    // Team directory
+    'USER_DISABLED': 'This user account has been disabled.',
+    'USER_ENABLED': 'This user account has been enabled.',
+    'STATUS': 'Status',
+    'MANAGE_ACCOUNT': 'Manage account',
+    'DISABLED_ACCOUNT': 'Disabled account',
+    'USER_TYPE': 'User type',
+    'EDIT_USER_PROFILE': 'Edit details',
+    'RE_INVITE': 'Re-invite',
+    'DISABLE_ACCOUNT': 'Disable account',
+    'ENABLE_ACCOUNT': 'Enable account',
+    'DISABLE_ACCOUNT_FAILED': "This user's Music Provider's account couldn't be disabled.",
+    'ENABLE_ACCOUNT_FAILED': "This user's Music Provider's account couldn't be enabled.",
+
     // Adding a user
     'FIRST_NAME': 'First name',
     'LAST_NAME': 'Last name',
-    'EMPLOYEE_ID': 'Employee ID',
+    'EMPLOYEE_ID': 'Instructor ID',
     'FIRST_NAME_REQ': 'First name is required',
     'LAST_NAME_REQ': 'Last name is required',
+    'ID_REQ': 'A unique ID number is required',
     'GYMS': 'Clubs',
     'EMAIL_VALID': 'Please enter a valid email address',
     'OPTIONAL': '(optional)',
@@ -221,7 +249,10 @@ angular.module("app").config(['$translateProvider', function ($translateProvider
     'TEMPLATE_SAVE': 'Save template',
     'TEMPLATE_EDITED': 'Template successfully edited.',
     'TEMPLATE_ADDED': 'Template successfully added.',
-    'TEMPLATE_SAVED': 'Template successfully saved!'
+    'TEMPLATE_SAVED': 'Template successfully saved!',
+
+    // Default goals
+    'MANAGE_DEFAULT_GOALS': 'Manage default goals',
   });
  
   $translateProvider.translations('es', {

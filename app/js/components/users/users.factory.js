@@ -14,9 +14,11 @@ function UsersFactory(Restangular, Storage, uuid2) {
     setOnboardingStatus: setOnboardingStatus,
     getAccessToken: getAccessToken,
     loadAccessToken: loadAccessToken,
-    deleteAccessToken: deleteAccessToken,
+    deleteAccessToken: deleteAccessToken, // Deletes the access token from the API
+    removeLocalAccessToken: removeLocalAccessToken, // Removes the local access token
     setAccessToken: setAccessToken,
     changePassword: changePassword,
+    resetPassword: resetPassword,
     logout: logout,
     loadUsers: loadUsers,
     getUsers: getUsers,
@@ -25,7 +27,9 @@ function UsersFactory(Restangular, Storage, uuid2) {
     loadCurrentUser: loadCurrentUser,
     getCurrentUser: getCurrentUser,
     sendInvite: sendInvite,
-    createNewUser: createNewUser
+    createNewUser: createNewUser,
+    disableUser: disableUser,
+    enableUser: enableUser
   };
 
   return usersFactory;
@@ -67,6 +71,10 @@ function UsersFactory(Restangular, Storage, uuid2) {
     });
   }
 
+  function removeLocalAccessToken() {
+    Storage.removeItem('token');
+  }
+
   function setAccessToken(value) {
     Storage.setItem('token', value);
   }
@@ -77,6 +85,12 @@ function UsersFactory(Restangular, Storage, uuid2) {
       NewPassword: value
     }, '', {}, {
       Authorization: 'Token ' + token
+    });
+  }
+
+  function resetPassword(username) {
+    return Restangular.one('users/password/reset').customPOST({}, '', {
+      username: username
     });
   }
 
@@ -181,6 +195,22 @@ function UsersFactory(Restangular, Storage, uuid2) {
     return Restangular.one("users", user.Id).customPUT(user, '', queryString).then(createNewUserComplete);
 
     function createNewUserComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function disableUser(userId) {
+    return Restangular.one("users/disable", userId).post().then(disableUserComplete);
+
+    function disableUserComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function enableUser(userId) {
+    return Restangular.one("users/enable", userId).post().then(enableUserComplete);
+
+    function enableUserComplete(data, status, headers, config) {
       return data;
     }
   }

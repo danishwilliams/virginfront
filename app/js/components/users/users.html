@@ -1,6 +1,8 @@
 <div class="row">
   <div class="large-12 medium-18 small-18 large-centered columns">
 
+    <spinner class="spinner" name="users" show="true"></spinner>
+
     <div class="heading row">
       <div class="large-13 medium-12 columns">
         <h1>{{'USERS' | translate}}</h1>
@@ -11,95 +13,47 @@
       </div>
     </div>
 
-    <spinner class="spinner" name="users" show="true"></spinner>
-
-    <!--
     <tabset>
-      <tab heading="Active Instructors (Registered Instructors and Invited Instructors  - allow filtering)">
-        <users data-type="enabled"></users>
-      </tab>
-      <tab heading="Disabled accounts">
-        <users data-type="disabled"></users>
-      </tab>
-      <tab heading="Technical users">
-        <users data-type="technical"></users>
-      </tab>
-    </tabset>
-    -->
+      <tab heading="Active Instructors ({{users.numActive}})">
+        <div class="row">
+          <div class="medium-9 large-9 columns">
+            <label>Search</label>
+            <input ng-model="users.query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
+          </div>
+          <div class="medium-9 large-9 columns">
+            <label>Filter by Instructor status</label>
+            <select ng-model="users.status">
+              <option value="" selected>All</option>
+              <option value="Registered">Registered</option>
+              <option value="Invited">Invited</option>
+            </select>
+          </div>
+        </div>
 
-    <div class="row">
-      <div class="medium-9 large-9 columns">
+        <accordion>
+          <user ng-if="user.Type !== 'Technical' && user.Archived === false" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:users.userFilter | orderBy:'FirstName'">
+          </user>
+        </accordion>
+      </tab>
+
+      <tab heading="Disabled accounts ({{users.numDisabled}})">
         <label>Search</label>
         <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
-      </div>
-      <div class="medium-9  large-9 columns">
-        <label>Filter by Instructor status</label>
-        <select ng-model="users.status">
-          <option value="" selected>All</option>
-          <option value="Registered">Registered</option>
-          <option value="Invited">Invited</option>
-        </select>
-      </div>
-    </div>
+        <accordion>
+          <user ng-if="user.Archived" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+          </user>
+        <accordion>
+      </tab>
 
-    <table>
-      <thead>
-        <tr>
-          <td>First name</td>
-          <td>Last name</td>
-          <td>Status</td>
-          <td>Employee ID</td>
-          <td>Email</td>
-          <td>Phone number</td>
-          <td>City, Province, Country</td>
-          <td>User type</td>
-          <td>View</td>
-          <td ng-if-permission="editAdmin">Invite</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-if="user.Type !== 'Technical'" ng-show="users.filterInstructors(user)" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
-          <td>{{user.Type}}</td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
-          <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
-          <td><ul><li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li></ul></td>
-          <td><a ui-sref="users({id:user.Id})">View</a></td>
-          <td ng-if-permission="editAdmin"><button class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
-        </tr>
-        <tr ng-if="users.hasArchived">
-          <td colspan="10"><h2>Archived users</h2></td>
-        </tr>
-        <tr ng-if="!user.Enabled" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
-          <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
-          <td><ul><li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li></ul></td>
-          <td colspan="3"><a ui-sref="users({id:user.Id})">View</a></td>
-        </tr>
-      </tbody>
-      <tbody ng-if-permission="viewAdmin">
-        <tr>
-          <td colspan="10"><h2>Technical users</h2></td>
-        </tr>
-        <tr ng-if="user.Type === 'Technical'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.FirstName"></td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.LastName"></td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.EmployeeId"></td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Email"></td>
-          <td contentEditable ng-change="users.update(user)" ng-model-options="{updateOn : 'change blur'}" ng-model="user.Telephone"></td>
-          <td>{{user.Location.City}}, {{user.Location.Province}}, {{user.Location.Country.Name}}</td>
-          <td><ul><li ng-repeat="type in user.UserUserTypes">{{type.UserType.Name}}</li></ul></td>
-          <td><a ui-sref="users({id:user.Id})">View</a></td>
-          <td colspan="2"><button ng-if-permission="editAdmin" class="secondary" ng-click="users.sendInvite(user.Id)">Invite</button></td>
-        </tr>
-      </tbody>
-    </table>
+      <tab ng-if-permission="viewAdmin" heading="Technical users ({{users.numTechnical}})">
+        <label>Search</label>
+        <input ng-model="query" type="text" placeholder="Instructor name, Employee ID or email" autofocus>
+        <accordion>
+          <user ng-if="user.Type === 'Technical'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
+          </user>
+        <accordion>
+      </tab>
+    </tabset>
+
   </div>
 </div>

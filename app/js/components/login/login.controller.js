@@ -10,6 +10,7 @@ function LoginController($state, Users, spinnerService) {
     password: ""
   };
   //b2c_login_check();
+  self.step = 'login';
 
   var onLoginSuccess = function () {
     console.log('onLoginSuccess');
@@ -42,6 +43,32 @@ function LoginController($state, Users, spinnerService) {
       self.error = {
         error: true
       };
+    });
+  };
+
+  self.forgotPassword = function() {
+    if (!self.credentials.username) {
+      return;
+    }
+
+    self.forgotPasswordSubmit = true;
+    self.emailNotFoundError = false;
+    self.forgotPasswordError = false;
+
+    Users.removeLocalAccessToken();
+
+    Users.resetPassword(self.credentials.username).then(function() {
+      self.forgotPasswordSubmit = false;
+      self.step = 'resetSuccess';
+    }, function(res) {
+      self.forgotPasswordSubmit = false;
+      if (res.data.Message === 'Email address not found') {
+        self.emailNotFoundError = true;
+      }
+      else {
+        // Some generic error
+        self.forgotPasswordError = true;
+      }
     });
   };
 

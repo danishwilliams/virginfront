@@ -85,9 +85,11 @@ function gymRidesController(Playlists, $scope, $interval) {
 
     var i = self.gym.PlaylistSyncInfos.length - 1;
     var val = self.gym.PlaylistSyncInfos[i];
+    /*
     console.log(playlist);
     console.log(self.gym.PlaylistSyncInfos);
     console.log(val);
+    */
 
     // Refresh the syncing details for this playlist
     val.IntervalId = intervalPromise.length;
@@ -131,7 +133,16 @@ function gymRidesController(Playlists, $scope, $interval) {
     playlist.removed = false;
     self.playlistCount++;
 
-    Playlists.addPlaylistToGym(playlist.Playlist.Id, gymId).then(function (data) {
+    addPlaylistToGym(playlist, gymId);
+  };
+
+  self.publish = function (playlist, gymId) {
+    playlist.DevicePlaylistSyncs[0].SyncError = false;
+    addPlaylistToGym(playlist, gymId);
+  };
+
+  function addPlaylistToGym(playlist, gymId) {
+    Playlists.publishPlaylist(playlist.Playlist.Id, gymId).then(function (data) {
       // It worked!
 
       // Refresh the syncing details for this playlist
@@ -157,5 +168,5 @@ function gymRidesController(Playlists, $scope, $interval) {
       playlist.removed = true;
       self.playlistCount--;
     });
-  };
+  }
 }

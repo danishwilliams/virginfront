@@ -1,0 +1,30 @@
+.chevron-down {
+  background: url('/img/chevron.svg') no-repeat;
+}
+.chevron-right {
+  background: url('/img/chevron.svg') no-repeat;
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+
+.accordion {
+  i {
+    margin: rem-calc(6px) 0 0 rem-calc(4px);
+    width: rem-calc(15px);
+    height: rem-calc(15px);
+  }
+  label {
+    display: inline;
+    font-size: inherit;
+  }
+  dd {
+    > .content.active {
+      padding-top: rem-calc(10px);
+      background: $grey_lighter;
+    }
+    margin-top: rem-calc(10px);
+  }
+}

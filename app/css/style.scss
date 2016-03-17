@@ -6,12 +6,17 @@ $top_padding: rem-calc(30px);
 $radius: rem-calc(15px);
 $radius-tiny: 2px;
 
-.uiview div.row:first-of-type, .playlist-edit {
+.uiview div.row, .playlist-edit {
   padding-left: rem-calc(4px);
   padding-right: rem-calc(4px);
 }
 
 /* Headings */
+
+h1.site-heading {
+  text-align: left;
+  margin-left: rem-calc(100px);
+}
 
 .heading {
   border-bottom: 1px solid $grey_light;
@@ -53,19 +58,12 @@ button, input[type="submit"] {
     background-color: $red;
   }
   &.secondary {
-    @include button-style($bg: $white, $radius: $button-round);
-    padding: rem-calc(7px) rem-calc(15px) rem-calc(7px) rem-calc(15px);
-    font-size: $label-font-size;
-    border: 2px solid $cherry;
-    color: $cherry;
-    &:hover,
-    &:focus {
-      color: $red;
-      background-color: $white;
-    }
+    @include secondary-button;
   }
   &.edit {
     @include button-style($bg: rgba($white, 0), $radius: $button-round);
+    background: url('/img/ico16blu_syncedit.svg') no-repeat;
+    background-position: left 3px center;
     border: none;
     color: $blue;
     margin: 0;
@@ -96,7 +94,23 @@ button, input[type="submit"] {
   }
 }
 
-.cancel {
+/* Forms */
+
+input[type="text"], input[type="password"], input[type="email"] {
+  margin: 0;
+}
+input[type="submit"] {
+  float: right;
+}
+
+.row.submit {
+  margin-top: rem-calc(16px);
+  margin-bottom: rem-calc(16px);
+}
+
+form a.secondary, .cancel {
+  float: left;
+  padding-top: rem-calc(6px);
   color: $red;
   &:hover,
   &:focus {
@@ -104,6 +118,12 @@ button, input[type="submit"] {
     font-weight: bold;
     text-decoration: underline;
   }
+}
+
+label {
+  font-weight: bold;
+  padding-bottom: rem-calc(4px);
+  padding-top: rem-calc(6px);
 }
 
 .back {
@@ -166,10 +186,6 @@ select {
   padding-right: rem-calc(20px);
 }
 
-form label {
-  font-weight: bold;
-}
-
 .no-bold {
   font-weight: normal;
 }
@@ -181,4 +197,16 @@ form label {
   z-index: 1;
   width: 100%;
   height: 100%;
+}
+
+/* Alert boxes */
+
+.alert-box {
+  .close {
+    text-decoration: none;
+  }
+  a {
+    color: $grey_dark;
+    text-decoration: underline;
+  }
 }

@@ -5,6 +5,11 @@ playlist-workflow .row {
 }
 
 .workflow {
+  li {
+    min-width: 144px;
+    text-align: left;
+    margin-bottom: rem-calc(4px);
+  }
   li span {
     display: block;
     float: left;

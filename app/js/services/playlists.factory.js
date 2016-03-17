@@ -230,6 +230,21 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
       playlist = data;
       isCustomRpm = data.IsCustomRpm;
 
+      // Assign random values to tracks so they're loading or playing, to test the load/play animations
+      /*
+      playlist.PlaylistGoals.forEach(function(val) {
+        var i = Math.random();
+        if (i > 0.7) {
+          val.PlaylistGoalTracks[0].Track.loading = true;
+        }
+        else if (i > 0.3) {
+        }
+        else {
+          val.PlaylistGoalTracks[0].Track.playing = true;
+        }
+      });
+      */
+
       var found = false;
       _.mapObject(playlist.PlaylistGoals, function (val, key) {
         val.ArrayId = key;
@@ -311,8 +326,20 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return playlistLimitPerGym;
   }
 
-  function publishPlaylist(id) {
-    return Restangular.one('playlists/sync', id).post().then(publishPlaylistComplete);
+  /**
+   * Publishes a playlist to all gyms (if no Gym Id is provided) or to a specific gym
+   *
+   * @param playlistId
+   * @param gymId
+   *   Optional
+   */
+  function publishPlaylist(playlistId, gymId) {
+    if (gymId) {
+      return Restangular.one('playlists/sync', playlistId).customPOST({}, '', {gymId: gymId}).then(publishPlaylistComplete);
+    }
+    else {
+      return Restangular.one('playlists/sync', playlistId).post().then(publishPlaylistComplete);
+    }
 
     function publishPlaylistComplete(data, status, headers, config) {
       return data;

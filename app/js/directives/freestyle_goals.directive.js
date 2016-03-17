@@ -66,9 +66,13 @@ function freestyleGoalsController(Goals, spinnerService) {
     }
 
     // This is a Cool Down goal!
+    /*
+    // 2016.03.03 Removed the requirement that the last goal must be a Cool Down goal, but keeping
+    // this logic here in case we want to re-enable in future
     if (parseInt(self.index) + 1 === parseInt(self.totalGoals)) {
       self.coolDown = true;
     }
+    */
 
     // Set the selected goal
     if (self.selectedGoalId) {

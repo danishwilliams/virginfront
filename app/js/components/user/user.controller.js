@@ -1,4 +1,4 @@
-angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter) {
+angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer) {
   var self = this;
   this.id = $stateParams.id;
 
@@ -40,6 +40,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
       self.userTypesEdit = true;
       self.userTypes = data;
 
+      // Mark user's types as selected
       _.mapObject(self.userTypes, function (val, key) {
         if (key >= 0) {
           var item = _.find(self.user.UserUserTypes, function (item) {
@@ -51,6 +52,17 @@ angular.module("app.user", []).controller('UserController', function ($statePara
           return val;
         }
       });
+
+      // Managers can only see certain user types
+      if (Authorizer.canAccess('isManager', Users.getCurrentUser())) {
+        self.userTypes.forEach(function(val) {
+          if (val.Name === 'Pack Instructor' || val.Name === 'Manager') {
+            val.show = true;
+          } else {
+            val.hide = true;
+          }
+        });
+      }
     });
   };
 

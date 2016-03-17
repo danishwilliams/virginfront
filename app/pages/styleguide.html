@@ -71,6 +71,8 @@
             <p class="label-font-size">Label: 14 Regular, Italics (?!) Helvetica Neue</p>
           </p>
 
+          <h1><span class="welcome">Less important part of a</span><br>longer heading (this part is more important)</h1>
+
           <div class="HelveticaNeueW01-77BdCn-692722 (40 KB)">
             <h2 class="heading">Typography: HelveticaNeueW01-77BdCn 692722</h2>
             <p>
@@ -187,9 +189,45 @@
           <a class="cancel">Cancel</a>
           <button class="secondary next">Next</button>
 
-          <h2 class="heading">Inputs</h2>
+          <h2 class="heading">Forms</h2>
 
-          <input required name="class_name" class="class_name" type="text" placeholder="Name your class">
+          <form>
+            <label>A textfield</label>
+            <input required type="text">
+
+            <label>A textfield with placeholder text</label>
+            <input required type="text" placeholder="Name your class">
+
+            <label>Class name</label>
+            <input required name="class_name" class="class_name" type="text" placeholder="Name your class">
+
+            <div class="row submit">
+              <a class="cancel">Cancel</a>
+              <input type="submit" value="Submit" />
+            </div>
+          </form>
+
+          <p>&nbsp;</p>
+
+          <form name="form" novalidate>
+            <p class="error" ng-message="error">An error about the form submission, shows after submission.</p>
+
+            <label for="username">Email</label>
+            <input type="text" name="username" required />
+
+            <label for="username">Email</label>
+            <input type="text" name="username1" required />
+            <small class="error">Email is required.</small>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" ng-model="login.credentials.password" required />
+            <small class="error">Password is required.</small>
+
+            <div class="row submit">
+              <a class="secondary">Forgot your password?</a>
+              <input type="submit" value="Log in" />
+            </div>
+          </form>
 
         </div>
       </div>

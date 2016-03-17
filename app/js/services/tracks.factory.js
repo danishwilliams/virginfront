@@ -5,23 +5,12 @@ angular
   .module("app")
   .service('Tracks', TracksFactory);
 
-TracksFactory.$inject = ['$rootScope', '$location', '$interval', 'Restangular', 'Playlists', 'Storage'];
+TracksFactory.$inject = ['$rootScope', '$location', 'Restangular', 'Playlists', 'Storage'];
 
-function TracksFactory($rootScope, $location, $interval, Restangular, Playlists, Storage) {
+function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   var self = this;
   self.userGenresTracks = [];
   self.tracks = []; // A list of track objects
-  self.audio = new Audio(); // An audio object for playing a track
-  // Without these, Safari hates us
-  self.audio.preload = "auto";
-  self.audio.autoplay = "true";
-  self.currentPlayingTrack = {}; // The track which is currently playing
-  self.selectedSearchedTrack = {}; // A track which has been selected from a search
-
-  // When navigating away from any place where a track might be playing, stop it from playing
-  $rootScope.$on('$locationChangeStart', function (event, next, prev) {
-    stopTrack();
-  });
 
   var tracksFactory = {
     loadUserGenresTracks: loadUserGenresTracks,
@@ -37,6 +26,91 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists,
     loadDownloadUrl: loadDownloadUrl,
     postTrackUsage: postTrackUsage
   };
+
+  /**
+   * Everything to do with audio
+   *
+   * @author Roger Saner
+   * @date 2016.02.24
+   *
+   * Audio playback uses the javascript Audio object (which uses the functionality of the <audio> tag).
+   * This was chosen because of solid cross-browser support and simplicity of implementation. Boy, was I in for a surprise.
+   * There are no dependencies on jQuery or any other javascript library.
+   *
+   * Music sources:
+   * - There are currently 2 music providers: Simfy in South Africa, and OpenEar in the UK.
+   *
+   * Testing:
+   * - A basic audio test file is available at /audio-test.html (although you'll need to edit it and add 2 mp3 files of your choice,
+   *   since I haven't added those 2 files to the codebase) which test audio playback through both the <audio> tag and Audio object.
+   * - To remove the dependency on a music provider, search this file for moments.mp3 and uncomment that code, which will set all
+   *   track sources to be that mp3.
+   *
+   * Functionality:
+   * - Multiple tracks can be played, all through the same Audio object, one at a time.
+   * - Audio tracks are streamed as data is available, rather than downloaded.
+   * - Track played duration is reported back to the music provider so they know about track usage.
+   * - Current playback time is displayed.
+   * - A loading animation is displayed while the track is loaded.
+   * - A playing animation is displayed when the track is playing.
+   *
+   * Some gotchas:
+   * - iOS playback won't work on clicking the "play" button due to (probably) iOS not recognising ng-click as an onclick
+   *   on the play button, and it has a rule that audio can only be played on a user interaction. The twiddle function
+   *   gets called on the first play button click which plays and pauses audio so audio can play again.
+   * - All mobile devices should allow audio playback due to the above fix.
+   * - Audio will play in all major browsers, except Opera mini (which doesn't support the audio tag).
+   * - IE11 playback was initially screwed - sounded like it was playing back in a tunnel at a 10/th of the speed. We
+   *   couldn't re-create this bug in SA, on the UK people could, and it was probably because I was using an angular
+   *   $interval to poll the currenttime of the playing track every 100 milliseconds. Converting this logic to listening
+   *   to the audio 'timeupdate' event instead fixed this.
+   *
+   * @see
+   * - Overcoming iOS HTML5 audio limitations http://www.ibm.com/developerworks/library/wa-ioshtml5/
+   * - https://developer.mozilla.org/en/docs/Web/HTML/Element/audio
+   * - Native Audio with HTML5 https://msdn.microsoft.com/en-us/magazine/hh527168.aspx
+   * - Using Media Events to Add a Progress Bar https://msdn.microsoft.com/en-us/library/gg589528(v=vs.85).aspx
+   */
+
+  self.audio = new Audio(); // An audio object for playing a track
+  // Without these, Safari hates us
+  self.audio.preload = "auto";
+  self.audio.autoplay = "true";
+  self.currentPlayingTrack = {}; // The track which is currently playing
+  self.selectedSearchedTrack = {}; // A track which has been selected from a search
+
+  // Fix for stupid iOS which otherwise doesn't believe that a click is a click
+  window.addEventListener("click", twiddle);
+
+  function twiddle() {
+    self.audio.play();
+    self.audio.pause();
+    window.removeEventListener("click", twiddle);
+  }
+
+  /*
+  // Debugging
+  self.audio.addEventListener('error', function(e) {
+    console.error(e);
+  });
+
+  self.audio.addEventListener('play', function(e) {
+    console.log('play!', e);
+  });
+
+  self.audio.addEventListener('playing', function(e) {
+    console.log('playing!', e);
+  });
+
+  self.audio.addEventListener('canplay', function(e) {
+    console.log('canplay!', e);
+  });
+  */
+
+  // When navigating away from any place where a track might be playing, stop it from playing
+  $rootScope.$on('$locationChangeStart', function (event, next, prev) {
+    stopTrack();
+  });
 
   return tracksFactory;
 
@@ -89,6 +163,10 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists,
    *   track has finished playing, play the next one in the playlist
    */
   function playTrack(track, sortOrder) {
+    if (track.loading) {
+      return;
+    }
+
     // Is a track playing?
     if (self.currentPlayingTrack.MusicProviderTrackId) {
       // Is the track the user has just clicked on the currently playing track?
@@ -112,13 +190,15 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists,
       } else {
         // A track was playing, but the user is now playing a new track
         self.currentPlayingTrack.playing = false;
-        cancelTimer();
+        self.currentPlayingTrack.loading = false;
         var date = new Date();
         postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), date.toISOString());
+        track.loading = true;
         playTrackWithSource(track, sortOrder);
       }
     } else {
       // Starting to play a track for the first time
+      track.loading = true;
       playTrackWithSource(track, sortOrder);
 
       // If a track was paused in the last browser session, post a track usage count
@@ -136,8 +216,14 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists,
   // We don't store track Sources in the API (since Simfy tracks expire after 2 days) so if Source
   // doesn't exist, do an API call to find it
   function playTrackWithSource(track, sortOrder) {
-    track.playing = true;
     self.currentPlayingTrack = track;
+    self.audio.addEventListener('playing', function(e) {
+      track.loading = false;
+      if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
+        track.playing = true;
+      }
+    });
+
     if (track.Source) {
       self.audio.src = track.Source; // = "http://localhost:8000/moments.mp3";
       self.audio.onended = function () {
@@ -156,14 +242,15 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists,
   }
 
   function playAudio(track) {
-    if (track.currentTime) {
-      self.audio.currentTime = track.currentTime;
-    }
-    self.progress = $interval(function () {
-      if (self.currentPlayingTrack.Id === track.Id) {
-        track.currentTime = parseInt(self.audio.currentTime);
+    // Update the timer
+    self.audio.addEventListener("timeupdate", function() {
+      if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
+        $rootScope.$apply(function () {
+          track.currentTime = Math.round(self.audio.currentTime);
+        });
       }
-    }, 100);
+    });
+
     self.audio.play();
   }
 
@@ -179,13 +266,11 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists,
       }
     }
     self.currentPlayingTrack = {};
-    cancelTimer();
   }
 
   function playEnded(track, sortOrder) {
     track.playing = false;
     self.currentPlayingTrack = {};
-    cancelTimer();
 
     // Have to load up the DOM element and change it there, because can't do a $scope.apply() due to using Controller-As syntax
     // I feel very, very bad about having controller logic in a factory. I am ashamed.
@@ -208,14 +293,6 @@ function TracksFactory($rootScope, $location, $interval, Restangular, Playlists,
         // Play the next track
         playTrack(track, newSortOrder);
       }
-    }
-  }
-
-  function cancelTimer() {
-    // Cancel the existing timer
-    if (angular.isDefined(self.progress)) {
-      $interval.cancel(self.progress);
-      self.progress = undefined;
     }
   }
 

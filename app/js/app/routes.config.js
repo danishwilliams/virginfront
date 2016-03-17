@@ -13,6 +13,16 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Password reset
+  .state('passwordreset', {
+    url: '/passwordreset/:token',
+    templateUrl: '../js/components/onboarding/password.html',
+    controller: 'OnboardingController as vm',
+    resolve: {
+      $title: function() { return 'Password reset'; /* PASSWORD_RESET */ }
+    }
+  })
+
   /* A registered user, but has no roles */
   .state('registered', {
     'url': '/registered',
@@ -156,6 +166,19 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Default Goals
+  .state('default-goals-admin', {
+    url: '/admin/default-goals',
+    templateUrl: '../js/components/default_goals/default_goals.html',
+    controller: 'DefaultGoalsController as vm',
+    resolve: {
+      $title: function() { return 'Goals | Admin'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.templates]
+    }
+  })
+
   // Gyms
   .state('gyms-admin', {
     url: '/admin/gyms',
@@ -197,9 +220,9 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
 
   // Onboarding - invite
   .state('onboarding', {
-    url: '/onboarding/:id',
+    url: '/onboarding/:token',
     templateUrl: '../js/components/onboarding/password.html',
-    controller: 'OnboardingController as onboarding',
+    controller: 'OnboardingController as vm',
     resolve: {
       $title: function() { return 'Password | Onboarding'; /* OB_PASSWORD */ }
     }

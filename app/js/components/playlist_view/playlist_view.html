@@ -34,10 +34,15 @@
                 {{track.Track.Artist}}
               </div>
               <div class="small-3 columns time text-right">
-                <span class="position" ng-show="track.Track.currentTime >= 0">{{track.Track.currentTime | minutes}}</span> {{track.Track.DurationSeconds | minutes}}
+                <span class="position" ng-show="track.Track.currentTime >= 0 && track.Track.playing === true">{{track.Track.currentTime | minutes}}</span> {{track.Track.DurationSeconds | minutes}}
               </div>
-              <div class="small-2 columns play" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_view.playTrack(track.Track, playlistGoal.SortOrder);" ng-class="{'playing': track.Track.playing}">
-                <a href="#">{{'PLAY' | translate}}</a>
+              <div class="small-2 columns play-container" id="track{{track.Track.MusicProviderTrackId}}" ng-click="playlist_view.playTrack(track.Track, playlistGoal.SortOrder);">
+                <div class="spinner1" ng-class="{'play': !track.Track.playing && !track.Track.loading, 'loading': track.Track.loading, 'playing': track.Track.playing}">
+                  <div class="arrow-right"></div>
+                  <div class="rect1"></div>
+                  <div class="rect2"></div>
+                  <div class="rect3"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -47,8 +52,8 @@
 
     <div class="row">
       <a ng-if="!playlist_view.newPlaylist" style="float:left;" ui-sref="dashboard">{{'RETURN_DASHBOARD' | translate}}</a>
-      <a class="cancel" ng-if="playlist_view.newPlaylist" class="round secondary" style="float:left; background: none;">{{'CANCEL' | translate}}</a>
-      <button ng-if="playlist_view.newPlaylist" class="round" style="float:right" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})">{{'SEND_CLUB' | translate}}</button>
+      <a class="cancel" ng-if="playlist_view.newPlaylist">{{'CANCEL' | translate}}</a>
+      <input type="submit" ng-if="playlist_view.newPlaylist" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})" value="{{'SEND_CLUB' | translate}}">
     </div>
 
   </div>
