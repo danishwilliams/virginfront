@@ -44,7 +44,7 @@ function gymPossibleRidesController(Playlists, $scope) {
       Playlists.addPlaylistToGym($scope.ngModel.Id, self.gym.Gym.Id).then(function (data) {
         // It worked!
         self.playlists = _.without(self.playlists, $scope.ngModel);
-        Playlists.publishPlaylist($scope.ngModel.Id).then(function (data) {
+        Playlists.publishPlaylist($scope.ngModel.Id, self.gym.Gym.Id).then(function (data) {
           // It worked!
         });
       });
