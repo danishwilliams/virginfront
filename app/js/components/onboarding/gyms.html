@@ -1,12 +1,15 @@
 <div class="onboarding row">
+  <h1 class="site-heading">{{'ONBOARDING_TITLE' | translate}}</h1>
+
   <div class="large-8 large-centered columns">
     <div class="content">
+
+      <h3>{{'OB_KNOW' | translate}}</h3>
+      <h1>{{'OB_CLUBS' | translate}}</h1>
 
       <div class="dark-block text-left row">
         <div class="large-16 large-centered columns">
 
-          <p>{{'OB_KNOW' | translate}}</p>
-          <h2>{{'OB_CLUBS' | translate}}</h2>
           <spinner class="spinner" name="obGymsSpinner" show="true"></spinner>
 
           <form ng-submit="vm.save_gyms()">

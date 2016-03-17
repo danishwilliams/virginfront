@@ -21,6 +21,15 @@
   input[type="password"] {
     @include input-black;
   }
+  .item {
+    i {
+      margin: auto;
+    }
+    label {
+      font-size: $h3-font-size;
+      font-weight: inherit;
+    }
+  }
 }
 
 .dark-block {
