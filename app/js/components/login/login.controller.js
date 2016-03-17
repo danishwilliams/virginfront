@@ -16,16 +16,7 @@ function LoginController($state, Users, spinnerService, USER_STATES) {
     console.log('onLoginSuccess');
     var user = Users.getCurrentUser();
     if (!_.isEmpty(user.UserUserTypes)) {
-      // Handle various onboarding cases i.e. user has just logged in but is in some part of onboarding
-      if (user.State === USER_STATES.onboarding_clubs) {
-        $state.go('onboarding-gyms');
-      }
-      else if (user.State === USER_STATES.onboarding_genres) {
-        $state.go('onboarding-genres');
-      }
-      else {
-        $state.go('dashboard');
-      }
+      $state.go('dashboard');
     }
     else {
       // This is a user with no roles

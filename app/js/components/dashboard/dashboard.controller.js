@@ -1,5 +1,16 @@
-angular.module("app.dashboard", []).controller('DashboardController', function (Playlists, spinnerService, $timeout) {
+angular.module("app.dashboard", []).controller('DashboardController', function (Playlists, spinnerService, $timeout, Users, USER_STATES, $state) {
   var self = this;
+
+  // Handle various onboarding cases i.e. user has just logged in but is in some part of onboarding
+  var user = Users.getCurrentUser();
+  if (user.State === USER_STATES.onboarding_clubs) {
+    $state.go('onboarding-gyms');
+    return;
+  }
+  else if (user.State === USER_STATES.onboarding_genres) {
+    $state.go('onboarding-genres');
+    return;
+  }
 
   Playlists.loadPlaylists(4).then(function (data) {
     self.playlists = data;
