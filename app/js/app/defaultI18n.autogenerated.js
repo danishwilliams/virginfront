@@ -112,6 +112,7 @@
   "CHALLENGE": "Challenge",
   "NOTE_MAX": "Max 200 characters",
   "RIDE_ERROR": "Ride cannot be saved. Please try again later.",
+  "RIDE_NAME_EXISTS": "A ride with this name already exists. Please choose a different name.",
   "NEXT_PREVIEW": "Next: preview my ride",
   "UPDATE": "Update changes",
   "BG_MUSIC": "Background music",
@@ -309,5 +310,6 @@
   "FAILED_EXPERIENCE_MANAGER": "Failed to connect to the Experience manager",
   "CONTINUE_ANYWAY_BTN": "Continue anyway",
   "CONTACT_ADMIN": "Please contact your administrator",
-  "CONNECTED": "Connected"
+  "CONNECTED": "Connected",
+  "END_RIDE": "End this ride"
 } });

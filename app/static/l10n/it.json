@@ -112,6 +112,7 @@
   "CHALLENGE": "Sfida",
   "NOTE_MAX": "Max 200 caratteri",
   "RIDE_ERROR": "Il corso non può essere salvato. Riprova più tardi per favore",
+  "RIDE_NAME_EXISTS": "A ride with this name already exists. Please choose a different name.",
   "NEXT_PREVIEW": "Prossimo: anteprima del mio corso",
   "UPDATE": "Aggiorna cambiamenti",
   "BG_MUSIC": "Musica di sottofondo",
@@ -309,5 +310,6 @@
   "FAILED_EXPERIENCE_MANAGER": "Failed to connect to the Experience manager",
   "CONTINUE_ANYWAY_BTN": "Continue anyway",
   "CONTACT_ADMIN": "Please contact your administrator",
-  "CONNECTED": "Connected"
+  "CONNECTED": "Connected",
+  "END_RIDE": "End this ride"
 }

@@ -112,6 +112,7 @@
   "CHALLENGE": "Desafio",
   "NOTE_MAX": "Max 200 caracteres",
   "RIDE_ERROR": "Camino no salvado. Por favor intenta otra vez",
+  "RIDE_NAME_EXISTS": "A ride with this name already exists. Please choose a different name.",
   "NEXT_PREVIEW": "Siguiente: Visualizar mi camino",
   "UPDATE": "Actualizar cambios",
   "BG_MUSIC": "Musica de fondo",
@@ -309,5 +310,6 @@
   "FAILED_EXPERIENCE_MANAGER": "Failed to connect to the Experience manager",
   "CONTINUE_ANYWAY_BTN": "Continue anyway",
   "CONTACT_ADMIN": "Please contact your administrator",
-  "CONNECTED": "Connected"
+  "CONNECTED": "Connected",
+  "END_RIDE": "End this ride"
 }
