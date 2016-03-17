@@ -25,9 +25,8 @@
       </div>
 
       <div class="row submit">
-        <spinner class="spinner" name="loginSpinner" show="false"></spinner>
         <a class="secondary" ng-click="login.step = 'forgot'">Forgot your password?</a>
-        <input ng-disabled="!login.credentials.username || !login.credentials.password" type="submit" value="{{'LOGIN' | translate}}" />
+        <input ng-disabled="!login.credentials.username || !login.credentials.password || login.submitted" type="submit" value="{{'LOGIN' | translate}}" />
       </div>
     </form>
     </span>

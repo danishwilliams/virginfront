@@ -14,7 +14,6 @@ function LoginController($state, Users, spinnerService, USER_STATES) {
 
   var onLoginSuccess = function () {
     console.log('onLoginSuccess');
-    spinnerService.hide('loginSpinner');
     var user = Users.getCurrentUser();
     if (!_.isEmpty(user.UserUserTypes)) {
       // Handle various onboarding cases i.e. user has just logged in but is in some part of onboarding
@@ -39,17 +38,17 @@ function LoginController($state, Users, spinnerService, USER_STATES) {
       return;
     }
     self.error = false;
-    spinnerService.show('loginSpinner');
+    self.submitted = true;
     Users.loadAccessToken(self.credentials).then(function (data) {
       Users.setAccessToken(data);
       Users.loadCurrentUser().then(onLoginSuccess, function () {
-        spinnerService.hide('loginSpinner');
+        self.submitted = false;
         self.error = {
           error: true
         };
       });
     }, function () {
-      spinnerService.hide('loginSpinner');
+      self.submitted = false;
       self.error = {
         error: true
       };
