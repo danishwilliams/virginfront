@@ -151,31 +151,41 @@ function gymRidesController(Playlists, $scope, $interval, $timeout) {
   };
 
   function addPlaylistToGym(playlist, gymId) {
-    Playlists.publishPlaylist(playlist.Playlist.Id, gymId).then(function (data) {
+    Playlists.addPlaylistToGym(playlist.Playlist.Id, gymId).then(function (data) {
       // It worked!
+      Playlists.publishPlaylist(playlist.Playlist.Id, gymId).then(function(data) {
+        // It worked!
 
-      // Refresh the syncing details for this playlist
-      playlist.IntervalId = intervalPromise.length;
-      intervalPromise.push($interval(function () {
-        Playlists.loadGymsDevicePlaylistSyncInfo(gymId, playlist.Playlist.Id).then(function (data) {
-          //console.log('calling interval for an undoRemoved playlist!');
-          playlist.DevicePlaylistSyncs[0].PercentDone = data.PercentDone;
-          playlist.DevicePlaylistSyncs[0].SecondsLeft = data.SecondsLeft;
-          playlist.DevicePlaylistSyncs[0].SyncError = data.SyncError;
-          playlist.DevicePlaylistSyncs[0].SyncStarted = data.SyncStarted;
-          playlist.DevicePlaylistSyncs[0].SyncSuccess = data.SyncSuccess;
+        // Refresh the syncing details for this playlist
+        playlist.IntervalId = intervalPromise.length;
+        intervalPromise.push($interval(function () {
+          Playlists.loadGymsDevicePlaylistSyncInfo(gymId, playlist.Playlist.Id).then(function (data) {
+            //console.log('calling interval for an undoRemoved playlist!');
+            playlist.DevicePlaylistSyncs[0].PercentDone = data.PercentDone;
+            playlist.DevicePlaylistSyncs[0].SecondsLeft = data.SecondsLeft;
+            playlist.DevicePlaylistSyncs[0].SyncError = data.SyncError;
+            playlist.DevicePlaylistSyncs[0].SyncStarted = data.SyncStarted;
+            playlist.DevicePlaylistSyncs[0].SyncSuccess = data.SyncSuccess;
 
-          if (data.SyncSuccess) {
-            $interval.cancel(intervalPromise[playlist.IntervalId]);
-          }
-        });
-      }, 5000));
+            if (data.SyncSuccess) {
+              $interval.cancel(intervalPromise[playlist.IntervalId]);
+            }
+          });
+        }, 5000));
 
-    }, function (response) {
+      }, function (res) {
+        // There was some error
+        playlistPublishError(res);
+      });
+    }, function (res) {
       // There was some error
+      playlistPublishError(res);
+    });
+  }
+
+  function playlistPublishError(res) {
       console.log("Error with status code", response.status);
       playlist.removed = true;
       self.playlistCount--;
-    });
   }
 }
