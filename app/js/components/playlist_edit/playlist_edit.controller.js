@@ -294,9 +294,16 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       console.log("Error with status code", response.status);
       spinnerService.hide('playlistEditSaveSpinner');
       self.saving = false;
-      self.error = {
-        error: true
-      };
+      if (response.data.Message === 'Playlist name already exists.') {
+        self.error = {
+          nameError: true
+        };
+      }
+      else {
+        self.error = {
+          error: true
+        };
+      }
     });
   };
 
