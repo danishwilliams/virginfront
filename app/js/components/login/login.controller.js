@@ -56,11 +56,6 @@ function LoginController($state, Users, spinnerService, USER_STATES) {
     });
   };
 
-  self.forgotClicked = function() {
-    Users.removeLocalAccessToken();
-    self.step = 'forgot';
-  };
-
   self.forgotPassword = function() {
     if (!self.credentials.username) {
       return;
