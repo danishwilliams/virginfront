@@ -85,12 +85,6 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
   self.userName = {};
   self.menu = false;
 
-  // Set language (if previously saved)
-  var langKey = Storage.getItem('language');
-  if (langKey) {
-    $translate.use(langKey);
-  }
-
   self.logout = function () {
     Users.logout();
     self.loggedIn = false;
@@ -156,9 +150,12 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
         }
         spinnerService.hide('bodySpinner');
         self.ready = true;
+
+        // Is the user in the onboarding process?
         if (!Storage.getItem('onboarding')) {
           self.loggedIn = true;
         }
+
         hasAccessToRoute(user);
       }, function (response) {
         // Catastropic error!

@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Users', UsersFactory);
 
-UsersFactory.$inject = ['Restangular', 'Storage', 'uuid2', 'USER_STATES'];
+UsersFactory.$inject = ['Restangular', 'Storage', 'uuid2', 'USER_STATES', '$translate'];
 
-function UsersFactory(Restangular, Storage, uuid2, USER_STATES) {
+function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
   var users = [];
   var currentUser = {};
 
@@ -201,6 +201,16 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES) {
         //currentUser.Roles.push('Manager');
         //currentUser.Roles.push('Admin');
       });
+
+      // Set language (if previously saved)
+      var langKey = Storage.getItem('language');
+      if (langKey) {
+        $translate.use(langKey);
+      }
+      else if (currentUser.Location.Country.Language.Code) {
+        $translate.use(currentUser.Location.Country.Language.Code);
+      }
+
       return currentUser;
     }
   }
