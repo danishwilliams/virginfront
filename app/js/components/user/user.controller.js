@@ -4,6 +4,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   self.langKey = Storage.getItem('language');
 
   if (!this.id) {
+    this.viewingOwnUserProfile = true;
     this.id = Users.getCurrentUser().Id;
   }
 
