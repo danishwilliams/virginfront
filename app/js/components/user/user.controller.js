@@ -1,11 +1,11 @@
 angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer, $translate, Storage) {
   var self = this;
   this.id = $stateParams.id;
-  self.langKey = Storage.getItem('language');
 
   if (!this.id) {
     this.viewingOwnUserProfile = true;
     this.id = Users.getCurrentUser().Id;
+    self.langKey = Storage.getItem('language' + Users.getCurrentUser().Id);
   }
 
   if (this.id) {
@@ -237,7 +237,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   };
 
   self.changeLanguage = function (langKey) {
-    Storage.setItem('language', langKey);
+    Storage.setItem('language' + self.user.Id, langKey);
     $translate.use(langKey);
   };
 });

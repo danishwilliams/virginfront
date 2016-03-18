@@ -203,7 +203,7 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
       });
 
       // Set language (if previously saved)
-      var langKey = Storage.getItem('language');
+      var langKey = Storage.getItem('language' + currentUser.Id);
       if (langKey) {
         $translate.use(langKey);
       }
