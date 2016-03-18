@@ -260,7 +260,9 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       }
     });
 
-    self.audio.play();
+    if (!track.stopPlaybackEvenIfTrackIsCurrentlyLoading) {
+      self.audio.play();
+    }
   }
 
   /**
@@ -276,6 +278,9 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
     }
     if (track) {
       track.playing = track.paused = false;
+      self.audio.pause();
+      // User clicked "play" in track search, track is loading but before it completes they add it to the goal
+      track.stopPlaybackEvenIfTrackIsCurrentlyLoading = true;
     }
     self.currentPlayingTrack = {};
   }

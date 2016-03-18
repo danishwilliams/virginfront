@@ -144,6 +144,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     }
 
     Tracks.stopTrack(track);
+    track.loading = false;
 
     // Close the modal, and send the chosen track back to the playlist_edit controller
     Tracks.setSearchedTrack(track);
