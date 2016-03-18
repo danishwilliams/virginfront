@@ -45,6 +45,20 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     Gyms.loadGyms().then(function (data) {
       spinnerService.hide('obGymsSpinner');
       self.gyms = data;
+
+      // Mark the user gyms which have been chosen
+      _.mapObject(self.gyms, function (val, key) {
+        if (key >= 0) {
+          var item = _.find(self.user.UserGyms, function (item) {
+            return item.Gym.Name === val.Name;
+          });
+          if (item) {
+            val.selected = true;
+          }
+        }
+        return val;
+      });
+
     });
     break;
   case 'onboarding-genres':
