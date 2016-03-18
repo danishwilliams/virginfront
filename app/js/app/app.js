@@ -124,7 +124,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
     // Skip login check for:
     // - onboarding
     // - password reset
-    if (next.name === 'passwordreset' || (next.name === 'onboarding' && !Storage.getItem('onboarding'))) {
+    if (next.name === 'passwordreset' || next.name === 'onboarding') {
       // The first onboarding page skips login check
       spinnerService.hide('bodySpinner');
       self.ready = true;
@@ -136,7 +136,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
     if (self.userName && self.userName.length > 9) {
       self.userName = $filter('translate')('PROFILE');
     }
-    if (!_.isEmpty(user) && !Storage.getItem('onboarding')) {
+    if (!_.isEmpty(user) && !Storage.getItem('onboarding' + user.Id)) {
       self.loggedIn = true;
     }
 
@@ -152,7 +152,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
         self.ready = true;
 
         // Is the user in the onboarding process?
-        if (!Storage.getItem('onboarding')) {
+        if (!Storage.getItem('onboarding' + user.Id)) {
           self.loggedIn = true;
         }
 

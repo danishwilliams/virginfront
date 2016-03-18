@@ -11,7 +11,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
   }
 
   if ($state.current.name === 'onboarding-get-started') {
-    Storage.removeItem('onboarding');
+    Storage.removeItem('onboarding' + Users.getCurrentUser().Id);
   }
 
   // Grab the user's account
@@ -22,10 +22,10 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
 
     // Use this token as our authentication
     Users.setAccessToken(token);
-    // Set onboarding status
-    Storage.setItem('onboarding', true);
     Users.loadCurrentUser(token).then(function(data) {
       self.user = data;
+      // Set onboarding status
+      Storage.setItem('onboarding'  + self.user.Id, true);
     }, function(res) {
       self.tokenFailed = true;
     });
