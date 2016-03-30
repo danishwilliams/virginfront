@@ -131,7 +131,6 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     });
 
     self.user.put().then(function() {
-      Users.setCurrentUser(self.user);
       $state.go('onboarding-genres');
     });
   };
@@ -155,7 +154,6 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     });
 
     self.user.put().then(function() {
-      Users.setCurrentUser(self.user);
       $state.go('onboarding-get-started');
     });
   };
