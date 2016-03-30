@@ -32,6 +32,7 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     self.newTemplate = true;
     Templates.createBlankTemplate(self.id, $scope.mins).then(function (data) {
       self.template = data;
+      spinnerService.hide('templateSpinner' + self.id);
       self.initFreestyleGoals();
     });
   }
@@ -54,6 +55,7 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     // Editing a template
     Templates.loadTemplate(self.id, self.mins).then(function (data) {
       self.template = data;
+      spinnerService.hide('templateSpinner' + self.template.Id);
     });
   }
 

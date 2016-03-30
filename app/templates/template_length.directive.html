@@ -1,4 +1,5 @@
 <div class="templates row">
+  <spinner class="spinner" name="templateSpinner{{id}}" show="true"></spinner>
   <div class="large-18 large-centered columns" ng-show="vm.template.Id">
     <div class="row heading">
       <h2>{{vm.template.TemplateGroup.Name}} ({{vm.template.ClassLengthMinutes}} {{'MINUTES_SMALL' | translate}})</h2>
@@ -106,7 +107,7 @@
 
     <div ng-if="vm.newTemplate" class="row">
       <spinner class="spinner" name="playlistFreestyleSpinner"></spinner>
-      <freestyle-goals data-ng-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{vm.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in vm.freestyleGoals" ng-change="vm.addFreestyleGoal(goal)" ng-model="vm.freestyleGoal" data-allow-create-new-goal="true"></freestyle-goals>
+      <freestyle-goals data-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{vm.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in vm.freestyleGoals" ng-change="vm.addFreestyleGoal(goal)" ng-model="vm.freestyleGoal" data-allow-create-new-goal="true"></freestyle-goals>
     </div>
 
     <div class="row">

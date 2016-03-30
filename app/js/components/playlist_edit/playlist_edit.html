@@ -94,7 +94,7 @@
       </div>
       <div class="row" ng-if="playlist_edit.playlist.TemplateName === 'Freestyle'">
         <spinner class="spinner" name="playlistFreestyleSpinner"></spinner>
-        <freestyle-goals data-ng-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{playlist_edit.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
+        <freestyle-goals data-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{playlist_edit.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
       </div>
       <div class="row">
         <background-music ng-model="playlist_edit.playlist.BackgroundTracks"></background-music>

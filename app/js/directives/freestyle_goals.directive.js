@@ -13,7 +13,7 @@ function freestyleGoals(Goals, spinnerService) {
     scope: {
       ngModel: '=',
       selectedGoalId: '@',
-      ngDisabled: '@', // if this dropdown should be disabled
+      disabled: '@', // if this dropdown should be disabled
       totalGoals: '@', // total goals in the list. @see index
       index: '@', // the current goal number in the list, so that we know when we're rendering the last dropdown (for 'Cool Down')
       allowCreateNewGoal: '@', // allows for the creation of a new default freestyle goal i.e. in template creation
@@ -26,12 +26,13 @@ function freestyleGoals(Goals, spinnerService) {
 
   function link(scope, element, attrs, ngModel) {
     scope.vm.selectedGoalId = scope.selectedGoalId;
-    scope.vm.disabled = scope.ngDisabled;
+    scope.vm.disabled = scope.disabled;
     scope.vm.index = scope.index;
     scope.vm.totalGoals = scope.totalGoals;
     scope.vm.allowCreateNewGoal = scope.allowCreateNewGoal;
     scope.vm.allowEditingGoal = scope.allowEditingGoal;
     scope.vm.addAGoal = true;
+    scope.random = Math.floor(Math.random() * 10000);
     if (scope.vm.allowEditingGoal) {
       scope.vm.addAGoal = false;
     }
@@ -48,7 +49,7 @@ function freestyleGoals(Goals, spinnerService) {
     function loadFreestyleGoals() {
       Goals.loadFreestyleGoals().then(function (data) {
         if (scope.vm.index) {
-          spinnerService.hide('freestyleSpinner');
+          spinnerService.hide('freestyleSpinner' + scope.random);
         }
         scope.vm.goals = data;
 
@@ -83,7 +84,7 @@ function freestyleGoals(Goals, spinnerService) {
 
     // Had to move the logic for ng-disabled here because stupid IE doesn't like the exact same logic in ng-disabled
     scope.isDisabled = function() {
-      if (scope.ngDisabled === 'true' || !scope.vm.goals) {
+      if (scope.disabled === 'true' || !scope.vm.goals) {
         return true;
       }
       scope.vm.goals = Goals.getFreestyleGoals();
