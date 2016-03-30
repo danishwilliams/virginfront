@@ -16,7 +16,7 @@
         <div ng-messages="playlist_edit.error">
           <p class="error" ng-message="effortRanges">{{'EFFORTS_REQ' | translate}}</p>
         </div>
-        <input id="class_name" name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}" ng-model="playlist_edit.playlist.Name" required />
+        <input id="class_name" name="class_name" class="class_name" type="text" placeholder="{{'CLASS_GIVE_NAME' | translate}}" ng-model="playlist_edit.playlist.Name" required maxlength="40" />
       </div>
       <div class="row goal-name ride-type" sticky-header>
         <div>
