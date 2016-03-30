@@ -20,7 +20,6 @@
             <span ng-show="goal.edit">{{goal.Name}}</span>
             <input type="text" name="name" ng-hide="goal.edit" placeholder="{{'NAME' | translate}}" ng-disabled="goal.GoalChallengeId" ng-model="goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false" required />
             <em ng-if="goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
-            <!--<spinner class="spinner" name="playlistFreestyleSpinner"></spinner>-->
             <freestyle-goals ng-show="goal.edit" data-index="{{$index}}" data-total-goals="{{vm.freestyleGoals.length}}" ng-change="vm.changeFreestyleGoal(goal)" ng-model="vm.freestyleGoal" data-allow-editing-goal="true"></freestyle-goals>
             <a ng-hide="goal.edit" ng-click="goal.edit = true">{{'CHANGE_GOAL' | translate}}</a>
             <a ng-show="goal.edit" ng-click="goal.edit = false">{{'CANCEL' | translate}}</a>

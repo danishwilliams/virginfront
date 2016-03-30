@@ -14,11 +14,13 @@ function GoalsFactory(Restangular, uuid2, Users) {
 
   var self = this;
   var goals = [];
+  var freestyleGoals = [];
 
   var goalsFactory = {
     createBlankDefaultGoal: createBlankDefaultGoal,
     saveNewDefaultGoal: saveNewDefaultGoal,
     loadGoals: loadGoals,
+    getFreestyleGoals: getFreestyleGoals,
     loadFreestyleGoals: loadFreestyleGoals
   };
 
@@ -76,6 +78,10 @@ function GoalsFactory(Restangular, uuid2, Users) {
     }
   }
 
+  function getFreestyleGoals() {
+    return freestyleGoals;
+  }
+
   function loadFreestyleGoals() {
     return Restangular.all('goals/freestyle').getList().then(loadFreestyleGoalsComplete);
 
@@ -87,6 +93,7 @@ function GoalsFactory(Restangular, uuid2, Users) {
         }
         return val;
       });
+      freestyleGoals = data;
       return data;
     }
   }

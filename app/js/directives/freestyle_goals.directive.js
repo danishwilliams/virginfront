@@ -2,7 +2,9 @@ angular
   .module("app")
   .directive("freestyleGoals", freestyleGoals);
 
-function freestyleGoals() {
+freestyleGoals.$inject = ['Goals', 'spinnerService'];
+
+function freestyleGoals(Goals, spinnerService) {
   var directive = {
     templateUrl: 'freestyle_goals.directive.html',
     restrict: 'E',
@@ -34,11 +36,57 @@ function freestyleGoals() {
       scope.vm.addAGoal = false;
     }
 
+    scope.vm.coolDown = false;
+
+    if (scope.vm.index === '0') {
+      loadFreestyleGoals();
+    }
+    else {
+      scope.vm.goals = Goals.getFreestyleGoals();
+    }
+
+    function loadFreestyleGoals() {
+      Goals.loadFreestyleGoals().then(function (data) {
+        if (scope.vm.index) {
+          spinnerService.hide('freestyleSpinner');
+        }
+        scope.vm.goals = data;
+
+        // Creating a new goal i.e. in template creation
+        if (scope.vm.allowCreateNewGoal || scope.vm.allowEditingGoal) {
+          scope.vm.newGoal = Goals.createBlankDefaultGoal();
+        }
+
+        // This is a Cool Down goal!
+        /*
+        // 2016.03.03 Removed the requirement that the last goal must be a Cool Down goal, but keeping
+        // this logic here in case we want to re-enable in future
+        if (parseInt(scope.vm.index) + 1 === parseInt(scope.vm.totalGoals)) {
+          scope.vm.coolDown = true;
+        }
+        */
+
+        // Set the selected goal
+        if (scope.vm.selectedGoalId) {
+          scope.vm.addAGoal = false; // We're editing a goal
+          // Auto-select the current goal
+          _.mapObject(scope.vm.goals, function (val, key) {
+            if (key >= 0) {
+              if (val.GoalId === scope.vm.selectedGoalId) {
+                scope.vm.goalArrayId = val.ArrayId;
+              }
+            }
+          });
+        }
+      });
+    }
+
     // Had to move the logic for ng-disabled here because stupid IE doesn't like the exact same logic in ng-disabled
     scope.isDisabled = function() {
-      if (scope.ngDisabled === 'true') {
+      if (scope.ngDisabled === 'true' || !scope.vm.goals) {
         return true;
       }
+      scope.vm.goals = Goals.getFreestyleGoals();
       return false;
     };
 
@@ -59,42 +107,5 @@ function freestyleGoals() {
   }
 }
 
-freestyleGoalsController.$inject = ['Goals', 'spinnerService'];
-
-function freestyleGoalsController(Goals, spinnerService) {
-  var self = this;
-  self.coolDown = false;
-  //spinnerService.show('playlistFreestyleSpinner');
-
-  Goals.loadFreestyleGoals().then(function (data) {
-    self.goals = data;
-
-    // Creating a new goal i.e. in template creation
-    if (self.allowCreateNewGoal || self.allowEditingGoal) {
-      self.newGoal = Goals.createBlankDefaultGoal();
-    }
-
-    // This is a Cool Down goal!
-    /*
-    // 2016.03.03 Removed the requirement that the last goal must be a Cool Down goal, but keeping
-    // this logic here in case we want to re-enable in future
-    if (parseInt(self.index) + 1 === parseInt(self.totalGoals)) {
-      self.coolDown = true;
-    }
-    */
-
-    // Set the selected goal
-    if (self.selectedGoalId) {
-      self.addAGoal = false; // We're editing a goal
-      // Auto-select the current goal
-      _.mapObject(self.goals, function (val, key) {
-        if (key >= 0) {
-          if (val.GoalId === self.selectedGoalId) {
-            self.goalArrayId = val.ArrayId;
-          }
-        }
-      });
-    }
-    //spinnerService.hide('playlistFreestyleSpinner');
-  });
+function freestyleGoalsController() {
 }
