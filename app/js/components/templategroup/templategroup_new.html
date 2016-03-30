@@ -25,7 +25,7 @@
       <label>{{'TYPE' | translate}}</label>
       <select name="type" ng-options="v for v in vm.types" ng-model="vm.templategroup.Type" required></select>
 
-      <div class="row">
+      <div class="row submit">
         <a class="cancel" style="float:left" ui-sref="templates-admin">{{'CANCEL' | translate}}</a>
         <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
         <input type="submit" style="float:right" ng-click="vm.saveTemplateGroup()" value="{{'SAVE' | translate}}">
