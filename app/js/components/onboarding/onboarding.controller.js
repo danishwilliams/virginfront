@@ -10,7 +10,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     self.onboarding = true;
   }
 
-  if ($state.current.name === 'onboarding-get-started') {
+  if ($state.current.name === 'onboarding-get-started' || $state.current.name === 'passwordreset') {
     Storage.removeItem('onboarding' + Users.getCurrentUser().Id);
   }
 
@@ -90,7 +90,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
           Users.setAccessToken(data);
 
           // If this is a password reset, skip onboarding and go to the dashboard
-          if ($state.current.name === 'resetpassword') {
+          if ($state.current.name === 'passwordreset') {
             $state.go('dashboard');
             return;
           }
@@ -99,6 +99,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
           self.user.State = USER_STATES.onboarding_clubs;
           self.user.route = "users";
           self.user.put();
+          Users.setCurrentUserState(USER_STATES.onboarding_clubs);
 
           if (!_.isEmpty(user.UserUserTypes)) {
             $state.go('onboarding-gyms', {token: data});
@@ -117,6 +118,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
 
     // Update the user state
     self.user.State = USER_STATES.onboarding_genres;
+    Users.setCurrentUserState(USER_STATES.onboarding_genres);
 
     self.user.UserGyms = [];
     self.gyms.forEach(function (val) {
@@ -129,6 +131,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     });
 
     self.user.put().then(function() {
+      Users.setCurrentUser(self.user);
       $state.go('onboarding-genres');
     });
   };
@@ -138,6 +141,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
 
     // Update the user state to say we're registered
     self.user.State = USER_STATES.registered;
+    Users.setCurrentUserState(USER_STATES.registered);
 
     // Replace the genres in the userobject for saving
     self.user.UserGenres = [];
@@ -151,6 +155,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     });
 
     self.user.put().then(function() {
+      Users.setCurrentUser(self.user);
       $state.go('onboarding-get-started');
     });
   };
