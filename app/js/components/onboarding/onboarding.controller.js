@@ -15,7 +15,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
   }
 
   // Grab the user's account
-  if ($state.current.name === 'onboarding') {
+  if ($state.current.name === 'onboarding' || $state.current.name === 'passwordreset') {
     // We need to be able to get to this point WITHOUT being logged in.
 
     var token = $stateParams.token;
