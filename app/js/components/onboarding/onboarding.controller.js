@@ -24,8 +24,10 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
     Users.setAccessToken(token);
     Users.loadCurrentUser(token).then(function(data) {
       self.user = data;
-      // Set onboarding status
-      Storage.setItem('onboarding'  + self.user.Id, true);
+      if ($state.current.name === 'onboarding') {
+        // Set onboarding status
+        Storage.setItem('onboarding'  + self.user.Id, true);
+      }
     }, function(res) {
       self.tokenFailed = true;
     });
