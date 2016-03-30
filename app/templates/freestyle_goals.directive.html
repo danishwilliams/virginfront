@@ -1,4 +1,4 @@
-<spinner ng-if="vm.index === '0'" class="spinner inline" name="freestyleSpinner" show="true"></spinner>
+<spinner ng-if="vm.index === '0'" class="spinner inline" name="freestyleSpinner{{random}}" show="true"></spinner>
 <select class="freestyle-goal" ng-model="vm.goalArrayId" ng-change="selected(vm.goalArrayId)" ng-disabled="isDisabled()">
   <option ng-if="vm.allowCreateNewGoal" value="" disabled selected>{{'CREATE_GOAL' | translate}}</option>
   <option ng-if="vm.allowCreateNewGoal" value="newGoal">{{'CREATE_NEW_GOAL' | translate}}</option>
