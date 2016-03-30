@@ -67,10 +67,9 @@
               <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name | translate}}
             </label>
 
-            <div class="right">
+            <div class="row submit">
               <a class="cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">{{'CANCEL' | translate}}</a>
-              <spinner class="spinner inline" name="userTypesSpinner" show="false"></spinner>
-              <input type="submit" value="{{'SAVE' | translate}}">
+              <input type="submit" value="{{'SAVE' | translate}}" ng-disabled="user.userTypesSaving">
             </div>
             &nbsp;
           </form>
