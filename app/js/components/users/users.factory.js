@@ -23,6 +23,7 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
     updateGenres: updateGenres,
     loadCurrentUser: loadCurrentUser,
     getCurrentUser: getCurrentUser,
+    setCurrentUserState: setCurrentUserState,
     sendInvite: sendInvite,
     createNewUser: createNewUser,
     disableUser: disableUser,
@@ -217,6 +218,10 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
 
   function getCurrentUser() {
     return currentUser;
+  }
+
+  function setCurrentUserState(state) {
+    currentUser.State = state;
   }
 
   /**

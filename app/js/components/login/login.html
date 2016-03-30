@@ -25,7 +25,7 @@
       </div>
 
       <div class="row submit">
-        <a class="secondary" ng-click="login.step = 'forgot'">Forgot your password?</a>
+        <a class="secondary" ng-click="login.step = 'forgot'">{{'PASSWORD_FORGOT' | translate}}</a>
         <input ng-disabled="!login.credentials.username || !login.credentials.password || login.submitted" type="submit" value="{{'LOGIN' | translate}}" />
       </div>
     </form>
@@ -46,7 +46,7 @@
           </div>
         <div class="row submit">
             <a class="cancel" ng-hide="login.forgotPasswordSubmit" ng-click="login.step = 'login'">{{'CANCEL' | translate}}</a>
-            <input ng-disabled="!login.credentials.username" type="submit" value="{{'PASSWORD_RESET' | translate}}" />
+            <input ng-disabled="!login.credentials.username || login.forgotPasswordSubmit" type="submit" value="{{'PASSWORD_RESET' | translate}}" />
         </div>
       </form>
     </div>
