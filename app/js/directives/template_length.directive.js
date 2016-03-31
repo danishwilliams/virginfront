@@ -110,6 +110,7 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     freestyleGoal.SortOrder = i + 1;
     self.template.Goals.push(freestyleGoal);
     self.goalClicked(freestyleGoal);
+    self.freestyleGoal = undefined; // So that the model we're watching on the freestyle-goals directive triggers an ng-change next time
   };
 
   this.changeFreestyleGoal = function (goal) {
