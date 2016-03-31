@@ -12,6 +12,6 @@
   <option ng-if="!goal.Goal.GoalChallengeId" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
   <option value="" disabled></option>
 
-  <option value="" disabled>{{'CHALLENGE_GOALS' | translate}}</option>
+  <option ng-if="vm.hasChallengeGoals" value="" disabled>{{'CHALLENGE_GOALS' | translate}}</option>
   <option ng-if="goal.Goal.GoalChallengeId" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" ng-if="goal.Goal.GoalChallengeId" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
 </select>

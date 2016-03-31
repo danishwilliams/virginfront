@@ -53,6 +53,13 @@ function freestyleGoals(Goals, spinnerService) {
         }
         scope.vm.goals = data;
 
+        // Are there any challenge goals?
+        scope.vm.goals.forEach(function(goal) {
+          if (goal.Goal.GoalChallengeId) {
+            scope.vm.hasChallengeGoals = true;
+          }
+        });
+
         // Creating a new goal i.e. in template creation
         if (scope.vm.allowCreateNewGoal || scope.vm.allowEditingGoal) {
           scope.vm.newGoal = Goals.createBlankDefaultGoal();
