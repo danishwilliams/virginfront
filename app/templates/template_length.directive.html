@@ -43,7 +43,7 @@
 
           <div class="row goal-meta" ng-show="goal.show" ng-repeat="goaloption in goal.GoalOptions track by $index">
             <ng-form name="goaloptionForm">
-              <div ng-show="goal.GoalOptions.length > 1" class="row">
+              <div ng-if="goal.GoalOptions.length > 1" class="row">
                 <input type="text" name="goalName" placeholder="{{'GOAL_NAME' | translate}}" ng-model="goaloption.Name" required />
                 <div ng-show="goaloptionForm.$submitted || goaloptionForm.goalName.$touched">
                   <small class="error" ng-show="goaloptionForm.goalName.$error.required">{{'INTERVAL_REQ' | translate}}</small>
@@ -112,7 +112,7 @@
 
     <div class="row">
       <!--<a class="cancel" style="float:left" ui-sref="templategroup({id:vm.template.TemplateGroup.Id})">Cancel</a>-->
-      <input type="submit" ng-disabled="vm.freestyleGoals.length > 0 || form.$pristine" class="round" style="float:right" ng-click="vm.saveTemplate()" value="{{'TEMPLATE_SAVE' | translate}}">
+      <input type="submit" ng-disabled="vm.freestyleGoals.length > 0 || form.$pristine || form.$invalid" class="round" style="float:right" ng-click="vm.saveTemplate()" value="{{'TEMPLATE_SAVE' | translate}}">
       <spinner ng-if="vm.template.Id" class="spinner" name="saveTemplate{{vm.template.Id}}TimeSpinner" show="false"></spinner>
     </div>
     </form>
