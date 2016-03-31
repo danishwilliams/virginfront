@@ -21,7 +21,7 @@ function TemplatesFactory(Restangular, uuid2, Users) {
     loadTemplate: loadTemplate,
     enableTemplate: enableTemplate,
     disableTemplate: disableTemplate,
-    isValidTemplate: isValidTemplate,
+    //isValidTemplate: isValidTemplate,
     createBlankTemplateGroup: createBlankTemplateGroup,
     loadTemplateGroups: loadTemplateGroups,
     getTemplateGroups: getTemplateGroups,
@@ -108,15 +108,18 @@ function TemplatesFactory(Restangular, uuid2, Users) {
   /**
    * Checks if a template is valid
    */
+  /*
   function isValidTemplate(template) {
     // TODO: iterate through all goals, an if a goal has an error set goal.show = true
     // as well as the error on the specific place i.e. bpm, effort, rpm, beat ratio
     // so it can be displayed in the frontend
+    // But this can also be done by checking form.$valid in the controller
     return {
       template: template,
       valid: true
     };
   }
+  */
 
   /**
    * Given a certain class length, calculate how many goals are in that class

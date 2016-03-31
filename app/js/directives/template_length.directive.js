@@ -110,6 +110,7 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     freestyleGoal.SortOrder = i + 1;
     self.template.Goals.push(freestyleGoal);
     self.goalClicked(freestyleGoal);
+    self.freestyleGoal = undefined; // So that the model we're watching on the freestyle-goals directive triggers an ng-change next time
   };
 
   this.changeFreestyleGoal = function (goal) {
@@ -129,8 +130,9 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
   };
 
   /**
-   * Validates the template
+   * Validates the template (unused because of switching to form.$valid)
    */
+  /*
   function validateTemplate() {
     var result = Templates.isValidTemplate(self.template);
     if (!result.valid) {
@@ -138,12 +140,9 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     }
     return result.valid;
   }
+  */
 
   self.saveTemplate = function () {
-    if (!validateTemplate()) {
-      return;
-    }
-
     spinnerService.show('saveTemplate' + self.template.Id + 'TimeSpinner');
 
     // See if there are any new default goals which must be added

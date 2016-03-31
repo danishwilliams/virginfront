@@ -97,6 +97,7 @@ function freestyleGoals(Goals, spinnerService) {
       if (id === 'newGoal') {
         if (scope.allowCreateNewGoal || scope.allowEditingGoal) {
           // Pass a blank goal to the parent
+          scope.vm.newGoal = Goals.createBlankDefaultGoal();
           ngModel.$setViewValue(scope.vm.newGoal);
         }
       }
