@@ -44,6 +44,23 @@ function freestyleGoals(Goals, spinnerService) {
     }
     else {
       scope.vm.goals = Goals.getFreestyleGoals();
+      setSelectedGoal();
+    }
+
+    // Select the selected goal in the dropdown select list
+    function setSelectedGoal() {
+      if (scope.vm.selectedGoalId) {
+        console.log('the currently selected goal is ', scope.vm.selectedGoalId);
+        scope.vm.addAGoal = false; // We're editing a goal
+        // Auto-select the current goal
+        _.mapObject(scope.vm.goals, function (val, key) {
+          if (key >= 0) {
+            if (val.GoalId === scope.vm.selectedGoalId) {
+              scope.vm.goalArrayId = val.ArrayId;
+            }
+          }
+        });
+      }
     }
 
     function loadFreestyleGoals() {
@@ -67,18 +84,7 @@ function freestyleGoals(Goals, spinnerService) {
         }
         */
 
-        // Set the selected goal
-        if (scope.vm.selectedGoalId) {
-          scope.vm.addAGoal = false; // We're editing a goal
-          // Auto-select the current goal
-          _.mapObject(scope.vm.goals, function (val, key) {
-            if (key >= 0) {
-              if (val.GoalId === scope.vm.selectedGoalId) {
-                scope.vm.goalArrayId = val.ArrayId;
-              }
-            }
-          });
-        }
+        setSelectedGoal();
       });
     }
 
