@@ -235,6 +235,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // Shift focus to the form and input box
       document.getElementById('class_name').focus();
     }
+    else if (self.playlist.Name.length > 40) {
+      error = true;
+      // Shift focus to the form and input box
+      document.getElementById('class_name').focus();
+    }
     else if (self.required) {
       self.required.error = undefined;
     }
