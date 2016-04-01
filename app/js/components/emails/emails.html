@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row emails">
   <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
     <div class="row heading">
       <h1>{{'EMAILS' | translate}}</h1>
@@ -6,19 +6,42 @@
 
     <!--{{'INVITE_FAILED_REASON' | translate}}-->
 
+    <h2>Problematic emails ({{vm.fails.length}})</h2>
+
     <div class="row">
-      <table style="overflow: scroll;">
+      <table class="logs">
         <thead>
           <tr>
-            <td>To</td>
-            <td>Type</td>
-            <td>CreateDate</td>
+            <td>Date / time</td>
             <td>User</td>
-            <td>Last logged in</td>
-            <td>Clicked</td>
-            <td>Delivered</td>
-            <td>Opened</td>
-            <td>Processed</td>
+            <td>Email type</td>
+            <td>Email status</td>
+            <td>Action to take</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entry in vm.fails">
+            <td>{{entry.date | date : 'dd'}} {{entry.date | date : 'MMMM' | uppercase | translate}} {{entry.date | date : 'yyyy'}} {{entry.date | date : 'HH'}}:{{entry.date | date : 'mm'}}</td>
+            <td>
+              <em><a ui-sref="users({id:entry.User.Id})">{{entry.User.FirstName}} {{entry.User.LastName}}</a></em><br>
+              {{entry.To}}<br>
+              {{'USER_STATUS' | translate}}: {{entry.User.State | translate}}
+            </td>
+            <td>{{entry.Communication.Name | translate}}</td>
+            <td><span class="warning">{{entry.reason | translate}}</span></td>
+            <td>{{entry.action | translate}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    <h2>Successful emails ({{vm.logs.length}})</h2>
+
+    <table>
+        <thead>
+          <tr>
+            <td>User</td>
+            <td>Email Type</td>
+            <td>CreateDate</td>
             <td>SpamReport</td>
             <td>Bounce</td>
             <td>Bounce Reason</td>
@@ -26,27 +49,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td colspan="12"><h3>Failures</h3></td>
-          <tr>
-          <tr ng-repeat="entry in vm.fails">
-            <td>{{entry.To}}</td>
-            <td>{{entry.Communication.Name}}</td>
-            <td>{{entry.CreateDate}}</td>
-            <td><a ui-sref="users({id:entry.User.Id})">{{entry.User.FirstName}} {{entry.User.LastName}}</a></td>
-            <td>{{entry.User.LastLoggedInDate}}</td>
-            <td>{{entry.DateClicked}}</td>
-            <td>{{entry.DateDelivered}}</td>
-            <td>{{entry.DateOpen}}</td>
-            <td>{{entry.DateProcessed}}</td>
-            <td>{{entry.DateSpamReport}}</td>
-            <td>{{entry.DateBounce}}</td>
-            <td>{{entry.BounceReason}}</td>
-            <td>{{entry.DateDropped}}</td>
-          </tr>
-          <tr>
-            <td colspan="12"><h3>Full log</h3></td>
-          <tr>
           <tr ng-repeat="entry in vm.logs">
             <td>{{entry.To}}</td>
             <td>{{entry.Communication.Name}}</td>
