@@ -61,12 +61,7 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
     });
   };
 
-  self.editEmail = function (entry) {
-    if (!entry.editing) {
-      entry.editing = true;
-      return;
-    }
-
+  self.saveEmail = function (entry) {
     entry.editing = false;
     entry.sending = true;
 
@@ -92,6 +87,12 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
         }
       });
     });
+  };
+
+  self.editEmail = function (entry) {
+    if (!entry.editing) {
+      entry.editing = true;
+    }
   };
 
 });

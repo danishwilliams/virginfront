@@ -27,17 +27,28 @@
               <span ng-hide="entry.editing">{{entry.To}}<br></span>
               <ng-form name="emailForm" ng-show="entry.editing" ng-submit="vm.saveEmailAndResend(entry)" novalidate>
                 <input name="email" type="email" ng-model="entry.To" required autofocus>
+                <div ng-show="emailForm.email.$touched">
+                  <small class="error" ng-show="emailForm.email.$error.required">{{'EMAIL_REQ' | translate}}</small>
+                  <small class="error" ng-show="emailForm.email.$error.email">{{'EMAIL_VALID' | translate}}</small>
+                </div>
               </ng-form>
               {{'USER_STATUS' | translate}}: {{entry.User.State | translate}}
             </td>
             <td>{{entry.Communication.Name | translate}}</td>
             <td><span class="warning">{{entry.reason | translate}}</span></td>
             <td>
-              <button class="secondary" ng-disabled="entry.sending" ng-if="entry.actionButton === 'edit'" ng-click="vm.editEmail(entry)">
-                <span ng-show="emailForm.$pristine">{{'EMAIL_EDIT' | translate}}</span>
-                <span ng-hide="emailForm.$pristine">Save change and resend invite</span>
+              <button class="secondary" ng-if="entry.actionButton === 'edit' && emailForm.$pristine" ng-click="vm.editEmail(entry)">
+                {{'EMAIL_EDIT' | translate}}
               </button>
-              <button class="secondary" ng-disabled="entry.sending" ng-if="entry.actionButton === 'resend'" ng-click="vm.sendInvite(entry)">{{'EMAIL_RESEND' | translate}}</button>
+
+              <button ng-disabled="entry.sending || emailForm.$invalid" ng-if="entry.actionButton === 'edit' && !emailForm.$pristine" ng-click="vm.saveEmail(entry)">
+                Save change and resend invite
+              </button>
+
+              <button class="secondary" ng-disabled="entry.sending" ng-if="entry.actionButton === 'resend'" ng-click="vm.sendInvite(entry)">
+                {{'EMAIL_RESEND' | translate}}
+              </button>
+
               <alert ng-if="entry.Alert" type="entry.Alert.type">{{entry.Alert.msg | translate}}</alert>
             </td>
           </tr>
