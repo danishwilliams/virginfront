@@ -56,7 +56,8 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
       entry.actionButton = false;
       entry.Alert = {
         type: 'success',
-        msg: 'Email sent'
+        title: 'Email sent',
+        msg: 'Pending receipt'
       };
     });
   };
@@ -81,7 +82,8 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
               entry.actionButton = false;
               entry.Alert = {
                 type: 'success',
-                msg: 'Email sent'
+                title: 'Email sent',
+                msg: 'Pending receipt'
               };
             });
             break;
@@ -90,12 +92,14 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
         entry.editing = true;
         entry.sending = false;
         entry.actionButton = 'edit';
-        entry.Alert = {
-          type: 'danger',
-          msg: res.data.Message
-        };
         if (res.data.Message === 'Email address already exists') {
-          entry.Alert.msg = 'EMAIL_EXISTS';
+          entry.emailerror = true;
+        }
+        else {
+          entry.Alert = {
+            type: 'danger',
+            msg: res.data.Message
+          };
         }
       });
     });

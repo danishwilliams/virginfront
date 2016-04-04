@@ -16,7 +16,7 @@
             <td>User</td>
             <td>Email type</td>
             <td>Email status</td>
-            <td>Action to take</td>
+            <td></td>
           </tr>
         </thead>
         <tbody>
@@ -26,10 +26,11 @@
               <em><a ui-sref="users({id:entry.User.Id})">{{entry.User.FirstName}} {{entry.User.LastName}}</a></em><br>
               <span ng-hide="entry.editing">{{entry.To}}<br></span>
               <ng-form name="emailForm" ng-show="entry.editing" ng-submit="vm.saveEmailAndResend(entry)" novalidate>
-                <input name="email" type="email" ng-model="entry.To" required autofocus>
-                <div ng-show="emailForm.email.$touched">
+                <input name="email" type="email" ng-model="entry.To" size="40" required autofocus>
+                <div>
                   <small class="error" ng-show="emailForm.email.$error.required">{{'EMAIL_REQ' | translate}}</small>
                   <small class="error" ng-show="emailForm.email.$error.email">{{'EMAIL_VALID' | translate}}</small>
+                  <small class="error" ng-show="entry.emailerror">{{'EMAIL_EXISTS' | translate}}</small>
                 </div>
               </ng-form>
               {{'USER_STATUS' | translate}}: {{entry.User.State | translate}}
@@ -37,7 +38,7 @@
             <td>{{entry.Communication.Name | translate}}</td>
             <td><span class="warning">{{entry.reason | translate}}</span></td>
             <td>
-              <alert ng-if="entry.Alert" type="entry.Alert.type">{{entry.Alert.msg | translate}}</alert>
+              <alert ng-if="entry.Alert" type="entry.Alert.type"><em>{{entry.Alert.title | translate}}</em>{{entry.Alert.msg | translate}}</alert>
 
               <button class="secondary" ng-if="entry.actionButton === 'edit' && emailForm.$pristine" ng-click="vm.editEmail(entry)">
                 {{'EMAIL_EDIT' | translate}}
@@ -55,7 +56,7 @@
         </tbody>
       </table>
 
-    <h2>Successful emails ({{vm.logs.length}})</h2>
+    <h2>Successful emails</h2>
 
     <table>
         <thead>

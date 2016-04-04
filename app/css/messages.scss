@@ -37,3 +37,33 @@ span.length.error {
   padding: rem-calc(10px);
   font-style: normal;
 }
+
+/* Alert boxes */
+
+.alert-box {
+  .close {
+    text-decoration: none;
+  }
+  a {
+    color: $grey_dark;
+    text-decoration: underline;
+  }
+}
+
+table .alert-box {
+  &.danger {
+    color: $cherry;
+    background-color: transparent;
+    border-color: transparent;
+  }
+  &.success {
+    color: $success-color;
+    background-color: transparent;
+    border-color: transparent;
+    em {
+      font-weight: bold;
+      font-style: inherit;
+      display: block;
+    }
+  }
+}
