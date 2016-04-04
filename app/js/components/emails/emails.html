@@ -36,15 +36,15 @@
               {{'USER_STATUS' | translate}}: {{entry.User.State | translate}}
             </td>
             <td>{{entry.Communication.Name | translate}}</td>
-            <td><span class="warning">{{entry.reason | translate}}</span></td>
             <td>
+              <span ng-if="!entry.Alert" class="warning">{{entry.reason | translate}}</span>
               <alert ng-if="entry.Alert" type="entry.Alert.type"><em>{{entry.Alert.title | translate}}</em>{{entry.Alert.msg | translate}}</alert>
-
-              <button class="secondary" ng-if="entry.actionButton === 'edit' && emailForm.$pristine" ng-click="vm.editEmail(entry)">
+            <td>
+              <button class="secondary" ng-if="entry.actionButton === 'edit'" ng-click="vm.editEmail(entry)">
                 {{'EMAIL_EDIT' | translate}}
               </button>
 
-              <button ng-disabled="entry.sending || emailForm.$invalid" ng-if="entry.actionButton === 'edit' && !emailForm.$pristine" ng-click="vm.saveEmail(entry)">
+              <button ng-disabled="entry.sending || emailForm.$invalid || emailForm.$pristine" ng-if="entry.actionButton === 'editing'" ng-click="vm.saveEmail(entry)">
                 Save change and resend invite
               </button>
 

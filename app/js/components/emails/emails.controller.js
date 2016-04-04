@@ -1,4 +1,4 @@
-angular.module("app.emails", []).controller('EmailsController', function (Emails, Users) {
+angular.module("app.emails", []).controller('EmailsController', function (Emails, Users, $scope) {
   var self = this;
 
   // @see https://sendgrid.com/docs/API_Reference/Webhooks/event.html for what the values mean
@@ -91,7 +91,7 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
       }, function (res) {
         entry.editing = true;
         entry.sending = false;
-        entry.actionButton = 'edit';
+        entry.actionButton = 'editing';
         if (res.data.Message === 'Email address already exists') {
           entry.emailerror = true;
         }
@@ -106,6 +106,7 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
   };
 
   self.editEmail = function (entry) {
+    entry.actionButton = 'editing';
     if (!entry.editing) {
       entry.editing = true;
     }
