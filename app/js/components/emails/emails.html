@@ -24,12 +24,22 @@
             <td>{{entry.date | date : 'dd'}} {{entry.date | date : 'MMMM' | uppercase | translate}} {{entry.date | date : 'yyyy'}} {{entry.date | date : 'HH'}}:{{entry.date | date : 'mm'}}</td>
             <td>
               <em><a ui-sref="users({id:entry.User.Id})">{{entry.User.FirstName}} {{entry.User.LastName}}</a></em><br>
-              {{entry.To}}<br>
+              <span ng-hide="entry.editing">{{entry.To}}<br></span>
+              <ng-form name="emailForm" ng-show="entry.editing" ng-submit="vm.saveEmailAndResend(entry)" novalidate>
+                <input name="email" type="email" ng-model="entry.To" required autofocus>
+              </ng-form>
               {{'USER_STATUS' | translate}}: {{entry.User.State | translate}}
             </td>
             <td>{{entry.Communication.Name | translate}}</td>
             <td><span class="warning">{{entry.reason | translate}}</span></td>
-            <td>{{entry.action | translate}}</td>
+            <td>
+              <button class="secondary" ng-disabled="entry.sending" ng-if="entry.actionButton === 'edit'" ng-click="vm.editEmail(entry)">
+                <span ng-show="emailForm.$pristine">{{'EMAIL_EDIT' | translate}}</span>
+                <span ng-hide="emailForm.$pristine">Save change and resend invite</span>
+              </button>
+              <button class="secondary" ng-disabled="entry.sending" ng-if="entry.actionButton === 'resend'" ng-click="vm.sendInvite(entry)">{{'EMAIL_RESEND' | translate}}</button>
+              <alert ng-if="entry.Alert" type="entry.Alert.type">{{entry.Alert.msg | translate}}</alert>
+            </td>
           </tr>
         </tbody>
       </table>
