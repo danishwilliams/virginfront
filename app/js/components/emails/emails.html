@@ -61,30 +61,30 @@
     <table>
         <thead>
           <tr>
+            <td>Date / time</td>
             <td>User</td>
-            <td>Email Type</td>
-            <td>CreateDate</td>
-            <td>SpamReport</td>
-            <td>Bounce</td>
-            <td>Bounce Reason</td>
-            <td>Dropped</td>
+            <td>Email type</td>
+            <td>Email status</td>
+            <td></td>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="entry in vm.logs">
-            <td>{{entry.To}}</td>
-            <td>{{entry.Communication.Name}}</td>
-            <td>{{entry.CreateDate}}</td>
-            <td><a ui-sref="users({id:entry.User.Id})">{{entry.User.FirstName}} {{entry.User.LastName}}</a></td>
-            <td>{{entry.User.LastLoggedInDate}}</td>
-            <td>{{entry.DateClicked}}</td>
-            <td>{{entry.DateDelivered}}</td>
-            <td>{{entry.DateOpen}}</td>
-            <td>{{entry.DateProcessed}}</td>
-            <td>{{entry.DateSpamReport}}</td>
-            <td>{{entry.DateBounce}}</td>
-            <td>{{entry.BounceReason}}</td>
-            <td>{{entry.DateDropped}}</td>
+            <td>{{entry.date | date : 'dd'}} {{entry.date | date : 'MMMM' | uppercase | translate}} {{entry.date | date : 'yyyy HH:mm'}}</td>
+            <td>
+              <em><a ui-sref="users({id:entry.User.Id})">{{entry.User.FirstName}} {{entry.User.LastName}}</a></em><br>
+              {{entry.To}}<br>
+              {{'USER_STATUS' | translate}}: {{entry.User.State | translate}}
+            </td>
+            <td>{{entry.Communication.Name | translate}}</td>
+            <td>
+              {{entry.reason | translate}}
+            </td>
+            <td>
+              <button class="secondary" ng-disabled="entry.sending" ng-if="entry.Communication.Name === 'Invite'" ng-click="vm.sendInvite(entry)">
+                {{'EMAIL_RESEND' | translate}}
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

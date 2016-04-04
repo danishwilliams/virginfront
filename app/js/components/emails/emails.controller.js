@@ -3,8 +3,18 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
 
   // @see https://sendgrid.com/docs/API_Reference/Webhooks/event.html for what the values mean
 
-  Emails.loadLogs(1, 10).then(function(data) {
+  Emails.loadLogs(1, 10, true).then(function(data) {
     self.logs = data;
+    self.logs.forEach(function(entry) {
+      if (entry.DateDelivered) {
+        entry.date = entry.DateDelivered;
+        entry.reason = 'EMAIL_DELIVERED';
+      }
+      else {
+        entry.date = entry.CreateDate;
+        entry.reason = 'EMAIL_SENT';
+      }
+    });
   });
 
   Emails.loadFails(1, 10).then(function(data) {

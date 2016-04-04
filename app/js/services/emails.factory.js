@@ -24,8 +24,8 @@ function EmailsFactory(Restangular) {
     }
   }
 
-  function loadLogs(page, resultCount, userId, communicationName) {
-    var parameters = setupLogParameters(page, resultCount, communicationName, userId);
+  function loadLogs(page, resultCount, success, userId, communicationName) {
+    var parameters = setupLogParameters(page, resultCount, communicationName, userId, success);
     return Restangular.all('communications/logs').get('', parameters).then(loadLogsComplete);
 
     function loadLogsComplete(data, status, headers, config) {
@@ -45,7 +45,7 @@ function EmailsFactory(Restangular) {
   /**
    * For use in loadLogs() and loadFails()
    */
-  function setupLogParameters(page, resultCount, communicationName, userId) {
+  function setupLogParameters(page, resultCount, communicationName, userId, success) {
     if (!page) {
       page = 1;
     }
@@ -54,7 +54,8 @@ function EmailsFactory(Restangular) {
     }
     var parameters = {
       page: page,
-      resultCount: resultCount
+      resultCount: resultCount,
+      success: success
     };
     if (communicationName) {
       parameters.communicationName = communicationName;
