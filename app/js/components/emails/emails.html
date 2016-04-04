@@ -37,6 +37,8 @@
             <td>{{entry.Communication.Name | translate}}</td>
             <td><span class="warning">{{entry.reason | translate}}</span></td>
             <td>
+              <alert ng-if="entry.Alert" type="entry.Alert.type">{{entry.Alert.msg | translate}}</alert>
+
               <button class="secondary" ng-if="entry.actionButton === 'edit' && emailForm.$pristine" ng-click="vm.editEmail(entry)">
                 {{'EMAIL_EDIT' | translate}}
               </button>
@@ -48,8 +50,6 @@
               <button class="secondary" ng-disabled="entry.sending" ng-if="entry.actionButton === 'resend'" ng-click="vm.sendInvite(entry)">
                 {{'EMAIL_RESEND' | translate}}
               </button>
-
-              <alert ng-if="entry.Alert" type="entry.Alert.type">{{entry.Alert.msg | translate}}</alert>
             </td>
           </tr>
         </tbody>

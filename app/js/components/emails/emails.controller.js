@@ -64,6 +64,7 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
   self.saveEmail = function (entry) {
     entry.editing = false;
     entry.sending = true;
+    entry.Alert = undefined;
 
     // Save email address by loading the specific user, setting the new email address, and saving the user
     Users.loadUser(entry.User.Id).then(function(user) {
@@ -85,6 +86,17 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
             });
             break;
         }
+      }, function (res) {
+        entry.editing = true;
+        entry.sending = false;
+        entry.actionButton = 'edit';
+        entry.Alert = {
+          type: 'danger',
+          msg: res.data.Message
+        };
+        if (res.data.Message === 'Email address already exists') {
+          entry.Alert.msg = 'EMAIL_EXISTS';
+        }
       });
     });
   };
@@ -94,5 +106,4 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
       entry.editing = true;
     }
   };
-
 });

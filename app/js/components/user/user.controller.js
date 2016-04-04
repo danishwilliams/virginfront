@@ -228,7 +228,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
           self.error = {
             error: false, // Workaround for showing errors at the top of the page too
             email: true,
-            message: $filter('translate')('EMAIL_EXISTS')
+            message: $filter('translate')('INSTRUCTOR_EXISTS')
           };
         }
       }
