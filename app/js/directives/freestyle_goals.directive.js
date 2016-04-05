@@ -44,7 +44,15 @@ function freestyleGoals(Goals, spinnerService) {
     }
     else {
       scope.vm.goals = Goals.getFreestyleGoals();
-      setSelectedGoal();
+      if (_.isEmpty(scope.vm.goals)) {
+        // Basically, we're calling this directive from a freestyle playlist where $index is never 0 (because the
+        // first goal is always Warm Up) and therefore the Freestyle Goals are never loaded.
+        scope.vm.manualLoading = true;
+        loadFreestyleGoals();
+      }
+      else {
+        setSelectedGoal();
+      }
     }
 
     // Select the selected goal in the dropdown select list
