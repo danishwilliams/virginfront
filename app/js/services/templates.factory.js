@@ -19,6 +19,7 @@ function TemplatesFactory(Restangular, uuid2, Users) {
     loadTemplates: loadTemplates,
     getTemplates: getTemplates,
     loadTemplate: loadTemplate,
+    numGoalsInClass: numGoalsInClass,
     enableTemplate: enableTemplate,
     disableTemplate: disableTemplate,
     //isValidTemplate: isValidTemplate,
