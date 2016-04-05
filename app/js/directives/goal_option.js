@@ -8,6 +8,7 @@ function goalOption() {
     restrict: 'E',
     controller: goalOptionController,
     controllerAs: 'vm',
+    link: link,
     scope: {
       bpm: '@',
       freestyle: '@',
@@ -20,6 +21,21 @@ function goalOption() {
     }
   };
   return directive;
+
+  function link(scope, element, attrs) {
+    scope.changed = function () {
+      // This triggers the ng-change on the directive so the parent controller can get the value
+      console.log(scope.effort);
+      console.log('here!');
+      effort.$setViewValue(scope.effort);
+      //scope.$apply();
+    };
+
+    scope.$watch('scope.effort', function () {
+      console.log(scope);
+    });
+
+  }
 }
 
 goalOptionController.$inject = ['$scope'];
@@ -67,6 +83,14 @@ function goalOptionController($scope) {
   $scope.$watch('bpm', function () {
     updateBpm();
   });
+
+  $scope.$watch('effort', function () {
+    console.log($scope);
+  });
+
+  function effortChanged() {
+    console.log('chanigng!', $scope);    
+  }
 
   function updateBpm() {
     if ($scope.customrpm === 'false' && $scope.goaloption.Beat) {
