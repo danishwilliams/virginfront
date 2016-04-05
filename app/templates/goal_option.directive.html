@@ -14,7 +14,7 @@
 <div>
   Effort <em><span ng-if="!freestyle">{{goaloption.effortrange}}%</span></em>
 
-  <ng-form name="effortForm" novalidate ng-if="freestyle">
+  <ng-form name="effortForm" novalidate ng-show="freestyle">
     <select name="effort" ng-options="v for v in effortOptions" ng-model="effort" required>
     </select>
     -
