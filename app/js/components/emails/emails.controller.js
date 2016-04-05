@@ -1,5 +1,6 @@
 angular.module("app.emails", []).controller('EmailsController', function (Emails, Users, $scope) {
   var self = this;
+  self.query = '';
 
   // @see https://sendgrid.com/docs/API_Reference/Webhooks/event.html for what the values mean
 
@@ -124,4 +125,28 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
       entry.editing = true;
     }
   };
+
+  self.entryFilter = function(entry) {
+    self.query = self.query.toLowerCase();
+    if (entry.User.FirstName && entry.User.FirstName.toLowerCase().indexOf(self.query) > -1) {
+      return entry;
+    }
+    else if (entry.User.LastName && entry.User.LastName.toLowerCase().indexOf(self.query) > -1) {
+      return entry;
+    }
+    else if (entry.User.Email && entry.User.Email.toLowerCase().indexOf(self.query) > -1) {
+      return entry;
+    }
+    else if (self.query.indexOf(' ') > -1) {
+      var firstName = self.query.substring(0, self.query.indexOf(' '));
+      var lastName = self.query.substring(self.query.indexOf(' '));
+      if (entry.User.FirstName && entry.User.FirstName.toLowerCase().indexOf(firstName) > -1) {
+        return entry;
+      }
+      else if (entry.User.LastName && entry.User.LastName.toLowerCase().indexOf(lastName) > -1) {
+        return entry;
+      }
+    }
+  };
+
 });

@@ -39,6 +39,7 @@
             <td>
               <span ng-if="!entry.Alert" class="warning">{{entry.reason | translate}}</span>
               <alert ng-if="entry.Alert" type="entry.Alert.type"><em>{{entry.Alert.title | translate}}</em>{{entry.Alert.msg | translate}}</alert>
+            </td>
             <td>
               <button class="secondary" ng-if="entry.actionButton === 'edit'" ng-click="vm.editEmail(entry)">
                 {{'EMAIL_EDIT' | translate}}
@@ -55,8 +56,18 @@
           </tr>
         </tbody>
       </table>
+    </div>
 
-    <h2>Successful emails</h2>
+    <div class="row">
+      <h2>
+      <div class="large-9 columns">
+        Successful emails
+      </div>
+      <div class="large-9 columns">
+        <input ng-model="vm.query" type="text" placeholder="Name or email" size="60">
+      </div>
+      </h2>&nbsp;
+    </div>
 
     <table>
         <thead>
@@ -69,7 +80,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="entry in vm.logs">
+          <tr ng-repeat="entry in vm.logs | filter:vm.entryFilter">
             <td>{{entry.date | date : 'dd'}} {{entry.date | date : 'MMMM' | uppercase | translate}} {{entry.date | date : 'yyyy HH:mm'}}</td>
             <td>
               <em><a ui-sref="users({id:entry.User.Id})">{{entry.User.FirstName}} {{entry.User.LastName}}</a></em><br>
