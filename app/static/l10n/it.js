@@ -241,6 +241,9 @@
   "EMAIL_RESEND": "Try resend",
   "EMAIL_SPAM": "The email was marked as spam",
   "EMAIL_EXISTS": "This email address already exists",
+  "EMAIL_DELIVERED": "Delivered",
+  "EMAIL_SENT": "Sent",
+  "EMAIL_SAVE_RESEND": "Save change and resend invite",
   "TEMPLATES": "Templates",
   "TEMPLATE": "Template",
   "TEMPLATE_CREATE": "Crea un template nuovo",
@@ -331,5 +334,6 @@
   "CONTINUE_ANYWAY_BTN": "Continue anyway",
   "CONTACT_ADMIN": "Please contact your administrator",
   "CONNECTED": "Connected",
-  "END_RIDE": "End this ride"
+  "END_RIDE": "End this ride",
+  "RIDES_AVAILABLE_NOT_ON_DEVICE": "Your rides have not sync'd to this device, please logout and wait"
 }

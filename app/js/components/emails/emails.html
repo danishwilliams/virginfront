@@ -45,7 +45,7 @@
               </button>
 
               <button ng-disabled="entry.sending || emailForm.$invalid || emailForm.$pristine" ng-if="entry.actionButton === 'editing'" ng-click="vm.saveEmail(entry)">
-                Save change and resend invite
+                {{'EMAIL_SAVE_RESEND' | translate}}
               </button>
 
               <button class="secondary" ng-disabled="entry.sending" ng-if="entry.actionButton === 'resend'" ng-click="vm.sendInvite(entry)">
@@ -78,10 +78,11 @@
             </td>
             <td>{{entry.Communication.Name | translate}}</td>
             <td>
-              {{entry.reason | translate}}
+              <span ng-if="!entry.Alert">{{entry.reason | translate}}</span>
+              <alert ng-if="entry.Alert" type="entry.Alert.type"><em>{{entry.Alert.title | translate}}</em>{{entry.Alert.msg | translate}}</alert>
             </td>
             <td>
-              <button class="secondary" ng-disabled="entry.sending" ng-if="entry.Communication.Name === 'Invite'" ng-click="vm.sendInvite(entry)">
+              <button class="secondary" ng-disabled="entry.sending" ng-if="entry.actionButton === 'resend'" ng-click="vm.sendInvite(entry)">
                 {{'EMAIL_RESEND' | translate}}
               </button>
             </td>

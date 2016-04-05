@@ -3,7 +3,7 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
 
   // @see https://sendgrid.com/docs/API_Reference/Webhooks/event.html for what the values mean
 
-  Emails.loadLogs(1, 10, true).then(function(data) {
+  Emails.loadLogs(1, 30, true).then(function(data) {
     self.logs = data;
     self.logs.forEach(function(entry) {
       if (entry.DateDelivered) {
@@ -14,10 +14,13 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
         entry.date = entry.CreateDate;
         entry.reason = 'EMAIL_SENT';
       }
+      if (entry.Communication && entry.Communication.Name === 'Invite') {
+        entry.actionButton = 'resend';
+      }
     });
   });
 
-  Emails.loadFails(1, 10).then(function(data) {
+  Emails.loadFails(1, 30).then(function(data) {
     self.fails = data;
     self.fails.forEach(function(entry) {
       // Figure out the failure reason, date, and what action to take
