@@ -75,11 +75,22 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // This is a Freestyle playlist, so create a list of freestyle goals which can then be added
   this.initFreestyleGoals = function () {
-    if (self.playlist.TemplateName !== 'Freestyle') {
+    if (self.playlist.TemplateType !== 'freestyle') {
       return;
     }
     self.freestyleTemplate = true;
     self.freestyleGoals = [];
+
+    if (!self.playlist.MaxFreestyleGoals) {
+      // MaxFreestyleGoals hasn't been set because we're editing a freestyle playlist
+
+      // Figure out what MaxFreestyleGoals should be for this playlist
+      self.playlist.MaxFreestyleGoals = Templates.numGoalsInClass(self.playlist.ClassLengthMinutes);
+
+      // Subtract the number of existing goals from MaxFreestyleGoals
+      self.playlist.MaxFreestyleGoals = self.playlist.MaxFreestyleGoals - self.playlist.PlaylistGoals.length;
+    }
+
     for (var i = 0; i < self.playlist.MaxFreestyleGoals - 1; i++) {
       self.freestyleGoals[i] = {
         show: true
@@ -245,7 +256,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
 
     // If this is a freestyle playlist, all effort ranges must have a value
-    if (self.playlist.TemplateName === 'Freestyle' && !checkEffortRanges()) {
+    if (self.playlist.TemplateType === 'freestyle' && !checkEffortRanges()) {
       error = true;
       self.error = {
         effortRanges: true
@@ -332,12 +343,15 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   function checkEffortRanges() {
     // Load up all Goal Options and iterate through them
     var error = false;
+    console.log('checkEffortRanges()');
+    console.log(self.playlist.PlaylistGoals);
     self.playlist.PlaylistGoals.forEach(function(val) {
       val.Goal.GoalOptions.forEach(function(goaloptions) {
         if (goaloptions.Effort > 0) {
           // Yay
         }
         else {
+          //console.log(val);
           val.show = true;
           error = true;
         }

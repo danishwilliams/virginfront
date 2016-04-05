@@ -33,13 +33,13 @@
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
             <div class="small-10 columns">
               <h4 ng-class="{'has-track' : playlistGoal.PlaylistGoalTracks.length > 0}">
-                <img ng-class="{'freestyle' : playlist_edit.playlist.TemplateName === 'Freestyle'}" ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
+                <img ng-class="{'freestyle' : playlist_edit.playlist.TemplateType === 'freestyle'}" ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
 
-                <span ng-if="playlist_edit.playlist.TemplateName !== 'Freestyle'">
+                <span ng-if="playlist_edit.playlist.TemplateType !== 'freestyle'">
                   {{playlistGoal.Goal.Name}}
                 </span>
 
-                <span ng-if="playlist_edit.playlist.TemplateName === 'Freestyle'">
+                <span ng-if="playlist_edit.playlist.TemplateType === 'freestyle'">
                   <span ng-if="playlistGoal.ArrayId == 0">
                     {{playlistGoal.Goal.Name}}
                   </span>
@@ -93,7 +93,7 @@
           </div>
         </div>
       </div>
-      <div class="row" ng-if="playlist_edit.playlist.TemplateName === 'Freestyle'">
+      <div class="row" ng-if="playlist_edit.playlist.TemplateType === 'freestyle'">
         <spinner class="spinner" name="playlistFreestyleSpinner"></spinner>
         <freestyle-goals data-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{playlist_edit.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
       </div>
