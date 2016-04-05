@@ -75,7 +75,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // This is a Freestyle playlist, so create a list of freestyle goals which can then be added
   this.initFreestyleGoals = function () {
-    if (self.playlist.TemplateName !== 'Freestyle') {
+    if (self.playlist.TemplateType !== 'freestyle') {
       return;
     }
     self.freestyleTemplate = true;
@@ -245,7 +245,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
 
     // If this is a freestyle playlist, all effort ranges must have a value
-    if (self.playlist.TemplateName === 'Freestyle' && !checkEffortRanges()) {
+    if (self.playlist.TemplateType === 'freestyle' && !checkEffortRanges()) {
       error = true;
       self.error = {
         effortRanges: true
