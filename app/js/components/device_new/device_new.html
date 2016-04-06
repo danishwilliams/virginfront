@@ -1,7 +1,8 @@
 <div class="row">
   <div class="large-12 medium-18 small-18 large-centered columns">
-    <h1>{{'DEVICE_NEW' | translate}}</h1>
-
+    <div class="row heading">
+      <h1>{{'DEVICE_NEW' | translate}}</h1>
+    </div>
     <form ng-show="vm.step === 0" name="vm.form" ng-submit="vm.provisionNewDevice()" novalidate>
       <label>{{'SELECT_CLUB' | translate}}</label>
 
@@ -21,7 +22,7 @@
       </div>
 
       <div class="row submit">
-        <input class="submit" ng-disabled="vm.saving" type="submit" value="{{'DEVICE_GEN_CODE' | translate}}">
+        <input class="submit" ng-disabled="vm.saving || vm.form.$invalid" type="submit" value="{{'DEVICE_GEN_CODE' | translate}}">
       </div>
     </form>
 
