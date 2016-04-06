@@ -103,6 +103,18 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Devices | Admin'; }
     },
     data: {
+      permissions: [APP_PERMISSIONS.viewAdmin]
+    }
+  })
+
+  .state('device-new', {
+    url: '/admin/devices/new',
+    templateUrl: '../js/components/device_new/device_new.html',
+    controller: 'DeviceNewController as vm',
+    resolve: {
+      $title: function() { return 'DEVICE_NEW'; }
+    },
+    data: {
       permissions: [APP_PERMISSIONS.devices]
     }
   })
@@ -115,7 +127,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'Device | Admin'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.devices]
+      permissions: [APP_PERMISSIONS.viewAdmin]
     }
   })
 

@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Devices', DevicesFactory);
 
-DevicesFactory.$inject = ['Restangular'];
+DevicesFactory.$inject = ['Restangular', 'uuid2'];
 
-function DevicesFactory(Restangular) {
+function DevicesFactory(Restangular, uuid2) {
   var self = this;
   var devices = [];
 
@@ -12,7 +12,9 @@ function DevicesFactory(Restangular) {
     loadDevices: loadDevices,
     getDevices: getDevices,
     loadDevice: loadDevice,
-    loadDevicePlaylists: loadDevicePlaylists
+    loadDevicePlaylists: loadDevicePlaylists,
+    provisionDevice: provisionDevice,
+    disableDevice: disableDevice
   };
 
   return devicesFactory;
@@ -44,5 +46,27 @@ function DevicesFactory(Restangular) {
     function loadDevicePlaylistsComplete(data, status, headers, config) {
       return data;
     }
+  }
+
+  function provisionDevice(deviceName, gymId) {
+    var params = {
+      DeviceName: deviceName,
+      GymId: gymId,
+      Id: uuid2.newuuid().toString()
+    };
+    return Restangular.one('devices/provision').post('', params).then(provisionDeviceComplete);
+
+    function provisionDeviceComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function disableDevice(id) {
+    return Restangular.one('devices/disable', id).post().then(disableDeviceComplete);
+
+    function disableDeviceComplete(data, status, headers, config) {
+      return data;
+    }
+
   }
 }

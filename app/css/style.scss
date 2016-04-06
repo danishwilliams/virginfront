@@ -99,7 +99,7 @@ button, input[type="submit"] {
 input[type="text"], input[type="password"], input[type="email"] {
   margin: 0;
 }
-input[type="submit"] {
+input[type="submit"], button.submit {
   float: right;
 }
 
@@ -124,6 +124,11 @@ label {
   font-weight: bold;
   padding-bottom: rem-calc(4px);
   padding-top: rem-calc(6px);
+  font-size: inherit;
+}
+
+label.radio {
+  font-weight: inherit;
 }
 
 .back {
