@@ -335,5 +335,5 @@
   "CONTACT_ADMIN": "Please contact your administrator",
   "CONNECTED": "Connected",
   "END_RIDE": "End this ride",
-  "RIDES_AVAILABLE_NOT_ON_DEVICE": "Your rides have not sync'd to this device, please logout and wait"
+  "RIDES_AVAILABLE_NOT_ON_DEVICE": "Your rides are being synced. Please log out to allow syncing to complete."
 }
