@@ -26,10 +26,10 @@
     </form>
 
     <div ng-show="vm.step === 1" class="row">
-      <div class="small-2 columns">
-      Icon
+      <div class="small-2 medium-2 large-1 columns">
+        <img src="/img/ico40grn_syncsuccess.svg">
       </div>
-      <div class="small-16 columns">
+      <div class="small-16 medium-16 large-17 columns">
         <p class="success">{{'DEVICE_CODE_SUCCESS' | translate}} {{vm.selectedGym.Name}} {{vm.deviceName}}</p>
 
         <p>
@@ -53,10 +53,10 @@
     </div>
 
     <div ng-show="vm.step === 2" class="row">
-      <div class="small-2 columns">
-      Icon
+      <div class="small-2 medium-2 large-1 columns">
+        <img src="/img/ico40orng_syncerror.svg">
       </div>
-      <div class="small-16 columns">
+      <div class="small-16 medium-16 large-17 columns">
         <p class="warning">{{'DEVICE_EXISTS' | translate}} {{vm.selectedGym.Name}}</p>
         <p translate="DEVICE_LIMIT" translate-values="{number: vm.maxDevices}"></p>
         <p>{{'LIKE_TO' | translate}}
