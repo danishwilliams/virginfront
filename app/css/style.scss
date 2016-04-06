@@ -124,6 +124,11 @@ label {
   font-weight: bold;
   padding-bottom: rem-calc(4px);
   padding-top: rem-calc(6px);
+  font-size: inherit;
+}
+
+label.radio {
+  font-weight: inherit;
 }
 
 .back {
