@@ -75,6 +75,10 @@
           <i class="users"></i>
           <label>{{'USERS' | translate}}</label>
         </a>
+        <a class="item" ui-sref="device-new" ng-if-permission="devices">
+          <i class="devices"></i>
+          <label>{{'DEVICE_NEW' | translate}}</label>
+        </a>
         <a class="item" ui-sref="emails" ng-if-permission="users">
           <i class="emails"></i>
           <label>{{'EMAILS' | translate}}</label>

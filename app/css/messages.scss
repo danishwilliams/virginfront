@@ -32,10 +32,25 @@ span.length.error {
 }
 
 .success, small.success {
-  background: #43AC6A; // TODO: make this a variable
+  background: $success-color;
   color: $white;
   padding: rem-calc(10px);
   font-style: normal;
+}
+
+p.success, p.warning {
+  font-size: $h2-font-size;
+  background: transparent;
+  padding: 0;
+}
+
+p.success {
+  color: $success-color;
+}
+
+p.warning {
+  color: $warning-color;
+
 }
 
 /* Alert boxes */

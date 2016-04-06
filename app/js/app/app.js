@@ -16,6 +16,7 @@ angular
     "app.dashboard",
     "app.devices",
     "app.device",
+    "app.device_new",
     "app.device_playlists",
     "app.emails",
     "app.genres",
