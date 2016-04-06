@@ -16,7 +16,7 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
     provisionDevice();
   };
 
-  self.disableActiveDeviceAndProvisionNewDevice = function() {
+  self.disableActiveDeviceAndProvisionNewDevice = function () {
     self.saving = true;
     disableAllDevices();
   };
@@ -25,18 +25,20 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
     var defer = $q.defer();
     var promises = [];
 
-    self.gymDevicesToBeDeleted.forEach(function(device) {
+    self.gymDevicesToBeDeleted.forEach(function (device) {
       promises.push(Devices.disableDevice(device.Id));
     });
 
-    $q.all(promises).then(function() { provisionDevice(); });
+    $q.all(promises).then(function () {
+      provisionDevice();
+    });
 
     return defer.promise;
   }
 
   function provisionDevice() {
     // post DeviceName, GymId
-    Devices.provisionDevice(self.deviceName, self.selectedGym.Id).then(function(data) {
+    Devices.provisionDevice(self.deviceName, self.selectedGym.Id).then(function (data) {
       self.saving = false;
       self.code = data.ProvisionCode;
 
@@ -47,7 +49,7 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
       }
       self.disableDevice = false;
       self.step = 1;
-    }, function(err) {
+    }, function (err) {
       console.log(err);
       self.saving = false;
       if (err.status === 500) {
@@ -58,7 +60,7 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
     });
   }
 
-  self.provisionAnother = function() {
+  self.provisionAnother = function () {
     self.step = 0;
     self.selectedGym = undefined;
     self.deviceName = '';
