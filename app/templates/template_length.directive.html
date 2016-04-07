@@ -4,7 +4,7 @@
     <div class="row heading">
       <h2>{{vm.template.TemplateGroup.Name}} ({{vm.template.ClassLengthMinutes}} {{'MINUTES_SMALL' | translate}})</h2>
     </div>
-    <form name="form" novalidate>
+    <form name="form" ng-submit="vm.saveTemplate()" novalidate>
     <div class="row goal" data-ng-repeat="goal in vm.template.Goals | orderBy:'SortOrder' track by $index">
       <div class="goal-container">
 
@@ -66,14 +66,14 @@
 
                 <div class="large-9 columns" ng-if="vm.template.TemplateGroup.IsCustomRpm">
                   <label>{{'RPM' | translate}}</label>
-                  <select name="rpm" ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow">
+                  <select name="rpm" ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow" required>
                   </select>
                   -
-                  <select ng-options="v disable when v <= goaloption.RpmLow for v in vm.rpmOptions" ng-model="goaloption.RpmHigh">
+                  <select ng-options="v disable when v <= goaloption.RpmLow for v in vm.rpmOptions" ng-model="goaloption.RpmHigh" required>
                   </select>
 
                   <div ng-show="goaloptionForm.$submitted || goaloptionForm.rpm.$touched">
-                    <small class="error" ng-show="goaloptionForm.rpm.$error.required || goaloption.RpmLow === 0">{{'RPM_REQ' | translate}}</small>
+                    <small class="error" ng-show="goaloptionForm.rpm.$error.required">{{'RPM_REQ' | translate}}</small>
                   </div>
                 </div>
 
@@ -92,7 +92,6 @@
                 <a ng-show="goal.GoalOptions.length === 1" ng-click="vm.addIntervalGoal(goal)">+ {{'INTERVAL_ADD' | translate}}</a>
                 <a ng-show="$index === 1" ng-click="vm.removeIntervalGoal(goal)">- {{'INTERVAL_REMOVE' | translate}}</a>
               </div>
-
             </ng-form>
           </div>
 
@@ -112,7 +111,7 @@
 
     <div class="row">
       <!--<a class="cancel" style="float:left" ui-sref="templategroup({id:vm.template.TemplateGroup.Id})">Cancel</a>-->
-      <input type="submit" ng-disabled="vm.freestyleGoals.length > 0 || form.$pristine || form.$invalid" class="round" style="float:right" ng-click="vm.saveTemplate()" value="{{'TEMPLATE_SAVE' | translate}}">
+      <input type="submit" ng-disabled="vm.freestyleGoals.length > 0 || form.$pristine || form.$invalid" class="round" style="float:right" value="{{'TEMPLATE_SAVE' | translate}}">
       <spinner ng-if="vm.template.Id" class="spinner" name="saveTemplate{{vm.template.Id}}TimeSpinner" show="false"></spinner>
     </div>
     </form>
