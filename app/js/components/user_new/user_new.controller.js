@@ -62,6 +62,9 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
       $state.go('users-admin');
     }, function (res) {
       self.saving = false;
+      if (res.data.Message === 'Email address already exists') {
+        res.data.Message = 'EMAIL_EXISTS';
+      }
       self.serverError = {
         error: true,
         message: res.data.Message

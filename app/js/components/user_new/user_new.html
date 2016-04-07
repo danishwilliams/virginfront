@@ -4,10 +4,10 @@
     <h1>{{'CREATE_USER' | translate}}</h1>
 
     <div ng-messages="vm.serverError">
-      <small class="error" ng-message="error">{{vm.serverError.message}} Please try again later.</small>
+      <small class="error" ng-message="error">{{vm.serverError.message | translate}}</small>
     </div>
 
-    <form name="form" ng-submit="vm.createUser()" novalidate>
+    <form name="form" ng-submit="form.$valid && vm.createUser()" novalidate>
       <label for="firstname">{{'FIRST_NAME' | translate}}</label>
       <input type="text" name="firstname" ng-model="vm.newUser.FirstName" required />
       <div ng-show="form.$submitted || form.firstname.$touched">
