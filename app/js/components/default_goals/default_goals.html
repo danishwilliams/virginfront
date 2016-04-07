@@ -10,16 +10,18 @@
 
         <ng-form name="goalForm">
 
-          <div class="row goal-name" ng-click="vm.goalClicked(goal)" ng-hide="goal.show">
+          <div class="row goal-name accordion" ng-click="vm.goalClicked(goal)" ng-hide="goal.show">
             <img ng-if="goal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg"> {{goal.Goal.Name}}
             <em ng-if="goal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
+            <i class="right chevron-right"></i>
           </div>
 
-          <div class="row goal-name" ng-click="vm.goalClicked(goal)" ng-show="goal.show">
+          <div class="row goal-name accordion" ng-click="vm.goalClicked(goal)" ng-show="goal.show">
             <img class="open" ng-if="goal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
             <span ng-show="goal.edit">{{goal.Goal.Name}}</span>
             <input type="text" name="name" ng-hide="goal.edit" placeholder="{{'NAME' | translate}}" ng-model="goal.Goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false" required />
             <em ng-if="goal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
+            <i class="right chevron-down"></i>
 
             <div ng-show="goalForm.$submitted || goalForm.name.$touched">
               <small class="error" ng-show="goalForm.name.$error.required">{{'GOAL_NAME_REQ' | translate}}</small>
