@@ -108,6 +108,12 @@ input[type="submit"] {
   margin-bottom: rem-calc(16px);
 }
 
+input.search, input.search:focus {
+  background: transparent url('/img/search_white.svg') no-repeat;
+  background-position: right 10px center;
+  padding-left: 10px;
+}
+
 form a.secondary, .cancel {
   float: left;
   padding-top: rem-calc(6px);
