@@ -15,10 +15,10 @@
       </span>
       <span ng-show="!playlist.removed && !playlist.DevicePlaylistSyncs[0].SyncError" class="right time">
         <span ng-show="!playlist.DevicePlaylistSyncs[0].SyncSuccess && playlist.DevicePlaylistSyncs[0].SyncStarted">
-          <span ng-show="playlist.DevicePlaylistSyncs[0].SecondsLeft >= 1">
+          <span ng-show="playlist.DevicePlaylistSyncs[0].SecondsLeft >= 60">
             {{playlist.DevicePlaylistSyncs[0].SecondsLeft | minutesonly}} {{'MINS_REMAINING' | translate}}
           </span>
-          <span ng-show="playlist.DevicePlaylistSyncs[0].SecondsLeft < 1">
+          <span ng-show="playlist.DevicePlaylistSyncs[0].SecondsLeft < 60">
             1 {{'MIN_REMAINING' | translate}}
           </span>
         </span>
