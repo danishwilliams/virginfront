@@ -6,7 +6,7 @@ angular
 function SecondsToHoursFilter() {
   return function (input) {
     function z(n) {
-      return (n < 10 ? '0' : '') + n;
+      return n;
     }
     var minutes = Math.floor(input / 60);
     return z(minutes);
