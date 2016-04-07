@@ -23,8 +23,11 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
     });
   });
 
+  self.fails = [];
+
   Emails.loadFails(1, 30).then(function(data) {
     self.fails = data;
+    self.failsLoaded = true;
     self.fails.forEach(function(entry) {
       // Figure out the failure reason, date, and what action to take
       if (entry.Deferred) {

@@ -232,6 +232,7 @@
   "PACK_INSTRUCTOR_INFO": "Questo utente è un istruttore 'Pack'",
   "EMAILS": "Emails",
   "REASON": "Reason",
+  "EMAILS_NO_PROBLEMS": "Great! Looks like there are no problematic emails.",
   "INVITE_FAILED_REASON": "The following invites failed due to invalid email addresses.",
   "EMAIL_INVALID": "Invalid email address",
   "Invalid": "Invalid email address",
