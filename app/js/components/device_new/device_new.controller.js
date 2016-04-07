@@ -62,6 +62,7 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
 
   self.provisionAnother = function () {
     self.step = 0;
+    self.form.$setPristine(true);
     self.selectedGym = undefined;
     self.deviceName = '';
   };
