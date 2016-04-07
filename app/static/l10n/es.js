@@ -232,6 +232,7 @@
   "PACK_INSTRUCTOR_INFO": "Este usuario es un instructor de Pack",
   "EMAILS": "Emails",
   "REASON": "Asunto",
+  "EMAILS_NO_PROBLEMS": "Great! Looks like there are no problematic emails.",
   "INVITE_FAILED_REASON": "The following invites failed due to invalid email addresses.",
   "EMAIL_INVALID": "Invalid email address",
   "Invalid": "Invalid email address",
@@ -358,5 +359,6 @@
   "CONTACT_ADMIN": "Please contact your administrator",
   "CONNECTED": "Connected",
   "END_RIDE": "End this ride",
-  "RIDES_AVAILABLE_NOT_ON_DEVICE": "Your rides are being synced. Please log out to allow syncing to complete."
+  "RIDES_AVAILABLE_NOT_ON_DEVICE": "Your rides are being synced. Please log out to allow syncing to complete.",
+  "RIDE_NOT_SYNCD": "Paused\\nLogout to allow sync to complete"
 }
