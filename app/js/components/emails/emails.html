@@ -67,7 +67,7 @@
       </h2>&nbsp;
     </div>
 
-    <table>
+    <table class="logs">
         <thead>
           <tr>
             <td>{{'DATE_TIME' | translate}}</td>
@@ -87,7 +87,7 @@
             </td>
             <td>{{entry.Communication.Name | translate}}</td>
             <td>
-              <span ng-if="!entry.Alert">{{entry.reason | translate}}</span>
+              <span ng-if="!entry.Alert" class="{{entry.class}}">{{entry.reason | translate}}</span>
               <alert ng-if="entry.Alert" type="entry.Alert.type"><em>{{entry.Alert.title | translate}}</em>{{entry.Alert.msg | translate}}</alert>
             </td>
             <td>

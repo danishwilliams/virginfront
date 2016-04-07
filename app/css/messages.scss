@@ -32,7 +32,7 @@ span.length.error {
 }
 
 .success, small.success {
-  background: #43AC6A; // TODO: make this a variable
+  background: $success-color;
   color: $white;
   padding: rem-calc(10px);
   font-style: normal;
@@ -51,6 +51,8 @@ span.length.error {
 }
 
 table .alert-box {
+  padding: 0 0 0 rem-calc(20px);
+  background-position: left;
   &.danger {
     color: $cherry;
     background-color: transparent;

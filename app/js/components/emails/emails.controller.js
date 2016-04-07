@@ -10,10 +10,12 @@ angular.module("app.emails", []).controller('EmailsController', function (Emails
       if (entry.DateDelivered) {
         entry.date = entry.DateDelivered;
         entry.reason = 'EMAIL_DELIVERED';
+        entry.class = 'delivered';
       }
       else {
         entry.date = entry.CreateDate;
         entry.reason = 'EMAIL_SENT';
+        entry.class = 'sent';
       }
       if (entry.Communication && entry.Communication.Name === 'Invite') {
         entry.actionButton = 'resend';
