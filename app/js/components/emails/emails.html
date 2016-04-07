@@ -26,7 +26,7 @@
             <td>
               <em><a ui-sref="users({id:entry.User.Id})">{{entry.User.FirstName}} {{entry.User.LastName}}</a></em><br>
               <span ng-hide="entry.editing">{{entry.To}}<br></span>
-              <ng-form name="emailForm" ng-show="entry.editing" ng-submit="vm.saveEmailAndResend(entry)" novalidate>
+              <ng-form name="emailForm" ng-show="entry.editing" novalidate>
                 <input name="email" type="email" ng-model="entry.To" size="40" required autofocus>
                 <div>
                   <small class="error" ng-show="emailForm.email.$error.required">{{'EMAIL_REQ' | translate}}</small>

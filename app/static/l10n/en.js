@@ -239,7 +239,7 @@
   "Bounced Address": "Invalid email address",
   "EMAIL_EDIT": "Edit email address",
   "EMAIL_DEFERRED": "This email hasn't been delivered yet",
-  "EMAIL_RESEND": "Try resend",
+  "EMAIL_RESEND": "Resend",
   "EMAIL_SPAM": "The email was marked as spam",
   "EMAIL_EXISTS": "This email address already exists",
   "EMAIL_DELIVERED": "Delivered",
