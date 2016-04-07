@@ -6,7 +6,25 @@
       .warning {
         color: $warning-color;
         background: url('/img/ico16orng_syncerror.svg') no-repeat;
-        background-position: left;
+        background-size: rem-calc(16px);
+        padding-left: rem-calc(20);
+     }
+     .success {
+        color: $success-color;
+        background: url('/img/ico16orng_sent.svg') no-repeat;
+        background-size: rem-calc(16px);
+        padding-left: rem-calc(20);
+     }
+     .sent {
+        color: $success-color;
+        background: url('/img/ico16orng_sent.svg') no-repeat;
+        background-size: rem-calc(16px);
+        padding-left: rem-calc(20);
+     }
+     .delivered {
+        color: $success-color;
+        background: url('/img/synced.svg') no-repeat;
+        background-size: rem-calc(16px);
         padding-left: rem-calc(20);
      }
     }
