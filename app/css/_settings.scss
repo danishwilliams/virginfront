@@ -134,7 +134,8 @@ $pack_purple: #6E3DB2;
 
 $peach: #F0851A;
 $savannah: #FEE6C4;
-$green: #F0F6E8;
+$green: #6daa24;
+$green_light: #F0F6E8;
 
 /* Grey colours */
 
@@ -182,7 +183,10 @@ $blue_medium: #A1C8F1;
 // $warning-color: #f08a24;
 // $info-color: #a0d3e8;
 
-$success-color: #6daa24;
+$success-color: $green_light;
+$success-color-font: $green;
+$warning-color: $savannah;
+$warning-color-font: $peach;
 $primary-color: $red;
 
 // We use these to control various global styles

@@ -33,7 +33,7 @@ span.length.error {
 
 .success, small.success {
   background: $success-color;
-  color: $white;
+  color: $success-color-font;
   padding: rem-calc(10px);
   font-style: normal;
 }
@@ -44,24 +44,38 @@ p.success, p.warning {
   padding: 0;
 }
 
-p.success {
-  color: $success-color;
+.success {
+  color: $success-color-font;
 }
 
-p.warning {
-  color: $warning-color;
+.warning {
+  color: $warning-color-font;
 
 }
 
 /* Alert boxes */
 
 .alert-box {
+  font-size: $body-font-size;
   .close {
     text-decoration: none;
   }
   a {
     color: $grey_dark;
     text-decoration: underline;
+  }
+  &.success {
+    color: $success-color-font;
+  }
+  &.warning {
+    color: $warning-color-font;
+  }
+  // For when there's a submit button inside the alert. I know. Complicated.
+  &.contains-button {
+    padding: rem-calc(16) rem-calc(10) rem-calc(10) rem-calc(10);
+    input[type="submit"], button.submit {
+      margin-top: rem-calc(-7);
+    }
   }
 }
 
@@ -74,7 +88,7 @@ table .alert-box {
     border-color: transparent;
   }
   &.success {
-    color: $success-color;
+    color: $success-color-font;
     background-color: transparent;
     border-color: transparent;
     em {
