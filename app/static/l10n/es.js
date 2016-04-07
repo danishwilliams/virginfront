@@ -365,5 +365,6 @@
   "CONNECTED": "Connected",
   "END_RIDE": "End this ride",
   "RIDES_AVAILABLE_NOT_ON_DEVICE": "Your rides are being synced. Please log out to allow syncing to complete.",
-  "RIDE_NOT_SYNCD": "Paused\\nLogout to allow sync to complete"
+  "RIDE_NOT_SYNCD": "Paused\\nLogout to allow sync to complete",
+  "DEVICE_DISABLED": "This device has been disabled and is no longer provisioned for a club."
 }
