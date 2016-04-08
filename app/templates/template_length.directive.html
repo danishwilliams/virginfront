@@ -69,11 +69,11 @@
                   <select name="rpm" ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow" ng-pattern="vm.posInts" required>
                   </select>
                   -
-                  <select ng-options="v disable when v <= goaloption.RpmLow for v in vm.rpmOptions" ng-model="goaloption.RpmHigh" ng-pattern="vm.posInts" required>
+                  <select name="rpmHigh" ng-options="v disable when v <= goaloption.RpmLow for v in vm.rpmOptions" ng-model="goaloption.RpmHigh" ng-pattern="vm.posInts" required>
                   </select>
 
                   <div ng-show="goaloptionForm.$submitted || goaloptionForm.rpm.$touched">
-                    <small class="error" ng-show="goaloptionForm.rpm.$error.pattern">{{'RPM_REQ' | translate}}</small>
+                    <small class="error" ng-show="goaloptionForm.rpm.$error.pattern || goaloptionForm.rpmHigh.$error.pattern">{{'RPM_REQ' | translate}}</small>
                   </div>
                 </div>
 
