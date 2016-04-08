@@ -105,6 +105,9 @@ function freestyleGoals(Goals, spinnerService) {
         if (goal.Goal.GoalChallengeId) {
           scope.vm.hasChallengeGoals = true;
         }
+        else {
+          scope.vm.hasGoals = true;
+        }
       });
     }
 
