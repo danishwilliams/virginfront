@@ -49,7 +49,7 @@
         <a class="item" ui-sref="countries-admin" ng-if-permission="viewAdmin">
           <label>Countries</label>
         </a>
-        <a class="item" ui-sref="devices-admin" ng-if-permission="devices">
+        <a class="item" ui-sref="devices-admin" ng-if-permission="viewAdmin">
           <label>Devices</label>
         </a>
         <a class="item" ui-sref="goals-admin" ng-if-permission="viewAdmin">
