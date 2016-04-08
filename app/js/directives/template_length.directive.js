@@ -26,6 +26,7 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
   var self = this;
   self.id = $scope.id;
   self.template = {};
+  self.posInts = /^[1-9][0-9]*$/; // Regex for positive integers. Used for form validation
 
   if ($scope.createnew) {
     // New template

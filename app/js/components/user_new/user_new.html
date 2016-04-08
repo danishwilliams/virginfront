@@ -31,7 +31,7 @@
       <input type="text" name="phone" ng-model="vm.newUser.Telephone">
 
       <label for="id">{{'EMPLOYEE_ID' | translate}}</label>
-      <input type="text" name="id" ng-model="vm.newUser.EmployeeId" required>
+      <input type="text" name="id" ng-model="vm.newUser.EmployeeId">
       <div ng-show="form.$submitted || form.id.$touched">
         <small class="error" ng-show="form.id.$error.required">{{'ID_REQ' | translate}}</small>
       </div>
