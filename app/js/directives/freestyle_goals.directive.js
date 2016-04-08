@@ -52,6 +52,7 @@ function freestyleGoals(Goals, spinnerService) {
       }
       else {
         setSelectedGoal();
+        areThereChallengeGoals(scope.vm.goals);
       }
     }
 
@@ -78,12 +79,7 @@ function freestyleGoals(Goals, spinnerService) {
         }
         scope.vm.goals = data;
 
-        // Are there any challenge goals?
-        scope.vm.goals.forEach(function(goal) {
-          if (goal.Goal.GoalChallengeId) {
-            scope.vm.hasChallengeGoals = true;
-          }
-        });
+        areThereChallengeGoals(scope.vm.goals);
 
         // Creating a new goal i.e. in template creation
         if (scope.vm.allowCreateNewGoal || scope.vm.allowEditingGoal) {
@@ -100,6 +96,15 @@ function freestyleGoals(Goals, spinnerService) {
         */
 
         setSelectedGoal();
+      });
+    }
+
+    function areThereChallengeGoals(goals) {
+      // Are there any challenge goals?
+      goals.forEach(function(goal) {
+        if (goal.Goal.GoalChallengeId) {
+          scope.vm.hasChallengeGoals = true;
+        }
       });
     }
 
