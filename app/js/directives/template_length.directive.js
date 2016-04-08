@@ -42,12 +42,11 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
   for (i = 45; i <= 100; i = i + 5) {
     self.effortOptions.push(i);
   }
-  // TODO: don't show 0
-  self.bpmOptions = [0];
+  self.bpmOptions = [];
   for (i = 60; i <= 180; i = i + 10) {
     self.bpmOptions.push(i);
   }
-  self.rpmOptions = [0];
+  self.rpmOptions = [];
   for (i = 60; i <= 180; i = i + 5) {
     self.rpmOptions.push(i);
   }
