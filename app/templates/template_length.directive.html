@@ -4,7 +4,7 @@
     <div class="row heading">
       <h2>{{vm.template.TemplateGroup.Name}} ({{vm.template.ClassLengthMinutes}} {{'MINUTES_SMALL' | translate}})</h2>
     </div>
-    <form name="form" ng-submit="form.$valid" novalidate>
+    <form name="form" ng-submit="form.$valid && vm.saveTemplate()" novalidate>
     <div class="row goal" data-ng-repeat="goal in vm.template.Goals | orderBy:'SortOrder' track by $index">
       <div class="goal-container">
 
