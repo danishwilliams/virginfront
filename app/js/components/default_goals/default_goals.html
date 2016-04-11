@@ -112,7 +112,7 @@
                     {{'CHALLENGE_GOAL_CONFIRM' | translate}}
                   </div>
                   <div class="medium-4 columns">
-                    <input type="submit" value="{{'SAVE_GOAL' | translate}}" ng-click="vm.update(goal)" ng-disabled="goalForm.$pristine || goal.saving">
+                    <input type="submit" value="{{'SAVE_GOAL' | translate}}" ng-click="vm.update(goal, goalForm.$valid)" ng-disabled="goalForm.$pristine || goal.saving">
                   </div>
                 </div>
               </alert>
