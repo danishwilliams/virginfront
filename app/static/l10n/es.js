@@ -217,6 +217,7 @@
   "INSTRUCTOR_FILTER": "Filtrat por el estado del instructor",
   "ALL": "Todos",
   "INVITED": "Invitados",
+  "Invited": "Invitados",
   "ACTIVE_USERS": "Instructores / usuarios activos",
   "DISABLED_USERS": "Instructores / usuarios desactivados",
   "TECHNICAL_USERS": "Usuarios tecnicos",
