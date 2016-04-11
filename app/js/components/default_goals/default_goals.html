@@ -30,13 +30,13 @@
 
           <div class="row" ng-show="goal.show">
             <label>{{'BPM' | translate}}</label>
-            <select name="bpm" ng-options="v for v in vm.bpmOptions" ng-model="goal.Goal.BpmLow" required>
+            <select name="bpm" ng-options="v for v in vm.bpmOptions" ng-model="goal.Goal.BpmLow" ng-pattern="vm.posInts" required>
             </select>
             -
-            <select ng-options="v disable when v <= goal.Goal.BpmLow for v in vm.bpmOptions" ng-model="goal.Goal.BpmHigh">
+            <select name="bpmHigh" ng-options="v disable when v <= goal.Goal.BpmLow for v in vm.bpmOptions" ng-model="goal.Goal.BpmHigh" ng-pattern="vm.posInts" required>
             </select>
             <div ng-show="goal.submitted || goalForm.bpm.$touched">
-              <small class="error" ng-show="goalForm.bpm.$error.required || goal.Goal.BpmLow === 0">{{'BPM_REQ' | translate}}</small>
+              <small class="error" ng-show="goalForm.bpm.$error.pattern || goalForm.bpmHigh.$error.pattern">{{'BPM_REQ' | translate}}</small>
             </div>
           </div>
 
