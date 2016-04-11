@@ -217,6 +217,7 @@
   "INSTRUCTOR_FILTER": "Filtra per stato istruttore",
   "ALL": "Tutti",
   "INVITED": "Invitati",
+  "Invited": "Invitati",
   "ACTIVE_USERS": "Istruttori attivi",
   "DISABLED_USERS": "Profili disabilitati",
   "TECHNICAL_USERS": "Utenti tecnici",
