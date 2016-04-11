@@ -52,27 +52,27 @@
               <div class="row">
                 <div class="large-9 columns">
                   <label>{{'EFFORT' | translate}}</label>
-                  <select name="effort" ng-options="v for v in vm.effortOptions" ng-model="goaloption.Effort" required>
+                  <select name="effort" ng-options="v for v in vm.effortOptions" ng-model="goaloption.Effort" ng-pattern="vm.posInts" required>
                   </select>
                   -
                   <select ng-options="v disable when v <= goaloption.Effort for v in vm.effortOptions" ng-model="goaloption.EffortHigh">
                   </select>%
 
                   <div ng-show="goal.submitted || goaloptionForm.effort.$touched">
-                    <small class="error" ng-show="goaloptionForm.effort.$error.required">{{'EFFORT_REQ' | translate}}</small>
+                    <small class="error" ng-show="goaloptionForm.effort.$error.pattern">{{'EFFORT_REQ' | translate}}</small>
                   </div>
                 </div>
 
                 <div class="large-9 columns" ng-if="vm.isCustomRpm">
                   <label>{{'RPM' | translate}}</label>
-                  <select name="rpm" ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow" required>
+                  <select name="rpm" ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow" ng-pattern="vm.posInts" required>
                   </select>
                   -
                   <select ng-options="v disable when v <= goaloption.RpmLow for v in vm.rpmOptions" ng-model="goaloption.RpmHigh">
                   </select>
 
                   <div ng-show="goal.submitted || goaloptionForm.rpm.$touched">
-                    <small class="error" ng-show="goaloptionForm.rpm.$error.required">{{'RPM_REQ' | translate}}</small>
+                    <small class="error" ng-show="goaloptionForm.rpm.$error.pattern">{{'RPM_REQ' | translate}}</small>
                   </div>
                 </div>
 
