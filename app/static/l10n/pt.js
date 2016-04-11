@@ -217,6 +217,7 @@
   "INSTRUCTOR_FILTER": "Filter by Instructor status",
   "ALL": "All",
   "INVITED": "Invited",
+  "Invited": "Invited",
   "ACTIVE_USERS": "Active Instructors",
   "DISABLED_USERS": "Disabled accounts",
   "TECHNICAL_USERS": "Technical users",
