@@ -8,7 +8,7 @@
     <div class="row goal" data-ng-repeat="goal in vm.goals | orderBy:['Goal.GoalChallengeId', 'Goal.Name'] track by $index">
       <div class="goal-container">
 
-        <ng-form name="goalForm">
+        <ng-form name="goalForm" novalidate>
 
           <div class="row goal-name accordion" ng-click="vm.goalClicked(goal)" ng-hide="goal.show">
             <img ng-if="goal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg"> {{goal.Goal.Name}}
@@ -23,7 +23,7 @@
             <em ng-if="goal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
             <i class="right chevron-down"></i>
 
-            <div ng-show="goalForm.$submitted || goalForm.name.$touched">
+            <div ng-show="goal.submitted || goalForm.name.$touched">
               <small class="error" ng-show="goalForm.name.$error.required">{{'GOAL_NAME_REQ' | translate}}</small>
             </div>
           </div>
@@ -35,7 +35,7 @@
             -
             <select ng-options="v disable when v <= goal.Goal.BpmLow for v in vm.bpmOptions" ng-model="goal.Goal.BpmHigh">
             </select>
-            <div ng-show="goalForm.$submitted || goalForm.bpm.$touched">
+            <div ng-show="goal.submitted || goalForm.bpm.$touched">
               <small class="error" ng-show="goalForm.bpm.$error.required || goal.Goal.BpmLow === 0">{{'BPM_REQ' | translate}}</small>
             </div>
           </div>
@@ -43,8 +43,8 @@
           <div class="row goal-meta" ng-show="goal.show" ng-repeat="goaloption in goal.Goal.GoalOptions track by $index">
             <ng-form name="goaloptionForm">
               <div ng-show="goal.Goal.GoalOptions.length > 1" class="row">
-                <input type="text" name="goalName" placeholder="{{'GOAL_NAME' | translate}}" ng-model="goaloption.Name" required />
-                <div ng-show="goaloptionForm.$submitted || goaloptionForm.goalName.$touched">
+                <input type="text" name="goalName" placeholder="{{'GOAL_NAME' | translate}}" ng-model="goaloption.Name" ng-required="goal.Goal.GoalOptions.length > 1">
+                <div ng-show="goal.submitted || goaloptionForm.goalName.$touched">
                   <small class="error" ng-show="goaloptionForm.goalName.$error.required">{{'INTERVAL_REQ' | translate}}</small>
                 </div>
               </div>
@@ -58,21 +58,21 @@
                   <select ng-options="v disable when v <= goaloption.Effort for v in vm.effortOptions" ng-model="goaloption.EffortHigh">
                   </select>%
 
-                  <div ng-show="goaloptionForm.$submitted || goaloptionForm.effort.$touched">
+                  <div ng-show="goal.submitted || goaloptionForm.effort.$touched">
                     <small class="error" ng-show="goaloptionForm.effort.$error.required">{{'EFFORT_REQ' | translate}}</small>
                   </div>
                 </div>
 
                 <div class="large-9 columns" ng-if="vm.isCustomRpm">
                   <label>{{'RPM' | translate}}</label>
-                  <select name="rpm" ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow">
+                  <select name="rpm" ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow" required>
                   </select>
                   -
                   <select ng-options="v disable when v <= goaloption.RpmLow for v in vm.rpmOptions" ng-model="goaloption.RpmHigh">
                   </select>
 
-                  <div ng-show="goaloptionForm.$submitted || goaloptionForm.rpm.$touched">
-                    <small class="error" ng-show="goaloptionForm.rpm.$error.required || goaloption.RpmLow === 0">{{'RPM_REQ' | translate}}</small>
+                  <div ng-show="goal.submitted || goaloptionForm.rpm.$touched">
+                    <small class="error" ng-show="goaloptionForm.rpm.$error.required">{{'RPM_REQ' | translate}}</small>
                   </div>
                 </div>
 
@@ -81,10 +81,11 @@
                   <select name="beat" class="beat" ng-options="v.Name for v in vm.beats track by v.Id" ng-change="goaloption.BeatId = goaloption.Beat.Id" ng-model="goaloption.Beat" required>
                   </select>
 
-                  <div ng-show="goaloptionForm.$submitted || goaloptionForm.beat.$touched">
+                  <div ng-show="goal.submitted || goaloptionForm.beat.$touched">
                     <small class="error" ng-show="goaloptionForm.beat.$error.required">{{'BEAT_RATIO_REQ' | translate}}</small>
                   </div>
                 </div>
+
               </div>
 
               <div class="row interval" ng-if="!vm.isCustomRpm">
@@ -120,8 +121,8 @@
             </span>
 
             <!-- Default goal -->
-            <alert ng-if="goal.saved" ng-hide="goal.Goal.GoalChallengeId" type="'success'" close="goal.saved = undefined">{{'GOAL_SAVED' | translate}}</alert>
-            <input ng-hide="goal.Goal.GoalChallengeId || goal.saved" type="submit" value="{{'SAVE_GOAL' | translate}}" ng-click="vm.update(goal)" ng-disabled="goalForm.$pristine || goal.saving">
+            <alert ng-if="goal.saved" ng-hide="goal.Goal.GoalChallengeId" type="'success'" close="goal.saved = undefined; goalForm.$setPristine(true);">{{'GOAL_SAVED' | translate}}</alert>
+            <input ng-hide="goal.Goal.GoalChallengeId || goal.saved" type="submit" value="{{'SAVE_GOAL' | translate}}" ng-click="vm.update(goal, goalForm.$valid)" ng-disabled="goalForm.$pristine || goal.saving">
           </div>
         </ng-form>
 

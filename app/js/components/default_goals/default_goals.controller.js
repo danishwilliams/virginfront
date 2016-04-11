@@ -1,5 +1,6 @@
 angular.module("app.default_goals", []).controller('DefaultGoalsController', function (Users, Goals, Beats, spinnerService) {
   var self = this;
+  self.posInts = /^[1-9][0-9]*$/; // Regex for positive integers. Used for form validation
 
   self.isCustomRpm = Users.getCurrentUser().Location.Country.CustomRpm;
 
@@ -42,7 +43,16 @@ angular.module("app.default_goals", []).controller('DefaultGoalsController', fun
     goal.show = !goal.show;
   };
 
-  self.update = function(goal) {
+  /**
+   * Manually passing in "valid" here (the validity of the form containing the goal) because there's an angular bug wherein
+   * if <form> isn't used (and I'm using two nested ng-form's) then the value of form.$submitted is always wrong. Solution:
+   * manually handle the form submission logic by moving it onto the goal object.
+   */
+  self.update = function(goal, valid) {
+    goal.submitted = true;
+    if (!valid) {
+      return;
+    }
     goal.saving = true;
     goal.put().then(function() {
       goal.saving = false;
