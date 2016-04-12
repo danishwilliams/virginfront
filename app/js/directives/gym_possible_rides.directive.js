@@ -2,9 +2,9 @@ angular
   .module("app")
   .directive("gymPossibleRides", gymPossibleRides);
 
-gymPossibleRides.$inject = ['Playlists'];
+gymPossibleRides.$inject = ['Playlists', 'spinnerService'];
 
-function gymPossibleRides(Playlists) {
+function gymPossibleRides(Playlists, spinnerService) {
   var directive = {
     link: link,
     templateUrl: 'gym_possible_rides.directive.html',
@@ -20,9 +20,11 @@ function gymPossibleRides(Playlists) {
 
   function link(scope, element, attrs, ngModel) {
     scope.vm.gym = scope.$parent.vm.gym;
+    scope.vm.random = Math.floor(Math.random() * 10000);
 
     Playlists.loadPlaylistsNotInGym(scope.vm.gym.Gym.Id).then(function (data) {
       scope.vm.playlists = data;
+      spinnerService.hide('gymRidesSpinner' + scope.vm.random);
     });
 
     scope.selected = function () {
