@@ -24,6 +24,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // User has just selected a track from track search to add to a goal
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
+        self.form.$setDirty(); // Manually set the form to be not pristine any more
+        console.log('setting form to not be prising!!!!');
         var currentgoal = Playlists.getCurrentGoal();
         if (currentgoal.BackgroundSection) {
           // Add a background track
@@ -219,6 +221,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     this.playlistTracksLength = Playlists.getPlaylistLength();
     self.checkAllGoalsHaveTracks();
     Tracks.stopTrack(track.Track);
+    self.form.$setDirty(); // Manually set the form to be not pristine any more
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + playlistGoalArrayId);
