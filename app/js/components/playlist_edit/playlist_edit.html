@@ -6,7 +6,7 @@
 
   <spinner class="spinner overlay" name="playlistEditSpinner" show="true"></spinner>
 
-    <form name="playlistForm" ng-submit="playlist_edit.savePlaylist()" novalidate>
+    <form name="playlistForm" ng-submit="playlist_edit.savePlaylist()" novalidate ng-hide="!playlist_edit.playlist.PlaylistGoals">
 
     <div class="small-18 medium-18 medium-centered large-centered columns goals-container">
       <div class="row">
