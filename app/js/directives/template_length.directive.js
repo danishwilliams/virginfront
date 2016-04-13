@@ -146,13 +146,11 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     spinnerService.show('saveTemplate' + self.template.Id + 'TimeSpinner');
 
     // See if there are any new default goals which must be added
-    if ($scope.createnew) {
-      self.template.Goals.forEach(function (goal) {
-        if (goal.NewGoal) {
-          Goals.saveNewDefaultGoal(goal).then(function (data) {});
-        }
-      });
-    }
+    self.template.Goals.forEach(function (goal) {
+      if (goal.NewGoal) {
+        Goals.saveNewDefaultGoal(goal).then(function (data) {});
+      }
+    });
 
     // Save the template
     self.template.put().then(function () {
