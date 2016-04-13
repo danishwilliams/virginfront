@@ -137,7 +137,7 @@
             <br> {{'PASSWORD' | translate}}: <em>{{user.user.UserMusicProvider.Password}}</em></p>
         </div>
       </div>
-      <div class="columns large-9" ng-if-permission="users" ng-show="user.viewingOwnUserProfile">
+      <div class="columns large-9" ng-if-permission="viewAdmin" ng-show="user.viewingOwnUserProfile">
         <div class="box">
           <h3>{{'CHANGE_LANGUAGE' | translate}}</h3>
           <select ng-model="user.langKey" ng-change="user.changeLanguage(user.langKey)">
