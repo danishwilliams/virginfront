@@ -5,7 +5,7 @@
         {{vm.user.FirstName}} {{vm.user.LastName}}
       </div>
       <div class="small-3 columns">
-        <span ng-hide="user.Archived"><label>{{'STATUS' | translate}}:</label> {{vm.user.Type}}</span>
+        <span ng-hide="user.Archived"><label>{{'STATUS' | translate}}:</label> {{vm.user.Type | translate}}</span>
       </div>
       <div class="small-6 columns text-right">
         <span ng-show="user.Enabled">{{'MANAGE_ACCOUNT' | translate}}</span>
@@ -21,7 +21,7 @@
 
   <div class="row">
     <div class="large-9 columns">
-      <div class="row">
+      <div ng-if="vm.user.EmployeeId" class="row">
         <div class="small-6 columns">
           <label>{{'EMPLOYEE_ID' | translate}}</label>
         </div>
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div ng-if="vm.user.Email" class="row">
         <div class="small-6 columns">
           <label>{{'EMAIL' | translate}}</label>
         </div>
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div ng-if="vm.user.Telephone" class="row">
         <div class="small-6 columns">
           <label>{{'PHONE' | translate}}</label>
         </div>
@@ -54,7 +54,7 @@
         </div>
         <div class="small-12 columns">
           <ul>
-            <li ng-repeat="type in vm.user.UserUserTypes">{{type.UserType.Name}}</li>
+            <li ng-repeat="type in vm.user.UserUserTypes">{{type.UserType.Name | translate}}</li>
           </ul>
         </div>
       </div>

@@ -5,7 +5,7 @@
     <p>
       <span class="tracks">{{playlist.TrackCount}} {{'TRACKS' | translate}}</span>
       <span class="duration">{{playlist.TotalDurationSeconds | minutes}} {{'MINS' | translate}}</span>
-      <span class="created">{{'CREATED' | translate}}: {{playlist.CreateDate | date:'dd MMMM yyyy'}}</span>
+      <span class="created">{{'CREATED' | translate}}: {{playlist.CreateDate | date:'dd'}} {{playlist.CreateDate | date:'MMMM' | uppercase | translate}} {{playlist.CreateDate | date:'yyyy'}}</span>
     </p>
   </div>
 </a>

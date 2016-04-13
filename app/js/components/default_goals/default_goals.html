@@ -31,7 +31,7 @@
             <select name="bpm" ng-options="v for v in vm.bpmOptions" ng-model="goal.Goal.BpmLow" required>
             </select>
             -
-            <select ng-options="v for v in vm.bpmOptions" ng-model="goal.Goal.BpmHigh">
+            <select ng-options="v disable when v <= goal.Goal.BpmLow for v in vm.bpmOptions" ng-model="goal.Goal.BpmHigh">
             </select>
             <div ng-show="goalForm.$submitted || goalForm.bpm.$touched">
               <small class="error" ng-show="goalForm.bpm.$error.required || goal.Goal.BpmLow === 0">{{'BPM_REQ' | translate}}</small>
@@ -53,7 +53,7 @@
                   <select name="effort" ng-options="v for v in vm.effortOptions" ng-model="goaloption.Effort" required>
                   </select>
                   -
-                  <select ng-options="v for v in vm.effortOptions" ng-model="goaloption.EffortHigh">
+                  <select ng-options="v disable when v <= goaloption.Effort for v in vm.effortOptions" ng-model="goaloption.EffortHigh">
                   </select>%
 
                   <div ng-show="goaloptionForm.$submitted || goaloptionForm.effort.$touched">
@@ -66,7 +66,7 @@
                   <select name="rpm" ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow">
                   </select>
                   -
-                  <select ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmHigh">
+                  <select ng-options="v disable when v <= goaloption.RpmLow for v in vm.rpmOptions" ng-model="goaloption.RpmHigh">
                   </select>
 
                   <div ng-show="goaloptionForm.$submitted || goaloptionForm.rpm.$touched">

@@ -2,16 +2,13 @@ angular
   .module("app")
   .factory('Users', UsersFactory);
 
-UsersFactory.$inject = ['Restangular', 'Storage', 'uuid2'];
+UsersFactory.$inject = ['Restangular', 'Storage', 'uuid2', 'USER_STATES', '$translate'];
 
-function UsersFactory(Restangular, Storage, uuid2) {
+function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
   var users = [];
   var currentUser = {};
-  var onboardingStatus = false; // true if we're onboarding, false if we're not or if we're done
 
   var usersFactory = {
-    getOnboardingStatus: getOnboardingStatus,
-    setOnboardingStatus: setOnboardingStatus,
     getAccessToken: getAccessToken,
     loadAccessToken: loadAccessToken,
     deleteAccessToken: deleteAccessToken, // Deletes the access token from the API
@@ -26,6 +23,7 @@ function UsersFactory(Restangular, Storage, uuid2) {
     updateGenres: updateGenres,
     loadCurrentUser: loadCurrentUser,
     getCurrentUser: getCurrentUser,
+    setCurrentUserState: setCurrentUserState,
     sendInvite: sendInvite,
     createNewUser: createNewUser,
     disableUser: disableUser,
@@ -33,14 +31,6 @@ function UsersFactory(Restangular, Storage, uuid2) {
   };
 
   return usersFactory;
-
-  function getOnboardingStatus() {
-    return onboardingStatus;
-  }
-
-  function setOnboardingStatus(value) {
-    onboardingStatus = value;
-  }
 
   function getAccessToken() {
     return Storage.getItem('token');
@@ -108,6 +98,56 @@ function UsersFactory(Restangular, Storage, uuid2) {
     return Restangular.all('users').getList().then(loadUsersComplete);
 
     function loadUsersComplete(data, status, headers, config) {
+      /** Determine the type of the user:
+       *  - 'Invited' if the user has been invited but hasn't ever logged in before
+       *  - 'Registered' if the user has logged in at least once (includes onboarding)
+       *  - 'Technical' if the user is a technical user (or we don't know what to do with them due to some error)
+       */
+
+      data.forEach(function (user) {
+        var counted = false;
+        if (user.Enabled) {
+          user.Archived = false;
+        }
+        else {
+          counted = true;
+          user.Archived = true;
+        }
+
+        // Set the user type. One of Registered, Technical, Invited
+        user.Type = 'Registered';
+        user.UserUserTypes.forEach(function (type) {
+          switch (user.State) {
+            case USER_STATES.invite_emailed:
+            case USER_STATES.invite_email_failed:
+              user.Type = 'Invited';
+              if (!counted) {
+                counted = true;
+              }
+              break;
+            case USER_STATES.onboarding_genres:
+            case USER_STATES.onboarding_clubs:
+            case USER_STATES.registered:
+              user.Type = 'Registered';
+              if (!counted) {
+                counted = true;
+              }
+          }
+          switch (type.UserType.Name) {
+            case 'Admin':
+            case 'API User':
+            case 'Device':
+            case 'Import':
+              if (!counted) {
+                counted = true;
+              }
+              user.Type = 'Technical';
+          }
+          if (!counted) {
+            user.Type = 'Technical'; // So that if any users show up there we know something has screwed up
+          }
+        });
+      });
       users = data;
       return users;
     }
@@ -162,12 +202,26 @@ function UsersFactory(Restangular, Storage, uuid2) {
         //currentUser.Roles.push('Manager');
         //currentUser.Roles.push('Admin');
       });
+
+      // Set language (if previously saved)
+      var langKey = Storage.getItem('language' + currentUser.Id);
+      if (langKey) {
+        $translate.use(langKey);
+      }
+      else if (currentUser.Location.Country.Language.Code) {
+        $translate.use(currentUser.Location.Country.Language.Code);
+      }
+
       return currentUser;
     }
   }
 
   function getCurrentUser() {
     return currentUser;
+  }
+
+  function setCurrentUserState(state) {
+    currentUser.State = state;
   }
 
   /**

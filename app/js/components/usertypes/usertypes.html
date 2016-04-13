@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="usertype in usertypes.usertypes | orderBy:'Name'">
-      <td>{{usertype.Name}}</td>
+      <td>{{usertype.Name | translate}}</td>
       <td>{{usertype.Id}}</td>
       <td></td>
     </tr>

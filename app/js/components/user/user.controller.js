@@ -1,9 +1,11 @@
-angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer) {
+angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer, $translate, Storage) {
   var self = this;
   this.id = $stateParams.id;
 
   if (!this.id) {
+    this.viewingOwnUserProfile = true;
     this.id = Users.getCurrentUser().Id;
+    self.langKey = Storage.getItem('language' + Users.getCurrentUser().Id);
   }
 
   if (this.id) {
@@ -55,7 +57,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
 
       // Managers can only see certain user types
       if (Authorizer.canAccess('isManager', Users.getCurrentUser())) {
-        self.userTypes.forEach(function(val) {
+        self.userTypes.forEach(function (val) {
           if (val.Name === 'Pack Instructor' || val.Name === 'Manager') {
             val.show = true;
           } else {
@@ -210,7 +212,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
         type: 'success',
         msg: message
       }];
-    }, function(res) {
+    }, function (res) {
       spinnerService.hide('userContactSpinner');
       spinnerService.hide('userGenresSpinner');
       spinnerService.hide('userGymsSpinner');
@@ -232,5 +234,10 @@ angular.module("app.user", []).controller('UserController', function ($statePara
         }
       }
     });
+  };
+
+  self.changeLanguage = function (langKey) {
+    Storage.setItem('language' + self.user.Id, langKey);
+    $translate.use(langKey);
   };
 });

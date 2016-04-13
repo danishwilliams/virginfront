@@ -44,8 +44,8 @@
         <select name="type" ng-options="v for v in vm.types" ng-model="vm.templategroup.Type" required></select>
 
         <div class="row">
-          <a class="cancel" style="float:left" ng-click="vm.editCancelled()">{{'CANCEL' | translate}}</a>
-          <input type="submit" style="float:right" ng-click="vm.saveTemplateGroup()" value="{{'SAVE' | translate}}">
+          <a class="cancel" ng-show="!form.$pristine" style="float:left" ng-click="vm.editCancelled()">{{'CANCEL' | translate}}</a>
+          <input type="submit" ng-disabled="form.$pristine" style="float:right" ng-click="vm.saveTemplateGroup()" value="{{'SAVE' | translate}}">
           <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
           </input>
         </div>
@@ -61,9 +61,11 @@
     <div class="row">
       <p>&nbsp;</p>
 
-      <a ng-if="vm.templategroup.Type !== 'freestyle'" ng-show="!vm.addClassLength && !vm.addedClassLength && !vm.edit" ng-click="vm.addClassLength = true">+ {{'CLASS_LENGTH_ADD' | translate}}</a>
+      <span class="inline-tab">
+        <a ng-if="vm.templategroup.Type !== 'freestyle'" ng-show="!vm.addClassLength && !vm.addedClassLength && !vm.edit" ng-click="vm.addClassLength = true">+ {{'CLASS_LENGTH_ADD' | translate}}</a>
 
-      <template-lengths ng-show="vm.addClassLength" data-action="Choose class length" ng-change="vm.createNewTemplate()" ng-model="vm.mins"></template-lengths>
+        <template-lengths ng-show="vm.addClassLength" data-action="{{'CLASS_LENGTH_CHOOSE' | translate}}" ng-change="vm.createNewTemplate()" ng-model="vm.mins" data-exclude-lengths="{{vm.classLengths}}"></template-lengths>
+      </span>
 
       <tabset>
         <spinner class="spinner inline" name="loadClassLengthsSpinner" show="true"></spinner>

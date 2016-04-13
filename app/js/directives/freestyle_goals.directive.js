@@ -33,6 +33,15 @@ function freestyleGoals() {
     if (scope.vm.allowEditingGoal) {
       scope.vm.addAGoal = false;
     }
+
+    // Had to move the logic for ng-disabled here because stupid IE doesn't like the exact same logic in ng-disabled
+    scope.isDisabled = function() {
+      if (scope.ngDisabled === 'true') {
+        return true;
+      }
+      return false;
+    };
+
     scope.selected = function (id) {
       // This triggers the ng-change on the directive so the parent controller can get the value
       // We're passing an entire goal object back to the parent

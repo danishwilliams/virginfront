@@ -25,9 +25,8 @@
       </div>
 
       <div class="row submit">
-        <spinner class="spinner" name="loginSpinner" show="false"></spinner>
-        <a class="secondary" ng-click="login.step = 'forgot'">Forgot your password?</a>
-        <input ng-disabled="!login.credentials.username || !login.credentials.password" type="submit" value="{{'LOGIN' | translate}}" />
+        <a class="secondary" ng-click="login.step = 'forgot'">{{'PASSWORD_FORGOT' | translate}}</a>
+        <input ng-disabled="!login.credentials.username || !login.credentials.password || login.submitted" type="submit" value="{{'LOGIN' | translate}}" />
       </div>
     </form>
     </span>
@@ -47,15 +46,16 @@
           </div>
         <div class="row submit">
             <a class="cancel" ng-hide="login.forgotPasswordSubmit" ng-click="login.step = 'login'">{{'CANCEL' | translate}}</a>
-            <input ng-disabled="!login.credentials.username" type="submit" value="{{'PASSWORD_RESET' | translate}}" />
+            <input ng-disabled="!login.credentials.username || login.forgotPasswordSubmit" type="submit" value="{{'PASSWORD_RESET' | translate}}" />
         </div>
       </form>
     </div>
 
     <div class="container dark-block" ng-show="login.step === 'resetSuccess'">
-      <h1>Password reset link emailed</h1>
+      <h1>{{'PASSWORD_LINK_MAILED' | translate}}</h1>
 
-      <p>Please check your email at <span class="email">{{login.credentials.username}}</span> for the password reset link.</p>
+      <p>{{'CHECK_EMAIL' | translate}} <span class="email">{{login.credentials.username}}</span> {{'CHECK_EMAIL_1' | translate}}</p>
+      <p>{{'CHECK_JUNK' | translate}}</p>
     </div>
   </div>
 </div>

@@ -36,7 +36,7 @@
       height: 100%;
       max-width: rem-calc(400px);
       padding: rem-calc(10px);
-      background: $grey_dark;
+      background: $steel;
     }
   }
   .full-width {
@@ -58,7 +58,7 @@
     input {
       border-width: 0px;
       color: $grey_light;
-      background: $black url('/img/search_white.svg') no-repeat;
+      background: $steel url('/img/search_white.svg') no-repeat;
       background-position: right 10px center;
       padding-left: 10px;
     }
@@ -86,7 +86,7 @@
   border-bottom: 2px solid $grey_darker;
   color: $white;
   &.in-bpm-range:hover {
-    background-color: $blue_dark;
+    background-color: $blue_steel;
   }
   .selectable {
     cursor: pointer;
@@ -154,10 +154,6 @@ button.add {
   }
 }
 
-.in-bpm-range:hover button.play {
-  background-color: $blue_dark;
-}
-
 button.add {
   background: none;
 }
@@ -171,11 +167,15 @@ button.add {
 }
 
 .genres {
-  background-color: $grey_dark;
+  background-color: $steel;
   padding: rem-calc(10px);
   border-radius: $radius-tiny;
   h3,
   label {
     color: $white;
   }
+}
+
+.track-search-results .progress {
+  background-color: $steel;
 }

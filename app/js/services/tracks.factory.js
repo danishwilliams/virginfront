@@ -13,6 +13,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   self.tracks = []; // A list of track objects
 
   var tracksFactory = {
+    loadUserDefaultGenresTracks: loadUserDefaultGenresTracks,
     loadUserGenresTracks: loadUserGenresTracks,
     searchTracks: searchTracks,
     addTrack: addTrack,
@@ -20,6 +21,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
     playTrack: playTrack,
     stopTrack: stopTrack,
     getTrackCurrentTime: getTrackCurrentTime,
+    setTrackCurrentTime: setTrackCurrentTime,
     getCurrentlyPlayingTrack: getCurrentlyPlayingTrack,
     getSearchedTrack: getSearchedTrack,
     setSearchedTrack: setSearchedTrack,
@@ -114,18 +116,22 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
 
   return tracksFactory;
 
-  function loadUserGenresTracks(bpmLow, bpmHigh, genres) {
-    if (genres) {
-      return Restangular.one('music/genres').customPOST(genres, '', {
+  function loadUserDefaultGenresTracks(bpmLow, bpmHigh) {
+    return Restangular.all('music/usergenres').getList({
         bpmLow: bpmLow,
         bpmHigh: bpmHigh
-      }).then(loadUserGenresTracksComplete);
-    } else {
-      return Restangular.all('music/usergenres').getList({
-        bpmLow: bpmLow,
-        bpmHigh: bpmHigh
-      }).then(loadUserGenresTracksComplete);
+    }).then(loadUserDefaultGenresTracksComplete);
+
+    function loadUserDefaultGenresTracksComplete(data, status, headers, config) {
+      return data;
     }
+  }
+
+  function loadUserGenresTracks(bpmLow, bpmHigh, genres) {
+    return Restangular.one('music/genres').customPOST(genres, '', {
+      bpmLow: bpmLow,
+      bpmHigh: bpmHigh
+    }).then(loadUserGenresTracksComplete);
 
     function loadUserGenresTracksComplete(data, status, headers, config) {
       self.userGenresTracks = data;
@@ -174,6 +180,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
         if (track.playing === true) {
           // User is pausing a playing track
           self.audio.pause();
+          track.paused = true;
           track.playing = false;
 
           // Store track duration played (and date) locally
@@ -190,6 +197,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       } else {
         // A track was playing, but the user is now playing a new track
         self.currentPlayingTrack.playing = false;
+        self.currentPlayingTrack.paused = false;
         self.currentPlayingTrack.loading = false;
         var date = new Date();
         postTrackUsage(track.MusicProviderTrackId, parseInt(self.audio.currentTime), date.toISOString());
@@ -247,11 +255,14 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
         $rootScope.$apply(function () {
           track.currentTime = Math.round(self.audio.currentTime);
+          track.progress = self.audio.currentTime / track.DurationSeconds * 100;
         });
       }
     });
 
-    self.audio.play();
+    if (!track.stopPlaybackEvenIfTrackIsCurrentlyLoading) {
+      self.audio.play();
+    }
   }
 
   /**
@@ -264,6 +275,12 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       } else {
         playTrack(self.currentPlayingTrack);
       }
+    }
+    if (track) {
+      track.playing = track.paused = false;
+      self.audio.pause();
+      // User clicked "play" in track search, track is loading but before it completes they add it to the goal
+      track.stopPlaybackEvenIfTrackIsCurrentlyLoading = true;
     }
     self.currentPlayingTrack = {};
   }
@@ -298,6 +315,10 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
 
   function getTrackCurrentTime() {
     return self.audio.currentTime;
+  }
+
+  function setTrackCurrentTime(time) {
+    self.audio.currentTime = time;
   }
 
   function getCurrentlyPlayingTrack() {

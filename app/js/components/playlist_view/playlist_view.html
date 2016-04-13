@@ -4,12 +4,8 @@
   <div style="display:none;" class="large-16 large-centered columns playlist-container" ng-class="{'show':playlist_view.playlist.Id}">
     <h1>{{playlist_view.playlist.Name}}</h1>
     <div class="row">
-      <div class="columns large-5">
-        <em>{{playlist_view.playlist.TemplateName}}</em> | {{playlist_view.playlist.TrackCount}} {{'TRACKS' | translate}} | {{playlist_view.playlist.TotalDurationSeconds | minutes}} {{'MINUTES' | translate}}
-      </div>
-      <div class="columns large-13">
-        <button class="edit" ui-sref="playlist-edit({id:playlist_view.playlist.Id})" ng-if="playlist_view.showEdit()">{{'EDIT' | translate}}</button>
-      </div>
+      <em>{{playlist_view.playlist.TemplateName}}</em> | {{playlist_view.playlist.TrackCount}} {{'TRACKS' | translate}} | {{playlist_view.playlist.TotalDurationSeconds | minutes}} {{'MINUTES_SMALL' | translate}}
+      <button class="edit" ui-sref="playlist-edit({id:playlist_view.playlist.Id})" ng-if="playlist_view.showEdit()">{{'EDIT' | translate}}</button>
     </div>
 
     <div class="row goal" data-ng-repeat="playlistGoal in playlist_view.playlist.PlaylistGoals | orderBy:'SortOrder'">
@@ -47,8 +43,12 @@
             </div>
           </div>
         </div>
+        <div class="row track-progress" ng-show="track.Track.playing || track.Track.paused">
+          <track-progress data-progress="{{track.Track.progress}}" data-duration="{{track.Track.DurationSeconds}}"></track-progress>
+        </div>
       </div>
     </div>
+
 
     <div class="row">
       <a ng-if="!playlist_view.newPlaylist" style="float:left;" ui-sref="dashboard">{{'RETURN_DASHBOARD' | translate}}</a>

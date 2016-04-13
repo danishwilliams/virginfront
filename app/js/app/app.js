@@ -17,6 +17,7 @@ angular
     "app.devices",
     "app.device",
     "app.device_playlists",
+    "app.emails",
     "app.genres",
     "app.goals",
     "app.default_goals",
@@ -66,11 +67,18 @@ angular
     manager: "Manager",
     admin: "Admin"
   })
+  .constant('USER_STATES', {
+    invite_emailed: "invite_emailed",
+    invite_email_failed: "invite_email_failed",
+    onboarding_genres: "onboarding_genres",
+    onboarding_clubs: "onboarding_clubs",
+    registered: "registered",
+  })
   .controller("AppController", AppController);
 
-AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Authorizer', '$window', '$scope', '$filter'];
+AppController.$inject = ['Users', 'spinnerService', '$rootScope', '$state', 'Authorizer', '$window', '$scope', '$filter', '$translate', 'Storage'];
 
-function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $window, $scope, $filter) {
+function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $window, $scope, $filter, $translate, Storage) {
   var self = this;
   self.ready = false;
   self.loggedIn = false;
@@ -116,7 +124,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
     // Skip login check for:
     // - onboarding
     // - password reset
-    if (next.name === 'passwordreset' || (next.name === 'onboarding' && !Users.getOnboardingStatus())) {
+    if (next.name === 'passwordreset' || next.name === 'onboarding') {
       // The first onboarding page skips login check
       spinnerService.hide('bodySpinner');
       self.ready = true;
@@ -128,7 +136,7 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
     if (self.userName && self.userName.length > 9) {
       self.userName = $filter('translate')('PROFILE');
     }
-    if (!_.isEmpty(user)) {
+    if (!_.isEmpty(user) && !Storage.getItem('onboarding' + user.Id)) {
       self.loggedIn = true;
     }
 
@@ -142,7 +150,12 @@ function AppController(Users, spinnerService, $rootScope, $state, Authorizer, $w
         }
         spinnerService.hide('bodySpinner');
         self.ready = true;
-        self.loggedIn = true;
+
+        // Is the user in the onboarding process?
+        if (!Storage.getItem('onboarding' + user.Id)) {
+          self.loggedIn = true;
+        }
+
         hasAccessToRoute(user);
       }, function (response) {
         // Catastropic error!

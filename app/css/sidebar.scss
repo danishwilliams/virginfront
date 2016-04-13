@@ -50,6 +50,15 @@ aside label {
 
 .icon-bar {
   background: $grey_darker;
+  span.item {
+    padding-bottom: 0px;
+  }
+  > * i + label {
+    font-size: 0.875rem;
+  }
+  a.item:first-of-type {
+    padding-top: rem-calc(33);
+  }
 }
 
 .icon-bar.vertical,
@@ -62,7 +71,7 @@ aside label {
 }
 
 .logo {
-  background: url('/img/virginlogo.svg') no-repeat;
+  background: $cherry url('/img/virginlogo.svg') no-repeat;
   width: 90px;
   height: 90px;
   &.fixed {
@@ -86,11 +95,27 @@ aside label {
     background-position: center;
     display: block;
     width: 50px;
-    height: 30px;
+    height: 31px;
     opacity: 0.5;
   }
   .my-rides {
     background: url('/img/nav/my-rides.svg') no-repeat;
+    background-position: center;
+    display: block;
+    width: 50px;
+    height: 30px;
+    opacity: 0.5;
+  }
+  .templates {
+    background: url('/img/nav/templates.svg') no-repeat;
+    background-position: center;
+    display: block;
+    width: 50px;
+    height: 30px;
+    opacity: 0.5;
+  }
+  .users {
+    background: url('/img/nav/users.svg') no-repeat;
     background-position: center;
     display: block;
     width: 50px;
@@ -104,6 +129,9 @@ aside label {
     width: 50px;
     height: 30px;
     opacity: 0.5;
+  }
+  &.logout {
+    border-top: 1px solid $grey;
   }
 }
 

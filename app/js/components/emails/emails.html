@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
+    <div class="row heading">
+      <h1>{{'EMAILS' | translate}}</h1>
+    </div>
+
+    <div class="row">
+      <p>{{'INVITE_FAILED_REASON' | translate}}</p>
+
+      <table>
+        <tbody>
+          <tr ng-if="entry.status == '550' || entry.status == '5.1.1'" ng-repeat="entry in vm.emails">
+            <td>{{entry.created}}</td>
+            <td>{{entry.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row" ng-if-permission="viewAdmin">
+      Full list (admins only)
+      <table>
+        <tbody>
+          <tr ng-if="entry.status !== '550'" ng-repeat="entry in vm.emails">
+            <td>{{entry.created}}</td>
+            <td>{{entry.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

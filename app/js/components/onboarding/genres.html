@@ -1,12 +1,37 @@
 <div class="onboarding row">
-  <h2>{{'GENRES_HEADING' | translate}}</h2>
+  <h1 class="site-heading">{{'ONBOARDING_TITLE' | translate}}</h1>
 
-  <form ng-submit="onboarding.save_genres()">
-    <ul class="align-left">
-      <li ng-repeat="genre in onboarding.genres | orderBy:'Name'">
-        {{genre.Name}}
-      </li>
-    </ul>
-    <button class="round">{{'DONE' | translate}}</button>
-  </form>
+  <div class="large-8 large-centered columns">
+    <div class="content">
+
+      <h3>{{'OB_KNOW' | translate}}</h3>
+      <h1>{{'GENRES_HEADING' | translate}}</h1>
+
+      <div class="dark-block text-left row">
+        <div class="large-16 large-centered columns">
+
+        <spinner class="spinner" name="obGenresSpinner" show="true"></spinner>
+
+        <form ng-submit="vm.save_genres()">
+        <div class="row">
+          <div class="large-9 columns">
+            <span class="align-left" ng-repeat="genre in vm.genres | orderBy:'Name' | limitTo:vm.genres.length/2">
+              <label>
+                <input type="checkbox" ng-model="genre.selected"> {{genre.Name | translate}}
+              </label>
+            </span>
+          </div>
+          <div class="large-9 columns">
+            <span class="align-left" ng-repeat="genre in vm.genres | orderBy:'Name'  | limitTo:vm.genres.length/2:vm.genres.length/2">
+              <label>
+                <input type="checkbox" ng-model="genre.selected"> {{genre.Name | translate}}
+              </label>
+            </span>
+          </div>
+          <input type="submit" ng-show="vm.genres.length > 0" class="right" value="{{'SAVE' | translate}}" ng-disabled="vm.saving">
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,3 +1,3 @@
-<select ng-options='v for v in vm.options' ng-change="vm.createNewTemplate()" ng-model="ngModel">
+<select ng-options='v disable when vm.excludeLength(v) for v in vm.options' ng-change="vm.createNewTemplate()" ng-model="ngModel">
   <option disabled value="">{{action}}</option>
 </select>

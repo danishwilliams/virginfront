@@ -9,7 +9,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/login/login.html',
     controller: 'LoginController as login',
     resolve: {
-      $title: function() { return 'Log in'; /* LOGIN */ }
+      $title: function() { return 'LOGIN'; }
     }
   })
 
@@ -19,7 +19,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/onboarding/password.html',
     controller: 'OnboardingController as vm',
     resolve: {
-      $title: function() { return 'Password reset'; /* PASSWORD_RESET */ }
+      $title: function() { return 'PASSWORD_RESET'; }
     }
   })
 
@@ -61,7 +61,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/recent_classes/recent_classes.html',
     controller: 'Recent_classesController as classes',
     resolve: {
-      $title: function() { return 'Recent classes'; /* RECENT_CLASSES */ }
+      $title: function() { return 'RECENT_CLASSES'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.viewContent]
@@ -87,7 +87,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/dashboard/dashboard.html',
     controller: 'DashboardController as dashboard',
     resolve: {
-      $title: function() { return 'Dashboard'; /* DASHBOARD */ }
+      $title: function() { return 'DASHBOARD'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.viewContent]
@@ -218,41 +218,44 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Onboarding - gyms
+  .state('onboarding-gyms', {
+    url: '/onboarding/gyms',
+    templateUrl: '../js/components/onboarding/gyms.html',
+    controller: 'OnboardingController as vm',
+    resolve: {
+      $title: function() { return 'OB_CLUBS_TITLE'; }
+    }
+  })
+
+  // Onboarding - genres
+  .state('onboarding-genres', {
+    url: '/onboarding/genres',
+    templateUrl: '../js/components/onboarding/genres.html',
+    controller: 'OnboardingController as vm',
+    resolve: {
+      $title: function() { return 'OB_GENRES'; }
+    }
+  })
+
+  // Onboarding - last page
+  .state('onboarding-get-started', {
+    url: '/onboarding/get-started',
+    templateUrl: '../js/components/onboarding/get_started.html',
+    controller: 'OnboardingController as vm',
+    resolve: {
+      $title: function() { return 'OB_DONE'; }
+    },
+  })
+
   // Onboarding - invite
   .state('onboarding', {
     url: '/onboarding/:token',
     templateUrl: '../js/components/onboarding/password.html',
     controller: 'OnboardingController as vm',
     resolve: {
-      $title: function() { return 'Password | Onboarding'; /* OB_PASSWORD */ }
+      $title: function() { return 'OB_PASSWORD'; }
     }
-  })
-
-  .state('onboarding-gyms', {
-    url: '/onboarding/:id/gyms',
-    templateUrl: '../js/components/onboarding/gyms.html',
-    controller: 'OnboardingController as onboarding',
-    resolve: {
-      $title: function() { return 'Clubs | Onboarding'; /* OB_CLUBS_TITLE */ }
-    }
-  })
-
-  .state('onboarding-genres', {
-    url: '/onboarding/:id/genres',
-    templateUrl: '../js/components/onboarding/genres.html',
-    controller: 'OnboardingController as onboarding',
-    resolve: {
-      $title: function() { return 'Genres | Onboarding'; /* OB_GENRES */ }
-    }
-  })
-
-  .state('onboarding-get-started', {
-    url: '/onboarding/:id/get-started',
-    templateUrl: '../js/components/onboarding/get_started.html',
-    controller: 'OnboardingController as onboarding',
-    resolve: {
-      $title: function() { return 'Get started | Onboarding'; /* OB_DONE */ }
-    },
   })
 
   // Playlists
@@ -261,7 +264,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/playlists/playlists.html',
     controller: 'PlaylistsController as playlists',
     resolve: {
-      $title: function() { return 'Rides'; /* RIDES */ }
+      $title: function() { return 'RIDES'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.viewContent]
@@ -286,7 +289,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/playlist_edit/playlist_edit.html',
     controller: 'Playlist_editController as playlist_edit',
     resolve: {
-      $title: function() { return 'Ride edit'; /* RIDE_EDIT_TITLE */ }
+      $title: function() { return 'RIDE_EDIT_TITLE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.editPlaylist]
@@ -298,7 +301,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/tracks_search/tracks_search.html',
     controller: 'Tracks_searchController as vm',
     resolve: {
-      $title: function() { return 'Song search'; /* TRACKS_SEARCH */ }
+      $title: function() { return 'TRACKS_SEARCH'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.createPlaylist]
@@ -311,7 +314,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/playlist_template/playlist_template.html',
     controller: 'Playlist_templateController as playlist_template',
     resolve: {
-      $title: function() { return 'Create a ride'; /* CREATE_RIDE_MENU */ }
+      $title: function() { return 'CREATE_RIDE_MENU'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.createPlaylist]
@@ -324,7 +327,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/playlist_time/playlist_time.html',
     controller: 'Playlist_timeController as playlist_time',
     resolve: {
-      $title: function() { return 'Ride | Choose a time'; /* RIDE_TIME */ }
+      $title: function() { return 'RIDE_TIME'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.createPlaylist]
@@ -337,7 +340,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/playlist_edit/playlist_edit.html',
     controller: 'Playlist_editController as playlist_edit',
     resolve: {
-      $title: function() { return 'Create ride'; /* RIDE_CREATE_TITLE */ }
+      $title: function() { return 'RIDE_CREATE_TITLE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.createPlaylist]
@@ -349,7 +352,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/tracks_search/tracks_search.html',
     controller: 'Tracks_searchController as vm',
     resolve: {
-      $title: function() { return 'Song search'; /* TRACKS_SEARCH */ }
+      $title: function() { return 'TRACKS_SEARCH'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.createPlaylist]
@@ -362,7 +365,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/playlist_view/playlist_view.html',
     controller: 'Playlist_viewController as playlist_view',
     resolve: {
-      $title: function() { return 'View ride'; /* RIDE_VIEW */ }
+      $title: function() { return 'RIDE_VIEW'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.createPlaylist]
@@ -375,7 +378,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/playlist_sync/playlist_sync.html',
     controller: 'Playlist_syncController as playlist_sync',
     resolve: {
-      $title: function() { return 'Sync ride'; /* RIDE_SYNC */ }
+      $title: function() { return 'RIDE_SYNC'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.createPlaylist]
@@ -388,7 +391,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/playlist_view/playlist_view.html',
     controller: 'Playlist_viewController as playlist_view',
     resolve: {
-      $title: function() { return 'View ride'; /* RIDE_VIEW */ }
+      $title: function() { return 'RIDE_VIEW'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.viewPlaylist]
@@ -401,7 +404,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/templates/templates.html',
     controller: 'TemplatesController as templates',
     resolve: {
-      $title: function() { return 'Templates | Admin'; /* TEMPLATES_PAGE */ }
+      $title: function() { return 'TEMPLATES_PAGE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.templates]
@@ -413,7 +416,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/templategroup/templategroup_new.html',
     controller: 'Templategroup_viewController as vm',
     resolve: {
-      $title: function() { return 'Create New Template | Admin'; /* TEMPLATE_NEW_PAGE */ }
+      $title: function() { return 'TEMPLATE_NEW_PAGE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.templates]
@@ -421,11 +424,11 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   .state('templategroup', {
-    url: '/admin/templates/group/:id?action',
+    url: '/admin/templates/group/:id',
     templateUrl: '../js/components/templategroup/templategroup.html',
     controller: 'Templategroup_viewController as vm',
     resolve: {
-      $title: function() { return 'Template | Admin'; /* TEMPLATE_PAGE */ }
+      $title: function() { return 'TEMPLATE_PAGE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.templates]
@@ -463,7 +466,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/user_new/user_new.html',
     controller: 'UserNewController as vm',
     resolve: {
-      $title: function() { return 'Create new user'; /* CREATE_USER */ }
+      $title: function() { return 'CREATE_USER'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.users]
@@ -475,7 +478,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/user_invite/user_invite.html',
     controller: 'UserInviteController as vm',
     resolve: {
-      $title: function() { return 'Invite'; /* INVITE */ }
+      $title: function() { return 'INVITE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.users]
@@ -487,7 +490,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/user/user.html',
     controller: 'UserController as user',
     resolve: {
-      $title: function() { return 'User profile'; /* PROFILE_PAGE */ }
+      $title: function() { return 'PROFILE_PAGE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.user]
@@ -499,7 +502,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/user/user.html',
     controller: 'UserController as user',
     resolve: {
-      $title: function() { return 'User'; /* USER */ }
+      $title: function() { return 'USER'; }
     }
   })
 
@@ -513,6 +516,19 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     },
     data: {
       permissions: [APP_PERMISSIONS.viewAdmin]
+    }
+  })
+
+  // Bounced emails
+  .state('emails', {
+    url: '/admin/emails',
+    templateUrl: '../js/components/emails/emails.html',
+    controller: 'EmailsController as vm',
+    resolve: {
+      $title: function() { return 'EMAILS_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
     }
   });
 

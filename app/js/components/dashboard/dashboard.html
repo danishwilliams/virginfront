@@ -56,7 +56,7 @@
       <table style="width: 100%;" ng-if="dashboard.classes.length > 0">
         <tbody>
         <tr ng-repeat="class in dashboard.classes">
-          <td>{{class.ClassTaughtDate | date : 'dd MMMM yyyy'}}</td>
+          <td>{{class.ClassTaughtDate | date : 'dd'}} {{class.ClassTaughtDate | date : 'MMMM' | uppercase | translate}} {{class.ClassTaughtDate | date : 'yyyy'}}</td>
           <td>{{class.ClassTaughtDate  | date : 'H:mm'}}</td>
           <td>{{class.GymName}}</td>
           <td>{{class.TemplateName}}</td>

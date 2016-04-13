@@ -52,7 +52,7 @@
         <label for="usertypes">{{'PERMISSIONS' | translate}}</label>
 
         <label class="no-bold" ng-repeat="userType in vm.userTypes | orderBy: 'Name'" ng-if="userType.PublicRole">
-          <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name}}
+          <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name | translate}}
         </label>
       </div>
 

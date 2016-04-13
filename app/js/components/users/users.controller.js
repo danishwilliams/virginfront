@@ -12,56 +12,23 @@ angular.module("app.users", []).controller('UsersController', function (Users, s
     self.numTechnical = 0;
     self.numDisabled = 0;
 
-    // Hide non-instructor user types
     self.users.forEach(function(user) {
-      var counted = false;
-      if (user.Enabled) {
-        user.Archived = false;
+      if (!user.Enabled) {
+        self.numDisabled++;
       }
       else {
-        self.numDisabled++;
-        counted = true;
-        user.Archived = true;
-      }
-
-      // Set the user type. Onee of Registered, Technical, Invited
-      user.Type = 'Registered';
-      user.UserUserTypes.forEach(function (type) {
-        switch (user.State) {
-          case 'invite_emailed':
-          case 'invite_email_failed':
-          case 'onboarding_password':
-          case 'onboarding_genre':
-          case 'onboarding_clubs':
-            user.Type = 'Invited';
-            if (!counted) {
-              self.numActive++;
-              counted = true;
-            }
+        switch (user.Type) {
+          case 'Invited':
+          case 'Registered':
+            self.numActive++;
             break;
-          case 'registered':
-            user.Type = 'Registered';
-            if (!counted) {
-              self.numActive++;
-              counted = true;
-            }
+          case 'Technical':
+            self.numTechnical++;
+            break;
+          default:
+            self.numTechnical++;
         }
-        switch (type.UserType.Name) {
-          case 'Admin':
-          case 'API User':
-          case 'Device':
-          case 'Import':
-            if (!counted) {
-              self.numTechnical++;
-              counted = true;
-            }
-            user.Type = 'Technical';
-        }
-        if (!counted) {
-          self.numTechnical++;
-          user.Type = 'Technical'; // So that if any users show up there we know something has screwed up
-        }
-      });
+      }
     });
   });
 
@@ -75,6 +42,16 @@ angular.module("app.users", []).controller('UsersController', function (Users, s
     }
     else if (user.Email && user.Email.toLowerCase().indexOf(self.query) > -1) {
       return user;
+    }
+    else if (self.query.indexOf(' ') > -1) {
+      var firstName = self.query.substring(0, self.query.indexOf(' '));
+      var lastName = self.query.substring(self.query.indexOf(' '));
+      if (user.FirstName && user.FirstName.toLowerCase().indexOf(firstName) > -1) {
+        return user;
+      }
+      else if (user.LastName && user.LastName.toLowerCase().indexOf(lastName) > -1) {
+        return user;
+      }
     }
   };
 

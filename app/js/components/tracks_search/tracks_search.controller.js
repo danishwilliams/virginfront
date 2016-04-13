@@ -1,25 +1,41 @@
-angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Tracks, Playlists, spinnerService, Users) {
+angular.module("app.tracks_search", []).controller('Tracks_searchController', function ($state, $stateParams, Tracks, Playlists, spinnerService, Users, Storage) {
   var self = this;
 
   this.currentgoal = Playlists.getCurrentGoal();
   var isCustomRpm = Playlists.getPlaylistCustomRpm();
   this.tracks = Tracks.getTracks();
   self.error = {};
+  self.searching = true; // A search is in progress
 
   if (this.currentgoal.BpmLow === -1) {
     $state.go('^');
   } else {
-    // Load tracks from the user's default genre selection
     self.error = {};
-    Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
-      self.tracks = data;
-      spinnerService.hide('trackSpinner');
-    }, function () {
-      spinnerService.hide('trackSpinner');
-      self.error = {
-        server: true
-      };
-    });
+    var genre = Storage.getItem('genre');
+    if (genre) {
+      var genres = [];
+      if (genre !== 'All') {
+        genres = [{Id: genre}];
+      }
+      Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, genres).then(loadTracksSuccess, loadTracksFailed);
+    }
+    else {
+      // Load tracks from the user's default genre selection
+      Tracks.loadUserDefaultGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh).then(function (data) {
+        self.tracks = data;
+        searchFinished();
+      }, function () {
+        searchFinished();
+        self.error = {
+          server: true
+        };
+      });
+    }
+  }
+
+  function searchFinished() {
+    self.searching = false;
+    spinnerService.hide('trackSpinner');
   }
 
   // Set up addition bpm range for non-UK (i.e. the playlist IsCustomRpm value is true)
@@ -47,13 +63,14 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
 
   this.trackSearch = function () {
     spinnerService.show('trackSpinner');
+    self.searching = true;
     self.tracks = [];
     self.error = {};
     Tracks.searchTracks(self.search).then(function (data) {
       self.tracks = data;
-      spinnerService.hide('trackSpinner');
+      searchFinished();
     }, function () {
-      spinnerService.hide('trackSpinner');
+      searchFinished();
       self.error = {
         server: true
       };
@@ -61,35 +78,39 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   };
 
   this.genreSearch = function () {
-    var genres = [];
-    self.genres.forEach(function (val) {
-      if (val.selected) {
-        genres.push({
-          Id: val.Id
-        });
-      }
-    });
-    if (!_.isEmpty(genres)) {
+    if (!_.isEmpty(self.genres)) {
       // Save the genre selection for later
 
-      // Replace the genres in the user
-      Users.updateGenres(self.genres);
-
       // Do the genre track search
+      self.searching = true;
       spinnerService.show('trackSpinner');
       self.tracks = [];
       self.error = {};
-      Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, genres).then(function (data) {
-        self.tracks = data;
-        spinnerService.hide('trackSpinner');
-      }, function () {
-        spinnerService.hide('trackSpinner');
-        self.error = {
-          server: true
-        };
-      });
+
+      var genres = [];
+      if (self.genres.Id === 'All') {
+        // To search all genres, just don't pass any through, so genres stays as an empty array
+      }
+      else {
+        genres = [{Id: self.genres.Id}];
+      }
+
+      Tracks.loadUserGenresTracks(this.currentgoal.BpmLow, this.currentgoal.BpmHigh, genres).then(loadTracksSuccess, loadTracksFailed);
     }
   };
+
+  function loadTracksSuccess (data) {
+    self.tracks = data;
+    searchFinished();
+  }
+
+  function loadTracksFailed () {
+    searchFinished();
+    self.error = {
+      server: true
+    };
+  }
+
 
   this.outOfBpmRange = function (bpm) {
     $in_range = false;
@@ -121,6 +142,9 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
         return;
       }
     }
+
+    Tracks.stopTrack(track);
+    track.loading = false;
 
     // Close the modal, and send the chosen track back to the playlist_edit controller
     Tracks.setSearchedTrack(track);

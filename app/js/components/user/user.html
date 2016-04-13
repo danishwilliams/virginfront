@@ -4,7 +4,7 @@
       <h1>{{user.user.FirstName}} {{user.user.LastName}}</h1>
       <p>{{user.user.Location.City}}, {{user.user.Location.Country.Code}}
         <span ng-if="user.user.LastClassDate"><br>
-          <em>{{'LAST_CLASS' | translate}}: {{user.user.LastClassDate | date : 'dd MMMM yyyy'}}</em>
+          <em>{{'LAST_CLASS' | translate}}: {{user.user.LastClassDate | date : 'dd'}} {{user.user.LastClassDate | date : 'MMMM' | uppercase | translate}} {{user.user.LastClassDate | date : 'yyyy'}}</em>
         </span>
       </p>
     </div>
@@ -55,23 +55,21 @@
           <button ng-show="!user.userTypesEdit" ng-if-permission="users" class="edit right" ng-click="user.loadUserTypes()">{{'EDIT' | translate}}</button>
           <h3>{{'PERMISSIONS' | translate}}</h3>
           <div ng-show="!user.userTypesEdit">
-            {{user.user.UserType.Name}}
             <ul>
               <li ng-repeat="role in user.user.UserUserTypes">
-                {{role.UserType.Name}}
+                {{role.UserType.Name | translate}}
               </li>
             </ul>
           </div>
 
           <form ng-show="user.userTypesEdit" ng-if-permission="users" ng-submit="user.saveUserTypes()">
             <label ng-hide="userType.hide" ng-repeat="userType in user.userTypes | orderBy: 'Name'">
-              <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name}}
+              <input type="checkbox" name="usertypes" ng-model="userType.selected"> {{userType.Name | translate}}
             </label>
 
-            <div class="right">
+            <div class="row submit">
               <a class="cancel" ng-click="user.userTypesEdit = !user.userTypesEdit">{{'CANCEL' | translate}}</a>
-              <spinner class="spinner inline" name="userTypesSpinner" show="false"></spinner>
-              <input type="submit" value="{{'SAVE' | translate}}">
+              <input type="submit" value="{{'SAVE' | translate}}" ng-disabled="user.userTypesSaving">
             </div>
             &nbsp;
           </form>
@@ -112,14 +110,14 @@
           <div ng-show="!user.genreEdit">
             <ul>
               <li ng-repeat="genre in user.user.UserGenres | orderBy: 'Name'">
-                {{genre.Genre.Name}}
+                {{genre.Genre.Name | translate}}
               </li>
             </ul>
           </div>
 
           <form ng-show="user.genreEdit" ng-submit="user.saveGenres()">
             <label ng-repeat="genre in user.genres | orderBy: 'Name'">
-              <input type="checkbox" ng-model="genre.selected"> {{genre.Name}}
+              <input type="checkbox" ng-model="genre.selected"> {{genre.Name | translate}}
             </label>
             <div class="right">
               <a class="cancel" ng-click="user.genreEdit = !user.genreEdit">{{'CANCEL' | translate}}</a>
@@ -131,12 +129,23 @@
         </div>
       </div>
     </div>
-    <div class="row" ng-if="user.user.UserMusicProvider.MusicProvider.Name == 'Simfy'">
-      <div class="columns large-9">
+    <div class="row">
+      <div class="columns large-9" ng-if="user.user.UserMusicProvider.MusicProvider.Name == 'Simfy'">
         <div class="box">
           <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} {{'ACC_DETAILS' | translate}}</h3>
           <p>{{'USERNAME' | translate}}: <em>{{user.user.UserMusicProvider.Username}}</em>
             <br> {{'PASSWORD' | translate}}: <em>{{user.user.UserMusicProvider.Password}}</em></p>
+        </div>
+      </div>
+      <div class="columns large-9" ng-if-permission="users" ng-show="user.viewingOwnUserProfile">
+        <div class="box">
+          <h3>{{'CHANGE_LANGUAGE' | translate}}</h3>
+          <select ng-model="user.langKey" ng-change="user.changeLanguage(user.langKey)">
+            <option value="en">{{'LANG_EN' | translate}}</option>
+            <option value="it">{{'LANG_IT' | translate}}</option>
+            <option value="pt">{{'LANG_PT' | translate}}</option>
+            <option value="es">{{'LANG_ES' | translate}}</option>
+          </select>
         </div>
       </div>
     </div>

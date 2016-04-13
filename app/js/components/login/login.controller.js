@@ -1,9 +1,9 @@
 angular.module("app.login", [])
   .controller('LoginController', LoginController);
 
-LoginController.$inject = ['$state', 'Users', 'spinnerService'];
+LoginController.$inject = ['$state', 'Users', 'spinnerService', 'USER_STATES'];
 
-function LoginController($state, Users, spinnerService) {
+function LoginController($state, Users, spinnerService, USER_STATES) {
   var self = this;
   this.credentials = {
     username: "",
@@ -14,8 +14,8 @@ function LoginController($state, Users, spinnerService) {
 
   var onLoginSuccess = function () {
     console.log('onLoginSuccess');
-    spinnerService.hide('loginSpinner');
-    if (!_.isEmpty(Users.getCurrentUser().UserUserTypes)) {
+    var user = Users.getCurrentUser();
+    if (!_.isEmpty(user.UserUserTypes)) {
       $state.go('dashboard');
     }
     else {
@@ -29,17 +29,17 @@ function LoginController($state, Users, spinnerService) {
       return;
     }
     self.error = false;
-    spinnerService.show('loginSpinner');
+    self.submitted = true;
     Users.loadAccessToken(self.credentials).then(function (data) {
       Users.setAccessToken(data);
       Users.loadCurrentUser().then(onLoginSuccess, function () {
-        spinnerService.hide('loginSpinner');
+        self.submitted = false;
         self.error = {
           error: true
         };
       });
     }, function () {
-      spinnerService.hide('loginSpinner');
+      self.submitted = false;
       self.error = {
         error: true
       };

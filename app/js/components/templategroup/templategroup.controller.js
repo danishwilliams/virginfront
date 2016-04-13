@@ -2,25 +2,12 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
   var self = this;
   this.id = $stateParams.id;
   this.templategroup = {};
+  self.classLengths = []; // List of template times this template group contains
 
   // TODO: refactor templategroup-new so that we don't have to duplicate adding/editing templates
 
-  // If a template has just been saved or added
-  if ($stateParams.action) {
-    var message = '';
-    switch ($stateParams.action) {
-      case 'edited':
-        message = 'TEMPLATE_EDITED';
-        break;
-      case 'saved':
-        message = 'TEMPLATE_ADDED';
-        break;
-    }
-    self.messages = [{
-      type: 'success',
-      msg: message
-    }];
-  }
+  // If a template has just been saved or added, show that message
+  self.messages = Templates.getMessages();
 
   if ($state.current.name === 'templategroup') {
     // Viewing/editing a template group
@@ -31,6 +18,9 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
       Templates.loadTemplateGroupClasses(self.id).then(function (data) {
         spinnerService.hide('loadClassLengthsSpinner');
         self.templategroup.ClassLengths = data.TemplateClassLength;
+        self.templategroup.ClassLengths.forEach(function (template) {
+          self.classLengths.push(template.ClassLengthMinutes);
+        });
       });
     });
   } else {
@@ -95,6 +85,7 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     spinnerService.show('saveTemplateSpinner');
     self.templategroup.put().then(function () {
       if (self.templategroup.NewTemplate) {
+        Templates.setMessage('success', 'TEMPLATE_ADDED');
         $state.go('templategroup', {
           id: self.templategroup.Id
         });
@@ -103,7 +94,7 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
         self.edit = false;
         self.alerts = [{
           type: 'success',
-          msg: 'TEMPLATE_ADDED'
+          msg: 'TEMPLATE_EDITED'
         }];
       }
     });
@@ -128,6 +119,10 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     Templates.disableTemplateGroup(self.templategroup.Id).then(function (data) {
       spinnerService.hide('archiveTemplateGroupSpinner');
       self.templategroup.Enabled = false;
+      self.messages = [{
+        type: 'success',
+        msg: TEMPLATE_ARCHIVED
+      }];
     });
   };
 
@@ -136,6 +131,10 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     Templates.enableTemplateGroup(self.templategroup.Id).then(function (data) {
       spinnerService.hide('archiveTemplateGroupSpinner');
       self.templategroup.Enabled = true;
+      self.messages = [{
+        type: 'success',
+        msg: TEMPLATE_UNARCHIVED
+      }];
     });
   };
 });
