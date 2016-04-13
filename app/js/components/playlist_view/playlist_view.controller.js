@@ -10,7 +10,7 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     self.playlist = {};
   }
 
-  if ($state.current.name === 'playlist-new-view') {
+  if ($state.current.name === 'playlist-new-view' || Playlists.getCreatingNewPlaylist()) {
     // We're viewing a newly created playlist!
     self.newPlaylist = true;
   }
