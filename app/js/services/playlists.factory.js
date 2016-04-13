@@ -42,6 +42,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getPlaylist: getPlaylist,
     setPlaylist: setPlaylist,
     getPlaylistCustomRpm: getPlaylistCustomRpm,
+    //loadGymsPlaylistSyncInfo: loadGymsPlaylistSyncInfo,
     loadGymsPlaylistSyncInfoDetailed: loadGymsPlaylistSyncInfoDetailed,
     loadGymsDevicePlaylistSyncInfo: loadGymsDevicePlaylistSyncInfo,
     loadGymsPlaylists: loadGymsPlaylists,
@@ -272,6 +273,16 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return isCustomRpm;
   }
 
+  /*
+  function loadGymsPlaylistSyncInfo() {
+    return Restangular.one('gyms/syncinfo').get().then(loadGymsPlaylistSyncInfoComplete);
+
+    function loadGymsPlaylistSyncInfoComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+  */
+
   function loadGymsPlaylistSyncInfoDetailed() {
     return Restangular.one('gyms/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
 
@@ -296,7 +307,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
 
   // Gets all complete playlists not in a particular gym
   function loadPlaylistsNotInGym(id) {
-    return Restangular.one('gyms/playlistsnotpublished', id).get();
+    return Restangular.one('gyms/' + id + '/playlistsnotpublished').get();
   }
 
   function addPlaylistToGym(playlistId, gymId) {
