@@ -283,8 +283,13 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   }
   */
 
-  function loadGymsPlaylistSyncInfoDetailed() {
-    return Restangular.one('gyms/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
+  function loadGymsPlaylistSyncInfoDetailed(gymId) {
+    if (gymId) {
+      return Restangular.one('gyms/' + gymId + '/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
+    }
+    else {
+      return Restangular.one('gyms/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
+    }
 
     function loadGymsPlaylistSyncInfoDetailedComplete(data, status, headers, config) {
       return data;
