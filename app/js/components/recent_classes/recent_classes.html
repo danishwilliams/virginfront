@@ -1,19 +1,8 @@
 <div id="classes" class="large-14 large-centered columns">
-  <h1>{{'RECENT_CLASSES' | translate}}</h1>
+  <div class="row heading">
+    <h1>{{'RECENT_CLASSES' | translate}}</h1>
+  </div>
   <div class="row">
-    <spinner class="spinner" name="classesSpinner" show="true"></spinner>
-
-    <table style="width: 100%;" ng-if="classes.classes">
-      <tbody>
-        <tr ng-repeat="class in classes.classes">
-          <td>{{class.ClassTaughtDate | date : 'dd'}} {{class.ClassTaughtDate | date : 'MMMM' | uppercase | translate}} {{class.ClassTaughtDate | date : 'yyyy'}}</td>
-          <td>{{class.ClassTaughtDate | date : 'H:mm'}}</td>
-          <td>{{class.GymName}}</td>
-          <td>{{class.TemplateName}}</td>
-          <td>{{class.PlaylistName}}</td>
-          <td>{{class.ClassLengthMinutes}} {{'MINS' | translate}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <recent-classes data-classes="1000"></recent-classes>
   </div>
 </div>

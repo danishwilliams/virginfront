@@ -59,7 +59,6 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('recent-classes', {
     url: '/classes',
     templateUrl: '../js/components/recent_classes/recent_classes.html',
-    controller: 'Recent_classesController as classes',
     resolve: {
       $title: function() { return 'RECENT_CLASSES'; }
     },
