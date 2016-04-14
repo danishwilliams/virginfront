@@ -274,7 +274,6 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('playlists', {
     url: '/playlists',
     templateUrl: '../js/components/playlists/playlists.html',
-    controller: 'PlaylistsController as playlists',
     resolve: {
       $title: function() { return 'RIDES'; }
     },
