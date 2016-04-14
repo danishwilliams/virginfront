@@ -1,4 +1,4 @@
-angular.module("app.device_new", []).controller('DeviceNewController', function (Gyms, Devices, $q) {
+angular.module("app.device_new", []).controller('DeviceNewController', function (Gyms, Devices, $q, spinnerService) {
   var self = this;
   self.step = 0;
 
