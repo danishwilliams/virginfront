@@ -271,6 +271,8 @@
   "LIKE_TO": "Would you like to:",
   "DISABLE_DEVICE_GENERATE_NEW": "Disable the active device and generate a new code for",
   "DISABLE_DEVICE_NOTE": "Please note that the disabled device will no longer be able to sync and will not allow users to log in.",
+  "DEVICE_PROVISION_ERROR": "Something went wrong while disabling the existing device.",
+  "MUSIC_PROVIDER_CANCELLING_ERROR": "Error while cancelling device music provider account.",
   "TEMPLATES": "Modelos",
   "TEMPLATE": "Modelo",
   "TEMPLATE_CREATE": "Criar novo modelo",

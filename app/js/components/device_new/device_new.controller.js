@@ -33,6 +33,18 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
 
     $q.all(promises).then(function () {
       provisionDevice('deviceDisableNewSpinner');
+    }, function(err) {
+      spinnerService.hide('deviceDisableNewSpinner');
+
+      self.alert = {
+        type: 'warning',
+        msg: 'DEVICE_PROVISION_ERROR'
+      };
+
+      // Either a generic error or a Music Provider error
+      if (err.data.Message.startsWith('Error while cancelling device music provider account')) {
+        msg = 'MUSIC_PROVIDER_CANCELLING_ERROR';
+      }
     });
 
     return defer.promise;

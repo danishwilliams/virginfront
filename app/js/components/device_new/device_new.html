@@ -69,6 +69,7 @@
         </p>
 
         <div class="submit">
+          <alert ng-if="vm.alert" type="vm.alert.type">{{vm.alert.msg | translate}}</alert>
           <a class="cancel" ng-click="vm.step = 0">{{'CANCEL' | translate}}</a>
           <spinner class="spinner" name="deviceDisableNewSpinner" show="false"></spinner>
           <button class="submit" ng-disabled="!vm.disableDevice || vm.saving" ng-click="vm.disableActiveDeviceAndProvisionNewDevice()">{{'DEVICE_GEN_CODE' | translate}}</button>
