@@ -548,10 +548,23 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     }
   }
 
-  function loadRecentClasses(resultCount) {
-    return Restangular.one('playlists/recentclasses').get({
+
+  /**
+   * Returns the recent classes for current user, or for the userId (if provided)
+   *
+   * @param resultCount
+   *   Number of recent classes to return
+   * @param userId
+   *   Optional. The Id of the user we want the recent classes for.
+   */
+  function loadRecentClasses(resultCount, userId) {
+    var params = {
       resultCount: resultCount
-    }).then(loadRecentClassesComplete);
+    };
+    if (userId) {
+      params.UserId = userId;
+    }
+    return Restangular.one('playlists/recentclasses').get(params).then(loadRecentClassesComplete);
 
     function loadRecentClassesComplete(data, status, headers, config) {
       return data;
