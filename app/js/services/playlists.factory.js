@@ -207,11 +207,23 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return playlist[id];
   }
 
-  function loadPlaylists(resultCount) {
-    return Restangular.one('playlists').get({
+  /**
+   * Returns all playlists for the current user, or for the userId (if provided)
+   *
+   * @param resultCount
+   *   Number of playlists to return
+   * @param userId
+   *   Optional. The Id of the user we want the playlists for.
+   */
+  function loadPlaylists(resultCount, userId) {
+    var params = {
       resultCount: resultCount,
       includeGoals: false
-    }).then(loadPlaylistsComplete);
+    };
+    if (userId) {
+      params.UserId = userId;
+    }
+    return Restangular.one('playlists').get(params).then(loadPlaylistsComplete);
 
     function loadPlaylistsComplete(data, status, headers, config) {
       self.playlists = data;

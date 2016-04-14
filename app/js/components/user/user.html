@@ -147,5 +147,16 @@
         </div>
       </div>
     </div>
+
+    <div class="row playlists heading">
+      <div class="columns small-12 medium-14">
+        <h1>{{'RECENT_RIDES' | translate}}</h1>
+      </div>
+    </div>
+
+    <div ng-if-permission="users" class="row">
+      <rides ng-if="user.user" data-rides="100" data-user-id="{{user.user.Id}}"></rides>
+    </div>
+
   </div>
 </div>
