@@ -33,7 +33,6 @@ angular
     "app.playlist_edit",
     "app.playlist_sync",
     "app.playlist_view",
-    "app.recent_classes",
     "app.registered",
     "app.sync",
     "app.tracks",
