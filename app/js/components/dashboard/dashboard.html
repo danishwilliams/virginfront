@@ -39,39 +39,10 @@
         <a ui-sref="recent-classes" ng-if-permission="viewContent">{{'VIEW_ALL_CLASSES' | translate}}</a>
       </div>
     </div>
-    <div class="row">
-      <spinner class="spinner" name="dashboardClassesSpinner" show="true"></spinner>
 
-      <table style="width: 100%;" ng-if="dashboard.classes.length > 0">
-        <tbody>
-        <tr ng-repeat="class in dashboard.classes">
-          <td>{{class.ClassTaughtDate | date : 'dd'}} {{class.ClassTaughtDate | date : 'MMMM' | uppercase | translate}} {{class.ClassTaughtDate | date : 'yyyy'}}</td>
-          <td>{{class.ClassTaughtDate  | date : 'H:mm'}}</td>
-          <td>{{class.GymName}}</td>
-          <td>{{class.TemplateName}}</td>
-          <td>{{class.PlaylistName}}</td>
-          <td>{{class.ClassLengthMinutes}} mins</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <!--
-    <div class="row rides heading">
-      <div class="columns large-14">
-        <h1>{{'SHARED_RIDES' | translate}}</h1>
-      </div>
-      <div class="columns large-4">
-        <a>{{'BROWSE_RIDES' | translate}}</a>
-      </div>
-    </div>
     <div class="row">
-      <spinner class="spinner" name="dashboardSharedSpinner" show="true"></spinner>
-      <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
-        <li ng-repeat="playlist in dashboard.playlists | orderBy:'Created'">
-          <ride playlist="{{playlist}}"></ride>
-        </li>
-      </ul>
+      <recent-classes data-classes="10"></recent-classes>
     </div>
-    -->
+
   </div>
 </div>
