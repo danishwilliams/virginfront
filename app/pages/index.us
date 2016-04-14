@@ -75,7 +75,7 @@
           <i class="users"></i>
           <label>{{'USERS' | translate}}</label>
         </a>
-        <a class="item" ui-sref="emails" ng-if-permission="users">
+        <a class="item" ui-sref="emails" ng-if-permission="viewAdmin">
           <i class="emails"></i>
           <label>{{'EMAILS' | translate}}</label>
         </a>
