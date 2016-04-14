@@ -6,7 +6,7 @@ trackProgress.$inject = ['Tracks'];
 
 function trackProgress(Tracks) {
   var directive = {
-    templateUrl: 'track_progress.directive.html',
+    templateUrl: '../js/directives/track_progress/track_progress.directive.html',
     restrict: 'E',
     scope: {
       progress: '@',

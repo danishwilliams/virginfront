@@ -5,7 +5,7 @@ angular
 function playlistGoal() {
   // TODO: use this directive in the playlist edit template
   var directive = {
-    templateUrl: 'playlist_goal.directive.html',
+    templateUrl: '../js/directives/playlist_goal/playlist_goal.directive.html',
     restrict: 'E',
     controller: playlistGoalController,
     controllerAs: 'vm',

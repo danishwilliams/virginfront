@@ -4,7 +4,7 @@ angular
 
 function tracks() {
   var directive = {
-    templateUrl: 'tracks.directive.html',
+    templateUrl: '../js/directives/tracks/tracks.directive.html',
     restrict: 'E',
     controller: tracksController,
     controllerAs: 'vm',

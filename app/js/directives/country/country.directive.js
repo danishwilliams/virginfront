@@ -4,7 +4,7 @@ angular
 
 function country() {
   var directive = {
-    templateUrl: 'country.directive.html',
+    templateUrl: '../js/directives/country/country.directive.html',
     restrict: 'E',
     controller: countryController,
     controllerAs: 'vm',

@@ -7,7 +7,7 @@ gymPossibleRides.$inject = ['Playlists', 'spinnerService'];
 function gymPossibleRides(Playlists, spinnerService) {
   var directive = {
     link: link,
-    templateUrl: 'gym_possible_rides.directive.html',
+    templateUrl: '../js/directives/gym_possible_rides/gym_possible_rides.directive.html',
     restrict: 'E',
     controller: gymPossibleRidesController,
     controllerAs: 'vm',

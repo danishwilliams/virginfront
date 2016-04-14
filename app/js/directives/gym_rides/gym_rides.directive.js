@@ -5,7 +5,7 @@ angular
 function gymRides() {
   var directive = {
     link: link,
-    templateUrl: 'gym_rides.directive.html',
+    templateUrl: '../js/directives/gym_rides/gym_rides.directive.html',
     restrict: 'E',
     controller: gymRidesController,
     controllerAs: 'vm'

@@ -6,7 +6,7 @@ freestyleGoals.$inject = ['Goals', 'spinnerService'];
 
 function freestyleGoals(Goals, spinnerService) {
   var directive = {
-    templateUrl: 'freestyle_goals.directive.html',
+    templateUrl: '../js/directives/freestyle_goals/freestyle_goals.directive.html',
     restrict: 'E',
     controller: freestyleGoalsController,
     controllerAs: 'vm',

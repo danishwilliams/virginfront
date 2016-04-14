@@ -4,7 +4,7 @@ function templateLengths() {
   var directive = {
     link: link,
     restrict: 'E',
-    templateUrl: 'template_lengths.directive.html',
+    templateUrl: '../js/directives/template_lengths/template_lengths.directive.html',
     controller: newTemplateController,
     controllerAs: 'vm',
     scope: {

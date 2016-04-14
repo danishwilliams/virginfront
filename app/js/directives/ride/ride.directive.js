@@ -4,7 +4,7 @@ angular
 
 function RideDirective() {
   var directive = {
-    templateUrl: 'ride.directive.html',
+    templateUrl: '../js/directives/ride/ride.directive.html',
     restrict: 'EA'
   };
   return directive;

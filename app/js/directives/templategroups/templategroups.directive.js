@@ -4,7 +4,7 @@ angular.module('app').directive('templategroups', function () {
     restrict: 'E',
     controller: templateGroupsController,
     controllerAs: 'vm',
-    templateUrl: 'templategroups.directive.html',
+    templateUrl: '../js/directives/templategroups/templategroups.directive.html',
     scope: {
       kind: '@',
       ngModel: '='

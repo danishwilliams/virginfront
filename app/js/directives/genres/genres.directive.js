@@ -7,7 +7,7 @@ angular.module("app").directive("genres", genres);
 
 function genres() {
   var directive = {
-    templateUrl: 'genres.directive.html',
+    templateUrl: '../js/directives/genres/genres.directive.html',
     restrict: 'E',
     controller: genresController,
     controllerAs: 'gvm',

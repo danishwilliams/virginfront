@@ -4,7 +4,7 @@ angular
 
 function goalOption() {
   var directive = {
-    templateUrl: 'goal_option.directive.html',
+    templateUrl: '../js/directives/goal_option/goal_option.directive.html',
     restrict: 'E',
     controller: goalOptionController,
     controllerAs: 'vm',

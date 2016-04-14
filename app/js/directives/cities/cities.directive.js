@@ -5,7 +5,7 @@ angular
 function cities() {
   var directive = {
     link: link,
-    templateUrl: 'cities.directive.html',
+    templateUrl: '../js/directives/cities/cities.directive.html',
     restrict: 'E',
     controller: citiesController,
     controllerAs: 'vm',

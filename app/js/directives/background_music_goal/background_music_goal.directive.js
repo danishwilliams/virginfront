@@ -4,7 +4,7 @@ angular
 
 function backgroundMusicGoal() {
   var directive = {
-    templateUrl: 'background_music_goal.directive.html',
+    templateUrl: '../js/directives/background_music_goal/background_music_goal.directive.html',
     restrict: 'E',
     controller: backgroundMusicGoalController,
     controllerAs: 'vm',

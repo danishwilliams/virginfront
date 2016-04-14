@@ -4,7 +4,7 @@ angular
 
 function users() {
   var directive = {
-    templateUrl: 'users.directive.html',
+    templateUrl: '../js/directives/users/users.directive.html',
     restrict: 'E',
     controller: usersController,
     controllerAs: 'vm',

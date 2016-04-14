@@ -5,7 +5,7 @@ angular
 function playlistWorkflow() {
 	var directive = {
 		link: link,
-		templateUrl: 'playlist_workflow.html',
+		templateUrl: '../js/directives/playlist_workflow/playlist_workflow.html',
 		restrict: 'E',
 		controller: playlistWorkflowController,
 		controllerAs: 'vm'

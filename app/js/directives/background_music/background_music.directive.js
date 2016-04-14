@@ -4,7 +4,7 @@ angular
 
 function backgroundMusic() {
   var directive = {
-    templateUrl: 'background_music.directive.html',
+    templateUrl: '../js/directives/background_music/background_music.directive.html',
     restrict: 'E',
     scope: {
       ngModel: '='

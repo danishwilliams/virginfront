@@ -7,7 +7,7 @@ RidesDirective.$inject = ['Playlists', 'spinnerService'];
 function RidesDirective(Playlists, spinnerService) {
   var directive = {
     link: link,
-    templateUrl: 'rides.directive.html',
+    templateUrl: '../js/directives/rides/rides.directive.html',
     restrict: 'E',
     scope: {
       createNew: '@', // Optional: add a link in which allows an instructor to create a new ride

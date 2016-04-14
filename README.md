@@ -177,6 +177,14 @@ Edit ```node_modules/lineman-angular/config/plugins/ngtemplates.coffee``` and en
         tasks: ["ngtemplates", "concat_sourcemap:js"]
 ```
 
+### template-cache.js
+
+The lineman-angular plugin defines which folders to watch for template files so it can put them into the template cache.
+
+The specific file is at ```node_modules/lineman-angular/config/plugins/ngtemplates.coffee```
+
+I've structured my directives slightly differently from the lineman-angular way and similar to components, in that each directive lives in a sub-folder (so it's easy to jump between the javascript and the template file).
+
 ### controller-as syntax
 
 ngNewRouter wants all controllers to use controller-as syntax. Google it. A common error when refactoring is:
