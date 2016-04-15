@@ -19,7 +19,7 @@ function stickyHeader($window, $compile) {
     var node = {};
     var scrolled = false;
 
-    $win.on('scroll', function (e) {
+    $win.on('scroll', _.throttle(function (e) {
       if (!scrolled) {
         // Doing the position calculation here because another directive is loaded before this one,
         // and it's not rendered at the point we do a document.noready so the value returned by .top
@@ -51,7 +51,7 @@ function stickyHeader($window, $compile) {
         element.removeClass('fixed');
         element[0].parentNode.firstElementChild.removeChild(node, this.firstElementChild);
       }
-    });
+    }, 200));
 
     // When resizing the screen, if the element is already fixed, re-calculate its width
     $win.on('resize', function (e) {
