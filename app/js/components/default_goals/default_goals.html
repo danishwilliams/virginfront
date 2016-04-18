@@ -3,134 +3,21 @@
 
     <div class="row heading">
       <a class="back" ui-sref="templates-admin">{{'TEMPLATES' | translate}}</a>
+      <h1>Challenge masters</h1>
+    </div>
+
+    <p>Editing challenge masters will apply your changes across all templates and existing playlists.</p>
+
+    <default-goals data-challenge-goals="true"></default-goals>
+
+    <div class="row heading">
       <h1>Default Goals</h1>
     </div>
 
-    <spinner class="spinner" name="freestyleAdminGoals" show="true"></spinner>
+    <p>Editing default goal metrics will not apply your changes to templates or playlists but resets the dropdown list of default goals
+    (when creating or editing templates).</p>
 
-    <div class="row goal" data-ng-repeat="goal in vm.goals | orderBy:['Goal.GoalChallengeId', 'Goal.Name'] track by $index">
-      <div class="goal-container">
-
-        <ng-form name="goalForm" novalidate>
-
-          <div class="row goal-name accordion" ng-click="vm.goalClicked(goal)" ng-hide="goal.show">
-            <img ng-if="goal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg"> {{goal.Goal.Name}}
-            <em ng-if="goal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
-            <i class="right chevron-right"></i>
-          </div>
-
-          <div class="row goal-name accordion" ng-click="vm.goalClicked(goal)" ng-show="goal.show">
-            <img class="open" ng-if="goal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
-            <span ng-show="goal.edit">{{goal.Goal.Name}}</span>
-            <input type="text" name="name" ng-hide="goal.edit" placeholder="{{'NAME' | translate}}" ng-model="goal.Goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false" required />
-            <em ng-if="goal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
-            <i class="right chevron-down"></i>
-
-            <div ng-show="goal.submitted || goalForm.name.$touched">
-              <small class="error" ng-show="goalForm.name.$error.required">{{'GOAL_NAME_REQ' | translate}}</small>
-            </div>
-          </div>
-
-          <div class="row" ng-show="goal.show">
-            <label>{{'BPM' | translate}}</label>
-            <select name="bpm" ng-options="v for v in vm.bpmOptions" ng-model="goal.Goal.BpmLow" ng-pattern="vm.posInts" required>
-            </select>
-            -
-            <select name="bpmHigh" ng-options="v disable when v <= goal.Goal.BpmLow for v in vm.bpmOptions" ng-model="goal.Goal.BpmHigh" ng-pattern="vm.posInts" required>
-            </select>
-            <div ng-show="goal.submitted || goalForm.bpm.$touched">
-              <small class="error" ng-show="goalForm.bpm.$error.pattern || goalForm.bpmHigh.$error.pattern">{{'BPM_REQ' | translate}}</small>
-            </div>
-          </div>
-
-          <div class="row goal-meta" ng-show="goal.show" ng-repeat="goaloption in goal.Goal.GoalOptions track by $index">
-            <ng-form name="goaloptionForm">
-              <div ng-show="goal.Goal.GoalOptions.length > 1" class="row">
-                <input type="text" name="goalName" placeholder="{{'GOAL_NAME' | translate}}" ng-model="goaloption.Name" ng-required="goal.Goal.GoalOptions.length > 1">
-                <div ng-show="goal.submitted || goaloptionForm.goalName.$touched">
-                  <small class="error" ng-show="goaloptionForm.goalName.$error.required">{{'INTERVAL_REQ' | translate}}</small>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="large-9 columns">
-                  <label>{{'EFFORT' | translate}}</label>
-                  <select name="effort" ng-options="v for v in vm.effortOptions" ng-model="goaloption.Effort" ng-pattern="vm.posInts" required>
-                  </select>
-                  -
-                  <select ng-options="v disable when v <= goaloption.Effort for v in vm.effortOptions" ng-model="goaloption.EffortHigh">
-                  </select>%
-
-                  <div ng-show="goal.submitted || goaloptionForm.effort.$touched">
-                    <small class="error" ng-show="goaloptionForm.effort.$error.pattern">{{'EFFORT_REQ' | translate}}</small>
-                  </div>
-                </div>
-
-                <div class="large-9 columns" ng-if="vm.isCustomRpm">
-                  <label>{{'RPM' | translate}}</label>
-                  <select name="rpm" ng-options="v for v in vm.rpmOptions" ng-model="goaloption.RpmLow" ng-pattern="vm.posInts" required>
-                  </select>
-                  -
-                  <select ng-options="v disable when v <= goaloption.RpmLow for v in vm.rpmOptions" ng-model="goaloption.RpmHigh">
-                  </select>
-
-                  <div ng-show="goal.submitted || goaloptionForm.rpm.$touched">
-                    <small class="error" ng-show="goaloptionForm.rpm.$error.pattern">{{'RPM_REQ' | translate}}</small>
-                  </div>
-                </div>
-
-                <div class="large-9 columns" ng-if="!vm.isCustomRpm">
-                  <label>{{'BEAT_RATIO' | translate}}</label>
-                  <select name="beat" class="beat" ng-options="v.Name for v in vm.beats track by v.Id" ng-change="goaloption.BeatId = goaloption.Beat.Id" ng-model="goaloption.Beat" required>
-                  </select>
-
-                  <div ng-show="goal.submitted || goaloptionForm.beat.$touched">
-                    <small class="error" ng-show="goaloptionForm.beat.$error.required">{{'BEAT_RATIO_REQ' | translate}}</small>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="row interval" ng-if="!vm.isCustomRpm">
-                <a ng-show="goal.Goal.GoalOptions.length === 1" ng-click="vm.addIntervalGoal(goal)">+ {{'INTERVAL_ADD' | translate}}</a>
-                <a ng-show="$index === 1" ng-click="vm.removeIntervalGoal(goal)">- {{'INTERVAL_REMOVE' | translate}}</a>
-              </div>
-
-            </ng-form>
-          </div>
-
-          <div class="row notes" ng-show="goal.show">
-            <label>{{'NOTES_GUIDELINE' | translate}}</label>
-            <textarea name="note" maxlength="200" ng-maxlength="200" ng-model="goal.Goal.Aim"></textarea>
-            <span class="maxlength">{{'NOTE_MAX' | translate}}</span>
-          </div>
-
-          <div class="row submit" ng-show="goal.show">
-
-          <!-- Challenge goal -->
-            <alert ng-if="goal.saved" ng-show="goal.Goal.GoalChallengeId" type="'success'">{{'CHALLENGE_GOAL_SAVED' | translate}}</alert>
-            <span ng-if="goal.Goal.GoalChallengeId">
-              <alert type="'warning'" class="contains-button" ng-hide="goalForm.$pristine || goal.saved">
-                <div class="row">
-                  <div class="medium-14 columns">
-                    {{'CHALLENGE_GOAL_CONFIRM' | translate}}
-                  </div>
-                  <div class="medium-4 columns">
-                    <input type="submit" value="{{'SAVE_GOAL' | translate}}" ng-click="vm.update(goal, goalForm.$valid)" ng-disabled="goalForm.$pristine || goal.saving">
-                  </div>
-                </div>
-              </alert>
-              <input ng-hide="!goalForm.$pristine" type="submit" value="{{'SAVE_GOAL' | translate}}" ng-disabled="goalForm.$pristine || goal.saving">
-            </span>
-
-            <!-- Default goal -->
-            <alert ng-if="goal.saved" ng-hide="goal.Goal.GoalChallengeId" type="'success'" close="goal.saved = undefined; goalForm.$setPristine(true);">{{'GOAL_SAVED' | translate}}</alert>
-            <input ng-hide="goal.Goal.GoalChallengeId || goal.saved" type="submit" value="{{'SAVE_GOAL' | translate}}" ng-click="vm.update(goal, goalForm.$valid)" ng-disabled="goalForm.$pristine || goal.saving">
-          </div>
-        </ng-form>
-
-      </div>
-    </div>
+    <default-goals></default-goals>
 
   </div>
 </div>

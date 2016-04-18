@@ -181,7 +181,6 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('default-goals-admin', {
     url: '/admin/default-goals',
     templateUrl: '../js/components/default_goals/default_goals.html',
-    controller: 'DefaultGoalsController as vm',
     resolve: {
       $title: function() { return 'Goals | Admin'; }
     },

@@ -311,6 +311,7 @@
   "CHALLENGE_GOAL_CONFIRM": "Salvare questa modifica ora avrà effetto su tutti i template e playlist esistenti",
   "CHALLENGE_GOAL_SAVED": "La modifica è stata salvata con successo e applicata su tutti i template e corsi istruttori",
   "SAVE_GOAL": "Salva goal",
+  "SAVE_CHALLENGE_GOAL": "Save master",
   "GOAL_SAVED": "Goal salvato con successo",
   "WELCOME": "Benvenuti all'App Istruttore di Virgin Active",
   "LOGIN_BTN": "Log in",

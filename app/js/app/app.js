@@ -21,7 +21,6 @@ angular
     "app.emails",
     "app.genres",
     "app.goals",
-    "app.default_goals",
     "app.gyms",
     "app.locations",
     "app.login",
