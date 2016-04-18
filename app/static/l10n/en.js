@@ -307,7 +307,7 @@
   "TEMPLATE_EDITED": "Template successfully edited.",
   "TEMPLATE_ADDED": "Template successfully added.",
   "TEMPLATE_SAVED": "Template successfully saved!",
-  "MANAGE_DEFAULT_GOALS": "Manage default goals",
+  "MANAGE_DEFAULT_GOALS": "Manage goals and challenges",
   "CHALLENGE_GOAL_CONFIRM": "Saving this change now will effect your change across all templates and existing playlists.",
   "CHALLENGE_GOAL_SAVED": "Your change has been successfully saved and applied to all templates and instructor rides.",
   "SAVE_GOAL": "Save goal",
