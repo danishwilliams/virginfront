@@ -6,12 +6,12 @@ Virgin Group Cycle Instructor App
 
 Clone the repo, then:
 
-```
-* $ git checkout develop
-* $ npm install
-* $ npm install -g pm2
-* $ pm2 start config/proxy.js
-* $ lineman run
+```bash
+$ git checkout develop
+$ npm install
+$ npm install -g pm2
+$ pm2 start config/proxy.js
+$ lineman run
 ```
 
 Open http://localhost:8000 in a web browser.
@@ -81,7 +81,7 @@ The backend .net API can be interacted with via a local proxy, via Swagger, or m
 
 When the ```apiProxy``` setting in ```config/application.js``` is enabled (which it is in this codebase), any requests starting with ```api``` will be forwarded to the backend API via a local proxy, which can be started with:
 
-```
+```bash
 $ node config/proxy.js
 ```
 
@@ -89,7 +89,7 @@ This proxy is quick-and-dirty and basically works, but should probably be replac
 
 It needs to be run by some node uptime tool like ```pm2``` so that when it crashed it's auto-restarted, by doing:
 
-```
+```bash
 $ pm2 start config/proxy.js
 $ pm2 list
 ```
@@ -138,7 +138,7 @@ $## Importing instructors
 
 To get a JSON file out of the google spreadsheet (which can then be manually pasted into swagger):
 
-```
+```bash
 $ cd app/support-scripts/
 $ node instructor-export.js
 ```
@@ -147,7 +147,7 @@ More details in that file.
 
 ### Updating translation files
 
-```
+```bash
 $ cd app/support-scripts
 $ node app/instructor-import/instructor-export.js
 ```
@@ -158,7 +158,7 @@ $ node app/instructor-import/instructor-export.js
 
 Tests are run with lineman, which uses the testem runner and Jasmine 1.3. To run tests:
 
-```
+```bash
 $ lineman spec
 ```
 
