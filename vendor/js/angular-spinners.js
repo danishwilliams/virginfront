@@ -36,16 +36,20 @@ angular.module('angularSpinners', [])
       show: function (name) {
         var spinner = spinners[name];
         if (!spinner) {
-          throw new Error("No spinner named '" + name + "' is registered.");
+          console.log("No spinner named '" + name + "' is registered.");
         }
-        spinner.show();
+        else {
+          spinner.show();
+        }
       },
       hide: function (name) {
         var spinner = spinners[name];
         if (!spinner) {
-          throw new Error("No spinner named '" + name + "' is registered.");
+          console.log("No spinner named '" + name + "' is registered.");
         }
-        spinner.hide();
+        else {
+          spinner.hide();
+        }
       },
       showGroup: function (group) {
         var groupExists = false;
