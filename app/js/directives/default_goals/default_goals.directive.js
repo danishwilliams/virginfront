@@ -1,12 +1,50 @@
-angular.module("app.default_goals", []).controller('DefaultGoalsController', function (Users, Goals, Beats, spinnerService) {
+angular
+  .module("app")
+  .directive("defaultGoals", defaultGoals);
+
+function defaultGoals(Goals, spinnerService) {
+  var directive = {
+    templateUrl: '../js/directives/default_goals/default_goals.directive.html',
+    restrict: 'E',
+    controller: defaultGoalsController,
+    controllerAs: 'vm',
+    scope: {
+      challengeGoals: '@', // Boolean: if we're loading up challenge goals or default goals (which is the, uh, default)
+    },
+    link: link
+  };
+  return directive;
+
+  function link(scope, element, attrs) {
+    scope.vm.challengeGoals = scope.challengeGoals;
+    scope.vm.random = Math.floor(Math.random() * 10000);
+  }
+}
+
+defaultGoalsController.$inject = ['Users', 'Goals', 'Beats', 'spinnerService'];
+
+function defaultGoalsController(Users, Goals, Beats, spinnerService) {
   var self = this;
+  self.goals = [];
   self.posInts = /^[1-9][0-9]*$/; // Regex for positive integers. Used for form validation
 
   self.isCustomRpm = Users.getCurrentUser().Location.Country.CustomRpm;
 
   Goals.loadFreestyleGoals().then(function (data) {
-    spinnerService.hide('freestyleAdminGoals');
-    self.goals = data;
+    self.loaded = true;
+    spinnerService.hide('freestyleAdminGoals' + self.random);
+    data.forEach(function(goal) {
+      if (self.challengeGoals) {
+        if (goal.Goal.GoalChallengeId) {
+          self.goals.push(goal);
+        }
+      }
+      else {
+        if (!goal.Goal.GoalChallengeId) {
+          self.goals.push(goal);
+        }
+      }
+    });
   });
 
   self.effortOptions = [40];
@@ -59,4 +97,4 @@ angular.module("app.default_goals", []).controller('DefaultGoalsController', fun
       goal.saved = true;
     });
   };
-});
+}

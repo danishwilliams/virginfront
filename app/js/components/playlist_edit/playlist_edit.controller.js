@@ -24,8 +24,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // User has just selected a track from track search to add to a goal
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
-        self.form.$setDirty(); // Manually set the form to be not pristine any more
-        console.log('setting form to not be prising!!!!');
+        console.log(self.form);
+        if (self.form) {
+          console.log('setting form to not be pristine!!!!');
+          self.form.$setDirty(); // Manually set the form to be not pristine any more
+        }
         var currentgoal = Playlists.getCurrentGoal();
         if (currentgoal.BackgroundSection) {
           // Add a background track
