@@ -116,6 +116,7 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
   this.changeFreestyleGoal = function (goal) {
     // Without explicitly defining each variable, angular doesn't trigger a $digest. Urgh.
     goal.Id = self.freestyleGoal.Goal.Id;
+    goal.Aim = self.freestyleGoal.Goal.Aim;
     goal.ArrayId = self.freestyleGoal.ArrayId;
     goal.GoalId = goal.Id;
     goal.Name = self.freestyleGoal.Goal.Name;
