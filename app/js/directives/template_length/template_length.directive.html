@@ -88,7 +88,7 @@
                 </div>
               </div>
 
-              <div class="row interval" ng-if="!vm.template.TemplateGroup.IsCustomRpm">
+              <div class="row interval" ng-if="!vm.template.TemplateGroup.IsCustomRpm" ng-hide="goal.GoalChallengeId">
                 <a ng-show="goal.GoalOptions.length === 1" ng-click="vm.addIntervalGoal(goal)">+ {{'INTERVAL_ADD' | translate}}</a>
                 <a ng-show="$index === 1" ng-click="vm.removeIntervalGoal(goal)">- {{'INTERVAL_REMOVE' | translate}}</a>
               </div>
