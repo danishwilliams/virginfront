@@ -1,4 +1,4 @@
-<div class="row tracks-modal reveal-modal" modal-window="">
+<div id="tracks-container" class="row tracks-modal reveal-modal" modal-window="" infinite-scroll="vm.loadMoreTracks()" data-infinite-scroll-within-modal-repeater-element="tracks">
   <div class="small-18 large-16 large-centered columns tracks">
     <a class="joyride-close-tip" ng-click="vm.cancel()">&#215;</a>
     <div class="row track-search-header">
@@ -11,7 +11,7 @@
         </div>
         <div class="large-5 columns">
           <div class="search">
-            <form ng-submit="vm.trackSearch()">
+            <form ng-submit="vm.trackSearch(true)">
               <input ng-model="vm.search" name="tracks" type="text" placeholder="{{'SEARCH_SONG' | translate}}">
             </form>
           </div>
@@ -32,14 +32,11 @@
       </div>
       <div class="row">
         <div class="large-13 columns track-search-results">
-          <spinner class="spinner" name="trackSpinner" show="true"></spinner>
-          <div ng-messages="vm.error">
-            <div class="error" ng-message="server">{{'SEARCH_ERROR' | translate}}</div>
-          </div>
-          <span ng-show="!vm.searching && vm.tracks.length === 0">
+          <span ng-show="!vm.loadingTracks && vm.tracks.length === 0">
             {{'NO_TRACKS' | translate}}
           </span>
-          <span data-ng-repeat="track in vm.tracks">
+          <div id="tracks">
+          <span data-ng-repeat="track in vm.tracks track by $index">
           <div class="row track" id="track{{track.MusicProviderTrackId}}" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
             <div class="play-container small-1 columns" ng-click="vm.playTrack(track);">
               <div class="spinner1" ng-class="{'play': !track.playing && !track.loading, 'loading': track.loading, 'playing': track.playing}">
@@ -73,6 +70,11 @@
             <track-progress data-progress="{{track.progress}}" data-duration="{{track.DurationSeconds}}"></track-progress>
           </div>
           </span>
+          <div ng-messages="vm.error">
+            <div class="error" ng-message="server">{{'SEARCH_ERROR' | translate}}</div>
+          </div>
+          <spinner class="spinner inline" name="trackSpinner" show="true"></spinner>
+          </div>
         </div>
         <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-large-up genres" ng-if-responsive="desktop">
           <h3>{{'GENRE_FILTER' | translate}}</h3>
