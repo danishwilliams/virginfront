@@ -257,6 +257,36 @@
             </div>
           </form>
 
+          <h2 class="heading">Spinners</h2>
+
+          <!--
+          Actual code is:
+          <spinner class="spinner center" name="trackSpinner" show="true"></spinner>
+          but that's an angular directive, which compiles to the below.
+          -->
+
+          <div class="row">
+            Normal (i.e. fixed position)
+            <div ng-show="show" class="spinner ng-isolate-scope" name="spinner1" show="true"></div>
+          </div>
+
+          <div class="row">
+            Overlay (not shown, because it stays on top of the entire screen)
+            <!--
+            <div ng-show="show" class="spinner overlay ng-isolate-scope" name="spinner2" show="true"> <ng-transclude></ng-transclude></div>
+            -->
+          </div>
+
+          <div class="row">
+            Inline (stays inline with whatever copy/content is already there, and scrolls with it)
+            <div ng-show="show" class="spinner inline ng-isolate-scope" name="spinner2" show="true"></div>
+          </div>
+
+          <div class="row">
+            Centered (same as inline, but centered)
+            <div ng-show="show" class="spinner center ng-isolate-scope" name="spinner3" show="true"></div>
+          </div>
+
         </div>
       </div>
     </div>

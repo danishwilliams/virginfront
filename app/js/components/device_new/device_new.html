@@ -23,7 +23,7 @@
 
       <div class="row submit">
         <input class="submit" ng-disabled="vm.saving || vm.form.$invalid" type="submit" value="{{'DEVICE_GEN_CODE' | translate}}">
-        <spinner class="spinner inline right" name="deviceNewSpinner" show="false"></spinner>
+        <spinner class="spinner center" name="deviceNewSpinner" show="false"></spinner>
       </div>
     </form>
 
@@ -72,7 +72,7 @@
           <alert ng-if="vm.alert" type="vm.alert.type">{{vm.alert.msg | translate}}</alert>
           <a class="cancel" ng-click="vm.step = 0">{{'CANCEL' | translate}}</a>
           <button class="submit" ng-disabled="!vm.disableDevice || vm.saving" ng-click="vm.disableActiveDeviceAndProvisionNewDevice()">{{'DEVICE_GEN_CODE' | translate}}</button>
-          <spinner class="spinner inline right" name="deviceDisableNewSpinner" show="false"></spinner>
+          <spinner class="spinner center" name="deviceDisableNewSpinner" show="false"></spinner>
         </div>
       </div>
     </div>
