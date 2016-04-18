@@ -153,6 +153,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     self.loadingTracks = true;
     self.searching = false;
     spinnerService.show('trackSpinner');
+    self.genre = Storage.getItem('genre');
     var genres = [];
     if (self.genre !== 'All') {
       genres = [{
