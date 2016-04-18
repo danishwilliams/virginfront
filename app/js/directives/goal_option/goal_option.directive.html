@@ -14,8 +14,8 @@
 <div>
   Effort <em><span ng-if="!freestyle">{{goaloption.effortrange}}%</span></em>
 
-  <ng-form name="effortForm" novalidate ng-show="freestyle">
-    <select name="effort" ng-options="v for v in effortOptions" ng-model="effort" required>
+  <ng-form name="effortForm" novalidate ng-show="freestyle" ng-if="!challengeGoal">
+    <select name="effort" ng-options="v for v in effortOptions" ng-model="effort" ng-disabled="" required>
     </select>
     -
     <select ng-options="v disable when v <= effort for v in effortOptions" ng-model="efforthigh">
@@ -24,5 +24,9 @@
       <small class="error" ng-hide="effort > 0">{{'EFFORT_REQ' | translate}}</small>
     </div>
   </ng-form>
+
+  <span ng-if="challengeGoal">
+    {{effort}}<span ng-if="efforthigh"> - {{efforthigh}}</span>%
+  </span>
 </span>
 </div>

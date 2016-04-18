@@ -16,7 +16,8 @@ function goalOption() {
       customrpm: '@',
       rpmlow: '=',
       rpmhigh: '=',
-      'totalGoaloptions': '@' // Only show the Goal Option name if IsCustomRpm is false and there is more than 1 goaloption
+      'totalGoaloptions': '@', // Only show the Goal Option name if IsCustomRpm is false and there is more than 1 goaloption
+      'challengeGoal': '@' // If this is a challenge goal, pass the ID through (so that we can disable editing the metadata)
     }
   };
   return directive;
