@@ -37,7 +37,7 @@
             <select name="bpmHigh" ng-options="v disable when v <= goal.BpmLow for v in vm.bpmOptions" ng-model="goal.BpmHigh" ng-pattern="vm.posInts" ng-disabled="goal.GoalChallengeId" required>
             </select>
             <div ng-show="goalForm.$submitted || goalForm.bpm.$touched">
-              <small class="error" ng-show="goalForm.bpm.$error.pattern || goalForm.bpmHigh.$error.pattern">{{'BPM_REQ' | translate}}</small>
+              <small class="error" ng-show="goalForm.bpm.$error.required || goalForm.bpm.$error.pattern || goalForm.bpmHigh.$error.pattern">{{'BPM_REQ' | translate}}</small>
             </div>
           </div>
 
@@ -60,7 +60,7 @@
                   </select>%
 
                   <div ng-show="goaloptionForm.$submitted || goaloptionForm.effort.$touched">
-                    <small class="error" ng-show="goaloptionForm.effort.$error.pattern">{{'EFFORT_REQ' | translate}}</small>
+                    <small class="error" ng-show="goaloptionForm.effort.$error.required || goaloptionForm.effort.$error.pattern">{{'EFFORT_REQ' | translate}}</small>
                   </div>
                 </div>
 
@@ -73,7 +73,7 @@
                   </select>
 
                   <div ng-show="goaloptionForm.$submitted || goaloptionForm.rpm.$touched">
-                    <small class="error" ng-show="goaloptionForm.rpm.$error.pattern || goaloptionForm.rpmHigh.$error.pattern">{{'RPM_REQ' | translate}}</small>
+                    <small class="error" ng-show="goaloptionForm.effort.$error.required || goaloptionForm.rpm.$error.pattern || goaloptionForm.rpmHigh.$error.pattern">{{'RPM_REQ' | translate}}</small>
                   </div>
                 </div>
 
