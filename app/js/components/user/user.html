@@ -148,23 +148,23 @@
       </div>
     </div>
 
-    <span ng-if-permission="users">
-      <div class="row playlists heading">
-        <h1>{{'RECENT_RIDES' | translate}}</h1>
+    <div ng-if-permission="users" class="user-extra">
+      <div id="recent-rides" class="row playlists heading">
+        <h1>{{'RIDES' | translate}}</h1>
       </div>
 
       <div class="row">
         <rides ng-if="user.user" data-rides="100" data-user-id="{{user.user.Id}}"></rides>
       </div>
 
-      <div class="row classes heading">
+      <div id="recent-classes" class="row classes heading">
         <h1>{{'RECENT_CLASSES' | translate}}</h1>
       </div>
 
       <div class="row">
         <recent-classes ng-if="user.user" data-classes="100" data-user-id="{{user.user.Id}}"></recent-classes>
       </div>
-    </span>
+    </div>
 
   </div>
 </div>
