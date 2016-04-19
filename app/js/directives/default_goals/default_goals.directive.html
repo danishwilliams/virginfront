@@ -1,6 +1,6 @@
 <spinner ng-if="vm.random" class="spinner" name="freestyleAdminGoals{{vm.random}}" show="true"></spinner>
 
-<div class="row goal" data-ng-repeat="goal in vm.goals | orderBy:['Goal.GoalChallengeId', 'Goal.Name'] track by $index">
+<div class="row goal" ng-repeat="goal in vm.goals track by $index">
   <div class="goal-container">
 
     <ng-form name="goalForm" novalidate>

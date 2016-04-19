@@ -33,17 +33,21 @@ function defaultGoalsController(Users, Goals, Beats, spinnerService) {
   Goals.loadFreestyleGoals().then(function (data) {
     self.loaded = true;
     spinnerService.hide('freestyleAdminGoals' + self.random);
-    data.forEach(function(goal) {
+    data.forEach(function (goal) {
       if (self.challengeGoals) {
         if (goal.Goal.GoalChallengeId) {
           self.goals.push(goal);
         }
-      }
-      else {
+      } else {
         if (!goal.Goal.GoalChallengeId) {
           self.goals.push(goal);
         }
       }
+    });
+    // If we sort inside the ng-repeat, then when the goal name is editing the goal will start jumping all over the
+    // sorted list...which makes it really hard to follow. But if we presort the list, then it's easy.
+    self.goals = _.sortBy(self.goals, function (goal) {
+      return goal.Goal.Name;
     });
   });
 
@@ -86,13 +90,13 @@ function defaultGoalsController(Users, Goals, Beats, spinnerService) {
    * if <form> isn't used (and I'm using two nested ng-form's) then the value of form.$submitted is always wrong. Solution:
    * manually handle the form submission logic by moving it onto the goal object.
    */
-  self.update = function(goal, valid) {
+  self.update = function (goal, valid) {
     goal.submitted = true;
     if (!valid) {
       return;
     }
     goal.saving = true;
-    goal.put().then(function() {
+    goal.put().then(function () {
       goal.saving = false;
       goal.saved = true;
     });
