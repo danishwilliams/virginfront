@@ -221,6 +221,7 @@
   "ACTIVE_USERS": "Active Instructors",
   "DISABLED_USERS": "Disabled accounts",
   "TECHNICAL_USERS": "Technical users",
+  "VIEW_INSTRUCTOR_RIDES": "View rides",
   "FIRST_NAME": "First name",
   "LAST_NAME": "Last name",
   "EMPLOYEE_ID": "Instructor ID",
