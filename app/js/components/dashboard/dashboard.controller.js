@@ -3,7 +3,7 @@ angular.module("app.dashboard", []).controller('DashboardController', function (
 
   // Handle various onboarding cases i.e. user has just logged in but is in some part of onboarding
   var user = Users.getCurrentUser();
-  if (user.State === USER_STATES.onboarding_clubs) {
+  if (user.State === USER_STATES.onboarding_clubs || user.State === USER_STATES.invite_emailed || user.State === USER_STATES.invite_email_failed) {
     $state.go('onboarding-gyms');
     return;
   }
