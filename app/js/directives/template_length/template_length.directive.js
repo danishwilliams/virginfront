@@ -157,8 +157,13 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     var defer = $q.defer();
     var promises = [];
 
+    // Remove any duplicate goals, so we don't accidentally try to save multiple goals at once
+    var goalsUnique = _.uniq(self.template.Goals, function (item, key, Name) {
+      return item.Name;
+    });
+
     // See if there are any new default goals which must be added
-    self.template.Goals.forEach(function (goal) {
+    goalsUnique.forEach(function (goal) {
       if (goal.NewGoal) {
         promises.push(Goals.saveNewDefaultGoal(goal));
       }
@@ -168,8 +173,8 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
       saveTheTemplate();
     }, function(err) {
       // Yes, there was an error, but save the template anyway
-      saveTheTemplate();
       console.log("Couldn't save a new default goal", err);
+      saveTheTemplate();
     });
 
     return defer.promise;
