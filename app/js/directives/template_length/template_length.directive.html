@@ -37,7 +37,7 @@
             <select name="bpmHigh" ng-options="v disable when v <= goal.BpmLow for v in vm.bpmOptions" ng-model="goal.BpmHigh" ng-pattern="vm.posInts" ng-disabled="goal.GoalChallengeId" required>
             </select>
             <div ng-show="goalForm.$submitted || goalForm.bpm.$touched">
-              <small class="error" ng-show="goalForm.bpm.$error.required || goalForm.bpm.$error.pattern || goalForm.bpmHigh.$error.pattern">{{'BPM_REQ' | translate}}</small>
+              <small class="error" ng-show="goalForm.bpm.$error.required || goalForm.bpm.$error.pattern || goalForm.bpmHigh.$error.required || goalForm.bpmHigh.$error.pattern">{{'BPM_REQ' | translate}}</small>
             </div>
           </div>
 
