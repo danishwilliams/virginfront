@@ -118,6 +118,9 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     goal.Id = self.freestyleGoal.Goal.Id;
     goal.ArrayId = self.freestyleGoal.ArrayId;
     goal.GoalId = goal.Id;
+    if (self.freestyleGoal.Goal.NewGoal) {
+      goal.NewGoal = self.freestyleGoal.Goal.NewGoal;
+    }
     goal.Name = self.freestyleGoal.Goal.Name;
     goal.BpmLow = self.freestyleGoal.Goal.BpmLow;
     goal.BpmHigh =  self.freestyleGoal.Goal.BpmHigh;
