@@ -30,9 +30,9 @@
 
           <form name="contactForm" ng-show="user.contactEdit" ng-submit="user.saveContactDetails()">
             <label ng-if-permission="editAdmin">{{'EMPLOYEE_ID' | translate}}</label>
-            <input type="text" ng-if-permission="editAdmin" ng-model="user.employeeId" placeholder="{{'EMPLOYEE_ID' | translate}}" />
+            <input type="text" ng-if-permission="editAdmin" ng-model="user.employeeId" placeholder="{{'EMPLOYEE_ID' | translate}}" maxlength="60" />
             <label>{{'PHONE' | translate}}</label>
-            <input type="text" ng-model="user.telephone" placeholder="{{'PHONE' | translate}}" />
+            <input type="text" ng-model="user.telephone" placeholder="{{'PHONE' | translate}}" maxlength="60" />
             <label>{{'EMAIL' | translate}}</label>
             <input type="email" name="email" ng-model="user.email" placeholder="{{'EMAIL' | translate}}" required />
             <div ng-show="contactForm.$submitted || contactForm.email.$touched">
