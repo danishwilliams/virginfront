@@ -68,8 +68,9 @@
       border-width: 0px;
       color: $grey_light;
       background: $steel url('/img/search_white.svg') no-repeat;
-      background-position: right 10px center;
-      padding-left: 10px;
+      background-position: left rem-calc(10px) center;
+      padding: 0;
+      padding-left: rem-calc(25px);
     }
     ::-webkit-input-placeholder {
       color: $grey_light;
