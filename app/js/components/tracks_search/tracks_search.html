@@ -1,7 +1,9 @@
 <div id="tracks-container" class="row tracks-modal reveal-modal" modal-window="" infinite-scroll="vm.loadMoreTracks()" data-infinite-scroll-within-modal-repeater-element="tracks">
   <div class="small-18 large-16 large-centered columns tracks">
-    <a class="joyride-close-tip" ng-click="vm.cancel()">&#215;</a>
-    <div class="row track-search-header">
+    <div class="row track-search-header" fixed-position>
+      <a class="joyride-close-tip" ng-click="vm.cancel()">&#215;</a>
+      <a class="back" ng-click="vm.cancel()"> {{'BACK' | translate}}</a>
+
       <h1>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'{{vm.currentgoal.Name}}'</span></h1>
       <div class="row showing">
         <div class="small-18 large-13 columns" ng-show="!vm.currentgoal.BackgroundSection">
@@ -20,7 +22,7 @@
             <div class="off-canvas-wrap genre-menu" data-offcanvas ng-class="{'move-right' : app.genreMenu}">
               <aside class="left-off-canvas-menu">
                 <div class="genre-container">
-                  <div class="back" ng-click="app.genreMenu = !app.genreMenu"> {{'BACK' | translate}}</div>
+                  <a class="back" ng-click="app.genreMenu = !app.genreMenu"> {{'BACK' | translate}}</a>
                   <h3>{{'GENRE_FILTER' | translate}}</h3>
                   <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
                 </div>
@@ -30,8 +32,10 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="large-13 columns track-search-results">
+      </div>
+
+      <div class="row track-search-results">
+        <div class="large-13 columns">
           <span ng-show="!vm.loadingTracks && vm.tracks.length === 0">
             {{'NO_TRACKS' | translate}}
           </span>
@@ -76,12 +80,11 @@
           <spinner class="spinner center" name="trackSpinner" show="true"></spinner>
           </div>
         </div>
-        <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-large-up genres" ng-if-responsive="desktop">
+        <div ng-hide="vm.search.length > 0" fixed-position class="large-5 columns show-for-large-up genres" ng-if-responsive="desktop">
           <h3>{{'GENRE_FILTER' | translate}}</h3>
 
           <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
         </div>
       </div>
-    </div>
   </div>
 </div>

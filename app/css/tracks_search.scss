@@ -5,13 +5,24 @@
   position: fixed;
   padding: 0;
   background-color: rgba($grey_darker, 0.97);
-  .joyride-close-tip {
-    font-size: xx-large;
-  }
   height: 100vh;
   overflow: scroll;
 }
 
+.track-search-header {
+  background-color: rgba($grey_darker, 0.97);
+  z-index: 1;
+  .joyride-close-tip {
+    font-size: xx-large;
+    z-index: 2;
+  }
+  .back {
+    padding-top: rem-calc(2);
+    position: absolute;
+    z-index: 2;
+    color: $white;
+  }
+}
 
 /* The right tracks sidebar */
 
@@ -31,6 +42,7 @@
     width: 100%;
     height: 100%;
     background: none;
+    z-index: 10;
     .genre-container {
       width: 75%;
       height: 100%;
@@ -43,14 +55,13 @@
     z-index: -1;
   }
   .track-search-results {
+    padding-top: 140px;
   }
   h1 {
     color: $white;
   }
   .showing {
     border-bottom: 1px solid $white;
-    padding-bottom: rem-calc(10px);
-    margin-bottom: rem-calc(30px);
   }
   .search {
     input {
@@ -171,6 +182,8 @@ button.add {
   h3,
   label {
     color: $white;
+    padding: 0;
+    line-height: 1.25;
   }
 }
 
