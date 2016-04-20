@@ -20,9 +20,9 @@ function template() {
   }
 }
 
-TemplateController.$inject = ['$scope', '$state', '$stateParams', 'Templates', 'Beats', 'spinnerService', 'uuid2', 'Goals'];
+TemplateController.$inject = ['$scope', '$state', '$stateParams', 'Templates', 'Beats', 'spinnerService', 'uuid2', 'Goals', '$q'];
 
-function TemplateController($scope, $state, $stateParams, Templates, Beats, spinnerService, uuid2, Goals) {
+function TemplateController($scope, $state, $stateParams, Templates, Beats, spinnerService, uuid2, Goals, $q) {
   var self = this;
   self.id = $scope.id;
   self.template = {};
