@@ -19,7 +19,7 @@
           <div class="row goal-name" ng-click="vm.goalClicked(goal)" ng-show="goal.show">
             <img class="open" ng-if="goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
             <span ng-show="goal.edit">{{goal.Name}}</span>
-            <input type="text" name="name" ng-hide="goal.edit" placeholder="{{'NAME' | translate}}" ng-disabled="goal.GoalChallengeId" ng-model="goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false" required />
+            <input type="text" name="name" ng-hide="goal.edit" placeholder="{{'NAME' | translate}}" ng-disabled="goal.GoalChallengeId" ng-model="goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false" maxlength="60" required />
             <em ng-if="goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
             <freestyle-goals ng-show="goal.edit" data-index="{{$index}}" data-total-goals="{{vm.freestyleGoals.length}}" ng-change="vm.changeFreestyleGoal(goal)" ng-model="vm.freestyleGoal" data-allow-editing-goal="true"></freestyle-goals>
             <a ng-hide="goal.edit" ng-click="goal.edit = true">{{'CHANGE_GOAL' | translate}}</a>
@@ -44,7 +44,7 @@
           <div class="row goal-meta" ng-show="goal.show" ng-repeat="goaloption in goal.GoalOptions track by $index1">
             <ng-form name="goaloptionForm">
               <div ng-if="goal.GoalOptions.length > 1" class="row">
-                <input type="text" name="goalName" placeholder="{{'GOAL_NAME' | translate}}" ng-model="goaloption.Name" required />
+                <input type="text" name="goalName" placeholder="{{'GOAL_NAME' | translate}}" ng-model="goaloption.Name" maxlength="60" required />
                 <div ng-show="goaloptionForm.$submitted || goaloptionForm.goalName.$touched">
                   <small class="error" ng-show="goaloptionForm.goalName.$error.required">{{'INTERVAL_REQ' | translate}}</small>
                 </div>

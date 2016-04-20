@@ -7,7 +7,7 @@
     <form ng-submit="vm.instructorsSelected()">
       <div class="row">
         <div class="large-6">
-          <input ng-model="query" type="text" placeholder="Filter by" autofocus>
+          <input ng-model="query" type="text" placeholder="Filter by" maxlength="60" autofocus>
         </div>
       </div>
 
@@ -45,7 +45,7 @@
     <form ng-submit="vm.gymsSelected()">
       <div class="row">
         <div class="large-6">
-          <input ng-model="queryGyms" type="text" placeholder="Filter by" autofocus>
+          <input ng-model="queryGyms" type="text" placeholder="Filter by" maxlength="60" autofocus>
         </div>
       </div>
 

@@ -16,7 +16,7 @@
       <label for="deviceName">{{'DEVICE_NAME' | translate}}</label>
       {{'DEVICE_NAME_EXPLANATION' | translate}}
 
-      <input name="deviceName" type="text" size="40" ng-model="vm.deviceName" required>
+      <input name="deviceName" type="text" size="40" ng-model="vm.deviceName" maxlength="60" required>
       <div ng-show="vm.form.$submitted || vm.form.deviceName.$touched">
         <small class="error" ng-show="vm.form.deviceName.$error.required">{{'DEVICE_NAME_REQ' | translate}}</small>
       </div>

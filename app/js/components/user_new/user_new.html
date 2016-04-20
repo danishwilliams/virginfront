@@ -9,29 +9,29 @@
 
     <form name="form" ng-submit="form.$valid && vm.createUser()" novalidate>
       <label for="firstname">{{'FIRST_NAME' | translate}}</label>
-      <input type="text" name="firstname" ng-model="vm.newUser.FirstName" required />
+      <input type="text" name="firstname" ng-model="vm.newUser.FirstName" maxlength="60" required />
       <div ng-show="form.$submitted || form.firstname.$touched">
         <small class="error" ng-show="form.firstname.$error.required">{{'FIRST_NAME_REQ' | translate}}</small>
       </div>
 
       <label for="lastname">{{'LAST_NAME' | translate}}</label>
-      <input type="text" name="lastname" ng-model="vm.newUser.LastName" required />
+      <input type="text" name="lastname" ng-model="vm.newUser.LastName" maxlength="60" required />
       <div ng-show="form.$submitted || form.lastname.$touched">
         <small class="error" ng-show="form.lastname.$error.required">{{'LAST_NAME_REQ' | translate}}</small>
       </div>
 
       <label for="email">{{'EMAIL' | translate}}</label>
-      <input type="email" name="email" ng-model="vm.newUser.Email" required>
+      <input type="email" name="email" ng-model="vm.newUser.Email" maxlength="255" required>
       <div ng-show="form.$submitted || form.email.$touched">
         <small class="error" ng-show="form.email.$error.required">{{'EMAIL_REQ' | translate}}</small>
         <small class="error" ng-show="form.email.$error.email">{{'EMAIL_VALID' | translate}}</small>
       </div>
 
       <label for="phone">{{'PHONE' | translate}} {{'OPTIONAL' | translate}}</label>
-      <input type="text" name="phone" ng-model="vm.newUser.Telephone">
+      <input type="text" name="phone" ng-model="vm.newUser.Telephone" maxlength="60">
 
       <label for="id">{{'EMPLOYEE_ID' | translate}}</label>
-      <input type="text" name="id" ng-model="vm.newUser.EmployeeId">
+      <input type="text" name="id" ng-model="vm.newUser.EmployeeId" maxlength="60">
       <div ng-show="form.$submitted || form.id.$touched">
         <small class="error" ng-show="form.id.$error.required">{{'ID_REQ' | translate}}</small>
       </div>
