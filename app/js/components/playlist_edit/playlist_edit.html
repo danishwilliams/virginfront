@@ -87,7 +87,7 @@
             </ul>
             <div class="row notes">
               {{'TRACK_NOTES' | translate}}
-              <textarea limit-enters name="note" rows="4" maxlength="200" ng-maxlength="200" ng-change="playlist_edit.playlistGoalNoteCreate(playlistGoal.ArrayId, 0)" ng-model-options="{updateOn : 'change blur'}" ng-model="playlistGoal.PlaylistGoalNotes[0].NoteText"></textarea>
+              <textarea limit-enters name="note" rows="4" maxlength="200" ng-maxlength="200" ng-change="playlist_edit.playlistGoalNoteCreate(playlistGoal.ArrayId, 0)" ng-model="playlistGoal.PlaylistGoalNotes[0].NoteText"></textarea>
               <span class="maxlength">{{'NOTE_MAX' | translate}}</span>
             </div>
           </div>
