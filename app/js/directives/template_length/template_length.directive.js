@@ -87,6 +87,10 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
       // We're currently selecting a different freestyle goal, so don't do anything else
       return;
     }
+    if (goal.Name.length === 0) {
+      // This goal doesn't have a name, so don't hide it or it'll look weird
+      return;
+    }
     goal.show = !goal.show;
   };
 
