@@ -148,14 +148,34 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
 
   self.saveTemplate = function () {
     spinnerService.show('saveTemplate' + self.template.Id + 'TimeSpinner');
+    saveNewDefaultGoalsThenSaveTemplate();
+  };
+
+  // Using promises so that new default goal saving is synchronous, to handle the case where
+  // multiple of the same default goal are entered at once
+  function saveNewDefaultGoalsThenSaveTemplate() {
+    var defer = $q.defer();
+    var promises = [];
 
     // See if there are any new default goals which must be added
     self.template.Goals.forEach(function (goal) {
       if (goal.NewGoal) {
-        Goals.saveNewDefaultGoal(goal).then(function (data) {});
+        promises.push(Goals.saveNewDefaultGoal(goal));
       }
     });
 
+    $q.all(promises).then(function () {
+      saveTheTemplate();
+    }, function(err) {
+      // Yes, there was an error, but save the template anyway
+      saveTheTemplate();
+      console.log("Couldn't save a new default goal", err);
+    });
+
+    return defer.promise;
+  }
+
+  function saveTheTemplate() {
     // Save the template
     self.template.put().then(function () {
       spinnerService.hide('saveTemplate' + self.template.Id + 'TimeSpinner');
@@ -168,5 +188,6 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
         reload: true
       });
     });
-  };
+  }
+
 }
