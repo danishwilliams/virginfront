@@ -9,6 +9,24 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   self.genre = Storage.getItem('genre');
   self.page = 0;  // For paginating the results
 
+  // Set up addition bpm range for non-UK (i.e. the playlist IsCustomRpm value is true)
+  if (!this.currentgoal.BackgroundSection && !isCustomRpm) {
+    // If bpm less than 90, then high range is doubled
+    if (this.currentgoal.BpmLow < 90) {
+      this.bpm2 = true;
+      this.bpmLow2 = this.currentgoal.BpmLow * 2;
+      this.bpmHigh2 = this.currentgoal.BpmHigh * 2;
+    }
+    // If bpm greater than 120, then halve it too
+    else if (this.currentgoal.BpmLow >= 120) {
+      this.bpm2 = true;
+      this.bpmLow2 = this.currentgoal.BpmLow;
+      this.bpmHigh2 = this.currentgoal.BpmHigh;
+      this.currentgoal.BpmLow = this.currentgoal.BpmLow / 2;
+      this.currentgoal.BpmHigh = this.currentgoal.BpmHigh / 2;
+    }
+  }
+
   if (this.currentgoal.BpmLow === -1) {
     $state.go('^');
   } else {
@@ -30,24 +48,6 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
       };
     }
     spinnerService.hide('trackSpinner');
-  }
-
-  // Set up addition bpm range for non-UK (i.e. the playlist IsCustomRpm value is true)
-  if (!this.currentgoal.BackgroundSection && !isCustomRpm) {
-    // If bpm less than 90, then high range is doubled
-    if (this.currentgoal.BpmLow < 90) {
-      this.bpm2 = true;
-      this.bpmLow2 = this.currentgoal.BpmLow * 2;
-      this.bpmHigh2 = this.currentgoal.BpmHigh * 2;
-    }
-    // If bpm greater than 120, then halve it too
-    else if (this.currentgoal.BpmLow >= 120) {
-      this.bpm2 = true;
-      this.bpmLow2 = this.currentgoal.BpmLow;
-      this.bpmHigh2 = this.currentgoal.BpmHigh;
-      this.currentgoal.BpmLow = this.currentgoal.BpmLow / 2;
-      this.currentgoal.BpmHigh = this.currentgoal.BpmHigh / 2;
-    }
   }
 
   this.cancel = function () {
