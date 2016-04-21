@@ -13,5 +13,39 @@ reporting {
       margin-left: 0;
       margin-right: 0;
     }
+    .row {
+      padding-left: 0;
+    }
+    h3 {
+      color: $jet;
+    }
+    h4.number {
+      margin:0;
+      font-size: $h2-font-size;
+    }
+    img.email-error {
+      width: 75px;
+      height: 65px;
+    }
+    img.email-success {
+      width: 75px;
+      height: 75px;
+    }
+  }
+  .line {
+    height: 100%;
+    width: rem-calc(5);
+    margin-right: rem-calc(10);
+    position: absolute;
+    &.success {
+      background: $green;
+      padding: 0;
+    }
+    &.failure {
+      background: $peach;
+    }
+  }
+  .content {
+    margin-left: rem-calc(16);
   }
 }
