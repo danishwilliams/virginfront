@@ -24,6 +24,18 @@ function EmailsFactory(Restangular) {
     }
   }
 
+  /**
+   * Email logs
+   *
+   * @param page
+   *   Optional. Defaults to 1
+   * @param resultCount
+   *   Optional. Defaults to 10
+   * @param userId
+   *   Optional. The ID of the user to load the logs for.
+   * @param communicationName
+   *   Optional. String. The name of the communication we're interested in.
+   */
   function loadLogs(page, resultCount, success, userId, communicationName) {
     var parameters = setupLogParameters(page, resultCount, communicationName, userId, success);
     return Restangular.all('communications/logs').get('', parameters).then(loadLogsComplete);
@@ -33,6 +45,16 @@ function EmailsFactory(Restangular) {
     }
   }
 
+  /**
+   * Email failures
+   *
+   * @param page
+   *   Optional. Defaults to 1
+   * @param resultCount
+   *   Optional. Defaults to 10
+   * @param communicationName
+   *   Optional. String. The name of the communication we're interested in.
+   */
   function loadFails(page, resultCount, communicationName) {
     var parameters = setupLogParameters(page, resultCount, communicationName);
     return Restangular.all('communications/logs/fail').get('', parameters).then(loadFailsComplete);
