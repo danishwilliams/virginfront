@@ -10,7 +10,7 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     self.playlist = {};
   }
 
-  if ($state.current.name === 'playlist-new-view') {
+  if ($state.current.name === 'playlist-new-view' || Playlists.getCreatingNewPlaylist()) {
     // We're viewing a newly created playlist!
     self.newPlaylist = true;
   }
@@ -19,8 +19,8 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     // Load an existing playlist
     Playlists.loadPlaylist(self.id).then(function () {
       self.playlist = Playlists.getPlaylist();
-      // If playlist is incomplete, edit it
-      if (!Playlists.checkAllGoalsHaveTracks()) {
+      // If playlist is incomplete, and it's my playlist, edit it
+      if (!self.playlist.Complete && self.user.Id === self.playlist.UserId) {
         $state.go('playlist-edit', {id: self.id});
       }
       spinnerService.hide('playlistViewSpinner');
