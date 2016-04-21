@@ -1,5 +1,18 @@
-<div class="dashboard row">
-  <div class="large-14 large-centered columns">
+<div class="row">
+  <div class="large-14 large-centered columns dashboard">
+    <div class="row heading" ng-if-permission="users">
+      <div class="columns small-12 medium-14">
+        <h1>{{'REPORTING' | translate}}</h1>
+      </div>
+      <div class="columns small-6 medium-4">
+        <a>Hide overview</a>
+      </div>
+    </div>
+
+    <div class="row" ng-if-permission="users">
+      <reporting></reporting>
+    </div>
+
     <div class="row playlists heading">
       <div class="columns small-12 medium-14">
         <h1>{{'RECENT_RIDES' | translate}}</h1>
