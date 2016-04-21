@@ -1,6 +1,6 @@
 <div class="row">
   <div class="large-14 large-centered columns dashboard">
-    <div class="row heading" ng-if-permission="users">
+    <div class="row heading" ng-if-permission="viewAdmin">
       <div class="columns small-12 medium-14">
         <h1>{{'REPORTING' | translate}}</h1>
       </div>
@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div class="row" ng-if-permission="users">
+    <div class="row" ng-if-permission="viewAdmin">
       <reporting></reporting>
     </div>
 
