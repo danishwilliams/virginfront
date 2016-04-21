@@ -173,9 +173,9 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     // If a genre has been manually selected, use that, otherwise load whatever is in localstorage.
     var id = '';
     var genre = {};
-    if (self.genres) {
+    if (!_.isEmpty(self.genres)) {
       genre = self.genres;
-      id = self.genres.id;
+      id = self.genres.Id;
     }
     else {
       self.genre = genre = id = Storage.getItem('genre');
