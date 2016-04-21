@@ -162,6 +162,9 @@ button.add {
   &:hover {
     background-color: $grey_darker;
   }
+  &[disabled] {
+    display: none;
+  }
 }
 
 button.add {
