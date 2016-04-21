@@ -1,3 +1,9 @@
+Instructor App 1.1, 2016-04-21
+------------------------------
+- Refinements to music search (like infinite scrolling)
+- Default and challenge goal management
+- Managers can see Instructor's playlists on their profile
+
 Instructor App 1.02, 2016-04-07
 -------------------------------
 - Device provisioning
