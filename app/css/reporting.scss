@@ -37,6 +37,15 @@ reporting {
     width: rem-calc(5);
     margin-right: rem-calc(10);
     position: absolute;
+    &.registered {
+      background: $pack_purple;
+    }
+    &.active {
+      background: $cherry;
+    }
+    &.secondary {
+      background: $grey_medium;
+    }
     &.success {
       background: $green;
       padding: 0;
