@@ -12,20 +12,52 @@ function reporting() {
   return directive;
 }
 
-reportingController.$inject = ['Emails'];
+reportingController.$inject = ['Emails', 'Reporting', 'spinnerService'];
 
-function reportingController(Emails) {
+function reportingController(Emails, Reporting, spinnerService) {
   var self = this;
+
+  // Load up registered/unregistered instructors
+  Reporting.loadRegisteredInstructors().then(function(data) {
+    self.registered = {
+      registered: 0,
+      unregistered: 0
+    };
+    data.forEach(function(val) {
+      if (val.UserState === 'registered') {
+        self.registered.registered++;
+      }
+      else {
+        self.registered.unregistered++;
+      }
+    });
+    spinnerService.hide('reportRegSpinner');
+  });
+
+  // Load up active/inactive instructors
+  Reporting.loadActiveInactiveInstructors(14).then(function(data) {
+    self.active = {
+      active: data.ActiveCount,
+      inactive: data.InactiveCount
+    };
+    spinnerService.hide('reportActiveSpinner');
+  });
 
   // Load up email failures
   Emails.loadFails(1, 10000).then(function(data) {
-    var i = 0;
-    // This is a restangular array so consists of lots of functions and things. The keys which are integers are actual data. So count those.
-    _.keys(data).forEach(function(key) {
-      if (key >= 0) {
-        i++;
-      }
-    });
-    self.emailFailedCount = i;
+    self.emailFailedCount = data.length;
+    spinnerService.hide('reportEmailSpinner');
+  });
+
+  // Load up top templates
+  Reporting.loadTemplatesUsedInRides(14).then(function(data) {
+    self.templates = data;
+    spinnerService.hide('reportTemplatesSpinner');
+  });
+
+  // Load up top rides per club
+  Reporting.loadRidesTaughtPerClub(14).then(function(data) {
+    self.templates = data;
+    spinnerService.hide('reportClubSpinner');
   });
 }
