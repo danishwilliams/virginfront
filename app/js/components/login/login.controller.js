@@ -30,6 +30,7 @@ function LoginController($state, Users, spinnerService, USER_STATES) {
     }
     self.error = false;
     self.submitted = true;
+    Users.removeLocalAccessToken();
     Users.loadAccessToken(self.credentials).then(function (data) {
       Users.setAccessToken(data);
       Users.loadCurrentUser().then(onLoginSuccess, function () {
