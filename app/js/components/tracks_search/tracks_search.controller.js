@@ -181,7 +181,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
       self.genre = genre = id = Storage.getItem('genre');
     }
     var genres = [];
-    if (self.genre !== 'All') {
+    if (genre !== 'All') {
       genres = [{
         Id: id
       }];
