@@ -10,22 +10,9 @@
         </div>
         <spinner class="spinner" name="playlistSyncSpinner" show="true"></spinner>
         <div class="gyms">
-          <span ng-show="playlist_sync.ready" ng-repeat="gym in playlist_sync.gyms | orderBy: 'Gym.Name'">
-            <label>
-              <input type="checkbox" ng-model="gym.selected"> {{gym.Gym.Name}}
-            </label>
-
-            <span ng-if="gym.selected && gym.LimitReached && !gym.PlaylistAlreadySyncedToThisGym">
-              <span translate="CLUB_RIDE_LIMIT_REACHED" translate-values="{number: playlist_sync.playlistLimitPerGym}"></span>
-              <span>Select a ride to replace:</span>
-
-              <select ng-model="gym.playlistToBeReplaced">
-                <option selected></option>
-                <option ng-repeat="playlist in gym.PlaylistSyncInfos" value="{{playlist.Playlist.Id}}">{{playlist.Playlist.Name}}</option>
-              </select>
-
-            </span>
-          </span>
+          <label ng-class="{'disabled': gym.LimitReached}" ng-repeat="gym in playlist_sync.gyms | orderBy: 'Gym.Name'">
+            <input type="checkbox" ng-disabled="gym.LimitReached" ng-model="gym.selected"> {{gym.Gym.Name}} <span ng-if="gym.LimitReached" translate="CLUB_RIDE_LIMIT_REACHED" translate-values="{number: playlist_sync.playlistLimitPerGym}"></span>
+          </label>
         </div>
       </div>
       <p>&nbsp;</p>
