@@ -56,6 +56,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   };
 
   this.trackSearch = function (new_search) {
+    self.currentSearch = 'trackSearch';
     if (new_search) {
       self.page = 0;
       self.tracks = [];
@@ -80,6 +81,20 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
   function loadTracksSuccess(data) {
     if (self.page === 1) {
       self.tracks = data;
+      if (self.tracks && self.tracks.length > 0 && self.tracks.length < 20) {
+        // Do another search! MOAR TRACKS!
+        switch (self.currentSearch) {
+          case 'trackSearch':
+            self.trackSearch();
+            return;
+          case 'loadUserGenresTracks':
+            loadUserGenresTracks();
+            return;
+          case 'loadUserDefaultGenresTracks':
+            loadUserDefaultGenresTracks();
+            return;
+        }
+      }
     }
     else {
       self.tracks = self.tracks.concat(data);
@@ -150,6 +165,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
 
   // Load up a stored genre search
   function loadUserGenresTracks() {
+    self.currentSearch = 'loadUserGenresTracks';
     self.loadingTracks = true;
     self.searching = false;
     spinnerService.show('trackSpinner');
@@ -177,6 +193,7 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
 
   // Load tracks from the user's default genre selection
   function loadUserDefaultGenresTracks() {
+    self.currentSearch = 'loadUserDefaultGenresTracks';
     self.loadingTracks = true;
     self.searching = false;
     spinnerService.show('trackSpinner');
