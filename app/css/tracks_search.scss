@@ -10,7 +10,7 @@
 }
 
 .track-search-header {
-  background-color: rgba($grey_darker, 0.97);
+  background-color: rgba($blue_steel, 0.97);
   z-index: 1;
   .joyride-close-tip {
     font-size: xx-large;
@@ -59,9 +59,6 @@
   }
   h1 {
     color: $white;
-  }
-  .showing {
-    border-bottom: 1px solid $white;
   }
   .search {
     input {
@@ -188,6 +185,9 @@ button.add {
     color: $white;
     padding: 0;
     line-height: 1.25;
+  }
+  input[type="radio"] {
+    margin-right: rem-calc(8);
   }
 }
 

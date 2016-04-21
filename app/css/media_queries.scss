@@ -205,4 +205,12 @@
     }
   }
 
+  /* Track search */
+
+  .genres {
+    background-color: inherit;
+    border-left: 0.5px solid $grey;
+    padding-left: rem-calc(28);
+  }
+
 }
