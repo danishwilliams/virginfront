@@ -412,7 +412,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.submitButtonText = function () {
     if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Editing a playlist but not all tracks have goals
-      return 'GOAL_TRACK_REQ';
+      return 'UPDATE';
     } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
       return 'SAVE_CONTINUE_LATER';
     }
