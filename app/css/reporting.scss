@@ -1,0 +1,17 @@
+reporting {
+  .box {
+    margin: rem-calc(10px);
+    padding: rem-calc(20px);
+    min-height: rem-calc(150px);
+    &.box-left {
+      margin-left: 0;
+    }
+    &.box-right {
+      margin-right: 0;
+    }
+    &.box-single {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}

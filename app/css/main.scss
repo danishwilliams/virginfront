@@ -30,8 +30,11 @@
 @import 'gym_rides';
 @import 'user_invite';
 @import 'style_guide';
-@import 'media_queries';
 @import 'accordion';
 @import 'progress_bar';
 @import 'emails';
 @import 'devices';
+@import 'reporting';
+
+// Always last
+@import 'media_queries';

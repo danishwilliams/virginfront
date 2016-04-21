@@ -77,6 +77,15 @@
 
   /* Dashboard */
 
+  reporting .box {
+    &.box-left {
+      margin-right: 0;
+    }
+    &.box-right {
+      margin-left: 0;
+    }
+  }
+
   ride a, .dashboard .new a, #rides .new a {
     margin: auto;
     max-width: 70%;
@@ -179,7 +188,6 @@
     }
   }
 }
-
 
 @media #{$large-up} {
   .max-content {
