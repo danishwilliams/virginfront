@@ -153,11 +153,21 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
     self.loadingTracks = true;
     self.searching = false;
     spinnerService.show('trackSpinner');
-    self.genre = Storage.getItem('genre');
+
+    // If a genre has been manually selected, use that, otherwise load whatever is in localstorage.
+    var id = '';
+    var genre = {};
+    if (self.genres) {
+      genre = self.genres;
+      id = self.genres.id;
+    }
+    else {
+      self.genre = genre = id = Storage.getItem('genre');
+    }
     var genres = [];
     if (self.genre !== 'All') {
       genres = [{
-        Id: self.genre
+        Id: id
       }];
     }
     self.page++;
