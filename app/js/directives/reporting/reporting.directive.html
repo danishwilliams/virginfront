@@ -15,13 +15,14 @@
   <div class="medium-9 columns">
     <div class="box box-left">
       <h3>Email log</h3>
+      <spinner class="spinner center" name="reportEmailSpinner" show="true"></spinner>
 
       <div class="row" ng-if="vm.emailFailedCount > 0">
         <div class="small-11 columns">
           <div class="line failure">&nbsp;</div>
           <div class="content">
             <h4 class="number">{{vm.emailFailedCount}}</h4>
-            Problematic emails<br>
+            problematic emails<br>
             <a ui-sref="emails">View emails</a>
           </div>
         </div>

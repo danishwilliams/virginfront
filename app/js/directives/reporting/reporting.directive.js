@@ -12,9 +12,9 @@ function reporting() {
   return directive;
 }
 
-reportingController.$inject = ['Emails'];
+reportingController.$inject = ['Emails', 'spinnerService'];
 
-function reportingController(Emails) {
+function reportingController(Emails, spinnerService) {
   var self = this;
 
   // Load up email failures
@@ -27,5 +27,6 @@ function reportingController(Emails) {
       }
     });
     self.emailFailedCount = i;
+    spinnerService.hide('reportEmailSpinner');
   });
 }
