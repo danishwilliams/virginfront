@@ -1,6 +1,9 @@
 <div id="tracks-container" class="row tracks-modal reveal-modal" modal-window="" infinite-scroll="vm.loadMoreTracks()" data-infinite-scroll-within-modal-repeater-element="tracks">
+
+  <div class="row track-search-header" fixed-position>
+
   <div class="small-18 large-16 large-centered columns tracks">
-    <div class="row track-search-header" fixed-position>
+    <div class="row">
       <a class="joyride-close-tip" ng-click="vm.cancel()">&#215;</a>
 
       <h1>{{'CHOOSE_TRACK' | translate}} <span id="track-name">'{{vm.currentgoal.Name}}'</span></h1>
@@ -32,6 +35,12 @@
         </div>
       </div>
       </div>
+    </div>
+    </div>
+
+    <div class="row">
+
+      <div class="small-18 large-16 large-centered columns tracks">
 
       <div class="row track-search-results">
         <div class="large-13 columns">
@@ -86,4 +95,5 @@
         </div>
       </div>
   </div>
+</div>
 </div>
