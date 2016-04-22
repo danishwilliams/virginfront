@@ -8,25 +8,25 @@
 <hr ng-if="isCustomRpm() === 'false' && totalGoaloptions > 1" />
 
 <div ng-if="isCustomRpm() === 'true'">
-  RPM <em>{{rpmlow}} - {{rpmhigh}}</em>
+  RPM <em>{{goaloption.RpmLow}} - {{goaloption.RpmHigh}}</em>
 </div>
 
 <div>
   Effort <em><span ng-if="!freestyle">{{goaloption.effortrange}}%</span></em>
 
   <ng-form name="effortForm" novalidate ng-show="freestyle" ng-if="!challengeGoal">
-    <select name="effort" ng-options="v for v in effortOptions" ng-model="effort" ng-disabled="" required>
+    <select name="effort" ng-options="v for v in effortOptions" ng-model="goaloption.Effort" ng-disabled="" required>
     </select>
     -
-    <select ng-options="v disable when v <= effort for v in effortOptions" ng-model="efforthigh">
+    <select ng-options="v disable when v <= effort for v in effortOptions" ng-model="goaloption.EffortHigh">
     </select>%
     <div ng-show="effortForm.effort.$touched || effortForm.$submitted">
-      <small class="error" ng-hide="effort > 0">{{'EFFORT_REQ' | translate}}</small>
+      <small class="error" ng-hide="goaloption.Effort > 0">{{'EFFORT_REQ' | translate}}</small>
     </div>
   </ng-form>
 
   <span ng-if="challengeGoal">
-    {{effort}}<span ng-if="efforthigh"> - {{efforthigh}}</span>%
+    {{goaloption.Effort}}<span ng-if="goaloption.EffortHigh"> - {{goaloption.EffortHigh}}</span>%
   </span>
 </span>
 </div>

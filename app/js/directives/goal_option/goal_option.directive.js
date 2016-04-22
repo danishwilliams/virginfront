@@ -9,13 +9,14 @@ function goalOption() {
     controller: goalOptionController,
     controllerAs: 'vm',
     scope: {
+      // Values such as goaloption.Effort etc are primitives, and so dot notation must be used. If we simply bind, say, effort: '=',
+      // then changes within this directive scope won't propogate up to the parent scope.
+      // This is because javascript is a pass-by-value language, and so primitives are copied within a nested scope.
+      // @see http://zcourts.com/2013/05/31/angularjs-if-you-dont-have-a-dot-youre-doing-it-wrong/
+      goaloption: '=',
       bpm: '@',
       freestyle: '@',
-      effort: '=',
-      efforthigh: '=',
       customrpm: '@',
-      rpmlow: '=',
-      rpmhigh: '=',
       'totalGoaloptions': '@', // Only show the Goal Option name if IsCustomRpm is false and there is more than 1 goaloption
       'challengeGoal': '@' // If this is a challenge goal, pass the ID through (so that we can disable editing the metadata)
     }
@@ -26,8 +27,6 @@ function goalOption() {
 goalOptionController.$inject = ['$scope'];
 
 function goalOptionController($scope) {
-  $scope.goaloption = $scope.$parent.goaloption;
-
   $scope.effortOptions = [40];
   for (i = 45; i <= 100; i = i + 5) {
     $scope.effortOptions.push(i);
@@ -68,10 +67,6 @@ function goalOptionController($scope) {
   $scope.$watch('bpm', function () {
     updateBpm();
   });
-
-  function effortChanged() {
-    console.log('chanigng!', $scope);    
-  }
 
   function updateBpm() {
     if ($scope.customrpm === 'false' && $scope.goaloption.Beat) {
