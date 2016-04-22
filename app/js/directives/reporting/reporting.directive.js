@@ -57,7 +57,7 @@ function reportingController(Emails, Reporting, spinnerService) {
 
   // Load up top rides per club
   Reporting.loadRidesTaughtPerClub(14).then(function(data) {
-    self.templates = data;
+    self.rides = data;
     spinnerService.hide('reportClubSpinner');
   });
 }

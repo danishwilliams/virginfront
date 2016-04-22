@@ -97,6 +97,18 @@
       <h3>Top five templates</h3>
       <spinner class="spinner center" name="reportTemplatesSpinner" show="true"></spinner>
 
+      <p>Number of rides created from these templates in the last 30 days</p>
+
+      <div class="row reporting-template" ng-repeat="template in vm.templates | orderBy:'template.Count':reverse">
+        <div class="small-16 columns">
+          <img class="icon" ng-src="/img/playlists_grey/{{template.TemplateIconFileName}}">
+          {{template.TemplateName}}
+        </div>
+        <div class="small-2 columns">
+          {{template.Count}}
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -105,5 +117,7 @@
   <div class="box box-single">
     <h3>Club overview</h3>
     <spinner class="spinner center" name="reportClubSpinner" show="true"></spinner>
+
+    <p>Number of rides taught in the last 30 days</p>
   </div>
 </div>
