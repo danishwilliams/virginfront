@@ -30,6 +30,10 @@ angular.module('app').directive('infiniteScroll', ['$window',
             var contentElement = document.getElementById(attrs.infiniteScrollWithinModalRepeaterElement);
             contentElement = angular.element(contentElement);
 
+            if (!contentElement[0]) {
+              return;
+            }
+            console.log(contentElement);
             // The bottom of the bounding box of the ng-repeat element
             var elementBottom = contentElement[0].getBoundingClientRect().bottom;
 
