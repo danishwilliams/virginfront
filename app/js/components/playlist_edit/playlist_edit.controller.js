@@ -24,10 +24,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // User has just selected a track from track search to add to a goal
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
-        if (self.form) {
-          console.log('setting form to not be pristine!!!!');
-          self.form.$setDirty(); // Manually set the form to be not pristine any more
-        }
         var currentgoal = Playlists.getCurrentGoal();
         if (currentgoal.BackgroundSection) {
           // Add a background track
@@ -47,6 +43,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   // Urgh. Had to use $scope here because the controller isn't available in the $stateChangeSuccess event, so can't
   // update variables.
   $scope.$on('add.track', function () {
+    console.log('attempt to set form to not be pristine');
+    if (self.form) {
+      self.form.$setDirty(); // Manually set the form to be not pristine any more
+    }
+    else {
+      console.log('[Warning] No playlist edit form found, but one was expected');
+    }
     self.updatePlaylistLength();
     self.updateCurrentGoal();
     self.checkAllGoalsHaveTracks();
@@ -350,8 +353,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   function checkEffortRanges() {
     // Load up all Goal Options and iterate through them
     var error = false;
-    console.log('checkEffortRanges()');
-    console.log(self.playlist.PlaylistGoals);
     self.playlist.PlaylistGoals.forEach(function(val) {
       val.Goal.GoalOptions.forEach(function(goaloptions) {
         if (goaloptions.Effort > 0) {
