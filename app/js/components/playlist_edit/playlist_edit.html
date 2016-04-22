@@ -35,18 +35,15 @@
               <h4 ng-class="{'has-track' : playlistGoal.PlaylistGoalTracks.length > 0}">
                 <img ng-class="{'freestyle' : playlist_edit.playlist.TemplateType === 'freestyle'}" ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
 
-                <span ng-if="playlist_edit.playlist.TemplateType !== 'freestyle'">
-                  {{playlistGoal.Goal.Name}}
-                </span>
+                {{playlistGoal.Goal.Name}} <em ng-hide="playlistGoal.editFreeStyleGoal" ng-if="playlistGoal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
 
                 <span ng-if="playlist_edit.playlist.TemplateType === 'freestyle'">
-                  <span ng-if="playlistGoal.ArrayId == 0">
-                    {{playlistGoal.Goal.Name}}
+                  <freestyle-goals ng-show="playlistGoal.editFreeStyleGoal" ng-if="playlistGoal.ArrayId > 0" data-index="{{playlistGoal.ArrayId}}" data-total-goals="{{playlist_edit.playlist.MaxFreestyleGoals}}" data-changing-goal="true" ng-change="playlist_edit.changeFreestyleGoal(playlistGoal)" ng-model="playlist_edit.freestyleGoal" ng-click="playlistGoal.editFreeStyleGoal = true"></freestyle-goals>
+                  <span ng-if="playlistGoal.ArrayId > 0">
+                    <a ng-hide="playlistGoal.editFreeStyleGoal" ng-click="playlistGoal.editFreeStyleGoal = true">{{'CHANGE_GOAL' | translate}}</a>
+                    <a ng-show="playlistGoal.editFreeStyleGoal" ng-click="playlistGoal.cancelEditFreeStyleGoal = true">{{'CANCEL' | translate}}</a>
                   </span>
-                  <freestyle-goals ng-if="playlistGoal.ArrayId > 0" data-index="{{playlistGoal.ArrayId}}" data-total-goals="{{playlist_edit.playlist.MaxFreestyleGoals}}" data-selected-goal-id="{{playlistGoal.Goal.Id}}" ng-change="playlist_edit.changeFreestyleGoal(playlistGoal)" ng-model="playlist_edit.freestyleGoal" ng-click="playlistGoal.editFreeStyleGoal = true"></freestyle-goals>
                 </span>
-
-                <em ng-if="playlistGoal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
               </h4>
             </div>
             <div class="small-8 medium-4 columns text-right">
