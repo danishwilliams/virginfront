@@ -63,8 +63,22 @@ reporting {
     height: 24px;
     margin-right: rem-calc(10);
   }
-}
-
-.reporting-template {
-  padding-bottom: rem-calc(10);
+  .reporting-template {
+    padding-bottom: rem-calc(10);
+  }
+  /* Club overview */
+  .gym-name {
+    font-size: $h4-font-size;
+    font-weight: bold;
+    color: $jet;
+  }
+  .ride-count {
+    color: $grey;
+  }
+  .progress {
+    height: rem-calc(12);
+    .meter {
+      background: $grey;
+    }
+  }
 }

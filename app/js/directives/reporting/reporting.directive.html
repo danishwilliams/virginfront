@@ -94,7 +94,7 @@
   </div>
   <div class="medium-9 columns">
     <div class="box box-right">
-      <h3>Top five templates</h3>
+      <h3>Top templates</h3>
       <spinner class="spinner center" name="reportTemplatesSpinner" show="true"></spinner>
 
       <p>Number of rides created from these templates in the last 30 days</p>
@@ -119,5 +119,17 @@
     <spinner class="spinner center" name="reportClubSpinner" show="true"></spinner>
 
     <p>Number of rides taught in the last 30 days</p>
+
+    <div class="row" ng-repeat="ride in vm.rides | orderBy:'ride.Count'">
+
+      <div style="width: {{ride.Percent}}%">
+        <span class="gym-name">{{ride.GymName}}</span>
+        <span class="ride-count right">{{ride.Count}} rides</span>
+      </div>
+
+      <div class="progress">
+        <span class="meter" style="width: {{ride.Percent}}%"></span>
+      </div>
+    </div>
   </div>
 </div>

@@ -58,6 +58,18 @@ function reportingController(Emails, Reporting, spinnerService) {
   // Load up top rides per club
   Reporting.loadRidesTaughtPerClub(14).then(function(data) {
     self.rides = data;
+    var top = 0;
+    // Find the highest value
+    self.rides.forEach(function(val) {
+      if (val.Count > top) {
+        top = val.Count;
+      }
+    });
+
+    // Use this as a baseline to figure out what percentage each ride is
+    self.rides.forEach(function(val) {
+      val.Percent = Math.floor(val.Count / top * 100);
+    });
     spinnerService.hide('reportClubSpinner');
   });
 }
