@@ -3,6 +3,7 @@ reporting {
     margin: rem-calc(10px);
     padding: rem-calc(20px);
     min-height: rem-calc(150px);
+    border-radius: rem-calc(10);
     &.box-left {
       margin-left: 0;
     }
