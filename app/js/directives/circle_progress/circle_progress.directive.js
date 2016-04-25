@@ -1,3 +1,4 @@
+// Inspired by: http://codepen.io/saadeghi/pen/IBhfJ/ and http://bytes.babbel.com/en/articles/2015-03-19-radial-svg-progressbar.html
 angular.module("app").directive("circleProgress", function () {
   return {
     restrict: "E",
