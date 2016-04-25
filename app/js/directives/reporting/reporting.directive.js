@@ -35,7 +35,7 @@ function reportingController(Emails, Reporting, spinnerService) {
       self.registered.percent = 100;
     }
     else {
-      self.registered.percent = Math.floor(self.registered.registered / self.registered.unregistered * 100);
+      self.registered.percent = Math.floor(self.registered.registered / (self.registered.registered + self.registered.unregistered) * 100);
     }
     spinnerService.hide('reportRegSpinner');
   });
@@ -50,7 +50,7 @@ function reportingController(Emails, Reporting, spinnerService) {
       self.active.percent = 100;
     }
     else {
-      self.active.percent = Math.floor(self.active.active / self.active.inactive * 100);
+      self.active.percent = Math.floor(self.active.active / (self.active.active + self.active.inactive) * 100);
     }
     spinnerService.hide('reportActiveSpinner');
   });
