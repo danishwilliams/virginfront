@@ -82,4 +82,28 @@ reporting {
       background: $grey;
     }
   }
+
+  /* Circle graphics */
+  svg.circle {
+    transform: rotate(270deg);
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    stroke: $grey_medium;
+  }
+  circle-progress {
+    &:before {
+      content: attr(data-percent)"%";
+      position: absolute;
+      top: rem-calc(18);
+      left: rem-calc(17);
+      font-weight: bold;
+    }
+    &.registered .percent {
+      stroke: $purple;
+    }
+    &.active .percent {
+      stroke: $cherry;
+    }
+  }
 }

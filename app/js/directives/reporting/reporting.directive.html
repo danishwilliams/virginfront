@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="small-4 columns">
-
+          <circle-progress class="registered" ng-if="vm.registered.percent" data-percent="{{vm.registered.percent}}"></circle-progress>
         </div>
       </div>
 
@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="small-4 columns">
-
+          <circle-progress class="active" ng-if="vm.active.percent" data-percent="{{vm.active.percent}}" data-color="red"></circle-progress>
         </div>
       </div>
 

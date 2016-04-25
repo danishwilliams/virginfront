@@ -31,6 +31,12 @@ function reportingController(Emails, Reporting, spinnerService) {
         self.registered.unregistered++;
       }
     });
+    if (self.registered.unregistered === 0) {
+      self.registered.percent = 100;
+    }
+    else {
+      self.registered.percent = Math.floor(self.registered.registered / self.registered.unregistered * 100);
+    }
     spinnerService.hide('reportRegSpinner');
   });
 
@@ -40,6 +46,12 @@ function reportingController(Emails, Reporting, spinnerService) {
       active: data.ActiveCount,
       inactive: data.InactiveCount
     };
+    if (self.active.inactive === 0) {
+      self.active.percent = 100;
+    }
+    else {
+      self.active.percent = Math.floor(self.active.active / self.active.inactive * 100);
+    }
     spinnerService.hide('reportActiveSpinner');
   });
 
