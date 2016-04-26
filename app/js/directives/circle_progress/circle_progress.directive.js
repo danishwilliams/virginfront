@@ -10,7 +10,7 @@ angular.module("app").directive("circleProgress", function () {
   };
 
   function link(scope, element, attrs) {
-    scope.radius = 25;
+    scope.radius = 40;
     var circumference = 2 * scope.radius * Math.PI;
     scope.stroke_dashoffset = '-' + (scope.percent * circumference/ 100);
     scope.stroke_dasharray = circumference;

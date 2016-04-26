@@ -87,17 +87,26 @@ reporting {
   svg.circle {
     transform: rotate(270deg);
     display: inline-block;
-    width: 60px;
-    height: 60px;
+    width: 90px;
+    height: 90px;
     stroke: $grey_medium;
   }
+    .100:before {
+      left: rem-calc(0);
+    }
+
   circle-progress {
+    // This selector isn't actually being targetted...not sure why
+    &.100:before {
+      left: rem-calc(17);
+    }
     &:before {
       content: attr(data-percent)"%";
       position: absolute;
-      top: rem-calc(18);
-      left: rem-calc(17);
+      top: rem-calc(30);
+      left: rem-calc(25);
       font-weight: bold;
+      font-size: $h2-font-size;
     }
     &.registered .percent {
       stroke: $purple;
