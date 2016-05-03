@@ -1,7 +1,7 @@
 <div class="row">
   <div class="medium-9 columns">
     <div class="box box-left">
-      <h3>Registered Instructors</h3>
+      <h3>{{'INSTRUCTORS_REGISTERED' | translate}}</h3>
       <spinner class="spinner center" name="reportRegSpinner" show="true"></spinner>
 
       <p>&nbsp;</p>
@@ -10,18 +10,21 @@
           <div class="line registered">&nbsp;</div>
           <div class="content">
             <h4 class="number">{{vm.registered.registered}}</h4>
-            registered
+            {{'registered' | translate | lowercase}}
+            <br>
+            <a ui-sref="instructors({type:'registered'})">{{'VIEW_LIST' | translate}}</a>
           </div>
         </div>
         <div class="small-7 columns">
           <div class="line secondary">&nbsp;</div>
           <div class="content">
             <h4 class="number">{{vm.registered.unregistered}}</h4>
-            unregistered
+            {{'UNREGISTERED' | translate}}<br>
+            <a ui-sref="instructors({type:'unregistered'})">{{'VIEW_LIST' | translate}}</a>
           </div>
         </div>
         <div class="small-4 columns">
-          <circle-progress class="registered" ng-if="vm.registered.percent" data-percent="{{vm.registered.percent}}"></circle-progress>
+          <circle-progress class="registered" ng-class="{'100' : vm.registered.percent == '100'}" ng-if="vm.registered.percent" data-percent="{{vm.registered.percent}}"></circle-progress>
         </div>
       </div>
 
@@ -29,27 +32,29 @@
   </div>
   <div class="medium-9 columns">  
     <div class="box box-right">
-      <h3>Active Instructors</h3>
+      <h3>{{'INSTRUCTORS_ACTIVE' | translate}}</h3>
       <spinner class="spinner center" name="reportActiveSpinner" show="true"></spinner>
 
-      <p>Instructors who have taught a ride in the last 14 days</p>
+      <p>{{'INSTRUCTORS_RIDES_TAUGHT' | translate}}</p>
       <div class="row">
         <div class="small-7 columns">
           <div class="line active">&nbsp;</div>
           <div class="content">
             <h4 class="number">{{vm.active.active}}</h4>
-            active instructors
+            {{'INSTRUCTORS_ACTIVE' | translate | lowercase}}<br>
+            <a ui-sref="instructors({type:'active'})">{{'VIEW_LIST' | translate}}</a>
           </div>
         </div>
         <div class="small-7 columns">
           <div class="line secondary">&nbsp;</div>
           <div class="content">
             <h4 class="number">{{vm.active.inactive}}</h4>
-            inactive instructors
+            {{'INSTRUCTORS_INACTIVE' | translate | lowercase}}<br>
+            <a ui-sref="instructors({type:'inactive'})">{{'VIEW_LIST' | translate}}</a>
           </div>
         </div>
         <div class="small-4 columns">
-          <circle-progress class="active" ng-if="vm.active.percent" data-percent="{{vm.active.percent}}" data-color="red"></circle-progress>
+          <circle-progress class="active" ng-class="{'100' : vm.active.percent == '100'}" ng-if="vm.active.percent" data-percent="{{vm.active.percent}}" data-color="red"></circle-progress>
         </div>
       </div>
 
@@ -60,7 +65,7 @@
 <div class="row">
   <div class="medium-9 columns">
     <div class="box box-left">
-      <h3>Email log</h3>
+      <h3>{{'EMAIL_LOG' | translate}}</h3>
       <spinner class="spinner center" name="reportEmailSpinner" show="true"></spinner>
 
       <div class="row" ng-if="vm.emailFailedCount > 0">
@@ -68,8 +73,8 @@
           <div class="line failure">&nbsp;</div>
           <div class="content">
             <h4 class="number">{{vm.emailFailedCount}}</h4>
-            problematic emails<br>
-            <a ui-sref="emails">View emails</a>
+            {{'EMAILS_PROBLEMS' | translate | lowercase}}<br>
+            <a ui-sref="emails">{{'VIEW_EMAILS' | translate}}</a>
           </div>
         </div>
         <div class="small-6 columns">
@@ -81,8 +86,8 @@
         <div class="small-12 columns">
           <div class="line success">&nbsp;</div>
           <div class="content">
-            Great! Looks like there are no problematic emails.<br>
-            <a ui-sref="emails">View email log</a>
+            {{'EMAILS_NO_PROBLEMS' | translate}}<br>
+            <a ui-sref="emails">{{'VIEW_EMAIL_LOG' | translate}}</a>
           </div>
         </div>
         <div class="small-6 columns">
@@ -94,10 +99,10 @@
   </div>
   <div class="medium-9 columns">
     <div class="box box-right">
-      <h3>Top templates</h3>
+      <h3>{{'TOP_TEMPLATES' | translate}}</h3>
       <spinner class="spinner center" name="reportTemplatesSpinner" show="true"></spinner>
 
-      <p>Number of rides created from these templates in the last 30 days</p>
+      <p>{{'TEMPLATES_RIDES_CREATED' | translate}}</p>
 
       <div class="row reporting-template" ng-repeat="template in vm.templates | orderBy:'template.Count':reverse">
         <div class="small-16 columns">
@@ -115,16 +120,16 @@
 
 <div class="row">
   <div class="box box-single">
-    <h3>Club overview</h3>
+    <h3>{{'CLUB_OVERVIEW' | translate}}</h3>
     <spinner class="spinner center" name="reportClubSpinner" show="true"></spinner>
 
-    <p>Number of rides taught in the last 30 days</p>
+    <p>{{'RIDES_TAUGHT' | translate}}</p>
 
     <div class="row" ng-repeat="ride in vm.rides | orderBy:'ride.Count'">
 
       <div style="width: {{ride.Percent}}%">
         <span class="gym-name">{{ride.GymName}}</span>
-        <span class="ride-count right">{{ride.Count}} rides</span>
+        <span class="ride-count right">{{ride.Count}} {{'RIDES' | translate | lowercase}}</span>
       </div>
 
       <div class="progress">

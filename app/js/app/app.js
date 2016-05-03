@@ -22,6 +22,7 @@ angular
     "app.genres",
     "app.goals",
     "app.gyms",
+    "app.instructors",
     "app.locations",
     "app.login",
     "app.music_providers",

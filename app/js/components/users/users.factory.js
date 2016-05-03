@@ -95,7 +95,33 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
     currentUser = {};
   }
 
-  function loadUsers() {
+  /**
+   * Loads all users
+   *
+   * @param type
+   *   Optional. The type of user to load. Options: registered, unregistered, active, inactive
+   */
+  function loadUsers(type) {
+    if (type) {
+      var params = {};
+      switch (type) {
+        case 'active':
+          params.active = true;
+          break;
+        case 'inactive':
+          params.active = false;
+          break;
+        case 'registered':
+          params.registered = true;
+          break;
+        case 'unregistered':
+          params.registered = false;
+          break;
+      }
+      return Restangular.all('users').getList(params).then(loadUsersComplete);
+    }
+
+    // Default GET
     return Restangular.all('users').getList().then(loadUsersComplete);
 
     function loadUsersComplete(data, status, headers, config) {

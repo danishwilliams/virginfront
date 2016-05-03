@@ -202,6 +202,19 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  // Instructors page
+  .state('instructors', {
+    url: '/instructors?type',
+    templateUrl: '../js/components/users/instructors.html',
+    controller: 'UsersController as vm',
+    resolve: {
+      $title: function() { return 'INSTRUCTORS_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
+    }
+  })
+
   // Locations
   .state('locations-admin', {
     url: '/admin/locations',

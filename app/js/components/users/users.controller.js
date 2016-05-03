@@ -1,36 +1,60 @@
-angular.module("app.users", []).controller('UsersController', function (Users, spinnerService) {
+angular.module("app.users", []).controller('UsersController', function (Users, spinnerService, $stateParams) {
   var self = this;
   self.status = '';
   self.query = '';
 
-  Users.loadUsers().then(function (data) {
-    self.users = data;
-    spinnerService.hide('users');
+  if ($stateParams.type) {
+    self.type = $stateParams.type;
+    // Load up an instructors page, since this is a link from the reporting dashboard
+    loadInstructorsPage(self.type);
+  }
+  else {
+    // This is the Team Directory
+    loadTeamDirectory();
+  }
 
-    // Counts of each kind of user
-    self.numActive = 0;
-    self.numTechnical = 0;
-    self.numDisabled = 0;
+  function loadInstructorsPage(type) {
+    if (type === 'active' || type === 'inactive' || type === 'registered' || type === 'unregistered') {
+      Users.loadUsers(type).then(function (data) {
+        self.users = data;
+        spinnerService.hide('users');
+      });
+    }
+    else {
+      spinnerService.hide('users');
+    }
+  }
 
-    self.users.forEach(function(user) {
-      if (!user.Enabled) {
-        self.numDisabled++;
-      }
-      else {
-        switch (user.Type) {
-          case 'Invited':
-          case 'Registered':
-            self.numActive++;
-            break;
-          case 'Technical':
-            self.numTechnical++;
-            break;
-          default:
-            self.numTechnical++;
+  function loadTeamDirectory() {
+    Users.loadUsers().then(function (data) {
+      self.users = data;
+      spinnerService.hide('users');
+
+      // Counts of each kind of user
+      self.numActive = 0;
+      self.numTechnical = 0;
+      self.numDisabled = 0;
+
+      self.users.forEach(function(user) {
+        if (!user.Enabled) {
+          self.numDisabled++;
         }
-      }
+        else {
+          switch (user.Type) {
+            case 'Invited':
+            case 'Registered':
+              self.numActive++;
+              break;
+            case 'Technical':
+              self.numTechnical++;
+              break;
+            default:
+              self.numTechnical++;
+          }
+        }
+      });
     });
-  });
+  }
 
   self.userFilter = function(user) {
     self.query = self.query.toLowerCase();
