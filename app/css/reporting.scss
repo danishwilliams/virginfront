@@ -39,10 +39,10 @@ reporting {
     margin-right: rem-calc(10);
     position: absolute;
     &.registered {
-      background: $pack_purple;
+      background: $yellow;
     }
     &.active {
-      background: $cherry;
+      background: $red;
     }
     &.secondary {
       background: $grey_medium;
@@ -79,7 +79,7 @@ reporting {
   .progress {
     height: rem-calc(12);
     .meter {
-      background: $grey;
+      background: $blue;
     }
   }
 
@@ -109,10 +109,10 @@ reporting {
       font-size: $h2-font-size;
     }
     &.registered .percent {
-      stroke: $pack_purple;
+      stroke: $yellow;
     }
     &.active .percent {
-      stroke: $cherry;
+      stroke: $red;
     }
   }
 }
