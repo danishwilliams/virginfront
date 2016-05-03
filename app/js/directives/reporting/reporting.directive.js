@@ -58,6 +58,7 @@ function reportingController(Emails, Reporting, spinnerService) {
   // Load up email failures
   Emails.loadFails(1, 10000).then(function(data) {
     self.emailFailedCount = data.length;
+    self.emailLoaded = {loaded: true};
     spinnerService.hide('reportEmailSpinner');
   });
 

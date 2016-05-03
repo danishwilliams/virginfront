@@ -66,6 +66,7 @@
         link: function (scope, element, attrs, parent) {
           // My index allocation
           var myIndex = parent.allocateMe();
+          var loaded = false;
 
           // Get my real height by cloning so my height is not affected.
           var getMyRealHeight = function () {
@@ -74,13 +75,18 @@
 
           // Watch my height
           scope.$watch(getMyRealHeight, _.throttle(function (e) {
-            parent.updateMyHeight(myIndex, element[0].offsetHeight);
-          }, 1000));
+            if (attrs.vertilizeLoaded && !loaded) {
+              loaded = true;
+              parent.updateMyHeight(myIndex, element[0].offsetHeight);
+            }
+          }, 600));
 
           // Watch for tallest height change
           scope.$watch(parent.getTallestHeight, function (tallestHeight) {
             if (tallestHeight && element[0].getBoundingClientRect().height < tallestHeight) {
-              element.css({'height': tallestHeight + 'px'});
+              element.css({
+                'height': tallestHeight + 'px'
+              });
             }
           });
         }
