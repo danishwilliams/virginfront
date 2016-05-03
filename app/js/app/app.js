@@ -3,6 +3,7 @@ angular
     "ngSanitize",
     "ngMessages",
     "angularSpinners",
+    "angular.vertilize",
     "ui.router",
     "ui.router.title",
     "angularUUID2",
