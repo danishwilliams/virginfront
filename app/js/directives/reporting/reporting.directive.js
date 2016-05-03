@@ -25,10 +25,10 @@ function reportingController(Emails, Reporting, spinnerService) {
     };
     data.forEach(function(val) {
       if (val.UserState === 'registered') {
-        self.registered.registered++;
+        self.registered.registered = self.registered.registered + val.Count;
       }
       else {
-        self.registered.unregistered++;
+        self.registered.unregistered = self.registered.unregistered + val.Count;
       }
     });
     if (self.registered.unregistered === 0) {
