@@ -40,6 +40,9 @@ h1.site-heading {
       margin: rem-calc(30px) 0 0;
     }
   }
+  &.with-search h1 {
+    margin-top: rem-calc(12px);
+  }
 }
 
 .row .heading {
