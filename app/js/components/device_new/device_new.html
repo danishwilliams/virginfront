@@ -1,6 +1,7 @@
 <div class="row">
   <div class="large-12 medium-18 small-18 large-centered columns">
     <div class="row heading">
+      <a class="back" ui-sref="devices-admin">{{'DEVICES' | translate}}</a>
       <h1>{{'DEVICE_NEW' | translate}}</h1>
     </div>
     <form ng-show="vm.step === 0" name="vm.form" ng-submit="vm.provisionNewDevice()" novalidate>

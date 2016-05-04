@@ -44,6 +44,7 @@ function reportingDevicesController(Devices, Reporting, spinnerService) {
         });
       }
     });
+    self.devicesLoaded = true;
   });
 
   /*
