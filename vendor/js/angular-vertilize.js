@@ -58,12 +58,27 @@
   ]);
 
   // Vertilize Item
-  module.directive('vertilize', [
-    function () {
+  module.directive('vertilize', ['$window',
+    function ($window) {
       return {
         restrict: 'EA',
         require: '^vertilizeContainer',
         link: function (scope, element, attrs, parent) {
+          // We don't want to do anything on mobile, because this is a single column layout
+          if (attrs.vertilizeDisableOnMobile) {
+            var width = 0;
+            if (typeof window.orientation !== 'undefined') {
+              width = screen.width;
+            }
+            else {
+              width = angular.element($window)[0].innerWidth;
+            }
+
+            if (width < 641) {
+              return;
+            }
+          }
+
           // My index allocation
           var myIndex = parent.allocateMe();
           var loaded = false;
