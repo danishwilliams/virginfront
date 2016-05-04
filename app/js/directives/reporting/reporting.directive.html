@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="small-4 columns">
-          <circle-progress class="registered" ng-class="{'100' : vm.registered.percent == '100'}" ng-if="vm.registered.percent" data-percent="{{vm.registered.percent}}"></circle-progress>
+          <circle-progress class="registered" ng-class="{'p100' : vm.registered.percent == '100', 'p0' : vm.registered.percent == '0'}" ng-if="vm.registered.percent >= 0" data-percent="{{vm.registered.percent}}"></circle-progress>
         </div>
       </div>
 
@@ -54,7 +54,7 @@
           </div>
         </div>
         <div class="small-4 columns">
-          <circle-progress class="active" ng-class="{'100' : vm.active.percent == '100'}" ng-if="vm.active.percent" data-percent="{{vm.active.percent}}" data-color="red"></circle-progress>
+          <circle-progress class="active" ng-class="{'p100' : vm.active.percent == '100', 'p0' : vm.active.percent == '0'}" ng-if="vm.active.percent >= 0" data-percent="{{vm.active.percent}}" data-color="red"></circle-progress>
         </div>
       </div>
 
