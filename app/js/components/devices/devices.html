@@ -1,4 +1,5 @@
 <div class="row devices">
+  <spinner class="spinner" name="devices" show="true"></spinner>
   <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
 
     <div class="row heading">
@@ -18,39 +19,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <device ng-repeat="device in vm.devices | filter:vm.deviceFilter | orderBy:'Device.Name'"></device>
 
-    </div>
-
-  </div>
-</div>
-
-<div class="row devices">
-  <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
-
-    <h1>Devices</h1>
-
-    <table>
-      <thead>
-        <tr>
-          <td>Device name</td>
-          <td>Last sync attempt</td>
-          <td>Sync status</td>
-          <td>Gym</td>
-          <td>City</td>
-          <td>Provision Id</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="device in vm.devices | orderBy:'Name'">
-          <td><a ui-sref="device({id:device.Id})">{{device.Name}}</a></td>
-          <td>{{device.LastSyncAttempt}}</td>
-          <td>{{device.SyncSuccess}}</td>
-          <td>{{device.Gym.Name}}</td>
-          <td>{{device.Gym.Location.City}}</td>
-          <td>{{device.DeviceProvisionId}}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </div>
