@@ -127,13 +127,15 @@
 
     <div class="row" ng-repeat="ride in vm.rides | orderBy:'ride.Count'">
 
-      <div style="width: {{ride.Percent}}%">
-        <span class="gym-name">{{ride.GymName}}</span>
-        <span class="ride-count right">{{ride.Count}} {{'RIDES' | translate | lowercase}}</span>
+      <div class="gym-name">
+        {{ride.GymName}}
+        <span class="ride-count normal" ng-if="ride.Percent <= 20">{{ride.Count}} {{'RIDES' | translate | lowercase}}</span>
       </div>
 
       <div class="progress">
-        <span class="meter" style="width: {{ride.Percent}}%"></span>
+        <span class="meter left" style="width: {{ride.Percent}}%">
+          <div class="ride-count right" ng-if="ride.Percent > 20">{{ride.Count}} {{'RIDES' | translate | lowercase}}</div>
+        </span>
       </div>
     </div>
   </div>
