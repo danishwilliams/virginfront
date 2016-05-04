@@ -89,7 +89,7 @@
   "MINS_REMAINING": "mins remaining",
   "MIN_REMAINING": "min remaining",
   "DEVICE_WAITING": "Waiting for device...",
-  "ADMIN_DASHBOARD": "Administrator dashboard",
+  "ADMIN_DASHBOARD": "Instructor overview",
   "UNREGISTERED": "unregistered",
   "VIEW_LIST": "View list",
   "INSTRUCTORS_RIDES_TAUGHT": "Instructors who have taught a ride in the last 14 days",
