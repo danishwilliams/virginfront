@@ -97,14 +97,13 @@ reporting {
     height: 90px;
     stroke: $grey_medium;
   }
-    .100:before {
-      left: rem-calc(0);
-    }
 
   circle-progress {
-    // This selector isn't actually being targetted...not sure why
-    &.100:before {
+    &.p100:before {
       left: rem-calc(17);
+    }
+    &.p0:before {
+      left: rem-calc(33);
     }
     &:before {
       content: attr(data-percent)"%";
