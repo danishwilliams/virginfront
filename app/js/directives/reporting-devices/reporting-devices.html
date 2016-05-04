@@ -2,6 +2,7 @@
   <div class="medium-9 columns">
     <div class="box box-left" vertilize data-vertilize-loaded="{{vm.devicesLoaded}}" data-vertilize-disable-on-mobile="true">
       <h3>{{'DEVICE_CONNECTIVITY' | translate}}</h3>
+      <spinner class="spinner center" name="devicesSpinner" show="true"></spinner>
       <p translate="DEVICES_CONNECTED" translate-values="{success: vm.devices.connected, total: vm.devices.connected + vm.devices.disconnected}"></p>
       <div class="row">
         <div class="small-7 columns">
@@ -28,6 +29,7 @@
   <div class="medium-9 columns">
     <div class="box box-right" vertilize data-vertilize-loaded="{{vm.devicesLoaded}}" data-vertilize-disable-on-mobile="true">
       <h3>{{'SYNC_ERRORS' | translate}}</h3>
+      <spinner class="spinner center" name="devices1Spinner" show="true"></spinner>
 
       <div class="row" ng-if="vm.devices.errors > 0">
         <div class="small-6 columns">

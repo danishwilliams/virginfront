@@ -3,30 +3,34 @@
     width: 100%;
     &.logs {
       border-spacing: inherit;
-      .warning {
-        color: $warning-color-font;
-        background: url('/img/ico16orng_syncerror.svg') no-repeat;
-        background-size: rem-calc(16px);
-        padding-left: rem-calc(20);
-     }
-     .success {
-        color: $success-color-font;
-        background: url('/img/ico16orng_sent.svg') no-repeat;
-        background-size: rem-calc(16px);
-        padding-left: rem-calc(20);
-     }
-     .sent {
-        color: $success-color-font;
-        background: url('/img/ico16orng_sent.svg') no-repeat;
-        background-size: rem-calc(16px);
-        padding-left: rem-calc(20);
-     }
-     .delivered {
-        color: $success-color-font;
-        background: url('/img/ico16orng_delivered.svg') no-repeat;
-        background-size: rem-calc(14px);
-        padding-left: rem-calc(20);
-     }
     }
+  }
+}
+
+.emails,
+.device {
+  .warning {
+    color: $warning-color-font;
+    background: url('/img/ico16orng_syncerror.svg') no-repeat;
+    background-size: rem-calc(16px);
+    padding-left: rem-calc(20);
+  }
+  .success {
+    color: $success-color-font;
+    background: url('/img/ico16orng_sent.svg') no-repeat;
+    background-size: rem-calc(16px);
+    padding-left: rem-calc(20);
+  }
+  .sent {
+    color: $success-color-font;
+    background: url('/img/ico16orng_sent.svg') no-repeat;
+    background-size: rem-calc(16px);
+    padding-left: rem-calc(20);
+  }
+  .delivered, .connected {
+    color: $success-color-font;
+    background: url('/img/ico16orng_delivered.svg') no-repeat;
+    background-size: rem-calc(14px);
+    padding-left: rem-calc(20);
   }
 }
