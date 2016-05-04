@@ -161,6 +161,13 @@
     background-image: url('/img/background_1024.jpg');
   }
 
+  /* Dashboard */
+
+  reporting .box {
+    margin: rem-calc(3);
+    padding: rem-calc(3) rem-calc(30) rem-calc(10) rem-calc(6);
+  }
+
   /* Track search */
 
   .tracks .search {

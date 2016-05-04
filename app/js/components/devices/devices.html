@@ -1,24 +1,56 @@
-<h1>Devices</h1>
+<div class="row devices">
+  <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
 
-<table>
-  <thead>
-    <tr>
-      <td>Device name</td>
-      <td>Last sync attempt</td>
-      <td>Sync status</td>
-      <td>Gym</td>
-      <td>City</td>
-      <td>Provision Id</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="device in devices.devices | orderBy:'Name'">
-      <td><a ui-sref="device({id:device.Id})">{{device.Name}}</a></td>
-      <td>{{device.LastSyncAttempt}}</td>
-      <td>{{device.SyncSuccess}}</td>
-      <td>{{device.Gym.Name}}</td>
-      <td>{{device.Gym.Location.City}}</td>
-      <td>{{device.DeviceProvisionId}}</td>
-    </tr>
-  </tbody>
-</table>
+    <div class="row heading">
+      <a class="back" ui-sref="dashboard">{{'DASHBOARD' | translate}}</a>
+      <div class="columns small-10 medium-12">
+        <h1>{{'DEVICES' | translate}}</h1>
+      </div>
+      <div class="columns small-8 medium-6 text-center">
+        <button class="secondary" ui-sref="device-new">{{'DEVICE_NEW' | translate}}</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="medium-18 large-9 columns">
+        <label>{{'SEARCH' | translate}}</label>
+        <input ng-model="vm.query" type="text" placeholder="{{'DEVICES_SEARCH' | translate}}" maxlength="60" autofocus>
+      </div>
+    </div>
+
+    <div class="row">
+
+    </div>
+
+  </div>
+</div>
+
+<div class="row devices">
+  <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
+
+    <h1>Devices</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <td>Device name</td>
+          <td>Last sync attempt</td>
+          <td>Sync status</td>
+          <td>Gym</td>
+          <td>City</td>
+          <td>Provision Id</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="device in vm.devices | orderBy:'Name'">
+          <td><a ui-sref="device({id:device.Id})">{{device.Name}}</a></td>
+          <td>{{device.LastSyncAttempt}}</td>
+          <td>{{device.SyncSuccess}}</td>
+          <td>{{device.Gym.Name}}</td>
+          <td>{{device.Gym.Location.City}}</td>
+          <td>{{device.DeviceProvisionId}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

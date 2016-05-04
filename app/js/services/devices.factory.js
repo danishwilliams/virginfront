@@ -14,7 +14,8 @@ function DevicesFactory(Restangular, uuid2) {
     loadDevice: loadDevice,
     loadDevicePlaylists: loadDevicePlaylists,
     provisionDevice: provisionDevice,
-    disableDevice: disableDevice
+    disableDevice: disableDevice,
+    loadSyncStatus: loadSyncStatus
   };
 
   return devicesFactory;
@@ -67,6 +68,13 @@ function DevicesFactory(Restangular, uuid2) {
     function disableDeviceComplete(data, status, headers, config) {
       return data;
     }
+  }
 
+  function loadSyncStatus() {
+    return Restangular.one('devices/status').get().then(loadSyncStatusComplete);
+
+    function loadSyncStatusComplete(data, status, headers, config) {
+      return data;
+    }
   }
 }

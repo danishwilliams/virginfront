@@ -97,12 +97,12 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('devices-admin', {
     url: '/admin/devices',
     templateUrl: '../js/components/devices/devices.html',
-    controller: 'DevicesController as devices',
+    controller: 'DevicesController as vm',
     resolve: {
-      $title: function() { return 'Devices | Admin'; }
+      $title: function() { return 'DEVICE_PAGE'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.devices]
     }
   })
 

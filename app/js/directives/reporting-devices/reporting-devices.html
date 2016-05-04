@@ -1,0 +1,47 @@
+<div class="row" vertilize-container>
+  <div class="medium-9 columns">
+    <div class="box box-left" vertilize data-vertilize-loaded="{{vm.emailLoaded}}" data-vertilize-disable-on-mobile="true">
+      <h3>{{'DEVICE_CONNECTIVITY' | translate}}</h3>
+      <p translate="DEVICES_CONNECTED" translate-values="{success: vm.devices.connected, total: vm.devices.connected + vm.devices.disconnected}"></p>
+      <div class="row">
+        <div class="small-7 columns">
+          <div class="line success">&nbsp;</div>
+          <div class="content">
+            <h4 class="number">{{vm.devices.connected}}</h4>
+            {{'CONNECTED' | translate | lowercase}}
+          </div>
+        </div>
+        <div class="small-7 columns">
+          <div class="line failure">&nbsp;</div>
+          <div class="content">
+            <h4 class="number">{{vm.devices.disconnected}}</h4>
+            {{'DISCONNECTED' | translate | lowercase}}
+          </div>
+        </div>
+        <div class="small-2 medium-4 columns text-right">
+          <a ui-sref="devices-admin">{{'DEVICES_VIEW' | translate}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="medium-9 columns">
+    <div class="box box-right" vertilize data-vertilize-loaded="{{vm.emailLoaded}}" data-vertilize-disable-on-mobile="true">
+      <h3>{{'SYNC_ERRORS' | translate}}</h3>
+
+      <div class="row">
+        <div class="small-6 columns">
+          <img class="email-error left" src="/img/ico16orng_syncerror.svg" ng-if="vm.devices.errors > 0">
+          <img class="email-success left" src="/img/ico40grn_syncsuccess.svg" ng-if="vm.devices.errors == 0">
+        </div>
+        <div class="small-12 columns">
+          <h4 class="number">{{vm.devices.errors}}</h4>
+          <p>{{'DEVICES_ERRORS' | translate}}<br>
+          <a ui-sref="devices-admin">{{'DEVICES_VIEW' | translate}}</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

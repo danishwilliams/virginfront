@@ -1,5 +1,17 @@
 <div class="row">
   <div class="large-18 large-centered columns dashboard">
+    <div class="row heading" ng-if-permission="devices">
+      <div class="columns small-12 medium-14">
+        <h1>{{'DEVICE_OVERVIEW' | translate}}</h1>
+      </div>
+      <div class="columns small-6 medium-4">
+        <!--<a>Hide overview</a>-->
+      </div>
+    </div>
+
+    <reporting-devices ng-if-permission="devices"></reporting-devices>
+
+
     <div class="row heading" ng-if-permission="users">
       <div class="columns small-12 medium-14">
         <h1>{{'ADMIN_DASHBOARD' | translate}}</h1>
@@ -9,9 +21,7 @@
       </div>
     </div>
 
-    <div class="row" ng-if-permission="users">
-      <reporting></reporting>
-    </div>
+    <reporting ng-if-permission="users"></reporting>
 
     <div class="row playlists heading">
       <div class="columns small-12 medium-14">
