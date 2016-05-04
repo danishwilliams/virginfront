@@ -64,7 +64,8 @@ angular
   .constant('USER_ROLES', {
     user: "User",
     instructor: "Instructor",
-    manager: "Manager",
+    manager: "Content Manager",
+    techManager: "Technical Manager",
     admin: "Admin"
   })
   .constant('USER_STATES', {
