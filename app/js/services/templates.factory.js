@@ -172,8 +172,20 @@ function TemplatesFactory(Restangular, uuid2, Users) {
     return Restangular.one('templategroups/enable', id).post();
   }
 
-  function loadTemplateGroupClasses(id) {
-    return Restangular.one('templategroups/classlengthoptions', id).get().then(loadTemplateGroupClassesComplete);
+  /**
+   * Load the class lengths for a Template Group
+   *
+   * @param id
+   *   The template group id
+   * @param usageCountDays
+   *   Optional. Integer. Loads the usage statistics for usageCountDays days (e.g. Used 56 times within the last usageCountDays days)
+   */
+  function loadTemplateGroupClasses(id, usageCountDays) {
+    var params = {};
+    if (usageCountDays) {
+      params.usageCountDays = usageCountDays;
+    }
+    return Restangular.one('templategroups/classlengthoptions', id).get(params).then(loadTemplateGroupClassesComplete);
 
     function loadTemplateGroupClassesComplete(data, status, headers, config) {
       return data;
