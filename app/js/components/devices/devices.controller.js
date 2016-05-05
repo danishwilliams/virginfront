@@ -5,11 +5,12 @@ angular.module("app.devices", []).controller('DevicesController', function (Devi
   Devices.loadSyncStatus().then(function (data) {
     spinnerService.hide('devices');
     self.devices = data;
+    console.log(data);
     data.forEach(function (val) {
       // Was there a syncing error?
       if (val.LatestSync.SyncSuccess === false) {
         val.error = true;
-        val.timeAgoError = timeSince(val.LatestSync.CreateDate);
+        val.timeAgoError = timeSince(val.LastHeartbeat);
       }
       else {
         val.PlaylistSyncFailures.forEach(function(val1) {
@@ -21,7 +22,7 @@ angular.module("app.devices", []).controller('DevicesController', function (Devi
       }
 
       // What was the time ago?
-      val.timeAgo = timeSince(val.LatestSync.CreateDate);
+      val.timeAgo = timeSince(val.LastHeartbeat);
     });
   });
 
