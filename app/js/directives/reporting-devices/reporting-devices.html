@@ -9,18 +9,19 @@
           <div class="line success">&nbsp;</div>
           <div class="content">
             <h4 class="number">{{vm.devices.connected}}</h4>
-            {{'CONNECTED' | translate | lowercase}}
+            {{'CONNECTED' | translate | lowercase}}<br>
+            <a ui-sref="devices-admin({type:'connected'})">{{'DEVICES_VIEW' | translate}}</a>
           </div>
         </div>
         <div class="small-7 columns">
           <div class="line failure">&nbsp;</div>
           <div class="content">
             <h4 class="number">{{vm.devices.disconnected}}</h4>
-            {{'DISCONNECTED' | translate | lowercase}}
+            {{'DISCONNECTED' | translate | lowercase}}<br>
+            <a ui-sref="devices-admin({type:'disconnected'})">{{'DEVICES_VIEW' | translate}}</a>
           </div>
         </div>
         <div class="small-2 medium-4 columns text-right">
-          <a ui-sref="devices-admin">{{'DEVICES_VIEW' | translate}}</a>
         </div>
       </div>
     </div>
@@ -38,7 +39,7 @@
         <div class="small-12 columns">
           <h4 class="number">{{vm.devices.errors}}</h4>
           <p>{{'DEVICES_ERRORS' | translate}}<br>
-          <a ui-sref="devices-admin">{{'DEVICES_VIEW' | translate}}</a>
+          <a ui-sref="devices-admin({type:'syncerrors'})">{{'DEVICES_VIEW' | translate}}</a>
           </p>
         </div>
       </div>

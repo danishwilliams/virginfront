@@ -1,11 +1,10 @@
-angular.module("app.devices", []).controller('DevicesController', function (Devices, spinnerService) {
+angular.module("app.devices", []).controller('DevicesController', function ($stateParams, Devices, spinnerService) {
   var self = this;
   self.query = '';
 
   Devices.loadSyncStatus().then(function (data) {
     spinnerService.hide('devices');
-    self.devices = data;
-    console.log(data);
+
     data.forEach(function (val) {
       // Was there a syncing error?
       if (val.LatestSync.SyncSuccess === false) {
@@ -24,6 +23,25 @@ angular.module("app.devices", []).controller('DevicesController', function (Devi
       // What was the time ago?
       val.timeAgo = val.LastHeartbeat;
     });
+
+    // Showing different types of device listings: connected, disconnected, sync errors
+    if ($stateParams.type) {
+      var newData = [];
+      data.forEach(function(val) {
+        if (val.Connected && $stateParams.type === 'connected') {
+          newData.push(val);
+        }
+        else if (!val.Connected && $stateParams.type === 'disconnected') {
+          newData.push(val);
+        }
+        else if (val.error && $stateParams.type === 'syncerrors') {
+          newData.push(val);
+        }
+      });
+      data = newData;
+    }
+
+    self.devices = data;
   });
 
   self.deviceFilter = function(device) {
