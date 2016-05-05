@@ -279,7 +279,7 @@
   "SYNC_ERRORS": "Sync errors",
   "DEVICES_CONNECTED": "{{success}} of {{total}} devices are connected",
   "DEVICES_ERRORS": "devices are reporting sync errors",
-  "": "Great! Looks like all devices are syncing successfully",
+  "DEVICES_HAPPINESS": "Great! Looks like all devices are syncing successfully",
   "DEVICES_VIEW": "View devices",
   "DEVICE_VIEW": "View device",
   "DEVICE_SYNC_ERROR": "Sync error",
