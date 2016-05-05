@@ -9,13 +9,13 @@ angular.module("app.device", []).controller('DeviceController', function ($state
   });
 
   // Load the device sync log
-  Devices.loadDeviceSyncLog(self.id).then(function (data) {
+  Devices.loadDeviceSyncLog(self.id, 1, 20).then(function (data) {
     self.synclog = data;
     spinnerService.hide('synclog');
   });
 
   // Load the device heartbeat log
-  Devices.loadDeviceHeartbeatLog(self.id).then(function (data) {
+  Devices.loadDeviceHeartbeatLog(self.id, 1, 20).then(function (data) {
     self.heartbeatlog = data;
     spinnerService.hide('heartbeatlog');
   });
