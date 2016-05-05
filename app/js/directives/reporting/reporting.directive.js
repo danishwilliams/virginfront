@@ -62,14 +62,14 @@ function reportingController(Emails, Reporting, spinnerService) {
     spinnerService.hide('reportEmailSpinner');
   });
 
-  // Load up top templates
-  Reporting.loadTemplatesUsedInRides(14).then(function(data) {
+  // Load up top templates which were used to create rides
+  Reporting.loadTemplatesUsedByPlaylists(30).then(function(data) {
     self.templates = data;
     spinnerService.hide('reportTemplatesSpinner');
   });
 
   // Load up top rides per club
-  Reporting.loadRidesTaughtPerClub(14).then(function(data) {
+  Reporting.loadRidesTaughtPerClub(30).then(function(data) {
     self.rides = data;
     var top = 0;
     // Find the highest value

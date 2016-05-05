@@ -15,7 +15,9 @@ function DevicesFactory(Restangular, uuid2) {
     loadDevicePlaylists: loadDevicePlaylists,
     provisionDevice: provisionDevice,
     disableDevice: disableDevice,
-    loadSyncStatus: loadSyncStatus
+    loadSyncStatus: loadSyncStatus,
+    loadDeviceSyncLog: loadDeviceSyncLog,
+    loadDeviceHeartbeatLog: loadDeviceHeartbeatLog
   };
 
   return devicesFactory;
@@ -77,4 +79,22 @@ function DevicesFactory(Restangular, uuid2) {
       return data;
     }
   }
+
+  function loadDeviceSyncLog(id) {
+    return Restangular.one('devices/' + id + 'synclog').get().then(loadDeviceSyncLogComplete);
+
+    function loadDeviceSyncLogComplete(data, status, headers, config) {
+      return data;
+    }
+
+  }
+
+  function loadDeviceHeartbeatLog(id) {
+    return Restangular.one('devices/' + id + 'heartbeatlog').get().then(loadDeviceHeartbeatLogComplete);
+
+    function loadDeviceHeartbeatLogComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
 }

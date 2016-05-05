@@ -1,4 +1,48 @@
-<h1>{{device.device.Name}}</h1>
+<div class="row devices">
+  <spinner class="spinner" name="device" show="true"></spinner>
+  <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
+
+    <div class="row heading">
+      <a class="back" ui-sref="devices-admin">{{'DEVICES' | translate}}</a>
+      <div class="columns small-10 medium-12">
+        <h1>{{device.device.Name}}</h1>
+      </div>
+      <div class="columns small-8 medium-6 text-center">
+        <button class="secondary" ui-sref="device-new">{{'DEVICE_DISABLE' | translate}}</button>
+      </div>
+    </div>
+
+    <div class="box">
+      <spinner class="spinner" name="heartbeatlog" show="true"></spinner>
+      <div class="row">
+        <div class="small-14 columns">
+          <h3>{{'DEVICE_CONNECTIVITY' | translate}}</h3>
+        </div>
+        <div class="small-4 columns">
+          {{'DAY' | translate | lowercase}} | {{'WEEK' | translate | lowercase}} | {{'MONTH' | translate | lowercase}}
+        </div>
+      </div>
+      A graph!
+    </div>
+
+    <h3>{{'DEVICE_SYNC_LOG' | translate}}</h3>
+
+    <spinner class="spinner" name="synclog" show="true"></spinner>
+
+    <table>
+      <tr>
+        <td>date</td>
+        <td>Sync cycle complete</td>
+        <td>Time</td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+
+<div class="row devices">
+  <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
+
 
 <table>
   <thead>
@@ -32,3 +76,6 @@
 {{device.playlists}}
 
 <div ui-view></div>
+
+</div>
+</div>

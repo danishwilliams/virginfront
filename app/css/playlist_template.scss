@@ -35,6 +35,14 @@ $template-radius: rem-calc(8px);
   .description {
     color: $grey;
   }
+  em {
+    font-style: inherit;
+    font-weight: bold;
+  }
+  p {
+    line-height: rem-calc(20);
+    margin-bottom: 0;
+  }
 }
 
 .freestyle {

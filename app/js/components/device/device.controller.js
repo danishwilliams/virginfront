@@ -1,7 +1,8 @@
-angular.module("app.device", []).controller('DeviceController', function ($stateParams, Devices) {
+angular.module("app.device", []).controller('DeviceController', function ($stateParams, Devices, spinnerService) {
   var self = this;
   this.id = $stateParams.id;
 
+  // Load the device details
   Devices.loadDevice(this.id).then(function (data) {
     self.device = data;
     spinnerService.hide('device');
