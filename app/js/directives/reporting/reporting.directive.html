@@ -12,7 +12,7 @@
             <h4 class="number">{{vm.registered.registered}}</h4>
             {{'registered' | translate | lowercase}}
             <br>
-            <a ui-sref="instructors({type:'registered'})">{{'VIEW_LIST' | translate}}</a>
+            <a ng-if="vm.registered.registered > 0" ui-sref="instructors({type:'registered'})">{{'VIEW_LIST' | translate}}</a>
           </div>
         </div>
         <div class="small-7 columns">
@@ -20,7 +20,7 @@
           <div class="content">
             <h4 class="number">{{vm.registered.unregistered}}</h4>
             {{'UNREGISTERED' | translate}}<br>
-            <a ui-sref="instructors({type:'unregistered'})">{{'VIEW_LIST' | translate}}</a>
+            <a ng-if="vm.registered.unregistered > 0" ui-sref="instructors({type:'unregistered'})">{{'VIEW_LIST' | translate}}</a>
           </div>
         </div>
         <div class="small-4 columns">
@@ -42,7 +42,7 @@
           <div class="content">
             <h4 class="number">{{vm.active.active}}</h4>
             {{'INSTRUCTORS_ACTIVE' | translate | lowercase}}<br>
-            <a ui-sref="instructors({type:'active'})">{{'VIEW_LIST' | translate}}</a>
+            <a ng-if="vm.active.active > 0" ui-sref="instructors({type:'active'})">{{'VIEW_LIST' | translate}}</a>
           </div>
         </div>
         <div class="small-7 columns">
@@ -50,7 +50,7 @@
           <div class="content">
             <h4 class="number">{{vm.active.inactive}}</h4>
             {{'INSTRUCTORS_INACTIVE' | translate | lowercase}}<br>
-            <a ui-sref="instructors({type:'inactive'})">{{'VIEW_LIST' | translate}}</a>
+            <a ng-if="vm.active.inactive > 0" ui-sref="instructors({type:'inactive'})">{{'VIEW_LIST' | translate}}</a>
           </div>
         </div>
         <div class="small-4 columns">
