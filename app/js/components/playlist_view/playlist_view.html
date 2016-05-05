@@ -49,10 +49,8 @@
       </div>
     </div>
 
-
     <div class="row submit">
-      <a ng-if="!playlist_view.newPlaylist" style="float:left;" ui-sref="dashboard">{{'RETURN_DASHBOARD' | translate}}</a>
-      <a class="cancel" ng-if="playlist_view.newPlaylist">{{'CANCEL' | translate}}</a>
+      <a class="cancel" ui-sref="dashboard">{{'RETURN_DASHBOARD' | translate}}</a>
       <input type="submit" ng-if="playlist_view.newPlaylist" ui-sref="playlist-new-sync({id:playlist_view.playlist.Id})" value="{{'SEND_CLUB' | translate}}">
     </div>
 
