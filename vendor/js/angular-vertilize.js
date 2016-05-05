@@ -4,8 +4,7 @@
  * https://github.com/Sixthdim/angular-vertilize.git
  * License: MIT
  *
- * Adapted by Roger Saner. Removed the dependency on jquery and using underscore to slow down the speed
- * at which we're watching elements, since they may be waiting for API calls to complete.
+ * Adapted by Roger Saner. Removed the dependency on jquery
  */
 (function () {
   "use strict";
@@ -85,16 +84,24 @@
 
           // Get my real height by cloning so my height is not affected.
           var getMyRealHeight = function () {
-            return element[0].offsetHeight;
+            return element[0].getBoundingClientRect().height;
+            /*
+            var clone = element.clone()
+              .removeAttr('vertilize')
+              .css({visibility: 'hidden'});
+            element.after(clone);
+            var realHeight = clone[0].getBoundingClientRect().height;
+            clone.remove();
+            return realHeight;
+            */
           };
 
           // Watch my height
-          scope.$watch(getMyRealHeight, _.throttle(function (e) {
-            if (attrs.vertilizeLoaded && !loaded) {
-              loaded = true;
-              parent.updateMyHeight(myIndex, element[0].offsetHeight);
+          scope.$watch(getMyRealHeight, function(myNewHeight){
+            if (myNewHeight){
+              parent.updateMyHeight(myIndex, myNewHeight);
             }
-          }, 600));
+          });
 
           // Watch for tallest height change
           scope.$watch(parent.getTallestHeight, function (tallestHeight) {
