@@ -34,7 +34,7 @@ function reportingDevicesController(Devices, spinnerService) {
         self.devices.disconnected++;        
       }
 
-      if (val.LatestSync.SyncSuccess === false) {
+      if (val.LatestSync && val.LatestSync.SyncSuccess === false) {
         self.devices.errors++;
       }
       else {

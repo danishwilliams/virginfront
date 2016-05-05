@@ -95,7 +95,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
 
   // Devices
   .state('devices-admin', {
-    url: '/admin/devices',
+    url: '/admin/devices?type',
     templateUrl: '../js/components/devices/devices.html',
     controller: 'DevicesController as vm',
     resolve: {
