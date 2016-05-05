@@ -69,7 +69,7 @@ function reportingController(Emails, Reporting, spinnerService) {
   });
 
   // Load up top rides per club
-  Reporting.loadRidesTaughtPerClub(14).then(function(data) {
+  Reporting.loadRidesTaughtPerClub(30).then(function(data) {
     self.rides = data;
     var top = 0;
     // Find the highest value
