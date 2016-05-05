@@ -282,6 +282,7 @@
   "DEVICES_ERRORS": "devices are reporting sync errors",
   "DEVICES_HAPPINESS": "Great! Looks like all devices are syncing successfully",
   "DEVICES_VIEW": "View devices",
+  "DEVICES_VIEW_ALL": "View all devices",
   "DEVICE_VIEW": "View device",
   "DEVICE_SYNC_ERROR": "Sync error",
   "DISCONNECTED": "Disconnected",
