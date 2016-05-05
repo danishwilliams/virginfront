@@ -80,8 +80,12 @@ function DevicesFactory(Restangular, uuid2) {
     }
   }
 
-  function loadDeviceSyncLog(id) {
-    return Restangular.one('devices/' + id + 'synclog').get().then(loadDeviceSyncLogComplete);
+  function loadDeviceSyncLog(id, page, resultCount) {
+    var params = {
+      page: page,
+      resultCount: resultCount
+    };
+    return Restangular.one('devices/' + id + '/synclog').get(params).then(loadDeviceSyncLogComplete);
 
     function loadDeviceSyncLogComplete(data, status, headers, config) {
       return data;
@@ -89,8 +93,12 @@ function DevicesFactory(Restangular, uuid2) {
 
   }
 
-  function loadDeviceHeartbeatLog(id) {
-    return Restangular.one('devices/' + id + 'heartbeatlog').get().then(loadDeviceHeartbeatLogComplete);
+  function loadDeviceHeartbeatLog(id, page, resultCount) {
+    var params = {
+      page: page,
+      resultCount: resultCount
+    };
+    return Restangular.one('devices/' + id + '/heartbeatlog').get(params).then(loadDeviceHeartbeatLogComplete);
 
     function loadDeviceHeartbeatLogComplete(data, status, headers, config) {
       return data;
