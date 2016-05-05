@@ -5,7 +5,7 @@
     <div class="row heading">
       <a class="back" ui-sref="devices-admin">{{'DEVICES' | translate}}</a>
       <div class="columns small-10 medium-12">
-        <h1>{{device.device.Name}}</h1>
+        <h1>{{vm.device.Name}}</h1>
       </div>
       <div class="columns small-8 medium-6 text-center">
         <button class="secondary" ui-sref="device-new">{{'DEVICE_DISABLE' | translate}}</button>
@@ -18,64 +18,69 @@
         <div class="small-14 columns">
           <h3>{{'DEVICE_CONNECTIVITY' | translate}}</h3>
         </div>
-        <div class="small-4 columns">
+        <div class="small-4 columns text-right">
           {{'DAY' | translate | lowercase}} | {{'WEEK' | translate | lowercase}} | {{'MONTH' | translate | lowercase}}
         </div>
       </div>
       A graph!
     </div>
 
-    <h3>{{'DEVICE_SYNC_LOG' | translate}}</h3>
+    <h3>{{'SYNC_LOG' | translate}}</h3>
 
     <spinner class="spinner" name="synclog" show="true"></spinner>
 
     <table>
-      <tr>
-        <td>date</td>
-        <td>Sync cycle complete</td>
-        <td>Time</td>
+      <tr ng-repeat="log in vm.synclog.DeviceSyncPlaylistSyncs">
+        <td>{{log.timeAgo | date : 'yyyy/MM/dd hh:mm'}}</td>
+        <td>
+          <span ng-if="log.syncSuccess">{{'SYNC_COMPLETE' | translate}}</span>
+          <span class="warning" ng-if="log.syncFailure">{{'SYNC_FAILED' | translate}}</span>
+          <span class="warning" ng-if="log.playlistSyncError">{{'PLAYLIST_SYNC_ERROR' | translate}}</span>
+        </td>
+        <td>{{log.timeAgo | timeago}}</td>
       </tr>
     </table>
 
   </div>
 </div>
 
+<!--
 <div class="row devices">
   <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
 
+    <table>
+      <thead>
+        <tr>
+          <td>Device name</td>
+          <td>Last sync attempt</td>
+          <td>Sync status</td>
+          <td>Gym</td>
+          <td>City</td>
+          <td>Music Provider</td>
+          <td>{{vm.device.User.UserMusicProvider.MusicProvider.Name}} Username</td>
+          <td>{{vm.device.User.UserMusicProvider.MusicProvider.Name}} Password</td>
+          <td>Provision Id</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{vm.device.Name}}</a></td>
+          <td>{{vm.device.LastSyncAttempt}}</td>
+          <td>{{vm.device.SyncSuccess}}</td>
+          <td>{{vm.device.Gym.Name}}</td>
+          <td>{{vm.device.Gym.Location.City}}</td>
+          <td>{{vm.device.User.UserMusicProvider.MusicProvider.Name}}</td>
+          <td>{{vm.device.User.UserMusicProvider.Username}}</td>
+          <td>{{vm.device.User.UserMusicProvider.Password}}</td>
+          <td>{{vm.device.DeviceProvisionId}}</td>
+        </tr>
+      </tbody>
+    </table>
 
-<table>
-  <thead>
-    <tr>
-      <td>Device name</td>
-      <td>Last sync attempt</td>
-      <td>Sync status</td>
-      <td>Gym</td>
-      <td>City</td>
-      <td>Music Provider</td>
-      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}} Username</td>
-      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}} Password</td>
-      <td>Provision Id</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{device.device.Name}}</a></td>
-      <td>{{device.device.LastSyncAttempt}}</td>
-      <td>{{device.device.SyncSuccess}}</td>
-      <td>{{device.device.Gym.Name}}</td>
-      <td>{{device.device.Gym.Location.City}}</td>
-      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}}</td>
-      <td>{{device.device.User.UserMusicProvider.Username}}</td>
-      <td>{{device.device.User.UserMusicProvider.Password}}</td>
-      <td>{{device.device.DeviceProvisionId}}</td>
-    </tr>
-  </tbody>
-</table>
+    {{vm.playlists}}
 
-{{device.playlists}}
+    <div ui-view></div>
 
-<div ui-view></div>
-
+  </div>
 </div>
-</div>
+-->

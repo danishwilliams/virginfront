@@ -290,6 +290,7 @@
   "DAY": "Day",
   "WEEK": "Week",
   "MONTH": "Month",
+  "SYNC_LOG": "Sync log",
   "SYNC_COMPLETE": "Sync cycle complete",
   "SYNC_FAILED": "Sync cycle failure",
   "PLAYLIST_SYNC_ERROR": "Playlist sync error",
