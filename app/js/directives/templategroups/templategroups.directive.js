@@ -49,6 +49,7 @@ function templateGroupsController(Templates, spinnerService) {
             if (!found && val.Id === data.TemplateGroupId) {
               found = true;
               val.ClassLengths = data.TemplateClassLength;
+              val.TemplateGroupUsageCount = data.TemplateGroupUsageCount;
             }
             return val;
           });
