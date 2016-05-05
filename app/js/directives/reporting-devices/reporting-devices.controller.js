@@ -19,7 +19,6 @@ function reportingDevicesController(Devices, spinnerService) {
 
   Devices.loadSyncStatus().then(function (data) {
     spinnerService.hide('devicesSpinner');
-    spinnerService.hide('devices1Spinner');
     self.devices = {
       connected: 0,
       disconnected: 0,
