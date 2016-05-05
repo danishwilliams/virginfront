@@ -7,11 +7,11 @@
       <div class="small-6 columns">
         <span class="connected" ng-if="device.Connected">{{'CONNECTED' | translate}}</span>
         <span class="warning" ng-if="device.Connected === false">{{'DISCONNECTED' | translate}}</span><br>
-        {{device.timeAgo | timeago}}
+        <span ng-if="device.timeAgo">{{device.timeAgo | timeago}}</span>
       </div>
       <div class="small-6 columns">
         <span class="warning" ng-if="device.error">{{'DEVICE_SYNC_ERROR' | translate}}</span><br>
-        {{device.timeAgoError | timeago}}
+        <span ng-if="device.timeAgo">{{device.timeAgoError | timeago}}</span>
       </div>
       <div class="small-6 columns text-right">
         <!--<a ui-sref="device({id:device.Device.Id})">{{'DEVICE_VIEW' | translate}}</a>-->

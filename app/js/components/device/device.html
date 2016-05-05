@@ -31,13 +31,13 @@
 
     <table>
       <tr ng-repeat="log in vm.synclog.DeviceSyncPlaylistSyncs">
-        <td>{{log.timeAgo | date : 'yyyy/MM/dd hh:mm'}}</td>
+        <td><span ng-if="log.timeAgo">{{log.timeAgo | date : 'yyyy/MM/dd hh:mm'}}</span></td>
         <td>
           <span ng-if="log.syncSuccess">{{'SYNC_COMPLETE' | translate}}</span>
           <span class="warning" ng-if="log.syncFailure">{{'SYNC_FAILED' | translate}}</span>
           <span class="warning" ng-if="log.playlistSyncError">{{'PLAYLIST_SYNC_ERROR' | translate}}</span>
         </td>
-        <td>{{log.timeAgo | timeago}}</td>
+        <td><span ng-if="log.timeAgo">{{log.timeAgo | timeago}}</span></td>
       </tr>
     </table>
 
