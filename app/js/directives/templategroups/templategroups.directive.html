@@ -19,8 +19,8 @@
             <span ng-if="$index > 0"> / </span>{{template.ClassLengthMinutes}}
           </span>
         </p>
-        <hr ng-if="template.TemplateGroupUsageCount >= 0">
-        <p ng-if="template.TemplateGroupUsageCount >= 0" class="description"><em translate="TEMPLATE_USED" translate-values="{number: template.TemplateGroupUsageCount}"></em><br>
+        <hr ng-if="templateGroup.TemplateGroupUsageCount >= 0">
+        <p ng-if="templateGroup.TemplateGroupUsageCount >= 0" class="description"><em translate="TEMPLATE_USED" translate-values="{number: templateGroup.TemplateGroupUsageCount}"></em><br>
           <span translate="TEMPLATE_USED_DAYS" translate-values="{number: vm.usageCountDays}"></span></p>
       </div>
     </a>
