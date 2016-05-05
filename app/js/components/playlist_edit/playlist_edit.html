@@ -47,7 +47,7 @@
               </h4>
             </div>
             <div class="small-8 medium-4 columns text-right chevron">
-              <a ng-show="playlistGoal.PlaylistGoalTracks.length === 0" ng-click="playlistGoal.editFreeStyleGoal = false">+ {{'ADD_SONG' | translate}}</a>
+              <a ng-show="playlistGoal.PlaylistGoalTracks.length === 0" ng-click="playlistGoal.editFreeStyleGoal = false" ng-hide="playlistGoal.editFreeStyleGoal">+ {{'ADD_SONG' | translate}}</a>
               <i class="right" ng-class="{'chevron-down': playlistGoal.show  && playlistGoal.PlaylistGoalTracks.length > 0, 'chevron-right': !playlistGoal.show || playlistGoal.PlaylistGoalTracks.length == 0}"></i>
             </div>
           </div>
