@@ -103,6 +103,7 @@
   "RIDES_TAUGHT": "Número de clases impartidas en los últimos 30 días",
   "VIEW_PROFILE": "Ver perfil",
   "LAST_LOGIN": "Último inicio de sesión",
+  "NEVER": "Never",
   "MY_RIDES": "Mis clases",
   "BACK": "Volver",
   "CANCEL": "Cancelar",

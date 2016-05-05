@@ -103,6 +103,7 @@
   "RIDES_TAUGHT": "Instrutores que deram uma aula nos últimos 30 dias",
   "VIEW_PROFILE": "Ver perfil",
   "LAST_LOGIN": "Último inicio de sessão",
+  "NEVER": "Never",
   "MY_RIDES": "Os meus percursos",
   "BACK": "Voltar",
   "CANCEL": "Cancelar",

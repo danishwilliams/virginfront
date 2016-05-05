@@ -103,6 +103,7 @@
   "RIDES_TAUGHT": "Number of rides taught in the last 30 days",
   "VIEW_PROFILE": "View profile",
   "LAST_LOGIN": "Last login",
+  "NEVER": "Never",
   "MY_RIDES": "My rides",
   "BACK": "Back",
   "CANCEL": "Cancel",
