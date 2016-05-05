@@ -143,10 +143,8 @@ function TemplatesFactory(Restangular, uuid2, Users) {
     return templategroup;
   }
 
-  function loadTemplateGroups(includeGoals) {
-    return Restangular.all('templategroups').getList({
-      includeGoals: includeGoals
-    }).then(loadTemplateGroupsComplete);
+  function loadTemplateGroups() {
+    return Restangular.all('templategroups').getList().then(loadTemplateGroupsComplete);
 
     function loadTemplateGroupsComplete(data, status, headers, config) {
       templateGroups = data;

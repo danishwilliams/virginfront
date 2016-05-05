@@ -27,7 +27,7 @@ templateGroupsController.$inject = ['Templates', 'spinnerService'];
 function templateGroupsController(Templates, spinnerService) {
   var self = this;
 
-  Templates.loadTemplateGroups(true).then(function (templateGroups) {
+  Templates.loadTemplateGroups().then(function (templateGroups) {
     self.templateGroups = templateGroups;
 
     var i = 0;
