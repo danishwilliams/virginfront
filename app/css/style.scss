@@ -152,6 +152,16 @@ label.radio {
   padding-bottom: rem-calc(10px);
 }
 
+/* Tables */
+
+table {
+  border: none;
+  width: 100%;
+  table tr:nth-of-type(even) {
+    background: $grey_lighter;
+  }
+}
+
 /*
 html {
   height: 100%;
