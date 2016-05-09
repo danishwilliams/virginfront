@@ -1,4 +1,4 @@
-<div class="row devices">
+<div class="row device">
   <spinner class="spinner" name="device" show="true"></spinner>
   <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
 
@@ -35,7 +35,14 @@
         <td>
           <span ng-if="log.syncSuccess">{{'SYNC_COMPLETE' | translate}}</span>
           <span class="warning" ng-if="log.syncFailure">{{'SYNC_FAILED' | translate}}</span>
-          <span class="warning" ng-if="log.playlistSyncError">{{'PLAYLIST_SYNC_ERROR' | translate}}</span>
+          <span ng-if="log.playlistSyncError">
+            <div class="warning">{{'PLAYLIST_SYNC_ERROR' | translate}}</div>
+            <div ng-repeat="error in log.DevicePlaylistSyncs">
+              {{error.Playlist.User.FirstName}} {{error.Playlist.User.LastName}}<br>
+              {{error.Playlist.Name}}<br>
+              {{error.SyncErrorMessage}}
+            </div><br>
+          </span>
         </td>
         <td>{{log.timeAgo | timeago}}</td>
       </tr>
