@@ -93,12 +93,10 @@ function DevicesFactory(Restangular, uuid2) {
 
   }
 
-  function loadDeviceHeartbeatLog(id, page, resultCount) {
-    var params = {
-      page: page,
-      resultCount: resultCount
-    };
-    return Restangular.one('devices/' + id + '/heartbeatlog').get(params).then(loadDeviceHeartbeatLogComplete);
+  function loadDeviceHeartbeatLog(id, sinceDays) {
+    return Restangular.one('devices/' + id + '/heartbeatlog').get({
+      sinceDays: sinceDays
+    }).then(loadDeviceHeartbeatLogComplete);
 
     function loadDeviceHeartbeatLogComplete(data, status, headers, config) {
       return data;
