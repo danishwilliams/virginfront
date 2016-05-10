@@ -2,13 +2,13 @@
   &.box {
     padding: rem-calc(16) rem-calc(12) rem-calc(32) rem-calc(13);
     min-width: rem-calc(1180);
-    display: inline-block;
+    //display: inline-block;
   }
   .beats {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space:nowrap;
-    //height: 80px;
+    //overflow-x: scroll;
+    //overflow-y: hidden;
+    //white-space:nowrap;
+    height: rem-calc(60);
   }
   .joyride-tip-guide {
     margin-left: rem-calc(-31);
@@ -23,7 +23,7 @@
   }
 }
 .pulse {
-  display: block;
+  display: inline-block;
   width: rem-calc(3);
   height: rem-calc(6);
   margin-right: rem-calc(1);
@@ -32,11 +32,11 @@
 }
 
 .no-pulse {
-  display: block;
+  display: inline-block;
   width: rem-calc(3);
   height: rem-calc(6);
   margin-right: rem-calc(1);
-  margin-top: rem-calc(20);
+  margin-top: rem-calc(40);
   background-color: $warning-color-font;
   float: left;
 }
