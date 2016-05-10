@@ -5,24 +5,21 @@
     <div class="row heading">
       <a class="back" ui-sref="devices-admin">{{'DEVICES' | translate}}</a>
       <div class="columns small-10 medium-12">
-        <h1>{{vm.device.Name}}</h1>
+        <h1>{{vm.synclog.Device.Name}}</h1>
       </div>
       <div class="columns small-8 medium-6 text-center">
         <button class="secondary" ui-sref="device-new">{{'DEVICE_DISABLE' | translate}}</button>
       </div>
     </div>
 
-    <div class="box">
+    <div class="box heartbeat">
       <spinner class="spinner" name="heartbeatlog" show="true"></spinner>
-      <div class="row">
-        <div class="small-14 columns">
-          <h3>{{'DEVICE_CONNECTIVITY' | translate}}</h3>
-        </div>
-        <div class="small-4 columns text-right">
-          {{'DAY' | translate | lowercase}} | {{'WEEK' | translate | lowercase}} | {{'MONTH' | translate | lowercase}}
+      <h3>{{'DEVICE_CONNECTIVITY' | translate}}</h3>
+      <div class="beats">
+        <div ng-repeat="beat in vm.heartbeat track by $index">
+          <div ng-class="{'pulse': beat.beat, 'no-pulse': !beat.beat}" popover-title="{{beat.date | date : 'MMMM' | translate}} {{beat.date | date : 'dd, yyyy HH:mm'}}" data-popover="{{vm.popoverContents(beat) | translate}}" popover-trigger="mouseenter"></div>
         </div>
       </div>
-      A graph!
     </div>
 
     <h3>{{'SYNC_LOG' | translate}}</h3>
@@ -51,43 +48,3 @@
   </div>
 </div>
 
-<!--
-<div class="row devices">
-  <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
-
-    <table>
-      <thead>
-        <tr>
-          <td>Device name</td>
-          <td>Last sync attempt</td>
-          <td>Sync status</td>
-          <td>Gym</td>
-          <td>City</td>
-          <td>Music Provider</td>
-          <td>{{vm.device.User.UserMusicProvider.MusicProvider.Name}} Username</td>
-          <td>{{vm.device.User.UserMusicProvider.MusicProvider.Name}} Password</td>
-          <td>Provision Id</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{vm.device.Name}}</a></td>
-          <td>{{vm.device.LastSyncAttempt}}</td>
-          <td>{{vm.device.SyncSuccess}}</td>
-          <td>{{vm.device.Gym.Name}}</td>
-          <td>{{vm.device.Gym.Location.City}}</td>
-          <td>{{vm.device.User.UserMusicProvider.MusicProvider.Name}}</td>
-          <td>{{vm.device.User.UserMusicProvider.Username}}</td>
-          <td>{{vm.device.User.UserMusicProvider.Password}}</td>
-          <td>{{vm.device.DeviceProvisionId}}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    {{vm.playlists}}
-
-    <div ui-view></div>
-
-  </div>
-</div>
--->
