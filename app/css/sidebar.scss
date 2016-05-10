@@ -3,6 +3,10 @@ $sidebar-width: 90px;
   width: auto;
 }
 
+.off-canvas-wrap {
+  overflow: scroll;
+}
+
 .move-right .inner-wrap {
   -ms-transform: none;
   -webkit-transform: none;
