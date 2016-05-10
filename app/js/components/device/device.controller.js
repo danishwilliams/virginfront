@@ -2,27 +2,59 @@ angular.module("app.device", []).controller('DeviceController', function ($state
   var self = this;
   this.id = $stateParams.id;
 
-  // Load the device details
-  Devices.loadDevice(this.id).then(function (data) {
-    self.device = data;
-    spinnerService.hide('device');
+  // for a week: 287 -> 2100
+              // 5 -> 35
+
+  // Load the device heartbeat
+  Devices.loadDeviceHeartbeatLog(self.id, 10).then(function (data) {
+    // Convert each heartbeat into a value between 0 and 287 (5 x 12 x 24) since there's a heartbeat every 5 minutes
+    var secondsInADay = 60 * 60 * 24;
+    data.forEach(function (val) {
+      // Get the current time in seconds
+      val.CreateDate = new Date(val.CreateDate);
+      var seconds = Math.floor((new Date() - val.CreateDate) / 1000);
+
+      // Convert this into a value between 0 and 287
+      var beat = 287 - (287 * ((seconds / secondsInADay)));
+      val.beat = Math.round(beat);
+    });
+
+    self.heartbeat = [];
+    var num = 0;
+    for (var i = 0; i <= 287; i++) {
+      // Work out the datetime
+      var secondsAgo = (287 - i) * 5 * 60;
+      var date = new Date(new Date().getTime() - secondsAgo * 1000);
+
+      // Is this a heartbeat or not?
+      var beat = false;
+      var k = _.findIndex(data, {beat: i});
+      if (k > -1) {
+        beat = true;
+        date = data[k].CreateDate;
+        num++;
+      }
+
+      self.heartbeat.push({
+        beat: beat,
+        date: date
+      });
+    }
   });
 
   // Load the device sync log
   Devices.loadDeviceSyncLog(self.id, 1, 20).then(function (data) {
     self.synclog = data;
+    spinnerService.hide('device');
 
-    console.log(data);
-
-    self.synclog.DeviceSyncPlaylistSyncs.forEach(function(val) {
+    self.synclog.DeviceSyncPlaylistSyncs.forEach(function (val) {
       if (val.DeviceSync.SyncSuccess === false) {
         // Sync cycle failure
         val.syncFailure = true;
         val.timeAgo = val.DeviceSync.SyncEndDate;
-      }
-      else {
+      } else {
         // Loop through DevicePlaylistSyncs to see if there's an error
-        val.DevicePlaylistSyncs.forEach(function(val1) {
+        val.DevicePlaylistSyncs.forEach(function (val1) {
           if (val1.SyncError && !val.playlistSyncError) {
             val.playlistSyncError = true;
             val.timeAgo = val1.CreateDate;
@@ -46,5 +78,12 @@ angular.module("app.device", []).controller('DeviceController', function ($state
 
   this.update = function (device) {
     device.put();
+  };
+
+  self.popoverContents = function(beat) {
+    if (beat.beat) {
+      return 'CONNECTED';
+    }
+    return 'DISCONNECTED';
   };
 });
