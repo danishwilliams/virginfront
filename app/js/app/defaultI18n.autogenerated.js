@@ -289,6 +289,7 @@
   "DEVICES": "Devices",
   "DEVICES_SEARCH": "Search by club or device name",
   "DEVICE_DISABLE": "Disable this device",
+  "PRIMARY": "Primary",
   "DAY": "Day",
   "WEEK": "Week",
   "MONTH": "Month",
