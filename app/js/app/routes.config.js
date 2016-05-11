@@ -99,7 +99,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/devices/devices.html',
     controller: 'DevicesController as vm',
     resolve: {
-      $title: function() { return 'DEVICE_PAGE'; }
+      $title: function() { return 'DEVICES_PAGE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.devices]
@@ -123,19 +123,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/device/device.html',
     controller: 'DeviceController as vm',
     resolve: {
-      $title: function() { return 'Device | Admin'; }
-    },
-    data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
-    }
-  })
-
-  .state('device.playlists', {
-    url: '/playlists',
-    templateUrl: '../js/components/playlists/playlists.html',
-    controller: 'DevicePlaylistsController as playlists',
-    resolve: {
-      $title: function() { return 'Device playlists | Admin'; }
+      $title: function() { return 'DEVICE_PAGE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.viewAdmin]
@@ -148,8 +136,19 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/devices/devices.html',
     controller: 'DevicesController as devices'
   })
-
   */
+
+  .state('device-error-log', {
+    url: '/admin/devices/:id/errors',
+    templateUrl: '../js/components/device_error_log/device_error_log.html',
+    controller: 'DeviceErrorLogController as vm',
+    resolve: {
+      $title: function() { return 'DEVICE_ERRORS_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.viewAdmin]
+    }
+  })
 
   // Genres
   .state('genres-admin', {

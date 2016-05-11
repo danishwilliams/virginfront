@@ -1,0 +1,15 @@
+<div class="row device-error-log">
+  <spinner class="spinner" name="deviceErrors" show="true"></spinner>
+  <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
+
+  <div class="row heading">
+    <a class="back" ui-sref="device({id:vm.id})">{{'DEVICE' | translate}}</a>
+    <h1>{{vm.device.Name}} <span ng-if="vm.device.Primary">{{'PRIMARY' | translate}}</span> {{'ERROR_LOG' | translate}}</h1>
+  </div>
+
+  <div class="row" ng-repeat="log in vm.log">
+    <label class="inline">{{'DATE' | translate}}:</label> {{log.ErrorDate | date : 'yyyy/MM/dd hh:mm'}}<br>
+    <label class="inline">{{'MESSAGE' | translate}}:</label> {{log.Message}}<br>
+    <label class="inline">{{'MESSAGE_DETAIL' | translate}}:</label> {{log.MessageDetail}}<br><br>
+  </div>
+</div>

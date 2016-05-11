@@ -17,7 +17,8 @@ function DevicesFactory(Restangular, uuid2) {
     disableDevice: disableDevice,
     loadSyncStatus: loadSyncStatus,
     loadDeviceSyncLog: loadDeviceSyncLog,
-    loadDeviceHeartbeatLog: loadDeviceHeartbeatLog
+    loadDeviceHeartbeatLog: loadDeviceHeartbeatLog,
+    loadDeviceErrorLog: loadDeviceErrorLog
   };
 
   return devicesFactory;
@@ -90,7 +91,6 @@ function DevicesFactory(Restangular, uuid2) {
     function loadDeviceSyncLogComplete(data, status, headers, config) {
       return data;
     }
-
   }
 
   function loadDeviceHeartbeatLog(id, sinceDays) {
@@ -103,4 +103,15 @@ function DevicesFactory(Restangular, uuid2) {
     }
   }
 
+  function loadDeviceErrorLog(id, page, resultCount) {
+    var params = {
+      page: page,
+      resultCount: resultCount
+    };
+    return Restangular.one('devices/' + id + '/errorlog').get(params).then(loadDeviceErrorLogComplete);
+
+    function loadDeviceErrorLogComplete(data, status, headers, config) {
+      return data;
+    }
+  }
 }
