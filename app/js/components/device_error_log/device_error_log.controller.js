@@ -8,9 +8,6 @@ angular.module("app.device_error_log", []).controller('DeviceErrorLogController'
 
   Devices.loadDeviceErrorLog(self.id, 1, 20).then(function (data) {
     self.log = data;
-    if (_.isEmpty(data)) {
-      self.log = undefined;
-    }
     spinnerService.hide('deviceErrors');
   });
 });
