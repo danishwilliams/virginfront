@@ -1,9 +1,9 @@
-angular.module("app.device", []).controller('DeviceController', function ($stateParams, Devices, spinnerService) {
+angular.module("app.device", []).controller('DeviceController', function ($stateParams, Devices, spinnerService, $modal) {
   var self = this;
   this.id = $stateParams.id;
 
   // for a week: 287 -> 2100
-              // 5 -> 35
+  // 5 -> 35
 
   // Load the device heartbeat
   Devices.loadDeviceHeartbeatLog(self.id, 10).then(function (data) {
@@ -28,7 +28,9 @@ angular.module("app.device", []).controller('DeviceController', function ($state
 
       // Is this a heartbeat or not?
       var beat = false;
-      var k = _.findIndex(data, {beat: i});
+      var k = _.findIndex(data, {
+        beat: i
+      });
       if (k > -1) {
         beat = true;
         date = data[k].CreateDate;
@@ -87,10 +89,24 @@ angular.module("app.device", []).controller('DeviceController', function ($state
     device.put();
   };
 
-  self.popoverContents = function(beat) {
+  self.popoverContents = function (beat) {
     if (beat.beat) {
       return 'CONNECTED';
     }
     return 'DISCONNECTED';
+  };
+
+  self.confirmDeviceDisable = function () {
+    var modalInstance = $modal.open({
+      templateUrl: '../js/components/device/confirm_device_disable.html',
+      controller: 'DeviceDisableModalInstanceCtrl as vm'
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      self.result = selectedItem;
+      if (self.result) {
+        console.log('disable the device!');
+      }
+    });
   };
 });
