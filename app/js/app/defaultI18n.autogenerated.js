@@ -287,6 +287,8 @@
   "DEVICE_SYNC_ERROR": "Sync error",
   "DISCONNECTED": "Disconnected",
   "DEVICES": "Devices",
+  "DOWNLOAD_ERRORS": "Download failed",
+  "LINK_ERRORS": "Unable to get track download link",
   "DEVICES_SEARCH": "Search by club or device name",
   "DEVICE_DISABLE": "Disable this device",
   "PRIMARY": "Primary",

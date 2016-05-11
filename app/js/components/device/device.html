@@ -37,7 +37,20 @@
             <div ng-repeat="error in log.DevicePlaylistSyncs">
               {{error.Playlist.User.FirstName}} {{error.Playlist.User.LastName}}<br>
               {{error.Playlist.Name}}<br>
-              {{error.SyncErrorMessage}}
+
+              <span ng-if="error.DownloadErrorTracks"><br>
+                <em>{{'DOWNLOAD_ERRORS' | translate}}</em>
+                <div ng-repeat="downloadError in error.DownloadErrorTracks">
+                  {{downloadError.Name}} - {{downloadError.Artist}}. {{downloadError.Album}}
+                </div>
+              </span>
+
+              <span ng-if="error.DownloadErrorTracks"><br>
+                <em>{{'LINK_ERRORS' | translate}}</em>
+                <div ng-repeat="linkError in error.GetLinkErrorTracks">
+                  {{linkError.Name}} - {{linkError.Artist}}. {{linkError.Album}}
+                </div>
+              </span>
             </div><br>
           </span>
         </td>

@@ -58,6 +58,11 @@ angular.module("app.device", []).controller('DeviceController', function ($state
           if (val1.SyncError && !val.playlistSyncError) {
             val.playlistSyncError = true;
             val.timeAgo = val1.CreateDate;
+
+            // Convert the error string into a JSON object
+            var errors = JSON.parse(val1.JsonObject);
+            val1.DownloadErrorTracks = errors.DownloadErrorTracks;
+            val1.GetLinkErrorTracks = errors.GetLinkErrorTracks;
           }
         });
       }
