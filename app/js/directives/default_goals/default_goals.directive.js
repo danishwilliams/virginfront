@@ -90,7 +90,7 @@ function defaultGoalsController(Users, Goals, Beats, spinnerService) {
    * if <form> isn't used (and I'm using two nested ng-form's) then the value of form.$submitted is always wrong. Solution:
    * manually handle the form submission logic by moving it onto the goal object.
    */
-  self.update = function (goal, valid) {
+  self.update = function (goal, valid, goalForm) {
     goal.submitted = true;
     if (!valid) {
       return;
@@ -99,6 +99,7 @@ function defaultGoalsController(Users, Goals, Beats, spinnerService) {
     goal.put().then(function () {
       goal.saving = false;
       goal.saved = true;
+      goalForm.$setPristine();
     });
   };
 }

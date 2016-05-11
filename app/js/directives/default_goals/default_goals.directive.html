@@ -100,24 +100,24 @@
       <div class="row submit" ng-show="goal.show">
 
         <!-- Challenge goal -->
-        <alert ng-if="goal.saved" ng-show="goal.Goal.GoalChallengeId" type="'success'">{{'CHALLENGE_GOAL_SAVED' | translate}}</alert>
-        <span ng-if="goal.Goal.GoalChallengeId">
-          <alert type="'warning'" class="contains-button" ng-hide="goalForm.$pristine || goal.saved">
+        <alert ng-if="goal.saved" ng-hide="!goalForm.$pristine" ng-show="goal.Goal.GoalChallengeId" type="'success'" close="goal.saved = undefined;">{{'CHALLENGE_GOAL_SAVED' | translate}}</alert>
+        <div ng-if="goal.Goal.GoalChallengeId">
+          <alert type="'warning'" class="contains-button" ng-hide="goalForm.$pristine">
             <div class="row">
               <div class="medium-14 columns">
                 {{'CHALLENGE_GOAL_CONFIRM' | translate}}
               </div>
               <div class="medium-4 columns">
-                <input type="submit" value="{{'SAVE_CHALLENGE_GOAL' | translate}}" ng-click="vm.update(goal, goalForm.$valid)" ng-disabled="goalForm.$pristine || goal.saving">
+                <input type="submit" value="{{'SAVE_CHALLENGE_GOAL' | translate}}" ng-click="vm.update(goal, goalForm.$valid, goalForm)" ng-disabled="goalForm.$pristine || goal.saving">
               </div>
             </div>
           </alert>
           <input ng-hide="!goalForm.$pristine" type="submit" value="{{'SAVE_CHALLENGE_GOAL' | translate}}" ng-disabled="goalForm.$pristine || goal.saving">
-        </span>
+        </div>
 
         <!-- Default goal -->
-        <alert ng-if="goal.saved" ng-hide="goal.Goal.GoalChallengeId" type="'success'" close="goal.saved = undefined; goalForm.$setPristine(true);">{{'GOAL_SAVED' | translate}}</alert>
-        <input ng-hide="goal.Goal.GoalChallengeId || goal.saved" type="submit" value="{{'SAVE_GOAL' | translate}}" ng-click="vm.update(goal, goalForm.$valid)" ng-disabled="goalForm.$pristine || goal.saving">
+        <alert ng-if="goal.saved" ng-hide="goal.Goal.GoalChallengeId" type="'success'" close="goal.saved = undefined;">{{'GOAL_SAVED' | translate}}</alert>
+        <input ng-hide="goal.Goal.GoalChallengeId" type="submit" value="{{'SAVE_GOAL' | translate}}" ng-click="vm.update(goal, goalForm.$valid, goalForm)" ng-disabled="goalForm.$pristine || goal.saving">
       </div>
     </ng-form>
 
