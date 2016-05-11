@@ -42,14 +42,15 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
     // If the user is a manager: if the "Is Pack Instructor" has been checked in the UI
     self.newUser.UserUserTypes = [];
     self.userTypes.forEach(function (val) {
+      var userType = angular.copy(val);
       if (val.selected || (self.packInstructor && val.Name === 'Pack Instructor')) {
-        val.UserTypeId = val.Id;
-        val.Id = undefined; // so we can insert a new record
-        val.UserType = {
+        userType.UserTypeId = val.Id;
+        userType.Id = undefined; // so we can insert a new record
+        userType.UserType = {
           Name: val.Name,
           PublicRole: val.PublicRole
         };
-        self.newUser.UserUserTypes.push(val);
+        self.newUser.UserUserTypes.push(userType);
       }
     });
 
