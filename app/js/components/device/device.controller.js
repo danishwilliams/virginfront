@@ -60,9 +60,11 @@ angular.module("app.device", []).controller('DeviceController', function ($state
             val.timeAgo = val1.CreateDate;
 
             // Convert the error string into a JSON object
-            var errors = JSON.parse(val1.JsonObject);
-            val1.DownloadErrorTracks = errors.DownloadErrorTracks;
-            val1.GetLinkErrorTracks = errors.GetLinkErrorTracks;
+            if (!_.isEmpty(val1.JsonObject)) {
+              var errors = JSON.parse(val1.JsonObject);
+              val1.DownloadErrorTracks = errors.DownloadErrorTracks;
+              val1.GetLinkErrorTracks = errors.GetLinkErrorTracks;
+            }
           }
         });
       }

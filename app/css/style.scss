@@ -21,13 +21,16 @@ h1.site-heading {
 .heading {
   border-bottom: 1px solid $grey_light;
   color: $grey_light;
-  h1 {
+  h1, h2, h3 {
     margin-bottom: 0;
   }
   a {
     padding-top: rem-calc(42px);
     display: block;
     float: right;
+    &.h3 {
+      padding-top: rem-calc(4px);
+    }
     &.back {
       padding-top: rem-calc(16px);
       padding-bottom: 0;

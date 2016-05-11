@@ -22,7 +22,14 @@
       </div>
     </div>
 
-    <h3>{{'SYNC_LOG' | translate}}</h3>
+    <div class="row heading">
+      <div class="columns small-10 medium-12">
+        <h3>{{'SYNC_LOG' | translate}}</h3>
+      </div>
+      <div class="columns small-8 medium-6 text-center">
+        <a class="h3" ui-sref="device-error-log({id:vm.id})">{{'DEVICE_ERROR_LOG' | translate}}</a>
+      </div>
+    </div>
 
     <spinner class="spinner" name="synclog" show="true"></spinner>
 
