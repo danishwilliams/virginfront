@@ -5,14 +5,35 @@
     <div class="row heading">
       <a class="back" ui-sref="devices-admin">{{'DEVICES' | translate}}</a>
       <div class="columns small-10 medium-12">
-        <h1>{{vm.synclog.Device.Name}}
-          <span class="type" ng-if="vm.synclog.Device.Primary">{{'PRIMARY' | translate}}</span>
-          <span class="type" ng-if="!vm.synclog.Device.Primary">{{'SECONDARY' | translate}}</span>
+        <h1>{{vm.device.Name}}
+          <span class="type" ng-if="vm.device.Primary">{{'PRIMARY' | translate}}</span>
+          <span class="type" ng-if="!vm.device.Primary">{{'SECONDARY' | translate}}</span>
+          <button class="edit" ng-hide="vm.edit" ng-click="vm.editClick()">{{'EDIT' | translate}}</button>
         </h1>
       </div>
       <div class="columns small-8 medium-6 text-center">
         <button class="secondary" ui-sref="device-new">{{'DEVICE_DISABLE' | translate}}</button>
       </div>
+    </div>
+
+    <div class="row" ng-show="vm.edit">
+      <form name="vm.form" novalidate>
+        <label>{{'DEVICE_NAME' | translate}}</label>
+        <input type="text" name="name" size="60" maxlength="60" ng-model="vm.device.Name" required />
+        <div ng-show="vm.form.$submitted || vm.form.name.$touched">
+          <small class="error" ng-show="vm.form.name.$error.required">{{'DEVICE_NAME_REQ' | translate}}</small>
+        </div>
+
+        <label>{{'TYPE' | translate}}</label>
+        <label><input type="radio" ng-model="vm.device.Primary" ng-value="true"> {{'PRIMARY' | translate}}</label>
+        <label><input type="radio" ng-model="vm.device.Primary" ng-value="false"> {{'SECONDARY' | translate}}</label>
+
+        <div class="row submit">
+          <a class="cancel" ng-click="vm.editCancelled()">{{'CANCEL' | translate}}</a>
+          <input type="submit" ng-disabled="vm.form.$pristine || vm.saving" ng-click="vm.saveDevice()" value="{{'SAVE' | translate}}">
+          <spinner class="spinner" name="saveDeviceSpinner" show="false"></spinner>
+        </div>
+      </form>
     </div>
 
     <div class="box heartbeat">

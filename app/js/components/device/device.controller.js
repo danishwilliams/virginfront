@@ -2,8 +2,12 @@ angular.module("app.device", []).controller('DeviceController', function ($state
   var self = this;
   this.id = $stateParams.id;
 
+  Devices.loadDevice(self.id).then(function (data) {
+    self.device = data;
+  });
+
   // for a week: 287 -> 2100
-              // 5 -> 35
+  // 5 -> 35
 
   // Load the device heartbeat
   Devices.loadDeviceHeartbeatLog(self.id, 10).then(function (data) {
@@ -28,7 +32,9 @@ angular.module("app.device", []).controller('DeviceController', function ($state
 
       // Is this a heartbeat or not?
       var beat = false;
-      var k = _.findIndex(data, {beat: i});
+      var k = _.findIndex(data, {
+        beat: i
+      });
       if (k > -1) {
         beat = true;
         date = data[k].CreateDate;
@@ -83,11 +89,31 @@ angular.module("app.device", []).controller('DeviceController', function ($state
     spinnerService.hide('heartbeatlog');
   });
 
-  this.update = function (device) {
-    device.put();
+  self.editClick = function () {
+    self.edit = true;
+    self.snapshot = {
+      Name: self.device.Name,
+      Primary: self.device.Primary
+    };
   };
 
-  self.popoverContents = function(beat) {
+  self.editCancelled = function () {
+    self.device.Name = self.snapshot.Name;
+    self.device.Primary = self.snapshot.Primary;
+    self.form.$setPristine();
+    self.edit = false;
+  };
+
+  this.saveDevice = function () {
+    spinnerService.show('saveDeviceSpinner');
+    self.saving = true;
+    self.device.put().then(function() {
+      spinnerService.hide('saveDeviceSpinner');
+      self.saving = false;
+    });
+  };
+
+  self.popoverContents = function (beat) {
     if (beat.beat) {
       return 'CONNECTED';
     }
