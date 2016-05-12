@@ -42,6 +42,9 @@
 }
 
 .device {
+  h1 .type {
+    font-weight: inherit;
+  }
   .type {
     font-style: italic;
     font-weight: normal;
