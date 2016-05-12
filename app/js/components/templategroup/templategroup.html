@@ -34,6 +34,7 @@
           <small class="error" ng-show="form.description.$error.required">{{'TEMPLATE_DESC_REQ' | translate}}</small>
         </div>
 
+        <span ng-if="vm.templategroup.Type !== 'freestyle' || !vm.id">
         <label>{{'ICON' | translate}}</label>
         <select name="icon" ng-options="v for v in vm.iconFileNames" ng-model="vm.templategroup.IconFileName" required></select>
         <div ng-show="form.$submitted || form.icon.$touched">
@@ -42,6 +43,7 @@
 
         <label>{{'TYPE' | translate}}</label>
         <select name="type" ng-options="v for v in vm.types" ng-model="vm.templategroup.Type" required></select>
+        </span>
 
         <div class="row submit">
           <a class="cancel" ng-click="vm.editCancelled()">{{'CANCEL' | translate}}</a>

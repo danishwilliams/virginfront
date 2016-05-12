@@ -9,7 +9,7 @@
   <option ng-if="vm.allowEditingGoal" value="" disabled></option>
 
   <option ng-if="vm.addAGoal && vm.hasGoals" value="" disabled selected>{{'ADD_GOAL' | translate}}</option>
-  <option ng-if="vm.changingGoal" value="" disabled selected>{{'CHANGE_GOAL' | translate}}</option>
+  <option ng-if="vm.changingGoal" value="" disabled selected>{{'SELECT_GOAL' | translate}}</option>
   <option ng-if="!goal.Goal.GoalChallengeId" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
   <option value="" disabled></option>
 

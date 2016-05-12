@@ -93,8 +93,8 @@ reporting, reporting-devices {
   svg.circle {
     transform: rotate(270deg);
     display: inline-block;
-    width: 90px;
-    height: 90px;
+    width: rem-calc(90);
+    height: rem-calc(90);
     stroke: $grey_medium;
   }
 

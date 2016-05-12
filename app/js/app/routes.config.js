@@ -126,7 +126,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'DEVICE_PAGE'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.devices]
     }
   })
 
@@ -146,7 +146,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       $title: function() { return 'DEVICE_ERRORS_PAGE'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.devices]
     }
   })
 

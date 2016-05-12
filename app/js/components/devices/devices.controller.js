@@ -7,7 +7,7 @@ angular.module("app.devices", []).controller('DevicesController', function ($sta
 
     data.forEach(function (val) {
       // Was there a syncing error?
-      if (val.LatestSync.SyncSuccess === false) {
+      if (val.LatestSync && val.LatestSync.SyncSuccess === false) {
         val.error = true;
         val.timeAgoError = val.LastHeartbeat;
       }

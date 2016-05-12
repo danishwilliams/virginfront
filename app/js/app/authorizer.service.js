@@ -36,7 +36,7 @@ angular.module("app").service('Authorizer', function (APP_PERMISSIONS, USER_ROLE
 
           // Managers only
           case APP_PERMISSIONS.isManager:
-            return hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.techManager);
+            return hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.techManager) && !hasRole(USER_ROLES.admin);
 
             // Managers, Admins
           case APP_PERMISSIONS.editAnyPlaylist:

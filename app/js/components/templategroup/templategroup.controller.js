@@ -31,7 +31,6 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
   self.iconFileNames = [
     '',
     'allterrain.svg',
-    'freestyle.svg',
     'hills.svg',
     'intervals.svg',
     'pack.svg',
@@ -51,6 +50,7 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     });
     if (!freestyleExists) {
       self.types.push('freestyle');
+      self.iconFileNames.push('freestyle');
     }
   });
 

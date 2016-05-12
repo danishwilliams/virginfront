@@ -112,7 +112,7 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
           Users.setCurrentUserState(USER_STATES.onboarding_clubs);
 
           if (!_.isEmpty(user.UserUserTypes)) {
-            $state.go('onboarding-gyms', {token: data});
+            $state.go('onboarding-gyms');
           }
           else {
             // This is a user with no roles
