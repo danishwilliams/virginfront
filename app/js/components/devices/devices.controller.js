@@ -1,6 +1,7 @@
 angular.module("app.devices", []).controller('DevicesController', function ($stateParams, Devices, spinnerService) {
   var self = this;
   self.query = '';
+  self.type = '';
 
   Devices.loadSyncStatus().then(function (data) {
     spinnerService.hide('devices');
@@ -44,6 +45,7 @@ angular.module("app.devices", []).controller('DevicesController', function ($sta
     self.devices = data;
   });
 
+  // Filter by club or device name
   self.deviceFilter = function(device) {
     self.query = self.query.toLowerCase();
     if (device.Device.Name && device.Device.Name.toLowerCase().indexOf(self.query) > -1) {
@@ -52,6 +54,14 @@ angular.module("app.devices", []).controller('DevicesController', function ($sta
     else if (device.Device.Gym && device.Device.Gym.Name.toLowerCase().indexOf(self.query) > -1) {
       return device;
     }
+  };
+
+  // Filter by All, Primary or Secondary
+  self.filterDevices = function(device) {
+    if (self.type.length > 0) {
+      return device.Device.Primary.toString() === self.type;
+    }
+    return true;
   };
 
   this.update = function (device) {

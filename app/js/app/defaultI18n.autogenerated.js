@@ -301,6 +301,7 @@
   "DEVICE_DISABLE": "Disable this device",
   "PRIMARY": "Primary",
   "SECONDARY": "Secondary",
+  "DEVICE_TYPE_FILTER": "Filter by device type",
   "DAY": "Day",
   "WEEK": "Week",
   "MONTH": "Month",
