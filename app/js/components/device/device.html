@@ -5,7 +5,10 @@
     <div class="row heading">
       <a class="back" ui-sref="devices-admin">{{'DEVICES' | translate}}</a>
       <div class="columns small-10 medium-12">
-        <h1>{{vm.synclog.Device.Name}} <span ng-if="vm.synclog.Device.Primary">{{'PRIMARY' | translate}}</span></h1>
+        <h1>{{vm.synclog.Device.Name}}
+          <span class="type" ng-if="vm.synclog.Device.Primary">{{'PRIMARY' | translate}}</span>
+          <span class="type" ng-if="!vm.synclog.Device.Primary">{{'SECONDARY' | translate}}</span>
+        </h1>
       </div>
       <div class="columns small-8 medium-6 text-center">
         <button class="secondary" ui-sref="device-new">{{'DEVICE_DISABLE' | translate}}</button>

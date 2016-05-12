@@ -40,3 +40,10 @@
   background-color: $warning-color-font;
   float: left;
 }
+
+.device {
+  .type {
+    font-style: italic;
+    font-weight: normal;
+  }
+}
