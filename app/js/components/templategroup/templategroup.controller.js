@@ -67,6 +67,7 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     self.templategroup.Name = self.snapshot.name;
     self.templategroup.Description = self.snapshot.description;
     self.templategroup.IconFileName = self.snapshot.icon;
+    self.form.$setPristine();
     self.edit = false;
   };
 
