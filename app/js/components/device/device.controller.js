@@ -3,7 +3,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
   this.id = $stateParams.id;
 
   Devices.loadDevice(self.id).then(function (data) {
-    self.device = data;
+    self.device = self.snapshot = data;
   });
 
   // for a week: 287 -> 2100
@@ -95,6 +95,12 @@ angular.module("app.device", []).controller('DeviceController', function ($state
       Name: self.device.Name,
       Primary: self.device.Primary
     };
+
+    // Load up the devices for this club
+    Devices.loadDevicesForGym(self.device.Gym.Id).then(function (data) {
+      self.gyms = data;
+      console.log(data);
+    });
   };
 
   self.editCancelled = function () {

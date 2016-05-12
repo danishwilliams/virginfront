@@ -13,6 +13,7 @@ function DevicesFactory(Restangular, uuid2) {
     getDevices: getDevices,
     loadDevice: loadDevice,
     loadDevicePlaylists: loadDevicePlaylists,
+    loadDevicesForGym: loadDevicesForGym,
     provisionDevice: provisionDevice,
     disableDevice: disableDevice,
     loadSyncStatus: loadSyncStatus,
@@ -49,6 +50,23 @@ function DevicesFactory(Restangular, uuid2) {
 
     function loadDevicePlaylistsComplete(data, status, headers, config) {
       return data;
+    }
+  }
+
+  function loadDevicesForGym(id) {
+    return Restangular.one('gyms/' + id + '/devices').get().then(loadDevicesForGymComplete);
+
+    function loadDevicesForGymComplete(data, status, headers, config) {
+      var newData = {data: data};
+      data.forEach(function (val) {
+        if (val.Primary) {
+          newData.HasPrimary = true;
+        }
+        else {
+          newData.HasSecondary = true;
+        }
+      });
+      return newData;
     }
   }
 
