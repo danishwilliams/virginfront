@@ -24,6 +24,9 @@ h1.site-heading {
   h1, h2, h3 {
     margin-bottom: 0;
   }
+  .edit {
+    margin-top: rem-calc(16px);
+  }
   a {
     padding-top: rem-calc(42px);
     display: block;
@@ -164,6 +167,10 @@ table {
   width: 100%;
   table tr:nth-of-type(even) {
     background: $grey_lighter;
+  }
+  ul {
+    // To match the styling in foundation tables.scss
+    font-size: $table-head-font-size;
   }
 }
 

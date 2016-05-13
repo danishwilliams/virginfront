@@ -13,13 +13,21 @@
     </div>
 
     <div class="row">
-      <div class="medium-18 large-9 columns">
+      <div class="small-18 medium-9 columns">
         <label>{{'SEARCH' | translate}}</label>
         <input ng-model="vm.query" type="text" placeholder="{{'DEVICES_SEARCH' | translate}}" maxlength="60" autofocus>
       </div>
+      <div class="small-18 medium-9 columns">
+        <label>{{'DEVICE_TYPE_FILTER' | translate}}</label>
+        <select ng-model="vm.type">
+          <option value="" selected>{{'ALL' | translate}}</option>
+          <option value="true">{{'PRIMARY' | translate}}</option>
+          <option value="false">{{'SECONDARY' | translate}}</option>
+        </select>
+      </div>
     </div>
 
-    <device-simple ng-repeat="device in vm.devices | filter:vm.deviceFilter | orderBy:'Device.Name'"></device-simple>
+    <device-simple ng-show="vm.filterDevices(device)" ng-repeat="device in vm.devices | filter:vm.deviceFilter | orderBy:'Device.Gym.Name'"></device-simple>
 
   </div>
 </div>

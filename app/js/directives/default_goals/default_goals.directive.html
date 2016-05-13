@@ -100,8 +100,8 @@
       <div class="row submit" ng-show="goal.show">
 
         <!-- Challenge goal -->
-        <alert ng-if="goal.saved" ng-hide="!goalForm.$pristine" ng-show="goal.Goal.GoalChallengeId" type="'success'" close="goal.saved = undefined;">{{'CHALLENGE_GOAL_SAVED' | translate}}</alert>
         <div ng-if="goal.Goal.GoalChallengeId">
+          <alert ng-if="goal.saved" ng-hide="!goalForm.$pristine" type="'success'" close="goal.saved = undefined;">{{'CHALLENGE_GOAL_SAVED' | translate}}</alert>
           <alert type="'warning'" class="contains-button" ng-hide="goalForm.$pristine">
             <div class="row">
               <div class="medium-14 columns">
