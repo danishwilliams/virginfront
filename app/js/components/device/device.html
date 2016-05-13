@@ -51,11 +51,16 @@
     <div class="box heartbeat">
       <spinner class="spinner" name="heartbeatlog" show="true"></spinner>
       <h3>{{'DEVICE_CONNECTIVITY' | translate}}</h3>
+      <label>{{'CONNECTED' | translate}}</label>
       <div class="beats">
         <div ng-repeat="beat in vm.heartbeat track by $index">
           <div ng-class="{'pulse': beat.beat, 'no-pulse': !beat.beat}" popover-title="{{beat.date | date : 'MMMM' | translate}} {{beat.date | date : 'dd, yyyy HH:mm'}}" data-popover="{{vm.popoverContents(beat) | translate}}" popover-trigger="mouseenter"></div>
         </div>
       </div>
+      <label>{{'DISCONNECTED' | translate}}</label>
+      <hr>
+      <div class="left">{{vm.heartbeat[0].date | date : 'MMMM' | translate}} {{vm.heartbeat[0].date | date : 'dd'}}</div>
+      <div style="position: absolute; left: {{vm.newDayIndex * 4}}px">{{vm.newDay | date : 'MMMM' | translate}} {{vm.newDay | date : 'dd'}}</div>
     </div>
 
     <div class="row heading">
