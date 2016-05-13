@@ -8,11 +8,11 @@
 <hr ng-if="isCustomRpm() === 'false' && totalGoaloptions > 1" />
 
 <div ng-if="isCustomRpm() === 'true'">
-  RPM <em>{{rpmlow}} - {{rpmhigh}}</em>
+  {{'RPM' | translate}} <em>{{rpmlow}} - {{rpmhigh}}</em>
 </div>
 
 <div>
-  Effort <em><span ng-if="!freestyle">{{goaloption.effortrange}}%</span></em>
+  {{'EFFORT' | translate}} <em><span ng-if="!freestyle || challengeGoal">{{goaloption.effortrange}}%</span></em>
 
   <ng-form name="effortForm" novalidate ng-show="freestyle" ng-if="!challengeGoal">
     <select name="effort" ng-options="v for v in effortOptions" ng-model="effort" ng-disabled="" required>
@@ -24,9 +24,5 @@
       <small class="error" ng-hide="effort > 0">{{'EFFORT_REQ' | translate}}</small>
     </div>
   </ng-form>
-
-  <span ng-if="challengeGoal">
-    {{effort}}<span ng-if="efforthigh"> - {{efforthigh}}</span>%
-  </span>
 </span>
 </div>
