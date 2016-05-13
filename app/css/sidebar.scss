@@ -49,7 +49,7 @@ aside label {
 }
 
 .icon-bar > * {
-  padding: 0 0 15px 0;
+  padding: 0;
 }
 
 .icon-bar {
@@ -57,11 +57,13 @@ aside label {
   span.item {
     padding-bottom: 0px;
   }
-  > * i + label {
-    font-size: 0.875rem;
+  > * i + label, label {
+    font-size: rem-calc(12);
+    padding-top: 0;
+    margin-top: -2px;
   }
   a.item:first-of-type {
-    padding-top: rem-calc(33);
+    padding-top: rem-calc(16);
   }
 }
 
@@ -85,6 +87,7 @@ aside label {
 }
 
 .item {
+  $sidebar-image-size: rem-calc(34);
   // TODO: refactor all of the following for code reuse
   .dashboard {
     background: url('/img/nav/dashboard.svg') no-repeat;
@@ -93,6 +96,7 @@ aside label {
     width: 50px;
     height: 30px;
     opacity: 0.5;
+    background-size: $sidebar-image-size;
   }
   .create-ride {
     background: url('/img/nav/create.svg') no-repeat;
@@ -101,6 +105,7 @@ aside label {
     width: 50px;
     height: 31px;
     opacity: 0.5;
+    background-size: $sidebar-image-size;
   }
   .my-rides {
     background: url('/img/nav/my-rides.svg') no-repeat;
@@ -109,6 +114,7 @@ aside label {
     width: 50px;
     height: 30px;
     opacity: 0.5;
+    background-size: $sidebar-image-size;
   }
   .templates {
     background: url('/img/nav/templates.svg') no-repeat;
@@ -117,6 +123,7 @@ aside label {
     width: 50px;
     height: 30px;
     opacity: 0.5;
+    background-size: $sidebar-image-size;
   }
   .users {
     background: url('/img/nav/users.svg') no-repeat;
@@ -125,6 +132,25 @@ aside label {
     width: 50px;
     height: 30px;
     opacity: 0.5;
+    background-size: $sidebar-image-size;
+  }
+  .devices {
+    background: url('/img/nav/devices.svg') no-repeat;
+    background-position: center;
+    display: block;
+    width: 50px;
+    height: 30px;
+    opacity: 0.5;
+    background-size: $sidebar-image-size;
+  }
+  .gyms {
+    background: url('/img/nav/gyms.svg') no-repeat;
+    background-position: center;
+    display: block;
+    width: 50px;
+    height: 30px;
+    opacity: 0.5;
+    background-size: $sidebar-image-size;
   }
   .user {
     background: url('/img/nav/user.svg') no-repeat;
@@ -133,6 +159,7 @@ aside label {
     width: 50px;
     height: 30px;
     opacity: 0.5;
+    background-size: rem-calc(25);
   }
   &.logout {
     border-top: 1px solid $grey;

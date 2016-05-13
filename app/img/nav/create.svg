@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="30px" height="31px" viewBox="0 0 30 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.5.2 (25235) - http://www.bohemiancoding.com/sketch -->
-    <title>ico40nav_add</title>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <title>Create a ride</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="Style-guide-VA-manager" sketch:type="MSArtboardGroup" transform="translate(-186.000000, -5681.000000)">
-            <g id="Icons" sketch:type="MSLayerGroup" transform="translate(-20.000000, 5160.000000)">
-                <g id="NAV" transform="translate(177.000000, 434.000000)" sketch:type="MSShapeGroup">
-                    <g id="ico40nav_add" transform="translate(24.000000, 82.335999)">
-                        <rect id="Rectangle-89" x="0" y="0" width="40" height="40" rx="100"></rect>
-                        <path d="M22,17.6640015 L22,11.6640015 L18,11.6640015 L18,17.6640015 L12,17.6640015 L12,21.6640015 L18,21.6640015 L18,27.6640015 L22,27.6640015 L22,21.6640015 L28,21.6640015 L28,17.6640015 L22,17.6640015 Z M5,20 C5,11.7157288 11.7139073,5 20,5 C28.2842712,5 35,11.7139073 35,20 C35,28.2842712 28.2860927,35 20,35 C11.7157288,35 5,28.2860927 5,20 Z" id="Rectangle" fill="#93939A"></path>
-                    </g>
-                </g>
-            </g>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Create-a-ride" fill="#93939A">
+            <path d="M11.2917501,9.17756171 L11.2917501,6.25073244 L9.34075007,6.25073244 L9.34075007,9.17756171 L6.41425004,9.17756171 L6.41425004,11.1287812 L9.34075007,11.1287812 L9.34075007,14.0556105 L11.2917501,14.0556105 L11.2917501,11.1287812 L14.2182501,11.1287812 L14.2182501,9.17756171 L11.2917501,9.17756171 L11.2917501,9.17756171 Z M3,10.3170732 C3,6.27596527 6.27470832,3 10.3162501,3 C14.3569034,3 17.6325002,6.27507673 17.6325002,10.3170732 C17.6325002,14.3581811 14.3577918,17.6341463 10.3162501,17.6341463 C6.27559676,17.6341463 3,14.3590696 3,10.3170732 L3,10.3170732 Z" id="Rectangle"></path>
         </g>
     </g>
 </svg>

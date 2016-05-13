@@ -72,6 +72,14 @@
           <i class="users"></i>
           <label>{{'USERS' | translate}}</label>
         </a>
+        <a class="item" ui-sref="devices-admin" ng-if-permission="devices">
+          <i class="devices"></i>
+          <label>{{'DEVICES' | translate}}</label>
+        </a>
+        <a class="item" ui-sref="gyms-admin" ng-if-permission="viewAdmin">
+          <i class="gyms"></i>
+          <label>{{'GYMS' | translate}}</label>
+        </a>
         <a class="item" ui-sref="usertypes-admin" ng-if-permission="viewAdmin">
           <label>User types</label>
         </a>
