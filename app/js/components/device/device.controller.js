@@ -53,17 +53,25 @@ angular.module("app.device", []).controller('DeviceController', function ($state
     self.synclog = data;
     spinnerService.hide('device');
 
+    // There are 5 possible sync states:
+    // Sync cycle failure (failed to sync, i.e. SyncSuccess = false)
+    // Playlist sync error (sync completed, but with playlist sync errors)
+    // Sync is in progress
+    // Sync cycle didn't complete
+    // Sync cycle is complete
+
+    var i = 0;
     self.synclog.DeviceSyncPlaylistSyncs.forEach(function (val) {
+      val.timeAgo = val.DeviceSync.CreateDate;
       if (val.DeviceSync.SyncSuccess === false) {
         // Sync cycle failure
         val.syncFailure = true;
-        val.timeAgo = val.DeviceSync.SyncEndDate;
       } else {
         // Loop through DevicePlaylistSyncs to see if there's an error
         val.DevicePlaylistSyncs.forEach(function (val1) {
           if (val1.SyncError && !val.playlistSyncError) {
+            // Playlist sync error
             val.playlistSyncError = true;
-            val.timeAgo = val1.CreateDate;
 
             // Convert the error string into a JSON object
             if (!_.isEmpty(val1.JsonObject)) {
@@ -75,10 +83,22 @@ angular.module("app.device", []).controller('DeviceController', function ($state
         });
       }
       if (!val.playlistSyncError) {
-        // Sync cycle is complete
-        val.syncSuccess = true;
-        val.timeAgo = val.DeviceSync.SyncEndDate;
+        if (!val.DeviceSync.SyncEndDate) {
+          if (i === 0) {
+            // Sync is in progress
+            val.syncInProgress = true;
+          }
+          else {
+            // Sync cycle didn't complete
+            val.syncIncomplete = true;
+          }
+        }
+        else {
+          // Sync cycle is complete
+          val.syncSuccess = true;
+        }
       }
+      i++;
     });
     spinnerService.hide('synclog');
   });
@@ -99,7 +119,6 @@ angular.module("app.device", []).controller('DeviceController', function ($state
     // Load up the devices for this club
     Devices.loadDevicesForGym(self.device.Gym.Id).then(function (data) {
       self.gyms = data;
-      console.log(data);
     });
   };
 
@@ -119,20 +138,27 @@ angular.module("app.device", []).controller('DeviceController', function ($state
 
     // Made this primary device a secondary: make the chosen secondary device a primary
     if (self.snapshot.Primary && !self.device.Primary) {
-      console.log('Made this primary device a secondary: make the chosen secondary device a primary');
+      console.log('Made this primary device a secondary: make the chosen secondary device a primary', self.newPrimary);
+      self.newPrimary.Primary = true;
+      //self.newPrimary.put();
     }
 
     // Made this secondary device a primary: make the existing primary device a secondary
     if (!self.snapshot.Primary && self.device.Primary) {
       console.log('Made this secondary device a primary: make the existing primary device a secondary');
+      self.gyms.data.forEach(function(val) {
+        if (val.Primary) {
+          val.Primary = false;
+          console.log('making this primary device a secondary!', val);
+          //val.put();
+        }
+      });
     }
 
-    /*
     self.device.put().then(function() {
       spinnerService.hide('saveDeviceSpinner');
       self.saving = false;
     });
-    */
   };
 
   self.popoverContents = function (beat) {

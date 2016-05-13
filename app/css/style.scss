@@ -168,6 +168,10 @@ table {
   table tr:nth-of-type(even) {
     background: $grey_lighter;
   }
+  ul {
+    // To match the styling in foundation tables.scss
+    font-size: $table-head-font-size;
+  }
 }
 
 /*

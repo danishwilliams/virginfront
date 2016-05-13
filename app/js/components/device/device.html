@@ -74,6 +74,16 @@
         <td><span ng-if="log.timeAgo">{{log.timeAgo | date : 'yyyy/MM/dd hh:mm'}}</span></td>
         <td>
           <span ng-if="log.syncSuccess">{{'SYNC_COMPLETE' | translate}}</span>
+          <div ng-if="log.syncInProgress" class="success">{{'SYNC_IN_PROGRESS' | translate}}</div>
+          <span ng-if="log.syncIncomplete">
+            <div class="warning">{{'SYNC_INCOMPLETE' | translate}}</div>
+            {{'POSSIBLE_REASONS' | translate}}:
+            <ul>
+              <li>{{'DEVICE_INSTRUCTOR_LOGGED_IN' | translate}}</li>
+              <li>{{'DEVICE_TURNED_OFF' | translate}}</li>
+              <li>{{'DEVICE_INTERNET_DIED' | translate}}</li>
+            </ul>
+          </span>
           <span class="warning" ng-if="log.syncFailure">{{'SYNC_FAILED' | translate}}</span>
           <span ng-if="log.playlistSyncError">
             <div class="warning">{{'PLAYLIST_SYNC_ERROR' | translate}}</div>

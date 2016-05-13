@@ -20,6 +20,8 @@
     background: url('/img/ico16orng_sent.svg') no-repeat;
     background-size: rem-calc(16px);
     padding-left: rem-calc(20);
+    padding-top: 0;
+    padding-bottom: 0;
   }
   .sent {
     color: $success-color-font;
