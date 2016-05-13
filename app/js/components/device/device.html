@@ -17,7 +17,7 @@
     </div>
 
     <div class="row" ng-show="vm.edit">
-      <form name="vm.form" novalidate>
+      <form name="vm.form" ng-submit="vm.form.$valid && vm.saveDevice()" novalidate>
         <label>{{'DEVICE_NAME' | translate}}</label>
         <input type="text" name="name" size="60" maxlength="60" ng-model="vm.device.Name" required />
         <div ng-show="vm.form.$submitted || vm.form.name.$touched">
@@ -42,7 +42,7 @@
 
         <div class="row submit">
           <a class="cancel" ng-click="vm.editCancelled()">{{'CANCEL' | translate}}</a>
-          <input type="submit" ng-disabled="vm.form.$pristine || vm.saving" ng-click="vm.saveDevice()" value="{{'SAVE' | translate}}">
+          <input type="submit" ng-disabled="vm.form.$pristine || vm.saving" value="{{'SAVE' | translate}}">
           <spinner class="spinner" name="saveDeviceSpinner" show="false"></spinner>
         </div>
       </form>

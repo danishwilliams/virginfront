@@ -111,12 +111,28 @@ angular.module("app.device", []).controller('DeviceController', function ($state
   };
 
   this.saveDevice = function () {
-    spinnerService.show('saveDeviceSpinner');
-    self.saving = true;
+    //spinnerService.show('saveDeviceSpinner');
+    //self.saving = true;
+    console.log('saving');
+
+    // Normal save: just edited the device name
+
+    // Made this primary device a secondary: make the chosen secondary device a primary
+    if (self.snapshot.Primary && !self.device.Primary) {
+      console.log('Made this primary device a secondary: make the chosen secondary device a primary');
+    }
+
+    // Made this secondary device a primary: make the existing primary device a secondary
+    if (!self.snapshot.Primary && self.device.Primary) {
+      console.log('Made this secondary device a primary: make the existing primary device a secondary');
+    }
+
+    /*
     self.device.put().then(function() {
       spinnerService.hide('saveDeviceSpinner');
       self.saving = false;
     });
+    */
   };
 
   self.popoverContents = function (beat) {

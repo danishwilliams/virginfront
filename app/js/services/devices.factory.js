@@ -54,7 +54,7 @@ function DevicesFactory(Restangular, uuid2) {
   }
 
   function loadDevicesForGym(id) {
-    return Restangular.one('gyms/' + id + '/devices').get().then(loadDevicesForGymComplete);
+    return Restangular.all('gyms/' + id + '/devices').getList().then(loadDevicesForGymComplete);
 
     function loadDevicesForGymComplete(data, status, headers, config) {
       var newData = {data: data};
