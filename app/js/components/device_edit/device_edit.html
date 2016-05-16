@@ -80,8 +80,12 @@
           <span class="warning" ng-if="vm.alert.type === 'warning'"><p class="warning"><strong>{{'DEVICE_DISABLE_FAILED' | translate}}</strong></p><p class="small">{{'RETRY_OR_CONTACT_ADMIN' | translate}}</p></span>
         </div>
       </div>
-      <div class="row submit">
+      <div class="row submit" ng-if="vm.alert.type === 'success'">
         <a class="cancel" ui-sref="devices-admin">{{'DEVICE_DASHBOARD_RETURN' | translate}}</a>
+        <button value="{{'DEVICE_NEW' | translate}}" ui-sref="device-new"></button>
+      </div>
+      <div class="row submit" ng-if="vm.alert.type === 'warning'">
+        <a class="cancel" ui-sref="device({id:vm.id})">{{'CANCEL' | translate}}</a>
         <input type="submit" ng-disabled="vm.saving" value="{{'RETRY' | translate}}" ng-click="vm.disableDevice()">
       </div>
     </div>
