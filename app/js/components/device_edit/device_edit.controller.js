@@ -46,6 +46,8 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
           console.log('making this primary device a secondary!', val);
           val.put().then(function () {
             saveDevice();
+          }, function () {
+            saveError();
           });
         }
       });
@@ -62,10 +64,14 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
       if (newPrimary) {
         newPrimary.put().then(function () {
           saveComplete();
+        }, function() {
+          saveError();
         });
       } else {
         saveComplete();
       }
+    }, function() {
+      saveError();
     });
   }
 
@@ -79,4 +85,11 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
     };
   }
 
+  function saveError() {
+    self.saved = true;
+    self.alert = {
+      type: 'warning',
+      msg: 'DEVICE_SAVE_ERROR'
+    };
+  }
 });
