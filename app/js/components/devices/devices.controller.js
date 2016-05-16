@@ -13,12 +13,14 @@ angular.module("app.devices", []).controller('DevicesController', function ($sta
         val.timeAgoError = val.LastHeartbeat;
       }
       else {
-        val.PlaylistSyncFailures.forEach(function(val1) {
-          if (val1.SyncError && !val.timeAgoError) {
-            val.error = true;
-            val.timeAgoError = val1.CreateDate;
-          }
-        });
+        if (val.PlaylistSyncFailures) {
+          val.PlaylistSyncFailures.forEach(function(val1) {
+            if (val1.SyncError && !val.timeAgoError) {
+              val.error = true;
+              val.timeAgoError = val1.CreateDate;
+            }
+          });
+        }
       }
 
       // What was the time ago?

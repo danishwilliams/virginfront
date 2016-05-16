@@ -26,13 +26,13 @@
 
         <label>{{'TYPE' | translate}}</label>
         <label><input type="radio" ng-model="vm.device.Primary" ng-value="true"> {{'PRIMARY' | translate}}</label>
-        <div ng-if="!vm.snapshot.Primary && vm.device.Primary">
+        <div ng-if="!vm.snapshot.Primary && vm.device.Primary && vm.gyms.HasPrimary">
           {{'DEVICE_SECONDARY_CONFIRM' | translate}}
           <span ng-if="device.Primary" ng-repeat="device in vm.gyms.data">{{device.Name}} <em>{{'PRIMARY' | translate}}</em></span>
         </div>
 
         <label><input type="radio" ng-model="vm.device.Primary" ng-value="false"> {{'SECONDARY' | translate}}</label>
-        <div ng-if="vm.snapshot.Primary && !vm.device.Primary">
+        <div ng-if="vm.snapshot.Primary && !vm.device.Primary && vm.gyms.HasSecondary">
           <p translate="DEVICE_PRIMARY_REMOVE_CONFIRM" translate-values="{gym: vm.device.Gym.Name}"></p>
           <select name="newPrimary" ng-model="vm.newPrimary" ng-options="v as v.Name for v in vm.gyms.data | orderBy:'Name'" required></select>
           <div ng-show="vm.form.$submitted || vm.form.newPrimary.$touched">
@@ -42,7 +42,7 @@
 
         <div class="row submit">
           <a class="cancel" ng-click="vm.editCancelled()">{{'CANCEL' | translate}}</a>
-          <input type="submit" ng-disabled="vm.form.$pristine || vm.saving" value="{{'SAVE' | translate}}">
+          <input type="submit" ng-disabled="vm.form.$pristine || vm.saving || vm.form.$invalid" value="{{'SAVE' | translate}}">
           <spinner class="spinner" name="saveDeviceSpinner" show="false"></spinner>
         </div>
       </form>

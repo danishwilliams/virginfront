@@ -97,13 +97,11 @@ angular.module("app.device", []).controller('DeviceController', function ($state
           if (i === 0) {
             // Sync is in progress
             val.syncInProgress = true;
-          }
-          else {
+          } else {
             // Sync cycle didn't complete
             val.syncIncomplete = true;
           }
-        }
-        else {
+        } else {
           // Sync cycle is complete
           val.syncSuccess = true;
         }
@@ -128,7 +126,14 @@ angular.module("app.device", []).controller('DeviceController', function ($state
 
     // Load up the devices for this club
     Devices.loadDevicesForGym(self.device.Gym.Id).then(function (data) {
-      self.gyms = data;
+      // Exclude the current device from the list
+      self.gyms = angular.copy(data);
+      self.gyms.data = [];
+      data.data.forEach(function (val) {
+        if (val.Id !== self.device.Id) {
+          self.gyms.data.push(val);
+        }
+      });
     });
   };
 
@@ -147,29 +152,49 @@ angular.module("app.device", []).controller('DeviceController', function ($state
     // Normal save: just edited the device name
 
     // Made this primary device a secondary: make the chosen secondary device a primary
-    if (self.snapshot.Primary && !self.device.Primary) {
+    if (self.snapshot.Primary && !self.device.Primary && self.newPrimary) {
       console.log('Made this primary device a secondary: make the chosen secondary device a primary', self.newPrimary);
       self.newPrimary.Primary = true;
-      //self.newPrimary.put();
+      self.newPrimary.route = 'devices/';
+      saveDevice(self.newPrimary);
     }
 
     // Made this secondary device a primary: make the existing primary device a secondary
-    if (!self.snapshot.Primary && self.device.Primary) {
+    if (!self.snapshot.Primary && self.device.Primary && self.gyms.HasPrimary) {
       console.log('Made this secondary device a primary: make the existing primary device a secondary');
-      self.gyms.data.forEach(function(val) {
+      self.gyms.data.forEach(function (val) {
         if (val.Primary) {
           val.Primary = false;
+          val.route = "devices/";
           console.log('making this primary device a secondary!', val);
-          //val.put();
+          val.put().then(function () {
+            saveDevice();
+          });
         }
       });
     }
-
-    self.device.put().then(function() {
-      spinnerService.hide('saveDeviceSpinner');
-      self.saving = false;
-    });
   };
+
+  function saveDevice(newPrimary) {
+    self.device.put().then(function () {
+      spinnerService.hide('saveDeviceSpinner');
+      if (newPrimary) {
+        newPrimary.put().then(function () {
+          setDefaultValues();
+        });
+      } else {
+        setDefaultValues();
+      }
+    });
+  }
+
+  function setDefaultValues() {
+    self.form.$setPristine();
+    self.snapshot.Name = self.device.Name;
+    self.snapshot.Primary = self.device.Primary;
+    self.saving = false;
+    self.edit = false;
+  }
 
   self.popoverContents = function (beat) {
     if (beat.beat) {
