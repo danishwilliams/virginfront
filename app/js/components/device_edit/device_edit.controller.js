@@ -6,13 +6,14 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
   Devices.loadDevice(self.id).then(function (data) {
     self.device = data;
     self.snapshot = angular.copy(data);
-    spinnerService.hide('device');
     loadDevicesForGym();
   });
 
   function loadDevicesForGym() {
     // Load up the devices for this club
     Devices.loadDevicesForGym(self.device.Gym.Id).then(function (data) {
+      self.loaded = true;
+      spinnerService.hide('device');
       // Exclude the current device from the list
       self.gyms = angular.copy(data);
       self.gyms.data = [];
@@ -24,15 +25,21 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
     });
   }
 
+  self.disableDevice = function () {
+    self.action = 'disable';
+    self.device.Enabled = self.device.Primary = false;
+    self.saving = true;
+    saveDevice(self.newPrimary);
+  };
+
   this.saveDevice = function () {
+    self.action = 'edit';
     spinnerService.show('saveDeviceSpinner');
     self.saving = true;
 
     // Made this primary device a secondary: make the chosen secondary device a primary
     if (self.snapshot.Primary && !self.device.Primary && self.newPrimary) {
       console.log('Made this primary device a secondary: make the chosen secondary device a primary', self.newPrimary);
-      self.newPrimary.Primary = true;
-      self.newPrimary.route = 'devices/';
       saveDevice(self.newPrimary);
     }
 
@@ -60,8 +67,9 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
 
   function saveDevice(newPrimary) {
     self.device.put().then(function () {
-      spinnerService.hide('saveDeviceSpinner');
       if (newPrimary) {
+        newPrimary.Primary = true;
+        newPrimary.route = 'devices/';
         newPrimary.put().then(function () {
           saveComplete();
         }, function() {
@@ -76,9 +84,11 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
   }
 
   function saveComplete() {
+    spinnerService.hide('saveDeviceSpinner');
     self.snapshot.Name = self.device.Name;
     self.snapshot.Primary = self.device.Primary;
     self.saved = true;
+    self.saving = false;
     self.alert = {
       type: 'success',
       msg: 'DEVICE_SAVED'
@@ -87,6 +97,7 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
 
   function saveError() {
     self.saved = true;
+    self.saving = false;
     self.alert = {
       type: 'warning',
       msg: 'DEVICE_SAVE_ERROR'
