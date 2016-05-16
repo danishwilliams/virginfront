@@ -8,14 +8,13 @@ angular.module("app.user", []).controller('UserController', function ($statePara
     self.langKey = Storage.getItem('language' + Users.getCurrentUser().Id);
   }
 
-  if (this.id) {
-    Users.loadUser(this.id).then(function (data) {
-      self.user = data;
-      self.employeeId = self.user.EmployeeId;
-      self.telephone = self.user.Telephone;
-      self.email = self.user.Email;
-    });
-  }
+  Users.loadUser(this.id).then(function (data) {
+    spinnerService.hide('userProfileSpinner');
+    self.user = data;
+    self.employeeId = self.user.EmployeeId;
+    self.telephone = self.user.Telephone;
+    self.email = self.user.Email;
+  });
 
   this.saveContactDetails = function () {
     if (!self.email) {
@@ -172,16 +171,16 @@ angular.module("app.user", []).controller('UserController', function ($statePara
     self.messages = {};
     switch (type) {
       case 'contact':
-        spinnerService.show('userContactSpinner');
+        self.userContactSaving = true;
         break;
       case 'userTypes':
-        spinnerService.show('userTypesSpinner');
+        self.userTypesSaving = true;
         break;
       case 'gyms':
-        spinnerService.show('userGymsSpinner');
+        self.userGymsSaving = true;
         break;
       case 'genres':
-        spinnerService.show('userGenresSpinner');
+        self.userGenresSaving = true;
         break;
     }
     user.put().then(function (data) {
@@ -190,22 +189,22 @@ angular.module("app.user", []).controller('UserController', function ($statePara
         case 'contact':
           self.contactEdit = false;
           message = 'CONTACTS_SAVED';
-          spinnerService.hide('userContactSpinner');
+          self.userContactSaving = false;
           break;
         case 'userTypes':
           self.userTypesEdit = false;
           message = 'PERMISSIONS_SAVED';
-          spinnerService.hide('userTypesSpinner');
+          self.userTypesSaving = false;
           break;
         case 'gyms':
           self.gymEdit = false;
           message = 'CLUBS_SAVED';
-          spinnerService.hide('userGymsSpinner');
+          self.userGymsSaving = false;
           break;
         case 'genres':
           self.genreEdit = false;
           message = 'GENRES_SAVED';
-          spinnerService.hide('userGenresSpinner');
+          self.userGenresSaving = false;
           break;
       }
       self.messages = [{
@@ -213,10 +212,10 @@ angular.module("app.user", []).controller('UserController', function ($statePara
         msg: message
       }];
     }, function (res) {
-      spinnerService.hide('userContactSpinner');
-      spinnerService.hide('userGenresSpinner');
-      spinnerService.hide('userGymsSpinner');
-      spinnerService.hide('userTypesSpinner');
+      self.userContactSaving = false;
+      self.userTypesSaving = false;
+      self.userGymsSaving = false;
+      self.userGenresSaving = false;
       self.contactEdit = true;
       if (res.status === 500 && res.data.Message) {
         // Possible responses:
@@ -229,7 +228,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
           self.error = {
             error: false, // Workaround for showing errors at the top of the page too
             email: true,
-            message: $filter('translate')('EMAIL_EXISTS')
+            message: $filter('translate')('INSTRUCTOR_EXISTS')
           };
         }
       }

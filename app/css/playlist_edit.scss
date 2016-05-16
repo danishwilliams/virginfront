@@ -14,6 +14,9 @@ input[type="text"].class_name {
   color: $grey;
   padding: 10px;
   height: 55px;
+  &.error {
+    border-color: $cherry;
+  }
 }
 
 .goals-container {

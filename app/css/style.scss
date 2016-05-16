@@ -99,13 +99,19 @@ button, input[type="submit"] {
 input[type="text"], input[type="password"], input[type="email"] {
   margin: 0;
 }
-input[type="submit"] {
+input[type="submit"], button.submit {
   float: right;
 }
 
 .row.submit {
   margin-top: rem-calc(16px);
   margin-bottom: rem-calc(16px);
+}
+
+input.search, input.search:focus {
+  background: transparent url('/img/search_white.svg') no-repeat;
+  background-position: right 10px center;
+  padding-left: 10px;
 }
 
 form a.secondary, .cancel {
@@ -124,6 +130,11 @@ label {
   font-weight: bold;
   padding-bottom: rem-calc(4px);
   padding-top: rem-calc(6px);
+  font-size: inherit;
+}
+
+label.radio {
+  font-weight: inherit;
 }
 
 .back {
@@ -197,16 +208,4 @@ select {
   z-index: 1;
   width: 100%;
   height: 100%;
-}
-
-/* Alert boxes */
-
-.alert-box {
-  .close {
-    text-decoration: none;
-  }
-  a {
-    color: $grey_dark;
-    text-decoration: underline;
-  }
 }

@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="large-12 medium-18 small-18 large-centered columns">
+    <div class="row heading">
+      <h1>{{'DEVICE_NEW' | translate}}</h1>
+    </div>
+    <form ng-show="vm.step === 0" name="vm.form" ng-submit="vm.provisionNewDevice()" novalidate>
+      <label>{{'SELECT_CLUB' | translate}}</label>
+
+      <label class="radio" ng-repeat="gym in vm.gyms | orderBy: 'Name'">
+        <input type="radio" name="gym" ng-model="vm.selectedGym" ng-value="gym" required> {{gym.Name}}
+      </label>
+      <div ng-show="vm.form.$submitted || vm.form.gym.$touched">
+        <small class="error" ng-show="vm.form.gym.$error.required">{{'DEVICE_SELECT_CLUB_REQ' | translate}}</small>
+      </div>
+
+      <label for="deviceName">{{'DEVICE_NAME' | translate}}</label>
+      {{'DEVICE_NAME_EXPLANATION' | translate}}
+
+      <input name="deviceName" type="text" size="40" ng-model="vm.deviceName" required>
+      <div ng-show="vm.form.$submitted || vm.form.deviceName.$touched">
+        <small class="error" ng-show="vm.form.deviceName.$error.required">{{'DEVICE_NAME_REQ' | translate}}</small>
+      </div>
+
+      <div class="row submit">
+        <input class="submit" ng-disabled="vm.saving || vm.form.$invalid" type="submit" value="{{'DEVICE_GEN_CODE' | translate}}">
+      </div>
+    </form>
+
+    <div ng-show="vm.step === 1" class="row">
+      <div class="small-2 medium-2 large-1 columns">
+        <img src="/img/ico40grn_syncsuccess.svg">
+      </div>
+      <div class="small-16 medium-16 large-17 columns">
+        <p class="success">{{'DEVICE_CODE_SUCCESS' | translate}} {{vm.selectedGym.Name}} {{vm.deviceName}}</p>
+
+        <p>
+          <ol class="inline-list provisioning-code">
+            <li ng-repeat="code in vm.provisioningCode track by $index">{{code}}</li>
+          </ol>
+        </p>
+        <p>
+          <label>{{'TIPS' | translate}}</label>
+          <ol>
+            <li>{{'CODE_ONCE' | translate}}</li>
+            <li>{{'DEVICE_INTERNET' | translate}}</li>
+          </ol>
+        </p>
+
+        <div class="submit">
+          <a class="cancel" ui-sref="dashboard">{{'RETURN_DASHBOARD' | translate}}</a>
+          <button class="secondary submit" ng-click="vm.provisionAnother()">{{'DEVICE_PROVISION_ANOTHER' | translate}}</button>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="vm.step === 2" class="row">
+      <div class="small-2 medium-2 large-1 columns">
+        <img src="/img/ico40orng_syncerror.svg">
+      </div>
+      <div class="small-16 medium-16 large-17 columns">
+        <p class="warning">{{'DEVICE_EXISTS' | translate}} {{vm.selectedGym.Name}}</p>
+        <p translate="DEVICE_LIMIT" translate-values="{number: vm.maxDevices}"></p>
+        <p>{{'LIKE_TO' | translate}}
+          <label>
+            <input type="checkbox" ng-model="vm.disableDevice"> {{'DISABLE_DEVICE_GENERATE_NEW' | translate}} {{vm.selectedGym.Name}}
+          </label>
+          {{'DISABLE_DEVICE_NOTE' | translate}}
+        </p>
+
+        <div class="submit">
+          <a class="cancel" ng-click="vm.step = 0">{{'CANCEL' | translate}}</a>
+          <button class="submit" ng-disabled="!vm.disableDevice || vm.saving" ng-click="vm.disableActiveDeviceAndProvisionNewDevice()">{{'DEVICE_GEN_CODE' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

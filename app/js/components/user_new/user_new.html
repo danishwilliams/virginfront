@@ -4,10 +4,10 @@
     <h1>{{'CREATE_USER' | translate}}</h1>
 
     <div ng-messages="vm.serverError">
-      <small class="error" ng-message="error">{{vm.serverError.message}} Please try again later.</small>
+      <small class="error" ng-message="error">{{vm.serverError.message | translate}}</small>
     </div>
 
-    <form name="form" ng-submit="vm.createUser()" novalidate>
+    <form name="form" ng-submit="form.$valid && vm.createUser()" novalidate>
       <label for="firstname">{{'FIRST_NAME' | translate}}</label>
       <input type="text" name="firstname" ng-model="vm.newUser.FirstName" required />
       <div ng-show="form.$submitted || form.firstname.$touched">
@@ -31,7 +31,7 @@
       <input type="text" name="phone" ng-model="vm.newUser.Telephone">
 
       <label for="id">{{'EMPLOYEE_ID' | translate}}</label>
-      <input type="text" name="id" ng-model="vm.newUser.EmployeeId" required>
+      <input type="text" name="id" ng-model="vm.newUser.EmployeeId">
       <div ng-show="form.$submitted || form.id.$touched">
         <small class="error" ng-show="form.id.$error.required">{{'ID_REQ' | translate}}</small>
       </div>
@@ -56,9 +56,8 @@
         </label>
       </div>
 
-      <div class="row">
+      <div class="row submit">
         <a class="cancel" ui-sref="users-admin">{{'CANCEL' | translate}}</a>
-        <spinner class="spinner inline" name="creatingUser" show="false"></spinner>
         <input class="right" type="submit" value="{{'INVITE_NEW_USER' | translate}}" ng-disabled="vm.saving">
       </div>
     </form>

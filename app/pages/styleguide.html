@@ -40,7 +40,8 @@
             <ul class="inline-list colours">
               <li class="peach"><span class="peach-bg"></span>Peach</li>
               <li class="peach"><span class="savannah-bg"></span>Savannah</li>
-              <li class="peach"><span class="green-bg"></span>Green</li>
+              <li class="green"><span class="green-bg"></span>Green</li>
+              <li class="green"><span class="green-light-bg"></span>Green light</li>
             </ul>
 
             <h3 class="grey-dark">Grey colours</h3>
@@ -146,7 +147,18 @@
               Primary action
             </div>
             <div class="large-13 columns">
-              <button class="primary">Sign up</button>
+              <button class="primary">Sign up</button><br>
+              <!--<input type="submit" value="Sign up">-->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="large-5 columns">
+              Primary action (disabled)
+            </div>
+            <div class="large-13 columns">
+              <button disabled class="primary">Sign up</button>
+              <!--<input disabled type="submit" value="Sign up">-->
             </div>
           </div>
 
@@ -156,6 +168,15 @@
             </div>
             <div class="large-13 columns">
               <button class="secondary">Save and continue later</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="large-5 columns">
+              Secondary action (disabled)
+            </div>
+            <div class="large-13 columns">
+              <button disabled class="secondary">Save and continue later</button>
             </div>
           </div>
 
@@ -187,7 +208,9 @@
           </div>
 
           <button class="primary">Sign up</button>
+          <button disabled class="primary">Sign up</button>
           <button class="secondary">Save and continue later</button>
+          <button disabled class="secondary">Save and continue later</button>
           <a class="cancel">Cancel</a>
           <button class="secondary next">Next</button>
 
@@ -202,6 +225,9 @@
 
             <label>Class name</label>
             <input required name="class_name" class="class_name" type="text" placeholder="Name your class">
+
+            <label>Search field</label>
+            <input class="search" type="text" placeholder="Search by instructor name or email address" size="60">
 
             <div class="row submit">
               <a class="cancel">Cancel</a>

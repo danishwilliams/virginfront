@@ -68,11 +68,19 @@
       text-decoration: underline;
     }
   }
+  .waiting {
+    padding: 0;
+    background-color: $green_light;
+    .icon {
+      background: url('/img/ico16orng_sent.svg') no-repeat;
+      background-position: center;
+    }
+  }
 }
 
 .gym-rides, .user-invite {
     .syncing {
-    background-color: $green;
+    background-color: $green_light;
     .icon {
       -webkit-animation-duration: 1.3s;
       -moz-animation-duration: 1.3s;

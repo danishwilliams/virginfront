@@ -1,8 +1,9 @@
+/*
 angular
   .module("app")
-  .filter('hours', MinutesToHoursFilter);
+  .filter('hours', SecondsToHoursFilter);
 
-// Converts minutes to hours + minutes
+// Converts seconds to hours + minutes
 function MinutesToHoursFilter() {
   return function (input) {
     function z(n) {
@@ -13,3 +14,4 @@ function MinutesToHoursFilter() {
     return (z(hours) + ':' + z(minutes));
   };
 }
+*/

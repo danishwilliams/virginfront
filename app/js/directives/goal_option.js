@@ -68,6 +68,10 @@ function goalOptionController($scope) {
     updateBpm();
   });
 
+  function effortChanged() {
+    console.log('chanigng!', $scope);    
+  }
+
   function updateBpm() {
     if ($scope.customrpm === 'false' && $scope.goaloption.Beat) {
       $scope.rpm = parseInt($scope.bpm * $scope.goaloption.Beat.Ratio);

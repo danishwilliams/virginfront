@@ -43,9 +43,9 @@
         <label>{{'TYPE' | translate}}</label>
         <select name="type" ng-options="v for v in vm.types" ng-model="vm.templategroup.Type" required></select>
 
-        <div class="row">
-          <a class="cancel" ng-show="!form.$pristine" style="float:left" ng-click="vm.editCancelled()">{{'CANCEL' | translate}}</a>
-          <input type="submit" ng-disabled="form.$pristine" style="float:right" ng-click="vm.saveTemplateGroup()" value="{{'SAVE' | translate}}">
+        <div class="row submit">
+          <a class="cancel" ng-click="vm.editCancelled()">{{'CANCEL' | translate}}</a>
+          <input type="submit" ng-disabled="form.$pristine" ng-click="vm.saveTemplateGroup()" value="{{'SAVE' | translate}}">
           <spinner class="spinner" name="saveTemplateSpinner" show="false"></spinner>
           </input>
         </div>

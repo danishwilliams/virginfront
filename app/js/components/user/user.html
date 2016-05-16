@@ -1,5 +1,6 @@
 <div class="profile row">
-  <div class="large-14 medium-18 small-18 large-centered columns">
+  <spinner class="spinner overlay" name="userProfileSpinner" show="true"></spinner>
+  <div class="large-14 medium-18 small-18 large-centered columns" ng-show="user.user">
     <div class="profile-header">
       <h1>{{user.user.FirstName}} {{user.user.LastName}}</h1>
       <p>{{user.user.Location.City}}, {{user.user.Location.Country.Code}}
@@ -40,10 +41,9 @@
             <div ng-messages="user.error">
               <p class="error" ng-message="email">{{user.error.message}}</p>
             </div>
-            <div class="right">
+            <div class="row submit">
               <a class="cancel" ng-click="user.cancelContactDetails()">{{'CANCEL' | translate}}</a>
-              <spinner class="spinner inline" name="userContactSpinner" show="false"></spinner>
-              <input type="submit" value="{{'SAVE' | translate}}">
+              <input type="submit" value="{{'SAVE' | translate}}" ng-disabled="user.userContactSaving">
             </div>
             &nbsp;
           </form>
@@ -95,10 +95,9 @@
             <label ng-repeat="gym in user.gyms | orderBy: 'Name'">
               <input type="checkbox" ng-model="gym.selected"> {{gym.Name}}
             </label>
-            <div class="right">
+            <div class="row submit">
               <a class="cancel" ng-click="user.gymEdit = !user.gymEdit">{{'CANCEL' | translate}}</a>
-              <spinner class="spinner inline" name="userGymsSpinner" show="false"></spinner>
-              <input type="submit" value="{{'SAVE' | translate}}">
+              <input type="submit" value="{{'SAVE' | translate}}" ng-disabled="user.userGymsSaving">
             </div>
             &nbsp;
           </form>
@@ -120,10 +119,9 @@
             <label ng-repeat="genre in user.genres | orderBy: 'Name'">
               <input type="checkbox" ng-model="genre.selected"> {{genre.Name | translate}}
             </label>
-            <div class="right">
+            <div class="row submit">
               <a class="cancel" ng-click="user.genreEdit = !user.genreEdit">{{'CANCEL' | translate}}</a>
-              <spinner class="spinner inline" name="userGenresSpinner" show="false"></spinner>
-              <input type="submit" value="{{'SAVE' | translate}}">
+              <input type="submit" value="{{'SAVE' | translate}}" ng-disabled="user.userGenresSaving">
             </div>
             &nbsp;
           </form>

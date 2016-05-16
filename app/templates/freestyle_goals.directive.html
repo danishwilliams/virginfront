@@ -1,3 +1,4 @@
+<spinner ng-if="vm.index === '0' || vm.manualLoading" class="spinner inline" name="freestyleSpinner{{random}}" show="true"></spinner>
 <select class="freestyle-goal" ng-model="vm.goalArrayId" ng-change="selected(vm.goalArrayId)" ng-disabled="isDisabled()">
   <option ng-if="vm.allowCreateNewGoal" value="" disabled selected>{{'CREATE_GOAL' | translate}}</option>
   <option ng-if="vm.allowCreateNewGoal" value="newGoal">{{'CREATE_NEW_GOAL' | translate}}</option>
@@ -7,10 +8,10 @@
   <option ng-if="vm.allowEditingGoal" value="newGoal">{{'CREATE_NEW_GOAL' | translate}}</option>
   <option ng-if="vm.allowEditingGoal" value="" disabled></option>
 
-  <option ng-if="vm.addAGoal" value="" disabled selected>{{'ADD_GOAL' | translate}}</option>
+  <option ng-if="vm.addAGoal && vm.hasGoals" value="" disabled selected>{{'ADD_GOAL' | translate}}</option>
   <option ng-if="!goal.Goal.GoalChallengeId" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
   <option value="" disabled></option>
 
-  <option value="" disabled>{{'CHALLENGE_GOALS' | translate}}</option>
+  <option ng-if="vm.hasChallengeGoals" value="" disabled>{{'CHALLENGE_GOALS' | translate}}</option>
   <option ng-if="goal.Goal.GoalChallengeId" ng-repeat="goal in vm.goals | orderBy: 'Goal.Name'" ng-if="goal.Goal.GoalChallengeId" value="{{goal.ArrayId}}">{{goal.Goal.Name}}</option>
 </select>

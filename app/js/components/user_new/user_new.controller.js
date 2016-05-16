@@ -1,4 +1,4 @@
-angular.module("app.user_new", []).controller('UserNewController', function (Users, UserTypes, Gyms, Restangular, $state, spinnerService) {
+angular.module("app.user_new", []).controller('UserNewController', function (Users, UserTypes, Gyms, Restangular, $state) {
   var self = this;
 
   self.newUser = {
@@ -53,18 +53,18 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
       }
     });
 
-    spinnerService.show('creatingUser');
     self.saving = true;
 
     // Save the new user
     self.newUser.Username = self.newUser.Email;
     Users.createNewUser(self.newUser).then(function () {
-      spinnerService.hide('creatingUser');
       self.saving = false;
       $state.go('users-admin');
     }, function (res) {
-      spinnerService.hide('creatingUser');
       self.saving = false;
+      if (res.data.Message === 'Email address already exists') {
+        res.data.Message = 'EMAIL_EXISTS';
+      }
       self.serverError = {
         error: true,
         message: res.data.Message

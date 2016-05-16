@@ -49,14 +49,11 @@
         <a class="item" ui-sref="countries-admin" ng-if-permission="viewAdmin">
           <label>Countries</label>
         </a>
-        <a class="item" ui-sref="devices-admin" ng-if-permission="devices">
+        <a class="item" ui-sref="devices-admin" ng-if-permission="viewAdmin">
           <label>Devices</label>
         </a>
         <a class="item" ui-sref="goals-admin" ng-if-permission="viewAdmin">
           <label>Goals</label>
-        </a>
-        <a class="item" ui-sref="default-goals-admin" ng-if-permission="viewAdmin">
-          <label>Default Goals</label>
         </a>
         <a class="item" ui-sref="locations-admin" ng-if-permission="viewAdmin">
           <label>Locations</label>
@@ -75,7 +72,11 @@
           <i class="users"></i>
           <label>{{'USERS' | translate}}</label>
         </a>
-        <a class="item" ui-sref="emails" ng-if-permission="viewAdmin">
+        <a class="item" ui-sref="device-new" ng-if-permission="devices">
+          <i class="devices"></i>
+          <label>{{'DEVICE_NEW' | translate}}</label>
+        </a>
+        <a class="item" ui-sref="emails" ng-if-permission="users">
           <i class="emails"></i>
           <label>{{'EMAILS' | translate}}</label>
         </a>

@@ -1,0 +1,14 @@
+.provisioning-code {
+  li {
+    background: $grey_light;
+    width: rem-calc(100);
+    height: rem-calc(100);
+    padding-left: rem-calc(40);
+    padding-top: rem-calc(20);
+    font-size: $h1-font-size;
+    font-weight: bold;
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+}
