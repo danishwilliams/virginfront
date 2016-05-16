@@ -25,6 +25,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
 
     self.heartbeat = [];
     var num = 0;
+    self.hasHeartbeat = false;
     for (var i = 0; i < 287; i++) {
       // Work out the datetime
       var secondsAgo = (287 - i) * 5 * 60;
@@ -41,6 +42,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
         beat: i
       });
       if (k > -1) {
+        self.hasHeartbeat = true;
         beat = true;
         date = data[k].CreateDate;
         num++;
