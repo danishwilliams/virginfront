@@ -346,6 +346,7 @@
   "DEVICE_SECONDARY_CONFIRM": "The following device will become a secondary:",
   "DEVICE_SELECT_REQ": "Please choose a device",
   "DEVICE_SAVED": "Device successfully saved.",
+  "DEVICE_SAVE_ERROR": "There was an error when saving.",
   "TEMPLATES": "Plantillas",
   "TEMPLATE": "Plantilla",
   "TEMPLATE_CREATE": "Crear nueva plantilla",
