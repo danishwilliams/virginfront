@@ -1,4 +1,4 @@
-angular.module("app.device", []).controller('DeviceController', function ($stateParams, Devices, spinnerService) {
+angular.module("app.device", []).controller('DeviceController', function ($stateParams, Devices, spinnerService, $modal) {
   var self = this;
   this.id = $stateParams.id;
 
@@ -203,5 +203,19 @@ angular.module("app.device", []).controller('DeviceController', function ($state
       return 'CONNECTED';
     }
     return 'DISCONNECTED';
+  };
+
+  self.confirmDeviceDisable = function () {
+    var modalInstance = $modal.open({
+      templateUrl: '../js/components/device/confirm_device_disable.html',
+      controller: 'DeviceDisableModalInstanceCtrl as vm'
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      self.result = selectedItem;
+      if (self.result) {
+        console.log('disable the device!');
+      }
+    });
   };
 });
