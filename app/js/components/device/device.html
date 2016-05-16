@@ -5,7 +5,7 @@
     <div class="row heading">
       <a class="back" ui-sref="devices-admin">{{'DEVICES' | translate}}</a>
       <div class="columns small-10 medium-12">
-        <h1>{{vm.device.Name}}
+        <h1>{{vm.device.Name}} - {{vm.device.Gym.Name}}
           <span class="type" ng-if="vm.device.Primary">{{'PRIMARY' | translate}}</span>
           <span class="type" ng-if="!vm.device.Primary">{{'SECONDARY' | translate}}</span>
           <button class="edit" ng-hide="vm.edit" ui-sref="device-edit({id:vm.id})">{{'EDIT' | translate}}</button>
