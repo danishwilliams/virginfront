@@ -19,13 +19,16 @@ angular.module("app").config(function ($translateProvider, defaultI18n) {
     suffix: '.js'
   });
 
-  // .co.za .co.uk .co.it .co.pt
+  // .co.za .co.uk .es .it .pt
   var language = 'en';
   switch (window.location) {
-    case 'ride.virginactive.co.it':
+    case 'ride.virginactive.es':
+      language = 'es';
+      break;
+    case 'ride.virginactive.it':
       language = 'it';
       break;
-    case 'ride.virginactive.co.pt':
+    case 'ride.virginactive.pt':
       language = 'pt';
       break;
   }
