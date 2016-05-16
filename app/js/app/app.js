@@ -17,6 +17,7 @@ angular
     "app.dashboard",
     "app.devices",
     "app.device",
+    "app.device_edit",
     "app.device_new",
     "app.device_error_log",
     //"app.device_playlists",

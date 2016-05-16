@@ -292,6 +292,62 @@
             </div>
           </form>
 
+          <h2 class="heading">Messaging</h2>
+
+          <div class="alert-box success">
+            <span>Standard success message, like when saving something.</span>
+            <a ng-show="closeable" class="close">x</a>
+          </div>
+
+          <div class="alert-box warning">
+            <span>Standard warning message.</span>
+            <a ng-show="closeable" class="close">x</a>
+          </div>
+
+          <div class="row">
+            <div class="small-2 medium-2 large-1 columns">
+              <img src="/img/ico40grn_syncsuccess.svg">
+            </div>
+            <div class="small-16 medium-16 large-17 columns">
+              <p class="success">A success message at the end of a workflow, like provisioning a device</p>
+            </div>
+          </div>
+
+          <div class="contains-button alert-box warning" type="'warning'">
+            <span>
+              <div class="row ng-scope">
+                <div class="medium-14 columns ng-binding">
+                  A save button within a warning confirmation, like when saving a challenge goal master
+                </div>
+                <div class="medium-4 columns">
+                  <input type="submit" value="Save master">
+                </div>
+              </div>
+            </span>
+            <a class="close ng-hide">x</a>
+          </div>
+
+          <span class="device">
+            <h4>Email and device messaging in a table</h4>
+            <table>
+              <tr><td>
+                <div class="success" close="">
+                  <span>Device successfully synced</span>
+                </div>
+              </td></tr>
+              <tr><td>
+                <div class="warning" close="">
+                  <span>Device sync error</span>
+                </div>
+              </td></tr>
+              <tr><td>
+                <div class="delivered" close="">
+                  <span>Message delivered</span>
+                </div>
+              </td></tr>
+            </table>
+          </span>
+
           <h2 class="heading">Spinners</h2>
 
           <!--

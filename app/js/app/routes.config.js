@@ -130,6 +130,30 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  .state('device-edit', {
+    url: '/admin/devices/:id/edit',
+    templateUrl: '../js/components/device_edit/device_edit.html',
+    controller: 'DeviceEditController as vm',
+    resolve: {
+      $title: function() { return 'DEVICE_EDIT_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.devices]
+    }
+  })
+
+  .state('device-disable', {
+    url: '/admin/devices/:id/disable',
+    templateUrl: '../js/components/device_edit/device_edit.html',
+    controller: 'DeviceEditController as vm',
+    resolve: {
+      $title: function() { return 'DEVICE_DISABLE_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.devices]
+    }
+  })
+
   /*
   .state('device-playlists-queue', {
     url: '/admin/devices/:id/playlists/queue',
