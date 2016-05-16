@@ -1,4 +1,4 @@
-<div class="row device">
+<div class="row">
   <spinner class="spinner" name="device" show="true"></spinner>
   <div class="large-14 medium-16 small-18 large-centered medium-centered columns" ng-show="vm.snapshot">
 
@@ -9,7 +9,7 @@
       </h1>
     </div>
 
-    <div class="row">
+    <div class="row" ng-hide="vm.saved">
       <form name="vm.form" ng-submit="vm.form.$valid && vm.saveDevice()" novalidate>
         <label>{{'DEVICE_NAME' | translate}}</label>
         <input type="text" name="name" size="60" maxlength="60" ng-model="vm.device.Name" required />
@@ -39,6 +39,11 @@
           <spinner class="spinner" name="saveDeviceSpinner" show="false"></spinner>
         </div>
       </form>
+    </div>
+
+    <div class="row submit" ng-show="vm.saved">
+      <alert ng-if="vm.alert" type="vm.alert.type">{{vm.alert.msg | translate}}</alert>
+      <a ui-sref="device({id:vm.id})">Back to device</a>
     </div>
 
   </div>

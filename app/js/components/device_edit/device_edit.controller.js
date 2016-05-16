@@ -1,6 +1,7 @@
-angular.module("app.device_edit", []).controller('DeviceEditController', function ($stateParams, Devices, spinnerService) {
+angular.module("app.device_edit", []).controller('DeviceEditController', function ($state, $stateParams, Devices, spinnerService) {
   var self = this;
   self.id = $stateParams.id;
+  self.state = $state.current.name; // device-edit or device-disable
 
   Devices.loadDevice(self.id).then(function (data) {
     self.device = data;
@@ -26,7 +27,7 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
   this.saveDevice = function () {
     spinnerService.show('saveDeviceSpinner');
     self.saving = true;
-    
+
     // Made this primary device a secondary: make the chosen secondary device a primary
     if (self.snapshot.Primary && !self.device.Primary && self.newPrimary) {
       console.log('Made this primary device a secondary: make the chosen secondary device a primary', self.newPrimary);
@@ -36,7 +37,7 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
     }
 
     // Made this secondary device a primary: make the existing primary device a secondary
-    if (!self.snapshot.Primary && self.device.Primary && self.gyms.HasPrimary) {
+    else if (!self.snapshot.Primary && self.device.Primary && self.gyms.HasPrimary) {
       console.log('Made this secondary device a primary: make the existing primary device a secondary');
       self.gyms.data.forEach(function (val) {
         if (val.Primary) {
@@ -49,6 +50,10 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
         }
       });
     }
+
+    else {
+      saveDevice();
+    }
   };
 
   function saveDevice(newPrimary) {
@@ -56,20 +61,22 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
       spinnerService.hide('saveDeviceSpinner');
       if (newPrimary) {
         newPrimary.put().then(function () {
-          setDefaultValues();
+          saveComplete();
         });
       } else {
-        setDefaultValues();
+        saveComplete();
       }
     });
   }
 
-  function setDefaultValues() {
-    self.saving = false;
-    self.form.$setPristine();
+  function saveComplete() {
     self.snapshot.Name = self.device.Name;
     self.snapshot.Primary = self.device.Primary;
-    self.saving = false;
-    self.edit = false;
+    self.saved = true;
+    self.alert = {
+      type: 'success',
+      msg: 'DEVICE_SAVED'
+    };
   }
+
 });
