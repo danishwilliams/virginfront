@@ -55,7 +55,7 @@
       </div>
       <div class="small-16 medium-16 large-17 columns">
         <span ng-if="vm.alert.type === 'success'">
-        <p class="success">{{'DEVICE_CODE_SUCCESS' | translate}} {{vm.selectedGym.Name}} {{vm.deviceName}}</p>
+        <p class="success">{{vm.alert.msg | translate}} {{vm.selectedGym.Name}} {{vm.deviceName}}</p>
 
         <p>
           <ol class="inline-list provisioning-code">
@@ -69,20 +69,16 @@
             <li>{{'DEVICE_INTERNET' | translate}}</li>
           </ol>
         </p>
+        </span>
 
+        <p ng-if="vm.alert.type === 'warning'" class="warning">{{vm.alert.msg | translate}}</p>
         <div class="submit">
-          <a class="cancel" ui-sref="dashboard">{{'RETURN_DASHBOARD' | translate}}</a>
-          <button class="secondary submit" ng-click="vm.provisionAnother()">{{'DEVICE_PROVISION_ANOTHER' | translate}}</button>
+          <a class="cancel" ui-sref="devices-admin">{{'DEVICE_DASHBOARD_RETURN' | translate}}</a>
+          <button class="secondary submit" ng-click="vm.provisionAnother()">
+            <span ng-if="vm.alert.type === 'success'">{{'DEVICE_PROVISION_ANOTHER' | translate}}</span>
+            <span ng-if="vm.alert.type === 'warning'">{{'TRY_AGAIN' | translate}}</span>
+          </button>
         </div>
-        </span>
-
-        <span ng-if="vm.alert.type === 'warning'">
-          <p class="warning">{{vm.alert.msg | translate}}</p>
-          <div class="submit">
-            <a class="cancel" ui-sref="devices-admin">{{'DEVICE_DASHBOARD_RETURN' | translate}}</a>
-            <button class="secondary submit" ng-click="vm.provisionAnother()">{{'TRY_AGAIN' | translate}}</button>
-          </div>
-        </span>
       </div>
     </div>
 
