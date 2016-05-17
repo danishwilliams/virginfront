@@ -1,7 +1,8 @@
 angular.module("app.devices", []).controller('DevicesController', function ($stateParams, Devices, spinnerService) {
   var self = this;
   self.query = '';
-  self.type = '';
+  self.deviceType = '';
+  self.type = $stateParams.type;
 
   Devices.loadSyncStatus().then(function (data) {
     spinnerService.hide('devices');
@@ -28,16 +29,16 @@ angular.module("app.devices", []).controller('DevicesController', function ($sta
     });
 
     // Showing different types of device listings: connected, disconnected, sync errors
-    if ($stateParams.type) {
+    if (self.type) {
       var newData = [];
       data.forEach(function(val) {
-        if (val.Connected && $stateParams.type === 'connected') {
+        if (val.Connected && self.type === 'connected') {
           newData.push(val);
         }
-        else if (!val.Connected && $stateParams.type === 'disconnected') {
+        else if (!val.Connected && self.type === 'disconnected') {
           newData.push(val);
         }
-        else if (val.error && $stateParams.type === 'syncerrors') {
+        else if (val.error && self.type === 'syncerrors') {
           newData.push(val);
         }
       });
@@ -60,8 +61,8 @@ angular.module("app.devices", []).controller('DevicesController', function ($sta
 
   // Filter by All, Primary or Secondary
   self.filterDevices = function(device) {
-    if (self.type.length > 0) {
-      return device.Device.Primary.toString() === self.type;
+    if (self.deviceType.length > 0) {
+      return device.Device.Primary.toString() === self.deviceType;
     }
     return true;
   };
