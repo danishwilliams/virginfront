@@ -336,6 +336,7 @@
   "DEVICE_INTERNET": "Asegúrate que tu dispositivo tiene conexión a internet",
   "DEVICE_PROVISION_ANOTHER": "Asignar otro dispositivo",
   "DEVICE_PROVISION_ERROR": "Ocurrió un error mientras se deshabilitaba el dispositivo actual",
+  "DEVICE_PROVISION_NEW_ERROR": "Something went wrong while trying to provision a new device.",
   "MUSIC_PROVIDER_CANCELLING_ERROR": "Ocurrió un error al cancelar la cuenta de proveedor de música",
   "DEVICE_PRIMARY_REMOVE_CONFIRM": "You are about to remove the primary device for {{gym}}. Please select a new primary device below:",
   "DEVICE_SECONDARY_CONFIRM": "The following device will become a secondary:",
