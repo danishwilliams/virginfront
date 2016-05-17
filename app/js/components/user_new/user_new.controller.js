@@ -1,4 +1,4 @@
-angular.module("app.user_new", []).controller('UserNewController', function (Users, UserTypes, Gyms, Restangular, $state) {
+angular.module("app.user_new", []).controller('UserNewController', function (Users, UserTypes, Gyms, Restangular, $state, spinnerService) {
   var self = this;
 
   self.newUser = {
