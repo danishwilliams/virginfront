@@ -221,6 +221,7 @@
   "PasswordReset": "Re-imposta password",
   "USER_DISABLED": "Questo profilo utente è stato disabilitato",
   "USER_ENABLED": "Questo profilo utente è stato abilitato",
+  "Instructor ID already exists": "The Instructor ID already exists.",
   "STATUS": "Stato",
   "MANAGE_ACCOUNT": "Gestisci profilo",
   "DISABLED_ACCOUNT": "Profilo disabilitato",

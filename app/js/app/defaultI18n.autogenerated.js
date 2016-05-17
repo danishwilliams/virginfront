@@ -221,6 +221,7 @@
   "PasswordReset": "Password reset",
   "USER_DISABLED": "This user account has been disabled.",
   "USER_ENABLED": "This user account has been enabled.",
+  "Instructor ID already exists": "The Instructor ID already exists.",
   "STATUS": "Status",
   "MANAGE_ACCOUNT": "Manage account",
   "DISABLED_ACCOUNT": "Disabled account",

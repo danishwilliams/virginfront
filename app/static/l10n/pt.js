@@ -221,6 +221,7 @@
   "PasswordReset": "Eliminar password",
   "USER_DISABLED": "O utilizador desta conta foi desativado",
   "USER_ENABLED": "O utilizador desta conta foi ativado",
+  "Instructor ID already exists": "The Instructor ID already exists.",
   "STATUS": "Estado",
   "MANAGE_ACCOUNT": "Gerir conta",
   "DISABLED_ACCOUNT": "Conta desativada",
