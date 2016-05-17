@@ -55,12 +55,12 @@ aside label {
 .icon-bar {
   background: $grey_darker;
   span.item {
-    padding-bottom: 0px;
+    padding-bottom: 0;
   }
   > * i + label, label {
-    font-size: rem-calc(12);
-    padding-top: 0;
-    margin-top: -2px;
+    font-size: rem-calc(14);
+    padding-top: rem-calc(0);
+    padding-bottom: rem-calc(6);
   }
   a.item:first-of-type {
     padding-top: rem-calc(16);
