@@ -45,6 +45,10 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
           });
         }
       });
+      if (!processed) {
+        processed = true;
+        provisionDevice();
+      }
     }
     else {
       provisionDevice();
