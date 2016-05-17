@@ -11,17 +11,10 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
 
   function loadDevicesForGym() {
     // Load up the devices for this club
-    Devices.loadDevicesForGym(self.device.Gym.Id).then(function (data) {
+    Devices.loadDevicesForGym(self.device.Gym.Id, self.device.Id).then(function (data) {
       self.loaded = true;
       spinnerService.hide('device');
-      // Exclude the current device from the list
-      self.gyms = angular.copy(data);
-      self.gyms.data = [];
-      data.data.forEach(function (val) {
-        if (val.Id !== self.device.Id) {
-          self.gyms.data.push(val);
-        }
-      });
+      self.gyms = data;
     });
   }
 
