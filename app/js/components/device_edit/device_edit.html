@@ -83,7 +83,7 @@
       </div>
       <div class="row submit" ng-if="vm.alert.type === 'success'">
         <a class="cancel" ui-sref="devices-admin">{{'DEVICE_DASHBOARD_RETURN' | translate}}</a>
-        <button value="{{'DEVICE_NEW' | translate}}" ui-sref="device-new"></button>
+        <button class="submit" ui-sref="device-new">{{'DEVICE_NEW' | translate}}</button>
       </div>
       <div class="row submit" ng-if="vm.alert.type === 'warning'">
         <a class="cancel" ui-sref="device({id:vm.id})">{{'CANCEL' | translate}}</a>
