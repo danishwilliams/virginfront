@@ -56,6 +56,11 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
     Devices.provisionDevice(self.deviceName, self.selectedGym.Id, self.isPrimary).then(function (data) {
       self.saving = false;
       spinnerService.hide('deviceNewSpinner');
+      self.alert = {
+        type: 'success',
+        msg: 'DEVICE_CODE_SUCCESS'
+      };
+
       var code = data.ProvisionCode;
 
       // Put the provisioning code into an array so we can display each digit separately
