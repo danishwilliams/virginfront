@@ -64,7 +64,7 @@ function goalOptionController($scope) {
     if (($scope.totalGoaloptions > 0 && $scope.goalGoaloptionNumber === 1)) {
       half_time();
     }
-    else if (($scope.goalBpmLow <= $scope.trackBpm && $scope.trackBpm <= $scope.goalBpmHigh)) {
+    else if ($scope.trackBpm <= $scope.goalBpmHigh) {
       // The track BPM is in the goal option's BPM range, it's "on the beat"
       console.log($scope.goalBpmLow + ' <= ' + $scope.trackBpm + ' <= ' + $scope.goalBpmHigh, 'On the beat');
       $scope.goaloption.Beat.Ratio = 1;
