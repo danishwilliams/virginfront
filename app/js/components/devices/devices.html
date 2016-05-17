@@ -5,7 +5,10 @@
     <div class="row heading">
       <a class="back" ui-sref="dashboard">{{'DASHBOARD' | translate}}</a>
       <div class="columns small-10 medium-12">
-        <h1>{{'DEVICES' | translate}}</h1>
+        <h1 ng-if="!vm.type">{{'DEVICES' | translate}}</h1>
+        <h1 ng-if="vm.type === 'connected'">{{'DEVICES_CONNECTED_TITLE' | translate}}</h1>
+        <h1 ng-if="vm.type === 'disconnected'">{{'DEVICES_DISCONNECTED' | translate}}</h1>
+        <h1 ng-if="vm.type === 'syncerrors'">{{'DEVICES_PROBLEMATIC' | translate}}</h1>
       </div>
       <div class="columns small-8 medium-6 text-center">
         <button class="secondary" ui-sref="device-new">{{'DEVICE_NEW' | translate}}</button>
@@ -19,7 +22,7 @@
       </div>
       <div class="small-18 medium-9 columns">
         <label>{{'DEVICE_TYPE_FILTER' | translate}}</label>
-        <select ng-model="vm.type">
+        <select ng-model="vm.deviceType">
           <option value="" selected>{{'ALL' | translate}}</option>
           <option value="true">{{'PRIMARY' | translate}}</option>
           <option value="false">{{'SECONDARY' | translate}}</option>
