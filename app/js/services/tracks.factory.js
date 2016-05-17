@@ -86,8 +86,11 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   window.addEventListener("click", twiddle);
 
   function twiddle() {
-    self.audio.play();
-    self.audio.pause();
+    self.audio.play().then(function() {
+      self.audio.pause();
+    }, function(err) {
+      console.log('Play error!', err);
+    });
     window.removeEventListener("click", twiddle);
   }
 
