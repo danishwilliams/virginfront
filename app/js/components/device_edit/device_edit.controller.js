@@ -57,13 +57,17 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
     // Made this secondary device a primary: make the existing primary device a secondary
     else if (!self.snapshot.Primary && self.device.Primary && self.gyms.HasPrimary) {
       console.log('Made this secondary device a primary: make the existing primary device a secondary');
+      var processed = false;
       self.gyms.data.forEach(function (val) {
         if (val.Primary) {
           val.Primary = false;
           val.route = "devices/";
           console.log('making this primary device a secondary!', val);
           val.put().then(function () {
-            saveDevice();
+            if (!processed) {
+              processed = true;
+              saveDevice();
+            }
           }, function () {
             saveError();
           });
