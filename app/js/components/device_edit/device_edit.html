@@ -76,8 +76,8 @@
           <img ng-if="vm.alert.type === 'warning'" src="/img/ico40orng_syncerror.svg">
         </div>
         <div class="small-16 medium-16 large-17 columns">
-          <span ng-if="vm.alert.type === 'success'"><p class="success">{{'DEVICE_DISABLE_SUCCESS' | translate}}</p></span>
-          <span class="warning" ng-if="vm.alert.type === 'warning'"><p class="warning"><strong>{{'DEVICE_DISABLE_FAILED' | translate}}</strong></p><p class="small">{{'RETRY_OR_CONTACT_ADMIN' | translate}}</p></span>
+          <span ng-if="vm.alert.type === 'success'"><p class="success">{{vm.alert.msg | translate}}</p></span>
+          <span class="warning" ng-if="vm.alert.type === 'warning'"><p class="warning"><strong>{{vm.alert.msg | translate}}</strong></p><p class="small">{{'RETRY_OR_CONTACT_ADMIN' | translate}}</p></span>
         </div>
       </div>
       <div class="row submit" ng-if="vm.alert.type === 'success'">
