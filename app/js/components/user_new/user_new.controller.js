@@ -26,6 +26,9 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
       return;
     }
 
+    self.saving = true;
+    spinnerService.show('newUser');
+
     // Add the clubs
     self.newUser.UserGyms = [];
     self.gyms.forEach(function (val) {
@@ -54,15 +57,15 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
       }
     });
 
-    self.saving = true;
-
     // Save the new user
     self.newUser.Username = self.newUser.Email;
     Users.createNewUser(self.newUser).then(function () {
       self.saving = false;
+      spinnerService.hide('newUser');
       $state.go('users-admin');
     }, function (res) {
       self.saving = false;
+      spinnerService.hide('newUser');
       if (res.data.Message === 'Email address already exists') {
         res.data.Message = 'EMAIL_EXISTS';
       }
