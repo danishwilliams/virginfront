@@ -7,6 +7,17 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
     self.gyms = data;
   });
 
+  self.gymSelected = function() {
+    spinnerService.show('gymDevices');
+    self.devices = {data: []};
+    // Load up the devices for this club
+    Devices.loadDevicesForGym(self.selectedGym.Id).then(function (data) {
+      self.devicesLoaded = true;
+      spinnerService.hide('gymDevices');
+      self.devices = data;
+    });
+  };
+
   self.provisionNewDevice = function () {
     if (self.form.$invalid) {
       return;

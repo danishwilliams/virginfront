@@ -358,6 +358,8 @@
   "RETRY_OR_CONTACT_ADMIN": "You can retry or contact your administrator.",
   "RETRY": "Retry",
   "DEVICE_DASHBOARD_RETURN": "Return to Device Dashboard",
+  "DEVICE_MAKE_PRIMARY": "Make this the Primary device for this club",
+  "DEVICES_FOR_CLUB": "Devices provisioned for this club",
   "TEMPLATES": "Templates",
   "TEMPLATE": "Template",
   "TEMPLATE_CREATE": "Create new template",
