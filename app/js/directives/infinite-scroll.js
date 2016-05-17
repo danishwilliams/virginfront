@@ -29,7 +29,7 @@ angular.module('app').directive('infiniteScroll', ['$window',
                         if (!contentElement[0]) {
                             return;
                         }
-                        console.log(contentElement);
+                        //console.log(contentElement);
                         // The bottom of the bounding box of the ng-repeat element
                         var elementBottom = contentElement[0].getBoundingClientRect().bottom;
                         // The height of the element which the ng-repeat is housed within (and which has the infinite-scroll attribute on it)
