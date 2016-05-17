@@ -17,14 +17,6 @@ angular.module("app.tracks_search", []).controller('Tracks_searchController', fu
       this.bpmLow2 = this.currentgoal.BpmLow * 2;
       this.bpmHigh2 = this.currentgoal.BpmHigh * 2;
     }
-    // If bpm greater than 120, then halve it too
-    else if (this.currentgoal.BpmLow >= 120) {
-      this.bpm2 = true;
-      this.bpmLow2 = this.currentgoal.BpmLow;
-      this.bpmHigh2 = this.currentgoal.BpmHigh;
-      this.currentgoal.BpmLow = this.currentgoal.BpmLow / 2;
-      this.currentgoal.BpmHigh = this.currentgoal.BpmHigh / 2;
-    }
   }
 
   if (this.currentgoal.BpmLow === -1) {
