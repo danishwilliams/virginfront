@@ -53,12 +53,23 @@ function DevicesFactory(Restangular, uuid2) {
     }
   }
 
-  function loadDevicesForGym(id) {
-    return Restangular.all('gyms/' + id + '/devices').getList().then(loadDevicesForGymComplete);
+  /**
+   * Load all devices for a specific gym, but if excludeDeviceId is given, then exlude that device from the listing
+   */
+  function loadDevicesForGym(gymId, excludeDeviceId) {
+    return Restangular.all('gyms/' + gymId + '/devices').getList().then(loadDevicesForGymComplete);
 
     function loadDevicesForGymComplete(data, status, headers, config) {
-      var newData = {data: data};
+      var newData = {};
+
+      // Exclude the device from the list, by creating a blank array and...
+      var dataWithoutExcludedDevice = [];
+
       data.forEach(function (val) {
+        if (excludeDeviceId && val.Id !== excludeDeviceId) {
+          // ...only adding devices which don't match that device
+          dataWithoutExcludedDevice.push(val);
+        }
         if (val.Primary) {
           newData.HasPrimary = true;
         }
@@ -66,14 +77,29 @@ function DevicesFactory(Restangular, uuid2) {
           newData.HasSecondary = true;
         }
       });
+      if (excludeDeviceId) {
+        data = dataWithoutExcludedDevice;
+      }
+      newData.data = data;
       return newData;
     }
   }
 
-  function provisionDevice(deviceName, gymId) {
+  /**
+   * Provisions a new device
+   *
+   * @param deviceName
+   *   String. Name of the new device
+   * @param gymId
+   *   UUID. The id of the gym this device belongs to.
+   * @param isPrimary
+   *   Boolean. If the device is primary or not
+   */
+  function provisionDevice(deviceName, gymId, isPrimary) {
     var params = {
       DeviceName: deviceName,
       GymId: gymId,
+      Primary: isPrimary,
       Id: uuid2.newuuid().toString()
     };
     return Restangular.one('devices/provision').post('', params).then(provisionDeviceComplete);

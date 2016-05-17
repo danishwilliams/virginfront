@@ -11,17 +11,10 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
 
   function loadDevicesForGym() {
     // Load up the devices for this club
-    Devices.loadDevicesForGym(self.device.Gym.Id).then(function (data) {
+    Devices.loadDevicesForGym(self.device.Gym.Id, self.device.Id).then(function (data) {
       self.loaded = true;
       spinnerService.hide('device');
-      // Exclude the current device from the list
-      self.gyms = angular.copy(data);
-      self.gyms.data = [];
-      data.data.forEach(function (val) {
-        if (val.Id !== self.device.Id) {
-          self.gyms.data.push(val);
-        }
-      });
+      self.gyms = data;
     });
   }
 
@@ -29,7 +22,25 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
     self.action = 'disable';
     self.device.Enabled = self.device.Primary = false;
     self.saving = true;
-    saveDevice(self.newPrimary);
+    spinnerService.show('saveDeviceSpinner');
+    Devices.disableDevice(self.device.Id).then(function(data) {
+      saveDevice(self.newPrimary);
+    }, function(err) {
+      self.saved = true;
+      self.saving = false;
+
+      spinnerService.hide('saveDeviceSpinner');
+
+      self.alert = {
+        type: 'warning',
+        msg: 'DEVICE_DISABLE_FAILED'
+      };
+
+      // Either a generic error or a Music Provider error
+      if (err.data.Message.startsWith('Error while cancelling device music provider account')) {
+        msg = 'MUSIC_PROVIDER_CANCELLING_ERROR';
+      }
+    });
   };
 
   this.saveDevice = function () {
@@ -46,13 +57,17 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
     // Made this secondary device a primary: make the existing primary device a secondary
     else if (!self.snapshot.Primary && self.device.Primary && self.gyms.HasPrimary) {
       console.log('Made this secondary device a primary: make the existing primary device a secondary');
+      var processed = false;
       self.gyms.data.forEach(function (val) {
         if (val.Primary) {
           val.Primary = false;
           val.route = "devices/";
           console.log('making this primary device a secondary!', val);
           val.put().then(function () {
-            saveDevice();
+            if (!processed) {
+              processed = true;
+              saveDevice();
+            }
           }, function () {
             saveError();
           });
@@ -93,6 +108,9 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
       type: 'success',
       msg: 'DEVICE_SAVED'
     };
+    if (self.action === 'disable') {
+      alert.msg = 'DEVICE_DISABLE_SUCCESS';
+    }
   }
 
   function saveError() {
@@ -102,5 +120,8 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
       type: 'warning',
       msg: 'DEVICE_SAVE_ERROR'
     };
+    if (self.action === 'disable') {
+      alert.msg = 'DEVICE_DISABLE_FAILED';
+    }
   }
 });
