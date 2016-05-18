@@ -53,7 +53,7 @@
   "INVALID_LINK": "This link is no longer valid. Please try",
   "LOGGING_IN": "logging in",
   "EMAIL_UNRECOGNISED": "We don't recognise this email address. Try retyping it to make sure you didn't make a mistake",
-  "PASSWORD_RESET_ERROR": "Password reset had an error, sorry.",
+  "PASSWORD_RESET_ERROR": "Password reset had an unexpected error, please try again.",
   "HOME": "Home",
   "TITLE": "Management Console",
   "MENU": "Menu",
