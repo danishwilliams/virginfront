@@ -22,14 +22,14 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
     self.action = 'disable';
     self.device.Enabled = self.device.Primary = false;
     self.saving = true;
-    spinnerService.show('saveDeviceSpinner');
+    spinnerService.show('disableDeviceSpinner');
     Devices.disableDevice(self.device.Id).then(function(data) {
       saveDevice(self.newPrimary);
     }, function(err) {
       self.saved = true;
       self.saving = false;
 
-      spinnerService.hide('saveDeviceSpinner');
+      spinnerService.hide('disableDeviceSpinner');
 
       self.alert = {
         type: 'warning',
