@@ -27,7 +27,8 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
     sendInvite: sendInvite,
     createNewUser: createNewUser,
     disableUser: disableUser,
-    enableUser: enableUser
+    enableUser: enableUser,
+    testUserMusicProviderAccount: testUserMusicProviderAccount
   };
 
   return usersFactory;
@@ -292,6 +293,14 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
     return Restangular.one("users/enable", userId).post().then(enableUserComplete);
 
     function enableUserComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function testUserMusicProviderAccount(userId) {
+    return Restangular.one("music/test", userId).get().then(testUserMusicProviderAccountComplete);
+
+    function testUserMusicProviderAccountComplete(data, status, headers, config) {
       return data;
     }
   }

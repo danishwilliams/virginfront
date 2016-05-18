@@ -9,6 +9,13 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   }
 
   Users.loadUser(this.id).then(function (data) {
+    // Test the user's music provider account i.e. see if their username and password works
+    if (data.UserMusicProvider) {
+      Users.testUserMusicProviderAccount(self.id).then(function (data) {
+        self.musicProviderAccount = data.Success;
+        self.musicProviderAccountLoaded = true;
+      });
+    }
 
     // Scroll to the recent rides section
     // Yeah, this isn't the best place to do this, but I couldn't get similar logic working anywhere else: not in

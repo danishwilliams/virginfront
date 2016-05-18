@@ -221,6 +221,12 @@ body {
 .box {
   background-color: $grey_lighter;
   padding: rem-calc(30px);
+  .image-right {
+    img {
+      float: right;
+      padding-right: rem-calc(16);
+    }
+  }
 }
 
 select {
