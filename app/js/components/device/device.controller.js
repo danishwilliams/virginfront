@@ -1,4 +1,4 @@
-angular.module("app.device", []).controller('DeviceController', function ($stateParams, Devices, spinnerService) {
+angular.module("app.device", []).controller('DeviceController', function ($stateParams, Devices, Heartbeat, spinnerService) {
   var self = this;
   this.id = $stateParams.id;
   self.page = 1;
@@ -10,58 +10,13 @@ angular.module("app.device", []).controller('DeviceController', function ($state
     spinnerService.hide('device');
   });
 
-  // for a week: 287 -> 2100
-  // 5 -> 35
-
   // Load the device heartbeat
   Devices.loadDeviceHeartbeatLog(self.id, 10).then(function (data) {
-    // Convert each heartbeat into a value between 0 and 287 (5 x 12 x 24) since there's a heartbeat every 5 minutes
-    var secondsInADay = 60 * 60 * 24;
-    data.forEach(function (val) {
-      // Get the current time in seconds
-      val.CreateDate = new Date(val.CreateDate);
-      var seconds = Math.floor((new Date() - val.CreateDate) / 1000);
-
-      // Convert this into a value between 0 and 287
-      var beat = 287 - (287 * ((seconds / secondsInADay)));
-      val.beat = Math.round(beat);
-    });
-
-    self.heartbeat = [];
-    var num = 0;
-    self.hasHeartbeat = false;
-    for (var i = 0; i < 287; i++) {
-      // Work out the datetime
-      var secondsAgo = (287 - i) * 5 * 60;
-      var date = new Date(new Date().getTime() - secondsAgo * 1000);
-
-      if (!self.newDay && date.getHours() === 0) {
-        self.newDay = date;
-        self.newDayIndex = i;
-      }
-
-      // Is this a heartbeat or not?
-      var beat = false;
-      var k = _.findIndex(data, {
-        beat: i
-      });
-      if (k > -1) {
-        self.hasHeartbeat = true;
-        beat = true;
-        date = data[k].CreateDate;
-        num++;
-      }
-
-      // If the last record shows disconnected, that's in the last 5 minutes, so who cares. Don't show it.
-      if (i === 286 && k === -1) {
-        return;
-      }
-
-      self.heartbeat.push({
-        beat: beat,
-        date: date
-      });
-    }
+    var log = Heartbeat.createHeartbeat(data);
+    self.heartbeat = log.heartbeat;
+    self.hasHeartbeat = log.hasHeartbeat;
+    self.newDay = log.newDay;
+    self.newDayIndex = log.newDayIndex;
   });
 
   function loadDeviceSyncLog() {
@@ -71,7 +26,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
       if (self.page === 1) {
         self.synclog = data;
       }
-      else {
+      else if (self.synclog.DeviceSyncPlaylistSyncs) {
         self.synclog.DeviceSyncPlaylistSyncs = self.synclog.DeviceSyncPlaylistSyncs.concat(data.DeviceSyncPlaylistSyncs);
       }
       // Prevents us getting caught in an infinite load cycle when there's nothing more to load
@@ -88,6 +43,9 @@ angular.module("app.device", []).controller('DeviceController', function ($state
       // Sync cycle is complete
 
       var i = 0;
+      if (!self.synclog.DeviceSyncPlaylistSyncs) {
+        return;
+      }
       self.synclog.DeviceSyncPlaylistSyncs.forEach(function (val) {
         val.timeAgo = val.DeviceSync.CreateDate;
 
@@ -154,7 +112,10 @@ angular.module("app.device", []).controller('DeviceController', function ($state
     else {
       return;
     }
-    self.count = self.synclog.DeviceSyncPlaylistSyncs.length;
+    self.count = 0;
+    if (self.synclog.DeviceSyncPlaylistSyncs) {
+      self.count = self.synclog.DeviceSyncPlaylistSyncs.length;
+    }
     self.page++;
     loadDeviceSyncLog();
   };
