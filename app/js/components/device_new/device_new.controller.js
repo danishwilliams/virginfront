@@ -86,6 +86,8 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
   self.provisionAnother = function () {
     self.provisioningCode = undefined;
     self.selectedGym = undefined;
+    self.isPrimary = false;
+    self.devices = [];
     self.deviceName = '';
     self.form.$setPristine();
     self.form.$setUntouched();
