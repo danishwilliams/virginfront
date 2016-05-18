@@ -28,10 +28,11 @@
         <label class="no-bold"><input type="radio" ng-model="vm.device.Primary" ng-value="false"> {{'SECONDARY' | translate}}</label>
         <div ng-if="vm.snapshot.Primary && !vm.device.Primary && vm.gyms.HasSecondary">
           <p translate="DEVICE_PRIMARY_REMOVE_CONFIRM" translate-values="{gym: vm.device.Gym.Name}"></p>
-          <select name="newPrimary" ng-model="vm.newPrimary" ng-options="v as v.Name for v in vm.gyms.data | orderBy:'Name'" required></select>
-          <div ng-show="vm.form.$submitted || vm.form.newPrimary.$touched">
-            <small class="error" ng-show="vm.form.newPrimary.$error.required">{{'DEVICE_SELECT_REQ' | translate}}</small>
-          </div>
+
+          <label ng-repeat="device in vm.gyms.data | orderBy:'Name'">
+            <input name="newPrimary" type="radio" ng-model="vm.newPrimary" ng-value="device" required>
+            {{device.Name}}
+          </label>
         </div>
 
         <div class="row submit">
@@ -51,15 +52,16 @@
 
         <div ng-if="vm.device.Primary && vm.gyms.HasSecondary">
           <h3>{{'DEVICE_NEW_PRIMARY' | translate}}</h3>
-          <select name="newPrimary" ng-model="vm.newPrimary" ng-options="v as v.Name for v in vm.gyms.data | orderBy:'Name'" required></select>
-          <div ng-show="vm.form.$submitted || vm.form.newPrimary.$touched">
-            <small class="error" ng-show="vm.form.newPrimary.$error.required">{{'DEVICE_SELECT_REQ' | translate}}</small>
-          </div>
+
+          <label ng-repeat="device in vm.gyms.data | orderBy:'Name'">
+            <input name="newPrimary" type="radio" ng-model="vm.newPrimary" ng-value="device" required>
+            {{device.Name}}
+          </label>
         </div>
 
         <div class="row submit">
           <a class="cancel" ui-sref="device({id:vm.id})">{{'CANCEL' | translate}}</a>
-          <input type="submit" ng-disabled="vm.saving" value="{{'DEVICE_DISABLE_CONFIRM' | translate}}">
+          <input type="submit" ng-disabled="vm.form.$invalid || vm.saving" value="{{'DEVICE_DISABLE_CONFIRM' | translate}}">
           <spinner class="spinner" name="disableDeviceSpinner" show="false"></spinner>
         </div>
 
