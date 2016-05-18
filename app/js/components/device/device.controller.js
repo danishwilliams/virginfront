@@ -75,6 +75,12 @@ angular.module("app.device", []).controller('DeviceController', function ($state
     var i = 0;
     self.synclog.DeviceSyncPlaylistSyncs.forEach(function (val) {
       val.timeAgo = val.DeviceSync.CreateDate;
+
+      // Work out how long the device took to sync in this sync cycle
+      if (val.DeviceSync.SyncEndDate) {
+        val.timeSyncTook = Math.floor((new Date(val.DeviceSync.SyncEndDate) - new Date(val.DeviceSync.CreateDate)) / 1000);
+      }
+
       if (val.DeviceSync.SyncSuccess === false) {
         // Sync cycle failure
         val.syncFailure = true;

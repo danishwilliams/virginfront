@@ -302,6 +302,7 @@
   "DEVICES_PROBLEMATIC": "Problematic devices",
   "DEVICE_NO_ERRORS": "No device errors to report",
   "DOWNLOAD_ERRORS": "Download failed",
+  "SECONDS": "seconds",
   "LINK_ERRORS": "Unable to get track download link",
   "DEVICES_SEARCH": "Search by club or device name",
   "DEVICE_DISABLE": "Disable this device",
