@@ -58,9 +58,6 @@
         <a class="item" ui-sref="locations-admin" ng-if-permission="viewAdmin">
           <label>Locations</label>
         </a>
-        <a class="item" ui-sref="music-providers-admin" ng-if-permission="viewAdmin">
-          <label>Music Providers</label>
-        </a>
         <a class="item" ui-sref="playlists_admin" ng-if-permission="viewAdmin">
           <label>Playlists</label>
         </a>

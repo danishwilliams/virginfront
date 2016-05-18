@@ -18,6 +18,13 @@ h1.site-heading {
   margin-left: rem-calc(100px);
 }
 
+.extra-info {
+  font-size: rem-calc(12);
+  font-weight: normal;
+  font-style: italic;
+  color: $grey;
+}
+
 .heading {
   border-bottom: 1px solid $grey_light;
   color: $grey_light;

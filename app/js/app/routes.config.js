@@ -84,7 +84,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('dashboard', {
     url: '/dashboard',
     templateUrl: '../js/components/dashboard/dashboard.html',
-    controller: 'DashboardController as dashboard',
+    controller: 'DashboardController as vm',
     resolve: {
       $title: function() { return 'DASHBOARD'; }
     },
@@ -252,15 +252,15 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   // Music Providers
-  .state('music-providers-admin', {
+  .state('music-provider-status', {
     url: '/admin/music-providers',
     templateUrl: '../js/components/music_providers/music_providers.html',
-    controller: 'Music_providersController as music_providers',
+    controller: 'Music_providersController as vm',
     resolve: {
-      $title: function() { return 'Music providers | Admin'; }
+      $title: function() { return 'MUSIC_PROVIDER_STATUS_PAGE'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.users]
     }
   })
 

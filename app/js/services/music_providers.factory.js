@@ -11,13 +11,14 @@ function MusicProvidersFactory(Restangular) {
   var musicProvidersFactory = {
     loadMusicProviders: loadMusicProviders,
     getMusicProviders: getMusicProviders,
-    loadMusicProvider: loadMusicProvider
+    loadMusicProvider: loadMusicProvider,
+    getHeartbeatLog: getHeartbeatLog
   };
 
   return musicProvidersFactory;
 
   function loadMusicProviders() {
-    return Restangular.all('musicProviders').getList().then(loadMusicProvidersComplete);
+    return Restangular.all('musicproviders').getList().then(loadMusicProvidersComplete);
 
     function loadMusicProvidersComplete(data, status, headers, config) {
       self.musicProviders = data;
@@ -30,9 +31,21 @@ function MusicProvidersFactory(Restangular) {
   }
 
   function loadMusicProvider(id) {
-    return Restangular.one('musicProviders', id).get().then(loadMusicProviderComplete);
+    return Restangular.one('musicproviders', id).get().then(loadMusicProviderComplete);
 
     function loadMusicProviderComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function getHeartbeatLog(id, resultCount, page) {
+    var params = {
+      resultCount: resultCount,
+      page: page
+    };
+    return Restangular.one('musicproviders/' + id + '/heartbeatlog').get(params).then(getHeartbeatLogComplete);
+
+    function getHeartbeatLogComplete(data, status, headers, config) {
       return data;
     }
   }
