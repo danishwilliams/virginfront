@@ -80,7 +80,7 @@
             </div><br>
           </span>
         </td>
-        <td><span ng-if="log.timeSyncTook">{{log.timeSyncTook}} {{'SECONDS' | translate}}</span></td>
+        <td><span ng-if="log.timeSyncTook">{{log.timeSyncTook | minutesSeconds}}</span></td>
       </tr>
     </table>
 
