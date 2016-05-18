@@ -60,6 +60,7 @@
         <div class="row submit">
           <a class="cancel" ui-sref="device({id:vm.id})">{{'CANCEL' | translate}}</a>
           <input type="submit" ng-disabled="vm.saving" value="{{'DEVICE_DISABLE_CONFIRM' | translate}}">
+          <spinner class="spinner" name="disableDeviceSpinner" show="false"></spinner>
         </div>
 
       </form>
