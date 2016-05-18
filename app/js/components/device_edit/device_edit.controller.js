@@ -109,7 +109,7 @@ angular.module("app.device_edit", []).controller('DeviceEditController', functio
       msg: 'DEVICE_SAVED'
     };
     if (self.action === 'disable') {
-      alert.msg = 'DEVICE_DISABLE_SUCCESS';
+      self.alert.msg = 'DEVICE_DISABLE_SUCCESS';
     }
   }
 
