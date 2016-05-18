@@ -40,9 +40,7 @@
       </div>
     </div>
 
-    <spinner class="spinner" name="synclog" show="true"></spinner>
-
-    <table>
+    <table infinite-scroll="vm.loadMoreLogs()">
       <tr ng-repeat="log in vm.synclog.DeviceSyncPlaylistSyncs">
         <td><span ng-if="log.timeAgo">{{log.timeAgo | date : 'dd'}} {{log.timeAgo | date : 'MMMM' | translate}} {{log.timeAgo | date : 'yyyy HH:mm'}}</span></td>
         <td>
@@ -83,6 +81,10 @@
         <td><span ng-if="log.timeSyncTook">{{log.timeSyncTook}} {{'SECONDS' | translate}}</span></td>
       </tr>
     </table>
+
+    <div class="row">
+      <spinner class="spinner center" name="synclog" show="true"></spinner>
+    </div>
 
   </div>
 </div>

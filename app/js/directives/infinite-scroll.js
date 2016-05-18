@@ -44,7 +44,7 @@ angular.module('app').directive('infiniteScroll', ['$window',
                     // The above code is unnecessary if all we're doing is doing an infinite scroll on a normal page
                     angular.element($window).on('scroll', _.throttle(function () {
                         // When the element comes into view, load more!
-                        if (el.getBoundingClientRect().bottom - 100 < 0) {
+                        if ($window.outerHeight - el.getBoundingClientRect().bottom > 0) {
                             $scope.$apply(attrs.infiniteScroll);
                         }
                     }, 500));
