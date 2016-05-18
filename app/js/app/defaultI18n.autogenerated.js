@@ -348,7 +348,7 @@
   "DEVICE_PRIMARY_REMOVE_CONFIRM": "You are about to remove the primary device for {{gym}}. Please select a new primary device below:",
   "DEVICE_SECONDARY_CONFIRM": "The following device will become a secondary:",
   "DEVICE_SELECT_REQ": "Please choose a device",
-  "DEVICE_SAVED": "Device successfully saved.",
+  "DEVICE_SAVED": "Your changes have been saved.",
   "DEVICE_SAVE_ERROR": "There was an error when saving.",
   "DEVICE_BACK": "Back to device",
   "DEVICE_DISABLE_CONFIRM": "Disable now",
