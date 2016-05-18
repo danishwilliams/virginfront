@@ -74,7 +74,10 @@ angular.module("app.device", []).controller('DeviceController', function ($state
       else {
         self.synclog.DeviceSyncPlaylistSyncs = self.synclog.DeviceSyncPlaylistSyncs.concat(data.DeviceSyncPlaylistSyncs);
       }
-      self.loadingMore = false;
+      // Prevents us getting caught in an infinite load cycle when there's nothing more to load
+      if (self.synclog.DeviceSyncPlaylistSyncs && self.count < self.synclog.DeviceSyncPlaylistSyncs.length) {
+        self.loadingMore = false;
+      }
       spinnerService.hide('synclog');
 
       // There are 5 possible sync states:
@@ -151,6 +154,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
     else {
       return;
     }
+    self.count = self.synclog.DeviceSyncPlaylistSyncs.length;
     self.page++;
     loadDeviceSyncLog();
   };
