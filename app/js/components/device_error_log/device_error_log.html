@@ -15,7 +15,7 @@
   </div>
 
   <div class="row" ng-repeat="log in vm.log">
-    <label class="inline">{{'DATE' | translate}}:</label> {{log.ErrorDate | date : 'yyyy/MM/dd hh:mm'}}<br>
+    <label class="inline">{{'DATE' | translate}}:</label> {{log.ErrorDate | date : 'dd'}} {{log.ErrorDate | date : 'MMMM' | translate}} {{log.ErrorDate | date : 'yyyy HH:mm'}}<br>
     <label class="inline">{{'MESSAGE' | translate}}:</label> {{log.Message}}<br>
     <label class="inline">{{'MESSAGE_DETAIL' | translate}}:</label> {{log.MessageDetail}}<br><br>
   </div>

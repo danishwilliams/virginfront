@@ -22,13 +22,13 @@
       <label ng-if="vm.hasHeartbeat">{{'CONNECTED' | translate}}</label>
       <div class="beats">
         <div ng-repeat="beat in vm.heartbeat track by $index">
-          <div ng-class="{'pulse': beat.beat, 'no-pulse': !beat.beat}" popover-title="{{beat.date | date : 'MMMM' | translate}} {{beat.date | date : 'dd, yyyy HH:mm'}}" data-popover="{{vm.popoverContents(beat) | translate}}" popover-trigger="mouseenter"></div>
+          <div ng-class="{'pulse': beat.beat, 'no-pulse': !beat.beat}" popover-title="{{beat.date | date : 'dd' | translate}} {{beat.date | date : 'MMMM' | translate}} {{beat.date | date : 'yyyy HH:mm'}}" data-popover="{{vm.popoverContents(beat) | translate}}" popover-trigger="mouseenter"></div>
         </div>
       </div>
       <label class="disconnected">{{'DISCONNECTED' | translate}}</label>
       <hr>
-      <div class="left">{{vm.heartbeat[0].date | date : 'MMMM' | translate}} {{vm.heartbeat[0].date | date : 'dd'}}</div>
-      <div style="position: absolute; left: {{vm.newDayIndex * 4}}px">{{vm.newDay | date : 'MMMM' | translate}} {{vm.newDay | date : 'dd'}}</div>
+      <div class="left">{{vm.heartbeat[0].date | date : 'dd'}} {{vm.heartbeat[0].date | date : 'MMMM' | translate}}</div>
+      <div style="position: absolute; left: {{vm.newDayIndex * 4}}px">{{vm.newDay | date : 'dd'}} {{vm.newDay | date : 'MMMM' | translate}}</div>
     </div>
 
     <div class="row heading">
@@ -44,7 +44,7 @@
 
     <table>
       <tr ng-repeat="log in vm.synclog.DeviceSyncPlaylistSyncs">
-        <td><span ng-if="log.timeAgo">{{log.timeAgo | date : 'yyyy/MM/dd hh:mm'}}</span></td>
+        <td><span ng-if="log.timeAgo">{{log.timeAgo | date : 'dd'}} {{log.timeAgo | date : 'MMMM' | translate}} {{log.timeAgo | date : 'yyyy HH:mm'}}</span></td>
         <td>
           <span ng-if="log.syncSuccess">{{'SYNC_COMPLETE' | translate}}</span>
           <div ng-if="log.syncInProgress" class="success">{{'SYNC_IN_PROGRESS' | translate}}</div>

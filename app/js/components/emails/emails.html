@@ -22,7 +22,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="entry in vm.fails">
-            <td>{{entry.date | date : 'dd'}} {{entry.date | date : 'MMMM' | uppercase | translate}} {{entry.date | date : 'yyyy'}} {{entry.date | date : 'HH'}}:{{entry.date | date : 'mm'}}</td>
+            <td>{{entry.date | date : 'dd'}} {{entry.date | date : 'MMMM' | uppercase | translate}} {{entry.date | date : 'yyyy HH:mm'}}</td>
             <td>
               <em><a ui-sref="users({id:entry.User.Id})">{{entry.User.FirstName}} {{entry.User.LastName}}</a></em><br>
               <span ng-hide="entry.editing">{{entry.To}}<br></span>
