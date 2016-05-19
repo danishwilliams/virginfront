@@ -35,7 +35,6 @@ function goalOptionController($scope) {
   $scope.goalBpmLow = parseInt($scope.goalBpmLow);
   $scope.goalBpmHigh = parseInt($scope.goalBpmHigh);
   $scope.totalGoaloptions = parseInt($scope.totalGoaloptions);
-  $scope.goalGoaloptionNumber = parseInt($scope.goalGoaloptionNumber);
   if (!$scope.goaloption.Beat) {
     $scope.goaloption.Beat = {};
   }
@@ -74,18 +73,33 @@ function goalOptionController($scope) {
     }
 
     // Figure out Beat Ratio based on chosen track
-    if (($scope.totalGoaloptions > 0 && $scope.goalGoaloptionNumber === 1)) {
-      half_time();
+    if ($scope.totalGoaloptions > 1) {
+      /*
+      console.log('');
+      console.log($scope.goaloption.Name);
+      console.log('total goal options', $scope.totalGoaloptions);
+      console.log('goalGoaloptionNumber', $scope.goalGoaloptionNumber);
+      */
+      if ($scope.goalGoaloptionNumber === '0') {
+        on_the_beat();
+      }
+      else if ($scope.goalGoaloptionNumber === '1') {
+        half_time();
+      }
     }
     else if ($scope.trackBpm <= $scope.goalBpmHigh) {
-      // The track BPM is in the goal option's BPM range, it's "on the beat"
-      console.log($scope.goalBpmLow + ' <= ' + $scope.trackBpm + ' <= ' + $scope.goalBpmHigh, 'On the beat');
-      $scope.goaloption.Beat.Ratio = 1;
-      $scope.beat = 'ON_THE_BEAT';
+      on_the_beat();
     }
     else {
       half_time();
     }
+  }
+
+  function on_the_beat() {
+    // The track BPM is in the goal option's BPM range, it's "on the beat"
+    console.log($scope.goalBpmLow + ' <= ' + $scope.trackBpm + ' <= ' + $scope.goalBpmHigh, 'On the beat');
+    $scope.goaloption.Beat.Ratio = 1;
+    $scope.beat = 'ON_THE_BEAT';
   }
 
   function half_time() {
