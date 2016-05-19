@@ -1,4 +1,4 @@
-angular.module("app.user", []).controller('UserController', function ($stateParams, $location, $uiViewScroll, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer, $translate, Storage) {
+angular.module("app.user", []).controller('UserController', function ($stateParams, $location, $uiViewScroll, UserTypes, Users, Genres, Gyms, Playlists, spinnerService, $filter, Authorizer, $translate, Storage) {
   var self = this;
   this.id = $stateParams.id;
 
@@ -32,6 +32,14 @@ angular.module("app.user", []).controller('UserController', function ($statePara
     self.telephone = self.user.Telephone;
     self.email = self.user.Email;
   });
+
+  if (Authorizer.canAccess('users')) {
+    // Load up the rides loaded to this gym
+    Playlists.loadGymsPlaylistSyncInfoDetailed(self.id).then(function (data) {
+      spinnerService.hide('userGyms');
+      self.gyms = data;
+    });
+  }
 
   this.saveContactDetails = function () {
     if (!self.email) {

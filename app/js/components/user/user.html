@@ -165,6 +165,20 @@
         <rides ng-if="user.user" data-rides="100" data-user-id="{{user.user.Id}}"></rides>
       </div>
 
+      <div id="recent-rides" class="row playlists heading">
+        <h1>{{'RIDES_CLUBS' | translate}}</h1>
+      </div>
+
+      <div class="row">
+        <spinner class="spinner" name="userGyms" show="true"></spinner>
+
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          <li ng-if="gym.RegularGym || gym.PlaylistSyncCount > 0" ng-repeat="gym in user.gyms | orderBy:'Gym.Name'">
+            <gym-rides data-view-only="true"></gym-rides>
+          </li>
+        </ul>
+      </div>
+
       <div id="recent-classes" class="row classes heading">
         <h1>{{'RECENT_CLASSES' | translate}}</h1>
       </div>

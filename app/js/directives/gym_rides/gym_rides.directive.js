@@ -8,11 +8,15 @@ function gymRides() {
     templateUrl: '../js/directives/gym_rides/gym_rides.directive.html',
     restrict: 'E',
     controller: gymRidesController,
-    controllerAs: 'vm'
+    controllerAs: 'vm',
+    scope: {
+      viewOnly: '@'
+    }
   };
   return directive;
 
   function link(scope) {
+    scope.vm.canEdit = !scope.viewOnly;
     scope.vm.gym = scope.$parent.gym;
     scope.vm.playlistCount = 0;
     if (scope.vm.gym.PlaylistSyncInfos) {

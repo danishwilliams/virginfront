@@ -295,8 +295,8 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   }
   */
 
-  function loadGymsPlaylistSyncInfoDetailed() {
-    return Restangular.one('gyms/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
+  function loadGymsPlaylistSyncInfoDetailed(userId) {
+    return Restangular.one('gyms/syncinfo/detailed').get({userId: userId}).then(loadGymsPlaylistSyncInfoDetailedComplete);
 
     function loadGymsPlaylistSyncInfoDetailedComplete(data, status, headers, config) {
       return data;
