@@ -36,6 +36,9 @@ function goalOptionController($scope) {
   $scope.goalBpmHigh = parseInt($scope.goalBpmHigh);
   $scope.totalGoaloptions = parseInt($scope.totalGoaloptions);
   $scope.goalGoaloptionNumber = parseInt($scope.goalGoaloptionNumber);
+  if (!$scope.goaloption.Beat) {
+    $scope.goaloption.Beat = {};
+  }
 
   $scope.effortOptions = [40];
   for (i = 45; i <= 100; i = i + 5) {
