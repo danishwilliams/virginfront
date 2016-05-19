@@ -23,5 +23,25 @@
       </div>
     </div>
 
+    <br>
+
+    <div ng-if="vm.hasErrors" class="row heading">
+      <h3>{{'ERROR_LOG' | translate}}</h3>
+    </div>
+
+    <table>
+      <tr ng-if="!log.Success" ng-repeat="log in vm.heartbeat | orderBy:'i'">
+        <td>{{log.date | date : 'dd'}} {{log.date | date : 'MMMM' | translate}} {{log.date | date : 'yyyy HH:mm'}}</span></td>
+        <td>
+          <span ng-if="log.Success">{{'AVAILABLE' | translate}}</span>
+          <span ng-if="!log.Success">
+            <div class="warning">{{'UNAVAILABLE' | translate}}</div>
+            <div>{{log.ErrorMessage}}</div>
+            <div>{{log.ErrorDetail}}</div>
+          </span>
+        </td>
+      </tr>
+    </table>
+
   </div>
 </div>
