@@ -1,16 +1,16 @@
+.heartbeat-container {
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
 .heartbeat {
   font-size: rem-calc(14);
   color: $grey;
   font-weight: 200;
+  min-width:rem-calc(1200);
   &.box {
     padding: rem-calc(16) rem-calc(12) rem-calc(32) rem-calc(13);
-    min-width: rem-calc(1180);
-    //display: inline-block;
   }
   .beats {
-    //overflow-x: scroll;
-    //overflow-y: hidden;
-    //white-space:nowrap;
     height: rem-calc(48);
   }
   label {
