@@ -6,18 +6,29 @@ angular.module("app.music_providers", []).controller('Music_providersController'
   self.name = user.Location.Country.MusicProvider.Name;
 
   MusicProviders.getHeartbeatLog(id, 288, 1).then(function (data) {
-    var log = Heartbeat.createHeartbeat(data);
-    self.heartbeat = log.heartbeat;
-    self.hasHeartbeat = log.hasHeartbeat;
-    self.newDay = log.newDay;
-    self.newDayIndex = log.newDayIndex;
+    var i = 0;
+    data.forEach(function(val) {
+      val.beat = false;
+      if (val.Success) {
+        val.beat = true;
+        self.hasHeartbeat = true;
+      }
+      val.date = val.CreateDate;
+      val.i = i;
+
+      // Figure out when it's a new day
+
+      i++;
+    });
+    data.reverse();
+    self.heartbeat = data;
     spinnerService.hide('heartbeatlog');
   });
 
   self.popoverContents = function (beat) {
     if (beat.beat) {
-      return 'CONNECTED';
+      return 'AVAILABLE';
     }
-    return 'DISCONNECTED';
+    return 'UNAVAILABLE';
   };
 });

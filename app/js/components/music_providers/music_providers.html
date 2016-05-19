@@ -1,20 +1,26 @@
 <div class="row providers">
-  <spinner class="spinner" name="providers" show="true"></spinner>
   <div class="large-14 medium-16 small-18 large-centered medium-centered columns">
 
-    <div class="box heartbeat">
-      <spinner class="spinner" name="heartbeatlog" show="true"></spinner>
-      <h3>{{'DEVICE_CONNECTIVITY' | translate}}</h3>
-      <label ng-if="vm.hasHeartbeat">{{'CONNECTED' | translate}}</label>
+    <div class="heading">
+      <h1>{{vm.name}}</h1>
+    </div>
+
+    <spinner class="spinner" name="heartbeatlog" show="true"></spinner>
+
+    <div class="box heartbeat" ng-show="vm.heartbeat">
+      <h3>Connectivity</h3>
+      <label ng-if="vm.hasHeartbeat">{{'AVAILABLE' | translate}}</label>
       <div class="beats">
         <div ng-repeat="beat in vm.heartbeat track by $index">
           <div ng-class="{'pulse': beat.beat, 'no-pulse': !beat.beat}" popover-title="{{beat.date | date : 'dd' | translate}} {{beat.date | date : 'MMMM' | translate}} {{beat.date | date : 'yyyy HH:mm'}}" data-popover="{{vm.popoverContents(beat) | translate}}" popover-trigger="mouseenter"></div>
         </div>
       </div>
-      <label class="disconnected">{{'DISCONNECTED' | translate}}</label>
+      <label class="disconnected">{{'UNAVAILABLE' | translate}}</label>
+      <!--
       <hr>
       <div class="left">{{vm.heartbeat[0].date | date : 'dd'}} {{vm.heartbeat[0].date | date : 'MMMM' | translate}}</div>
       <div style="position: absolute; left: {{vm.newDayIndex * 4}}px">{{vm.newDay | date : 'dd'}} {{vm.newDay | date : 'MMMM' | translate}}</div>
+      -->
     </div>
 
   </div>
