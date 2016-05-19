@@ -7,7 +7,7 @@
     <h1>{{vm.device.Name}}
       <span class="type" ng-if="vm.device.Primary">{{'PRIMARY' | translate}}</span>
       <span class="type" ng-if="!vm.device.Primary">{{'SECONDARY' | translate}}</span>
-      - {{'ERROR_LOG' | translate}}</h1>
+      - {{'ERROR_LOG' | translate | lowercase}}</h1>
   </div>
 
   <div ng-if="vm.log.length == 0" class="row">

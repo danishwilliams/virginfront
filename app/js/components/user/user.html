@@ -129,11 +129,18 @@
       </div>
     </div>
     <div class="row">
-      <div class="columns large-9" ng-if="user.user.UserMusicProvider.MusicProvider.Name == 'Simfy'">
+      <div class="columns large-9" ng-if="user.user.UserMusicProvider">
         <div class="box">
-          <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} {{'ACC_DETAILS' | translate}}</h3>
-          <p>{{'USERNAME' | translate}}: <em>{{user.user.UserMusicProvider.Username}}</em>
-            <br> {{'PASSWORD' | translate}}: <em>{{user.user.UserMusicProvider.Password}}</em></p>
+          <span class="image-right" ng-show="user.musicProviderAccountLoaded">
+            <img ng-if="user.musicProviderAccount" src="/img/ico40grn_syncsuccess.svg">
+            <img ng-if="!user.musicProviderAccount" src="/img/ico40orng_syncerror.svg">
+          </span>
+          <h3 ng-if="user.user.UserMusicProvider.MusicProvider.Name !== 'Simfy'">{{user.user.UserMusicProvider.MusicProvider.Name}}</h3>
+          <span ng-if="user.user.UserMusicProvider.MusicProvider.Name == 'Simfy'">
+            <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} {{'ACC_DETAILS' | translate}}</h3>
+            <p>{{'USERNAME' | translate}}: <em>{{user.user.UserMusicProvider.Username}}</em>
+              <br> {{'PASSWORD' | translate}}: <em>{{user.user.UserMusicProvider.Password}}</em></p>
+          </span>
         </div>
       </div>
       <div class="columns large-9" ng-if-permission="viewAdmin" ng-show="user.viewingOwnUserProfile">

@@ -16,6 +16,7 @@ angular.module("app.dashboard", []).controller('DashboardController', function (
     $state.go('onboarding-genres');
     return;
   }
+  self.musicProvider = user.Location.Country.MusicProvider.Name;
 
   self.loadGyms = function() {
     Playlists.loadGymsPlaylistSyncInfoDetailed().then(function (data) {

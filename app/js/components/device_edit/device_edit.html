@@ -43,7 +43,7 @@
       </form>
     </div>
 
-    <div class="row" ng-hide="vm.saved" ng-if="vm.state === 'device-disable'">
+    <div class="row" ng-hide="vm.saved || vm.saving" ng-if="vm.state === 'device-disable'">
       <h3 ng-if="vm.device.Primary">{{'DEVICE_IS_PRIMARY' | translate}}</h3>
       <h3 ng-if="!vm.device.Primary">{{'DEVICE_IS_SECONDARY' | translate}}</h3>
       <p>{{'DEVICE_DISABLE_WARN' | translate}}</p>
