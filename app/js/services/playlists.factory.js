@@ -538,6 +538,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
       Name: playlistGoal.Goal.Name,
       BpmLow: playlistGoal.Goal.BpmLow,
       BpmHigh: playlistGoal.Goal.BpmHigh,
+      GoalOptionCount: playlistGoal.Goal.GoalOptions.length
     };
     if (playlistGoal.BackgroundSection) {
       currentgoal.BackgroundSection = playlistGoal.BackgroundSection;
