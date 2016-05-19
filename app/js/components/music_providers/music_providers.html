@@ -8,7 +8,7 @@
     <spinner class="spinner" name="heartbeatlog" show="true"></spinner>
 
     <div class="box heartbeat" ng-show="vm.heartbeat">
-      <h3>Connectivity</h3>
+      <h3>{{'CONNECTIVITY' | translate}}</h3>
       <label ng-if="vm.hasHeartbeat">{{'AVAILABLE' | translate}}</label>
       <div class="beats">
         <div ng-repeat="beat in vm.heartbeat track by $index">
