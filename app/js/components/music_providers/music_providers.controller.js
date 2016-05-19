@@ -7,12 +7,16 @@ angular.module("app.music_providers", []).controller('Music_providersController'
 
   MusicProviders.getHeartbeatLog(id, 288, 1).then(function (data) {
     var i = 0;
+    self.hasErrors = false;
     self.days = [];
     data.forEach(function(val) {
       val.beat = false;
       if (val.Success) {
         val.beat = true;
         self.hasHeartbeat = true;
+      }
+      else {
+        self.hasErrors = true;
       }
       val.date = new Date(val.CreateDate);
       val.i = i;

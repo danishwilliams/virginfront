@@ -291,7 +291,7 @@
   "DEVICES_VIEW_ALL": "View all devices",
   "DEVICE_VIEW": "View device",
   "DEVICE_ERROR_LOG": "Device error log",
-  "ERROR_LOG": "error log",
+  "ERROR_LOG": "Error log",
   "MESSAGE": "Message",
   "MESSAGE_DETAIL": "Message detail",
   "DEVICE_SYNC_ERROR": "Sync error",
