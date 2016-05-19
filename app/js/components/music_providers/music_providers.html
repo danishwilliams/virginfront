@@ -8,7 +8,7 @@
     <spinner class="spinner" name="heartbeatlog" show="true"></spinner>
 
     <div class="box heartbeat" ng-show="vm.heartbeat">
-      <h3>Connectivity</h3>
+      <h3>{{'CONNECTIVITY' | translate}}</h3>
       <label ng-if="vm.hasHeartbeat">{{'AVAILABLE' | translate}}</label>
       <div class="beats">
         <div ng-repeat="beat in vm.heartbeat track by $index">
@@ -16,11 +16,11 @@
         </div>
       </div>
       <label class="disconnected">{{'UNAVAILABLE' | translate}}</label>
-      <!--
       <hr>
       <div class="left">{{vm.heartbeat[0].date | date : 'dd'}} {{vm.heartbeat[0].date | date : 'MMMM' | translate}}</div>
-      <div style="position: absolute; left: {{vm.newDayIndex * 4}}px">{{vm.newDay | date : 'dd'}} {{vm.newDay | date : 'MMMM' | translate}}</div>
-      -->
+      <div style="position: absolute; min-width: 100px; left: {{(vm.heartbeat.length * 4) - 20}}px">
+        {{vm.heartbeat[vm.heartbeat.length - 1].date | date : 'dd'}} {{vm.heartbeat[vm.heartbeat.length - 1].date | date : 'MMMM' | translate}}
+      </div>
     </div>
 
   </div>

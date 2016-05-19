@@ -367,6 +367,7 @@
   "DEVICES_FOR_CLUB": "Devices provisioned for this club",
   "DEVICE_CLUB_PRIMARY_SECONDARY": "The current primary device for this club will become a secondary device.",
   "CURRENT_STATUS": "Current status",
+  "CONNECTIVITY": "Connectivity",
   "AVAILABLE": "Available",
   "UNAVAILABLE": "Unavailable",
   "VIEW_LOG": "View log",
