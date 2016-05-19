@@ -27,7 +27,7 @@
 
         <label class="no-bold"><input type="radio" ng-model="vm.device.Primary" ng-value="false"> {{'SECONDARY' | translate}}</label>
         <div ng-if="vm.snapshot.Primary && !vm.device.Primary && vm.gyms.HasSecondary">
-          <p translate="DEVICE_PRIMARY_REMOVE_CONFIRM" translate-values="{gym: vm.device.Gym.Name}"></p>
+          <span class="warning" translate="DEVICE_PRIMARY_REMOVE_CONFIRM" translate-values="{gym: vm.device.Gym.Name}"></span>
 
           <label ng-repeat="device in vm.gyms.data | orderBy:'Name'">
             <input name="newPrimary" type="radio" ng-model="vm.newPrimary" ng-value="device" required>
