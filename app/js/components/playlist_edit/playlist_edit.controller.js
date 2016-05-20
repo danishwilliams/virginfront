@@ -419,6 +419,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
         return false;
       }
     }
+    return true;
   };
 
   // Cases in which the submit button should be disabled

@@ -37,12 +37,14 @@ function reportingDevicesController(Devices, spinnerService) {
         self.devices.errors++;
       }
       else {
-        val.PlaylistSyncFailures.forEach(function(val1) {
-          if (val1.SyncError && !errorFound) {
-            errorFound = true;
-            self.devices.errors++;
-          }
-        });
+        if (val.PlaylistSyncFailures) {
+          val.PlaylistSyncFailures.forEach(function(val1) {
+            if (val1.SyncError && !errorFound) {
+              errorFound = true;
+              self.devices.errors++;
+            }
+          });
+        }
       }
     });
     self.devicesLoaded = true;
