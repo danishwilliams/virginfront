@@ -288,15 +288,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       return;
     }
 
-    var allGoalsHaveTracks = !self.checkAllGoalsHaveTracks();
-
-    if (!self.newPlaylist && allGoalsHaveTracks) {
+    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Probably hit 'enter' in the ride name inputbox
       return;
     }
 
     // Check if the playlist can be marked as 'complete'
-    if (allGoalsHaveTracks && self.checkPlaylistLength() && self.checkHasPreRideBackgroundTracks() && self.checkHasPostRideBackgroundTracks()) {
+    if (self.checkAllGoalsHaveTracks() && self.checkPlaylistLength() && self.checkHasPreRideBackgroundTracks() && self.checkHasPostRideBackgroundTracks()) {
       self.playlist.Complete = true;
     } else {
       self.playlist.Complete = false;
@@ -424,15 +422,10 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   this.submitButtonText = function () {
-    var allGoalsHaveTracks = self.checkAllGoalsHaveTracks();
-    var isNewPlaylist = false;
-    if (Playlists.getCreatingNewPlaylist() || $state.current.name === 'playlist-new-edit') {
-      isNewPlaylist = true;
-    }
-    if (isNewPlaylist && !allGoalsHaveTracks) {
-      // Adding/editing an unsynced playlist but not all tracks have goals
+    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
+      // Editing a playlist but not all tracks have goals
       return 'UPDATE';
-    } else if (!allGoalsHaveTracks || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
+    } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
       return 'SAVE_CONTINUE_LATER';
     }
     if (isNewPlaylist) {
