@@ -5,9 +5,9 @@ angular
   .module("app")
   .factory('Playlists', PlaylistsFactory);
 
-PlaylistsFactory.$inject = ['Restangular', 'uuid2', 'Users'];
+PlaylistsFactory.$inject = ['Restangular', 'uuid2', 'Users', '$rootScope'];
 
-function PlaylistsFactory(Restangular, uuid2, Users) {
+function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
   var self = this;
   var steps = initSteps(); // The full steps array
   var currentStep = 0; // Which step we're currently on
@@ -184,6 +184,13 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
           k++;
         }
       }
+
+      // Tell the playlist edit controller to set the form to be dirty
+      // Yeah, this is ugly. It _should_ work by adding an ng-change to the <background-music> directive,
+      // since it already has an ng-model on it, but that didn't work. Maybe it's because the service
+      // holds the model, and so any change isn't propogated up from the directive -> the playlist_edit
+      // controller. This could perhaps be refactored.
+      $rootScope.$broadcast('add.track');
     }
   }
 
