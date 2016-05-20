@@ -476,5 +476,12 @@
   "END_RIDE": "Termina questo corso",
   "RIDES_AVAILABLE_NOT_ON_DEVICE": "Sincronizzazione corsi. Per favore scollegati per completare la sincronizzazione",
   "RIDE_NOT_SYNCD": "Pausa\\Scollegamento per consentire completamento sincronizzazione",
-  "DEVICE_DISABLED": "Questo device è stato disabilitato e non è più approvvigionato per un club."
+  "DEVICE_DISABLED": "Questo device è stato disabilitato e non è più approvvigionato per un club.",
+  "LIGHTING": "Lighting",
+  "VISUALIZER": "Visualizer",
+  "JOIN_TEAM": "Join team",
+  "LEAVE_TEAM": "Leave team",
+  "AVERAGE": "Average",
+  "WON": "won",
+  "PLACE": "place"
 }

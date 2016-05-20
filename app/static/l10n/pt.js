@@ -476,5 +476,12 @@
   "END_RIDE": "Fim deste percurso",
   "RIDES_AVAILABLE_NOT_ON_DEVICE": "Os teus percursos estão a ser sincronizados. Por favor faz logout para permitir a sincronização completa.",
   "RIDE_NOT_SYNCD": "Pausa/Logout para permitir a sincronização completa",
-  "DEVICE_DISABLED": "Este dispositivo foi desativado e não se encontra disponível para o Clube"
+  "DEVICE_DISABLED": "Este dispositivo foi desativado e não se encontra disponível para o Clube",
+  "LIGHTING": "Lighting",
+  "VISUALIZER": "Visualizer",
+  "JOIN_TEAM": "Join team",
+  "LEAVE_TEAM": "Leave team",
+  "AVERAGE": "Average",
+  "WON": "won",
+  "PLACE": "place"
 }

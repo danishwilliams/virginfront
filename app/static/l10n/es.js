@@ -476,5 +476,12 @@
   "END_RIDE": "Finalizar clase ",
   "RIDES_AVAILABLE_NOT_ON_DEVICE": "Se están sincronizando las clases. Por favor cierra sesión para completar la sincronización.",
   "RIDE_NOT_SYNCD": "En pausa \\ Cerrar sesión para permitir la sincronización ",
-  "DEVICE_DISABLED": "Este dispositivo ha sido deshabilitado y ya no esta disponible para el club."
+  "DEVICE_DISABLED": "Este dispositivo ha sido deshabilitado y ya no esta disponible para el club.",
+  "LIGHTING": "Lighting",
+  "VISUALIZER": "Visualizer",
+  "JOIN_TEAM": "Join team",
+  "LEAVE_TEAM": "Leave team",
+  "AVERAGE": "Average",
+  "WON": "won",
+  "PLACE": "place"
 }
