@@ -144,23 +144,8 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
 
         // Set the user type. One of Registered, Technical, Invited
         user.Type = 'Registered';
+
         user.UserUserTypes.forEach(function (type) {
-          switch (user.State) {
-            case USER_STATES.invite_emailed:
-            case USER_STATES.invite_email_failed:
-            case USER_STATES.onboarding_genres:
-            case USER_STATES.onboarding_clubs:
-              user.Type = 'Invited';
-              if (!counted) {
-                counted = true;
-              }
-              break;
-            case USER_STATES.registered:
-              user.Type = 'Registered';
-              if (!counted) {
-                counted = true;
-              }
-          }
           switch (type.UserType.Name) {
             case 'Admin':
             case 'API User':
@@ -168,13 +153,33 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
             case 'Import':
               if (!counted) {
                 counted = true;
+                user.Type = 'Technical';
               }
-              user.Type = 'Technical';
-          }
-          if (!counted) {
-            user.Type = 'Technical'; // So that if any users show up there we know something has screwed up
           }
         });
+
+        if (!counted) {
+          switch (user.State) {
+            case USER_STATES.invite_emailed:
+            case USER_STATES.invite_email_failed:
+            case USER_STATES.onboarding_genres:
+            case USER_STATES.onboarding_clubs:
+              if (!counted) {
+                user.Type = 'Invited';
+                counted = true;
+              }
+              break;
+            case USER_STATES.registered:
+              if (!counted) {
+                user.Type = 'Registered';
+                counted = true;
+              }
+          }
+        }
+
+        if (!counted) {
+          user.Type = 'Technical'; // So that if any users show up there we know something has screwed up
+        }
       });
       users = data;
       return users;
