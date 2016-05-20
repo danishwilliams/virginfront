@@ -18,7 +18,7 @@
     <select name="effort" ng-options="v for v in effortOptions" ng-model="goaloption.Effort" ng-disabled="" required>
     </select>
     -
-    <select ng-options="v disable when v <= effort for v in effortOptions" ng-model="goaloption.EffortHigh">
+    <select ng-options="v disable when v <= goaloption.Effort for v in effortOptions" ng-model="goaloption.EffortHigh">
     </select>%
     <div ng-show="effortForm.effort.$touched || effortForm.$submitted">
       <small class="error" ng-hide="goaloption.Effort > 0">{{'EFFORT_REQ' | translate}}</small>
