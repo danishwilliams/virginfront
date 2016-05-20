@@ -385,6 +385,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   this.checkHasPreRideBackgroundTracks = function () {
     var found = false;
+    if (!self.playlist.BackgroundTracks) {
+      return;
+    }
     self.playlist.BackgroundTracks.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === 'before') {
         found = true;
