@@ -107,7 +107,7 @@
         </div>
         <a class="cancel" ui-sref="dashboard">{{'CANCEL' | translate}}</a>
         <spinner class="spinner" name="playlistEditSaveSpinner" show="false"></spinner>
-        <input name="submit" ng-disabled="playlist_edit.saving || playlist_edit.form.$pristine || !playlist_edit.checkWhenEditingEveryGoalHasATrack()" type="submit" value="{{playlist_edit.submitButtonText() | translate}}">
+        <input name="submit" ng-disabled="playlist_edit.disableSubmitButton()" type="submit" value="{{playlist_edit.submitButtonText() | translate}}">
       </div>
     </div>
     </form>

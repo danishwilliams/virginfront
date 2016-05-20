@@ -296,7 +296,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
 
     // Check if the playlist can be marked as 'complete'
-    if (self.checkAllGoalsHaveTracks() && self.checkPlaylistLength() && self.checkHasPreRideBackgroundTracks() && self.checkHasPostRideBackgroundTracks()) {
+    if (self.checkHasPreRideBackgroundTracks() && self.checkHasPostRideBackgroundTracks() && self.checkPlaylistLength() && self.checkAllGoalsHaveTracks()) {
       self.playlist.Complete = true;
     } else {
       self.playlist.Complete = false;
@@ -413,24 +413,46 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return Playlists.checkPlaylistLength();
   };
 
-  /* Hide the submit button if we're editing a playlist and not every goal has a track */
   this.checkWhenEditingEveryGoalHasATrack = function () {
     if (!self.newPlaylist) {
       if (!self.checkAllGoalsHaveTracks()) {
         return false;
       }
     }
-    return true;
+  };
+
+  // Cases in which the submit button should be disabled
+  self.disableSubmitButton = function () {
+    if (!self.playlist.Name) {
+      //console.log('no playlist name!');
+      return true;
+    }
+    if (self.form && self.form.$pristine) {
+      //console.log('form not pristine!');
+      return true;
+    }
+    if (self.saving) {
+      //console.log('saving!');
+      return true;
+    }
+    if (self.playlist.Complete) {
+      if (!self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks() || !self.checkPlaylistLength() || !self.checkAllGoalsHaveTracks()) {
+        //console.log('editing a complete playlist which is now incomplete');
+        return true;
+      }
+    }
+    return false;
   };
 
   this.submitButtonText = function () {
-    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
-      // Editing a playlist but not all tracks have goals
-      return 'UPDATE';
-    } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
+    if (!self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks() || !self.checkPlaylistLength() || !self.checkAllGoalsHaveTracks()) {
       return 'SAVE_CONTINUE_LATER';
     }
-    if (!self.newPlaylist) {
+    else if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
+      // Editing a playlist but not all tracks have goals
+      return 'UPDATE';
+    }
+    if (self.newPlaylist) {
       return 'NEXT_PREVIEW';
     }
     return 'UPDATE';
