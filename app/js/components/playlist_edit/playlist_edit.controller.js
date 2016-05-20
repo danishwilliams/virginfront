@@ -232,7 +232,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     this.playlistTracksLength = Playlists.getPlaylistLength();
     self.checkAllGoalsHaveTracks();
     Tracks.stopTrack(track.Track);
-    self.form.$setDirty(); // Manually set the form to be not pristine any more
+    if (self.form) {
+      self.form.$setDirty(); // Manually set the form to be not pristine any more
+    }
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + playlistGoalArrayId);
@@ -428,7 +430,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
       return 'SAVE_CONTINUE_LATER';
     }
-    if (isNewPlaylist) {
+    if (!self.newPlaylist) {
       return 'NEXT_PREVIEW';
     }
     return 'UPDATE';
