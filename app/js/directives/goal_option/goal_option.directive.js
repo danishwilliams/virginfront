@@ -36,7 +36,7 @@ function goalOptionController($scope) {
   $scope.goalBpmHigh = parseInt($scope.goalBpmHigh);
   $scope.totalGoaloptions = parseInt($scope.totalGoaloptions);
   if (!$scope.goaloption.Beat) {
-    $scope.goaloption.Beat = {};
+    $scope.goaloption.Beat = {Name: 'required'};
   }
 
   $scope.effortOptions = [40];
