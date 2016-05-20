@@ -96,7 +96,7 @@
         <freestyle-goals data-disabled="{{$index > 0}}" data-index="{{$index}}" data-total-goals="{{playlist_edit.freestyleGoals.length}}" ng-show="goal.show" ng-repeat="goal in playlist_edit.freestyleGoals" ng-change="playlist_edit.addFreestyleGoal(goal)" ng-model="playlist_edit.freestyleGoal"></freestyle-goals>
       </div>
       <div class="row">
-        <background-music ng-model="playlist_edit.playlist.BackgroundTracks" ng-change="playlist_edit.form.$setDirty()"></background-music>
+        <background-music ng-model="playlist_edit.playlist.BackgroundTracks"></background-music>
       </div>
       <div class="row submit">
         <div ng-messages="playlist_edit.error">

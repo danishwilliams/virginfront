@@ -29,6 +29,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
           // Add a background track
           Playlists.addBackgroundTrack(currentgoal.BackgroundSection, track);
           Tracks.setSearchedTrack({});
+          $rootScope.$broadcast('add.track');
         } else {
           // Add a track to a goal
           Playlists.trackDropped(currentgoal.ArrayId, track);
@@ -287,13 +288,15 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       return;
     }
 
-    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
+    var allGoalsHaveTracks = !self.checkAllGoalsHaveTracks();
+
+    if (!self.newPlaylist && allGoalsHaveTracks) {
       // Probably hit 'enter' in the ride name inputbox
       return;
     }
 
     // Check if the playlist can be marked as 'complete'
-    if (self.checkAllGoalsHaveTracks() && self.checkPlaylistLength() && self.checkHasPreRideBackgroundTracks() && self.checkHasPostRideBackgroundTracks()) {
+    if (allGoalsHaveTracks && self.checkPlaylistLength() && self.checkHasPreRideBackgroundTracks() && self.checkHasPostRideBackgroundTracks()) {
       self.playlist.Complete = true;
     } else {
       self.playlist.Complete = false;
@@ -415,10 +418,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   this.submitButtonText = function () {
-    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
+    var allGoalsHaveTracks = !self.checkAllGoalsHaveTracks();
+    if (!self.newPlaylist && allGoalsHaveTracks) {
       // Editing a playlist but not all tracks have goals
       return 'UPDATE';
-    } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
+    } else if (!allGoalsHaveTracks || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
       return 'SAVE_CONTINUE_LATER';
     }
     if (self.newPlaylist) {
