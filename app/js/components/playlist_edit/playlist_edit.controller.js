@@ -397,6 +397,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   this.checkHasPostRideBackgroundTracks = function () {
+    if (!self.playlist.BackgroundTracks) {
+      return false;
+    }
     var found = false;
     self.playlist.BackgroundTracks.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === 'after') {
@@ -421,14 +424,18 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   this.submitButtonText = function () {
-    var allGoalsHaveTracks = !self.checkAllGoalsHaveTracks();
-    if (!self.newPlaylist && allGoalsHaveTracks) {
-      // Editing a playlist but not all tracks have goals
+    var allGoalsHaveTracks = self.checkAllGoalsHaveTracks();
+    var isNewPlaylist = false;
+    if (Playlists.getCreatingNewPlaylist() || $state.current.name === 'playlist-new-edit') {
+      isNewPlaylist = true;
+    }
+    if (isNewPlaylist && !allGoalsHaveTracks) {
+      // Adding/editing an unsynced playlist but not all tracks have goals
       return 'UPDATE';
     } else if (!allGoalsHaveTracks || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
       return 'SAVE_CONTINUE_LATER';
     }
-    if (self.newPlaylist) {
+    if (isNewPlaylist) {
       return 'NEXT_PREVIEW';
     }
     return 'UPDATE';
