@@ -142,6 +142,7 @@ function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
   // Removes a track from a playlist for a goal id
   function removeTrackFromGoalPlaylist(playlistGoalArrayId, track) {
     playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks = [];
+    track.removed = true;
     // TODO: use _.mapObject to remove the track from the list and rework the sort order, when we have multiple tracks
   }
 

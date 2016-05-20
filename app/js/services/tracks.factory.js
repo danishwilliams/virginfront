@@ -268,8 +268,12 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       }
     });
 
-    if (!track.stopPlaybackEvenIfTrackIsCurrentlyLoading) {
-      self.audio.play();
+    if (!track.stopPlaybackEvenIfTrackIsCurrentlyLoading && !track.removed) {
+      self.audio.play().then(function() {
+        if (track.removed) {
+          self.audio.pause();
+        }
+      });
     }
   }
 
