@@ -131,7 +131,7 @@
       </div>
 
       <div class="progress">
-        <span class="meter left" style="width: {{ride.Percent}}%">
+        <span class="meter left" ng-style="{width: '{{ride.Percent}}%'}">
           <div class="ride-count right" ng-if="ride.Percent > 20">{{ride.Count}} {{'RIDES' | translate | lowercase}}</div>
         </span>
       </div>
