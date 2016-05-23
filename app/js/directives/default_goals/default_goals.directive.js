@@ -85,6 +85,17 @@ function defaultGoalsController(Users, Goals, Beats, spinnerService) {
     goal.show = !goal.show;
   };
 
+  self.addIntervalGoal = function (goal) {
+    goal.Goal.GoalOptions.push({});
+    goal.Interval = true;
+  };
+
+  self.removeIntervalGoal = function (goal, goalForm) {
+    goalForm.$setDirty();
+    goal.Goal.GoalOptions.splice(1, 1);
+    goal.Interval = false;
+  };
+
   /**
    * Manually passing in "valid" here (the validity of the form containing the goal) because there's an angular bug wherein
    * if <form> isn't used (and I'm using two nested ng-form's) then the value of form.$submitted is always wrong. Solution:
