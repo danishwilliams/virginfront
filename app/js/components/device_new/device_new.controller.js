@@ -47,6 +47,7 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
       });
       if (!processed) {
         processed = true;
+        console.log('no primary device to disable');
         provisionDevice();
       }
     }
@@ -75,6 +76,7 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
       self.disableDevice = false;
     }, function (err) {
       self.saving = false;
+      self.error = true;
       spinnerService.hide('deviceNewSpinner');
       self.alert = {
         type: 'warning',

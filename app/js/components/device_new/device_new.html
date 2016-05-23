@@ -5,7 +5,7 @@
       <h1>{{'DEVICE_NEW' | translate}}</h1>
     </div>
 
-    <form ng-show="!vm.provisioningCode" name="vm.form" ng-submit="vm.form.$valid && vm.provisionNewDevice()" novalidate>
+    <form ng-show="!vm.provisioningCode" ng-hide="vm.error" name="vm.form" ng-submit="vm.form.$valid && vm.provisionNewDevice()" novalidate>
       <label>{{'SELECT_CLUB' | translate}}</label>
 
       <label class="radio" ng-repeat="gym in vm.gyms | orderBy: 'Name'">
@@ -47,6 +47,10 @@
         <spinner class="spinner center" name="deviceNewSpinner" show="false"></spinner>
       </div>
     </form>
+
+    <div ng-show="vm.error">
+      <alert ng-if="vm.alert.type" class="{{vm.alert.type}}">{{vm.alert.msg | translate}}</alert>
+    </div>
 
     <div ng-show="vm.provisioningCode" class="row">
       <div class="small-2 medium-2 large-1 columns">
