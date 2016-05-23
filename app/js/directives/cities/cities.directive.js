@@ -30,6 +30,15 @@ function citiesController(Locations, $scope) {
   var locations = [];
   Locations.loadLocations().then(function(data) {
     locations = data;
+
+    // Set the initial value, if there is one
+    if ($scope.ngModel) {
+      data.forEach(function(val) {
+        if (val.Id === $scope.ngModel) {
+          $scope.city = val.City;
+        }
+      });
+    }
   });
 
   function suggest_city(term) {
@@ -50,8 +59,8 @@ function citiesController(Locations, $scope) {
   this.autocomplete_options_location = {
     suggest: suggest_city,
     on_select: function(selected) {
-      $scope.ngModel = selected.locationId;
-      $scope.selected(selected.locationId); // because ng-change isn't firing
+      $scope.city = selected.value;
+      $scope.selected(selected.locationId); // because ng-change isn't firing, because we're not using dot notation
     }
   };
 }

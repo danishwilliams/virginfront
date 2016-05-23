@@ -1,15 +1,20 @@
-angular.module("app.gyms", []).controller('GymsController', function (Gyms) {
+angular.module("app.gyms", []).controller('GymsController', function (Gyms, spinnerService) {
   var self = this;
 
-  Gyms.loadGyms(true).then(function(data) {
+  Gyms.loadGyms().then(function(data) {
     self.gyms = data;
-  });
+    spinnerService.hide('gyms');
 
-  Gyms.loadGyms(false).then(function(data) {
-    self.gymsNoActiveDevices = data;
+    // Work out the number of active and archived gyms
+    self.numActive = 0;
+    self.numInactive = 0;
+    data.forEach(function(val) {
+      if (val.Enabled) {
+        self.numActive++;
+      }
+      else {
+        self.numInactive++;
+      }
+    });
   });
-
-  this.update = function (gym) {
-    gym.put();
-  };
 });

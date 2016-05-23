@@ -225,6 +225,30 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     }
   })
 
+  .state('gym-edit', {
+    url: '/admin/gyms/:id/edit',
+    templateUrl: '../js/components/gym_edit/gym_edit.html',
+    controller: 'GymController as vm',
+    resolve: {
+      $title: function() { return 'GYM_EDIT_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
+    }
+  })
+
+  .state('gym-new', {
+    url: '/admin/gyms/new',
+    templateUrl: '../js/components/gym_edit/gym_edit.html',
+    controller: 'GymController as vm',
+    resolve: {
+      $title: function() { return 'GYM_NEW_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
+    }
+  })
+
   // Instructors page
   .state('instructors', {
     url: '/instructors?type',

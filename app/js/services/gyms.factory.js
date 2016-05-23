@@ -12,7 +12,8 @@ function GymsFactory(Restangular) {
     loadGyms: loadGyms,
     loadAllGyms: loadAllGyms,
     loadAvailableGyms: loadAvailableGyms,
-    loadGym: loadGym
+    loadGym: loadGym,
+    disableGym: disableGym
   };
 
   return gymsFactory;
@@ -46,6 +47,15 @@ function GymsFactory(Restangular) {
     return Restangular.one('gyms', id).get().then(loadGymComplete);
 
     function loadGymComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  // Note: to re-enable a gym, just set gym.Enabled = true and put()
+  function disableGym(id) {
+    return Restangular.one('gyms/disable', id).post().then(disableGymComplete);
+
+    function disableGymComplete(data, status, headers, config) {
       return data;
     }
   }

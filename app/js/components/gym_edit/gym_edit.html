@@ -1,0 +1,31 @@
+<div class="row">
+  <spinner class="spinner" name="gym" show="true"></spinner>
+  <div class="large-14 medium-16 small-18 large-centered medium-centered columns" ng-show="vm.gym">
+
+    <div class="row heading">
+      <h1 ng-if="vm.action === 'add'">{{'GYM_ADD' | translate}}</h1>
+      <h1 ng-if="vm.action === 'edit'">{{vm.snapshot.Name}}</h1>
+    </div>
+
+    <form name="form" ng-submit="form.$valid && vm.saveGym()">
+
+      <label>{{'GYM_NAME' | translate}}</label>
+      <input name="name" type="text" maxlength="60" ng-model="vm.gym.Name" required>
+      <div ng-show="form.$submitted || form.name.$touched">
+        <small class="error" ng-show="form.name.$error.required">{{'GYM_NAME_REQ' | translate}}</small>
+      </div>
+
+      <label>{{'CITY' | translate}}</label>
+      <cities ng-model="vm.gym.LocationId"></cities>
+      <div ng-show="form.$submitted">
+        <small class="error" ng-show="!vm.gym.LocationId">{{'GYM_NAME_REQ' | translate}}</small>
+      </div>
+
+      <div class="row submit">
+        <a class="cancel" ui-sref="gyms-admin">{{'CANCEL' | translate}}</a>
+        <input type="submit" ng-disabled="form.$pristine || vm.saving || form.$invalid" value="{{'SAVE' | translate}}">
+      </div>
+
+    </form>
+  </div>
+</div>

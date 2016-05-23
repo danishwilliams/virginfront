@@ -1,41 +1,28 @@
 <div class="row">
   <div class="large-12 medium-18 small-18 large-centered columns">
+
     <div class="heading row">
       <div class="large-13 medium-12 columns">
         <h1>{{'GYMS' | translate}}</h1>
       </div>
       <div class="large-5 medium-6 columns">
-        <button class="secondary" ui-sref="club-new">{{'GYM_NEW' | translate}}</button>
+        <button class="secondary" ui-sref="gym-new">{{'GYM_NEW' | translate}}</button>
       </div>
     </div>
 
+    <spinner class="spinner" name="gyms" show="true"></spinner>
 
-
-    <table>
-      <thead>
-        <tr>
-          <td>Clubs with devices</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="gym in vm.gyms | orderBy:'Name'">
-          <td contentEditable ng-change="vm.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <table>
-      <thead>
-        <tr>
-          <td>Clubs without devices</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="gym in vm.gymsNoActiveDevices | orderBy:'Name'">
-          <td contentEditable ng-change="vm.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
-        </tr>
-      </tbody>
-    </table>
-
+    <tabset>
+      <tab heading="{{'GYMS_ACTIVE' | translate}} ({{vm.numActive}})">
+        <accordion>
+          <gym ng-if="gym.Enabled" ng-repeat="gym in vm.gyms | orderBy:'Name'"></gym>
+        </accordion>
+      </tab>
+      <tab heading="{{'GYMS_INACTIVE' | translate}} ({{vm.numInactive}})">
+        <accordion>
+          <gym ng-if="!gym.Enabled" ng-repeat="gym in vm.gyms | orderBy:'Name'"></gym>
+        </accordion>
+      </tab>
+    </tabset>
   </div>
 </div>
