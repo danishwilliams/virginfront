@@ -11,11 +11,11 @@
 
     <reporting-devices ng-if-permission="devices"></reporting-devices>
 
-    <div class="row heading" ng-if-permission="users">
+    <div class="row heading" ng-if-permission="devices">
       <h1>{{vm.musicProvider}}</h1>
     </div>
 
-    <music-provider-status ng-if-permission="users"></music-provider-status>
+    <music-provider-status ng-if-permission="devices"></music-provider-status>
 
     <div class="row heading" ng-if-permission="users">
       <div class="columns small-12 medium-14">
