@@ -205,7 +205,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     url: '/admin/default-goals',
     templateUrl: '../js/components/default_goals/default_goals.html',
     resolve: {
-      $title: function() { return 'Goals | Admin'; }
+      $title: function() { return 'GOALS_PAGE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.templates]
@@ -216,12 +216,12 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('gyms-admin', {
     url: '/admin/gyms',
     templateUrl: '../js/components/gyms/gyms.html',
-    controller: 'GymsController as gyms',
+    controller: 'GymsController as vm',
     resolve: {
-      $title: function() { return 'Clubs | Admin'; }
+      $title: function() { return 'GYMS_PAGE'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.gyms]
+      permissions: [APP_PERMISSIONS.users]
     }
   })
 

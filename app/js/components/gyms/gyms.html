@@ -2,12 +2,14 @@
   <div class="large-12 medium-18 small-18 large-centered columns">
     <div class="heading row">
       <div class="large-13 medium-12 columns">
-        <h1>Gyms</h1>
+        <h1>{{'GYMS' | translate}}</h1>
       </div>
       <div class="large-5 medium-6 columns">
-        <!--<button class="secondary" ui-sref="club-new">Create new club</button>-->
+        <button class="secondary" ui-sref="club-new">{{'GYM_NEW' | translate}}</button>
       </div>
     </div>
+
+
 
     <table>
       <thead>
@@ -16,8 +18,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="gym in gyms.gyms | orderBy:'Name'">
-          <td contentEditable ng-change="gyms.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
+        <tr ng-repeat="gym in vm.gyms | orderBy:'Name'">
+          <td contentEditable ng-change="vm.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
         </tr>
       </tbody>
     </table>
@@ -29,8 +31,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="gym in gyms.gymsNoActiveDevices | orderBy:'Name'">
-          <td contentEditable ng-change="gyms.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
+        <tr ng-repeat="gym in vm.gymsNoActiveDevices | orderBy:'Name'">
+          <td contentEditable ng-change="vm.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
         </tr>
       </tbody>
     </table>
