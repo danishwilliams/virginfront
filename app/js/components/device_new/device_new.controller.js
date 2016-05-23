@@ -30,19 +30,21 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
           val.Primary = false;
           val.route = "devices/";
           console.log('making this primary device a secondary!', val);
-          val.put().then(function () {
-            if (!processed) {
-              processed = true;
+
+          if (!processed) {
+            processed = true;
+            val.put().then(function () {
               provisionDevice();
-            }
-          }, function () {
-            self.saving = false;
-            spinnerService.hide('deviceNewSpinner');
-            self.alert = {
-              type: 'warning',
-              msg: 'DEVICE_PROVISION_NEW_ERROR'
-            };
-          });
+            }, function () {
+              self.saving = false;
+              spinnerService.hide('deviceNewSpinner');
+              self.alert = {
+                type: 'warning',
+                msg: 'DEVICE_PROVISION_NEW_ERROR'
+              };
+            });
+          }
+
         }
       });
       if (!processed) {
