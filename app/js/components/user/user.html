@@ -131,16 +131,26 @@
     <div class="row">
       <div class="columns large-9" ng-if="user.user.UserMusicProvider">
         <div class="box">
-          <span class="image-right" ng-show="user.musicProviderAccountLoaded">
-            <img ng-if="user.musicProviderAccount" src="/img/ico40grn_syncsuccess.svg">
-            <img ng-if="!user.musicProviderAccount" src="/img/ico40orng_syncerror.svg">
-          </span>
-          <h3 ng-if="user.user.UserMusicProvider.MusicProvider.Name !== 'Simfy'">{{user.user.UserMusicProvider.MusicProvider.Name}}</h3>
-          <span ng-if="user.user.UserMusicProvider.MusicProvider.Name == 'Simfy'">
-            <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} {{'ACC_DETAILS' | translate}}</h3>
-            <p>{{'USERNAME' | translate}}: <em>{{user.user.UserMusicProvider.Username}}</em>
-              <br> {{'PASSWORD' | translate}}: <em>{{user.user.UserMusicProvider.Password}}</em></p>
-          </span>
+          <div class="row">
+            <div class="small-8 columns">
+              <h3 ng-if="user.user.UserMusicProvider.MusicProvider.Name !== 'Simfy'">{{user.user.UserMusicProvider.MusicProvider.Name}}</h3>
+              <span ng-if="user.user.UserMusicProvider.MusicProvider.Name == 'Simfy'">
+                <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} {{'ACC_DETAILS' | translate}}</h3>
+                <p>{{'USERNAME' | translate}}: <em>{{user.user.UserMusicProvider.Username}}</em>
+                  <br> {{'PASSWORD' | translate}}: <em>{{user.user.UserMusicProvider.Password}}</em></p>
+              </span>
+            </div>
+            <div class="small-10 text-right columns" ng-show="user.musicProviderAccountLoaded">
+              <span ng-if="user.musicProviderAccount.Success">
+                <img src="/img/ico40grn_syncsuccess.svg">
+                <span translate="MUSIC_PROVIDER_AVAILABLE" translate-values="{name: user.user.UserMusicProvider.MusicProvider.Name}"></span>
+              </span>
+              <span ng-if="!user.musicProviderAccount.Success">
+                <img src="/img/ico40orng_syncerror.svg">
+                {{user.musicProviderAccount.ErrorMessage | translate}}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="columns large-9" ng-if-permission="viewAdmin" ng-show="user.viewingOwnUserProfile">

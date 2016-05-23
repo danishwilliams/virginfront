@@ -12,7 +12,7 @@ angular.module("app.user", []).controller('UserController', function ($statePara
     // Test the user's music provider account i.e. see if their username and password works
     if (data.UserMusicProvider) {
       Users.testUserMusicProviderAccount(self.id).then(function (data) {
-        self.musicProviderAccount = data.Success;
+        self.musicProviderAccount = data;
         self.musicProviderAccountLoaded = true;
       });
     }
