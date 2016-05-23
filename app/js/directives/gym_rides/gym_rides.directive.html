@@ -2,16 +2,16 @@
   <span class="right">({{vm.playlistCount}}/{{vm.playlistLimitPerGym}})</span>
   <h3>{{vm.gym.Gym.Name}}</h3>
 
-  <div ng-if="!gym.LimitReached && vm.canEdit"><gym-possible-rides ng-change="vm.addRide()" ng-model="vm.playlist"></gym-possible-rides></div>
+  <div ng-if="!vm.gym.LimitReached && vm.canEdit"><gym-possible-rides ng-change="vm.addRide()" ng-model="vm.playlist"></gym-possible-rides></div>
 
   <ul>
-    <li ng-hide="playlist.removedExpired" ng-class="{'waiting': !playlist.DevicePlaylistSyncs[0].SyncStarted && !playlist.DevicePlaylistSyncs[0].SyncError, 'syncing' : !playlist.DevicePlaylistSyncs[0].SyncSuccess && playlist.DevicePlaylistSyncs[0].SyncStarted && !playlist.DevicePlaylistSyncs[0].SyncError, 'removed' : playlist.removed, 'error': playlist.DevicePlaylistSyncs[0].SyncError}" ng-repeat="playlist in $parent.gym.PlaylistSyncInfos | orderBy:'Playlist.Name'">
+    <li ng-hide="playlist.removedExpired" ng-class="{'waiting': !playlist.DevicePlaylistSyncs[0].SyncStarted && !playlist.DevicePlaylistSyncs[0].SyncError, 'syncing' : !playlist.DevicePlaylistSyncs[0].SyncSuccess && playlist.DevicePlaylistSyncs[0].SyncStarted && !playlist.DevicePlaylistSyncs[0].SyncError, 'removed' : playlist.removed, 'error': playlist.DevicePlaylistSyncs[0].SyncError}" ng-repeat="playlist in vm.gym.PlaylistSyncInfos | orderBy:'Playlist.Name'">
       <span class="icon"></span><span class="name">{{playlist.Playlist.Name}}</span>
       <!--<span class="right remove" ng-if="playlist.DevicePlaylistSyncs[0].SyncSuccess">-->
       <span class="right remove" ng-if="vm.canEdit">
-        <a ng-if="!playlist.removed && !playlist.DevicePlaylistSyncs[0].SyncError" ng-click="vm.remove(playlist, gym.Gym.Id)"><div class="remove">{{'REMOVE_RIDE' | translate}}</div></a>
-        <a ng-if="playlist.removed && !playlist.DevicePlaylistSyncs[0].SyncError" ng-click="vm.undoRemove(playlist, gym.Gym.Id)">{{'UNDO' | translate}}</a>
-        <span ng-if="playlist.DevicePlaylistSyncs[0].SyncError">{{'FAILED' | translate}}. <a ng-click="vm.publish(playlist, gym.Gym.Id)">{{'TRY_AGAIN' | translate}}</a></span>
+        <a ng-if="!playlist.removed && !playlist.DevicePlaylistSyncs[0].SyncError" ng-click="vm.remove(playlist, vm.gym.Gym.Id)"><div class="remove">{{'REMOVE_RIDE' | translate}}</div></a>
+        <a ng-if="playlist.removed && !playlist.DevicePlaylistSyncs[0].SyncError" ng-click="vm.undoRemove(playlist, vm.gym.Gym.Id)">{{'UNDO' | translate}}</a>
+        <span ng-if="playlist.DevicePlaylistSyncs[0].SyncError">{{'FAILED' | translate}}. <a ng-click="vm.publish(playlist, vm.gym.Gym.Id)">{{'TRY_AGAIN' | translate}}</a></span>
       </span>
       <span ng-show="!playlist.removed && !playlist.DevicePlaylistSyncs[0].SyncError" class="right time">
         <span ng-show="!playlist.DevicePlaylistSyncs[0].SyncSuccess && playlist.DevicePlaylistSyncs[0].SyncStarted">
