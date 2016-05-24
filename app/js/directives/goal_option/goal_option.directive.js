@@ -27,9 +27,9 @@ function goalOption() {
   return directive;
 }
 
-goalOptionController.$inject = ['$scope'];
+goalOptionController.$inject = ['$scope', 'Goals'];
 
-function goalOptionController($scope) {
+function goalOptionController($scope, Goals) {
   // Because these should be integers. *sigh*
   $scope.trackBpm = parseInt($scope.trackBpm);
   $scope.goalBpmLow = parseInt($scope.goalBpmLow);
@@ -38,15 +38,8 @@ function goalOptionController($scope) {
   checkForNullBeatObject();
   calculateEffortRange();
 
-  $scope.effortOptions = [40];
-  for (i = 45; i <= 100; i = i + 5) {
-    $scope.effortOptions.push(i);
-  }
-
-  $scope.rpmOptions = [0];
-  for (i = 60; i <= 180; i = i + 5) {
-    $scope.rpmOptions.push(i);
-  }
+  $scope.effortOptions = Goals.getEffortRange();
+  $scope.rpmOptions = Goals.getBpmRange();
 
   // Only show the name of goaloptions if there are more than 1
   if (parseInt($scope.goaloption.length) === 1) {
