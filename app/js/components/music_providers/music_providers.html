@@ -20,7 +20,7 @@
       <label class="disconnected">{{'UNAVAILABLE' | translate}}</label>
       <hr>
       <div class="left">{{vm.heartbeat[0].date | date : 'dd'}} {{vm.heartbeat[0].date | date : 'MMMM' | translate}}</div>
-      <span style="position: relative; min-width: 100px; left: {{(vm.heartbeat.length * 4) - 60}}px">
+      <span ng-if="vm.heartbeat.length > 40" style="position: relative; min-width: 100px; left: {{(vm.heartbeat.length * 4) - 60}}px">
         {{vm.heartbeat[vm.heartbeat.length - 1].date | date : 'dd'}} {{vm.heartbeat[vm.heartbeat.length - 1].date | date : 'MMMM' | translate}}
       </span>
       </div>
