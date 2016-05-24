@@ -35,9 +35,8 @@ function goalOptionController($scope) {
   $scope.goalBpmLow = parseInt($scope.goalBpmLow);
   $scope.goalBpmHigh = parseInt($scope.goalBpmHigh);
   $scope.totalGoaloptions = parseInt($scope.totalGoaloptions);
-  if (!$scope.goaloption.Beat) {
-    $scope.goaloption.Beat = {Name: 'required'};
-  }
+  checkForNullBeatObject();
+  calculateEffortRange();
 
   $scope.effortOptions = [40];
   for (i = 45; i <= 100; i = i + 5) {
@@ -52,12 +51,6 @@ function goalOptionController($scope) {
   // Only show the name of goaloptions if there are more than 1
   if (parseInt($scope.goaloption.length) === 1) {
     $scope.goaloption.Name = '';
-  }
-
-  if ($scope.goaloption.EffortHigh) {
-    $scope.goaloption.effortrange = $scope.goaloption.Effort + ' - ' + $scope.goaloption.EffortHigh;
-  } else {
-    $scope.goaloption.effortrange = $scope.goaloption.Effort;
   }
 
   $scope.rpm = '';
@@ -95,15 +88,42 @@ function goalOptionController($scope) {
     }
   }
 
+  function checkForNullBeatObject() {
+    if (!$scope.goaloption.Beat) {
+      $scope.goaloption.Beat = {Name: 'required'};
+    }
+  }
+
+  function calculateEffortRange() {
+    if ($scope.goaloption.EffortHigh) {
+      $scope.goaloption.effortrange = $scope.goaloption.Effort + ' - ' + $scope.goaloption.EffortHigh;
+    } else {
+      $scope.goaloption.effortrange = $scope.goaloption.Effort;
+    }
+  }
+
   function on_the_beat() {
     // The track BPM is in the goal option's BPM range, it's "on the beat"
     console.log($scope.goalBpmLow + ' <= ' + $scope.trackBpm + ' <= ' + $scope.goalBpmHigh, 'On the beat');
+
+    // No idea why this must be called again. Somehow if we're in the following workflow, we lost the Beat object
+    // on goaloptions, as well as effortrange: view new incomplete playlist, add a track.
+    checkForNullBeatObject();
+    calculateEffortRange();
+
     $scope.goaloption.Beat.Ratio = 1;
     $scope.beat = 'ON_THE_BEAT';
+    console.log($scope.goaloption);
   }
 
   function half_time() {
     console.log($scope.goalBpmLow + ' <= ' + $scope.trackBpm + ' <= ' + $scope.goalBpmHigh, 'Half time');
+
+    // No idea why this must be called again. Somehow if we're in the following workflow, we lost the Beat object
+    // on goaloptions, as well as effortrange: view new incomplete playlist, add a track.
+    checkForNullBeatObject();
+    calculateEffortRange();
+
     $scope.goaloption.Beat.Ratio = 0.5;
     $scope.beat = 'HALF_TIME';
   }
