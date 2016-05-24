@@ -147,6 +147,10 @@ form a.secondary, .cancel {
   }
 }
 
+option:disabled {
+  color: $grey_light;
+}
+
 label {
   font-weight: bold;
   padding-bottom: rem-calc(4px);
