@@ -114,6 +114,8 @@
   "LAST_LOGIN": "Last login",
   "NEVER": "Never",
   "MY_RIDES": "My rides",
+  "MY_RIDES_DRAFTS": "My drafts",
+  "MY_RIDES_COMPLETE": "Completed rides",
   "BACK": "Back",
   "CANCEL": "Cancel",
   "PLAYLIST_1": "Ride template",

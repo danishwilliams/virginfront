@@ -223,13 +223,16 @@ function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
    * @param userId
    *   Optional. The Id of the user we want the playlists for.
    */
-  function loadPlaylists(resultCount, userId) {
+  function loadPlaylists(resultCount, userId, complete) {
     var params = {
       resultCount: resultCount,
       includeGoals: false
     };
     if (userId) {
       params.UserId = userId;
+    }
+    if (complete !== undefined) {
+      params.complete = complete;
     }
     return Restangular.one('playlists').get(params).then(loadPlaylistsComplete);
 

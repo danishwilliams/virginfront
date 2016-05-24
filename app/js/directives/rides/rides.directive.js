@@ -12,7 +12,8 @@ function RidesDirective(Playlists, spinnerService) {
     scope: {
       createNew: '@', // Optional: add a link in which allows an instructor to create a new ride
       rides: '@', // Number of rides to load
-      userId: '@' // Optional: the user id for which to load up the rides for
+      userId: '@', // Optional: the user id for which to load up the rides for
+      complete: '@' // Optional: whether to show complete or incomplete playlists (default: all)
     },
   };
   return directive;
@@ -25,8 +26,16 @@ function RidesDirective(Playlists, spinnerService) {
       self.rides = 4;
     }
 
-    Playlists.loadPlaylists(self.rides, self.userId).then(function (data) {
-      self.playlists = data;
+    Playlists.loadPlaylists(self.rides, self.userId, self.complete).then(function (data) {
+      // TODO: this can be removed once the Playlists.loadPlaylists() endpoint has been adjusted to only return
+      // complete/incomplete playlists
+      self.playlists = [];
+      data.forEach(function(val) {
+        if (val.Complete.toString() === self.complete) {
+          self.playlists.push(val);
+        }
+      });
+      //self.playlists = data;
       spinnerService.hide('spinner' + self.random);
     });
   }
