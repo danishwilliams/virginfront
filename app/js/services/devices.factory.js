@@ -143,6 +143,9 @@ function DevicesFactory(Restangular, uuid2) {
     }).then(loadDeviceHeartbeatLogComplete);
 
     function loadDeviceHeartbeatLogComplete(data, status, headers, config) {
+      data.forEach(function(val) {
+        val.CreateDate = new Date(val.CreateDate);
+      });
       return data;
     }
   }
@@ -155,6 +158,9 @@ function DevicesFactory(Restangular, uuid2) {
     return Restangular.one('devices/' + id + '/errorlog').get(params).then(loadDeviceErrorLogComplete);
 
     function loadDeviceErrorLogComplete(data, status, headers, config) {
+      data.forEach(function(val) {
+        val.ErrorDate = new Date(val.ErrorDate);
+      });
       return data;
     }
   }

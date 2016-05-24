@@ -22,9 +22,9 @@ function HeartbeatFactory() {
 
     // Convert each heartbeat into a value between 0 and 287 (5 x 12 x 24) since there's a heartbeat every 5 minutes
     var secondsInADay = 60 * 60 * 24;
+
     data.forEach(function (val) {
       // Get the current time in seconds
-      val.CreateDate = new Date(val.CreateDate);
       var seconds = Math.floor((new Date() - val.CreateDate) / 1000);
 
       // Convert this into a value between 0 and 287

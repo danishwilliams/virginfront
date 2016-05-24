@@ -234,6 +234,7 @@ function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
     return Restangular.one('playlists').get(params).then(loadPlaylistsComplete);
 
     function loadPlaylistsComplete(data, status, headers, config) {
+      data = _convertDates(data);
       self.playlists = data;
       return self.playlists;
     }
@@ -249,6 +250,7 @@ function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
     }).then(loadPlaylistComplete);
 
     function loadPlaylistComplete(data) {
+      data = _convertDates(data);
       playlist = data;
       isCustomRpm = data.IsCustomRpm;
 
@@ -327,7 +329,10 @@ function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
 
   // Gets all complete playlists not in a particular gym
   function loadPlaylistsNotInGym(id) {
-    return Restangular.one('gyms/' + id + '/playlistsnotpublished').get();
+    return Restangular.one('gyms/' + id + '/playlistsnotpublished').get().then(function(data) {
+      data = _convertDates(data);
+      return data;
+    });
   }
 
   function addPlaylistToGym(playlistId, gymId) {
@@ -579,7 +584,25 @@ function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
     return Restangular.one('playlists/recentclasses').get(params).then(loadRecentClassesComplete);
 
     function loadRecentClassesComplete(data, status, headers, config) {
+      data.forEach(function(val) {
+        if (val.ClassTaughtDate) { val.ClassTaughtDate = new Date(val.ClassTaughtDate);}
+      });
       return data;
     }
+  }
+
+  function _convertDates(data) {
+    if (_.isArray(data)) {
+      data.forEach(function(val) {
+        if (val.CreateDate) { val.CreateDate = new Date(val.CreateDate);}
+      });
+
+      return data;
+    }
+
+    // Convert UTC dates to javascript date objects
+    if (data.CreateDate) { data.CreateDate = new Date(data.CreateDate);}
+
+    return data;
   }
 }

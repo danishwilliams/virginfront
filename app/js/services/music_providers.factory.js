@@ -46,6 +46,9 @@ function MusicProvidersFactory(Restangular) {
     return Restangular.one('musicproviders/' + id + '/heartbeatlog').get(params).then(getHeartbeatLogComplete);
 
     function getHeartbeatLogComplete(data, status, headers, config) {
+      data.forEach(function (val) {
+        val.CreateDate = new Date(val.CreateDate);
+      });
       return data;
     }
   }
