@@ -29,13 +29,17 @@ function RidesDirective(Playlists, spinnerService) {
     Playlists.loadPlaylists(self.rides, self.userId, self.complete).then(function (data) {
       // TODO: this can be removed once the Playlists.loadPlaylists() endpoint has been adjusted to only return
       // complete/incomplete playlists
-      self.playlists = [];
-      data.forEach(function(val) {
-        if (val.Complete.toString() === self.complete) {
-          self.playlists.push(val);
-        }
-      });
-      //self.playlists = data;
+      if (self.complete !== undefined) {
+        self.playlists = [];
+        data.forEach(function(val) {
+          if (val.Complete.toString() === self.complete) {
+            self.playlists.push(val);
+          }
+        });
+      }
+      else {
+        self.playlists = data;
+      }
       spinnerService.hide('spinner' + self.random);
     });
   }
