@@ -192,6 +192,7 @@
   "PROFILE": "Perfil",
   "LAST_CLASS": "Último percurso",
   "CONTACT_DETAILS": "Detalhes de contacto",
+  "PHONE_EMPTY": "No phone number available",
   "SAVE": "Guardar",
   "PERMISSIONS": "Autorizações",
   "Admin": "Administrador",

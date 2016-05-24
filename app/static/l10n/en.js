@@ -192,6 +192,7 @@
   "PROFILE": "Profile",
   "LAST_CLASS": "Last ride",
   "CONTACT_DETAILS": "Contact details",
+  "PHONE_EMPTY": "No phone number available",
   "SAVE": "Save",
   "PERMISSIONS": "Permissions",
   "Admin": "Admin",

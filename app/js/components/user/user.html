@@ -17,27 +17,42 @@
         <alert ng-repeat="message in user.messages" type="message.type" close="user.messages.splice($index, 1)">{{message.msg | translate}}</alert>
       </div>
     </div>
+
     <div class="row">
       <div class="columns large-9">
         <div class="box">
           <button ng-show="!user.contactEdit" class="edit right" ng-click="user.contactEdit = true">{{'EDIT' | translate}}</button>
           <h3>{{'CONTACT_DETAILS' | translate}}</h3>
           <div ng-show="!user.contactEdit">
-            <div ng-if-permission="viewAdmin"><label>{{'EMPLOYEE_ID' | translate}}</label> {{user.user.EmployeeId}}</div>
-            {{user.user.Telephone}}<br>
-            <a href="mailto:{{user.user.Email}}">{{user.user.Email}}</a>
+            <div class="row" ng-if="user.user.Email">
+              <label class="inline">{{'EMAIL' | translate}}</label>:
+              <a href="mailto:{{user.user.Email}}">{{user.user.Email}}</a>
+            </div>
+
+            <div class="row">
+              <label class="inline">{{'PHONE' | translate}}</label>: {{user.user.Telephone}} <span ng-if="!user.user.Telephone">{{'PHONE_EMPTY' | translate}}</span>
+            </div>
+
+            <span ng-if-permission="users">
+              <div class="row" ng-if="user.user.EmployeeId">
+                <label class="inline">{{'EMPLOYEE_ID' | translate}}</label> {{user.user.EmployeeId}}
+              </div>
+            </span>
           </div>
 
           <form name="contactForm" ng-show="user.contactEdit" ng-submit="user.saveContactDetails()">
-            <label ng-if-permission="editAdmin">{{'EMPLOYEE_ID' | translate}}</label>
-            <input type="text" ng-if-permission="editAdmin" ng-model="user.employeeId" placeholder="{{'EMPLOYEE_ID' | translate}}" maxlength="60" />
-            <label>{{'PHONE' | translate}}</label>
-            <input type="text" ng-model="user.telephone" placeholder="{{'PHONE' | translate}}" maxlength="60" />
             <label>{{'EMAIL' | translate}}</label>
             <input type="email" name="email" ng-model="user.email" placeholder="{{'EMAIL' | translate}}" required />
             <div ng-show="contactForm.$submitted || contactForm.email.$touched">
               <small class="error" ng-show="contactForm.email.$error.required">{{'EMAIL_REQ' | translate}}</small>
             </div>
+
+            <label>{{'PHONE' | translate}} {{'OPTIONAL' | translate}}</label>
+            <input type="text" ng-model="user.telephone" placeholder="{{'PHONE' | translate}}" maxlength="60" />
+
+            <label ng-if-permission="users">{{'EMPLOYEE_ID' | translate}}</label>
+            <input type="text" ng-if-permission="users" ng-model="user.employeeId" placeholder="{{'EMPLOYEE_ID' | translate}}" maxlength="60" />
+
             <div ng-messages="user.error">
               <p class="error" ng-message="email">{{user.error.message}}</p>
             </div>
