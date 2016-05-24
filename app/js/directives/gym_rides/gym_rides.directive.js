@@ -81,7 +81,7 @@ function gymRidesController(Playlists, $scope, $interval, $timeout) {
     }
     self.gym.PlaylistSyncInfos.push(playlist);
     self.playlistCount++;
-    if (self.gym.PlaylistSyncInfos.length === self.playlistLimitPerGym) {
+    if (self.playlistCount === self.playlistLimitPerGym) {
       self.gym.LimitReached = true;
     }
 
