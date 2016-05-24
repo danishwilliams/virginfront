@@ -317,19 +317,31 @@
 
           <br>
 
-          <div ng-show="vm.saved" ng-if="vm.action === 'disable'" class="ng-scope">
-            <div class="row">
-              <div class="small-2 medium-2 large-1 columns">
-                <img ng-if="vm.alert.type === 'warning'" src="/img/ico40orng_syncerror.svg">
-              </div>
-              <div class="small-16 medium-16 large-17 columns">
-                <span class="warning"><p class="warning">
-                  <strong>A failure message at the end of a workflow</strong></p>
-                  <p class="small">Along with a recommendation of what to do next.</p>
-                </span>
-              </div>
+          <div class="row">
+            <div class="small-2 medium-2 large-1 columns">
+              <img ng-if="vm.alert.type === 'warning'" src="/img/ico40orng_syncerror.svg">
+            </div>
+            <div class="small-16 medium-16 large-17 columns">
+              <span class="warning"><p class="warning">
+                <strong>A failure message at the end of a workflow</strong></p>
+                <p class="small">Along with a recommendation of what to do next.</p>
+              </span>
             </div>
           </div>
+
+          <div class="row">
+            <img src="/img/ico40grn_syncsuccess.svg">
+            <span class="success">Great! Looks like Simfy is currently available.</span>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <img src="/img/ico40orng_syncerror.svg">
+            <span class="warning">Some kind of Music Provider error was encountered.</span>
+          </div>
+
+          <br>
 
           <div class="contains-button alert-box warning" type="'warning'">
             <span>
