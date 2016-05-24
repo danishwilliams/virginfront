@@ -104,7 +104,7 @@ function goalOptionController($scope) {
 
   function on_the_beat() {
     // The track BPM is in the goal option's BPM range, it's "on the beat"
-    console.log($scope.goalBpmLow + ' <= ' + $scope.trackBpm + ' <= ' + $scope.goalBpmHigh, 'On the beat');
+    //console.log($scope.goalBpmLow + ' <= ' + $scope.trackBpm + ' <= ' + $scope.goalBpmHigh, 'On the beat');
 
     // No idea why this must be called again. Somehow if we're in the following workflow, we lost the Beat object
     // on goaloptions, as well as effortrange: view new incomplete playlist, add a track.
@@ -113,11 +113,10 @@ function goalOptionController($scope) {
 
     $scope.goaloption.Beat.Ratio = 1;
     $scope.beat = 'ON_THE_BEAT';
-    console.log($scope.goaloption);
   }
 
   function half_time() {
-    console.log($scope.goalBpmLow + ' <= ' + $scope.trackBpm + ' <= ' + $scope.goalBpmHigh, 'Half time');
+    //console.log($scope.goalBpmLow + ' <= ' + $scope.trackBpm + ' <= ' + $scope.goalBpmHigh, 'Half time');
 
     // No idea why this must be called again. Somehow if we're in the following workflow, we lost the Beat object
     // on goaloptions, as well as effortrange: view new incomplete playlist, add a track.
