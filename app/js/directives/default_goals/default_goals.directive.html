@@ -14,7 +14,7 @@
       <div class="row goal-name accordion" ng-click="vm.goalClicked(goal)" ng-show="goal.show">
         <img class="open" ng-if="goal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
         <span ng-show="goal.edit">{{goal.Goal.Name}}</span>
-        <input type="text" name="name" ng-hide="goal.edit" placeholder="{{'NAME' | translate}}" ng-model="goal.Goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false" required />
+        <input type="text" name="name" ng-hide="goal.edit" placeholder="{{'NAME' | translate}}" ng-model="goal.Goal.Name" ng-click="goal.editGoalName = true" ng-blur="goal.editGoalName = false" maxlength="30" required />
         <em ng-if="goal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
         <i class="right chevron-down"></i>
 
@@ -38,7 +38,7 @@
       <div class="row goal-meta" ng-show="goal.show" ng-repeat="goaloption in goal.Goal.GoalOptions track by $index">
         <ng-form name="goaloptionForm">
           <div ng-show="goal.Goal.GoalOptions.length > 1" class="row">
-            <input type="text" name="goalName" placeholder="{{'GOAL_NAME' | translate}}" ng-model="goaloption.Name" ng-required="goal.Goal.GoalOptions.length > 1">
+            <input type="text" name="goalName" placeholder="{{'GOAL_NAME' | translate}}" ng-model="goaloption.Name" ng-required="goal.Goal.GoalOptions.length > 1" maxlength="30">
             <div ng-show="goal.submitted || goaloptionForm.goalName.$touched">
               <small class="error" ng-show="goaloptionForm.goalName.$error.required">{{'INTERVAL_REQ' | translate}}</small>
             </div>
