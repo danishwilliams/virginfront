@@ -13,6 +13,8 @@ function RidesDirective(Playlists, spinnerService) {
       createNew: '@', // Optional: add a link in which allows an instructor to create a new ride
       rides: '@', // Number of rides to load
       userId: '@', // Optional: the user id for which to load up the rides for
+      userName: '@', // Optional: the user's name, to show when they don't have any rides
+      viewingOwnUserProfile: '@', // Optional: whether the current user is viewing their own user profile or not
       complete: '@' // Optional: whether to show complete or incomplete playlists (default: all)
     },
   };
@@ -20,6 +22,9 @@ function RidesDirective(Playlists, spinnerService) {
 
   function link(scope, element, attrs) {
     var self = scope;
+    if (!self.viewingOwnUserProfile) {
+      self.viewingOwnUserProfile = true;
+    }
     self.random = Math.floor(Math.random() * 10000);
 
     if (!self.rides) {

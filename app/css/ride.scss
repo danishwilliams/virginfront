@@ -2,7 +2,7 @@
   max-width: rem-calc(1024px);
 }
 
-ride, .dashboard .new, #rides .new  {
+ride, .new-ride  {
   img {
     padding: 10px 10px 0 0;
   }
@@ -42,7 +42,7 @@ ride, .dashboard .new, #rides .new  {
   }
 }
 
-.dashboard .new, #rides .new {
+.new-ride {
   a {
     background: $white;
     border: 1px dotted $grey_medium;

@@ -21,7 +21,8 @@ angular.module("app.dashboard", []).controller('DashboardController', function (
   self.loadGyms = function() {
     Playlists.loadGymsPlaylistSyncInfoDetailed().then(function (data) {
       spinnerService.hide('dashboardGymsSpinner');
-      self.gyms = data;
+      self.gyms = data.data;
+      self.hasGyms = data.hasGyms;
     });
   };
 

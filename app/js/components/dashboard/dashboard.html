@@ -49,6 +49,7 @@
         <a ui-sref="user" ng-if-permission="createPlaylist">{{'MANAGE_CLUBS' | translate}}</a>
       </div>
     </div>
+
     <div class="row">
       <spinner class="spinner" name="dashboardGymsSpinner" show="true"></spinner>
 
@@ -58,7 +59,9 @@
         </li>
       </ul>
 
+      <span class="empty" ng-if="!vm.hasGyms">{{'RESIDENT_CLUBS_EMPTY' | translate}} <a ui-sref="user" ng-if-permission="createPlaylist">{{'MANAGE_YOUR_CLUBS' | translate}}</a></span>
     </div>
+
     <div class="row classes heading">
       <div class="columns small-10 medium-">
         <h1>{{'RECENT_CLASSES' | translate}}</h1>

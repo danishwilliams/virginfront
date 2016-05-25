@@ -30,7 +30,7 @@
             </div>
 
             <div class="row">
-              <label class="inline">{{'PHONE' | translate}}</label>: {{user.user.Telephone}} <span ng-if="!user.user.Telephone">{{'PHONE_EMPTY' | translate}}</span>
+              <label class="inline">{{'PHONE' | translate}}</label>: {{user.user.Telephone}} <span class="empty" ng-if="!user.user.Telephone">{{'PHONE_EMPTY' | translate}}</span>
             </div>
 
             <span ng-if-permission="users">
@@ -104,6 +104,10 @@
                 {{gym.Gym.Name}}
               </li>
             </ul>
+            <span class="empty" ng-if="user.user.UserGyms.length == 0">
+              <span ng-if="user.viewingOwnUserProfile">{{'RESIDENT_CLUBS_EMPTY' | translate}}</span>
+              <span ng-if="!user.viewingOwnUserProfile">{{user.user.FirstName}} {{'RESIDENT_CLUBS_EMPTY_AS_MANAGER' | translate}}</span>
+            </span>
           </div>
 
           <form ng-show="user.gymEdit" ng-submit="user.saveGyms()">
@@ -128,6 +132,10 @@
                 {{genre.Genre.Name | translate}}
               </li>
             </ul>
+            <span class="empty" ng-if="user.user.UserGenres.length == 0">
+              <span ng-if="user.viewingOwnUserProfile">{{'GENRES_EMPTY' | translate}}</span>
+              <span ng-if="!user.viewingOwnUserProfile">{{user.user.FirstName}} {{'GENRES_EMPTY_AS_MANAGER' | translate}}</span>
+            </span>
           </div>
 
           <form ng-show="user.genreEdit" ng-submit="user.saveGenres()">
@@ -187,7 +195,7 @@
       </div>
 
       <div class="row">
-        <rides ng-if="user.user" data-rides="100" data-user-id="{{user.user.Id}}"></rides>
+        <rides ng-if="user.user" data-rides="100" data-user-id="{{user.user.Id}}" data-create-new="true" data-viewing-own-user-profile="{{user.viewingOwnUserProfile}}" data-user-name={{user.user.FirstName}}></rides>
       </div>
 
       <div id="recent-rides" class="row playlists heading">
@@ -202,6 +210,11 @@
             <gym-rides data-view-only="true"></gym-rides>
           </li>
         </ul>
+
+        <span class="empty" ng-if="!user.hasGyms">
+          <span ng-if="user.viewingOwnUserProfile">{{'RESIDENT_CLUBS_EMPTY' | translate}} <a ui-sref="user" ng-if-permission="createPlaylist">{{'MANAGE_YOUR_CLUBS' | translate}}</a></span>
+          <span ng-if="!user.viewingOwnUserProfile">{{user.user.FirstName}} {{'RESIDENT_CLUBS_EMPTY_AS_MANAGER' | translate}}</span>
+        </span>
       </div>
 
       <div id="recent-classes" class="row classes heading">
@@ -209,7 +222,7 @@
       </div>
 
       <div class="row">
-        <recent-classes ng-if="user.user" data-classes="100" data-user-id="{{user.user.Id}}"></recent-classes>
+        <recent-classes ng-if="user.user" data-classes="100" data-user-id="{{user.user.Id}}" data-user-name="{{user.user.FirstName}}" data-viewing-own-user-profile="{{user.viewingOwnUserProfile}}"></recent-classes>
       </div>
     </div>
 
