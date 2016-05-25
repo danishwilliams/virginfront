@@ -1,4 +1,4 @@
-angular.module("app.user", []).controller('UserController', function ($stateParams, $location, $uiViewScroll, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer, $translate, Storage) {
+angular.module("app.user", []).controller('UserController', function ($stateParams, $location, $uiViewScroll, UserTypes, Users, Genres, Gyms, Playlists, spinnerService, $filter, Authorizer, $translate, Storage) {
   var self = this;
   this.id = $stateParams.id;
 
@@ -9,6 +9,13 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   }
 
   Users.loadUser(this.id).then(function (data) {
+    // Test the user's music provider account i.e. see if their username and password works
+    if (data.UserMusicProvider) {
+      Users.testUserMusicProviderAccount(self.id).then(function (data) {
+        self.musicProviderAccount = data;
+        self.musicProviderAccountLoaded = true;
+      });
+    }
 
     // Scroll to the recent rides section
     // Yeah, this isn't the best place to do this, but I couldn't get similar logic working anywhere else: not in
@@ -25,6 +32,14 @@ angular.module("app.user", []).controller('UserController', function ($statePara
     self.telephone = self.user.Telephone;
     self.email = self.user.Email;
   });
+
+  if (Authorizer.canAccess('users')) {
+    // Load up the rides loaded to this gym
+    Playlists.loadGymsPlaylistSyncInfoDetailed(self.id).then(function (data) {
+      spinnerService.hide('userGyms');
+      self.gyms = data;
+    });
+  }
 
   this.saveContactDetails = function () {
     if (!self.email) {

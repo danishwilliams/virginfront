@@ -31,6 +31,11 @@
     display: none;
   }
 
+  .uiview div.row {
+    padding-left: rem-calc(2);
+    padding-right: rem-calc(2);
+  }
+
   .row {
     max-width: 100%;
   }
@@ -78,6 +83,7 @@
   /* Dashboard */
 
   reporting .box {
+    padding: rem-calc(10) rem-calc(30) rem-calc(10) rem-calc(6);
     &.box-left {
       margin-right: 0;
     }
@@ -104,9 +110,6 @@
   /* Recent classes */
 
   .dashboard, #classes {
-    table {
-      border: none;
-    }
     table, tbody, td, tr {
       display: block;
     }
@@ -153,6 +156,13 @@
 
   #login, .onboarding {
     background-image: url('/img/background_1024.jpg');
+  }
+
+  /* Dashboard */
+
+  reporting .box {
+    margin: rem-calc(3);
+    padding: rem-calc(3) rem-calc(30) rem-calc(10) rem-calc(6);
   }
 
   /* Track search */

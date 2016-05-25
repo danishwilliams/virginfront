@@ -33,6 +33,7 @@
               <li class="blue"><span class="blue-light-bg"></span>Blue light</li>
               <li class="purple"><span class="purple-bg"></span>Purple</li>
               <li class="pack-purple"><span class="pack-purple-bg"></span>Pack purple</li>
+              <li class="yellow"><span class="yellow-bg"></span>Yellow</li>
             </ul>
 
             <h3 class="peach">Accent colours</h3>
@@ -75,6 +76,8 @@
           </p>
 
           <h1><span class="welcome">Less important part of a</span><br>longer heading (this part is more important)</h1>
+
+          <h2>A heading with some extra info <span class="extra-info">Updated 2 mins ago</span></h2>
 
           <div class="HelveticaNeueW01-77BdCn-692722 (40 KB)">
             <h2 class="heading">Typography: HelveticaNeueW01-77BdCn 692722</h2>
@@ -290,6 +293,90 @@
               <input type="submit" value="Log in" />
             </div>
           </form>
+
+          <h2 class="heading">Messaging</h2>
+
+          <div class="alert-box success">
+            <span>Standard success message, like when saving something.</span>
+            <a ng-show="closeable" class="close">x</a>
+          </div>
+
+          <div class="alert-box warning">
+            <span>Standard warning message.</span>
+            <a ng-show="closeable" class="close">x</a>
+          </div>
+
+          <div class="row">
+            <div class="small-2 medium-2 large-1 columns">
+              <img src="/img/ico40grn_syncsuccess.svg">
+            </div>
+            <div class="small-16 medium-16 large-17 columns">
+              <p class="success">A success message at the end of a workflow, like provisioning a device</p>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <div class="small-2 medium-2 large-1 columns">
+              <img ng-if="vm.alert.type === 'warning'" src="/img/ico40orng_syncerror.svg">
+            </div>
+            <div class="small-16 medium-16 large-17 columns">
+              <span class="warning"><p class="warning">
+                <strong>A failure message at the end of a workflow</strong></p>
+                <p class="small">Along with a recommendation of what to do next.</p>
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <img src="/img/ico40grn_syncsuccess.svg">
+            <span class="success">Great! Looks like Simfy is currently available.</span>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <img src="/img/ico40orng_syncerror.svg">
+            <span class="warning">Some kind of Music Provider error was encountered.</span>
+          </div>
+
+          <br>
+
+          <div class="contains-button alert-box warning" type="'warning'">
+            <span>
+              <div class="row ng-scope">
+                <div class="medium-14 columns ng-binding">
+                  A save button within a warning confirmation, like when saving a challenge goal master
+                </div>
+                <div class="medium-4 columns">
+                  <input type="submit" value="Save master">
+                </div>
+              </div>
+            </span>
+            <a class="close ng-hide">x</a>
+          </div>
+
+          <span class="device">
+            <h4>Email and device messaging in a table</h4>
+            <table>
+              <tr><td>
+                <div class="success" close="">
+                  <span>Device successfully synced</span>
+                </div>
+              </td></tr>
+              <tr><td>
+                <div class="warning" close="">
+                  <span>Device sync error</span>
+                </div>
+              </td></tr>
+              <tr><td>
+                <div class="delivered" close="">
+                  <span>Message delivered</span>
+                </div>
+              </td></tr>
+            </table>
+          </span>
 
           <h2 class="heading">Spinners</h2>
 

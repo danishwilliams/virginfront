@@ -1,34 +1,95 @@
-<h1>{{device.device.Name}}</h1>
+<div class="row device">
+  <spinner class="spinner" name="device" show="true"></spinner>
+  <div class="large-14 medium-16 small-18 large-centered medium-centered columns" ng-show="vm.device">
 
-<table>
-  <thead>
-    <tr>
-      <td>Device name</td>
-      <td>Last sync attempt</td>
-      <td>Sync status</td>
-      <td>Gym</td>
-      <td>City</td>
-      <td>Music Provider</td>
-      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}} Username</td>
-      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}} Password</td>
-      <td>Provision Id</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{device.device.Name}}</a></td>
-      <td>{{device.device.LastSyncAttempt}}</td>
-      <td>{{device.device.SyncSuccess}}</td>
-      <td>{{device.device.Gym.Name}}</td>
-      <td>{{device.device.Gym.Location.City}}</td>
-      <td>{{device.device.User.UserMusicProvider.MusicProvider.Name}}</td>
-      <td>{{device.device.User.UserMusicProvider.Username}}</td>
-      <td>{{device.device.User.UserMusicProvider.Password}}</td>
-      <td>{{device.device.DeviceProvisionId}}</td>
-    </tr>
-  </tbody>
-</table>
+    <div class="row heading">
+      <a class="back" ui-sref="devices-admin">{{'DEVICES' | translate}}</a>
+      <div class="columns small-10 medium-12">
+        <h1>{{vm.device.Name}} - {{vm.device.Gym.Name}}
+          <span class="type" ng-if="vm.device.Primary">{{'PRIMARY' | translate}}</span>
+          <span class="type" ng-if="!vm.device.Primary">{{'SECONDARY' | translate}}</span>
+          <button class="edit" ng-hide="vm.edit" ui-sref="device-edit({id:vm.id})">{{'EDIT' | translate}}</button>
+        </h1>
+      </div>
+      <div class="columns small-8 medium-6 text-center">
+        <button class="secondary" ui-sref="device-disable({id:vm.id})">{{'DEVICE_DISABLE' | translate}}</button>
+      </div>
+    </div>
 
-{{device.playlists}}
+    <div class="box heartbeat-container">
+      <div class="heartbeat">
+      <spinner class="spinner" name="heartbeatlog" show="true"></spinner>
+      <h3>{{'DEVICE_CONNECTIVITY' | translate}}</h3>
+      <label ng-if="vm.hasHeartbeat">{{'CONNECTED' | translate}}</label>
+      <div class="beats">
+        <div ng-repeat="beat in vm.heartbeat track by $index">
+          <div ng-class="{'pulse': beat.beat, 'no-pulse': !beat.beat}" popover-title="{{beat.date | date : 'dd' | translate}} {{beat.date | date : 'MMMM' | translate}} {{beat.date | date : 'yyyy HH:mm'}}" data-popover="{{vm.popoverContents(beat) | translate}}" popover-trigger="mouseenter"></div>
+        </div>
+      </div>
+      <label class="disconnected">{{'DISCONNECTED' | translate}}</label>
+      <hr>
+      <div class="left">{{vm.heartbeat[0].date | date : 'dd'}} {{vm.heartbeat[0].date | date : 'MMMM' | translate}}</div>
+      <span style="position: relative; left: {{vm.newDayIndex * 4}}px">{{vm.newDay | date : 'dd'}} {{vm.newDay | date : 'MMMM' | translate}}</span>
+    </div>
+    </div>
 
-<div ui-view></div>
+    <br>
+
+    <div class="row heading">
+      <div class="columns small-10 medium-12">
+        <h3>{{'SYNC_LOG' | translate}}</h3>
+      </div>
+      <div class="columns small-8 medium-6 text-center">
+        <a class="h3" ui-sref="device-error-log({id:vm.id})">{{'DEVICE_ERROR_LOG' | translate}}</a>
+      </div>
+    </div>
+
+    <table infinite-scroll="vm.loadMoreLogs()">
+      <tr ng-repeat="log in vm.synclog.DeviceSyncPlaylistSyncs">
+        <td><span ng-if="log.timeAgo">{{log.timeAgo | date : 'dd'}} {{log.timeAgo | date : 'MMMM' | translate}} {{log.timeAgo | date : 'yyyy HH:mm'}}</span></td>
+        <td>
+          <span ng-if="log.syncSuccess">{{'SYNC_COMPLETE' | translate}}</span>
+          <div ng-if="log.syncInProgress" class="success">{{'SYNC_IN_PROGRESS' | translate}}</div>
+          <span ng-if="log.syncIncomplete">
+            <div class="warning">{{'SYNC_INCOMPLETE' | translate}}</div>
+            {{'POSSIBLE_REASONS' | translate}}:
+            <ul>
+              <li>{{'DEVICE_INSTRUCTOR_LOGGED_IN' | translate}}</li>
+              <li>{{'DEVICE_TURNED_OFF' | translate}}</li>
+              <li>{{'DEVICE_INTERNET_DIED' | translate}}</li>
+            </ul>
+          </span>
+          <span class="warning" ng-if="log.syncFailure">{{'SYNC_FAILED' | translate}}</span>
+          <span ng-if="log.playlistSyncError">
+            <div class="warning">{{'PLAYLIST_SYNC_ERROR' | translate}}</div>
+            <div ng-repeat="error in log.DevicePlaylistSyncs">
+              {{error.Playlist.User.FirstName}} {{error.Playlist.User.LastName}}<br>
+              {{error.Playlist.Name}}<br>
+
+              <span ng-if="error.DownloadErrorTracks.length > 0"><br>
+                <em>{{'DOWNLOAD_ERRORS' | translate}}</em>
+                <div ng-repeat="downloadError in error.DownloadErrorTracks">
+                  {{downloadError.Name}} - {{downloadError.Artist}}. {{downloadError.Album}}
+                </div>
+              </span>
+
+              <span ng-if="error.GetLinkErrorTracks.length > 0"><br>
+                <em>{{'LINK_ERRORS' | translate}}</em>
+                <div ng-repeat="linkError in error.GetLinkErrorTracks">
+                  {{linkError.Name}} - {{linkError.Artist}}. {{linkError.Album}}
+                </div>
+              </span>
+            </div><br>
+          </span>
+        </td>
+        <td><span ng-if="log.timeSyncTook">{{log.timeSyncTook | minutesSeconds}}</span></td>
+      </tr>
+    </table>
+
+    <div class="row">
+      <spinner class="spinner center" name="synclog" show="true"></spinner>
+    </div>
+
+  </div>
+</div>
+

@@ -3,9 +3,10 @@
 Frontend: Roger Saner
 Twitter: @rogersaner
 
-UX and Product Owner: Jacky Smith
+Product Owner: Jacky Smith
 Backup Product Owner: David du Plessis
-UI: Lara Morris
+UX: Jacky Smith, Lara Morris, Sean Vockerodt, Roger Saner, Dane Williams
+UI: Lara Morris, Philip Langley and Sean Vockerodt
 API: Dane Williams
 Scrummaster: Amanda Joseph
 Tech lead: Neil Aves

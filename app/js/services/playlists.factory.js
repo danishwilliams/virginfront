@@ -5,9 +5,9 @@ angular
   .module("app")
   .factory('Playlists', PlaylistsFactory);
 
-PlaylistsFactory.$inject = ['Restangular', 'uuid2', 'Users'];
+PlaylistsFactory.$inject = ['Restangular', 'uuid2', 'Users', '$rootScope'];
 
-function PlaylistsFactory(Restangular, uuid2, Users) {
+function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
   var self = this;
   var steps = initSteps(); // The full steps array
   var currentStep = 0; // Which step we're currently on
@@ -142,6 +142,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   // Removes a track from a playlist for a goal id
   function removeTrackFromGoalPlaylist(playlistGoalArrayId, track) {
     playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks = [];
+    track.removed = true;
     // TODO: use _.mapObject to remove the track from the list and rework the sort order, when we have multiple tracks
   }
 
@@ -184,6 +185,13 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
           k++;
         }
       }
+
+      // Tell the playlist edit controller to set the form to be dirty
+      // Yeah, this is ugly. It _should_ work by adding an ng-change to the <background-music> directive,
+      // since it already has an ng-model on it, but that didn't work. Maybe it's because the service
+      // holds the model, and so any change isn't propogated up from the directive -> the playlist_edit
+      // controller. This could perhaps be refactored.
+      $rootScope.$broadcast('add.track');
     }
   }
 
@@ -226,6 +234,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return Restangular.one('playlists').get(params).then(loadPlaylistsComplete);
 
     function loadPlaylistsComplete(data, status, headers, config) {
+      data = _convertDates(data);
       self.playlists = data;
       return self.playlists;
     }
@@ -241,6 +250,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     }).then(loadPlaylistComplete);
 
     function loadPlaylistComplete(data) {
+      data = _convertDates(data);
       playlist = data;
       isCustomRpm = data.IsCustomRpm;
 
@@ -295,8 +305,8 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
   }
   */
 
-  function loadGymsPlaylistSyncInfoDetailed() {
-    return Restangular.one('gyms/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
+  function loadGymsPlaylistSyncInfoDetailed(userId) {
+    return Restangular.one('gyms/syncinfo/detailed').get({userId: userId}).then(loadGymsPlaylistSyncInfoDetailedComplete);
 
     function loadGymsPlaylistSyncInfoDetailedComplete(data, status, headers, config) {
       return data;
@@ -319,7 +329,10 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
 
   // Gets all complete playlists not in a particular gym
   function loadPlaylistsNotInGym(id) {
-    return Restangular.one('gyms/' + id + '/playlistsnotpublished').get();
+    return Restangular.one('gyms/' + id + '/playlistsnotpublished').get().then(function(data) {
+      data = _convertDates(data);
+      return data;
+    });
   }
 
   function addPlaylistToGym(playlistId, gymId) {
@@ -537,8 +550,12 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     currentgoal = {
       Name: playlistGoal.Goal.Name,
       BpmLow: playlistGoal.Goal.BpmLow,
-      BpmHigh: playlistGoal.Goal.BpmHigh,
+      BpmHigh: playlistGoal.Goal.BpmHigh
     };
+    if (playlistGoal.Goal.GoalOptions) {
+      currentgoal.GoalOptionCount = playlistGoal.Goal.GoalOptions.length;
+    }
+
     if (playlistGoal.BackgroundSection) {
       currentgoal.BackgroundSection = playlistGoal.BackgroundSection;
     }
@@ -567,7 +584,25 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return Restangular.one('playlists/recentclasses').get(params).then(loadRecentClassesComplete);
 
     function loadRecentClassesComplete(data, status, headers, config) {
+      data.forEach(function(val) {
+        if (val.ClassTaughtDate) { val.ClassTaughtDate = new Date(val.ClassTaughtDate);}
+      });
       return data;
     }
+  }
+
+  function _convertDates(data) {
+    if (_.isArray(data)) {
+      data.forEach(function(val) {
+        if (val.CreateDate) { val.CreateDate = new Date(val.CreateDate);}
+      });
+
+      return data;
+    }
+
+    // Convert UTC dates to javascript date objects
+    if (data.CreateDate) { data.CreateDate = new Date(data.CreateDate);}
+
+    return data;
   }
 }

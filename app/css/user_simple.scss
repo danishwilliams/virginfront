@@ -1,0 +1,10 @@
+user-simple, device-simple {
+  display: block;
+  padding: 1rem;
+  margin-top: rem-calc(10px);
+  background-color: $grey_light;
+  label {
+    display: inline;
+    cursor: default;
+  }
+}

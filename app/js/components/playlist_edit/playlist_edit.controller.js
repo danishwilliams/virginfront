@@ -24,16 +24,12 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // User has just selected a track from track search to add to a goal
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
-        console.log(self.form);
-        if (self.form) {
-          console.log('setting form to not be pristine!!!!');
-          self.form.$setDirty(); // Manually set the form to be not pristine any more
-        }
         var currentgoal = Playlists.getCurrentGoal();
         if (currentgoal.BackgroundSection) {
           // Add a background track
           Playlists.addBackgroundTrack(currentgoal.BackgroundSection, track);
           Tracks.setSearchedTrack({});
+          $rootScope.$broadcast('add.track');
         } else {
           // Add a track to a goal
           Playlists.trackDropped(currentgoal.ArrayId, track);
@@ -48,6 +44,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   // Urgh. Had to use $scope here because the controller isn't available in the $stateChangeSuccess event, so can't
   // update variables.
   $scope.$on('add.track', function () {
+    console.log('attempt to set form to not be pristine');
+    if (self.form) {
+      self.form.$setDirty(); // Manually set the form to be not pristine any more
+    }
+    else {
+      console.log('[Warning] No playlist edit form found, but one was expected');
+    }
     self.updatePlaylistLength();
     self.updateCurrentGoal();
     self.checkAllGoalsHaveTracks();
@@ -172,8 +175,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * @param goal
    */
   this.goalClicked = function (playlistGoal) {
-    if (playlistGoal.editFreeStyleGoal) {
+    if (playlistGoal.cancelEditFreeStyleGoal || playlistGoal.editFreeStyleGoal) {
       // We're currently selecting a different freestyle goal, so don't do anything else
+      if (playlistGoal.cancelEditFreeStyleGoal) {
+        // Needed this piece so that we can click the Cancel button
+        playlistGoal.cancelEditFreeStyleGoal = false;
+        playlistGoal.editFreeStyleGoal = false;
+      }
       return;
     }
     if (playlistGoal.show) {
@@ -224,7 +232,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     this.playlistTracksLength = Playlists.getPlaylistLength();
     self.checkAllGoalsHaveTracks();
     Tracks.stopTrack(track.Track);
-    self.form.$setDirty(); // Manually set the form to be not pristine any more
+    if (self.form) {
+      self.form.$setDirty(); // Manually set the form to be not pristine any more
+    }
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + playlistGoalArrayId);
@@ -286,7 +296,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     }
 
     // Check if the playlist can be marked as 'complete'
-    if (self.checkAllGoalsHaveTracks() && self.checkPlaylistLength() && self.checkHasPreRideBackgroundTracks() && self.checkHasPostRideBackgroundTracks()) {
+    if (self.checkHasPreRideBackgroundTracks() && self.checkHasPostRideBackgroundTracks() && self.checkPlaylistLength() && self.checkAllGoalsHaveTracks()) {
       self.playlist.Complete = true;
     } else {
       self.playlist.Complete = false;
@@ -351,8 +361,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   function checkEffortRanges() {
     // Load up all Goal Options and iterate through them
     var error = false;
-    console.log('checkEffortRanges()');
-    console.log(self.playlist.PlaylistGoals);
     self.playlist.PlaylistGoals.forEach(function(val) {
       val.Goal.GoalOptions.forEach(function(goaloptions) {
         if (goaloptions.Effort > 0) {
@@ -377,6 +385,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   this.checkHasPreRideBackgroundTracks = function () {
     var found = false;
+    if (!self.playlist.BackgroundTracks) {
+      return;
+    }
     self.playlist.BackgroundTracks.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === 'before') {
         found = true;
@@ -386,6 +397,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   this.checkHasPostRideBackgroundTracks = function () {
+    if (!self.playlist.BackgroundTracks) {
+      return false;
+    }
     var found = false;
     self.playlist.BackgroundTracks.forEach(function (val) {
       if (val.PlaylistPosition.toLowerCase() === 'after') {
@@ -399,7 +413,6 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return Playlists.checkPlaylistLength();
   };
 
-  /* Hide the submit button if we're editing a playlist and not every goal has a track */
   this.checkWhenEditingEveryGoalHasATrack = function () {
     if (!self.newPlaylist) {
       if (!self.checkAllGoalsHaveTracks()) {
@@ -409,12 +422,36 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return true;
   };
 
+  // Cases in which the submit button should be disabled
+  self.disableSubmitButton = function () {
+    if (!self.playlist.Name) {
+      //console.log('no playlist name!');
+      return true;
+    }
+    if (self.form && self.form.$pristine) {
+      //console.log('form not pristine!');
+      return true;
+    }
+    if (self.saving) {
+      //console.log('saving!');
+      return true;
+    }
+    if (self.playlist.Complete) {
+      if (!self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks() || !self.checkPlaylistLength() || !self.checkAllGoalsHaveTracks()) {
+        //console.log('editing a complete playlist which is now incomplete');
+        return true;
+      }
+    }
+    return false;
+  };
+
   this.submitButtonText = function () {
-    if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
+    if (!self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks() || !self.checkPlaylistLength() || !self.checkAllGoalsHaveTracks()) {
+      return 'SAVE_CONTINUE_LATER';
+    }
+    else if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Editing a playlist but not all tracks have goals
       return 'UPDATE';
-    } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
-      return 'SAVE_CONTINUE_LATER';
     }
     if (self.newPlaylist) {
       return 'NEXT_PREVIEW';

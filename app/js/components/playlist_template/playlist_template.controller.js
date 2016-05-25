@@ -3,8 +3,7 @@ angular.module("app.playlist_template", []).controller('Playlist_templateControl
   Playlists.setStep(0);
   Playlists.setPlaylist([]);
 
-  // TODO: For caching in Restangular, see http://makandracards.com/makandra/29143-angular-caching-api-responses-in-restangular
-  Templates.loadTemplateGroups(false).then(function (data) {
+  Templates.loadTemplateGroups().then(function (data) {
     self.templateGroups = data;
     spinnerService.hide('playlistTemplateSpinner');
   });

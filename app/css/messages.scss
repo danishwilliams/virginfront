@@ -27,6 +27,10 @@ span.length.error {
   }
 }
 
+span.success {
+  background: transparent;
+}
+
 .front-error {
   display: none;
 }
@@ -42,6 +46,7 @@ p.success, p.warning {
   font-size: $h2-font-size;
   background: transparent;
   padding: 0;
+  margin: 0;
 }
 
 .success {
@@ -50,7 +55,6 @@ p.success, p.warning {
 
 .warning {
   color: $warning-color-font;
-
 }
 
 /* Alert boxes */

@@ -27,7 +27,8 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
     sendInvite: sendInvite,
     createNewUser: createNewUser,
     disableUser: disableUser,
-    enableUser: enableUser
+    enableUser: enableUser,
+    testUserMusicProviderAccount: testUserMusicProviderAccount
   };
 
   return usersFactory;
@@ -95,7 +96,33 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
     currentUser = {};
   }
 
-  function loadUsers() {
+  /**
+   * Loads all users
+   *
+   * @param type
+   *   Optional. The type of user to load. Options: registered, unregistered, active, inactive
+   */
+  function loadUsers(type) {
+    if (type) {
+      var params = {};
+      switch (type) {
+        case 'active':
+          params.active = true;
+          break;
+        case 'inactive':
+          params.active = false;
+          break;
+        case 'registered':
+          params.registered = true;
+          break;
+        case 'unregistered':
+          params.registered = false;
+          break;
+      }
+      return Restangular.all('users').getList(params).then(loadUsersComplete);
+    }
+
+    // Default GET
     return Restangular.all('users').getList().then(loadUsersComplete);
 
     function loadUsersComplete(data, status, headers, config) {
@@ -117,23 +144,8 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
 
         // Set the user type. One of Registered, Technical, Invited
         user.Type = 'Registered';
+
         user.UserUserTypes.forEach(function (type) {
-          switch (user.State) {
-            case USER_STATES.invite_emailed:
-            case USER_STATES.invite_email_failed:
-              user.Type = 'Invited';
-              if (!counted) {
-                counted = true;
-              }
-              break;
-            case USER_STATES.onboarding_genres:
-            case USER_STATES.onboarding_clubs:
-            case USER_STATES.registered:
-              user.Type = 'Registered';
-              if (!counted) {
-                counted = true;
-              }
-          }
           switch (type.UserType.Name) {
             case 'Admin':
             case 'API User':
@@ -141,14 +153,35 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
             case 'Import':
               if (!counted) {
                 counted = true;
+                user.Type = 'Technical';
               }
-              user.Type = 'Technical';
-          }
-          if (!counted) {
-            user.Type = 'Technical'; // So that if any users show up there we know something has screwed up
           }
         });
+
+        if (!counted) {
+          switch (user.State) {
+            case USER_STATES.invite_emailed:
+            case USER_STATES.invite_email_failed:
+            case USER_STATES.onboarding_genres:
+            case USER_STATES.onboarding_clubs:
+              if (!counted) {
+                user.Type = 'Invited';
+                counted = true;
+              }
+              break;
+            case USER_STATES.registered:
+              if (!counted) {
+                user.Type = 'Registered';
+                counted = true;
+              }
+          }
+        }
+
+        if (!counted) {
+          user.Type = 'Technical'; // So that if any users show up there we know something has screwed up
+        }
       });
+      data = _convertDates(data);
       users = data;
       return users;
     }
@@ -162,6 +195,7 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
     return Restangular.one('users', id).get().then(loadUserComplete);
 
     function loadUserComplete(data, status, headers, config) {
+      data = _convertDates(data);
       return data;
     }
   }
@@ -212,6 +246,8 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
       else if (currentUser.Location.Country.Language.Code) {
         $translate.use(currentUser.Location.Country.Language.Code);
       }
+
+      currentUser = _convertDates(currentUser);
 
       return currentUser;
     }
@@ -268,5 +304,32 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
     function enableUserComplete(data, status, headers, config) {
       return data;
     }
+  }
+
+  function testUserMusicProviderAccount(userId) {
+    return Restangular.one("music/test", userId).get().then(testUserMusicProviderAccountComplete);
+
+    function testUserMusicProviderAccountComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function _convertDates(data) {
+    if (_.isArray(data)) {
+      data.forEach(function(val) {
+        if (val.CreateDate) { val.CreateDate = new Date(val.CreateDate);}
+        if (val.LastClassDate) { val.LastClassDate = new Date(val.LastClassDate);}
+        if (val.LastLoggedInDate) { val.LastLoggedInDate = new Date(val.LastLoggedInDate);}
+      });
+
+      return data;
+    }
+
+    // Convert UTC dates to javascript date objects
+    if (data.CreateDate) { data.CreateDate = new Date(data.CreateDate);}
+    if (data.LastClassDate) { data.LastClassDate = new Date(data.LastClassDate);}
+    if (data.LastLoggedInDate) { data.LastLoggedInDate = new Date(data.LastLoggedInDate);}
+
+    return data;
   }
 }

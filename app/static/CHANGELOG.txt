@@ -1,3 +1,20 @@
+Instructor App 1.2, 2016-05-24
+-------------------------------
+- Device overview reporting dashboard
+- Device dashboard
+- Device heartbeat graph, sync logs and error logs
+- Devices can be disabled
+- Supports multiple devices per club (1 primary and many secondaries)
+- Music Provider availability reporting
+- In ride editing, beat ratio is now calculated from the track relative to the goal's BPM range
+- Dates now showing in the correct timezone
+- On a Instructor's profile, Managers can see which rides are synced to which clubs
+
+Instructor App 1.11, 2016-05-05
+-------------------------------
+- Instructor overview reporting dashboard
+- Device reporting dashboard
+
 Instructor App 1.1, 2016-04-21
 ------------------------------
 - Refinements to music search (like infinite scrolling)

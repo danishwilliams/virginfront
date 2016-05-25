@@ -3,7 +3,12 @@ angular.module("app.dashboard", []).controller('DashboardController', function (
 
   // Handle various onboarding cases i.e. user has just logged in but is in some part of onboarding
   var user = Users.getCurrentUser();
-  if (user.State === USER_STATES.onboarding_clubs || user.State === USER_STATES.invite_emailed || user.State === USER_STATES.invite_email_failed) {
+  if (user.State === USER_STATES.invite_emailed) {
+    var token = Users.getAccessToken();
+    $state.go('onboarding', {token: token});
+    return;
+  }
+  else if (user.State === USER_STATES.onboarding_clubs || user.State === USER_STATES.invite_email_failed) {
     $state.go('onboarding-gyms');
     return;
   }
@@ -11,6 +16,7 @@ angular.module("app.dashboard", []).controller('DashboardController', function (
     $state.go('onboarding-genres');
     return;
   }
+  self.musicProvider = user.Location.Country.MusicProvider.Name;
 
   self.loadGyms = function() {
     Playlists.loadGymsPlaylistSyncInfoDetailed().then(function (data) {

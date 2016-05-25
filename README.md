@@ -233,6 +233,7 @@ Current angular version (18 April 2016) is 1.4.8) using some Angular-Foundation 
 * Controllers only used to control communication between different parts of the app. No model data should be created or persisted in the Controller. @see http://jonathancreamer.com/the-state-of-angularjs-controllers/ http://toddmotto.com/rethinking-angular-js-controllers/
 * Factories and Services use the Revealing Module pattern for easier readability. @see http://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript
   and http://webcache.googleusercontent.com/search?q=cache:JZ_dF3h505kJ:www.johnpapa.net/angular-function-declarations-function-expressions-and-readable-code/+&cd=1&hl=en&ct=clnk&gl=za
+* Note: when binding a variable to a directive using '=' (i.e. two-way data binding) take note if the variable is a primitive. If it it, dot notation must be used, otherwise changes within this directive scope won't propogate up to the parent scope. This is because javascript is a pass-by-value language, and so primitives are copied within a nested scope. @see http://zcourts.com/2013/05/31/angularjs-if-you-dont-have-a-dot-youre-doing-it-wrong/
 
 ### Some smarter approaches for the future
 

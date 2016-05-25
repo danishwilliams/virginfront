@@ -12,12 +12,12 @@ function freestyleGoals(Goals, spinnerService) {
     controllerAs: 'vm',
     scope: {
       ngModel: '=',
-      selectedGoalId: '@',
       disabled: '@', // if this dropdown should be disabled
       totalGoals: '@', // total goals in the list. @see index
       index: '@', // the current goal number in the list, so that we know when we're rendering the last dropdown (for 'Cool Down')
       allowCreateNewGoal: '@', // allows for the creation of a new default freestyle goal i.e. in template creation
-      allowEditingGoal: '@' // Shows 'Select a different' as default
+      allowEditingGoal: '@', // Shows 'Select a different' as default
+      changingGoal: '@' // When editing a playlist, we want the select options to now show anything about creating a new goal
     },
     require: '?ngModel',
     link: link
@@ -25,15 +25,15 @@ function freestyleGoals(Goals, spinnerService) {
   return directive;
 
   function link(scope, element, attrs, ngModel) {
-    scope.vm.selectedGoalId = scope.selectedGoalId;
     scope.vm.disabled = scope.disabled;
     scope.vm.index = scope.index;
     scope.vm.totalGoals = scope.totalGoals;
     scope.vm.allowCreateNewGoal = scope.allowCreateNewGoal;
     scope.vm.allowEditingGoal = scope.allowEditingGoal;
+    scope.vm.changingGoal = scope.changingGoal;
     scope.vm.addAGoal = true;
     scope.random = Math.floor(Math.random() * 10000);
-    if (scope.vm.allowEditingGoal) {
+    if (scope.vm.allowEditingGoal || scope.vm.changingGoal) {
       scope.vm.addAGoal = false;
     }
 
@@ -51,24 +51,7 @@ function freestyleGoals(Goals, spinnerService) {
         loadFreestyleGoals();
       }
       else {
-        setSelectedGoal();
         areThereChallengeGoals(scope.vm.goals);
-      }
-    }
-
-    // Select the selected goal in the dropdown select list
-    function setSelectedGoal() {
-      if (scope.vm.selectedGoalId) {
-        console.log('the currently selected goal is ', scope.vm.selectedGoalId);
-        scope.vm.addAGoal = false; // We're editing a goal
-        // Auto-select the current goal
-        _.mapObject(scope.vm.goals, function (val, key) {
-          if (key >= 0) {
-            if (val.GoalId === scope.vm.selectedGoalId) {
-              scope.vm.goalArrayId = val.ArrayId;
-            }
-          }
-        });
       }
     }
 
@@ -94,8 +77,6 @@ function freestyleGoals(Goals, spinnerService) {
           scope.vm.coolDown = true;
         }
         */
-
-        setSelectedGoal();
       });
     }
 

@@ -31,7 +31,6 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
   self.iconFileNames = [
     '',
     'allterrain.svg',
-    'freestyle.svg',
     'hills.svg',
     'intervals.svg',
     'pack.svg',
@@ -51,6 +50,7 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     });
     if (!freestyleExists) {
       self.types.push('freestyle');
+      self.iconFileNames.push('freestyle');
     }
   });
 
@@ -67,6 +67,7 @@ angular.module("app.templategroup_view", []).controller('Templategroup_viewContr
     self.templategroup.Name = self.snapshot.name;
     self.templategroup.Description = self.snapshot.description;
     self.templategroup.IconFileName = self.snapshot.icon;
+    self.form.$setPristine();
     self.edit = false;
   };
 

@@ -18,16 +18,29 @@ h1.site-heading {
   margin-left: rem-calc(100px);
 }
 
+.extra-info {
+  font-size: rem-calc(12);
+  font-weight: normal;
+  font-style: italic;
+  color: $grey;
+}
+
 .heading {
   border-bottom: 1px solid $grey_light;
   color: $grey_light;
-  h1 {
+  h1, h2, h3 {
     margin-bottom: 0;
+  }
+  .edit {
+    margin-top: rem-calc(16px);
   }
   a {
     padding-top: rem-calc(42px);
     display: block;
     float: right;
+    &.h3 {
+      padding-top: rem-calc(4px);
+    }
     &.back {
       padding-top: rem-calc(16px);
       padding-bottom: 0;
@@ -39,6 +52,9 @@ h1.site-heading {
     &.secondary {
       margin: rem-calc(30px) 0 0;
     }
+  }
+  &.with-search h1 {
+    margin-top: rem-calc(12px);
   }
 }
 
@@ -131,15 +147,21 @@ form a.secondary, .cancel {
   }
 }
 
+option:disabled {
+  color: $grey_light;
+}
+
 label {
   font-weight: bold;
   padding-bottom: rem-calc(4px);
   padding-top: rem-calc(6px);
   font-size: inherit;
-}
-
-label.radio {
-  font-weight: inherit;
+  &.radio {
+    font-weight: inherit;
+  }
+  &.inline {
+    display: inline;
+  }
 }
 
 .back {
@@ -147,6 +169,20 @@ label.radio {
     content: "\02190";
   }
   padding-bottom: rem-calc(10px);
+}
+
+/* Tables */
+
+table {
+  border: none;
+  width: 100%;
+  table tr:nth-of-type(even) {
+    background: $grey_lighter;
+  }
+  ul {
+    // To match the styling in foundation tables.scss
+    font-size: $table-head-font-size;
+  }
 }
 
 /*
@@ -196,6 +232,12 @@ body {
 .box {
   background-color: $grey_lighter;
   padding: rem-calc(30px);
+  .image-right {
+    img {
+      float: right;
+      padding-right: rem-calc(16);
+    }
+  }
 }
 
 select {

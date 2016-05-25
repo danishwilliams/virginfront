@@ -1,0 +1,24 @@
+<div class="row device">
+  <div class="large-9 columns">
+    <label>{{device.Device.Gym.Name}}</label>&nbsp;&nbsp;
+    {{device.Device.Name}}&nbsp;&nbsp;
+    <span class="type" ng-if="device.Device.Primary">{{'PRIMARY' | translate}}</span>
+    <span class="type" ng-if="!device.Device.Primary">{{'SECONDARY' | translate}}</span>
+  </div>
+  <div class="large-9 columns">
+    <div class="row">
+      <div class="small-6 columns">
+        <span class="connected" ng-if="device.Connected">{{'CONNECTED' | translate}}</span>
+        <span class="warning" ng-if="device.Connected === false">{{'DISCONNECTED' | translate}}</span><br>
+        <span ng-if="device.timeAgo">{{device.timeAgo | timeago}}</span>
+      </div>
+      <div class="small-6 columns">
+        <span class="warning" ng-if="device.error">{{'DEVICE_SYNC_ERROR' | translate}}</span><br>
+        <span ng-if="device.timeAgoError">{{device.timeAgoError | timeago}}</span>
+      </div>
+      <div class="small-6 columns text-right">
+        <a ui-sref="device({id:device.Device.Id})">{{'DEVICE_VIEW' | translate}}</a>
+      </div>
+    </div>
+  </div>
+</div>

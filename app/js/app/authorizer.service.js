@@ -25,26 +25,29 @@ angular.module("app").service('Authorizer', function (APP_PERMISSIONS, USER_ROLE
         switch (permission) {
           // Everyone
           case APP_PERMISSIONS.user:
-            return hasRole(USER_ROLES.user) || hasRole(USER_ROLES.instructor) || hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.admin);
+              return hasRole(USER_ROLES.user) || hasRole(USER_ROLES.instructor) || hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.techManager) || hasRole(USER_ROLES.admin);
 
             // Instructors, Managers, Admins
           case APP_PERMISSIONS.viewContent:
           case APP_PERMISSIONS.viewPlaylist:
           case APP_PERMISSIONS.createPlaylist:
           case APP_PERMISSIONS.editPlaylist:
-            return hasRole(USER_ROLES.instructor) || hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.admin);
+            return hasRole(USER_ROLES.instructor) || hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.techManager) || hasRole(USER_ROLES.admin);
 
-          // Manager only
+          // Managers only
           case APP_PERMISSIONS.isManager:
-            return hasRole(USER_ROLES.manager);
+            return hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.techManager) && !hasRole(USER_ROLES.admin);
 
             // Managers, Admins
-          case APP_PERMISSIONS.devices:
           case APP_PERMISSIONS.editAnyPlaylist:
           case APP_PERMISSIONS.templates:
           case APP_PERMISSIONS.users:
-            // TODO: add permissions: devices, clubs
-            return hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.admin);
+            // TODO: add permissions: clubs
+            return hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.techManager) || hasRole(USER_ROLES.admin);
+
+            // Technical manager
+          case APP_PERMISSIONS.devices:
+            return hasRole(USER_ROLES.techManager) || hasRole(USER_ROLES.admin);
 
             // Admin
           case APP_PERMISSIONS.gyms:

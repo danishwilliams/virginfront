@@ -15,13 +15,17 @@ function GoalsFactory(Restangular, uuid2, Users) {
   var self = this;
   var goals = [];
   var freestyleGoals = [];
+  var effortrange = [];
+  var bpmrange = [];
 
   var goalsFactory = {
     createBlankDefaultGoal: createBlankDefaultGoal,
     saveNewDefaultGoal: saveNewDefaultGoal,
     loadGoals: loadGoals,
     getFreestyleGoals: getFreestyleGoals,
-    loadFreestyleGoals: loadFreestyleGoals
+    loadFreestyleGoals: loadFreestyleGoals,
+    getEffortRange: getEffortRange,
+    getBpmRange: getBpmRange
   };
 
   return goalsFactory;
@@ -97,4 +101,28 @@ function GoalsFactory(Restangular, uuid2, Users) {
       return data;
     }
   }
+
+  function getEffortRange() {
+    if (!_.isEmpty(effortrange)) {
+      return effortrange;
+    }
+
+    for (i = 40; i <= 100; i = i + 5) {
+      effortrange.push(i);
+    }
+
+    return effortrange;
+  }
+
+  function getBpmRange() {
+    if (!_.isEmpty(bpmrange)) {
+      return bpmrange;
+    }
+
+    for (i = 50; i <= 180; i = i + 5) {
+      bpmrange.push(i);
+    }
+    return bpmrange;
+  }
+
 }

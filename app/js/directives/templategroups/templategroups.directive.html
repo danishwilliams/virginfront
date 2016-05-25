@@ -1,5 +1,5 @@
-<ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
-  <li ng-if="vm.kind === 'active'">
+<ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4" vertilize-container>
+  <li ng-if="vm.kind === 'active'" vertilize data-vertilize-loaded="{{vm.templatesLoaded}}" data-vertilize-disable-on-mobile="true">
     <a class="choose-template" ui-sref="templategroup-new">
       <div class="template freestyle">
         <div class="icon"><img src="/img/playlists_grey/new.svg"></div>
@@ -8,7 +8,7 @@
       </div>
     </a>
   </li>
-  <li ng-if="templateGroup.visible" ng-repeat="templateGroup in vm.templateGroups | orderBy:'Type':'Name' track by $index">
+  <li ng-if="templateGroup.visible" ng-repeat="templateGroup in vm.templateGroups | orderBy:'Type':'Name' track by $index" vertilize data-vertilize-loaded="{{vm.templatesLoaded}}" data-vertilize-disable-on-mobile="true">
     <a class="choose-template" ui-sref="templategroup({id:templateGroup.Id})">
       <div class="template {{templateGroup.Type}}">
         <div class="icon"><img src="/img/templates/{{templateGroup.IconFileName}}"></div>
@@ -19,6 +19,9 @@
             <span ng-if="$index > 0"> / </span>{{template.ClassLengthMinutes}}
           </span>
         </p>
+        <hr ng-if="templateGroup.TemplateGroupUsageCount >= 0">
+        <p ng-if="templateGroup.TemplateGroupUsageCount >= 0" class="description"><em translate="TEMPLATE_USED" translate-values="{number: templateGroup.TemplateGroupUsageCount}"></em><br>
+          <span translate="TEMPLATE_USED_DAYS" translate-values="{number: vm.usageCountDays}"></span></p>
       </div>
     </a>
   </li>

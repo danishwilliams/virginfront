@@ -8,11 +8,15 @@ function gymRides() {
     templateUrl: '../js/directives/gym_rides/gym_rides.directive.html',
     restrict: 'E',
     controller: gymRidesController,
-    controllerAs: 'vm'
+    controllerAs: 'vm',
+    scope: {
+      viewOnly: '@'
+    }
   };
   return directive;
 
   function link(scope) {
+    scope.vm.canEdit = !scope.viewOnly;
     scope.vm.gym = scope.$parent.gym;
     scope.vm.playlistCount = 0;
     if (scope.vm.gym.PlaylistSyncInfos) {
@@ -77,7 +81,7 @@ function gymRidesController(Playlists, $scope, $interval, $timeout) {
     }
     self.gym.PlaylistSyncInfos.push(playlist);
     self.playlistCount++;
-    if (self.gym.PlaylistSyncInfos.length === self.playlistLimitPerGym) {
+    if (self.playlistCount === self.playlistLimitPerGym) {
       self.gym.LimitReached = true;
     }
 
@@ -127,7 +131,6 @@ function gymRidesController(Playlists, $scope, $interval, $timeout) {
       $timeout(function() {
         if (playlist.removed) {
           playlist.removedExpired = true;
-          $scope.$parent.dashboard.loadGyms();
         }
       }, 8000);
     }, function (response) {

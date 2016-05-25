@@ -84,6 +84,7 @@ input[type="text"].class_name {
   .goal-name a {
     line-height: 2.2;
     font-size: $label-font-size;
+    font-weight: normal;
   }
   .bpm {
     text-align: right;
@@ -163,7 +164,7 @@ input[type="text"].class_name {
   border: 0px;
 }
 
-goal_option {
+goal-option {
   display: block;
   background: $grey_lighter;
   color: $grey;

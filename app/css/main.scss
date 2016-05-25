@@ -35,6 +35,9 @@
 @import 'emails';
 @import 'devices';
 @import 'reporting';
+@import 'user_simple';
+@import 'device';
+@import 'heartbeat';
 
 // Always last
 @import 'media_queries';

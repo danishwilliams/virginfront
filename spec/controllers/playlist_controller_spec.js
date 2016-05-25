@@ -89,7 +89,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       this.Playlists.setPlaylist(playlist);
       playlistController.newPlaylist = true;
       playlistController.playlist = this.Playlists.getPlaylist();
-      playlistController.initFreestylePlaylist();
+      //playlistController.initFreestylePlaylist(); // This was removed at some point
     };
 
     this.editPlaylist = function () {
@@ -97,6 +97,26 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       playlistController.newPlaylist = false;
       playlistController.playlist = this.Playlists.getPlaylist();
     };
+
+    this.giveThePlaylistAname = function () {
+      playlistController.playlist.Name = 'Awesome playlist';
+    };
+
+    this.removeThePlaylistname = function () {
+      playlistController.playlist.Name = '';
+    };
+
+    this.setPlaylistComplete = function (complete) {
+      playlistController.playlist.Complete = complete;
+    };
+
+    this.setPlaylistIsSyncedToGyms = function(isSynced) {
+      playlistController.playlist.IsSyncedToGyms = isSynced;
+      if (!isSynced) {
+        playlistController.newPlaylist = true;
+      }
+    };
+
 
     /****** Playlist add/edit tests because they're called multiple times ******/
 
@@ -163,6 +183,25 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       expect(playlistController.playlistTracksLength).toEqual(1300);
     };
 
+    this.givePlaylistSomeTracks = function (track, fillTheEntirePlaylist) {
+      var k = 5;
+      if (fillTheEntirePlaylist) {
+        k = 11;
+      }
+      for (var i = 0; i < k; i++) {
+        this.Playlists.addTrackToGoalPlaylist(i, track);
+      }
+    };
+
+    this.fillPlaylistWithTracks = function (track) {
+      this.givePlaylistSomeTracks(track, true);
+    };
+
+    this.removeAllTracks = function (track) {
+      for (var i = 0; i < 11; i++) {
+        playlistController.removeTrack(i, track);
+      }
+    };
 
     // Set values of goals, currentgoal, Tracks and Playlist. Mock all this data! It's a damn unit test!
     // We don't care about the quality of data which other things are giving us. At all. That can be tested separately.
@@ -577,6 +616,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
     this.playlist = {
       "Name": "calvin harris 2",
       "Shared": false,
+      "IsSyncedToGyms": true,
       "SharedFromPlayListId": null,
       "UserId": "d1510e26-d628-459c-9f50-379662f61d05",
       "User": null,
@@ -1516,7 +1556,7 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
 
   });
 
-  describe('[New playlist] Checking submit button text', function () {
+  describe('[New playlist] Checking submit button', function () {
 
     beforeEach(inject(function () {
       this.createAnewPlaylist();
@@ -1525,71 +1565,57 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
     it('Playlist contains no tracks', function () {
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(false);
       expect(playlistController.checkPlaylistLength()).toBe(false);
-      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.giveThePlaylistAname();
+      expect(playlistController.disableSubmitButton()).toBe(false);
     });
 
     it('Playlist contains some tracks', function () {
-      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
+      this.givePlaylistSomeTracks(this.trackNormal);
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(false);
       expect(playlistController.checkPlaylistLength()).toBe(false);
-      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.giveThePlaylistAname();
+      expect(playlistController.disableSubmitButton()).toBe(false);
     });
 
     it('Playlist has a track per goal: total time too short', function () {
-      this.Playlists.addTrackToGoalPlaylist(0, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(1, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(2, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(3, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(4, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(5, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(6, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(7, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(8, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(9, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(10, this.trackShort);
+      this.fillPlaylistWithTracks(this.trackShort);
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
       expect(playlistController.checkPlaylistLength()).toBe(false);
-      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.giveThePlaylistAname();
+      expect(playlistController.disableSubmitButton()).toBe(false);
     });
 
     it('Playlist has a track per goal: total time is good - no background music', function () {
-      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(1, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(6, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(7, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(8, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(9, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(10, this.trackNormal);
+      this.fillPlaylistWithTracks(this.trackNormal);
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
       expect(playlistController.checkPlaylistLength()).toBe(true);
       expect(playlistController.checkHasPreRideBackgroundTracks()).toBe(false);
       expect(playlistController.checkHasPostRideBackgroundTracks()).toBe(false);
-      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.giveThePlaylistAname();
+      expect(playlistController.disableSubmitButton()).toBe(false);
     });
 
     it('Playlist has a track per goal: total time is good - has pre-ride background music', function () {
-      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(1, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(6, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(7, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(8, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(9, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(10, this.trackNormal);
+      this.fillPlaylistWithTracks(this.trackNormal);
 
       // set currentgoal to a background music goal
       this.Playlists.setCurrentGoal({
@@ -1608,21 +1634,16 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       expect(playlistController.checkPlaylistLength()).toBe(true);
       expect(playlistController.checkHasPreRideBackgroundTracks()).toBe(true);
       expect(playlistController.checkHasPostRideBackgroundTracks()).toBe(false);
-      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.giveThePlaylistAname();
+      expect(playlistController.disableSubmitButton()).toBe(false);
     });
 
     it('Playlist has a track per goal: total time is good - has post-ride background music', function () {
-      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(1, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(6, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(7, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(8, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(9, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(10, this.trackNormal);
+      this.fillPlaylistWithTracks(this.trackNormal);
 
       this.Playlists.addBackgroundTrack('after', this.trackNormal);
 
@@ -1631,21 +1652,16 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       expect(playlistController.checkPlaylistLength()).toBe(true);
       expect(playlistController.checkHasPreRideBackgroundTracks()).toBe(false);
       expect(playlistController.checkHasPostRideBackgroundTracks()).toBe(true);
-      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.giveThePlaylistAname();
+      expect(playlistController.disableSubmitButton()).toBe(false);
     });
 
     it('Playlist has a track per goal: total time is good - has background music', function () {
-      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(1, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(6, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(7, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(8, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(9, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(10, this.trackNormal);
+      this.fillPlaylistWithTracks(this.trackNormal);
 
       this.Playlists.addBackgroundTrack('before', this.trackNormal);
       this.Playlists.addBackgroundTrack('after', this.trackNormal);
@@ -1655,147 +1671,144 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
       expect(playlistController.checkPlaylistLength()).toBe(true);
       expect(playlistController.checkHasPreRideBackgroundTracks()).toBe(true);
       expect(playlistController.checkHasPostRideBackgroundTracks()).toBe(true);
-      expect(playlistController.submitButtonText()).toEqual('Next: preview my ride');
+      expect(playlistController.submitButtonText()).toEqual('NEXT_PREVIEW');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.giveThePlaylistAname();
+      expect(playlistController.disableSubmitButton()).toBe(false);
     });
 
     it('Playlist has a track per goal: total time too long', function () {
-      this.Playlists.addTrackToGoalPlaylist(0, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(1, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(2, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(3, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(4, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(5, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(6, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(7, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(8, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(9, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(10, this.trackLong);
+      this.fillPlaylistWithTracks(this.trackLong);
+
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
       expect(playlistController.checkPlaylistLength()).toBe(false);
-      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.giveThePlaylistAname();
+      expect(playlistController.disableSubmitButton()).toBe(false);
     });
 
   });
 
-  describe('[Edited playlist] Checking submit button text', function () {
+  describe('[Edited playlist] Checking submit button', function () {
 
     beforeEach(inject(function () {
       this.editPlaylist();
     }));
 
     it('Playlist contains no tracks', function () {
-      playlistController.removeTrack(0, this.trackNormal);
-      playlistController.removeTrack(1, this.trackNormal);
-      playlistController.removeTrack(2, this.trackNormal);
-      playlistController.removeTrack(3, this.trackNormal);
-      playlistController.removeTrack(4, this.trackNormal);
-      playlistController.removeTrack(5, this.trackNormal);
-      playlistController.removeTrack(6, this.trackNormal);
-      playlistController.removeTrack(7, this.trackNormal);
-      playlistController.removeTrack(8, this.trackNormal);
-      playlistController.removeTrack(9, this.trackNormal);
-      playlistController.removeTrack(10, this.trackNormal);
+      this.removeAllTracks(this.trackNormal);
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(false);
       expect(playlistController.checkPlaylistLength()).toBe(false);
-      expect(playlistController.submitButtonText()).toEqual('Each goal needs a track');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.setPlaylistComplete(false);
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+      expect(playlistController.disableSubmitButton()).toBe(false);
+      this.removeThePlaylistname();
+      expect(playlistController.disableSubmitButton()).toBe(true);
     });
 
     it('Playlist contains some tracks', function () {
-      playlistController.removeTrack(0, this.trackNormal);
-      playlistController.removeTrack(1, this.trackNormal);
-      playlistController.removeTrack(2, this.trackNormal);
-      playlistController.removeTrack(3, this.trackNormal);
+      this.removeAllTracks(this.trackNormal);
+      this.givePlaylistSomeTracks(this.trackNormal);
+
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(false);
       expect(playlistController.checkPlaylistLength()).toBe(false);
-      expect(playlistController.submitButtonText()).toEqual('Each goal needs a track');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.setPlaylistComplete(false);
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+      expect(playlistController.disableSubmitButton()).toBe(false);
+      this.removeThePlaylistname();
+      expect(playlistController.disableSubmitButton()).toBe(true);
     });
 
     it('Playlist has a track per goal: total time too short', function () {
-      playlistController.removeTrack(0, this.trackNormal);
-      playlistController.removeTrack(1, this.trackNormal);
-      playlistController.removeTrack(2, this.trackNormal);
-      playlistController.removeTrack(3, this.trackNormal);
-      playlistController.removeTrack(4, this.trackNormal);
-      playlistController.removeTrack(5, this.trackNormal);
-      playlistController.removeTrack(6, this.trackNormal);
-      playlistController.removeTrack(7, this.trackNormal);
-      playlistController.removeTrack(8, this.trackNormal);
-      playlistController.removeTrack(9, this.trackNormal);
-      playlistController.removeTrack(10, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(0, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(1, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(2, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(3, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(4, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(5, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(6, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(7, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(8, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(9, this.trackShort);
-      this.Playlists.addTrackToGoalPlaylist(10, this.trackShort);
+      this.removeAllTracks(this.trackNormal);
+      this.fillPlaylistWithTracks(this.trackShort);
+
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
       expect(playlistController.checkPlaylistLength()).toBe(false);
-      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.setPlaylistComplete(false);
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+      expect(playlistController.disableSubmitButton()).toBe(false);
+      this.removeThePlaylistname();
+      expect(playlistController.disableSubmitButton()).toBe(true);
     });
 
-    it('Playlist has a track per goal: total time is good', function () {
-      playlistController.removeTrack(0, this.trackNormal);
-      playlistController.removeTrack(1, this.trackNormal);
-      playlistController.removeTrack(2, this.trackNormal);
-      playlistController.removeTrack(3, this.trackNormal);
-      playlistController.removeTrack(4, this.trackNormal);
-      playlistController.removeTrack(5, this.trackNormal);
-      playlistController.removeTrack(6, this.trackNormal);
-      playlistController.removeTrack(7, this.trackNormal);
-      playlistController.removeTrack(8, this.trackNormal);
-      playlistController.removeTrack(9, this.trackNormal);
-      playlistController.removeTrack(10, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(0, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(1, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(2, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(3, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(4, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(5, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(6, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(7, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(8, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(9, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(10, this.trackNormal);
+    it('Previously complete Playlist has a track per goal: total time is good', function () {
+      this.removeAllTracks(this.trackNormal);
+      this.fillPlaylistWithTracks(this.trackNormal);
+
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
       expect(playlistController.checkPlaylistLength()).toBe(true);
-      expect(playlistController.submitButtonText()).toEqual('Update changes');
+      expect(playlistController.submitButtonText()).toEqual('UPDATE');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(false);
+      this.setPlaylistComplete(false);
+      expect(playlistController.disableSubmitButton()).toBe(false);
+      this.removeThePlaylistname();
+      expect(playlistController.disableSubmitButton()).toBe(true);
     });
 
     it('Playlist has a track per goal: total time too long', function () {
-      playlistController.removeTrack(0, this.trackNormal);
-      playlistController.removeTrack(1, this.trackNormal);
-      playlistController.removeTrack(2, this.trackNormal);
-      playlistController.removeTrack(3, this.trackNormal);
-      playlistController.removeTrack(4, this.trackNormal);
-      playlistController.removeTrack(5, this.trackNormal);
-      playlistController.removeTrack(6, this.trackNormal);
-      playlistController.removeTrack(7, this.trackNormal);
-      playlistController.removeTrack(8, this.trackNormal);
-      playlistController.removeTrack(9, this.trackNormal);
-      playlistController.removeTrack(10, this.trackNormal);
-      this.Playlists.addTrackToGoalPlaylist(0, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(1, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(2, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(3, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(4, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(5, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(6, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(7, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(8, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(9, this.trackLong);
-      this.Playlists.addTrackToGoalPlaylist(10, this.trackLong);
+      this.removeAllTracks(this.trackNormal);
+      this.fillPlaylistWithTracks(this.trackLong);
+
       playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
       expect(playlistController.checkPlaylistLength()).toBe(false);
-      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.setPlaylistComplete(false);
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+      expect(playlistController.disableSubmitButton()).toBe(false);
+      this.removeThePlaylistname();
+      expect(playlistController.disableSubmitButton()).toBe(true);
+    });
+
+  });
+
+  describe('[Editing incomplete playlist and making it complete] Checking submit button', function () {
+
+    beforeEach(inject(function () {
+      this.editPlaylist();
+      this.setPlaylistComplete(false);
+      this.setPlaylistIsSyncedToGyms(false);
+    }));
+
+    it('Previously incomplete Playlist has a track per goal: total time is good', function () {
+      this.removeAllTracks(this.trackNormal);
+      this.fillPlaylistWithTracks(this.trackNormal);
+
+      playlistController.playlistTracksLength = this.Playlists.getPlaylistLength();
+      expect(playlistController.checkAllGoalsHaveTracks()).toBe(true);
+      expect(playlistController.checkPlaylistLength()).toBe(true);
+      expect(playlistController.submitButtonText()).toEqual('NEXT_PREVIEW');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(false);
+      this.removeThePlaylistname();
+      expect(playlistController.disableSubmitButton()).toBe(true);
     });
 
   });
@@ -1809,7 +1822,12 @@ ddescribe("controller: Playlist_editController(vanilla jasmine, javascript)", fu
     it('Playlist contains no tracks', function () {
       expect(playlistController.checkAllGoalsHaveTracks()).toBe(false);
       expect(playlistController.checkPlaylistLength()).toBe(false);
-      expect(playlistController.submitButtonText()).toEqual('Save and continue later');
+      expect(playlistController.submitButtonText()).toEqual('SAVE_CONTINUE_LATER');
+
+      // Check if the submit button is disabled
+      expect(playlistController.disableSubmitButton()).toBe(true);
+      this.giveThePlaylistAname();
+      expect(playlistController.disableSubmitButton()).toBe(false);
     });
 
   });

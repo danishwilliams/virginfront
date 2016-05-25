@@ -27,8 +27,10 @@ templateGroupsController.$inject = ['Templates', 'spinnerService'];
 function templateGroupsController(Templates, spinnerService) {
   var self = this;
 
-  Templates.loadTemplateGroups(true).then(function (templateGroups) {
+  Templates.loadTemplateGroups().then(function (templateGroups) {
     self.templateGroups = templateGroups;
+    self.templatesLoaded = true;
+    self.usageCountDays = 30;
 
     var i = 0;
 
@@ -37,7 +39,7 @@ function templateGroupsController(Templates, spinnerService) {
       if ((self.kind === 'active' && val.Enabled === true) || (self.kind === 'inactive' && val.Enabled === false)) {
         i++;
         val.visible = true;
-        Templates.loadTemplateGroupClasses(val.Id).then(function (data) {
+        Templates.loadTemplateGroupClasses(val.Id, self.usageCountDays).then(function (data) {
           // TODO: there *must* be a way of updating an object within an array rather than searching through it by ID
           // There is!!!! https://www.jonathanfielding.com/combining-promises-angular/
           // Nah - that's a pattern for making multiple API calls which don't depend on each other
@@ -47,6 +49,7 @@ function templateGroupsController(Templates, spinnerService) {
             if (!found && val.Id === data.TemplateGroupId) {
               found = true;
               val.ClassLengths = data.TemplateClassLength;
+              val.TemplateGroupUsageCount = data.TemplateGroupUsageCount;
             }
             return val;
           });

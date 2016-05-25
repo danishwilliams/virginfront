@@ -3,6 +3,7 @@ angular
     "ngSanitize",
     "ngMessages",
     "angularSpinners",
+    "angular.vertilize",
     "ui.router",
     "ui.router.title",
     "angularUUID2",
@@ -16,8 +17,10 @@ angular
     "app.dashboard",
     "app.devices",
     "app.device",
+    "app.device_edit",
     "app.device_new",
-    "app.device_playlists",
+    "app.device_error_log",
+    //"app.device_playlists",
     "app.emails",
     "app.genres",
     "app.goals",
@@ -63,6 +66,7 @@ angular
     user: "User",
     instructor: "Instructor",
     manager: "Manager",
+    techManager: "Technical Manager",
     admin: "Admin"
   })
   .constant('USER_STATES', {
