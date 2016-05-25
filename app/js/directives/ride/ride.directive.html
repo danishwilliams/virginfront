@@ -1,4 +1,4 @@
-<a ui-sref="playlist-view({id:playlist.Id})">
+<a ui-sref="playlist-view({id:playlist.Id})" ng-class="{'incomplete' : !playlist.Complete}">
   <span class="clearfix"><img class="right" src="/img/playlists_grey/{{playlist.TemplateIconFileName}}"></span>
   <div class="content">
     <h5>{{playlist.Name}}</h5>

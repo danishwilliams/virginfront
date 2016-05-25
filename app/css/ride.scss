@@ -9,11 +9,15 @@ ride, .new-ride  {
   a {
     display: block;
     background: $grey_lighter;
-    border-bottom: 2px solid $grey_light;
+    border-bottom: rem-calc(2) solid $grey_light;
     border-radius: 6px;
     min-height: rem-calc(168px);
     max-width: rem-calc(61px * 3);
     overflow: hidden;
+    &.incomplete {
+      background: transparent;
+      border: rem-calc(1) solid $grey_light;
+    }
   }
   .content {
     padding: 0 15px 0 15px;
