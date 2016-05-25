@@ -21,7 +21,7 @@ angular.module("app").config(function ($translateProvider, defaultI18n) {
 
   // .co.za .co.uk .es .it .pt
   var language = 'en';
-  switch (window.location) {
+  switch (window.location.hostname) {
     case 'ride.virginactive.es':
       language = 'es';
       break;
