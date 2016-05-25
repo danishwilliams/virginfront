@@ -51,6 +51,7 @@ angular
     viewAdmin: "viewAdmin",
     editAdmin: "editAdmin",
     isManager: "isManager",
+    isTechManager: "isTechManager",
     devices: "devices",
     gyms: "gyms",
     viewContent: "viewContent",
