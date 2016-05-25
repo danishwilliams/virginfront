@@ -49,4 +49,7 @@ angular.module("app.playlist_view", []).controller('Playlist_viewController', fu
     return Playlists.checkPlaylistLength();
   };
 
+  self.viewingOwnPlaylist = function () {
+    return self.user.Id === self.playlist.UserId;
+  };
 });

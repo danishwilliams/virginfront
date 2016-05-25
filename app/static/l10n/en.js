@@ -185,6 +185,7 @@
   "TRACKS": "songs",
   "MINUTES_SMALL": "minutes",
   "RETURN_DASHBOARD": "Return to dashboard",
+  "RETURN_INSTRUCTOR_PROFILE": "Return to instructor profile",
   "SEND_CLUB": "Next: Send to club",
   "SEND_CLUBS": "Send to your clubs",
   "SAVE_SEND_CLUBS": "Save and send to clubs",
