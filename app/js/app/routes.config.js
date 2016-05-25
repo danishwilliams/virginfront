@@ -481,6 +481,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   // Tracks
+  /*
   .state('tracks-admin', {
     url: '/admin/tracks',
     templateUrl: '../js/components/tracks/tracks.html',
@@ -492,6 +493,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       permissions: [APP_PERMISSIONS.viewAdmin]
     }
   })
+  */
 
   // Users
   .state('users-admin', {

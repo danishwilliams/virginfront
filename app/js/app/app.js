@@ -37,7 +37,7 @@ angular
     "app.playlist_view",
     "app.registered",
     "app.sync",
-    "app.tracks",
+    //"app.tracks",
     "app.tracks_search",
     "app.user",
     "app.user_invite",
