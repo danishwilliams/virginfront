@@ -18,7 +18,7 @@
         <div class="row">
           <div class="medium-9 large-9 columns">
             <label>{{'SEARCH' | translate}}</label>
-            <input ng-model="users.query" type="text" placeholder="{{'INSTRUCTOR_SEARCH' | translate}}" autofocus>
+            <input ng-model="users.query" type="text" placeholder="{{'INSTRUCTOR_SEARCH' | translate}}" maxlength="60" autofocus>
           </div>
           <div class="medium-9 large-9 columns">
             <label>{{'INSTRUCTOR_FILTER' | translate}}</label>
@@ -38,7 +38,7 @@
 
       <tab heading="{{'DISABLED_USERS' | translate}} ({{users.numDisabled}})">
         <label>{{'SEARCH' | translate}}</label>
-        <input ng-model="query" type="text" placeholder="{{'INSTRUCTOR_SEARCH' | translate}}" autofocus>
+        <input ng-model="query" type="text" placeholder="{{'INSTRUCTOR_SEARCH' | translate}}" maxlength="60" autofocus>
         <accordion>
           <user ng-if="user.Archived" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
           </user>
@@ -47,7 +47,7 @@
 
       <tab ng-if-permission="viewAdmin" heading="{{'TECHNICAL_USERS' | translate}} ({{users.numTechnical}})">
         <label>{{'SEARCH' | translate}}</label>
-        <input ng-model="query" type="text" placeholder="{{'INSTRUCTOR_SEARCH' | translate}}" autofocus>
+        <input ng-model="query" type="text" placeholder="{{'INSTRUCTOR_SEARCH' | translate}}" maxlength="60" autofocus>
         <accordion>
           <user ng-if="user.Type === 'Technical'" ng-repeat="user in users.users | filter:query | orderBy:'FirstName'">
           </user>

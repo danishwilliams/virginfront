@@ -63,6 +63,7 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
 
   function removeLocalAccessToken() {
     Storage.removeItem('token');
+    logout();
   }
 
   function setAccessToken(value) {

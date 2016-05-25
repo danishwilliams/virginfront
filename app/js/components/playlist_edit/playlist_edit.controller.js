@@ -24,6 +24,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       // User has just selected a track from track search to add to a goal
       var track = Tracks.getSearchedTrack();
       if (!_.isEmpty(track)) {
+        console.log(self.form);
+        if (self.form) {
+          console.log('setting form to not be pristine!!!!');
+          self.form.$setDirty(); // Manually set the form to be not pristine any more
+        }
         var currentgoal = Playlists.getCurrentGoal();
         if (currentgoal.BackgroundSection) {
           // Add a background track
@@ -219,6 +224,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     this.playlistTracksLength = Playlists.getPlaylistLength();
     self.checkAllGoalsHaveTracks();
     Tracks.stopTrack(track.Track);
+    self.form.$setDirty(); // Manually set the form to be not pristine any more
 
     // The track isn't "dropped" any more
     var bin = document.getElementById("bin" + playlistGoalArrayId);
@@ -230,9 +236,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
 
   // If the playlist goal note doesn't exist, create it
   this.playlistGoalNoteCreate = function (playlistGoalArrayId, trackIndex) {
-    var noteText = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex].NoteText;
-    var trackId = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks[trackIndex].TrackId;
-    self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex] = Playlists.createPlaylistGoalNote(noteText, trackId);
+    if (!self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex].Id) {
+      var noteText = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex].NoteText;
+      var trackId = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks[trackIndex].TrackId;
+      self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex] = Playlists.createPlaylistGoalNote(noteText, trackId);
+    }
   };
 
   // Save the playlist to the API
@@ -404,7 +412,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   this.submitButtonText = function () {
     if (!self.newPlaylist && !self.checkAllGoalsHaveTracks()) {
       // Editing a playlist but not all tracks have goals
-      return 'GOAL_TRACK_REQ';
+      return 'UPDATE';
     } else if (!self.checkAllGoalsHaveTracks() || !self.checkPlaylistLength() || !self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks()) {
       return 'SAVE_CONTINUE_LATER';
     }

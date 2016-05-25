@@ -1,4 +1,4 @@
-angular.module("app.user", []).controller('UserController', function ($stateParams, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer, $translate, Storage) {
+angular.module("app.user", []).controller('UserController', function ($stateParams, $location, $uiViewScroll, UserTypes, Users, Genres, Gyms, spinnerService, $filter, Authorizer, $translate, Storage) {
   var self = this;
   this.id = $stateParams.id;
 
@@ -9,6 +9,16 @@ angular.module("app.user", []).controller('UserController', function ($statePara
   }
 
   Users.loadUser(this.id).then(function (data) {
+
+    // Scroll to the recent rides section
+    // Yeah, this isn't the best place to do this, but I couldn't get similar logic working anywhere else: not in
+    // $rootScope.$on('$stateChangeSuccess') in app.run() or in a directive. Urgh.
+    var scrollTo = $location.search().scrollTo;
+    if (scrollTo) {
+      var el = angular.element(document.getElementById(scrollTo));
+      $uiViewScroll(el);
+    }
+
     spinnerService.hide('userProfileSpinner');
     self.user = data;
     self.employeeId = self.user.EmployeeId;

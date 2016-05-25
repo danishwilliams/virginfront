@@ -82,6 +82,12 @@
   &.inline {
     position: inherit;
   }
+  &.center {
+    position: inherit;
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+  }
 }
 
 button .spinner {

@@ -91,8 +91,18 @@ angular.module("app.onboarding", []).controller('OnboardingController', function
 
           // If this is a password reset, skip onboarding and go to the dashboard
           if ($state.current.name === 'passwordreset') {
-            $state.go('dashboard');
-            return;
+            if (user.State === USER_STATES.onboarding_clubs || user.State === USER_STATES.invite_emailed || user.State === USER_STATES.invite_email_failed) {
+              $state.go('onboarding-gyms');
+              return;
+            }
+            else if (user.State === USER_STATES.onboarding_genres) {
+              $state.go('onboarding-genres');
+              return;
+            }
+            else {
+              $state.go('dashboard');
+              return;
+            }
           }
 
           // Update the user state

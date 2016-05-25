@@ -1,4 +1,4 @@
-angular.module("app.device_new", []).controller('DeviceNewController', function (Gyms, Devices, $q) {
+angular.module("app.device_new", []).controller('DeviceNewController', function (Gyms, Devices, $q, spinnerService) {
   var self = this;
   self.step = 0;
 
@@ -12,12 +12,14 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
       return;
     }
     self.saving = true;
+    spinnerService.show('deviceNewSpinner');
     self.disableDevice = false;
-    provisionDevice();
+    provisionDevice('deviceNewSpinner');
   };
 
   self.disableActiveDeviceAndProvisionNewDevice = function () {
     self.saving = true;
+    spinnerService.show('deviceDisableNewSpinner');
     disableAllDevices();
   };
 
@@ -30,16 +32,29 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
     });
 
     $q.all(promises).then(function () {
-      provisionDevice();
+      provisionDevice('deviceDisableNewSpinner');
+    }, function(err) {
+      spinnerService.hide('deviceDisableNewSpinner');
+
+      self.alert = {
+        type: 'warning',
+        msg: 'DEVICE_PROVISION_ERROR'
+      };
+
+      // Either a generic error or a Music Provider error
+      if (err.data.Message.startsWith('Error while cancelling device music provider account')) {
+        msg = 'MUSIC_PROVIDER_CANCELLING_ERROR';
+      }
     });
 
     return defer.promise;
   }
 
-  function provisionDevice() {
+  function provisionDevice(spinner) {
     // post DeviceName, GymId
     Devices.provisionDevice(self.deviceName, self.selectedGym.Id).then(function (data) {
       self.saving = false;
+      spinnerService.hide(spinner);
       self.code = data.ProvisionCode;
 
       // Put the provisioning code into an array so we can display each digit separately
@@ -52,6 +67,7 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
     }, function (err) {
       console.log(err);
       self.saving = false;
+      spinnerService.hide(spinner);
       if (err.status === 500) {
         self.maxDevices = err.data.MaxDevices;
         self.gymDevicesToBeDeleted = err.data.GymDevices;
@@ -62,8 +78,9 @@ angular.module("app.device_new", []).controller('DeviceNewController', function 
 
   self.provisionAnother = function () {
     self.step = 0;
-    self.form.$setPristine(true);
     self.selectedGym = undefined;
     self.deviceName = '';
+    self.form.$setPristine();
+    self.form.$setUntouched();
   };
 });

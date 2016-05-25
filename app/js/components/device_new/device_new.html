@@ -16,13 +16,14 @@
       <label for="deviceName">{{'DEVICE_NAME' | translate}}</label>
       {{'DEVICE_NAME_EXPLANATION' | translate}}
 
-      <input name="deviceName" type="text" size="40" ng-model="vm.deviceName" required>
+      <input name="deviceName" type="text" size="40" ng-model="vm.deviceName" maxlength="60" required>
       <div ng-show="vm.form.$submitted || vm.form.deviceName.$touched">
         <small class="error" ng-show="vm.form.deviceName.$error.required">{{'DEVICE_NAME_REQ' | translate}}</small>
       </div>
 
       <div class="row submit">
         <input class="submit" ng-disabled="vm.saving || vm.form.$invalid" type="submit" value="{{'DEVICE_GEN_CODE' | translate}}">
+        <spinner class="spinner center" name="deviceNewSpinner" show="false"></spinner>
       </div>
     </form>
 
@@ -68,8 +69,10 @@
         </p>
 
         <div class="submit">
+          <alert ng-if="vm.alert" type="vm.alert.type">{{vm.alert.msg | translate}}</alert>
           <a class="cancel" ng-click="vm.step = 0">{{'CANCEL' | translate}}</a>
           <button class="submit" ng-disabled="!vm.disableDevice || vm.saving" ng-click="vm.disableActiveDeviceAndProvisionNewDevice()">{{'DEVICE_GEN_CODE' | translate}}</button>
+          <spinner class="spinner center" name="deviceDisableNewSpinner" show="false"></spinner>
         </div>
       </div>
     </div>

@@ -1,0 +1,14 @@
+<spinner ng-if="random" class="spinner" name="spinner{{random}}" show="true"></spinner>
+
+<table style="width: 100%;" ng-if="classes.length > 0">
+  <tbody>
+    <tr ng-repeat="class in classes track by $index">
+      <td>{{class.ClassTaughtDate | date : 'dd'}} {{class.ClassTaughtDate | date : 'MMMM' | uppercase | translate}} {{class.ClassTaughtDate | date : 'yyyy'}}</td>
+      <td>{{class.ClassTaughtDate | date : 'H:mm'}}</td>
+      <td>{{class.GymName}}</td>
+        <td>{{class.TemplateName}}</td>
+        <td>{{class.PlaylistName}}</td>
+        <td>{{class.ClassLengthMinutes}} mins</td>
+      </tr>
+    </tbody>
+  </table>

@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="medium-9 columns">
+    <div class="box box-left">
+      <h3>Registered Instructors</h3>
+      <spinner class="spinner center" name="reportRegSpinner" show="true"></spinner>
+
+      <p>&nbsp;</p>
+      <div class="row">
+        <div class="small-7 columns">
+          <div class="line registered">&nbsp;</div>
+          <div class="content">
+            <h4 class="number">{{vm.registered.registered}}</h4>
+            registered
+          </div>
+        </div>
+        <div class="small-7 columns">
+          <div class="line secondary">&nbsp;</div>
+          <div class="content">
+            <h4 class="number">{{vm.registered.unregistered}}</h4>
+            unregistered
+          </div>
+        </div>
+        <div class="small-4 columns">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="medium-9 columns">  
+    <div class="box box-right">
+      <h3>Active Instructors</h3>
+      <spinner class="spinner center" name="reportActiveSpinner" show="true"></spinner>
+
+      <p>Instructors who have taught a ride in the last 14 days</p>
+      <div class="row">
+        <div class="small-7 columns">
+          <div class="line active">&nbsp;</div>
+          <div class="content">
+            <h4 class="number">{{vm.active.active}}</h4>
+            active instructors
+          </div>
+        </div>
+        <div class="small-7 columns">
+          <div class="line secondary">&nbsp;</div>
+          <div class="content">
+            <h4 class="number">{{vm.active.inactive}}</h4>
+            inactive instructors
+          </div>
+        </div>
+        <div class="small-4 columns">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="medium-9 columns">
+    <div class="box box-left">
+      <h3>Email log</h3>
+      <spinner class="spinner center" name="reportEmailSpinner" show="true"></spinner>
+
+      <div class="row" ng-if="vm.emailFailedCount > 0">
+        <div class="small-11 columns">
+          <div class="line failure">&nbsp;</div>
+          <div class="content">
+            <h4 class="number">{{vm.emailFailedCount}}</h4>
+            problematic emails<br>
+            <a ui-sref="emails">View emails</a>
+          </div>
+        </div>
+        <div class="small-6 columns">
+          <img class="email-error right" src="/img/ico16orng_syncerror.svg">
+        </div>
+      </div>
+
+      <div class="row" ng-if="vm.emailFailedCount === 0">
+        <div class="small-12 columns">
+          <div class="line success">&nbsp;</div>
+          <div class="content">
+            Great! Looks like there are no problematic emails.<br>
+            <a ui-sref="emails">View email log</a>
+          </div>
+        </div>
+        <div class="small-6 columns">
+          <img class="email-success right" src="/img/ico40grn_syncsuccess.svg">
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="medium-9 columns">
+    <div class="box box-right">
+      <h3>Top five templates</h3>
+      <spinner class="spinner center" name="reportTemplatesSpinner" show="true"></spinner>
+
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="box box-single">
+    <h3>Club overview</h3>
+    <spinner class="spinner center" name="reportClubSpinner" show="true"></spinner>
+  </div>
+</div>

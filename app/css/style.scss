@@ -27,7 +27,12 @@ h1.site-heading {
   a {
     padding-top: rem-calc(42px);
     display: block;
-    float: right !important;
+    float: right;
+    &.back {
+      padding-top: rem-calc(16px);
+      padding-bottom: 0;
+      float: inherit;
+    }
   }
   button {
     float: right !important;

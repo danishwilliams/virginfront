@@ -42,6 +42,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     getPlaylist: getPlaylist,
     setPlaylist: setPlaylist,
     getPlaylistCustomRpm: getPlaylistCustomRpm,
+    //loadGymsPlaylistSyncInfo: loadGymsPlaylistSyncInfo,
     loadGymsPlaylistSyncInfoDetailed: loadGymsPlaylistSyncInfoDetailed,
     loadGymsDevicePlaylistSyncInfo: loadGymsDevicePlaylistSyncInfo,
     loadGymsPlaylists: loadGymsPlaylists,
@@ -206,11 +207,23 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return playlist[id];
   }
 
-  function loadPlaylists(resultCount) {
-    return Restangular.one('playlists').get({
+  /**
+   * Returns all playlists for the current user, or for the userId (if provided)
+   *
+   * @param resultCount
+   *   Number of playlists to return
+   * @param userId
+   *   Optional. The Id of the user we want the playlists for.
+   */
+  function loadPlaylists(resultCount, userId) {
+    var params = {
       resultCount: resultCount,
       includeGoals: false
-    }).then(loadPlaylistsComplete);
+    };
+    if (userId) {
+      params.UserId = userId;
+    }
+    return Restangular.one('playlists').get(params).then(loadPlaylistsComplete);
 
     function loadPlaylistsComplete(data, status, headers, config) {
       self.playlists = data;
@@ -272,6 +285,16 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     return isCustomRpm;
   }
 
+  /*
+  function loadGymsPlaylistSyncInfo() {
+    return Restangular.one('gyms/syncinfo').get().then(loadGymsPlaylistSyncInfoComplete);
+
+    function loadGymsPlaylistSyncInfoComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+  */
+
   function loadGymsPlaylistSyncInfoDetailed() {
     return Restangular.one('gyms/syncinfo/detailed').get().then(loadGymsPlaylistSyncInfoDetailedComplete);
 
@@ -296,7 +319,7 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
 
   // Gets all complete playlists not in a particular gym
   function loadPlaylistsNotInGym(id) {
-    return Restangular.one('gyms/playlistsnotpublished', id).get();
+    return Restangular.one('gyms/' + id + '/playlistsnotpublished').get();
   }
 
   function addPlaylistToGym(playlistId, gymId) {
@@ -525,10 +548,23 @@ function PlaylistsFactory(Restangular, uuid2, Users) {
     }
   }
 
-  function loadRecentClasses(resultCount) {
-    return Restangular.one('playlists/recentclasses').get({
+
+  /**
+   * Returns the recent classes for current user, or for the userId (if provided)
+   *
+   * @param resultCount
+   *   Number of recent classes to return
+   * @param userId
+   *   Optional. The Id of the user we want the recent classes for.
+   */
+  function loadRecentClasses(resultCount, userId) {
+    var params = {
       resultCount: resultCount
-    }).then(loadRecentClassesComplete);
+    };
+    if (userId) {
+      params.UserId = userId;
+    }
+    return Restangular.one('playlists/recentclasses').get(params).then(loadRecentClassesComplete);
 
     function loadRecentClassesComplete(data, status, headers, config) {
       return data;

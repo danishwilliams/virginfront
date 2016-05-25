@@ -1,4 +1,4 @@
-angular.module("app.dashboard", []).controller('DashboardController', function (Playlists, spinnerService, $timeout, Users, USER_STATES, $state) {
+angular.module("app.dashboard", []).controller('DashboardController', function (Playlists, Users, spinnerService, USER_STATES, $state) {
   var self = this;
 
   // Handle various onboarding cases i.e. user has just logged in but is in some part of onboarding
@@ -12,12 +12,6 @@ angular.module("app.dashboard", []).controller('DashboardController', function (
     return;
   }
 
-  Playlists.loadPlaylists(4).then(function (data) {
-    self.playlists = data;
-    spinnerService.hide('dashboardPlaylistsSpinner');
-    //spinnerService.hide('dashboardSharedSpinner');
-  });
-
   self.loadGyms = function() {
     Playlists.loadGymsPlaylistSyncInfoDetailed().then(function (data) {
       spinnerService.hide('dashboardGymsSpinner');
@@ -26,9 +20,4 @@ angular.module("app.dashboard", []).controller('DashboardController', function (
   };
 
   self.loadGyms();
-
-  Playlists.loadRecentClasses(4).then(function (data) {
-    self.classes = data;
-    spinnerService.hide('dashboardClassesSpinner');
-  });
 });

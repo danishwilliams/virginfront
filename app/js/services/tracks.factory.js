@@ -11,6 +11,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   var self = this;
   self.userGenresTracks = [];
   self.tracks = []; // A list of track objects
+  self.resultCount = 25; // The default number of results to return
 
   var tracksFactory = {
     loadUserDefaultGenresTracks: loadUserDefaultGenresTracks,
@@ -116,10 +117,12 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
 
   return tracksFactory;
 
-  function loadUserDefaultGenresTracks(bpmLow, bpmHigh) {
+  function loadUserDefaultGenresTracks(bpmLow, bpmHigh, page) {
     return Restangular.all('music/usergenres').getList({
         bpmLow: bpmLow,
-        bpmHigh: bpmHigh
+        bpmHigh: bpmHigh,
+        resultCount: self.resultCount,
+        page: page
     }).then(loadUserDefaultGenresTracksComplete);
 
     function loadUserDefaultGenresTracksComplete(data, status, headers, config) {
@@ -127,10 +130,12 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
     }
   }
 
-  function loadUserGenresTracks(bpmLow, bpmHigh, genres) {
+  function loadUserGenresTracks(bpmLow, bpmHigh, genres, page) {
     return Restangular.one('music/genres').customPOST(genres, '', {
       bpmLow: bpmLow,
-      bpmHigh: bpmHigh
+      bpmHigh: bpmHigh,
+      resultCount: self.resultCount,
+      page: page
     }).then(loadUserGenresTracksComplete);
 
     function loadUserGenresTracksComplete(data, status, headers, config) {
@@ -139,11 +144,11 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
     }
   }
 
-  function searchTracks(term) {
+  function searchTracks(term, page) {
     return Restangular.one('music/search').get({
       searchText: term,
-      resultCount: 25,
-      page: 0
+      resultCount: self.resultCount,
+      page: page
     }).then(searchTracksComplete);
 
     function searchTracksComplete(data, status, headers, config) {

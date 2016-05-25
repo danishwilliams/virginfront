@@ -1,0 +1,5 @@
+<spinner ng-if="vm.random" class="spinner inline" name="gymRidesSpinner{{vm.random}}" show="true"></spinner>
+
+<select ng-show="vm.playlists" ng-options="v.Name for v in vm.playlists | orderBy:'Name'" ng-change="vm.add()" ng-model="ngModel">
+  <option disabled value="">{{'SELECT_RIDE' | translate}}</option>
+</select>

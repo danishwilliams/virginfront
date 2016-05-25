@@ -59,7 +59,6 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('recent-classes', {
     url: '/classes',
     templateUrl: '../js/components/recent_classes/recent_classes.html',
-    controller: 'Recent_classesController as classes',
     resolve: {
       $title: function() { return 'RECENT_CLASSES'; }
     },
@@ -182,7 +181,6 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('default-goals-admin', {
     url: '/admin/default-goals',
     templateUrl: '../js/components/default_goals/default_goals.html',
-    controller: 'DefaultGoalsController as vm',
     resolve: {
       $title: function() { return 'Goals | Admin'; }
     },
@@ -274,7 +272,6 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('playlists', {
     url: '/playlists',
     templateUrl: '../js/components/playlists/playlists.html',
-    controller: 'PlaylistsController as playlists',
     resolve: {
       $title: function() { return 'RIDES'; }
     },
