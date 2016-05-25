@@ -51,18 +51,9 @@ function defaultGoalsController(Users, Goals, Beats, spinnerService) {
     });
   });
 
-  self.effortOptions = [40];
-  for (i = 45; i <= 100; i = i + 5) {
-    self.effortOptions.push(i);
-  }
-  self.bpmOptions = [];
-  for (i = 60; i <= 180; i = i + 10) {
-    self.bpmOptions.push(i);
-  }
-  self.rpmOptions = [];
-  for (i = 60; i <= 180; i = i + 5) {
-    self.rpmOptions.push(i);
-  }
+  self.effortOptions = Goals.getEffortRange();
+  self.bpmOptions = Goals.getBpmRange();
+  self.rpmOptions = Goals.getBpmRange();
 
   Beats.loadBeats().then(function (data) {
     self.beats = data;
@@ -101,7 +92,7 @@ function defaultGoalsController(Users, Goals, Beats, spinnerService) {
    * if <form> isn't used (and I'm using two nested ng-form's) then the value of form.$submitted is always wrong. Solution:
    * manually handle the form submission logic by moving it onto the goal object.
    */
-  self.update = function (goal, valid) {
+  self.update = function (goal, valid, goalForm) {
     goal.submitted = true;
     if (!valid) {
       return;
@@ -110,6 +101,7 @@ function defaultGoalsController(Users, Goals, Beats, spinnerService) {
     goal.put().then(function () {
       goal.saving = false;
       goal.saved = true;
+      goalForm.$setPristine();
     });
   };
 }

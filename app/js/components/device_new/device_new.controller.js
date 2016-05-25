@@ -1,84 +1,97 @@
-angular.module("app.device_new", []).controller('DeviceNewController', function (Gyms, Devices, $q, spinnerService) {
+angular.module("app.device_new", []).controller('DeviceNewController', function (Gyms, Devices, spinnerService) {
   var self = this;
-  self.step = 0;
 
   // Load all gyms
   Gyms.loadGyms().then(function (data) {
     self.gyms = data;
   });
 
+  // Once a gym has been selected, load all devices for it
+  self.gymSelected = function() {
+    spinnerService.show('gymDevices');
+    self.devices = {data: []};
+    // Load up the devices for this club
+    Devices.loadDevicesForGym(self.selectedGym.Id).then(function (data) {
+      self.devicesLoaded = true;
+      spinnerService.hide('gymDevices');
+      self.devices = data;
+    });
+  };
+
   self.provisionNewDevice = function () {
-    if (self.form.$invalid) {
-      return;
-    }
     self.saving = true;
     spinnerService.show('deviceNewSpinner');
     self.disableDevice = false;
-    provisionDevice('deviceNewSpinner');
+    if (self.isPrimary) {
+      // Make the current primary device a secondary, then provision the new device
+      var processed = false;
+      self.devices.data.forEach(function (val) {
+        if (val.Primary) {
+          val.Primary = false;
+          val.route = "devices/";
+          console.log('making this primary device a secondary!', val);
+
+          if (!processed) {
+            processed = true;
+            val.put().then(function () {
+              provisionDevice();
+            }, function () {
+              self.saving = false;
+              spinnerService.hide('deviceNewSpinner');
+              self.alert = {
+                type: 'warning',
+                msg: 'DEVICE_PROVISION_NEW_ERROR'
+              };
+            });
+          }
+
+        }
+      });
+      if (!processed) {
+        processed = true;
+        console.log('no primary device to disable');
+        provisionDevice();
+      }
+    }
+    else {
+      provisionDevice();
+    }
   };
 
-  self.disableActiveDeviceAndProvisionNewDevice = function () {
-    self.saving = true;
-    spinnerService.show('deviceDisableNewSpinner');
-    disableAllDevices();
-  };
-
-  function disableAllDevices() {
-    var defer = $q.defer();
-    var promises = [];
-
-    self.gymDevicesToBeDeleted.forEach(function (device) {
-      promises.push(Devices.disableDevice(device.Id));
-    });
-
-    $q.all(promises).then(function () {
-      provisionDevice('deviceDisableNewSpinner');
-    }, function(err) {
-      spinnerService.hide('deviceDisableNewSpinner');
-
+  function provisionDevice() {
+    // post DeviceName, GymId, isPrimary
+    Devices.provisionDevice(self.deviceName, self.selectedGym.Id, self.isPrimary).then(function (data) {
+      self.saving = false;
+      spinnerService.hide('deviceNewSpinner');
       self.alert = {
-        type: 'warning',
-        msg: 'DEVICE_PROVISION_ERROR'
+        type: 'success',
+        msg: 'DEVICE_CODE_SUCCESS'
       };
 
-      // Either a generic error or a Music Provider error
-      if (err.data.Message.startsWith('Error while cancelling device music provider account')) {
-        msg = 'MUSIC_PROVIDER_CANCELLING_ERROR';
-      }
-    });
-
-    return defer.promise;
-  }
-
-  function provisionDevice(spinner) {
-    // post DeviceName, GymId
-    Devices.provisionDevice(self.deviceName, self.selectedGym.Id).then(function (data) {
-      self.saving = false;
-      spinnerService.hide(spinner);
-      self.code = data.ProvisionCode;
+      var code = data.ProvisionCode;
 
       // Put the provisioning code into an array so we can display each digit separately
       self.provisioningCode = [];
-      for (var i = 0; i < self.code.length; i++) {
-        self.provisioningCode.push(self.code.substring(i, i + 1));
+      for (var i = 0; i < code.length; i++) {
+        self.provisioningCode.push(code.substring(i, i + 1));
       }
       self.disableDevice = false;
-      self.step = 1;
     }, function (err) {
-      console.log(err);
       self.saving = false;
-      spinnerService.hide(spinner);
-      if (err.status === 500) {
-        self.maxDevices = err.data.MaxDevices;
-        self.gymDevicesToBeDeleted = err.data.GymDevices;
-        self.step = 2;
-      }
+      self.error = true;
+      spinnerService.hide('deviceNewSpinner');
+      self.alert = {
+        type: 'warning',
+        msg: 'DEVICE_PROVISION_NEW_ERROR'
+      };
     });
   }
 
   self.provisionAnother = function () {
-    self.step = 0;
+    self.provisioningCode = undefined;
     self.selectedGym = undefined;
+    self.isPrimary = false;
+    self.devices = [];
     self.deviceName = '';
     self.form.$setPristine();
     self.form.$setUntouched();

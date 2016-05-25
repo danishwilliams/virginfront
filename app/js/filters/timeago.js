@@ -6,8 +6,10 @@ angular
   .module("app")
   .filter('timeago', TimeAgoFilter);
 
+TimeAgoFilter.$inject = ['$filter'];
+
 // Converts seconds to minutes
-function TimeAgoFilter() {
+function TimeAgoFilter($filter) {
   return function (input) {
     var seconds = Math.floor((new Date() - new Date(input)) / 1000);
 
@@ -15,12 +17,12 @@ function TimeAgoFilter() {
     interval = Math.floor(seconds / 86400);
 
     if (interval > 1) {
-      return interval + " days ago";
+      return interval + ' ' + $filter('translate')('DAYS_AGO');
     }
     interval = Math.floor(seconds / 3600);
     if (interval > 1) {
-      return interval + " hours ago";
+      return interval + ' ' + $filter('translate')('HOURS_AGO');
     }    interval = Math.floor(seconds / 60);
-    return interval + " mins ago";
+    return interval + ' ' + $filter('translate')('MINS_AGO');
   };
 }

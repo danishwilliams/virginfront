@@ -38,18 +38,9 @@ function TemplateController($scope, $state, $stateParams, Templates, Beats, spin
     });
   }
 
-  self.effortOptions = [40];
-  for (i = 45; i <= 100; i = i + 5) {
-    self.effortOptions.push(i);
-  }
-  self.bpmOptions = [];
-  for (i = 60; i <= 180; i = i + 10) {
-    self.bpmOptions.push(i);
-  }
-  self.rpmOptions = [];
-  for (i = 60; i <= 180; i = i + 5) {
-    self.rpmOptions.push(i);
-  }
+  self.effortOptions = Goals.getEffortRange();
+  self.bpmOptions = Goals.getBpmRange();
+  self.rpmOptions = Goals.getBpmRange();
 
   if (!self.newTemplate) {
     // Editing a template

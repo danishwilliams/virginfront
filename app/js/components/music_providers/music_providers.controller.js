@@ -1,9 +1,37 @@
-angular.module("app.music_providers", []).controller('Music_providersController', function (MusicProviders) {
+angular.module("app.music_providers", []).controller('Music_providersController', function (Users, MusicProviders, Heartbeat, spinnerService) {
   var self = this;
 
-  if (!self.music_providers) {
-	  MusicProviders.loadMusicProviders().then(function(data) {
-	    self.music_providers = data;
-	  });  	
-  }
+  var user = Users.getCurrentUser();
+  var id = user.Location.Country.MusicProvider.Id;
+  self.name = user.Location.Country.MusicProvider.Name;
+
+  MusicProviders.getHeartbeatLog(id, 288, 1).then(function (data) {
+    var i = 0;
+    self.hasErrors = false;
+    self.days = [];
+    data.forEach(function(val) {
+      val.beat = false;
+      if (val.Success) {
+        val.beat = true;
+        self.hasHeartbeat = true;
+      }
+      else {
+        self.hasErrors = true;
+      }
+      val.date = new Date(val.CreateDate);
+      val.i = i;
+
+      i++;
+    });
+    data.reverse();
+    self.heartbeat = data;
+    spinnerService.hide('heartbeatlog');
+  });
+
+  self.popoverContents = function (beat) {
+    if (beat.beat) {
+      return 'AVAILABLE';
+    }
+    return 'UNAVAILABLE';
+  };
 });

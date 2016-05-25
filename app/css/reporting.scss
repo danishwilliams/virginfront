@@ -1,8 +1,7 @@
-reporting, reporting-devices {
+reporting, reporting-devices, music-provider-status {
   .box {
     margin: rem-calc(10px);
     padding: rem-calc(20px);
-    min-height: rem-calc(150px);
     border-radius: rem-calc(10);
     &.box-left {
       margin-left: 0;
@@ -118,5 +117,11 @@ reporting, reporting-devices {
     &.active .percent {
       stroke: $red;
     }
+  }
+}
+
+music-provider-status {
+  img {
+    margin-right: rem-calc(16);
   }
 }

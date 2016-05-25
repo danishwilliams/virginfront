@@ -27,7 +27,8 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
     sendInvite: sendInvite,
     createNewUser: createNewUser,
     disableUser: disableUser,
-    enableUser: enableUser
+    enableUser: enableUser,
+    testUserMusicProviderAccount: testUserMusicProviderAccount
   };
 
   return usersFactory;
@@ -180,6 +181,7 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
           user.Type = 'Technical'; // So that if any users show up there we know something has screwed up
         }
       });
+      data = _convertDates(data);
       users = data;
       return users;
     }
@@ -193,6 +195,7 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
     return Restangular.one('users', id).get().then(loadUserComplete);
 
     function loadUserComplete(data, status, headers, config) {
+      data = _convertDates(data);
       return data;
     }
   }
@@ -243,6 +246,8 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
       else if (currentUser.Location.Country.Language.Code) {
         $translate.use(currentUser.Location.Country.Language.Code);
       }
+
+      currentUser = _convertDates(currentUser);
 
       return currentUser;
     }
@@ -299,5 +304,32 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
     function enableUserComplete(data, status, headers, config) {
       return data;
     }
+  }
+
+  function testUserMusicProviderAccount(userId) {
+    return Restangular.one("music/test", userId).get().then(testUserMusicProviderAccountComplete);
+
+    function testUserMusicProviderAccountComplete(data, status, headers, config) {
+      return data;
+    }
+  }
+
+  function _convertDates(data) {
+    if (_.isArray(data)) {
+      data.forEach(function(val) {
+        if (val.CreateDate) { val.CreateDate = new Date(val.CreateDate);}
+        if (val.LastClassDate) { val.LastClassDate = new Date(val.LastClassDate);}
+        if (val.LastLoggedInDate) { val.LastLoggedInDate = new Date(val.LastLoggedInDate);}
+      });
+
+      return data;
+    }
+
+    // Convert UTC dates to javascript date objects
+    if (data.CreateDate) { data.CreateDate = new Date(data.CreateDate);}
+    if (data.LastClassDate) { data.LastClassDate = new Date(data.LastClassDate);}
+    if (data.LastLoggedInDate) { data.LastLoggedInDate = new Date(data.LastLoggedInDate);}
+
+    return data;
   }
 }

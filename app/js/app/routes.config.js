@@ -84,7 +84,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('dashboard', {
     url: '/dashboard',
     templateUrl: '../js/components/dashboard/dashboard.html',
-    controller: 'DashboardController as dashboard',
+    controller: 'DashboardController as vm',
     resolve: {
       $title: function() { return 'DASHBOARD'; }
     },
@@ -99,7 +99,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/devices/devices.html',
     controller: 'DevicesController as vm',
     resolve: {
-      $title: function() { return 'DEVICE_PAGE'; }
+      $title: function() { return 'DEVICES_PAGE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.devices]
@@ -123,22 +123,34 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/device/device.html',
     controller: 'DeviceController as vm',
     resolve: {
-      $title: function() { return 'Device | Admin'; }
+      $title: function() { return 'DEVICE_PAGE'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.devices]
     }
   })
 
-  .state('device.playlists', {
-    url: '/playlists',
-    templateUrl: '../js/components/playlists/playlists.html',
-    controller: 'DevicePlaylistsController as playlists',
+  .state('device-edit', {
+    url: '/admin/devices/:id/edit',
+    templateUrl: '../js/components/device_edit/device_edit.html',
+    controller: 'DeviceEditController as vm',
     resolve: {
-      $title: function() { return 'Device playlists | Admin'; }
+      $title: function() { return 'DEVICE_EDIT_PAGE'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.devices]
+    }
+  })
+
+  .state('device-disable', {
+    url: '/admin/devices/:id/disable',
+    templateUrl: '../js/components/device_edit/device_edit.html',
+    controller: 'DeviceEditController as vm',
+    resolve: {
+      $title: function() { return 'DEVICE_DISABLE_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.devices]
     }
   })
 
@@ -148,8 +160,19 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     templateUrl: '../js/components/devices/devices.html',
     controller: 'DevicesController as devices'
   })
-
   */
+
+  .state('device-error-log', {
+    url: '/admin/devices/:id/errors',
+    templateUrl: '../js/components/device_error_log/device_error_log.html',
+    controller: 'DeviceErrorLogController as vm',
+    resolve: {
+      $title: function() { return 'DEVICE_ERRORS_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.devices]
+    }
+  })
 
   // Genres
   .state('genres-admin', {
@@ -229,15 +252,15 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   // Music Providers
-  .state('music-providers-admin', {
+  .state('music-provider-status', {
     url: '/admin/music-providers',
     templateUrl: '../js/components/music_providers/music_providers.html',
-    controller: 'Music_providersController as music_providers',
+    controller: 'Music_providersController as vm',
     resolve: {
-      $title: function() { return 'Music providers | Admin'; }
+      $title: function() { return 'MUSIC_PROVIDER_STATUS_PAGE'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
+      permissions: [APP_PERMISSIONS.users]
     }
   })
 

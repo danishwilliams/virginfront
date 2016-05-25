@@ -129,11 +129,28 @@
       </div>
     </div>
     <div class="row">
-      <div class="columns large-9" ng-if="user.user.UserMusicProvider.MusicProvider.Name == 'Simfy'">
+      <div class="columns large-9" ng-if="user.user.UserMusicProvider">
         <div class="box">
-          <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} {{'ACC_DETAILS' | translate}}</h3>
-          <p>{{'USERNAME' | translate}}: <em>{{user.user.UserMusicProvider.Username}}</em>
-            <br> {{'PASSWORD' | translate}}: <em>{{user.user.UserMusicProvider.Password}}</em></p>
+
+          <div class="row">
+            <h3 ng-if="user.user.UserMusicProvider.MusicProvider.Name !== 'Simfy'">{{user.user.UserMusicProvider.MusicProvider.Name}}</h3>
+            <span ng-if="user.user.UserMusicProvider.MusicProvider.Name == 'Simfy'">
+              <h3>{{user.user.UserMusicProvider.MusicProvider.Name}} {{'ACC_DETAILS' | translate}}</h3>
+              <p>{{'USERNAME' | translate}}: <em>{{user.user.UserMusicProvider.Username}}</em>
+                <br> {{'PASSWORD' | translate}}: <em>{{user.user.UserMusicProvider.Password}}</em></p>
+            </span>
+          </div>
+
+          <div class="row" ng-show="user.musicProviderAccountLoaded">
+            <span ng-if="user.musicProviderAccount.Success">
+              <img src="/img/ico40grn_syncsuccess.svg">
+              <span class="success" translate="MUSIC_PROVIDER_AVAILABLE" translate-values="{name: user.user.UserMusicProvider.MusicProvider.Name}"></span>
+            </span>
+            <span ng-if="!user.musicProviderAccount.Success">
+              <img src="/img/ico40orng_syncerror.svg">
+              <span class="warning">{{user.musicProviderAccount.ErrorMessage | translate}}</span>
+            </span>
+          </div>
         </div>
       </div>
       <div class="columns large-9" ng-if-permission="viewAdmin" ng-show="user.viewingOwnUserProfile">
@@ -156,6 +173,20 @@
 
       <div class="row">
         <rides ng-if="user.user" data-rides="100" data-user-id="{{user.user.Id}}"></rides>
+      </div>
+
+      <div id="recent-rides" class="row playlists heading">
+        <h1>{{'RIDES_CLUBS' | translate}}</h1>
+      </div>
+
+      <div class="row">
+        <spinner class="spinner" name="userGyms" show="true"></spinner>
+
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          <li ng-if="gym.RegularGym || gym.PlaylistSyncCount > 0" ng-repeat="gym in user.gyms | orderBy:'Gym.Name'">
+            <gym-rides data-view-only="true"></gym-rides>
+          </li>
+        </ul>
       </div>
 
       <div id="recent-classes" class="row classes heading">

@@ -1,3 +1,4 @@
+/*
 angular.module("app.device_playlists", []).controller('DevicePlaylistsController', function ($stateParams, Devices) {
   var self = this;
   this.id = $stateParams.id;
@@ -9,3 +10,4 @@ angular.module("app.device_playlists", []).controller('DevicePlaylistsController
     });
   });
 });
+*/

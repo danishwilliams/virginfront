@@ -1,4 +1,4 @@
-angular.module("app.user_new", []).controller('UserNewController', function (Users, UserTypes, Gyms, Restangular, $state) {
+angular.module("app.user_new", []).controller('UserNewController', function (Users, UserTypes, Gyms, Restangular, $state, spinnerService) {
   var self = this;
 
   self.newUser = {
@@ -26,6 +26,9 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
       return;
     }
 
+    self.saving = true;
+    spinnerService.show('newUser');
+
     // Add the clubs
     self.newUser.UserGyms = [];
     self.gyms.forEach(function (val) {
@@ -42,26 +45,27 @@ angular.module("app.user_new", []).controller('UserNewController', function (Use
     // If the user is a manager: if the "Is Pack Instructor" has been checked in the UI
     self.newUser.UserUserTypes = [];
     self.userTypes.forEach(function (val) {
+      var userType = angular.copy(val);
       if (val.selected || (self.packInstructor && val.Name === 'Pack Instructor')) {
-        val.UserTypeId = val.Id;
-        val.Id = undefined; // so we can insert a new record
-        val.UserType = {
+        userType.UserTypeId = val.Id;
+        userType.Id = undefined; // so we can insert a new record
+        userType.UserType = {
           Name: val.Name,
           PublicRole: val.PublicRole
         };
-        self.newUser.UserUserTypes.push(val);
+        self.newUser.UserUserTypes.push(userType);
       }
     });
-
-    self.saving = true;
 
     // Save the new user
     self.newUser.Username = self.newUser.Email;
     Users.createNewUser(self.newUser).then(function () {
       self.saving = false;
+      spinnerService.hide('newUser');
       $state.go('users-admin');
     }, function (res) {
       self.saving = false;
+      spinnerService.hide('newUser');
       if (res.data.Message === 'Email address already exists') {
         res.data.Message = 'EMAIL_EXISTS';
       }

@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
-    <title>ico40nav_home</title>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <title>Dashboard</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Style-guide-VA-manager" transform="translate(-182.000000, -5605.000000)">
-            <g id="Icons" transform="translate(-20.000000, 5160.000000)">
-                <g id="NAV" transform="translate(177.000000, 434.000000)">
-                    <g id="ico40nav_home" transform="translate(25.000000, 11.000000)">
-                        <rect id="Rectangle-89" x="0" y="0" width="40" height="40" rx="100"></rect>
-                        <path d="M31.9615967,16.1910947 L31.9615967,30.9775408 L23.9840021,30.9775402 L23.9840021,23.9474143 C23.9840021,23.4635494 23.9840021,22.9634235 23.1929254,22.9634235 L18.0431099,22.9634235 C17.0300798,22.9634235 17.03008,23.4635494 17.03008,23.9474143 L17.03008,30.9775402 L9.03086966,30.9775412 L9.03086966,16.1910951 L20.4909666,7.07270602 L31.9615967,16.1910947 Z" id="Path" fill="#93939A"></path>
-                        <path d="M11,8 L13.8663437,8 L14,13.7515876 L11,15.75 L11,8 Z" id="Path" fill="#93939A"></path>
-                    </g>
-                </g>
+        <g id="Dashboard" fill="#93939A">
+            <g id="dash-copy" transform="translate(4.000000, 3.000000)">
+                <path d="M11.9807984,5.09554735 L11.9807984,12.4887704 L7.99200105,12.4887701 L7.99200105,8.97370715 C7.99200105,8.7317747 7.99200105,8.48171175 7.5964627,8.48171175 L5.02155495,8.48171175 C4.5150399,8.48171175 4.51504,8.7317747 4.51504,8.97370715 L4.51504,12.4887701 L0.51543483,12.4887706 L0.51543483,5.09554755 L6.2454833,0.53635301 L11.9807984,5.09554735 L11.9807984,5.09554735 Z" id="Path"></path>
+                <polygon id="Path" points="1.5 1 2.93317185 1 3 3.8757938 1.5 4.875"></polygon>
             </g>
         </g>
     </g>

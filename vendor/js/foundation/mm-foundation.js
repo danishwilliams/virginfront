@@ -1,5 +1,5 @@
-angular.module("mm.foundation", ["mm.foundation.tpls", "mm.foundation.accordion","mm.foundation.alert","mm.foundation.modal","mm.foundation.offcanvas","mm.foundation.tabs"]);
-angular.module("mm.foundation.tpls", ["template/accordion/accordion-group.html","template/accordion/accordion.html","template/modal/backdrop.html","template/alert/alert.html","template/tabs/tab.html","template/tabs/tabset.html","template/modal/window.html"]);
+angular.module("mm.foundation", ["mm.foundation.tpls", "mm.foundation.accordion","mm.foundation.alert","mm.foundation.bindHtml","mm.foundation.modal","mm.foundation.offcanvas","mm.foundation.position","mm.foundation.popover","mm.foundation.tabs"]);
+angular.module("mm.foundation.tpls", ["template/accordion/accordion-group.html","template/accordion/accordion.html","template/modal/backdrop.html","template/alert/alert.html","template/tabs/tab.html","template/tabs/tabset.html","template/modal/window.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/popover/popover.html"]);
 
 angular.module("template/modal/backdrop.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/modal/backdrop.html",
@@ -59,6 +59,45 @@ angular.module("template/modal/window.html", []).run(["$templateCache", function
     "<div tabindex=\"-1\" class=\"reveal-modal fade {{ windowClass }}\"\n" +
     "  ng-class=\"{in: animate}\" style=\"display: block; visibility: visible\">\n" +
     "  <div ng-transclude></div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("template/tooltip/tooltip-html-unsafe-popup.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/tooltip/tooltip-html-unsafe-popup.html",
+    "<span class=\"tooltip tip-{{placement}}\"\n" +
+    "  ng-class=\"{ in: isOpen(), fade: animation() }\"\n" +
+    "  style=\"width: auto\">\n" +
+    "  <span bind-html-unsafe=\"content\"></span>\n" +
+    "  <span class=\"nub\"></span>\n" +
+    "</span>\n" +
+    "");
+}]);
+
+angular.module("template/tooltip/tooltip-popup.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/tooltip/tooltip-popup.html",
+    "<span class=\"tooltip tip-{{placement}}\"\n" +
+    "  ng-class=\"{ in: isOpen(), fade: animation() }\"\n" +
+    "  style=\"width: auto\">\n" +
+    "  <span ng-bind=\"content\"></span>\n" +
+    "  <span class=\"nub\"></span>\n" +
+    "</span>\n" +
+    "");
+}]);
+
+angular.module("template/popover/popover.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/popover/popover.html",
+    "<div class=\"joyride-tip-guide\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
+    "  <span class=\"joyride-nub\" ng-class=\"{\n" +
+    "    bottom: placement === 'top',\n" +
+    "    left: placement === 'right',\n" +
+    "    right: placement === 'left',\n" +
+    "    top: placement === 'bottom'\n" +
+    "  }\"></span>\n" +
+    "  <div class=\"joyride-content-wrapper\">\n" +
+    "    <h4 ng-bind=\"title\" ng-show=\"title\"></h4>\n" +
+    "    <p ng-bind=\"content\"></p>\n" +
+    "  </div>\n" +
     "</div>\n" +
     "");
 }]);

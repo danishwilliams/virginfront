@@ -79,8 +79,8 @@
           </div>
           <div class="row goal-meta" ng-click="goal.show = !playlistGoal.show" ng-show="playlistGoal.show && playlistGoal.PlaylistGoalTracks.length > 0">
             <ul class="large-block-grid-2">
-              <li ng-repeat="goaloption in playlistGoal.Goal.GoalOptions">
-                <goal_option data-goaloption="goaloption" data-freestyle="{{playlist_edit.freestyleTemplate}}" data-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}" data-customrpm="{{playlist_edit.playlist.IsCustomRpm}}" data-total-goaloptions="{{playlistGoal.Goal.GoalOptions.length}}" data-challenge-goal="{{playlistGoal.Goal.GoalChallengeId}}"></goal_option>
+              <li ng-repeat="goaloption in playlistGoal.Goal.GoalOptions track by $index">
+                <goal-option data-goaloption="goaloption" data-freestyle="{{playlist_edit.freestyleTemplate}}" data-track-bpm="{{playlistGoal.PlaylistGoalTracks[0].Track.Bpm}}" data-goal-bpm-low="{{playlistGoal.Goal.BpmLow}}" data-goal-bpm-high="{{playlistGoal.Goal.BpmHigh}}" data-customrpm="{{playlist_edit.playlist.IsCustomRpm}}" data-total-goaloptions="{{playlistGoal.Goal.GoalOptions.length}}" data-goal-goaloption-number="{{$index}}" data-challenge-goal="{{playlistGoal.Goal.GoalChallengeId}}"></goal-option>
               </li>
             </ul>
             <div class="row notes">
