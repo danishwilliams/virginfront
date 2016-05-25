@@ -42,12 +42,8 @@
     </div>
 
     <div class="row gyms heading">
-      <div class="columns small-10 medium-14">
-        <h1>{{'RIDES_CLUBS' | translate}}</h1>
-      </div>
-      <div class="columns small-8 medium-4">
-        <a ui-sref="user" ng-if-permission="createPlaylist">{{'MANAGE_CLUBS' | translate}}</a>
-      </div>
+      <h1 class="left">{{'RIDES_CLUBS' | translate}}</h1>
+      <a class="right" ui-sref="user" ng-if-permission="createPlaylist">{{'MANAGE_CLUBS' | translate}}</a>
     </div>
 
     <div class="row">
@@ -63,12 +59,8 @@
     </div>
 
     <div class="row classes heading">
-      <div class="columns small-10 medium-">
-        <h1>{{'RECENT_CLASSES' | translate}}</h1>
-      </div>
-      <div class="columns small-8 medium-4">
-        <a ui-sref="recent-classes" ng-if-permission="viewContent">{{'VIEW_ALL_CLASSES' | translate}}</a>
-      </div>
+      <h1 class="left">{{'RECENT_CLASSES' | translate}}</h1>
+      <a class="right" ui-sref="recent-classes" ng-if-permission="viewContent">{{'VIEW_ALL_CLASSES' | translate}}</a>
     </div>
 
     <div class="row">
