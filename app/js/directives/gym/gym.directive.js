@@ -18,7 +18,6 @@ function gymController(Devices, spinnerService) {
   var self = this;
 
   self.loadDevicesForGym = function (gym) {
-    console.log('clicked!');
     if (gym.opened) {
       // We've already loaded up devices for this club, so don't do it again
       return;
