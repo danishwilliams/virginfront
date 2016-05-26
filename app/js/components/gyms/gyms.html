@@ -14,14 +14,14 @@
     <alert ng-if="vm.alert" type="vm.alert.type" close="vm.alert = undefined">{{vm.alert.msg | translate}}</alert>
 
     <tabset>
-      <tab heading="{{'GYMS_ACTIVE' | translate}} ({{vm.numActive}})">
+      <tab heading="{{'GYMS_ACTIVE' | translate}} ({{vm.gyms.length}})">
         <accordion>
-          <gym ng-if="gym.Enabled" ng-repeat="gym in vm.gyms | orderBy:'Name'"></gym>
+          <gym ng-repeat="gym in vm.gyms | orderBy:'Name'"></gym>
         </accordion>
       </tab>
-      <tab heading="{{'GYMS_INACTIVE' | translate}} ({{vm.numInactive}})">
+      <tab heading="{{'GYMS_INACTIVE' | translate}} ({{vm.archivedGyms.length}})">
         <accordion>
-          <gym ng-if="!gym.Enabled" ng-repeat="gym in vm.gyms | orderBy:'Name'"></gym>
+          <gym ng-repeat="gym in vm.archivedGyms | orderBy:'Name'"></gym>
         </accordion>
       </tab>
     </tabset>
