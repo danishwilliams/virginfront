@@ -73,7 +73,7 @@
           <i class="devices"></i>
           <label>{{'DEVICES' | translate}}</label>
         </a>
-        <a class="item" ui-sref="gyms-admin" ng-if-permission="viewAdmin">
+        <a class="item" ui-sref="gyms-admin" ng-if-permission="users">
           <i class="gyms"></i>
           <label>{{'GYMS' | translate}}</label>
         </a>

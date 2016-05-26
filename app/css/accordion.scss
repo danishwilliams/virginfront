@@ -23,6 +23,7 @@
   dd {
     > .content.active {
       padding-top: rem-calc(10px);
+      padding-left: rem-calc(16);
       background: $grey_lighter;
     }
     margin-top: rem-calc(10px);
