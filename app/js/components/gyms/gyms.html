@@ -11,6 +11,7 @@
     </div>
 
     <spinner class="spinner" name="gyms" show="true"></spinner>
+    <alert ng-if="vm.alert" type="vm.alert.type" close="vm.alert = undefined">{{vm.alert.msg | translate}}</alert>
 
     <tabset>
       <tab heading="{{'GYMS_ACTIVE' | translate}} ({{vm.numActive}})">

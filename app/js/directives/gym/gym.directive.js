@@ -25,8 +25,8 @@ function gymController(Devices, spinnerService) {
     else {
       gym.opened = true;
     }
-    console.log(gym, gym.opened);
     spinnerService.show('gym' + gym.Id);
+
     // Load up the devices for this club
     Devices.loadDevicesForGym(gym.Id).then(function (data) {
       spinnerService.hide('gym' + gym.Id);

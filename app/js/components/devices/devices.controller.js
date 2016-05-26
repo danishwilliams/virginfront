@@ -3,7 +3,9 @@ angular.module("app.devices", []).controller('DevicesController', function ($sta
   self.query = '';
   self.deviceType = '';
   self.type = $stateParams.type;
-  self.query = $stateParams.name;
+  if ($stateParams.name) {
+    self.query = $stateParams.name;
+  }
 
   Devices.loadSyncStatus().then(function (data) {
     spinnerService.hide('devices');

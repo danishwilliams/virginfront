@@ -2,9 +2,9 @@ angular
   .module("app")
   .factory('Gyms', GymsFactory);
 
-GymsFactory.$inject = ['Restangular'];
+GymsFactory.$inject = ['Restangular', 'uuid2'];
 
-function GymsFactory(Restangular) {
+function GymsFactory(Restangular, uuid2) {
   var self = this;
   var gymsAll = [];
 
@@ -13,6 +13,7 @@ function GymsFactory(Restangular) {
     loadAllGyms: loadAllGyms,
     loadAvailableGyms: loadAvailableGyms,
     loadGym: loadGym,
+    addGym: addGym,
     disableGym: disableGym
   };
 
@@ -49,6 +50,14 @@ function GymsFactory(Restangular) {
     function loadGymComplete(data, status, headers, config) {
       return data;
     }
+  }
+
+  function addGym(gym) {
+    gym.Id = uuid2.newuuid().toString();
+    gym.Enabled = true;
+    return Restangular.one('gyms', gym.Id).customPUT(gym).then(function (data) {
+      return data;
+    });
   }
 
   // Note: to re-enable a gym, just set gym.Enabled = true and put()
