@@ -6,7 +6,6 @@ angular.module("app.gym_edit", []).controller('GymController', function ($stateP
   // We're editing a club
   if (self.id) {
     self.action = 'edit';
-    spinnerService.show('gym');
     Gyms.loadGym(self.id).then(function (data) {
       self.gym = data;
       self.snapshot = angular.copy(data);
