@@ -36,33 +36,46 @@ function gymController(Devices, spinnerService, $interval, Gyms) {
   };
 
   self.archive = function (gym) {
-    gym.archiveMessage = true;
     gym.alert = undefined;
+    // If this gym doesn't have any devices, just archive it
     if (gym.DeviceCount === 0) {
-      //self.disable(gym);
-      //return;
+      self.disable(gym, false);
+      return;
     }
 
-    // Start a timer
+    gym.archiveMessage = true;
 
-    // If navigating away while the timer is active, execute the gym disabling anyway (will this happen anyway? Maybe)
-
-    // After 8 seconds, actually execute the gym disabling
-
+    // This gym has devices, so give the user 8 seconds grace before actually disabling it
+    gym.interval = $interval(function() {
+      self.disable(gym, true);
+    }, 8000, 1);
   };
 
-  self.disable = function (gym) {
-    Gyms.disableGym(gym.Id, false).then(function() {
+  self.undo = function(gym) {
+    $interval.cancel(gym.interval);
+    gym.interval = undefined;
+    gym.alert = undefined;
+    gym.archived = false;
+    gym.archiveMessage = undefined;
+    gym.enabled = true;
+    gym.Enabled = true;
+  };
+
+  self.disable = function (gym, disableDevices) {
+    Gyms.disableGym(gym.Id, disableDevices).then(function() {
+      gym.archiveMessage = undefined;
+      gym.archived = true;
+      gym.enabled = false;
+
       gym.alert = {
         type: 'success',
-        msg: 'GYM_DISABLED',
+        msg: 'GYM_ARCHIVE_WARNING',
         undo: true
       };
-      gym.enabled = false;
     }, function () {
       gym.alert = {
         type: 'danger',
-        msg: 'DISABLE_GYM_FAILED',
+        msg: 'GYM_ARCHIVE_FAILED',
       };
     });
   };
@@ -70,13 +83,15 @@ function gymController(Devices, spinnerService, $interval, Gyms) {
   self.enable = function (gym) {
     gym.Enabled = true;
     gym.alert = undefined;
+    gym.archiveMessage = undefined;
 
     gym.put().then(function() {
+      gym.archived = false;
+      gym.enabled = true;
       gym.alert = {
         type: 'success',
         msg: 'GYM_ENABLED'
       };
-      gym.enabled = true;
     }, function () {
       gym.alert = {
         type: 'danger',

@@ -11,14 +11,11 @@
     </div>
   </accordion-heading>
 
-  <div class="row">
-    <alert ng-show="vm.gym.archiveMessage" type="success" close="vm.gym.archiveMessage = undefined">{{'GYM_ARCHIVE_WARNING' | translate}} <span ng-if="gym.DeviceCount === 0">{{'GYM_ARCHIVE_WARNING_DEVICES' | translate}}</span><a ng-click="vm.enable(gym)">{{'UNDO' | translate}}</a></alert>
-  </div>
-
   <p ng-hide="gym.devices"><spinner class="spinner" name="gym{{gym.Id}}" show="true"></spinner>&nbsp;</p>
 
   <div class="row" ng-hide="!gym.devices">
     <alert ng-if="gym.alert" type="gym.alert.type" close="gym.alert = undefined">{{gym.alert.msg | translate}}</alert>
+    <alert ng-show="gym.archiveMessage" class="success" close="gym.archiveMessage = undefined">{{'GYM_ARCHIVE_WARNING' | translate}} <span ng-if="gym.DeviceCount > 0">{{'GYM_ARCHIVE_WARNING_DEVICES' | translate}}</span> <a ng-click="vm.undo(gym)">{{'UNDO' | translate}}</a></alert>
 
     <div class="row">
       <div class="large-9 columns">
@@ -39,11 +36,14 @@
       </div>
       <div class="large-9 columns">
         <div class="text-right">
-          <span ng-hide="!gym.enabled">
+          <span ng-show="!gym.archived && gym.enabled">
             <button class="secondary" ng-show="gym.DeviceCount < 1" ng-click="vm.archive(gym)">{{'GYM_ARCHIVE' | translate}}</button>
             <button class="secondary" ng-show="gym.DeviceCount > 0" ng-click="vm.archive(gym)">{{'GYM_ARCHIVE_DEVICES' | translate}}</button>
           </span>
-          <button class="secondary" ng-hide="gym.enabled" ng-click="vm.enable(gym)">{{'GYM_ENABLE' | translate}}</button>
+          <span ng-show="!gym.enabled">
+            <button class="secondary" ng-show="gym.archived" ng-click="vm.enable(gym)">{{'GYM_REENABLE' | translate}}</button>
+            <button class="secondary" ng-hide="gym.archived" ng-click="vm.enable(gym)">{{'GYM_ENABLE' | translate}}</button>
+          </span>
         </div>
       </div>
     </div>
