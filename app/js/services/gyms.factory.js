@@ -45,7 +45,10 @@ function GymsFactory(Restangular, uuid2) {
   }
 
   // Note: to re-enable a gym, just set gym.Enabled = true and put()
-  function disableGym(id) {
-    return Restangular.one('gyms/disable', id).post();
+  function disableGym(id, disableDevices) {
+    if (disableDevices === undefined) {
+      disableDevices = false;
+    }
+    return Restangular.one('gyms/disable', id).post('', '', {disableDevices: disableDevices});
   }
 }

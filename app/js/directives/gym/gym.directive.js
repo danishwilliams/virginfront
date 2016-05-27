@@ -12,9 +12,9 @@ function gym() {
   return directive;
 }
 
-gymController.$inject = ['Devices', 'spinnerService'];
+gymController.$inject = ['Devices', 'spinnerService', '$interval', 'Gyms'];
 
-function gymController(Devices, spinnerService) {
+function gymController(Devices, spinnerService, $interval, Gyms) {
   var self = this;
 
   self.loadDevicesForGym = function (gym) {
@@ -26,6 +26,7 @@ function gymController(Devices, spinnerService) {
       gym.opened = true;
     }
     spinnerService.show('gym' + gym.Id);
+    gym.enabled = gym.Enabled;
 
     // Load up the devices for this club
     Devices.loadDevicesForGym(gym.Id).then(function (data) {
@@ -35,24 +36,31 @@ function gymController(Devices, spinnerService) {
   };
 
   self.archive = function (gym) {
+    gym.archiveMessage = true;
+    gym.alert = undefined;
+    if (gym.DeviceCount === 0) {
+      //self.disable(gym);
+      //return;
+    }
+
     // Start a timer
 
-      // If navigating away while the timer is active, execute the gym disabling anyway (will this happen anyway? Maybe)
+    // If navigating away while the timer is active, execute the gym disabling anyway (will this happen anyway? Maybe)
 
     // After 8 seconds, actually execute the gym disabling
-
 
   };
 
   self.disable = function (gym) {
-    gym.archiveMessage = {
-      type: 'success',
-      msg: 'USER_DISABLED',
-      undo: true
-    };
-
-    Gyms.disableGym(gym.Id).then(function() {}, function () {
-      gym.archiveMessage = {
+    Gyms.disableGym(gym.Id, false).then(function() {
+      gym.alert = {
+        type: 'success',
+        msg: 'GYM_DISABLED',
+        undo: true
+      };
+      gym.enabled = false;
+    }, function () {
+      gym.alert = {
         type: 'danger',
         msg: 'DISABLE_GYM_FAILED',
       };
@@ -60,16 +68,17 @@ function gymController(Devices, spinnerService) {
   };
 
   self.enable = function (gym) {
-    var gymToSave = angular.copy(gym);
-    gymToSave.Enabled = true;
+    gym.Enabled = true;
+    gym.alert = undefined;
 
-    gymToSave.put().then(function() {
-      gym.archiveMessage = {
+    gym.put().then(function() {
+      gym.alert = {
         type: 'success',
         msg: 'GYM_ENABLED'
       };
+      gym.enabled = true;
     }, function () {
-      gym.archiveMessage = {
+      gym.alert = {
         type: 'danger',
         msg: 'ENABLE_GYM_FAILED',
       };
