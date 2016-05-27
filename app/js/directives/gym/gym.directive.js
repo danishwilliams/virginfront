@@ -12,9 +12,9 @@ function gym() {
   return directive;
 }
 
-gymController.$inject = ['Devices', 'spinnerService'];
+gymController.$inject = ['Devices', 'spinnerService', '$interval', 'Gyms'];
 
-function gymController(Devices, spinnerService) {
+function gymController(Devices, spinnerService, $interval, Gyms) {
   var self = this;
 
   self.loadDevicesForGym = function (gym) {
@@ -26,6 +26,7 @@ function gymController(Devices, spinnerService) {
       gym.opened = true;
     }
     spinnerService.show('gym' + gym.Id);
+    gym.enabled = gym.Enabled;
 
     // Load up the devices for this club
     Devices.loadDevicesForGym(gym.Id).then(function (data) {
@@ -35,41 +36,64 @@ function gymController(Devices, spinnerService) {
   };
 
   self.archive = function (gym) {
-    // Start a timer
+    gym.alert = undefined;
+    // If this gym doesn't have any devices, just archive it
+    if (gym.DeviceCount === 0) {
+      self.disable(gym, false);
+      return;
+    }
 
-      // If navigating away while the timer is active, execute the gym disabling anyway (will this happen anyway? Maybe)
+    gym.archiveMessage = true;
 
-    // After 8 seconds, actually execute the gym disabling
-
-
+    // This gym has devices, so give the user 8 seconds grace before actually disabling it
+    gym.interval = $interval(function() {
+      self.disable(gym, true);
+    }, 8000, 1);
   };
 
-  self.disable = function (gym) {
-    gym.archiveMessage = {
-      type: 'success',
-      msg: 'USER_DISABLED',
-      undo: true
-    };
+  self.undo = function(gym) {
+    $interval.cancel(gym.interval);
+    gym.interval = undefined;
+    gym.alert = undefined;
+    gym.archived = false;
+    gym.archiveMessage = undefined;
+    gym.enabled = true;
+    gym.Enabled = true;
+  };
 
-    Gyms.disableGym(gym.Id).then(function() {}, function () {
-      gym.archiveMessage = {
+  self.disable = function (gym, disableDevices) {
+    Gyms.disableGym(gym.Id, disableDevices).then(function() {
+      gym.archiveMessage = undefined;
+      gym.archived = true;
+      gym.enabled = false;
+
+      gym.alert = {
+        type: 'success',
+        msg: 'GYM_ARCHIVE_WARNING',
+        undo: true
+      };
+    }, function () {
+      gym.alert = {
         type: 'danger',
-        msg: 'DISABLE_GYM_FAILED',
+        msg: 'GYM_ARCHIVE_FAILED',
       };
     });
   };
 
   self.enable = function (gym) {
-    var gymToSave = angular.copy(gym);
-    gymToSave.Enabled = true;
+    gym.Enabled = true;
+    gym.alert = undefined;
+    gym.archiveMessage = undefined;
 
-    gymToSave.put().then(function() {
-      gym.archiveMessage = {
+    gym.put().then(function() {
+      gym.archived = false;
+      gym.enabled = true;
+      gym.alert = {
         type: 'success',
         msg: 'GYM_ENABLED'
       };
     }, function () {
-      gym.archiveMessage = {
+      gym.alert = {
         type: 'danger',
         msg: 'ENABLE_GYM_FAILED',
       };
