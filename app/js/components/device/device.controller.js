@@ -73,7 +73,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
             }
           });
         }
-        if (!val.playlistSyncError) {
+        if (!val.playlistSyncError && !val.syncFailure) {
           if (!val.DeviceSync.SyncEndDate) {
             if (i === 0) {
               // Sync is in progress

@@ -59,7 +59,9 @@
               <li>{{'DEVICE_INTERNET_DIED' | translate}}</li>
             </ul>
           </span>
-          <span class="warning" ng-if="log.syncFailure">{{'SYNC_FAILED' | translate}}</span>
+          <span ng-if="log.syncFailure"><span class="warning">{{'SYNC_FAILED' | translate}}</span><br>
+            {{log.DeviceSync.ErrorMessage}}
+          </span>
           <span ng-if="log.playlistSyncError">
             <div class="warning">{{'PLAYLIST_SYNC_ERROR' | translate}}</div>
             <div ng-repeat="error in log.DevicePlaylistSyncs">
