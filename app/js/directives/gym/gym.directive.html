@@ -37,12 +37,12 @@
       <div class="large-9 columns">
         <div class="text-right">
           <span ng-show="!gym.archived && gym.enabled">
-            <button class="secondary" ng-show="gym.DeviceCount < 1" ng-click="vm.archive(gym)">{{'GYM_ARCHIVE' | translate}}</button>
-            <button class="secondary" ng-show="gym.DeviceCount > 0" ng-click="vm.archive(gym)">{{'GYM_ARCHIVE_DEVICES' | translate}}</button>
+            <button class="secondary" ng-show="gym.DeviceCount < 1" ng-disabled="vm.saving" ng-click="vm.archive(gym)">{{'GYM_ARCHIVE' | translate}}</button>
+            <button class="secondary" ng-show="gym.DeviceCount > 0" ng-disabled="vm.saving" ng-click="vm.archive(gym)">{{'GYM_ARCHIVE_DEVICES' | translate}}</button>
           </span>
           <span ng-show="!gym.enabled">
-            <button class="secondary" ng-show="gym.archived" ng-click="vm.enable(gym)">{{'GYM_REENABLE' | translate}}</button>
-            <button class="secondary" ng-hide="gym.archived" ng-click="vm.enable(gym)">{{'GYM_ENABLE' | translate}}</button>
+            <button class="secondary" ng-show="gym.archived" ng-disabled="vm.saving" ng-click="vm.enable(gym)">{{'GYM_REENABLE' | translate}}</button>
+            <button class="secondary" ng-hide="gym.archived" ng-disabled="vm.saving" ng-click="vm.enable(gym)">{{'GYM_ENABLE' | translate}}</button>
           </span>
         </div>
       </div>

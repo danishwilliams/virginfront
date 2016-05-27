@@ -39,6 +39,7 @@ function gymController(Devices, spinnerService, $interval, Gyms) {
     gym.alert = undefined;
     // If this gym doesn't have any devices, just archive it
     if (gym.DeviceCount === 0) {
+      self.saving = true;
       self.disable(gym, false);
       return;
     }
@@ -47,6 +48,8 @@ function gymController(Devices, spinnerService, $interval, Gyms) {
 
     // This gym has devices, so give the user 8 seconds grace before actually disabling it
     gym.interval = $interval(function() {
+      gym.archiveMessage = undefined;
+      self.saving = true;
       self.disable(gym, true);
     }, 8000, 1);
   };
@@ -66,6 +69,7 @@ function gymController(Devices, spinnerService, $interval, Gyms) {
       gym.archiveMessage = undefined;
       gym.archived = true;
       gym.enabled = false;
+      self.saving = false;
 
       gym.alert = {
         type: 'success',
@@ -84,10 +88,12 @@ function gymController(Devices, spinnerService, $interval, Gyms) {
     gym.Enabled = true;
     gym.alert = undefined;
     gym.archiveMessage = undefined;
+    self.saving = true;
 
     gym.put().then(function() {
       gym.archived = false;
       gym.enabled = true;
+      self.saving = false;
       gym.alert = {
         type: 'success',
         msg: 'GYM_ENABLED'
