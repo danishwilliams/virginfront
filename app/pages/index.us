@@ -100,6 +100,7 @@
     </div>
     <div ui-view ng-if="app.ready" class="row header uiview">
     </div>
+    <p>&nbsp;</p>
   </div>
 </div>
 

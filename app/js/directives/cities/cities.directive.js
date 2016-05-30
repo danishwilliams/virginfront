@@ -82,11 +82,18 @@ function citiesController(Locations, $scope) {
   // When the user doesn't select any autocomplete options
   self.cityChanged = function () {
     if (!currentSelection.value) {
-      return;
+      // The user has started typing, but hasn't selected anything yet. We still need to tell the parent about it.
+      setASelectedCity();
+    } else if (self.city.toLowerCase() === currentSelection.value.toLowerCase()) {
+      // The special case of the user removing one character off the end of the city, and then replacing it
+      setASelectedCity();
+    } else if (self.city.toLowerCase() !== currentSelection.value.toLowerCase()) {
+      // When choosing a suggested value from the dropdown
+      // The stupid autocomplete_options_location fires and cancels the ng-change, so this cityChanged() function is never called.
+      setASelectedCity();
     }
-    // The 2nd half of the selector handles the special case of the user removing one character off the end of the city, and then replacing it:
-    // The stupid autocomplete_options_location fires and cancels the ng-change, so this cityChanged() function is never called.
-    if (self.city.toLowerCase() !== currentSelection.value.toLowerCase() || self.city.toLowerCase() === currentSelection.value.toLowerCase()) {
+
+    function setASelectedCity() {
       // This is probably a new city...
       var selected = {
         City: self.city,

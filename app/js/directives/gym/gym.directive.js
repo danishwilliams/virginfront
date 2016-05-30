@@ -26,7 +26,7 @@ function gymController(Devices, spinnerService, $interval, Gyms) {
       gym.opened = true;
     }
     spinnerService.show('gym' + gym.Id);
-    gym.enabled = gym.Enabled;
+    gym.isEnabled = gym.Enabled;
 
     // Load up the devices for this club
     Devices.loadDevicesForGym(gym.Id).then(function (data) {
@@ -60,7 +60,7 @@ function gymController(Devices, spinnerService, $interval, Gyms) {
     gym.alert = undefined;
     gym.archived = false;
     gym.archiveMessage = undefined;
-    gym.enabled = true;
+    gym.isEnabled = true;
     gym.Enabled = true;
   };
 
@@ -68,7 +68,7 @@ function gymController(Devices, spinnerService, $interval, Gyms) {
     Gyms.disableGym(gym.Id, disableDevices).then(function() {
       gym.archiveMessage = undefined;
       gym.archived = true;
-      gym.enabled = false;
+      gym.isEnabled = false;
       self.saving = false;
 
       gym.alert = {
@@ -92,7 +92,7 @@ function gymController(Devices, spinnerService, $interval, Gyms) {
 
     gym.put().then(function() {
       gym.archived = false;
-      gym.enabled = true;
+      gym.isEnabled = true;
       self.saving = false;
       gym.alert = {
         type: 'success',
