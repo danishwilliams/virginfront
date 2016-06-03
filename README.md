@@ -15,6 +15,18 @@ $ pm2 start config/proxy.js
 $ lineman run
 ```
 
+*** The lineman execution isn't clean. For the SASS stage it gives:
+
+Running "sass:compile" (sass) task
+>> Error: Functions may not be defined within control directives or other mixins
+.
+>>         on line 81 of app/css/compass-mixins/compass/functions/_lists.scss
+>> >>   @function compact($vars...) {
+>>    --^
+Warning:  Used --force, continuing.
+Warning: Functions may not be defined within control directives or other mixins.
+ Used --force, continuing.
+
 Open http://localhost:8000 in a web browser.
 
 ## Configure lineman to work properly
