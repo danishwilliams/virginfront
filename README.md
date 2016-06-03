@@ -11,6 +11,7 @@ $ git checkout develop
 $ npm install
 $ npm install -g pm2
 $ pm2 start config/proxy.js
+*** Should be: "$npm install -g lineman" otherwise lineman run doesn't work (Windows)?
 $ lineman run
 ```
 
@@ -24,7 +25,7 @@ Lineman is a light wrapper around grunt and gives us a nice dev environment, lik
 
 A technique called 'hoisting' allows for a function to be used before it is defined. Fine for newer browsers.
 
-Change ```latedef``` to ```nofunc``` in ```node_modules/lineman/config/plugins/jshint.coffee```
+Set ```latedef``` to ```"nofunc"``` in ```node_modules/lineman/config/plugins/jshint.coffee```
 
 @see http://stackoverflow.com/a/26321623
 
@@ -261,4 +262,3 @@ Include:
 @author Roger Saner
 @email rsaner@deloitte.co.za
 @twitter twitter.com/rogersaner
-
