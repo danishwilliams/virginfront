@@ -46,15 +46,14 @@ angular.module("app").service('Authorizer', function (APP_PERMISSIONS, USER_ROLE
           case APP_PERMISSIONS.editAnyPlaylist:
           case APP_PERMISSIONS.templates:
           case APP_PERMISSIONS.users:
-            // TODO: add permissions: clubs
             return hasRole(USER_ROLES.manager) || hasRole(USER_ROLES.techManager) || hasRole(USER_ROLES.admin);
 
             // Technical manager
+          case APP_PERMISSIONS.gyms:
           case APP_PERMISSIONS.devices:
             return hasRole(USER_ROLES.techManager) || hasRole(USER_ROLES.admin);
 
             // Admin
-          case APP_PERMISSIONS.gyms:
           case APP_PERMISSIONS.editAdmin:
           case APP_PERMISSIONS.viewAdmin:
             return hasRole(USER_ROLES.admin);
