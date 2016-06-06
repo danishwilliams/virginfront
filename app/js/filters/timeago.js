@@ -14,15 +14,18 @@ function TimeAgoFilter($filter) {
     var seconds = Math.floor((new Date() - new Date(input)) / 1000);
 
     var interval = Math.floor(seconds / 31536000);
-    interval = Math.floor(seconds / 86400);
 
+    interval = Math.floor(seconds / 86400);
     if (interval > 1) {
       return interval + ' ' + $filter('translate')('DAYS_AGO');
     }
+
     interval = Math.floor(seconds / 3600);
     if (interval > 1) {
       return interval + ' ' + $filter('translate')('HOURS_AGO');
-    }    interval = Math.floor(seconds / 60);
+    }
+
+    interval = Math.floor(seconds / 60);
     return interval + ' ' + $filter('translate')('MINS_AGO');
   };
 }
