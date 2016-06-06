@@ -47,7 +47,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
         return;
       }
       self.synclog.DeviceSyncPlaylistSyncs.forEach(function (val) {
-        val.timeAgo = val.DeviceSync.CreateDate;
+        val.timeAgo = new Date(val.DeviceSync.CreateDate);
 
         // Work out how long the device took to sync in this sync cycle
         if (val.DeviceSync.SyncEndDate) {
