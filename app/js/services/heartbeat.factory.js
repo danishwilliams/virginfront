@@ -33,7 +33,7 @@ function HeartbeatFactory() {
     });
 
     var num = 0;
-    for (var i = 0; i < 287; i++) {
+    for (var i = 0; i <= 287; i++) {
       // Work out the datetime
       var secondsAgo = (287 - i) * 5 * 60;
       var date = new Date(new Date().getTime() - secondsAgo * 1000);
@@ -56,7 +56,7 @@ function HeartbeatFactory() {
       }
 
       // If the last record shows disconnected, that's in the last 5 minutes, so who cares. Don't show it.
-      if (i === 286 && k === -1) {
+      if (i === 287 && k === -1) {
         break;
       }
 
