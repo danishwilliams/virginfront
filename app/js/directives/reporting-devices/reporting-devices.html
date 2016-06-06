@@ -28,7 +28,7 @@
   </div>
 
   <div class="medium-9 columns">
-    <div class="box box-right" vertilize data-vertilize-loaded="{{vm.devicesLoaded}}" data-vertilize-disable-on-mobile="true">
+    <div ng-if="vm.devices.total > 0" class="box box-right" vertilize data-vertilize-loaded="{{vm.devicesLoaded}}" data-vertilize-disable-on-mobile="true">
       <h3>{{'SYNC_ERRORS' | translate}}</h3>
 
       <div class="row" ng-if="vm.devices.errors > 0">

@@ -48,5 +48,6 @@ function reportingDevicesController(Devices, spinnerService) {
       }
     });
     self.devicesLoaded = true;
+    self.devices.total = self.devices.connected + self.devices.disconnected;
   });
 }
