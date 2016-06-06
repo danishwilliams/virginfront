@@ -117,7 +117,7 @@
   "LAST_LOGIN": "Último inicio de sessão",
   "NEVER": "Never",
   "MY_RIDES": "Os meus percursos",
-  "MY_RIDES_DRAFTS": "My drafts",
+  "MY_RIDES_DRAFTS": "Drafts",
   "MY_RIDES_COMPLETE": "Completed rides",
   "BACK": "Voltar",
   "CANCEL": "Cancelar",
