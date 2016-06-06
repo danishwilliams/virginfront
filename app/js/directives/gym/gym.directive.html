@@ -19,7 +19,7 @@
 
     <div class="row">
       <div class="large-9 columns">
-        <span ng-if="gym.DeviceCount === 0">
+        <span class="empty" ng-if="gym.DeviceCount === 0">
           {{'GYM_EMPTY' | translate}}
         </span>
         <span ng-if="gym.DeviceCount > 0">
