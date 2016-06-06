@@ -39,7 +39,7 @@
           <span ng-if="log.Success">{{'AVAILABLE' | translate}}</span>
           <span ng-if="!log.Success">
             <div class="warning">{{'UNAVAILABLE' | translate}}</div>
-            <div>{{log.ErrorMessage}}</div>
+            <div>{{log.ErrorMessage | translate}}</div>
             <div>{{log.ErrorDetail}}</div>
           </span>
         </td>
