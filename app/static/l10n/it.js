@@ -318,6 +318,8 @@
   "DEVICE": "Device",
   "DEVICES": "Devices",
   "DEVICES_EMPTY": "No devices have been provisioned for this territory.",
+  "DEVICES_CONNECTED_EMPTY": "No devices are currently connected.",
+  "DEVICES_DISCONNECTED_EMPTY": "No devices are currently disconnected.",
   "DEVICES_CONNECTED_TITLE": "Connected devices",
   "DEVICES_DISCONNECTED": "Disconnected devices",
   "DEVICES_PROBLEMATIC": "Problematic devices",
