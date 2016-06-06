@@ -28,6 +28,7 @@ function musicProviderStatusController(Users, MusicProviders, spinnerService) {
       return;
     }
     self.log = data[0];
+    self.log.CreateDate = new Date(self.log.CreateDate);
   });
 
 }
