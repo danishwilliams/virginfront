@@ -14,21 +14,21 @@ angular.module("app.devices", []).controller('DevicesController', function ($sta
       // Was there a syncing error?
       if (val.LatestSync && val.LatestSync.SyncSuccess === false) {
         val.error = true;
-        val.timeAgoError = val.LastHeartbeat;
+        val.timeAgoError = new Date(val.LastHeartbeat);
       }
       else {
         if (val.PlaylistSyncFailures) {
           val.PlaylistSyncFailures.forEach(function(val1) {
             if (val1.SyncError && !val.timeAgoError) {
               val.error = true;
-              val.timeAgoError = val1.CreateDate;
+              val.timeAgoError = new Date(val1.CreateDate);
             }
           });
         }
       }
 
       // What was the time ago?
-      val.timeAgo = val.LastHeartbeat;
+      val.timeAgo = new Date(val.LastHeartbeat);
     });
 
     // Showing different types of device listings: connected, disconnected, sync errors
