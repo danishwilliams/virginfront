@@ -322,6 +322,29 @@
 
           <div class="row">
             <div class="small-2 medium-2 large-1 columns">
+              <img src="/img/ico40grn_syncsuccess.svg">
+            </div>
+            <div class="small-16 medium-16 large-17 columns">
+              <span class="success"><p class="success">
+                <strong>A success message at the end of a workflow, like provisioning a device</strong></p>
+                <p class="small">Along with a recommendation of what to do next.</p>
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="small-2 medium-2 large-1 columns">
+              <img ng-if="vm.alert.type === 'warning'" src="/img/ico40orng_syncerror.svg">
+            </div>
+            <div class="small-16 medium-16 large-17 columns">
+              <p class="warning">A failure message at the end of a workflow</p>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <div class="small-2 medium-2 large-1 columns">
               <img ng-if="vm.alert.type === 'warning'" src="/img/ico40orng_syncerror.svg">
             </div>
             <div class="small-16 medium-16 large-17 columns">
