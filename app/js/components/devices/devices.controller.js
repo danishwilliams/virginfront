@@ -28,7 +28,9 @@ angular.module("app.devices", []).controller('DevicesController', function ($sta
       }
 
       // What was the time ago?
-      val.timeAgo = new Date(val.LastHeartbeat);
+      if (val.LastHeartbeat) {
+        val.timeAgo = new Date(val.LastHeartbeat);
+      }
     });
 
     // Showing different types of device listings: connected, disconnected, sync errors
