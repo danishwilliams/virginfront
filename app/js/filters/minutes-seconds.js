@@ -7,7 +7,7 @@ SecondsToSecondsOrMinutesFilter.$inject = ['$filter'];
 // Converts seconds to either minutes + seconds, or just seconds
 function SecondsToSecondsOrMinutesFilter($filter) {
   return function (input) {
-    if (!input) {
+    if (_.isNull(input)) {
       return '';
     }
     function z(n) {
