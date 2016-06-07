@@ -15,13 +15,19 @@
 
     <tabset>
       <tab heading="{{'GYMS_ACTIVE' | translate}} ({{vm.gyms.length}})">
+        <label>{{'SEARCH' | translate}}</label>
+        <input ng-model="query" type="text" placeholder="{{'GYMS_SEARCH' | translate}}" maxlength="60" autofocus>
+
         <accordion>
-          <gym ng-repeat="gym in vm.gyms | orderBy:'Name'"></gym>
+          <gym ng-repeat="gym in vm.gyms | filter:{Name:query} | orderBy:'Name'"></gym>
         </accordion>
       </tab>
       <tab heading="{{'GYMS_INACTIVE' | translate}} ({{vm.archivedGyms.length}})">
+        <label>{{'SEARCH' | translate}}</label>
+        <input ng-model="query" type="text" placeholder="{{'GYMS_SEARCH' | translate}}" maxlength="60" autofocus>
+
         <accordion>
-          <gym ng-repeat="gym in vm.archivedGyms | orderBy:'Name'"></gym>
+          <gym ng-repeat="gym in vm.archivedGyms | filter:{Name:query} | orderBy:'Name'"></gym>
         </accordion>
       </tab>
     </tabset>

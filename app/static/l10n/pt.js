@@ -391,6 +391,7 @@
   "GYM_NEW": "Add new club",
   "GYMS_ACTIVE": "Clubs",
   "GYMS_INACTIVE": "Archived clubs",
+  "GYMS_SEARCH": "Search by club name",
   "GYM_MANAGE": "Manage club",
   "GYM_DEVICES": "Devices at Club",
   "GYM_EDIT": "Edit club details",
