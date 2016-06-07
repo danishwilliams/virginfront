@@ -20,22 +20,26 @@ function HeartbeatFactory() {
     var newDay = false;
     var newDayIndex = 0;
 
-    // Convert each heartbeat into a value between 0 and 287 (5 x 12 x 24) since there's a heartbeat every 5 minutes
-    var secondsInADay = 60 * 60 * 24;
+    // Convert each heartbeat into a value between 0 and 287 (60/5 x 24) since there's a heartbeat every 5 minutes
+    // Or
+    // Convert each heartbeat into a value between 0 and 96 (60/15 x 24) since there's a heartbeat every 15 minutes
+    var minutes = 15;
+    var range = (60 / minutes) * 24;
 
+    var secondsInADay = 60 * 60 * 24;
     data.forEach(function (val) {
       // Get the current time in seconds
       var seconds = Math.floor((new Date() - val.CreateDate) / 1000);
 
-      // Convert this into a value between 0 and 287
-      var beat = 287 - (287 * ((seconds / secondsInADay)));
+      // Convert this into a value between 0 and range
+      var beat = range - (range * ((seconds / secondsInADay)));
       val.beat = Math.round(beat);
     });
 
     var num = 0;
-    for (var i = 0; i <= 287; i++) {
+    for (var i = 0; i <= range; i++) {
       // Work out the datetime
-      var secondsAgo = (287 - i) * 5 * 60;
+      var secondsAgo = (range - i) * minutes * 60;
       var date = new Date(new Date().getTime() - secondsAgo * 1000);
 
       if (!newDay && date.getHours() === 0) {
@@ -55,8 +59,8 @@ function HeartbeatFactory() {
         num++;
       }
 
-      // If the last record shows disconnected, that's in the last 5 minutes, so who cares. Don't show it.
-      if (i === 287 && k === -1) {
+      // If the last record shows disconnected, that's in the last segment (5 or 15 minutes), so who cares. Don't show it.
+      if (i === range && k === -1) {
         break;
       }
 
