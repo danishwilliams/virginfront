@@ -13,7 +13,9 @@ http.createServer(onRequest).listen(listenport);
 
 var options = {
   //hostname: 'virgin.api',
-  hostname: 'virgin.digitaldisruption.co.za',
+  hostname: 'virgin.digitaldisruption.co.za', // dev
+  //hostname: 'cyclingappuat.azurewebsites.net', // staging
+  //hostname: 'cyclingapp.azurewebsites.net', // production
   port: 80
 };
 
@@ -24,6 +26,7 @@ function onRequest(client_req, client_res) {
 
   options.path = client_req.url;
   options.method = client_req.method;
+  client_req.headers.Host = options.hostname;
   options.headers = client_req.headers;
   //var base64 = new Buffer('roger:Therodge321').toString('base64'); // OpenEar
   //var base64 = new Buffer('dane:Therodge321').toString('base64'); // Simfy
