@@ -51,7 +51,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
 
         // Work out how long the device took to sync in this sync cycle
         if (val.DeviceSync.SyncEndDate) {
-          val.timeSyncTook = Math.floor((new Date(val.DeviceSync.SyncEndDate) - new Date(val.DeviceSync.CreateDate)) / 1000);
+          val.timeSyncTook = Math.round((new Date(val.DeviceSync.SyncEndDate) - new Date(val.DeviceSync.CreateDate)) / 1000);
         }
 
         if (val.DeviceSync.SyncSuccess === false) {
