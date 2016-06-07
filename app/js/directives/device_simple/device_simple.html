@@ -11,11 +11,11 @@
         <label>{{'STATUS' | translate}}:</label>
         <span class="connected" ng-if="device.Connected">{{'CONNECTED' | translate}}</span>
         <span class="warning" ng-if="device.Connected === false">{{'DISCONNECTED' | translate}}</span><br>
-        <span ng-if="device.timeAgo">{{'UPDATED' | translate}} {{device.timeAgo | timeago}}</span>
+        <span ng-if="device.timeAgo" class="extra-info">{{'UPDATED' | translate}} {{device.timeAgo | timeago}}</span>
       </div>
       <div class="small-6 columns">
         <span class="warning" ng-if="device.error">{{'DEVICE_SYNC_ERROR' | translate}}</span><br>
-        <span ng-if="device.timeAgoError">{{device.timeAgoError | timeago}}</span>
+        <span ng-if="device.timeAgoError" class="extra-info">{{device.timeAgoError | timeago}}</span>
       </div>
       <div class="small-6 columns text-right">
         <a ui-sref="device({id:device.Device.Id})">{{'DEVICE_VIEW' | translate}}</a>
