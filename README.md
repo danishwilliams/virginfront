@@ -1,5 +1,39 @@
 Virgin Group Cycle Instructor App
 
+# Table of contents
+
+- [Installation and configuration](#markdown-header-installation-and-configuration)
+    - [First run](#markdown-header-first-run)
+    - [Configure lineman](#markdown-header-configure-lineman)
+    - [Hoisting](#markdown-header-hoisting)
+    - [Angular codebase structuring](#markdown-header-angular-codebase-structuring)
+- [Development](#markdown-header-developments)
+    - [Environments](#markdown-header-environments)
+    - [Repository structuring](#markdown-header-repository-structuring)
+    - [API integration](#markdown-header-api-integration)
+        - [Proxy](#markdown-header-proxy)
+        - [Swagger](#markdown-header-swagger)
+            - [Swagger usage](#markdown-header-swagger-usage)
+    - [Backend API mocking](#markdown-header-backend-api-mocking)
+        - [Changing stub files](#markdown-header-changing-stub-files)
+    - [Supplementary scripts](#markdown-header-supplementary-scripts)
+        - [Importing instructors](#markdown-header-importing-instructors)
+        - [Updating translation files](#markdown-header-updating-translation-files)
+- [Testing](#markdown-header-testing)
+    - [Unit testing](#markdown-header-unit-testing)
+    - [End-to-end testing](#markdown-header-end-to-end-testing)
+        - [Installation](#markdown-header-installation)
+        - [Usage](#markdown-header-usage)
+- [Server config](#markdown-header-server-config)
+    - [Running on IIS](#markdown-header-running-on-iis)
+- [CSS](#markdown-header-css)
+    - [SASS](#markdown-header-sass)
+- [Angular Development approach](#markdown-header-angular-development-approach)
+    - [Some smarter approaches for the future](#markdown-header-some-smarter-approaches-for-the-future)
+    - [Issues](#markdown-header-issues)
+- [TODO](#markdown-header-todo)
+
+
 # Installation and configuration
 
 ## First run
@@ -16,17 +50,19 @@ $ lineman run
 
 Open http://localhost:8000 in a web browser.
 
-## Configure lineman to work properly
+## Configure lineman
 
 Lineman is a light wrapper around grunt and gives us a nice dev environment, like livereload, backend server mocking, tests, etc. It's been customised a bit for this specific project. What follows needs to be manually applied to the lineman codebase.
 
-### Hoisting (i.e. JSHint error: 'PlaylistService' was used before it was defined.)
+### Hoisting
+
+(i.e. JSHint error: 'PlaylistService' was used before it was defined.)
 
 A technique called 'hoisting' allows for a function to be used before it is defined. Fine for newer browsers.
 
 Change ```latedef``` to ```nofunc``` in ```node_modules/lineman/config/plugins/jshint.coffee```
 
-@see http://stackoverflow.com/a/26321623
+See http://stackoverflow.com/a/26321623
 
 ### Angular codebase structuring
 
@@ -102,7 +138,7 @@ Swagger is an open source self-documenting frontend to the backend API. It's acc
 
 Swagger requires token-based authentication. A token can be acquired by posting a username/password combo to ```/api/auth``` (hint: use swagger to do that!) or simply log to using the Instructor App website, open up dev tools and copy the value of ```token```) then authenticate all future requests to Swagger by adding ```Token <token>``` into the ```Authorization``` textbox in the particular API request.
 
-## Backend API mocking with JSON files
+## Backend API mocking
 
 Lineman lets us include static JSON files to mock an API.
 
@@ -134,7 +170,7 @@ https://github.com/linemanjs/lineman/issues/318#issuecomment-137464341
 
 ## Supplementary scripts
 
-$## Importing instructors
+### Importing instructors
 
 To get a JSON file out of the google spreadsheet (which can then be manually pasted into swagger):
 
@@ -154,7 +190,7 @@ $ node app/instructor-import/instructor-export.js
 
 # Testing
 
-## Unit testing with lineman
+## Unit testing
 
 Tests are run with lineman, which uses the testem runner and Jasmine 1.3. To run tests:
 
@@ -169,7 +205,9 @@ http://jasonmore.net/unit-testing-http-service-angular-js/
 
 Jasmine 1.3 docs are at http://jasmine.github.io/1.3/introduction.html
 
-## End-to-end testing with protractor
+## End-to-end testing
+
+...with protractor.
 
 ### Installation
 
@@ -191,7 +229,7 @@ The specific tests to be run are available in the ```spec-e2e``` folder.
 # Server config
 
 The server must be configured to run in HTML5 mode.
-@see https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode
+See https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode
 
 ## Running on IIS
 
@@ -206,7 +244,7 @@ Add the following into ```Web.config```
 All this insane config is just to allow a POST to html i.e. the simple login form. Because IIS doesn't know how to handle something that isanely complex and difficult.
 
 
-# How styles work
+# CSS
 
 * Foundation 5 takes care of the html framework side (note: no jQuery!).
 * The ```app/css``` folder contains all styling. ```main.scss``` includes the necessary css files, and ```_settings.scss``` is the Foundation-specific css configuration.
@@ -229,36 +267,20 @@ Current angular version (18 April 2016) is 1.4.8) using some Angular-Foundation 
 
 * Use "Controller As" syntax. See http://toddmotto.com/digging-into-angulars-controller-as-syntax/
 * No $scope, anywhere. Seriously. See http://www.matheuslima.com/angularjs-stop-using-scope-variables/ http://www.technofattie.com/2014/03/21/five-guidelines-for-avoiding-scope-soup-in-angular.html
-* No ng-controller. Rather, use custom components which consist of an html template and controller. @see http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html
-* Controllers only used to control communication between different parts of the app. No model data should be created or persisted in the Controller. @see http://jonathancreamer.com/the-state-of-angularjs-controllers/ http://toddmotto.com/rethinking-angular-js-controllers/
-* Factories and Services use the Revealing Module pattern for easier readability. @see http://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript
+* No ng-controller. Rather, use custom components which consist of an html template and controller. See http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html
+* Controllers only used to control communication between different parts of the app. No model data should be created or persisted in the Controller. See http://jonathancreamer.com/the-state-of-angularjs-controllers/ http://toddmotto.com/rethinking-angular-js-controllers/
+* Factories and Services use the Revealing Module pattern for easier readability. See http://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript
   and http://webcache.googleusercontent.com/search?q=cache:JZ_dF3h505kJ:www.johnpapa.net/angular-function-declarations-function-expressions-and-readable-code/+&cd=1&hl=en&ct=clnk&gl=za
-* Note: when binding a variable to a directive using '=' (i.e. two-way data binding) take note if the variable is a primitive. If it it, dot notation must be used, otherwise changes within this directive scope won't propogate up to the parent scope. This is because javascript is a pass-by-value language, and so primitives are copied within a nested scope. @see http://zcourts.com/2013/05/31/angularjs-if-you-dont-have-a-dot-youre-doing-it-wrong/
+* Note: when binding a variable to a directive using '=' (i.e. two-way data binding) take note if the variable is a primitive. If it it, dot notation must be used, otherwise changes within this directive scope won't propogate up to the parent scope. This is because javascript is a pass-by-value language, and so primitives are copied within a nested scope. See http://zcourts.com/2013/05/31/angularjs-if-you-dont-have-a-dot-youre-doing-it-wrong/
 
 ### Some smarter approaches for the future
 
-* Follow John Papa's Angular Style guide. @see https://github.com/johnpapa/angular-styleguide
-* Data is instantiated and persisted in Factories; changed in Services. @see http://www.sitepoint.com/tidy-angular-controllers-factories-services/
+* Follow John Papa's Angular Style guide. See https://github.com/johnpapa/angular-styleguide
+* Data is instantiated and persisted in Factories; changed in Services. See http://www.sitepoint.com/tidy-angular-controllers-factories-services/
 * Typescript used to generate Javascript.
 
-### Issues
-
-* ngNewRouter can't instantiate a controller with $scope injected (which is why ui-router is used instead). This will probably be solved in Angular 1.5 but until then, even better reason to not use $scope. @see https://github.com/angular/router/issues/313
 
 
-# TODO
-
-Document how to get this project up and running
-
-Document a lineman setup and usage
-
-Include:
-
-* website
-* how to install
-* how to use
-
-@author Roger Saner
-@email rsaner@deloitte.co.za
-@twitter twitter.com/rogersaner
-
+- Author: Roger Saner
+- Email: rsaner@deloitte.co.za
+- Twitter: twitter.com/rogersaner
