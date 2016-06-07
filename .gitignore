@@ -10,3 +10,4 @@
 /dist
 /generated
 /tmp
+/app/support-scripts/google-generated-creds.json

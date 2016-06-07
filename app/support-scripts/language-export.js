@@ -11,6 +11,11 @@
  *
  * Installation:
  * $ npm install google-spreadsheet
+ *
+ * Setup:
+ * To get a private key which allows access to your Google Drive, follow the instructions at:
+ * https://developers.google.com/identity/protocols/OAuth2ServiceAccount#overview
+ * New keytype is JSON - download the file and store it as google-generated-creds.json
  */
 
 var GoogleSpreadsheet = require("google-spreadsheet");
@@ -31,12 +36,14 @@ my_sheet.getRows( 1, function(err, row_data){
 
 // With auth -- read + write
 // see below for authentication instructions
-//var creds = require('./google-generated-creds.json');
+var creds = require('./google-generated-creds.json');
 // OR, if you cannot save the file locally (like on heroku)
+/*
 var creds = {
-  client_email: 'roger-laptop@virgin-1222.iam.gserviceaccount.com',
-  private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCm+wQ9lTS/AcsJ\n5RJcMXDr9nDGuijcRC85JEAUQj2laIy7tt5ll7MsfNWKPJP6p1YNJkeWnMHEd0sI\nwVIXiB1oKvd0h8YCq7LTtDEMQ4U4T1bFoPAblJB1PGQ/Pu+1ZwrnOMNg1/XArUY0\nT4/RbVERPUw5Bl1RtOdBAA9QmKmwrkj6DBWJZknQnfI2+o7vBRcxgKg6LhUAxIy/\n6JRLMovMA7el+FBzIegLqk8w9dxKETOHGgjE4P+Set8w1auG7Jrnw58Sw+H1ecgx\nSRH/yiMSI/vr1TqHCKSemGs+W6O8QzAiOWrTOpwn9SEyfpCBNc6D2tjGeuxad8aK\nYoJqvY8xAgMBAAECggEAVmVog0iRGwcde8gnYMZADAbdwSUPATDSUjl8Yj8H0G6w\n6msq1NvR3AHXJwhC9JziPDmDLt16sGGc1DHafMxzkrMwh/28KSOXikwgWJ0S79i1\nJ9omgc6zk8UkhUjWFED1dj97b78tq3y751MHMa/jEw1pQ9QUMrNsN8iFJAlpOz2M\nDVKGW62xhgH5sbnpt4DfadoQROyDXPp7YFRcZOhHFSXWZ7mvWw3i1Fine82UBatT\nfHUDIwj2yCDOMyLJ79Bw1crLuCn13OlIDG6D1obVHhWmFPFmUEOLg5wLh04OxAPh\nmJUH16yiqtZnj0RvoDVhQMlDU3d0f2Tj3YRwCV6ghQKBgQDSo+sSzx0JON/ZxBwY\nujUVgW68k8kH3ydQQ4D6JIQ5o+QoL44xPE0dyibiIYUPhWm1jYcLfVEdQw5ISrZP\nQENelwr4Vo0Gwt/AdKC/mcAgETy6++OUksXg3ybEpPdFl3XS3T2dTjZbNn4WFsfJ\nHBFAbYfai8t1p+EIGGeQUIrfSwKBgQDK8D4UP7HvDTQLobejZSnTNPRsWTGorCDS\nzN7Zt4PqMA78HMb5XMQmzg+bzdldCC7XKQExuAU4uPSy9ChGqCtJuMARl8J0viXR\nuqj/0g/Ai3xjNzN+fL5t1u007+I0ScKfySCcjhSBZAepL0R8bCn1AohiFSCxb03A\nlCXFQGLx8wKBgG+Euyr9HilIxDLdweZRh1M4cHFEaNVTDtROuNU2Sg7eNygTbVuh\nyk4wPX/RMUozXvDw2gN6OFyeqMwbSgQRSNmma/dok0d2GtIgrQ5jjzUrCxUP0MBT\nKJJScor/r65XbtjRqxJCW0LVSdHWA7X0tyl+E8Pf6TsEQ35utT3RdoSbAoGBAJrL\nFz8QuqNR2eIJb26Fqpp8qPfALR2wdbT1KgK9dTR7heKN/MOWG9RRlxxLrsHEjR33\nG/8Vk34JrjSWAearPaGU94Qz0tKDe4t3KpM/Yl6GxtFS+MdBVWuo5fRcCZnCrV59\n5o8j3MY5S5KkCEQzqOlHDkpqPS66bH85QXosu4w7AoGAIfOC9rMtCw2bgauR1ijn\nRoMYM1vcvtGomKYJCMOOTZOgtDgOpSp5iSZRk6G6Xv/LjEJh/vTvfc+DCZ4up5YN\ntr19wW/yCsoVgUG6IBxlrSIhcwepggda74Caa0GFOnzjPNdJpmhjsb19YOQCVesT\nJvS0/5uH7A1NxI28G7dbLow=\n-----END PRIVATE KEY-----\n"
+  client_email: 'your-name@something.iam.gserviceaccount.com',
+  private_key: "-----BEGIN PRIVATE KEY-----\n some long private key \n-----END PRIVATE KEY-----\n"
 }
+*/
 
 my_sheet.useServiceAccountAuth(creds, function (err) {
   // getInfo returns info about the sheet and an array or "worksheet" objects
