@@ -11,7 +11,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
   });
 
   // Load the device heartbeat
-  Devices.loadDeviceHeartbeatLog(self.id, 10).then(function (data) {
+  Devices.loadDeviceHeartbeatLog(self.id, 1).then(function (data) {
     var log = Heartbeat.createHeartbeat(data);
     self.heartbeat = log.heartbeat;
     self.hasHeartbeat = log.hasHeartbeat;
