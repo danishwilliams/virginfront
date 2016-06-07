@@ -8,9 +8,10 @@
   <div class="large-9 columns">
     <div class="row">
       <div class="small-6 columns">
+        <label>{{'STATUS' | translate}}:</label>
         <span class="connected" ng-if="device.Connected">{{'CONNECTED' | translate}}</span>
         <span class="warning" ng-if="device.Connected === false">{{'DISCONNECTED' | translate}}</span><br>
-        <span ng-if="device.timeAgo">{{device.timeAgo | timeago}}</span>
+        <span ng-if="device.timeAgo">{{'UPDATED' | translate}} {{device.timeAgo | timeago}}</span>
       </div>
       <div class="small-6 columns">
         <span class="warning" ng-if="device.error">{{'DEVICE_SYNC_ERROR' | translate}}</span><br>
