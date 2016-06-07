@@ -279,23 +279,8 @@ Current angular version (18 April 2016) is 1.4.8) using some Angular-Foundation 
 * Data is instantiated and persisted in Factories; changed in Services. See http://www.sitepoint.com/tidy-angular-controllers-factories-services/
 * Typescript used to generate Javascript.
 
-### Issues
-
-* ngNewRouter can't instantiate a controller with $scope injected (which is why ui-router is used instead). This will probably be solved in Angular 1.5 but until then, even better reason to not use $scope. See https://github.com/angular/router/issues/313
 
 
-# TODO
-
-Document how to get this project up and running
-
-Document a lineman setup and usage
-
-Include:
-
-* website
-* how to install
-* how to use
-
-@author Roger Saner
-@email rsaner@deloitte.co.za
-@twitter twitter.com/rogersaner
+- Author: Roger Saner
+- Email: rsaner@deloitte.co.za
+- Twitter: twitter.com/rogersaner
