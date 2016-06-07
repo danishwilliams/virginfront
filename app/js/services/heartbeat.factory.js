@@ -55,13 +55,16 @@ function HeartbeatFactory() {
       if (k > -1) {
         hasHeartbeat = true;
         beat = true;
-        date = data[k].CreateDate;
+        // The following line results in the popover showing a random heartbeat within a time range.
+        // Rather just use the time range itself
+        //date = data[k].CreateDate;
         num++;
       }
 
       // If the last record shows disconnected, that's in the last segment (5 or 15 minutes), so who cares. Don't show it.
       if (i === range && k === -1) {
-        break;
+        // Just kidding. Show it.
+        //break;
       }
 
       heartbeat.push({
