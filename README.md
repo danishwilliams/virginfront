@@ -7,6 +7,7 @@ Virgin Group Cycle Instructor App
     - [Configure lineman](#markdown-header-configure-lineman)
     - [Hoisting](#markdown-header-hoisting)
     - [Angular codebase structuring](#markdown-header-angular-codebase-structuring)
+    - [SASS](#markdown-header-sass)
 - [Development](#markdown-header-developments)
     - [Environments](#markdown-header-environments)
     - [Repository structuring](#markdown-header-repository-structuring)
@@ -27,7 +28,6 @@ Virgin Group Cycle Instructor App
 - [Server config](#markdown-header-server-config)
     - [Running on IIS](#markdown-header-running-on-iis)
 - [CSS](#markdown-header-css)
-    - [SASS](#markdown-header-sass)
 - [Angular Development approach](#markdown-header-angular-development-approach)
     - [Some smarter approaches for the future](#markdown-header-some-smarter-approaches-for-the-future)
     - [Issues](#markdown-header-issues)
@@ -83,6 +83,18 @@ Make sure that ```node_modules/lineman-angular/config/plugins/ngtemplates.coffee
         files: ["app/templates/**/*.html", "app/js/components/**/*.html", "app/js/directives/**/*.html"]
         tasks: ["ngtemplates", "concat_sourcemap:js"]
 ```
+
+### SASS
+
+* Sass and compass (compass mixins, because I couldn't get lineman to work). Install libsass on your platform (it's much quicker than the ruby implementation). Source: https://github.com/sass/libsass
+
+At some point I had to re-install node-sass (due to the later version - 4.2.2 - of node, I think, so had to
+
+```bash
+$ cd node_modules/grunt-sass
+$ npm rebuild node-sass
+```
+
 
 # Development
 
@@ -248,18 +260,6 @@ All this insane config is just to allow a POST to html i.e. the simple login for
 
 * Foundation 5 takes care of the html framework side (note: no jQuery!).
 * The ```app/css``` folder contains all styling. ```main.scss``` includes the necessary css files, and ```_settings.scss``` is the Foundation-specific css configuration.
-
-## SASS
-
-* Sass and compass (compass mixins, because I couldn't get lineman to work). Install libsass on your platform (it's much quicker than the ruby implementation). Source: https://github.com/sass/libsass
-
-At some point I had to re-install node-sass (due to the later version - 4.2.2 - of node, I think, so had to
-
-```bash
-$ cd node_modules/grunt-sass
-$ npm rebuild node-sass
-```
-
 
 # Angular Development approach
 
