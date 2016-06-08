@@ -29,15 +29,12 @@ var https = require('https'),
     colors = require('colors'),
     httpProxy = require('http-proxy');
 
-//
-// Create a HTTP Proxy server with a HTTPS target
-//
+var protocol = 'http';
+var hostname = 'virgin.digitaldisruption.co.za'; // dev
 
-//var protocol = 'http';
-//var hostname = 'virgin.digitaldisruption.co.za'; // dev
+//var protocol = 'https';
+//var hostname = 'cyclingappuat.azurewebsites.net'; // staging
 
-var protocol = 'https';
-var hostname = 'cyclingappuat.azurewebsites.net'; // staging
 //var protocol = 'https';
 //var hostname = 'cyclingapp.azurewebsites.net'; // production
 
