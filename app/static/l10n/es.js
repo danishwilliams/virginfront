@@ -95,6 +95,7 @@
   "BROWSE_RIDES": "Ver todas las clases",
   "SELECT_RIDE": "Elegir una clase para enviar al Club",
   "REMOVE_RIDE": "Eliminar",
+  "RIDES_EMPTY": "No rides synced",
   "UNDO": "Deshacer",
   "FAILED": "Ocurrió un error",
   "TRY_AGAIN": "Intentalo otra vez",

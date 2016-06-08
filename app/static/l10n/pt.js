@@ -95,6 +95,7 @@
   "BROWSE_RIDES": "Ver todas as aulas",
   "SELECT_RIDE": "Escolher um percurso a enviar ao Clube",
   "REMOVE_RIDE": "Remover",
+  "RIDES_EMPTY": "No rides synced",
   "UNDO": "Desfazer",
   "FAILED": "Erro",
   "TRY_AGAIN": "Tentar novamente",

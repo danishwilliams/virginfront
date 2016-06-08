@@ -95,6 +95,7 @@
   "BROWSE_RIDES": "Browse all rides",
   "SELECT_RIDE": "Select a ride to send to club",
   "REMOVE_RIDE": "Remove",
+  "RIDES_EMPTY": "No rides synced",
   "UNDO": "Undo",
   "FAILED": "Failed",
   "TRY_AGAIN": "Try again",
