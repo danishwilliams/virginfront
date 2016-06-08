@@ -1,54 +1,58 @@
-/**
- * Proxies requests to Dane's API by listening on port 3000 and proxying everything to his machine
- *
- * usage:
- * $ node proxy.js
- */
+/*
+  proxy-http-to-https.js: Basic example of proxying over HTTP to a target HTTPS server
+  Copyright (c) 2013 - 2016 Charlie Robbins, Jarrett Cruger & the Contributors.
+  Permission is hereby granted, free of charge, to any person obtaining
+  a copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so, subject to
+  the following conditions:
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+  LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 
-var http = require('http');
-var sleep = require('sleep');
-var listenport = 3000;
+// @source https://github.com/nodejitsu/node-http-proxy/blob/master/examples/http/proxy-http-to-https.js
 
-http.createServer(onRequest).listen(listenport);
+var https = require('https'),
+    http  = require('http'),
+    util  = require('util'),
+    path  = require('path'),
+    fs    = require('fs'),
+    colors = require('colors'),
+    httpProxy = require('http-proxy');
 
-var options = {
-  //hostname: 'virgin.api',
-  hostname: 'virgin.digitaldisruption.co.za', // dev
-  //hostname: 'cyclingappuat.azurewebsites.net', // staging
-  //hostname: 'cyclingapp.azurewebsites.net', // production
-  port: 80
+//
+// Create a HTTP Proxy server with a HTTPS target
+//
+
+//var protocol = 'http';
+//var hostname = 'virgin.digitaldisruption.co.za'; // dev
+
+var protocol = 'https';
+var hostname = 'cyclingappuat.azurewebsites.net'; // staging
+//var protocol = 'https';
+//var hostname = 'cyclingapp.azurewebsites.net'; // production
+
+var params = {
+  target: protocol + '://' + hostname,
+  headers: {
+    host: hostname
+  }
 };
 
-console.log('Proxying requests on port ' + listenport + ' to ' + options.hostname + ' (port ' + options.port + ')');
- 
-function onRequest(client_req, client_res) {
-  console.log(client_req.method + ' ' + client_req.url);
-
-  options.path = client_req.url;
-  options.method = client_req.method;
-  client_req.headers.Host = options.hostname;
-  options.headers = client_req.headers;
-  //var base64 = new Buffer('roger:Therodge321').toString('base64'); // OpenEar
-  //var base64 = new Buffer('dane:Therodge321').toString('base64'); // Simfy
-  //options.headers.Authorization = 'Basic ' + base64;
-
-  var proxy = http.request(options, function (res) {
-    client_res.statusCode = res.statusCode;
-    // Spoof a backend error on PUTs
-    if (options.method === 'PUT') {
-      //client_res.statusCode = 500;
-    }
-    //client_res.statusCode = 500;
-    //client_res.statusCode = 403;
-    client_res.statusMessage = res.statusMessage;
-    client_res.headers = res.headers;
-    //sleep.sleep(100);
-    res.pipe(client_res, {
-      end: true
-    });
-  });
-
-  client_req.pipe(proxy, {
-    end: true
-  });
+if (protocol === 'https') {
+  params.agent = https.globalAgent;  
 }
+
+
+httpProxy.createProxyServer(params).listen(3000);
+
+console.log('http proxy server'.blue + ' started '.green.bold + 'on port '.blue + '3000'.yellow);
