@@ -133,9 +133,9 @@ When the ```apiProxy``` setting in ```config/application.js``` is enabled (which
 $ node config/proxy.js
 ```
 
-This proxy is quick-and-dirty and basically works, but should probably be replaced by ```node-http-proxy``` https://github.com/nodejitsu/node-http-proxy/blob/master/examples/http/proxy-http-to-https.js
+Note that there are urls in the proxy for dev, staging and live environments - so pick which one you want to use (hint: should be a dev url).
 
-It needs to be run by some node uptime tool like ```pm2``` so that when it crashed it's auto-restarted, by doing:
+The proxy needs to be run by some node uptime tool like ```pm2``` so that when it crashed it's auto-restarted, by doing:
 
 ```bash
 $ pm2 start config/proxy.js
