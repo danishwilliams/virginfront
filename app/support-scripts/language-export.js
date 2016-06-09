@@ -6,6 +6,10 @@
  *
  * Usage:
  * $ node language-export.js
+ * $ git diff
+ * ...make sure that nothing broke in the resulting translation files (i.e. sometimes an entire
+ * block of translations will disappear because someone added a blank line in the spreadsheet)
+ * $ git commit
  *
  * The resulting JSON files are then made available on the website.
  *
@@ -16,6 +20,12 @@
  * To get a private key which allows access to your Google Drive, follow the instructions at:
  * https://developers.google.com/identity/protocols/OAuth2ServiceAccount#overview
  * New keytype is JSON - download the file and store it as google-generated-creds.json
+ *
+ * Note:
+ * The translations doc is formatted very specifically, namely that every cell in the first column
+ * needs something in it. When converting the spreadsheet into JSON, the script breaks on the first
+ * blank line. So make sure you ALWAYS do a git diff on the resulting JSON files so that translations
+ * aren't accidentally lost.
  */
 
 var GoogleSpreadsheet = require("google-spreadsheet");
