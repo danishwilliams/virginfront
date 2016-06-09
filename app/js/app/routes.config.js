@@ -43,6 +43,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   // Beats
+  /*
   .state('beats-admin', {
     url: '/admin/beats',
     templateUrl: '../js/components/beats/beats.html',
@@ -54,6 +55,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       permissions: [APP_PERMISSIONS.viewAdmin]
     }
   })
+  */
 
   // Recent classes
   .state('recent-classes', {
@@ -175,6 +177,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   // Genres
+  /*
   .state('genres-admin', {
     url: '/admin/genres',
     templateUrl: '../js/components/genres/genres.html',
@@ -186,8 +189,10 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       permissions: [APP_PERMISSIONS.viewAdmin]
     }
   })
+  */
 
   // Goals
+  /*
   .state('goals-admin', {
     url: '/admin/goals',
     templateUrl: '../js/components/goals/goals.html',
@@ -199,6 +204,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       permissions: [APP_PERMISSIONS.viewAdmin]
     }
   })
+  */
 
   // Default Goals
   .state('default-goals-admin', {
@@ -337,18 +343,6 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     },
     data: {
       permissions: [APP_PERMISSIONS.viewContent]
-    }
-  })
-
-  .state('playlists_admin', {
-    url: '/admin/playlists',
-    templateUrl: '../js/components/playlists_admin/playlists_admin.html',
-    controller: 'PlaylistsAdminController as playlists',
-    resolve: {
-      $title: function() { return 'Rides | Admin'; }
-    },
-    data: {
-      permissions: [APP_PERMISSIONS.viewAdmin]
     }
   })
 
@@ -578,6 +572,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   // User types
+  /*
   .state('usertypes-admin', {
     url: '/admin/users/types',
     templateUrl: '../js/components/usertypes/usertypes.html',
@@ -589,6 +584,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       permissions: [APP_PERMISSIONS.viewAdmin]
     }
   })
+  */
 
   // Bounced emails
   .state('emails', {

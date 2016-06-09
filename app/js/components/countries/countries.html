@@ -5,14 +5,12 @@
     <tr>
       <td>Country</td>
       <td>Country code</td>
-      <td>Id</td>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="country in countries.countries | orderBy:'Name'">
       <td contentEditable ng-change="countries.update(country)" ng-model-options="{updateOn : 'change blur'}" ng-model="country.Name"></td>
       <td contentEditable ng-change="countries.update(country)" ng-model-options="{updateOn : 'change blur'}" ng-model="country.Code"></td>
-      <td>{{country.Id}}</td>
     </tr>
   </tbody>
 </table>
