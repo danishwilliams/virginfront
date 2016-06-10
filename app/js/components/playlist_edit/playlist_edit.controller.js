@@ -14,7 +14,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     self.playlistTracksLength = 0;
   }
 
-  this.playlist = Playlists.getPlaylist();
+  this.playlist = {};
   this.currentgoal = Playlists.getCurrentGoal();
 
   Playlists.setStep(2);
