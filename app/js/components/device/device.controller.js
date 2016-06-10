@@ -60,7 +60,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
         } else {
           // Loop through DevicePlaylistSyncs to see if there's an error
           val.DevicePlaylistSyncs.forEach(function (val1) {
-            if (val1.SyncError && !val.playlistSyncError) {
+            if (val1.SyncError) {
               // Playlist sync error
               val.playlistSyncError = true;
 
