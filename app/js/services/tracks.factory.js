@@ -84,13 +84,24 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
 
   // Fix for stupid iOS which otherwise doesn't believe that a click is a click
   window.addEventListener("click", twiddle);
+  var debug = false; // Prints out a LOT of info about track playback
 
   function twiddle() {
-    self.audio.play().then(function() {
-      self.audio.pause();
-    }, function(err) {
-      console.log('Play error!', err);
-    });
+    if (debug) {
+      console.log('twiddle!', self.audio);
+    }
+    try {
+      self.audio.play().then(function() {
+        self.audio.pause();
+      }, function(err) {
+        console.log('Play error!', err);
+      });
+    }
+    catch (e) {
+      if (debug) {
+        console.log("IE doesn't like this");
+      }
+    }
     window.removeEventListener("click", twiddle);
   }
 
@@ -177,17 +188,29 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
    *   track has finished playing, play the next one in the playlist
    */
   function playTrack(track, sortOrder) {
+    if (debug) {
+      console.log('Track.playTrack()');
+    }
     if (track.loading) {
       return;
     }
 
     // Is a track playing?
     if (self.currentPlayingTrack.MusicProviderTrackId) {
+      if (debug) {
+        console.log('a track is playing!');
+      }
       // Is the track the user has just clicked on the currently playing track?
       if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
+        if (debug) {
+          console.log('the track the user has just clicked on IS the currently playing track');
+        }
         if (track.playing === true) {
           // User is pausing a playing track
           self.audio.pause();
+          if (debug) {
+            console.log("track should now be paused!", self.audio);
+          }
           track.paused = true;
           track.playing = false;
 
@@ -197,6 +220,9 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
           var d = new Date();
           Storage.setItem('date', d.toISOString());
         } else {
+          if (debug) {
+            console.log('resuming a paused track');
+          }
           // User is resuming a paused track
           track.playing = true;
           playAudio(track);
@@ -204,6 +230,9 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
         self.currentPlayingTrack = track;
       } else {
         // A track was playing, but the user is now playing a new track
+        if (debug) {
+          console.log('A track was playing, but the user is now playing a new track');
+        }
         self.currentPlayingTrack.playing = false;
         self.currentPlayingTrack.paused = false;
         self.currentPlayingTrack.loading = false;
@@ -214,6 +243,9 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       }
     } else {
       // Starting to play a track for the first time
+      if (debug) {
+        console.log('Starting to play a track for the first time', self.audio);
+      }
       track.loading = true;
       playTrackWithSource(track, sortOrder);
 
@@ -269,11 +301,27 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
     });
 
     if (!track.stopPlaybackEvenIfTrackIsCurrentlyLoading && !track.removed) {
-      self.audio.play().then(function() {
+      if (debug) {
+        console.log('this might be when this "then" error occurs', self.audio);
+      }
+      try {
+        self.audio.play().then(function() {
+          if (track.removed) {
+            self.audio.pause();
+          }
+        });
+      }
+      catch (e) {
+        if (debug) {
+          console.log("play error - trying an alternate method");
+        }
         if (track.removed) {
           self.audio.pause();
         }
-      });
+        else {
+          self.audio.play();
+        }
+      }
     }
   }
 
