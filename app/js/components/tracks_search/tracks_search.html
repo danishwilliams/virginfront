@@ -86,7 +86,7 @@
             <spinner class="spinner center" name="trackSpinner" show="true"></spinner>
           </div>
         </div>
-        <div ng-hide="vm.search.length > 0" fixed-position class="large-5 columns show-for-large-up genres" ng-if-responsive="desktop">
+        <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-large-up genres" ng-if-responsive="desktop">
           <h3>{{'GENRE_FILTER' | translate}}</h3>
 
           <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>
