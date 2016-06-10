@@ -29,7 +29,7 @@
       <label class="disconnected">{{'DISCONNECTED' | translate}}</label>
       <hr>
       <div class="left">{{vm.heartbeat[0].date | date : 'dd'}} {{vm.heartbeat[0].date | date : 'MMMM' | translate}}</div>
-      <span style="position: relative; left: {{vm.newDayIndex * 9}}px">{{vm.newDay | date : 'dd'}} {{vm.newDay | date : 'MMMM' | translate}}</span>
+      <span ng-style="position: relative; left: {{vm.newDayIndex * 9}}px">{{vm.newDay | date : 'dd'}} {{vm.newDay | date : 'MMMM' | translate}}</span>
     </div>
     </div>
 
