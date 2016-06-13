@@ -7,6 +7,7 @@ Virgin Group Cycle Instructor App
     - [Configure lineman](#markdown-header-configure-lineman)
     - [Hoisting](#markdown-header-hoisting)
     - [Angular codebase structuring](#markdown-header-angular-codebase-structuring)
+    - [SASS](#markdown-header-sass)
 - [Development](#markdown-header-developments)
     - [Environments](#markdown-header-environments)
     - [Repository structuring](#markdown-header-repository-structuring)
@@ -19,6 +20,7 @@ Virgin Group Cycle Instructor App
     - [Supplementary scripts](#markdown-header-supplementary-scripts)
         - [Importing instructors](#markdown-header-importing-instructors)
         - [Updating translation files](#markdown-header-updating-translation-files)
+- [Multiple languages](#markdown-header-multiple-languages)
 - [Testing](#markdown-header-testing)
     - [Unit testing](#markdown-header-unit-testing)
     - [End-to-end testing](#markdown-header-end-to-end-testing)
@@ -27,7 +29,6 @@ Virgin Group Cycle Instructor App
 - [Server config](#markdown-header-server-config)
     - [Running on IIS](#markdown-header-running-on-iis)
 - [CSS](#markdown-header-css)
-    - [SASS](#markdown-header-sass)
 - [Angular Development approach](#markdown-header-angular-development-approach)
     - [Some smarter approaches for the future](#markdown-header-some-smarter-approaches-for-the-future)
     - [Issues](#markdown-header-issues)
@@ -84,6 +85,18 @@ Make sure that ```node_modules/lineman-angular/config/plugins/ngtemplates.coffee
         tasks: ["ngtemplates", "concat_sourcemap:js"]
 ```
 
+### SASS
+
+* Sass and compass (compass mixins, because I couldn't get lineman to work). Install libsass on your platform (it's much quicker than the ruby implementation). Source: https://github.com/sass/libsass
+
+At some point I had to re-install node-sass (due to the later version - 4.2.2 - of node, I think, so had to
+
+```bash
+$ cd node_modules/grunt-sass
+$ npm rebuild node-sass
+```
+
+
 # Development
 
 ## Environments
@@ -121,9 +134,9 @@ When the ```apiProxy``` setting in ```config/application.js``` is enabled (which
 $ node config/proxy.js
 ```
 
-This proxy is quick-and-dirty and basically works, but should probably be replaced by ```node-http-proxy``` https://github.com/nodejitsu/node-http-proxy/blob/master/examples/http/proxy-http-to-https.js
+Note that there are urls in the proxy for dev, staging and live environments - so pick which one you want to use (hint: should be a dev url).
 
-It needs to be run by some node uptime tool like ```pm2``` so that when it crashed it's auto-restarted, by doing:
+The proxy needs to be run by some node uptime tool like ```pm2``` so that when it crashed it's auto-restarted, by doing:
 
 ```bash
 $ pm2 start config/proxy.js
@@ -188,6 +201,12 @@ $ cd app/support-scripts
 $ node app/instructor-import/instructor-export.js
 ```
 
+# Multiple languages
+
+The website can be translated into multiple languages. This is done by domain (mapped in ```app/js/app/translations.config.js```). The default language is English, and the fallback language (in case of a missing translation) is also English.
+
+Languages can't be manually switched in the interface (although admin users can do this on their own user profile - this gets stored in LocalStorage).
+
 # Testing
 
 ## Unit testing
@@ -248,18 +267,6 @@ All this insane config is just to allow a POST to html i.e. the simple login for
 
 * Foundation 5 takes care of the html framework side (note: no jQuery!).
 * The ```app/css``` folder contains all styling. ```main.scss``` includes the necessary css files, and ```_settings.scss``` is the Foundation-specific css configuration.
-
-## SASS
-
-* Sass and compass (compass mixins, because I couldn't get lineman to work). Install libsass on your platform (it's much quicker than the ruby implementation). Source: https://github.com/sass/libsass
-
-At some point I had to re-install node-sass (due to the later version - 4.2.2 - of node, I think, so had to
-
-```bash
-$ cd node_modules/grunt-sass
-$ npm rebuild node-sass
-```
-
 
 # Angular Development approach
 
