@@ -20,6 +20,7 @@ Virgin Group Cycle Instructor App
     - [Supplementary scripts](#markdown-header-supplementary-scripts)
         - [Importing instructors](#markdown-header-importing-instructors)
         - [Updating translation files](#markdown-header-updating-translation-files)
+- [Multiple languages](#markdown-header-multiple-languages)
 - [Testing](#markdown-header-testing)
     - [Unit testing](#markdown-header-unit-testing)
     - [End-to-end testing](#markdown-header-end-to-end-testing)
@@ -199,6 +200,12 @@ More details in that file.
 $ cd app/support-scripts
 $ node app/instructor-import/instructor-export.js
 ```
+
+# Multiple languages
+
+The website can be translated into multiple languages. This is done by domain (mapped in ```app/js/app/translations.config.js```). The default language is English, and the fallback language (in case of a missing translation) is also English.
+
+Languages can't be manually switched in the interface (although admin users can do this on their own user profile - this gets stored in LocalStorage).
 
 # Testing
 
