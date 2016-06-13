@@ -15,16 +15,21 @@
 
     <tabset>
       <tab heading="{{'GYMS_ACTIVE' | translate}} ({{vm.gyms.length}})">
-        <label>{{'SEARCH' | translate}}</label>
-        <input ng-model="query" type="text" placeholder="{{'GYMS_SEARCH' | translate}}" maxlength="60" autofocus>
+        <span ng-if="vm.gyms.length > 0">
+          <label>{{'SEARCH' | translate}}</label>
+          <input ng-model="query" type="text" placeholder="{{'GYMS_SEARCH' | translate}}" maxlength="60" autofocus>
+        </span>
 
         <accordion>
           <gym ng-repeat="gym in vm.gyms | filter:{Name:query} | orderBy:'Name'"></gym>
+          <span ng-if="vm.gyms.length === 0" class="empty">{{'GYMS_EMPTY' | translate}} <a ui-sref="gym-new">{{'GYM_NEW' | translate}}</a></span>
         </accordion>
       </tab>
       <tab heading="{{'GYMS_INACTIVE' | translate}} ({{vm.archivedGyms.length}})">
-        <label>{{'SEARCH' | translate}}</label>
-        <input ng-model="query" type="text" placeholder="{{'GYMS_SEARCH' | translate}}" maxlength="60" autofocus>
+        <span ng-if="vm.archivedGyms.length > 0">
+          <label>{{'SEARCH' | translate}}</label>
+          <input ng-model="query" type="text" placeholder="{{'GYMS_SEARCH' | translate}}" maxlength="60" autofocus>
+        </span>
 
         <accordion>
           <gym ng-repeat="gym in vm.archivedGyms | filter:{Name:query} | orderBy:'Name'"></gym>
