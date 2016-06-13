@@ -84,7 +84,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
 
   // Fix for stupid iOS which otherwise doesn't believe that a click is a click
   window.addEventListener("click", twiddle);
-  var debug = false; // Prints out a LOT of info about track playback
+  var debug = true; // Prints out a LOT of info about track playback
 
   function twiddle() {
     if (debug) {
@@ -290,6 +290,9 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
   }
 
   function playAudio(track) {
+    if (debug) {
+      console.log('playAudio() function called');
+    }
     // Update the timer
     self.audio.addEventListener("timeupdate", function() {
       if (self.currentPlayingTrack.MusicProviderTrackId === track.MusicProviderTrackId) {
@@ -302,10 +305,14 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
 
     if (!track.stopPlaybackEvenIfTrackIsCurrentlyLoading && !track.removed) {
       if (debug) {
-        console.log('this might be when this "then" error occurs', self.audio);
+        console.log('Trying to play audio');
       }
       try {
+        if (debug) {
+          console.log('this might be when this "then" error occurs', self.audio);
+        }
         self.audio.play().then(function() {
+          track.stopPlaybackEvenIfTrackIsCurrentlyLoading = false;
           if (track.removed) {
             self.audio.pause();
           }
@@ -340,7 +347,9 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       track.playing = track.paused = false;
       self.audio.pause();
       // User clicked "play" in track search, track is loading but before it completes they add it to the goal
-      track.stopPlaybackEvenIfTrackIsCurrentlyLoading = true;
+      if (track.progress <= 0) {
+        track.stopPlaybackEvenIfTrackIsCurrentlyLoading = true;
+      }
     }
     self.currentPlayingTrack = {};
   }
