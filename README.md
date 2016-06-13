@@ -2,6 +2,7 @@ Virgin Group Cycle Instructor App
 
 # Table of contents
 
+- [Architecture](#markdown-header-architecture)
 - [Installation and configuration](#markdown-header-installation-and-configuration)
     - [First run](#markdown-header-first-run)
     - [Configure lineman](#markdown-header-configure-lineman)
@@ -34,6 +35,11 @@ Virgin Group Cycle Instructor App
     - [Issues](#markdown-header-issues)
 - [TODO](#markdown-header-todo)
 
+# Architecture
+
+![architecture_highlevel.png](https://bitbucket.org/repo/xkARBR/images/1681720245-architecture_highlevel.png)
+
+This code repository consists of the website code for the Instructor Platform.
 
 # Installation and configuration
 
