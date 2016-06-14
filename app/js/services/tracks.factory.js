@@ -84,7 +84,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
 
   // Fix for stupid iOS which otherwise doesn't believe that a click is a click
   window.addEventListener("click", twiddle);
-  var debug = true; // Prints out a LOT of info about track playback
+  var debug = false; // Prints out a LOT of info about track playback
 
   function twiddle() {
     if (debug) {
@@ -137,11 +137,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
         bpmHigh: bpmHigh,
         resultCount: self.resultCount,
         page: page
-    }).then(loadUserDefaultGenresTracksComplete);
-
-    function loadUserDefaultGenresTracksComplete(data, status, headers, config) {
-      return data;
-    }
+    });
   }
 
   function loadUserGenresTracks(bpmLow, bpmHigh, genres, page) {
@@ -163,11 +159,7 @@ function TracksFactory($rootScope, $location, Restangular, Playlists, Storage) {
       searchText: term,
       resultCount: self.resultCount,
       page: page
-    }).then(searchTracksComplete);
-
-    function searchTracksComplete(data, status, headers, config) {
-      return data;
-    }
+    });
   }
 
   function addTrack(track) {

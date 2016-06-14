@@ -18,12 +18,10 @@ function LocationsFactory(Restangular, uuid2) {
   return locationsFactory;
 
   function loadLocations() {
-    return Restangular.all('locations').getList().then(loadLocationsComplete);
-
-    function loadLocationsComplete(data, status, headers, config) {
+    return Restangular.all('locations').getList().then(function(data) {
       self.locations = data;
       return self.locations;
-    }
+    });
   }
 
   function getLocations() {
@@ -31,11 +29,7 @@ function LocationsFactory(Restangular, uuid2) {
   }
 
   function loadLocation(id) {
-    return Restangular.one('locations', id).get().then(loadLocationComplete);
-
-    function loadLocationComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('locations', id).get();
   }
 
   function addCity(city) {
@@ -43,8 +37,6 @@ function LocationsFactory(Restangular, uuid2) {
       Id: uuid2.newuuid().toString(),
       City: city
     };
-    return Restangular.one('locations', location.Id).customPUT(location).then(function (data) {
-      return data;
-    });
+    return Restangular.one('locations', location.Id).customPUT(location);
   }
 }

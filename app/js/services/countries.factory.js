@@ -17,12 +17,10 @@ function CountriesFactory(Restangular) {
   return countriesFactory;
 
   function loadCountries() {
-    return Restangular.all('countries').getList().then(loadCountriesComplete);
-
-    function loadCountriesComplete(data, status, headers, config) {
+    return Restangular.all('countries').getList().then(function (data) {
       self.countries = data;
       return self.countries;
-    }
+    });
   }
 
   function getCountries() {
@@ -30,11 +28,7 @@ function CountriesFactory(Restangular) {
   }
 
   function loadCountry(id) {
-    return Restangular.one('countries', id).get().then(loadCountryComplete);
-
-    function loadCountryComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('countries', id).get();
   }
 
 }

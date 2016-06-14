@@ -25,12 +25,10 @@ function DevicesFactory(Restangular, uuid2) {
   return devicesFactory;
 
   function loadDevices() {
-    return Restangular.all('devices').getList().then(loadDevicesComplete);
-
-    function loadDevicesComplete(data, status, headers, config) {
+    return Restangular.all('devices').getList().then(function(data) {
       self.devices = data;
       return self.devices;
-    }
+    });
   }
 
   function getDevices() {
@@ -38,19 +36,11 @@ function DevicesFactory(Restangular, uuid2) {
   }
 
   function loadDevice(id) {
-    return Restangular.one('devices', id).get().then(loadDeviceComplete);
-
-    function loadDeviceComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('devices', id).get();
   }
 
   function loadDevicePlaylists(id) {
-    return Restangular.one('sync/playlists', id).get().then(loadDevicePlaylistsComplete);
-
-    function loadDevicePlaylistsComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('sync/playlists', id).get();
   }
 
   /**
@@ -102,27 +92,15 @@ function DevicesFactory(Restangular, uuid2) {
       Primary: isPrimary,
       Id: uuid2.newuuid().toString()
     };
-    return Restangular.one('devices/provision').post('', params).then(provisionDeviceComplete);
-
-    function provisionDeviceComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('devices/provision').post('', params);
   }
 
   function disableDevice(id) {
-    return Restangular.one('devices/disable', id).post().then(disableDeviceComplete);
-
-    function disableDeviceComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('devices/disable', id).post();
   }
 
   function loadSyncStatus() {
-    return Restangular.one('devices/status').get().then(loadSyncStatusComplete);
-
-    function loadSyncStatusComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('devices/status').get();
   }
 
   function loadDeviceSyncLog(id, page, resultCount) {
@@ -130,11 +108,7 @@ function DevicesFactory(Restangular, uuid2) {
       page: page,
       resultCount: resultCount
     };
-    return Restangular.one('devices/' + id + '/synclog').get(params).then(loadDeviceSyncLogComplete);
-
-    function loadDeviceSyncLogComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('devices/' + id + '/synclog').get(params);
   }
 
   function loadDeviceHeartbeatLog(id, sinceDays) {
