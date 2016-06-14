@@ -37,7 +37,7 @@ Virgin Group Cycle Instructor App
 
 # Architecture
 
-![architecture_highlevel.png](https://bitbucket.org/repo/xkARBR/images/1681720245-architecture_highlevel.png)
+![architecture_highlevel.png](https://bitbucket.org/repo/xkARBR/images/4105453049-architecture_highlevel.png)
 
 This code repository consists of the website code for the Instructor Platform.
 
