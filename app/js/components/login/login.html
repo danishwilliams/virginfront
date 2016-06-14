@@ -26,7 +26,7 @@
 
       <div class="row submit">
         <a class="secondary" ng-click="login.step = 'forgot'">{{'PASSWORD_FORGOT' | translate}}</a>
-        <input ng-disabled="!login.credentials.username || !login.credentials.password || login.submitted" type="submit" value="{{'LOGIN' | translate}}" />
+        <input id="log-in" ng-disabled="!login.credentials.username || !login.credentials.password || login.submitted" type="submit" value="{{'LOGIN' | translate}}" />
       </div>
     </form>
     </span>

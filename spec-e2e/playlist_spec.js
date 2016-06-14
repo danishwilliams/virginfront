@@ -21,14 +21,25 @@ describe('Create playlist', function () {
   };
 
   beforeEach(function () {
-    playlist = element.all(by.repeater('goal in playlist.goals'));
+    goalPlaylist = element.all(by.id("playlistGoal"));
+    //goalPlaylist = element.all(by.repeater('playlistGoal in playlist_edit.playlist.PlaylistGoals'));
 
-    element.all(by.repeater('goal in playlist.goals')).then(function (rows) {
+    /*
+    element.all(by.repeater('playlistGoal in playlist_edit.playlist.PlaylistGoals')).then(function (rows) {
+      jasmine.log(rows);
+      console.log(rows);
       goalPlaylist = rows;
     });
+    */
 
-    tracksList = element.all(by.repeater('track in playlist.tracks'));
-    element.all(by.repeater('track in playlist.tracks')).then(function (rows) {
+    /*
+    element.all(by.repeater('goal in playlist_edit.goals')).then(function (rows) {
+      goalPlaylist = rows;
+    });
+    */
+
+    tracksList = element.all(by.repeater('track in playlist_edit.tracks'));
+    element.all(by.repeater('track in playlist_edit.tracks')).then(function (rows) {
       tracks = rows;
 
       // Add track name and BPM value into the track array for easy access later
@@ -50,14 +61,16 @@ describe('Create playlist', function () {
 
   describe('Goals', function () {
 
-    it('Creates an empty structure for a playlist', function () {
-      expect(goalPlaylist.length).toEqual(11);
+    it('Verify a playlist structure is present', function () {
+      expect(element(by.exactRepeater('playlistGoal in playlist_edit.playlist.PlaylistGoals')).isPresent()).toBe(true);
+      expect(goalPlaylist.count()).toEqual(6);
     });
 
     it('The first goal\'s name is "Warm Up"', function () {
-      expect(goalPlaylist[0].element(by.binding('goal.Name')).getText()).toEqual('Warm Up');
+      expect(goalPlaylist.first().element(by.id('goalName')).getText()).toEqual('Warm Up');
     });
 
+    /*
     it('The first goal should be selected by default', function () {
       expect(goalPlaylist[0].element(by.css('.goal-container')).getAttribute('class')).toMatch('active');
     });
@@ -65,9 +78,10 @@ describe('Create playlist', function () {
     it('The second goal should not be selected by default', function () {
       expect(goalPlaylist[1].element(by.css('.goal-container')).getAttribute('class')).not.toMatch('active');
     });
-
+    */
   });
 
+  /*
   describe('Building a playlist with tracks', function () {
 
     it('Clicking on the first goal should deselect and collapse it', function () {
@@ -124,5 +138,6 @@ describe('Create playlist', function () {
     });
 
   });
+  */
 
 });
