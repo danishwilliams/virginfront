@@ -62,7 +62,7 @@ describe('Create playlist', function () {
   describe('Goals', function () {
 
     it('Verify a playlist structure is present', function () {
-      expect(element(by.exactRepeater('playlistGoal in playlist_edit.playlist.PlaylistGoals')).isPresent()).toBe(true);
+      expect(element(by.repeater('playlistGoal in playlist_edit.playlist.PlaylistGoals')).isPresent()).toBe(true);
       expect(goalPlaylist.count()).toEqual(6);
     });
 
@@ -70,23 +70,53 @@ describe('Create playlist', function () {
       expect(goalPlaylist.first().element(by.id('goalName')).getText()).toEqual('Warm Up');
     });
 
-    /*
     it('The first goal should be selected by default', function () {
-      expect(goalPlaylist[0].element(by.css('.goal-container')).getAttribute('class')).toMatch('active');
+      expect(goalPlaylist.first().element(by.css('.goal-container')).getAttribute('class')).toMatch('active');
     });
 
-    it('The second goal should not be selected by default', function () {
-      expect(goalPlaylist[1].element(by.css('.goal-container')).getAttribute('class')).not.toMatch('active');
+    it('All other goals should not should be selected by default', function () {
+      goalPlaylist.each(function(el, index) {
+        if (index > 0) {
+          expect(el.element(by.css('.goal-container')).getAttribute('class')).not.toMatch('active');
+        }
+      });
     });
-    */
   });
 
-  /*
   describe('Building a playlist with tracks', function () {
 
+    it('First goal has no tracks', function() {
+      expect(goalPlaylist.first().element(by.css('.play-container')).isPresent()).toBe(false);
+    });
+
+    it('A default list of tracks is returned for Warm Up', function() {
+      goalPlaylist.first().element(by.css('.goal-name')).click();
+      expect(element(by.id('tracks-container')).isPresent()).toBe(true);
+      expect(element(by.repeater('track in vm.tracks track by $index')).isPresent()).toBe(true);
+
+      tracksRepeater = element.all(by.id("tracksRepeater"));
+      expect(tracksRepeater.count()).toBeGreaterThan(5);
+    });
+
+    it('Tracks can be searched for', function() {
+      element(by.id('search')).sendKeys("justin"); // I know. I'm ashamed.
+      tracksRepeater = element.all(by.id("tracksRepeater"));
+      expect(tracksRepeater.count()).toBeGreaterThan(5);
+    });
+
+    it('A track can be added to Warm Up', function() {
+      element(by.css('.selectable')).click();
+      expect(element(by.id('tracks-container')).isPresent()).toBe(false);
+      expect(element(by.repeater('track in vm.tracks track by $index')).isPresent()).toBe(false);
+
+      expect(goalPlaylist.first().element(by.css('.play-container')).isPresent()).toBe(true);
+    });
+
+    /*
     it('Clicking on the first goal should deselect and collapse it', function () {
-      goalPlaylist[0].element(by.css('.goal-name')).click();
-      expect(goalPlaylist[0].element(by.css('.goal-container')).getAttribute('class')).not.toMatch('active');
+      goalPlaylist.first().element(by.css('.goal-name')).click();
+      expect(goalPlaylist.first().element(by.css('.goal-container')).getAttribute('class')).not.toMatch('active');
+
       expect(goalPlaylist[1].element(by.css('.goal-container')).getAttribute('class')).not.toMatch('active');
     });
 
@@ -94,10 +124,6 @@ describe('Create playlist', function () {
       goalPlaylist[1].element(by.binding('goal.Name')).click();
       expect(goalPlaylist[0].element(by.css('.goal-container')).getAttribute('class')).not.toMatch('active');
       expect(goalPlaylist[1].element(by.css('.goal-container')).getAttribute('class')).toMatch('active');
-    });
-
-    it('There should be some tracks', function () {
-      expect(tracksList.count()).toBeGreaterThan(0);
     });
 
     it('A track can be added to the second goal', function () {
@@ -136,8 +162,8 @@ describe('Create playlist', function () {
         expect(items.length).toBe(0);
       });
     });
+  */
 
   });
-  */
 
 });
