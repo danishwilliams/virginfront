@@ -81,7 +81,15 @@ function reportingController(Emails, Reporting, spinnerService) {
 
   // Load up top templates which were used to create rides
   Reporting.loadTemplatesUsedByPlaylists(30).then(function(data) {
-    self.templates = data;
+    data = _.sortBy(data, function (val) {
+      return val.Count;
+    });
+    self.templates = [];
+    for (var i = 0; i < 5; i++) {
+      if (data[i]) {
+        self.templates.push(data[i]);
+      }
+    }
     loaded.templates = true;
     emailsTemplatesDone();
   });

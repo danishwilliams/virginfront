@@ -102,7 +102,7 @@
 
       <p>{{'TEMPLATES_RIDES_CREATED' | translate}}</p>
 
-      <div class="row reporting-template" ng-repeat="template in vm.templates | orderBy:'template.Count':reverse">
+      <div class="row reporting-template" ng-repeat="template in vm.templates | orderBy:'template.Count'">
         <div class="small-16 columns">
           <img class="icon" ng-src="/img/playlists_grey/{{template.TemplateIconFileName}}">
           {{template.TemplateName}}
