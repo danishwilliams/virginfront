@@ -19,11 +19,7 @@ function InstructorsHRFactory(Restangular) {
    *   Whether the instructor has been been invited or not (default null, which returns all instructors)
    */
   function getInstructors(invited) {
-    return Restangular.one('instructors').get({invited: invited}).then(getInstructorsComplete);
-
-    function getInstructorsComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('instructors').get({invited: invited});
   }
 
   function getInvitedInstructors() {

@@ -2,7 +2,7 @@
 
 <div class="playlist-edit row">
   <playlist-workflow ng-if="playlist_edit.newPlaylist"></playlist-workflow>
-  <h1 class="text-center">{{playlist_edit.title | translate}}</h1>
+  <h1 id="title" class="text-center">{{playlist_edit.title | translate}}</h1>
 
   <spinner class="spinner overlay" name="playlistEditSpinner" show="true"></spinner>
 
@@ -28,14 +28,14 @@
           <p class="error" ng-if="!playlist_edit.checkWhenEditingEveryGoalHasATrack()">{{'GOAL_TRACK_REQ' | translate}}</p>
         </div>
       </div>
-      <div class="row goal" ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder' track by $index">
+      <div class="row goal" id="playlistGoal" ng-repeat="playlistGoal in playlist_edit.playlist.PlaylistGoals | orderBy:'SortOrder' track by $index">
         <div class="goal-container" ng-class="{'active': playlist_edit.isGoalActive(playlistGoal)}">
           <div class="row goal-name" ng-click="playlist_edit.goalClicked(playlistGoal)">
             <div class="small-10 medium-14 columns">
               <h4 ng-class="{'has-track' : playlistGoal.PlaylistGoalTracks.length > 0}">
                 <img ng-class="{'freestyle' : playlist_edit.playlist.TemplateType === 'freestyle'}" ng-if="playlistGoal.Goal.GoalChallengeId" src="/img/playlists/pack_highlight.svg">
 
-                {{playlistGoal.Goal.Name}} <em ng-hide="playlistGoal.editFreeStyleGoal" ng-if="playlistGoal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
+                <span id="goalName">{{playlistGoal.Goal.Name}}</span> <em ng-hide="playlistGoal.editFreeStyleGoal" ng-if="playlistGoal.Goal.GoalChallengeId">{{'CHALLENGE' | translate}}</em>
 
                 <span ng-if="playlist_edit.playlist.TemplateType === 'freestyle'">
                   <freestyle-goals ng-show="playlistGoal.editFreeStyleGoal" ng-if="playlistGoal.ArrayId > 0" data-index="{{playlistGoal.ArrayId}}" data-total-goals="{{playlist_edit.playlist.MaxFreestyleGoals}}" data-changing-goal="true" ng-change="playlist_edit.changeFreestyleGoal(playlistGoal)" ng-model="playlist_edit.freestyleGoal" ng-click="playlistGoal.editFreeStyleGoal = true"></freestyle-goals>

@@ -157,11 +157,7 @@ function TemplatesFactory(Restangular, uuid2, Users) {
   }
 
   function loadTemplateGroup(id) {
-    return Restangular.one('templategroups', id).get().then(loadTemplateGroupComplete);
-
-    function loadTemplateGroupComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('templategroups', id).get();
   }
 
   function disableTemplateGroup(id) {
@@ -185,11 +181,7 @@ function TemplatesFactory(Restangular, uuid2, Users) {
     if (usageCountDays) {
       params.usageCountDays = usageCountDays;
     }
-    return Restangular.one('templategroups/classlengthoptions', id).get(params).then(loadTemplateGroupClassesComplete);
-
-    function loadTemplateGroupClassesComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('templategroups/classlengthoptions', id).get(params);
   }
 
   function addMessage(type, msg) {

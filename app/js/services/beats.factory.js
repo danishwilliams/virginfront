@@ -17,12 +17,10 @@ function BeatsFactory(Restangular) {
   return beatsFactory;
 
   function loadBeats() {
-    return Restangular.all('beats').getList().then(loadBeatsComplete);
-
-    function loadBeatsComplete(data, status, headers, config) {
+    return Restangular.all('beats').getList().then(function(data) {
       self.beats = data;
       return self.beats;
-    }
+    });
   }
 
   function getBeats() {
@@ -30,10 +28,6 @@ function BeatsFactory(Restangular) {
   }
 
   function loadBeat(id) {
-    return Restangular.one('beats', id).get().then(loadBeatComplete);
-
-    function loadBeatComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('beats', id).get();
   }
 }

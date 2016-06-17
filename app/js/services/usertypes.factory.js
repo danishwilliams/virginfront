@@ -30,10 +30,6 @@ function UserTypesFactory(Restangular) {
   }
 
   function loadUserType(id) {
-    return Restangular.one('usertypes', id).get().then(loadUserTypeComplete);
-
-    function loadUserTypeComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('usertypes', id).get();
   }
 }

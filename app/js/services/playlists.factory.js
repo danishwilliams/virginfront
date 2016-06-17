@@ -331,7 +331,8 @@ function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
     return Restangular.one('gyms/syncinfo/deviceplaylistsync').get({gymId: gymId, playlistId: playlistId}).then(loadGymsDevicePlaylistSyncInfoComplete);
 
     function loadGymsDevicePlaylistSyncInfoComplete(data, status, headers, config) {
-      // TODO: this only returns the primary device. At some point we need to handle multiple devices
+      // This only returns the primary device (although there's a rule in effect where only one device is ever
+      // allowed to be primary at any particular point.
       return data[0];
     }
   }
@@ -350,27 +351,15 @@ function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
   }
 
   function addPlaylistToGym(playlistId, gymId) {
-    return Restangular.one('playlists/gym/' + playlistId, gymId).post().then(addPlaylistToGymComplete);
-
-    function addPlaylistToGymComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('playlists/gym/' + playlistId, gymId).post();
   }
 
   function addPlaylistToGyms(playlistId, gyms) {
-    return Restangular.all('playlists/gym/' + playlistId).post(gyms).then(addPlaylistToGymsComplete);
-
-    function addPlaylistToGymsComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.all('playlists/gym/' + playlistId).post(gyms);
   }
 
   function removePlaylistFromGym(playlistId, gymId) {
-    return Restangular.one('playlists/gym/' + playlistId, gymId).remove().then(removePlaylistFromGymComplete);
-
-    function removePlaylistFromGymComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('playlists/gym/' + playlistId, gymId).remove();
   }
 
   function getPlaylistLimitPerGym() {
@@ -386,14 +375,10 @@ function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
    */
   function publishPlaylist(playlistId, gymId) {
     if (gymId) {
-      return Restangular.one('playlists/sync', playlistId).customPOST({}, '', {gymId: gymId}).then(publishPlaylistComplete);
+      return Restangular.one('playlists/sync', playlistId).customPOST({}, '', {gymId: gymId});
     }
     else {
-      return Restangular.one('playlists/sync', playlistId).post().then(publishPlaylistComplete);
-    }
-
-    function publishPlaylistComplete(data, status, headers, config) {
-      return data;
+      return Restangular.one('playlists/sync', playlistId).post();
     }
   }
 

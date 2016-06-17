@@ -74,12 +74,10 @@ function GoalsFactory(Restangular, uuid2, Users) {
   }
 
   function loadGoals() {
-    return Restangular.all('goals').getList().then(loadGoalsComplete);
-
-    function loadGoalsComplete(data, status, headers, config) {
+    return Restangular.all('goals').getList().then(function(data) {
       self.goals = data;
       return self.goals;
-    }
+    });
   }
 
   function getFreestyleGoals() {
@@ -124,5 +122,4 @@ function GoalsFactory(Restangular, uuid2, Users) {
     }
     return bpmrange;
   }
-
 }

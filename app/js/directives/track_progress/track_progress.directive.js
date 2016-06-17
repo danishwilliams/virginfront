@@ -19,11 +19,20 @@ function trackProgress(Tracks) {
   function link(scope, element, attrs) {
     // this gives us the native JS object
     var el = element[0];
+    var meter = angular.element(element[0].firstChild.firstChild.nextSibling);
 
     el.addEventListener("click", function (event) {
       var newTime = scope.duration * clickPercent(event, element);
       Tracks.setTrackCurrentTime(newTime);
     }, false);
+
+    scope.$watch('progress', function() {
+      // Manually set the css of the meter element to have a specific width,
+      // since we're dynamically changing the 'width' css property, but if we use an
+      // inline style then IE freaks out, and we can't use ng-style because that's only
+      // compiled once
+      meter.css({width: scope.progress + '%'});
+    });
   }
 
   // returns click as decimal (.77) of the total progress element

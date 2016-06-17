@@ -6,6 +6,6 @@ angular.module("app.countries", []).controller('CountriesController', function (
   });
 
   this.update = function (country) {
-    country.put();
+    // country.put();
   };
 });

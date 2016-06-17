@@ -15,19 +15,11 @@ function SyncFactory(Restangular) {
   return syncFactory;
 
   function loadDevicePlaylists(id) {
-    return Restangular.all('sync/playlists', id).getList().then(loadDevicePlaylistsComplete);
-
-    function loadDevicePlaylistsComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.all('sync/playlists', id).getList();
   }
 
   function loadDevicePlaylistQueue(id) {
-    return Restangular.all('sync/playlistsyncqueue', id).getList().then(loadDevicePlaylistQueueComplete);
-
-    function loadDevicePlaylistQueueComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.all('sync/playlistsyncqueue', id).getList();
   }
 
 }

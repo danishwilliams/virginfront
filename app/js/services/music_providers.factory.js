@@ -18,12 +18,10 @@ function MusicProvidersFactory(Restangular) {
   return musicProvidersFactory;
 
   function loadMusicProviders() {
-    return Restangular.all('musicproviders').getList().then(loadMusicProvidersComplete);
-
-    function loadMusicProvidersComplete(data, status, headers, config) {
+    return Restangular.all('musicproviders').getList().then(function(data) {
       self.musicProviders = data;
       return self.musicProviders;
-    }
+    });
   }
 
   function getMusicProviders() {
@@ -31,11 +29,7 @@ function MusicProvidersFactory(Restangular) {
   }
 
   function loadMusicProvider(id) {
-    return Restangular.one('musicproviders', id).get().then(loadMusicProviderComplete);
-
-    function loadMusicProviderComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one('musicproviders', id).get();
   }
 
   function getHeartbeatLog(id, resultCount, page) {

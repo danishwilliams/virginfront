@@ -17,11 +17,9 @@ function EmailsFactory(Restangular) {
   return emailsFactory;
 
   function loadBounces() {
-    return Restangular.all('communications/email/bounces').get('').then(loadBouncesComplete);
-
-    function loadBouncesComplete(data, status, headers, config) {
+    return Restangular.all('communications/email/bounces').get('').then(function (data) {
       return data.EmailBounceList;
-    }
+    });
   }
 
   /**
@@ -38,11 +36,9 @@ function EmailsFactory(Restangular) {
    */
   function loadLogs(page, resultCount, success, userId, communicationName) {
     var parameters = setupLogParameters(page, resultCount, communicationName, userId, success);
-    return Restangular.all('communications/logs').get('', parameters).then(loadLogsComplete);
-
-    function loadLogsComplete(data, status, headers, config) {
+    return Restangular.all('communications/logs').get('', parameters).then(function (data) {
       return _convertDates(data);
-    }
+    });
   }
 
   /**
@@ -57,27 +53,43 @@ function EmailsFactory(Restangular) {
    */
   function loadFails(page, resultCount, communicationName) {
     var parameters = setupLogParameters(page, resultCount, communicationName);
-    return Restangular.all('communications/logs/fail').get('', parameters).then(loadFailsComplete);
-
-    function loadFailsComplete(data, status, headers, config) {
+    return Restangular.all('communications/logs/fail').get('', parameters).then(function (data) {
       return _convertDates(data);
-    }
+    });
   }
 
   function _convertDates(data) {
     if (!_.isArray(data)) {
       return data;
     }
-    data.forEach(function(val) {
-      if (val.CreateDate) { val.CreateDate = new Date(val.CreateDate);}
-      if (val.DateBounce) { val.DateBounce = new Date(val.DateBounce);}
-      if (val.DateClicked) { val.DateClicked = new Date(val.DateClicked);}
-      if (val.DateDeferred) { val.DateDeferred = new Date(val.DateDeferred);}
-      if (val.DateDelivered) { val.DateDelivered = new Date(val.DateDelivered);}
-      if (val.DateDropped) { val.DateDropped = new Date(val.DateDropped);}
-      if (val.DateOpen) { val.DateOpen = new Date(val.DateOpen);}
-      if (val.DateProcessed) { val.DateProcessed = new Date(val.DateProcessed);}
-      if (val.DateSpamReport) { val.DateSpamReport = new Date(val.DateSpamReport);}
+    data.forEach(function (val) {
+      if (val.CreateDate) {
+        val.CreateDate = new Date(val.CreateDate);
+      }
+      if (val.DateBounce) {
+        val.DateBounce = new Date(val.DateBounce);
+      }
+      if (val.DateClicked) {
+        val.DateClicked = new Date(val.DateClicked);
+      }
+      if (val.DateDeferred) {
+        val.DateDeferred = new Date(val.DateDeferred);
+      }
+      if (val.DateDelivered) {
+        val.DateDelivered = new Date(val.DateDelivered);
+      }
+      if (val.DateDropped) {
+        val.DateDropped = new Date(val.DateDropped);
+      }
+      if (val.DateOpen) {
+        val.DateOpen = new Date(val.DateOpen);
+      }
+      if (val.DateProcessed) {
+        val.DateProcessed = new Date(val.DateProcessed);
+      }
+      if (val.DateSpamReport) {
+        val.DateSpamReport = new Date(val.DateSpamReport);
+      }
     });
     return data;
   }

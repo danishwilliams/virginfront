@@ -299,19 +299,11 @@ function UsersFactory(Restangular, Storage, uuid2, USER_STATES, $translate) {
   }
 
   function enableUser(userId) {
-    return Restangular.one("users/enable", userId).post().then(enableUserComplete);
-
-    function enableUserComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one("users/enable", userId).post();
   }
 
   function testUserMusicProviderAccount(userId) {
-    return Restangular.one("music/test", userId).get().then(testUserMusicProviderAccountComplete);
-
-    function testUserMusicProviderAccountComplete(data, status, headers, config) {
-      return data;
-    }
+    return Restangular.one("music/test", userId).get();
   }
 
   function _convertDates(data) {

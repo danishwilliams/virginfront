@@ -15,7 +15,7 @@
           <div class="large-5 columns">
             <div class="search">
               <form ng-submit="vm.trackSearch(true)">
-                <input ng-model="vm.search" name="tracks" type="search" placeholder="{{'SEARCH_SONG' | translate}}">
+                <input id="search" ng-model="vm.search" name="tracks" type="search" placeholder="{{'SEARCH_SONG' | translate}}">
               </form>
             </div>
             <div class="genres hide-for-large-up" ng-if-responsive="tablet-down">
@@ -46,7 +46,7 @@
             {{'NO_TRACKS' | translate}}
           </span>
           <div id="tracks">
-            <span data-ng-repeat="track in vm.tracks track by $index">
+            <span id="tracksRepeater" data-ng-repeat="track in vm.tracks track by $index">
               <div class="row track" id="track{{track.MusicProviderTrackId}}" ng-class="vm.outOfBpmRange(track.Bpm) ? 'out-of-bpm-range' : 'in-bpm-range'">
                 <div class="play-container small-1 columns" ng-click="vm.playTrack(track);">
                   <div class="spinner1" ng-class="{'play': !track.playing && !track.loading, 'loading': track.loading, 'playing': track.playing}">
@@ -86,7 +86,7 @@
             <spinner class="spinner center" name="trackSpinner" show="true"></spinner>
           </div>
         </div>
-        <div ng-hide="vm.search.length > 0" fixed-position class="large-5 columns show-for-large-up genres" ng-if-responsive="desktop">
+        <div ng-hide="vm.search.length > 0" class="large-5 columns show-for-large-up genres" ng-if-responsive="desktop">
           <h3>{{'GENRE_FILTER' | translate}}</h3>
 
           <genres ng-model="vm.genres" ng-change="vm.genreSearch()"></genres>

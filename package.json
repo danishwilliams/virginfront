@@ -9,8 +9,10 @@
   },
   "devDependencies": {
     "coffee-script": "^1.6.3",
+    "colors": "^1.1.2",
     "google-spreadsheet": "^1.1.4",
     "grunt-sass": "^1.0.0",
+    "http-proxy": "^1.13.3",
     "jasmine-given": "^2.6.2",
     "lineman": "^0.34.0",
     "lineman-angular": "^0.3.0",
