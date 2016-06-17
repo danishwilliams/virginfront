@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <tabset>
+    <tabset ng-show="users.users.length > 0">
       <tab heading="{{'ACTIVE_USERS' | translate}} ({{users.numActive}})">
         <div class="row">
           <div class="medium-9 large-9 columns">
@@ -54,6 +54,10 @@
         <accordion>
       </tab>
     </tabset>
+
+    <span class="empty" ng-show="users.users.length < 1">{{'USERS_EMPTY' | translate}}<br>
+      {{'USERS_EMPTY_EXTRA' | translate}} <a ui-sref="user-new">{{'USERS_EMPTY_ACTION' | translate}}</a>.
+    </span>
 
   </div>
 </div>

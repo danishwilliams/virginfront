@@ -1,0 +1,52 @@
+<accordion-group is-open="isopen" ng-click="vm.loadDevicesForGym(gym)">
+  <accordion-heading>
+    <div class="row">
+      <div class="small-12 columns">
+        <label class="inline">{{gym.Name}}</label> {{gym.Location.City}}
+      </div>
+      <div class="small-6 columns text-right">
+        {{'GYM_MANAGE' | translate}}
+        <i class="right" ng-class="{'chevron-down': isopen, 'chevron-right': !isopen}"></i>
+      </div>
+    </div>
+  </accordion-heading>
+
+  <p ng-hide="gym.devices"><spinner class="spinner" name="gym{{gym.Id}}" show="true"></spinner>&nbsp;</p>
+
+  <div class="row" ng-hide="!gym.devices">
+    <alert ng-if="gym.alert" type="gym.alert.type" close="gym.alert = undefined">{{gym.alert.msg | translate}}</alert>
+    <alert ng-show="gym.archiveMessage" class="success" close="gym.archiveMessage = undefined">{{'GYM_ARCHIVE_WARNING' | translate}} <span ng-if="gym.DeviceCount > 0">{{'GYM_ARCHIVE_WARNING_DEVICES' | translate}}</span> <a ng-click="vm.undo(gym)">{{'UNDO' | translate}}</a></alert>
+
+    <div class="row">
+      <div class="large-9 columns">
+        <span class="empty" ng-if="gym.DeviceCount === 0">
+          {{'GYM_EMPTY' | translate}}
+        </span>
+        <span ng-if="gym.DeviceCount > 0">
+          <label>{{'GYM_DEVICES' | translate}}</label>
+          <div class="device" ng-repeat="device in gym.devices.data | orderBy:'Name'">
+            {{device.Name}}
+            <span class="type" ng-if="device.Primary">{{'PRIMARY' | translate}}</span>
+            <span class="type" ng-if="!device.Primary">{{'SECONDARY' | translate}}</span>
+          </div>
+        </span>
+
+        <button class="edit" ui-sref="gym-edit({id:gym.Id})">{{'GYM_EDIT' | translate}}</button>
+        <a ui-sref="devices-admin({name: gym.Name})">{{'DEVICES_VIEW' | translate}}</a>
+      </div>
+      <div class="large-9 columns">
+        <div class="text-right">
+          <span ng-show="!gym.archived && gym.isEnabled">
+            <button class="secondary" ng-show="gym.DeviceCount < 1" ng-disabled="vm.saving" ng-click="vm.archive(gym)">{{'GYM_ARCHIVE' | translate}}</button>
+            <button class="secondary" ng-show="gym.DeviceCount > 0" ng-disabled="vm.saving" ng-click="vm.archive(gym)">{{'GYM_ARCHIVE_DEVICES' | translate}}</button>
+          </span>
+          <span ng-show="!gym.isEnabled">
+            <button class="secondary" ng-show="gym.archived" ng-disabled="vm.saving" ng-click="vm.enable(gym)">{{'GYM_REENABLE' | translate}}</button>
+            <button class="secondary" ng-hide="gym.archived" ng-disabled="vm.saving" ng-click="vm.enable(gym)">{{'GYM_ENABLE' | translate}}</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</accordion-group>

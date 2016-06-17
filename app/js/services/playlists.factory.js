@@ -223,13 +223,16 @@ function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
    * @param userId
    *   Optional. The Id of the user we want the playlists for.
    */
-  function loadPlaylists(resultCount, userId) {
+  function loadPlaylists(resultCount, userId, complete) {
     var params = {
       resultCount: resultCount,
       includeGoals: false
     };
     if (userId) {
       params.UserId = userId;
+    }
+    if (complete !== undefined) {
+      params.complete = complete;
     }
     return Restangular.one('playlists').get(params).then(loadPlaylistsComplete);
 
@@ -309,7 +312,18 @@ function PlaylistsFactory(Restangular, uuid2, Users, $rootScope) {
     return Restangular.one('gyms/syncinfo/detailed').get({userId: userId}).then(loadGymsPlaylistSyncInfoDetailedComplete);
 
     function loadGymsPlaylistSyncInfoDetailedComplete(data, status, headers, config) {
-      return data;
+      // Check if this user has any gyms, or any playlists synced to any gyms
+      var hasGyms = false;
+      data.forEach(function(val) {
+        if (val.RegularGym || val.PlaylistSyncCount > 0) {
+          hasGyms = true;
+        }
+      });
+
+      return {
+        data: data,
+        hasGyms: hasGyms
+      };
     }
   }
 

@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" ng-show="vm.devices.length > 0">
       <div class="small-18 medium-9 columns">
         <label>{{'SEARCH' | translate}}</label>
         <input ng-model="vm.query" type="text" placeholder="{{'DEVICES_SEARCH' | translate}}" maxlength="60" autofocus>
@@ -31,6 +31,18 @@
     </div>
 
     <device-simple ng-show="vm.filterDevices(device)" ng-repeat="device in vm.devices | filter:vm.deviceFilter | orderBy:'Device.Gym.Name'"></device-simple>
+
+    <span class="empty" ng-show="vm.devices.length < 1">
+      <span ng-if="!vm.type">
+        {{'DEVICES_EMPTY' | translate}} <a ui-sref="device-new">{{'DEVICE_NEW' | translate}}.</a>
+      </span>
+      <span ng-if="vm.type === 'connected'"">
+        {{'DEVICES_CONNECTED_EMPTY' | translate}}
+      </span>
+      <span ng-if="vm.type === 'disconnected'"">
+        {{'DEVICES_DISCONNECTED_EMPTY' | translate}}
+      </span>
+    </span>
 
   </div>
 </div>

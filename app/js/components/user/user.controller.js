@@ -37,7 +37,8 @@ angular.module("app.user", []).controller('UserController', function ($statePara
     // Load up the rides loaded to this gym
     Playlists.loadGymsPlaylistSyncInfoDetailed(self.id).then(function (data) {
       spinnerService.hide('userGyms');
-      self.gyms = data;
+      self.gyms = data.data;
+      self.hasGyms = data.hasGyms;
     });
   }
 
@@ -84,7 +85,12 @@ angular.module("app.user", []).controller('UserController', function ($statePara
         self.userTypes.forEach(function (val) {
           if (val.Name === 'Pack Instructor' || val.Name === 'Manager') {
             val.show = true;
-          } else {
+          }
+          // Tech managers can make tech manager babies
+          else if (val.Name === 'Technical Manager' && Authorizer.canAccess('isTechManager', Users.getCurrentUser())) {
+            val.show = true;
+          }
+          else {
             val.hide = true;
           }
         });

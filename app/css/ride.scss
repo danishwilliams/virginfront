@@ -2,18 +2,22 @@
   max-width: rem-calc(1024px);
 }
 
-ride, .dashboard .new, #rides .new  {
+ride, .new-ride  {
   img {
     padding: 10px 10px 0 0;
   }
   a {
     display: block;
     background: $grey_lighter;
-    border-bottom: 2px solid $grey_light;
+    border-bottom: rem-calc(2) solid $grey_light;
     border-radius: 6px;
     min-height: rem-calc(168px);
     max-width: rem-calc(61px * 3);
     overflow: hidden;
+    &.incomplete {
+      background: transparent;
+      border: rem-calc(1) solid $grey_light;
+    }
   }
   .content {
     padding: 0 15px 0 15px;
@@ -42,7 +46,7 @@ ride, .dashboard .new, #rides .new  {
   }
 }
 
-.dashboard .new, #rides .new {
+.new-ride {
   a {
     background: $white;
     border: 1px dotted $grey_medium;

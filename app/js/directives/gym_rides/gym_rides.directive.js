@@ -35,7 +35,7 @@ function gymRidesController(Playlists, $scope, $interval, $timeout) {
   // If playlist at the gym's device hasn't been synced, set up a timer
   if ($scope.$parent.gym.PlaylistSyncInfos) {
     $scope.$parent.gym.PlaylistSyncInfos.forEach(function (val) {
-      if (!val.DevicePlaylistSyncs[0].SyncSuccess) {
+      if (val.DevicePlaylistSyncs[0] && !val.DevicePlaylistSyncs[0].SyncSuccess) {
 
         // Refresh the syncing details for this playlist
         val.IntervalId = intervalPromise.length;

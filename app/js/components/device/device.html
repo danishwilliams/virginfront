@@ -29,7 +29,7 @@
       <label class="disconnected">{{'DISCONNECTED' | translate}}</label>
       <hr>
       <div class="left">{{vm.heartbeat[0].date | date : 'dd'}} {{vm.heartbeat[0].date | date : 'MMMM' | translate}}</div>
-      <span style="position: relative; left: {{vm.newDayIndex * 4}}px">{{vm.newDay | date : 'dd'}} {{vm.newDay | date : 'MMMM' | translate}}</span>
+      <span style="position: relative; left: {{vm.newDayIndex * 9}}px">{{vm.newDay | date : 'dd'}} {{vm.newDay | date : 'MMMM' | translate}}</span>
     </div>
     </div>
 
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <table infinite-scroll="vm.loadMoreLogs()">
+    <table ng-if="vm.synclog.DeviceSyncPlaylistSyncs" infinite-scroll="vm.loadMoreLogs()">
       <tr ng-repeat="log in vm.synclog.DeviceSyncPlaylistSyncs">
         <td><span ng-if="log.timeAgo">{{log.timeAgo | date : 'dd'}} {{log.timeAgo | date : 'MMMM' | translate}} {{log.timeAgo | date : 'yyyy HH:mm'}}</span></td>
         <td>
@@ -59,7 +59,9 @@
               <li>{{'DEVICE_INTERNET_DIED' | translate}}</li>
             </ul>
           </span>
-          <span class="warning" ng-if="log.syncFailure">{{'SYNC_FAILED' | translate}}</span>
+          <span ng-if="log.syncFailure"><span class="warning">{{'SYNC_FAILED' | translate}}</span><br>
+            {{log.DeviceSync.ErrorMessage}}
+          </span>
           <span ng-if="log.playlistSyncError">
             <div class="warning">{{'PLAYLIST_SYNC_ERROR' | translate}}</div>
             <div ng-repeat="error in log.DevicePlaylistSyncs">
@@ -82,7 +84,7 @@
             </div><br>
           </span>
         </td>
-        <td><span ng-if="log.timeSyncTook">{{log.timeSyncTook | minutesSeconds}}</span></td>
+        <td><span ng-if="log.timeSyncTook >= 0">{{log.timeSyncTook | minutesSeconds}}</span></td>
       </tr>
     </table>
 

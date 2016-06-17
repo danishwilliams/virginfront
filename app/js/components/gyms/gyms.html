@@ -1,39 +1,35 @@
 <div class="row">
   <div class="large-12 medium-18 small-18 large-centered columns">
+
     <div class="heading row">
       <div class="large-13 medium-12 columns">
-        <h1>Gyms</h1>
+        <h1>{{'GYMS' | translate}}</h1>
       </div>
       <div class="large-5 medium-6 columns">
-        <!--<button class="secondary" ui-sref="club-new">Create new club</button>-->
+        <button class="secondary" ui-sref="gym-new">{{'GYM_NEW' | translate}}</button>
       </div>
     </div>
 
-    <table>
-      <thead>
-        <tr>
-          <td>Clubs with devices</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="gym in gyms.gyms | orderBy:'Name'">
-          <td contentEditable ng-change="gyms.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
-        </tr>
-      </tbody>
-    </table>
+    <spinner class="spinner" name="gyms" show="true"></spinner>
+    <alert ng-if="vm.alert" type="vm.alert.type" close="vm.alert = undefined">{{vm.alert.msg | translate}}</alert>
 
-    <table>
-      <thead>
-        <tr>
-          <td>Clubs without devices</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="gym in gyms.gymsNoActiveDevices | orderBy:'Name'">
-          <td contentEditable ng-change="gyms.update(gym)" ng-model-options="{updateOn : 'change blur'}" ng-model="gym.Name"></td>
-        </tr>
-      </tbody>
-    </table>
+    <tabset>
+      <tab heading="{{'GYMS_ACTIVE' | translate}} ({{vm.gyms.length}})">
+        <label>{{'SEARCH' | translate}}</label>
+        <input ng-model="query" type="text" placeholder="{{'GYMS_SEARCH' | translate}}" maxlength="60" autofocus>
 
+        <accordion>
+          <gym ng-repeat="gym in vm.gyms | filter:{Name:query} | orderBy:'Name'"></gym>
+        </accordion>
+      </tab>
+      <tab heading="{{'GYMS_INACTIVE' | translate}} ({{vm.archivedGyms.length}})">
+        <label>{{'SEARCH' | translate}}</label>
+        <input ng-model="query" type="text" placeholder="{{'GYMS_SEARCH' | translate}}" maxlength="60" autofocus>
+
+        <accordion>
+          <gym ng-repeat="gym in vm.archivedGyms | filter:{Name:query} | orderBy:'Name'"></gym>
+        </accordion>
+      </tab>
+    </tabset>
   </div>
 </div>

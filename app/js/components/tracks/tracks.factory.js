@@ -1,3 +1,4 @@
+/*
 angular
   .module("app")
   .factory('TracksFactory', TracksComponentFactory);
@@ -28,3 +29,4 @@ function TracksComponentFactory(Restangular) {
     return tracks;
   }
 }
+*/

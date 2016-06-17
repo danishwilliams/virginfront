@@ -84,6 +84,7 @@ function reportingController(Emails, Reporting, spinnerService) {
     data = _.sortBy(data, function (val) {
       return val.Count;
     });
+    data.reverse();
     self.templates = [];
     for (var i = 0; i < 5; i++) {
       if (data[i]) {

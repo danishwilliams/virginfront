@@ -1,4 +1,14 @@
-// Note: This is a typescript file compiled to javascript. You should probably be editing the .ts file not the .js one
+/*
+Note: This is a typescript file compiled to javascript. You should probably be editing the .ts file not the .js one
+
+To compile typescript to javascript, follow the directions at https://www.typescriptlang.org/
+
+I used the Sublime Text 3 typescript plugin. To compile, hit: Apple + shift + B
+followed by return.
+
+It will show a bunch of errors about not finding 'angular' or '_'. I suppose at some future point this entire project
+could be ported to typescript and the build could be included in lineman itself.
+*/
 
 /**
  * Accomplishes infinite scrolling

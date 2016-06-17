@@ -18,7 +18,7 @@ angular.module("app.music_providers", []).controller('Music_providersController'
       else {
         self.hasErrors = true;
       }
-      val.date = new Date(val.CreateDate);
+      val.date = val.CreateDate;
       val.i = i;
 
       i++;

@@ -95,7 +95,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
 
   // Devices
   .state('devices-admin', {
-    url: '/admin/devices?type',
+    url: '/admin/devices?type&name',
     templateUrl: '../js/components/devices/devices.html',
     controller: 'DevicesController as vm',
     resolve: {
@@ -205,7 +205,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
     url: '/admin/default-goals',
     templateUrl: '../js/components/default_goals/default_goals.html',
     resolve: {
-      $title: function() { return 'Goals | Admin'; }
+      $title: function() { return 'GOALS_PAGE'; }
     },
     data: {
       permissions: [APP_PERMISSIONS.templates]
@@ -216,12 +216,36 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   .state('gyms-admin', {
     url: '/admin/gyms',
     templateUrl: '../js/components/gyms/gyms.html',
-    controller: 'GymsController as gyms',
+    controller: 'GymsController as vm',
     resolve: {
-      $title: function() { return 'Clubs | Admin'; }
+      $title: function() { return 'GYMS_PAGE'; }
     },
     data: {
-      permissions: [APP_PERMISSIONS.gyms]
+      permissions: [APP_PERMISSIONS.users]
+    }
+  })
+
+  .state('gym-edit', {
+    url: '/admin/gyms/:id/edit',
+    templateUrl: '../js/components/gym_edit/gym_edit.html',
+    controller: 'GymController as vm',
+    resolve: {
+      $title: function() { return 'GYM_EDIT_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
+    }
+  })
+
+  .state('gym-new', {
+    url: '/admin/gyms/new',
+    templateUrl: '../js/components/gym_edit/gym_edit.html',
+    controller: 'GymController as vm',
+    resolve: {
+      $title: function() { return 'GYM_NEW_PAGE'; }
+    },
+    data: {
+      permissions: [APP_PERMISSIONS.users]
     }
   })
 
@@ -481,6 +505,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
   })
 
   // Tracks
+  /*
   .state('tracks-admin', {
     url: '/admin/tracks',
     templateUrl: '../js/components/tracks/tracks.html',
@@ -492,6 +517,7 @@ angular.module("app").config(function ($stateProvider, $urlRouterProvider, $loca
       permissions: [APP_PERMISSIONS.viewAdmin]
     }
   })
+  */
 
   // Users
   .state('users-admin', {

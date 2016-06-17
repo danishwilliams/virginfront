@@ -11,7 +11,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
   });
 
   // Load the device heartbeat
-  Devices.loadDeviceHeartbeatLog(self.id, 10).then(function (data) {
+  Devices.loadDeviceHeartbeatLog(self.id, 1).then(function (data) {
     var log = Heartbeat.createHeartbeat(data);
     self.heartbeat = log.heartbeat;
     self.hasHeartbeat = log.hasHeartbeat;
@@ -47,11 +47,11 @@ angular.module("app.device", []).controller('DeviceController', function ($state
         return;
       }
       self.synclog.DeviceSyncPlaylistSyncs.forEach(function (val) {
-        val.timeAgo = val.DeviceSync.CreateDate;
+        val.timeAgo = new Date(val.DeviceSync.CreateDate);
 
         // Work out how long the device took to sync in this sync cycle
         if (val.DeviceSync.SyncEndDate) {
-          val.timeSyncTook = Math.floor((new Date(val.DeviceSync.SyncEndDate) - new Date(val.DeviceSync.CreateDate)) / 1000);
+          val.timeSyncTook = Math.round((new Date(val.DeviceSync.SyncEndDate) - new Date(val.DeviceSync.CreateDate)) / 1000);
         }
 
         if (val.DeviceSync.SyncSuccess === false) {
@@ -73,7 +73,7 @@ angular.module("app.device", []).controller('DeviceController', function ($state
             }
           });
         }
-        if (!val.playlistSyncError) {
+        if (!val.playlistSyncError && !val.syncFailure) {
           if (!val.DeviceSync.SyncEndDate) {
             if (i === 0) {
               // Sync is in progress

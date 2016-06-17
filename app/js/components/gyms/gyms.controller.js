@@ -1,15 +1,13 @@
-angular.module("app.gyms", []).controller('GymsController', function (Gyms) {
+angular.module("app.gyms", []).controller('GymsController', function (Gyms, spinnerService, Alert) {
   var self = this;
+  self.alert = Alert.popAlert();
 
-  Gyms.loadGyms(true).then(function(data) {
+  Gyms.loadGyms().then(function(data) {
     self.gyms = data;
+    spinnerService.hide('gyms');
   });
 
-  Gyms.loadGyms(false).then(function(data) {
-    self.gymsNoActiveDevices = data;
+  Gyms.loadArchivedGyms().then(function(data) {
+    self.archivedGyms = data;
   });
-
-  this.update = function (gym) {
-    gym.put();
-  };
 });

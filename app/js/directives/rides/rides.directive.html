@@ -1,6 +1,6 @@
 <spinner ng-if="random" class="spinner" name="spinner{{random}}" show="true"></spinner>
-<ul ng-show="playlists" class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
-  <li ng-if="createNew" class="new">
+<ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
+  <li ng-if="createNew && viewingOwnUserProfile" class="new-ride">
     <a ui-sref="playlist-new-template">
       <span class="clearfix"><img class="right" src="/img/playlists_grey/new.svg"></span>
       <div class="content">
@@ -8,7 +8,9 @@
       </div>
     </a>
   </li>
-  <li ng-repeat="playlist in playlists">
+  <li ng-show="playlists" ng-repeat="playlist in playlists">
     <ride></ride>
   </li>
 </ul>
+
+<span class="empty" ng-if="!viewingOwnUserProfile && playlists.length === 0">{{userName}} {{'RIDES_EMPTY_AS_MANAGER' | translate}}</span>

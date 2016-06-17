@@ -132,11 +132,13 @@ input[type="text"].class_name {
   color: $blue;
   background: $blue_light;
   margin-bottom: 20px;
+  /*
   .empty-text {
     cursor: pointer;
     border: 1px dotted $blue;
     border-radius: $radius-tiny;
   }
+  */
 }
 
 .track.dropped {
