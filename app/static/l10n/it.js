@@ -467,12 +467,9 @@
   "TEMPLATE_USED": "Used {{number}} times",
   "TEMPLATE_USED_DAYS": "within the last {{number}} days",
   "MANAGE_DEFAULT_GOALS": "Gestione goal di default",
-<<<<<<< HEAD
-=======
   "DEFAULT_GOALS": "Default goals",
   "CHALLENGE_GOALS_DESC": "Editing challenge masters will apply your changes across all templates and existing playlists.",
   "DEFAULT_GOALS_DESC": "Editing default goal metrics will not apply your changes to templates or playlists but resets the dropdown list of default goals.",
->>>>>>> release/1.1
   "CHALLENGE_GOAL_CONFIRM": "Salvare questa modifica ora avrà effetto su tutti i template e playlist esistenti",
   "CHALLENGE_GOAL_SAVED": "La modifica è stata salvata con successo e applicata su tutti i template e corsi istruttori",
   "SAVE_GOAL": "Salva goal",
