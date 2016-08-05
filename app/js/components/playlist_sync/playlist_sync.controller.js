@@ -65,9 +65,6 @@ angular.module("app.playlist_sync", []).controller('Playlist_syncController', fu
       Playlists.publishPlaylist(self.id).then(function (data) {
         $state.go('dashboard');
       });
-      Playlists.publishPlaylistToMusicProvider(self.id).then(function (data) {
-        console.log('successfully published playlist to music provider!');
-      });
     });
   };
 
