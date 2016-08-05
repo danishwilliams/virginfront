@@ -313,7 +313,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
         $state.go('dashboard');
       } else if (self.newPlaylist) {
         // Publish the playlist to the Music Provider
-        Playlists.publishPlaylistToMusicProvider(self.id).then(function (data) {
+        Playlists.publishPlaylistToMusicProvider(self.playlist.Id).then(function (data) {
           console.log('successfully published playlist to music provider!');
         }, function(e) {
           console.log('music provider playlist publishing failed', e);
