@@ -312,6 +312,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       if (!self.playlist.Complete) {
         $state.go('dashboard');
       } else if (self.newPlaylist) {
+        // Publish the playlist to the Music Provider
+        Playlists.publishPlaylistToMusicProvider(self.playlist.Id).then(function (data) {
+          console.log('successfully published playlist to music provider!');
+        }, function(e) {
+          console.log('music provider playlist publishing failed', e);
+        });
+
         // New playlist view
         $state.go('playlist-new-view', {
           id: self.playlist.Id
@@ -319,6 +326,13 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
       } else {
         // Publish the completed, edited playlist then view it
         Playlists.publishPlaylist(self.playlist.Id).then(function (data) {
+          // Publish the playlist to the Music Provider
+          Playlists.publishPlaylistToMusicProvider(self.id).then(function (data) {
+            console.log('successfully published playlist to music provider!');
+          }, function(e) {
+            console.log('music provider playlist publishing failed', e);
+          });
+
           $state.go('playlist-view', {
             id: self.playlist.Id
           });
