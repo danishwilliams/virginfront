@@ -1,3 +1,7 @@
+Instructor App 1.22, 2016-05-24
+-------------------------------
+- When saving a South African playlist (either new or edit) it syncs to Simfy
+
 Instructor App 1.2, 2016-05-24
 -------------------------------
 - Device overview reporting dashboard
