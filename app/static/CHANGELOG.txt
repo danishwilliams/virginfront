@@ -1,4 +1,8 @@
-Instructor App 1.22, 2016-05-24
+Instructor App 1.23, 2016-09-18
+-------------------------------
+- Fix for Simfy playlist syncing. Now works on edit and save.
+
+Instructor App 1.22, 2016-08-31
 -------------------------------
 - When saving a South African playlist (either new or edit) it syncs to Simfy
 
