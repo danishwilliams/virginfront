@@ -3,7 +3,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   var playing = false; // If music is playing or not
 
   // TODO: do we want to sanitize this?
-  this.id = $stateParams.id;
+  self.id = $stateParams.id;
   self.title = 'RIDE_EDIT';
 
   if (Playlists.getCreatingNewPlaylist() || $state.current.name === 'playlist-new-edit') {
@@ -14,8 +14,8 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     self.playlistTracksLength = 0;
   }
 
-  this.playlist = {};
-  this.currentgoal = Playlists.getCurrentGoal();
+  self.playlist = {};
+  self.currentgoal = Playlists.getCurrentGoal();
 
   Playlists.setStep(2);
 
@@ -66,7 +66,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     });
   } else if (self.id) {
     // Load an existing playlist so we can edit it
-    Playlists.loadPlaylist(this.id).then(function () {
+    Playlists.loadPlaylist(self.id).then(function () {
       self.playlist = Playlists.getPlaylist();
       if (!self.playlist.IsSyncedToGyms) {
         self.newPlaylist = true;
@@ -82,7 +82,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   }
 
   // This is a Freestyle playlist, so create a list of freestyle goals which can then be added
-  this.initFreestyleGoals = function () {
+  self.initFreestyleGoals = function () {
     if (self.playlist.TemplateType !== 'freestyle') {
       return;
     }
@@ -107,7 +107,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   // Rules for adding a new freestyle goal
-  this.canAddNewFreestyleGoal = function () {
+  self.canAddNewFreestyleGoal = function () {
     if (!self.playlist.PlaylistGoals) {
       return;
     }
@@ -118,7 +118,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return false;
   };
 
-  this.addFreestyleGoal = function (goal) {
+  self.addFreestyleGoal = function (goal) {
     goal.show = false;
     // Find the current ArrayId and SortOrder from the last item in the PlaylistGoals array
     var i = self.playlist.PlaylistGoals.length;
@@ -134,7 +134,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   /* Changes a Freestyle goal to another one */
-  this.changeFreestyleGoal = function (playlistGoal) {
+  self.changeFreestyleGoal = function (playlistGoal) {
     var sortOrder = playlistGoal.SortOrder;
     var tracks = playlistGoal.PlaylistGoalTracks;
     var goalOptions = playlistGoal.Goal.GoalOptions;
@@ -166,7 +166,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     self.freestyleGoal = {};
   };
 
-  this.playTrack = function (track) {
+  self.playTrack = function (track) {
     Tracks.playTrack(track);
   };
 
@@ -174,7 +174,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * The user has just clicked on a goal; potentially open/close it and make it active/inactive
    * @param goal
    */
-  this.goalClicked = function (playlistGoal) {
+  self.goalClicked = function (playlistGoal) {
     if (playlistGoal.cancelEditFreeStyleGoal || playlistGoal.editFreeStyleGoal) {
       // We're currently selecting a different freestyle goal, so don't do anything else
       if (playlistGoal.cancelEditFreeStyleGoal) {
@@ -219,7 +219,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
    * @param goal
    * @returns {boolean}
    */
-  this.isGoalActive = function (playlistGoal) {
+  self.isGoalActive = function (playlistGoal) {
     if (self.currentgoal.PlaylistGoalId === playlistGoal.Id) {
       return true;
     }
@@ -227,9 +227,9 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   // Remove a track from a goal playlist
-  this.removeTrack = function (playlistGoalArrayId, track) {
+  self.removeTrack = function (playlistGoalArrayId, track) {
     Playlists.removeTrackFromGoalPlaylist(playlistGoalArrayId, track);
-    this.playlistTracksLength = Playlists.getPlaylistLength();
+    self.playlistTracksLength = Playlists.getPlaylistLength();
     self.checkAllGoalsHaveTracks();
     Tracks.stopTrack(track.Track);
     if (self.form) {
@@ -245,7 +245,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   // If the playlist goal note doesn't exist, create it
-  this.playlistGoalNoteCreate = function (playlistGoalArrayId, trackIndex) {
+  self.playlistGoalNoteCreate = function (playlistGoalArrayId, trackIndex) {
     if (!self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex].Id) {
       var noteText = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalNotes[trackIndex].NoteText;
       var trackId = self.playlist.PlaylistGoals[playlistGoalArrayId].PlaylistGoalTracks[trackIndex].TrackId;
@@ -254,7 +254,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   // Save the playlist to the API
-  this.savePlaylist = function () {
+  self.savePlaylist = function () {
     var error = false;
     if (!self.playlist.Name || self.playlist.Name.length < 1) {
       error = true;
@@ -327,7 +327,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
         // Publish the completed, edited playlist then view it
         Playlists.publishPlaylist(self.playlist.Id).then(function (data) {
           // Publish the playlist to the Music Provider
-          Playlists.publishPlaylistToMusicProvider(self.id).then(function (data) {
+          Playlists.publishPlaylistToMusicProvider(self.playlist.Id).then(function (data) {
             console.log('successfully published playlist to music provider!');
           }, function(e) {
             console.log('music provider playlist publishing failed', e);
@@ -356,12 +356,12 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   };
 
   // In it's own function because 'self' isn't accessible from the rootScope $stateChangeSuccess
-  this.updatePlaylistLength = function () {
+  self.updatePlaylistLength = function () {
     self.playlistTracksLength = Playlists.getPlaylistLength();
   };
 
   // In it's own function because 'self' isn't accessible from the rootScope $stateChangeSuccess
-  this.updateCurrentGoal = function () {
+  self.updateCurrentGoal = function () {
     self.currentgoal = Playlists.getCurrentGoal();
   };
 
@@ -393,11 +393,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
   /**
    * Does every goal have a track?
    */
-  this.checkAllGoalsHaveTracks = function () {
+  self.checkAllGoalsHaveTracks = function () {
     return Playlists.checkAllGoalsHaveTracks();
   };
 
-  this.checkHasPreRideBackgroundTracks = function () {
+  self.checkHasPreRideBackgroundTracks = function () {
     var found = false;
     if (!self.playlist.BackgroundTracks) {
       return;
@@ -410,7 +410,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return found;
   };
 
-  this.checkHasPostRideBackgroundTracks = function () {
+  self.checkHasPostRideBackgroundTracks = function () {
     if (!self.playlist.BackgroundTracks) {
       return false;
     }
@@ -423,11 +423,11 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return found;
   };
 
-  this.checkPlaylistLength = function () {
+  self.checkPlaylistLength = function () {
     return Playlists.checkPlaylistLength();
   };
 
-  this.checkWhenEditingEveryGoalHasATrack = function () {
+  self.checkWhenEditingEveryGoalHasATrack = function () {
     if (!self.newPlaylist) {
       if (!self.checkAllGoalsHaveTracks()) {
         return false;
@@ -459,7 +459,7 @@ angular.module("app.playlist_edit", []).controller('Playlist_editController', fu
     return false;
   };
 
-  this.submitButtonText = function () {
+  self.submitButtonText = function () {
     if (!self.checkHasPreRideBackgroundTracks() || !self.checkHasPostRideBackgroundTracks() || !self.checkPlaylistLength() || !self.checkAllGoalsHaveTracks()) {
       return 'SAVE_CONTINUE_LATER';
     }
