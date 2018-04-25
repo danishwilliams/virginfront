@@ -1,7 +1,0 @@
-<label ng-repeat="gym in vm.gyms | orderBy: 'Name'">
-  <input type="checkbox" checkbox-model="$parent.ngModel">{{gym.Name}}
-</label>
-<div class="row submit">
-  <a class="cancel" ng-click="user.gymEdit = !user.gymEdit">{{'CANCEL' | translate}}</a>
-  <button class="round" ng-click="user.saveGyms()">{{'SAVE' | translate}}</button>
-</div>
