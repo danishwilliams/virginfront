@@ -1,0 +1,989 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VARockstar</name>
+    </assembly>
+    <members>
+        <member name="M:VARockstar.Controllers.AuthController.GetAuthToken(VARockstar.Models.DTOs.AuthDTO)">
+            <summary>
+            Get an auth token for use in the API
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.BeatsController.GetAllBeats">
+            <summary>
+            Get all Beats
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.BeatsController.GetBeat(System.Guid)">
+            <summary>
+            Get a Beat by Id
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.BeatsController.AddBeat(VARockstar.Models.Beat,System.Guid)">
+            <summary>
+            Add/Update a Beat
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.BeatsController.DeleteBeat(System.Guid)">
+            <summary>
+            Delete a Beat
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.CommunicationsController.GetEmailBounces(System.Nullable{System.Int32},System.String)">
+            <summary>
+            Get email bounces. Optionally for a certain number of days and/or email address.
+            </summary>
+            <param name="days">Optional - only return results for the past X days</param>
+            <param name="emailAddress">Optional - only return results for this email address</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.CommunicationsController.GetCommunicationLogs(System.Int32,System.Int32,System.Nullable{System.Guid},System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Get communication logs for all Users, or a specific User
+            </summary>
+            <param name="userId">Optional - only returns results for this User</param>
+            <param name="communicationName">Optional -  only returns results for this communicationName</param>
+            <param name="success">Optional - only return successfully sent</param>
+            <remarks>Results can further optionally be filtered by success and the communication name</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.CommunicationsController.GetLatestFailLogs(System.Int32,System.Int32,System.String)">
+            <summary>
+            Get communication logs for emails that have failed, but only the latest failure for each User.
+            </summary>
+            <param name="communicationName">Optional -  only returns results for this communicationName</param>
+            <remarks>The latest failure will only be returned if there is no newer successfully sent email</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.CommunicationsController.UpdateEventCommunicationLog(System.Object)">
+            <summary>
+            Update the Communication Log with an event (delivered, opened, etc) - used by Sendgrid
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.CountriesController.GetAllCountries">
+            <summary>
+            Get all Countries
+            </summary>
+            <remarks>Get all countries</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.CountriesController.GetCountry(System.Guid)">
+            <summary>
+            Get a Country by Id
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.CountriesController.AddCountry(VARockstar.Models.Country,System.Guid)">
+            <summary>
+            Add/Update a Country
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.CountriesController.DeleteCountry(System.Guid)">
+            <summary>
+            Delete a Country
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.DevicesController.GetAllDevices">
+            <summary>
+            Get all Devices
+            </summary>
+            <remarks>Get all devices</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.DevicesController.GetDevice(System.Guid)">
+            <summary>
+            Get a Device by id
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.DevicesController.UpdateDevice(VARockstar.Models.Device)">
+            <summary>
+            Update a Device name and primary flag
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.DevicesController.ProvisionDevice(VARockstar.Models.DeviceProvision)">
+            <summary>
+            Provision a Device - returns a provisioning code
+            </summary>
+            <remarks>
+            <b>Only the following fields from the Model Schema are required</b>
+            <br/><code>var requiredParams = {
+            <br/>DeviceName: deviceName,
+            <br/>GymId: gymId,
+            <br/>Primary: isPrimary,
+            <br/>Id: newuuid()<br/>}</code>
+            </remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.DevicesController.ValidateDevice(System.String)">
+            <summary>
+            Validated a Device provisioning code
+            </summary>
+            <remarks>This will do the actual Device creation</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.DevicesController.DeleteDevice(System.Guid)">
+            <summary>
+            Delete a Device
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.DevicesController.DisableDevice(System.Guid,System.Nullable{System.Guid})">
+            <summary>
+            Disable a Device
+            </summary>
+            <param name="communicationName">Optional -  Device which will be made the new primary Device (if Device being disabled is primary)</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.DevicesController.GetDevicesStatus">
+            <summary>
+            Get sync status of all active devices
+            </summary>
+            <remarks>Returns the Device's latest heartbeat date, latest DeviceSync record, and any playlist sync failures within the latest DeviceSync</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.DevicesController.GetDeviceSyncLog(System.Guid,System.Int32,System.Int32)">
+            <summary>
+            Get the sync log for a Device
+            </summary>
+            <remarks>Returns a Devices's DeviceSync records, including any playlist sync failures within each DeviceSync</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.DevicesController.GetDeviceHeartbeatLog(System.Guid,System.Int32)">
+            <summary>
+            Get the heartbeat log for a Device
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.DevicesController.GetDeviceErrorLog(System.Guid,System.Int32,System.Int32)">
+            <summary>
+            Get the error log for a Device
+            </summary>
+            <remarks>Returns any errors sent to the API by a Device</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.LanguageController.GetAllLanguages(System.Boolean)">
+            <summary>
+            Get all Languages
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.LanguageController.PutLanguage(VARockstar.Models.Language,System.Guid)">
+            <summary>
+            Add or update a Language
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.LanguageController.DisableLanguage(System.Guid)">
+            <summary>
+            Disable a Language
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.LanguageController.EnableLanguage(System.Guid)">
+            <summary>
+            Enable a Language
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.ReportsController.GetInstructorStatesCount">
+            <summary>
+            Get count of all instructor states (either registered or unregistered)
+            </summary>
+            <remarks>If the User State field is anything other than "registered", they are considered unregistered</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.ReportsController.GetActiveInactiveInstructors(System.Int32)">
+            <summary>
+            Get count of active/inactive instructors in past X days
+            </summary>
+            <remarks>Active - meaning they have taught a class in the past X days</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.ReportsController.GetGymsRidesTaught(System.Int32)">
+            <summary>
+            Get count of rides taught per club for past X days
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.ReportsController.GetTemplatesRidesTaught(System.Int32)">
+            <summary>
+            Get count of each template used in rides taught for past X days
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.ReportsController.GetTemplatesPlaylists(System.Int32)">
+            <summary>
+            Get count of templates used by playlists created in the past X days
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GenresController.GetAllGenres">
+            <summary>
+            Get all genres
+            </summary>
+            <remarks>Get all genres</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GenresController.GetGenre(System.Guid)">
+            <summary>
+            Get a Genre by id
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GenresController.AddGenre(VARockstar.Models.Genre,System.Guid)">
+            <summary>
+            Add/Update a Genre
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GenresController.DeleteGenre(System.Guid)">
+            <summary>
+            Delete a Genre
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GoalsController.GetAllGoals">
+            <summary>
+            Get all Goals
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GoalsController.GetGoal(System.Guid)">
+            <summary>
+            Get a Goal by Id
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GoalsController.AddGoal(VARockstar.Models.Goal,System.Guid)">
+            <summary>
+            Add/Update a Goal
+            </summary>
+            <remarks><b>WARNING:</b> When updating a Goal in this way, it will affect all templates and playlists using the Goal</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GoalsController.DeleteGoal(System.Guid)">
+            <summary>
+            Delete a Goal
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GoalsController.GetAllFreestyleGoals">
+            <summary>
+            Get all Freestyle Goals (also known as Default Goals)
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GoalsController.DeleteFreestyleGoal(System.Guid)">
+            <summary>
+            Delete a Freestyle Goal (also known as Default Goals)
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GoalsController.PutFreestyleGoal(VARockstar.Models.FreestyleGoal)">
+            <summary>
+            Add or update a Freestyle Goal (also known as Default Goals)
+            </summary>
+            <remarks>
+            <p>If the incoming goal is a challenge goal, it will be applied globally to all existing templates and playlists.</p>
+            <p>If the incoming goal is NOT a challenge goal, it will either be created or an existing matching goal will be used. It will never be updated.</p>
+            </remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GoalsController.GetAllChallenges">
+            <summary>
+            Get all Challenge types
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GoalsController.PutChallenge(VARockstar.Models.GoalChallenge)">
+            <summary>
+            Add or update a Challenge type
+            </summary>
+            <remarks>This will just add/update a Challenge type. If you wish to make use of this Challenge, a Goal will still need to be created using this Challenge</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GymsController.GetAllGyms(System.Boolean,System.Boolean)">
+            <summary>
+            Get all gyms
+            </summary>
+            <param name="onlyActiveDevices">Optional - only return Gyms with active primary devices. Default is false</param>
+            <param name="enabled">Optional - only return enabled/disabled Gyms. Default is true</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GymsController.GetGym(System.Guid)">
+            <summary>
+            Get a Gym by Id
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GymsController.PutGym(VARockstar.Models.Gym,System.Guid)">
+            <summary>
+            Add/Update a Gym
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GymsController.DeleteGym(System.Guid)">
+            <summary>
+            Delete a Gym
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GymsController.DisableGym(System.Guid,System.Boolean)">
+            <summary>
+            Disable a Gym
+            </summary>
+            <param name="disableDevices">Disable all devices associated with the Gym</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GymsController.GetGymSyncInfo">
+            <summary>
+            Get a all available Gyms for the current User, with a simple Playlist sync summary for each Gym
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GymsController.GetAllGymsSyncInfoDetailed(System.Nullable{System.Guid})">
+            <summary>
+            Get a all available Gyms for the current User, with a detailed Playlist sync summary
+            </summary>
+            <param name="userId">Optional - specify a User</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GymsController.GetGymSyncInfoDetailed(System.Guid)">
+            <summary>
+            Get the current User's detailed Playlist sync summary for a specified Gym
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GymsController.GetDevicePlaylistSync(System.Guid,System.Guid)">
+            <summary>
+            Get the latest DevicePlaylistSync (TimeRemaining, SyncSuccess, etc) for a Gym and Playlist
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GymsController.GetAvailablePlaylistsForGym(System.Guid)">
+            <summary>
+            Get Users Playlists NOT published to a Gym
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.GymsController.GetGymDevices(System.Guid)">
+            <summary>
+            Get a Gym's active Devices (both Primary and Secondaries)
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.HangfireController.RefreshHangfireJobs">
+            <summary>
+            Update recurring Hangfire jobs to reflect any changes in the HangfireJobs table
+            </summary>
+            <remarks></remarks>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:VARockstar.Controllers.InstructorsController.UpdateInstructors(System.Collections.Generic.List{VARockstar.Models.DTOs.InstructorDTO})" -->
+        <member name="M:VARockstar.Controllers.InstructorsController.GetInstructors(System.Nullable{System.Boolean},System.String,System.Int32,System.Int32)">
+            <summary>
+            Get a list of instructors for your region
+            </summary>
+        </member>
+        <member name="M:VARockstar.Controllers.LocationsController.GetAllLocations">
+            <summary>
+            Get all locations
+            </summary>
+            <remarks>Get all locations</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.LocationsController.GetLocation(System.Guid)">
+            <summary>
+            Get a Location by Id
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.LocationsController.PutLocation(VARockstar.Models.Location,System.Guid)">
+            <summary>
+            Add/Update a Location
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.LocationsController.DeleteLocation(System.Guid)">
+            <summary>
+            Delete a Location
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicController.Search(System.String,System.Int32,System.Int32)">
+            <summary>
+            Search for tracks using a word/phrase
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicController.TopInUsersGenre(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Get the top tracks in the User's selected Genres
+            </summary>
+            <param name="bpmLow">Optional - lower bpm value of track results returned</param>
+            <param name="bpmHigh">Optional - upper bpm value of track results returned</param>
+            <param name="canDoubleRange">Optional - Return tracks in double the specified bpm range, if bpmLow is less than 90, and User's country is South Africa</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicController.TopInGenres(System.Collections.Generic.List{VARockstar.Models.Genre},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Get the top tracks in specific Genres
+            </summary>
+            <param name="bpmLow">Optional - lower bpm value of track results returned</param>
+            <param name="bpmHigh">Optional - upper bpm value of track results returned</param>
+            <param name="canDoubleRange">Optional - Return tracks in double the specified bpm range, if bpmLow is less than 90, and User's country is South Africa</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicController.PutMusicProviderPlaylist(System.Guid)">
+            <summary>
+            Save a Playlist on the MusicProvider
+            </summary>
+            <remarks>Only supported by Simfy</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicController.GetTrackDownloadUrl(System.Guid)">
+            <summary>
+            Get a Track download URL
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicController.SetTrackUsage(System.Collections.Generic.List{VARockstar.Models.DTOs.TrackUsageDTO})">
+            <summary>
+            Set track play count for a track(s)
+            </summary>
+            <remarks>This data is sent to the music provider by a Hangfire job</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicController.TestUserMusicProvider(System.Guid)">
+            <summary>
+            Test if a User's Music Provider account is operational
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicProvidersController.GetAllMusicProviders">
+            <summary>
+            Get all MusicProviders
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicProvidersController.GetMusicProvider(System.Guid)">
+            <summary>
+            Get a MusicProvider by Id
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicProvidersController.AddMusicProvider(VARockstar.Models.MusicProvider,System.Guid)">
+            <summary>
+            Add/Update a MusicProvider
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicProvidersController.GetMusicProviderGenre(System.Guid)">
+            <summary>
+            Get MusicProviderGenres for a MusicProvider
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicProvidersController.AddMusicProviderGenre(VARockstar.Models.MusicProviderGenre,System.Guid)">
+            <summary>
+            Add a MusicProviderGenre
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicProvidersController.DeleteMusicProviderGenre(System.Guid)">
+            <summary>
+            Delete a MusicProviderGenre
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.MusicProvidersController.GetMusicProviderHeartbeatLog(System.Guid,System.Int32,System.Int32)">
+            <summary>
+            Get the heartbeat log for a Music Provider
+            </summary>
+            <remarks>A Hangfire job periodically chooses a random User's music provider account and attempts to log in. This creates either a success or failure heartbeat</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.GetAllPlaylists(System.Int32,System.Int32,System.Nullable{System.Guid},System.Nullable{System.Boolean})">
+            <summary>
+            Get the current user's Playlists
+            </summary>
+            <param name="userId">Optional - get results for a specific User</param>
+            <param name="complete">Optional - return either complete or incomplete Playlists</param>
+            <remarks>Ordered by date updated</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.GetRecentClasses(System.Int32,System.Int32,System.Nullable{System.Guid})">
+            <summary>
+            Get the current user's last taught playlists/classes
+            </summary>
+            <param name="userId">Optional - get results for a specific User</param>
+            <remarks>Ordered by most recent. Optional userId to get for a specific users</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.GetSharedPlaylists(System.Int32,System.Boolean)">
+            <summary>
+            Get shared Playlists
+            </summary>
+            <param name="orderByPopular">Optional - order results by popularity</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.GetPlaylistsSyncStatus(System.Guid)">
+            <summary>
+            Get the sync status of a Playlist
+            </summary>
+            <remarks>Returns the latest Playlist sync status on all devices</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.GetPlaylist(System.Guid)">
+            <summary>
+            Get a full Playlist by Id
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.GetPlaylistSimple(System.Guid)">
+            <summary>
+            Get a 'simple' Playlist by Id
+            </summary>
+            <remarks>Does NOT include Tracks, Goals, etc</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.AddPlaylist(VARockstar.Models.Playlist,System.Guid)">
+            <summary>
+            Add/Update a Playlist
+            </summary>
+            <remarks>
+            <p>Playlists are created from a template, given a unique ID and associated with a user.</p>
+            <p>Each template goal(which is a Default Goal aka Freestyle Goal) is copied into the playlist and given a new ID.Once saved, this becomes a new Goal(so that goals within a playlist can have their value changed without affecting the values of the Default Goal).</p>
+            <p>Freestyle playlists are slightly different in that Freestyle templates only ever have 1 goal("Warm up") and the Instructor can add more goals, as well as set an effort range(which lives within the <code>GoalOption</code> array inside the Goal object).</p>
+            <p>Each goal can have a track inside it.A playlist also contains a <code>BackgroundTracks</code> array which allows tracks to be added before and after a class.</p>
+            </remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.DeletePlaylist(System.Guid)">
+            <summary>
+            Delete a Playlist
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.SyncPlaylist(System.Guid,System.Nullable{System.Guid})">
+            <summary>
+            Sync playlist to the current User's Gyms
+            </summary>
+            <param name="gymId">Optional - get results for a specific Gym</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.AddPlaylistGym(System.Guid,System.Guid)">
+            <summary>
+            Add a Playlist to a Gym
+            </summary>
+            <remarks>This will not sync the Playlist. api/playlists/sync/{playListId} must be used to perform a sync</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.AddPlaylistGym(System.Guid,System.Collections.Generic.List{System.Guid})">
+            <summary>
+            Add a Playlist to multiple Gyms
+            </summary>
+            <remarks>This will not sync the Playlist. api/playlists/sync/{playListId} must be used to perform a sync</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.DeletePlaylistGym(System.Guid,System.Guid)">
+            <summary>
+            Delete a Playlist from a Gym
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.GetGymsPlaylists">
+            <summary>
+            Get all User's Gyms with their Playlists
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.PlaylistsController.GetGymsPlaylist(System.Guid)">
+            <summary>
+            Get all User's Gyms but only showing a specific Playlist
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UtilitiesController.ClearCache">
+            <summary>
+            Clears the API cache
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UtilitiesController.SeedDB">
+            <summary>
+            Seeds the database with "first run" data. BEWARE, this could potentially overwrite existing data
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.GetDeviceConfig(System.Guid)">
+            <summary>
+            Get device configuration settings
+            </summary>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.GetDevice(System.Guid)">
+            <summary>
+            Get a Device
+            </summary>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.GetDeviceUsers(System.Guid)">
+            <summary>
+            Get all the Users (with Instructor permission) in the Device's country
+            </summary>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.GetDevicePlaylists(System.Guid)">
+            <summary>
+            Get all playlists set to sync to device
+            </summary>
+            <remarks>Retrurns all playlists set to sync to device - simple summary that excludes tracks, goals, etc</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.GetUserPlaylists(System.Guid)">
+            <summary>
+            Get all playlists for a specific user
+            </summary>
+            <remarks>Used in a "force sync" scenario</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.GetPlaylist(System.Guid)">
+            <summary>
+            Get a full playlist for syncing
+            </summary>
+            <remarks>Includes tracks, goals, etc</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.PlaylistForceSync(System.Guid,System.Guid)">
+            <summary>
+            Set a Playlist to sync to a Device (a new DevicePlaylistSyncId is returned)
+            </summary>
+            <remarks>Used in a "force sync" scenario</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.PlaylistUnsync(System.Guid,System.Guid)">
+            <summary>
+            Unsync a Playlist from a Device
+            </summary>
+            <remarks>Used in a "force sync" scenario, when playlists is removed from Device after 14 days</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.UpdatePlaylistSyncStatus(VARockstar.Models.DevicePlaylistSync)">
+            <summary>
+            Update the Playlist sync status
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.SetDeviceSyncStatus(VARockstar.Models.DTOs.DeviceSyncStatusDTO)">
+            <summary>
+            Set a Device's sync status
+            </summary>
+            <remarks>Updates the Device's latest DeviceSync record</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.SetDeviceUserSyncStatus(System.Guid,System.Guid,System.Boolean)">
+            <summary>
+            Set a User's sync status for a Device
+            </summary>
+            <param name="syncSuccess">User sync status</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.LogDeviceHeartbeat(System.Guid)">
+            <summary>
+            Log a device "heartbeat"
+            </summary>
+            <remarks>Should be called every 5min by every active Device</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.SetDevicePlaylistUsage(VARockstar.Models.DTOs.DevicePlaylistUsageDTO)">
+            <summary>
+            Set Playlist usage for a Device
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.SetDeviceTrackUsage(System.Collections.Generic.List{VARockstar.Models.DTOs.DeviceTrackUsageDTO})">
+            <summary>
+            Set track play count for a track(s)
+            </summary>
+            <remarks>This data is sent to the music provider via a Hangfire job</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.SetTrackDownloads(VARockstar.Models.DTOs.TrackDownloadDTO)">
+            <summary>
+            Record a track download
+            </summary>
+            <remarks>This data is sent to the music provider via a Hangfire job</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.SyncController.LogDeviceError(System.Collections.Generic.List{VARockstar.Models.DeviceError})">
+            <summary>
+            Log a Device error
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplateGroupsController.GetAllTemplateGroups">
+            <summary>
+            Get all templateGroups
+            </summary>
+            <remarks>Get all templateGroups</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplateGroupsController.GetTemplateGroup(System.Guid)">
+            <summary>
+            Get a TemplateGroup by id
+            </summary>
+            <param name="id">TemplateGroup id</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplateGroupsController.AddTemplateGroup(VARockstar.Models.TemplateGroup,System.Guid)">
+            <summary>
+            Add/update a TemplateGroup
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplateGroupsController.DeleteTemplateGroup(System.Guid)">
+            <summary>
+            Delete a TemplateGroup
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplateGroupsController.GetTemplateGroupClassLengthOptions(System.Guid,System.Int32)">
+            <summary>
+            Get the template IDs and class-lengths associated with TemplateGroup
+            </summary>
+            <param name="usageCountDays">Optional - populates the returned TemplateGroupUsageCount field with the number of usages in the past X days</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplateGroupsController.DisableTemplateGroup(System.Guid)">
+            <summary>
+            Disable a TemplateGroup by id
+            </summary>
+            <param name="id">TemplateGroup id</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplateGroupsController.EnableTemplateGroup(System.Guid)">
+            <summary>
+            Enable a TemplateGroup by id
+            </summary>
+            <param name="id">TemplateGroup id</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplatesController.GetTemplate(System.Guid,System.Boolean)">
+            <summary>
+            Get a Template
+            </summary>
+            <param name="includeGoals">Include Goals in the returned Template</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplatesController.GetGroupTemplates(System.Guid,System.Boolean)">
+            <summary>
+            Get all Templates in a TemplateGroup
+            </summary>
+            <param name="includeGoals">Include Goals in the returned Template</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplatesController.GetAllTemplates(System.Boolean)">
+            <summary>
+            Get all Template
+            </summary>
+            <param name="includeGoals">Include Goals in the returned Templates</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplatesController.AddTemplate(VARockstar.Models.TemplateDTO,System.Guid)">
+            <summary>
+            Add/update a Template
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplatesController.DeleteTemplate(System.Guid)">
+            <summary>
+            Delete a Template
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplatesController.DisableTemplate(System.Guid)">
+            <summary>
+            Disable a Template by id
+            </summary>
+            <param name="id"></param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TemplatesController.EnableTemplate(System.Guid)">
+            <summary>
+            Enable a Template by id
+            </summary>
+            <param name="id"></param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.TracksController.GetAllTracks">
+            <summary>
+            Get all tracks
+            </summary>
+            <remarks>Get all tracks</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UsersController.GetAllUsers(System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+            <summary>
+            Get all users
+            </summary>
+            <param name="active">Optional - Only return active/inactive Users</param>
+            <param name="registered">Optional - Only return registered/unregistered Users</param>
+            <remarks>Only returns Users in the current User's country</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UsersController.GetCurrentUser">
+            <summary>
+            Get the current User
+            </summary>
+            <param name="id">User id</param>
+            <remarks>Returns the User associated with the provided Token</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UsersController.GetUser(System.Guid)">
+            <summary>
+            Get a User by id
+            </summary>
+            <param name="id">User id</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UsersController.AddUpdateUser(VARockstar.Models.User,System.Guid,System.Boolean)">
+            <summary>
+            Add/update a User
+            </summary>
+            <param name="sendInviteEmail">Set to false you don't want the NEW user to receive an invite email. Default is true</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UsersController.DeleteUser(System.Guid)">
+            <summary>
+            Delete a User
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UsersController.DisableUser(System.Guid)">
+            <summary>
+            Disable a User
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UsersController.EnableUser(System.Guid)">
+            <summary>
+            Re-enable a User
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UsersController.SendResetPassword(System.String)">
+            <summary>
+            Send a password reset email to the User
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UsersController.ChangePassword(VARockstar.Models.DTOs.ChangePasswordDTO)">
+            <summary>
+            Change the current User's password
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UsersController.RemoveToken(System.String)">
+            <summary>
+            Remove a specified token belonging to the current User
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UsersController.SendInviteEmail(System.Guid)">
+            <summary>
+            Send a User an invite email
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UserTypesController.GetAllUserTypes">
+            <summary>
+            Get all UserTypes
+            </summary>
+            <remarks>Get all userTypes</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UserTypesController.GetUserType(System.Guid)">
+            <summary>
+            Get a UserType by id
+            </summary>
+            <param name="id">UserType id</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UserTypesController.AddUserType(VARockstar.Models.UserType,System.Guid)">
+            <summary>
+            Add/update a UserType
+            </summary>
+            <remarks>Get all userTypes</remarks>
+        </member>
+        <member name="M:VARockstar.Controllers.UserTypesController.DeleteUserType(System.Guid)">
+            <summary>
+            Delete a UserType
+            </summary>
+            <remarks>Get all userTypes</remarks>
+        </member>
+        <member name="M:VARockstar.DAL.Goals.GetOrCreateGoal(VARockstar.Models.Goal)">
+            <summary>
+            Find a matching existing goal, else create a new one (we never update an existing goal)
+            </summary>
+            <param name="goal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VARockstar.Jobs.DeviceMonitor.Run">
+            <summary>
+            - Job runs every Xmin (Check Hangfire dashboard [domain]/jobs).
+            - Checks for devices that have either been disconnected(not heartbeat received), or have had a sync error, for Xhours or more.These are "critical devices".
+            - If any critical devices are found, they are included in an email to a support person.
+            - An email will only be sent if there is a new critical device, or if a critical device is still critical 8 hours after the previous email.
+            - Email to address is specified in the Country table, column SupportEmailAddress.
+            </summary>
+        </member>
+        <member name="M:VARockstar.Jobs.MusicProviderMonitor.Run">
+            <summary>
+            - Job runs every Xmin (Check Hangfire dashboard [domain]/jobs).
+            - Simfy and Openear are queried with a random user's Simfy/Openear account details to check whether the service is available.
+            - The result is logged in the MusicProviderHeartbeat table.
+            - The MusicProviderHeartbeat table is queried to see whether the music provder has been unavailable for Xmin or more.If so an email alert is to sent a support person, but only every X hours (if the issue continues).
+            - Email to address is specified in the Country table, column SupportEmailAddress.
+            </summary>
+        </member>
+        <member name="M:VARockstar.Jobs.TrimTables.Run">
+            <summary>
+            - Job runs daily at X am/pm UTC (Check Hangfire dashboard [domain]/jobs).
+            - The job removes records old than a certain number of days for various tables.These tables generally grow very quickly, and old records are not needed.
+            </summary>
+        </member>
+        <member name="M:VARockstar.Jobs.ReportMusicUsage.Run">
+            <summary>
+            - Job runs every Xmin (Check Hangfire dashboard [domain]/jobs).
+            - The job reads unreported records from the TrackDownloads and TrackUsages tables, and reports them to the their respecting music provider, via their respective API endpoints.
+            - These records are then marked ReportedToMusicProvider = true
+            </summary>
+        </member>
+        <member name="P:VARockstar.OpenIdConnectCachingSecurityTokenProvider.Issuer">
+            <summary>
+            Gets the issuer the credentials are for.
+            </summary>
+            <value>
+            The issuer the credentials are for.
+            </value>
+        </member>
+        <member name="P:VARockstar.OpenIdConnectCachingSecurityTokenProvider.SecurityTokens">
+            <summary>
+            Gets all known security tokens.
+            </summary>
+            <value>
+            All known security tokens.
+            </value>
+        </member>
+        <member name="T:VARockstar.PasswordHash">
+            <summary>
+            Salted password hashing with PBKDF2-SHA1.
+            Author: havoc AT defuse.ca
+            www: http://crackstation.net/hashing-security.htm
+            Compatibility: .NET 3.0 and later.
+            </summary>
+        </member>
+        <member name="M:VARockstar.PasswordHash.CreateHash(System.String)">
+            <summary>
+            Creates a salted PBKDF2 hash of the password.
+            </summary>
+            <param name="password">The password to hash.</param>
+            <returns>The hash of the password.</returns>
+        </member>
+        <member name="M:VARockstar.PasswordHash.ValidatePassword(System.String,System.String)">
+            <summary>
+            Validates a password given a hash of the correct one.
+            </summary>
+            <param name="password">The password to check.</param>
+            <param name="correctHash">A hash of the correct password.</param>
+            <returns>True if the password is correct. False otherwise.</returns>
+        </member>
+        <member name="M:VARockstar.PasswordHash.SlowEquals(System.Byte[],System.Byte[])">
+            <summary>
+            Compares two byte arrays in length-constant time. This comparison
+            method is used so that password hashes cannot be extracted from
+            on-line systems using a timing attack and then attacked off-line.
+            </summary>
+            <param name="a">The first byte array.</param>
+            <param name="b">The second byte array.</param>
+            <returns>True if both byte arrays are equal. False otherwise.</returns>
+        </member>
+        <member name="M:VARockstar.PasswordHash.PBKDF2(System.String,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Computes the PBKDF2-SHA1 hash of a password.
+            </summary>
+            <param name="password">The password to hash.</param>
+            <param name="salt">The salt.</param>
+            <param name="iterations">The PBKDF2 iteration count.</param>
+            <param name="outputBytes">The length of the hash to generate, in bytes.</param>
+            <returns>A hash of the password.</returns>
+        </member>
+    </members>
+</doc>
